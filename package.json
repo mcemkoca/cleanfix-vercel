@@ -1,0 +1,15 @@
+{
+  "name": "cleanfix-admin",
+  "version": "1.0.0",
+  "description": "CleanFix Admin Dashboard - Modern SaaS for Auto Detailing & Service Management",
+  "scripts": {
+    "build": "echo 'Static deployment ready for Vercel'",
+    "dev": "npx serve ."
+  },
+  "keywords": ["saas", "admin", "dashboard", "auto-detailing", "cleanfix"],
+  "author": "CleanFix BV",
+  "license": "MIT",
+  "devDependencies": {
+    "serve": "^14.0.0"
+  }
+}

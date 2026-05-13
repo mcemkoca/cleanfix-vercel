@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CleanFix — Fiyatlandırma</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/main.css">
+<link rel="stylesheet" href="css/components.css">
+<style>
+body{background:var(--bg-primary);font-family:var(--font-family);color:var(--text-primary);}
+.pricing-hero{padding:80px 24px 40px;text-align:center;max-width:800px;margin:0 auto;}
+.pricing-hero h1{font-size:var(--text-5xl);font-weight:800;line-height:1.1;margin-bottom:16px;}
+.pricing-hero p{font-size:var(--text-lg);color:var(--text-secondary);line-height:1.7;}
+
+.toggle-wrap{display:flex;align-items:center;justify-content:center;gap:16px;margin:32px 0;}
+.toggle-switch{position:relative;width:52px;height:28px;background:var(--bg-tertiary);border-radius:9999px;cursor:pointer;border:1px solid var(--border-color);transition:background 0.3s;}
+.toggle-switch.active{background:var(--teal-500);}
+.toggle-knob{position:absolute;top:3px;left:3px;width:22px;height:22px;background:white;border-radius:50%;transition:transform 0.3s;box-shadow:0 1px 3px rgba(0,0,0,0.2);}
+.toggle-switch.active .toggle-knob{transform:translateX(24px);}
+
+.pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;max-width:1200px;margin:0 auto;padding:0 24px 60px;}
+.plan-card{background:var(--bg-card);border:1px solid var(--border-color);border-radius:var(--radius-xl);padding:32px;position:relative;transition:all 0.3s;}
+.plan-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-xl);border-color:rgba(20,184,166,0.3);}
+.plan-card.popular{border-color:var(--teal-500);background:linear-gradient(180deg,var(--bg-card),rgba(20,184,166,0.03));}
+.popular-badge{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,var(--teal-500),var(--teal-700));color:white;padding:4px 16px;border-radius:9999px;font-size:var(--text-xs);font-weight:700;letter-spacing:0.05em;text-transform:uppercase;}
+.plan-name{font-size:var(--text-xl);font-weight:700;margin-bottom:4px;}
+.plan-desc{font-size:var(--text-sm);color:var(--text-muted);margin-bottom:20px;}
+.plan-price{font-size:var(--text-4xl);font-weight:800;margin-bottom:4px;}
+.plan-price span{font-size:var(--text-base);font-weight:500;color:var(--text-muted);}
+.plan-period{font-size:var(--text-sm);color:var(--text-muted);margin-bottom:24px;}
+.plan-features{list-style:none;padding:0;margin:0 0 24px;}
+.plan-features li{display:flex;align-items:center;gap:10px;padding:8px 0;font-size:var(--text-sm);color:var(--text-secondary);border-bottom:1px solid var(--border-color);}
+.plan-features li:last-child{border-bottom:none;}
+.plan-features svg{color:var(--teal-500);flex-shrink:0;}
+
+.faq-section{max-width:800px;margin:0 auto;padding:0 24px 80px;}
+.faq-title{font-size:var(--text-3xl);font-weight:800;text-align:center;margin-bottom:32px;}
+.faq-item{background:var(--bg-card);border:1px solid var(--border-color);border-radius:var(--radius-lg);margin-bottom:12px;overflow:hidden;}
+.faq-question{padding:16px 20px;font-size:var(--text-sm);font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:space-between;}
+.faq-answer{padding:0 20px 16px;font-size:var(--text-sm);color:var(--text-secondary);line-height:1.6;display:none;}
+.faq-item.open .faq-answer{display:block;}
+.faq-chevron{transition:transform 0.3s;}
+.faq-item.open .faq-chevron{transform:rotate(180deg);}
+
+.trust-badges{display:flex;align-items:center;justify-content:center;gap:32px;flex-wrap:wrap;padding:40px 24px;opacity:0.6;}
+.trust-badges span{font-size:var(--text-xs);color:var(--text-muted);text-transform:uppercase;letter-spacing:0.1em;}
+
+@media (max-width:1024px){.pricing-grid{grid-template-columns:1fr;max-width:480px;}}
+</style>
+</head>
+<body>
+
+<section class="pricing-hero">
+  <h1>Basit, Şeffaf Fiyatlandırma</h1>
+  <p>İşletmenizin büyüklüğüne göre esnek planlar. Kredi kartı gerektirmeyen 14 günlük ücretsiz deneme. İstediğiniz zaman iptal edin.</p>
+</section>
+
+<div class="toggle-wrap">
+  <span style="font-size:var(--text-sm);font-weight:600;" id="monthlyLabel">Aylık</span>
+  <div class="toggle-switch" id="billingToggle" onclick="toggleBilling()">
+    <div class="toggle-knob"></div>
+  </div>
+  <span style="font-size:var(--text-sm);font-weight:600;color:var(--teal-500);" id="yearlyLabel">Yıllık <span style="font-size:var(--text-xs);background:rgba(16,185,129,0.1);color:var(--success-500);padding:2px 8px;border-radius:9999px;margin-left:4px;">%20 tasarruf</span></span>
+</div>
+
+<div class="pricing-grid">
+  <div class="plan-card">
+    <div class="plan-name">Starter</div>
+    <div class="plan-desc">Tek kişilik işletmeler için</div>
+    <div class="plan-price" data-monthly="49" data-yearly="39">€49<span>/ay</span></div>
+    <div class="plan-period">1 çalışan, 1 şube</div>
+    <ul class="plan-features">
+      <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>Sınırsız randevu</li>
+      <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>Müşteri yönetimi</li>
+      <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>Temel raporlama</li>
+      <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>E-posta bildirimleri</li>
+      <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>WhatsApp entegrasyonu</li>
+    </ul>
+    <button class="btn btn-secondary" style="width:100%;" onclick="showToast('14 günlük deneme başlatıldı')">Ücretsiz Dene</button>
+  </div>
+
+  <div class="plan-card popular">
+    <div class="popular-badge">En Popüler</div>
+    <div class="plan-name">Business</div>
+    <div class="plan-desc">Büyüyen ekipler için</div>
+    <div class="plan-price" data-monthly="99" data-yearly="79">€99<span>/ay</span></div>
+    <div class="plan-period">8 çalışan, 2 şube</div>
+    <ul class="plan-features">
+      <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>Tüm Starter özellikleri</li>
+      <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>Stok takibi</li>
+      <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>Fatura ve teklif yönetimi</li>
+      <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>Gelir analizi</li>
+      <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>Değerlendirme yönetimi</li>
+      <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>Öncelikli destek</li>
+    </ul>
+    <button class="btn btn-primary" style="width:100%;" onclick="showToast('14 günlük deneme başlatıldı')">Ücretsiz Dene</button>
+  </div>
+
+  <div class="plan-card">
+    <div class="plan-name">Enterprise</div>
+    <div class="plan-desc">Çok şubeli zincirler için</div>
+    <div class="plan-price" data-monthly="199" data-yearly="159">€199<span>/ay</span></div>
+    <div class="plan-period">Sınırsız çalışan ve şube</div>
+    <ul class="plan-features">
+      <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>Tüm Business özellikleri</li>
+      <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>Çoklu şube yönetimi</li>
+      <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>Özel API erişimi</li>
+      <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>SSO ve SLA garantisi</li>
+      <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>Özel entegrasyonlar</li>
+      <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>7/24 telefon desteği</li>
+    </ul>
+    <button class="btn btn-secondary" style="width:100%;" onclick="showToast('Satış ekibimize yönlendiriliyorsunuz')">Satış Ekibiyle Konuş</button>
+  </div>
+</div>
+
+<section class="faq-section">
+  <h2 class="faq-title">Sıkça Sorulan Sorular</h2>
+  <div class="faq-item open">
+    <div class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+      14 günlük deneme sonrası otomatik ücretlendirme olur mu?
+      <svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+    </div>
+    <div class="faq-answer">Hayır. Deneme süreniz bitmeden sizi bilgilendiririz. Kredi kartı bilgisi istemeden başlayabilirsiniz. İstediğiniz zaman iptal edin, hiçbir soru sormayız.</div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+      Planımı yükseltmek veya düşürmek istersem?
+      <svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+    </div>
+    <div class="faq-answer">Anında değiştirebilirsiniz. Yükseltme yaparsanız fark orantılı hesaplanır. Düşürme sonraki fatura döneminde geçerli olur.</div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+      Verilerim güvende mi?
+      <svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+    </div>
+    <div class="faq-answer">Tüm veriler Avrupa'da barındırılır ve GDPR tam uyumludur. SSL/TLS şifreleme, günlük yedekleme ve SOC 2 sertifikası mevcuttur.</div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+      Çalışan sayım artarsa ne olur?
+      <svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+    </div>
+    <div class="faq-answer">Sistem otomatik olarak limitleri takip eder. Limit aşıldığında size bildirim gönderilir ancak hiçbir randevu veya veri engellenmez.</div>
+  </div>
+</section>
+
+<div class="trust-badges">
+  <span>GDPR Uyumlu</span>
+  <span>•</span>
+  <span>SOC 2 Sertifikalı</span>
+  <span>•</span>
+  <span>SSL/TLS Şifreli</span>
+  <span>•</span>
+  <span>99.9% Uptime</span>
+  <span>•</span>
+  <span>Avrupa Sunucuları</span>
+</div>
+
+<div class="toast-container" id="toastContainer" style="position:fixed;top:20px;right:20px;z-index:300;"></div>
+
+<script>
+let yearly=false;
+function toggleBilling(){
+  yearly=!yearly;
+  document.getElementById('billingToggle').classList.toggle('active',yearly);
+  document.querySelectorAll('.plan-price').forEach(el=>{
+    const price=yearly?el.dataset.yearly:el.dataset.monthly;
+    el.innerHTML='€'+price+'<span>/ay</span>';
+  });
+}
+function showToast(msg,type='success',dur=3000){
+  const c=document.getElementById('toastContainer');const t=document.createElement('div');const icon=type==='success'?'✓':'✕';
+  t.style.cssText='background:var(--bg-card);border:1px solid var(--border-color);border-radius:var(--radius-lg);padding:14px 18px;display:flex;align-items:center;gap:12px;box-shadow:var(--shadow-xl);margin-bottom:10px;animation:toastIn 0.3s ease;min-width:260px;';
+  const color=type==='success'?'var(--success-500)':'var(--error-500)';
+  t.innerHTML=`<span style="color:${color};font-weight:700;">${icon}</span><span style="font-size:var(--text-sm);font-weight:500;">${msg}</span>`;
+  c.appendChild(t);setTimeout(()=>{t.style.opacity='0';t.style.transform='translateX(20px)';t.style.transition='all 0.3s';setTimeout(()=>t.remove(),300);},dur);
+}
+</script>
+</body>
+</html>
