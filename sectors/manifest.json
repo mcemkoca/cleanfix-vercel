@@ -1,0 +1,93 @@
+{
+  "version": "2.0",
+  "name": "CleanFix Multi-Sector SaaS",
+  "description": "KOBİ sektörlerine özel yönetim paneli",
+  "baseUrl": "https://mcemkoca.github.io/cleanfix-vercel",
+  "defaultSector": "cleaning",
+  "sectors": [
+    {
+      "id": "cleaning",
+      "name": "Temizlik",
+      "icon": "🧹",
+      "status": "active",
+      "description": "Profesyonel temizlik firmaları için yönetim paneli",
+      "path": "/",
+      "themeColor": "#14b8a6",
+      "modules": ["dashboard", "bookings", "customers", "services", "staff", "invoices", "stock", "equipment", "quality", "expenses", "tools"],
+      "firms": 4,
+      "revenue": "€12.8K"
+    },
+    {
+      "id": "carwash",
+      "name": "CarWash",
+      "icon": "🚗",
+      "status": "active",
+      "description": "Araç yıkama ve detaylı bakım merkezleri için yönetim paneli",
+      "path": "/sectors/carwash/",
+      "themeColor": "#3b82f6",
+      "modules": ["dashboard", "bookings", "customers", "services", "staff", "invoices", "stock", "equipment", "quality", "expenses"],
+      "firms": 0,
+      "revenue": "€0"
+    },
+    {
+      "id": "construction",
+      "name": "İnşaat",
+      "icon": "🏗️",
+      "status": "planned",
+      "description": "İnşaat firmaları için proje ve şantiye yönetimi",
+      "path": "/sectors/construction/",
+      "themeColor": "#f59e0b",
+      "modules": [],
+      "firms": 0,
+      "revenue": "€0"
+    },
+    {
+      "id": "barber",
+      "name": "Berber & Kuaför",
+      "icon": "✂️",
+      "status": "planned",
+      "description": "Berber ve kuaför salonları için randevu ve personel yönetimi",
+      "path": "/sectors/barber/",
+      "themeColor": "#ec4899",
+      "modules": [],
+      "firms": 0,
+      "revenue": "€0"
+    },
+    {
+      "id": "market",
+      "name": "Market & Bakkal",
+      "icon": "🛒",
+      "status": "planned",
+      "description": "Market ve bakkal zincirleri için stok ve satış yönetimi",
+      "path": "/sectors/market/",
+      "themeColor": "#10b981",
+      "modules": [],
+      "firms": 0,
+      "revenue": "€0"
+    },
+    {
+      "id": "doctor",
+      "name": "Doktor & Klinik",
+      "icon": "🏥",
+      "status": "planned",
+      "description": "Doktor ve klinikler için hasta ve randevu yönetimi",
+      "path": "/sectors/doctor/",
+      "themeColor": "#ef4444",
+      "modules": [],
+      "firms": 0,
+      "revenue": "€0"
+    },
+    {
+      "id": "restaurant",
+      "name": "Restoran",
+      "icon": "🍽️",
+      "status": "planned",
+      "description": "Restoranlar için masa, sipariş ve mutak yönetimi",
+      "path": "/sectors/restaurant/",
+      "themeColor": "#8b5cf6",
+      "modules": [],
+      "firms": 0,
+      "revenue": "€0"
+    }
+  ]
+}
