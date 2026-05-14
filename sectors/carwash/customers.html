@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CleanFix CarWash — Müşteri Yönetimi</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../css/main.css">
+<link rel="stylesheet" href="../../css/components.css">
+<style>
+:root{--accent-500:#3b82f6;--accent-600:#2563eb;--accent-400:#60a5fa;--accent-glow:rgba(59,130,246,0.15);}
+.dashboard{display:flex;min-height:100vh;background:var(--bg-primary);}
+.sidebar{width:280px;height:100vh;background:rgba(15,23,42,0.85);border-right:1px solid var(--border-color);display:flex;flex-direction:column;position:fixed;left:0;top:0;z-index:100;backdrop-filter:blur(12px);}
+.sidebar-header{padding:20px 24px;border-bottom:1px solid var(--border-color);display:flex;align-items:center;gap:12px;}
+.sidebar-logo{width:36px;height:36px;background:linear-gradient(135deg,var(--accent-500),var(--accent-600));border-radius:10px;display:flex;align-items:center;justify-content:center;font-weight:700;color:white;font-size:14px;}
+.sidebar-nav{flex:1;overflow-y:auto;padding:16px 12px;}
+.nav-group{margin-bottom:8px;}
+.nav-group-header{display:flex;align-items:center;gap:8px;padding:8px 12px;font-size:var(--text-xs);font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.05em;}
+.nav-item{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:var(--radius-md);color:var(--text-secondary);font-size:var(--text-sm);font-weight:500;text-decoration:none;transition:all var(--duration-fast);}
+.nav-item:hover{background:var(--bg-tertiary);color:var(--text-primary);}
+.nav-item.active{background:var(--accent-glow);color:var(--accent-500);}
+.nav-icon{width:20px;height:20px;opacity:0.7;}
+.main-content{flex:1;margin-left:280px;min-height:100vh;}
+.header{height:64px;background:rgba(15,23,42,0.7);border-bottom:1px solid var(--border-color);display:flex;align-items:center;justify-content:space-between;padding:0 32px;position:sticky;top:0;z-index:50;backdrop-filter:blur(8px);}
+.hamburger{display:none;background:none;border:none;color:var(--text-secondary);cursor:pointer;padding:8px;font-size:20px;}
+.content{padding:32px;max-width:1400px;}
+.page-title{font-size:var(--text-2xl);font-weight:700;color:var(--text-primary);}
+.toolbar{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:24px;flex-wrap:wrap;}
+.search-box{flex:1;min-width:240px;position:relative;}
+.search-box input{width:100%;padding:10px 14px 10px 38px;background:rgba(30,41,59,0.6);border:1.5px solid var(--border-color);border-radius:var(--radius-md);color:var(--text-primary);font-size:var(--text-sm);transition:all var(--duration-fast);}
+.search-box input:focus{border-color:var(--accent-500);box-shadow:0 0 0 3px var(--accent-glow);outline:none;}
+.search-box svg{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--text-muted);width:18px;height:18px;}
+.btn-primary{padding:10px 20px;background:linear-gradient(135deg,var(--accent-500),var(--accent-600));color:white;border:none;border-radius:var(--radius-md);font-size:var(--text-sm);font-weight:600;cursor:pointer;display:inline-flex;align-items:center;gap:8px;transition:all var(--duration-fast);box-shadow:0 4px 14px rgba(59,130,246,0.25);}
+.btn-primary:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(59,130,246,0.35);}
+.btn-secondary{padding:10px 20px;background:var(--bg-tertiary);border:1px solid var(--border-color);color:var(--text-primary);border-radius:var(--radius-md);font-size:var(--text-sm);font-weight:600;cursor:pointer;transition:all var(--duration-fast);}
+.btn-secondary:hover{background:var(--bg-hover);}
+.card{background:rgba(15,23,42,0.6);border:1px solid var(--border-color);border-radius:var(--radius-xl);overflow:hidden;backdrop-filter:blur(8px);}
+.table{width:100%;border-collapse:collapse;}
+.table th{text-align:left;padding:14px 16px;font-size:var(--text-xs);font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.05em;border-bottom:1px solid var(--border-color);white-space:nowrap;}
+.table td{padding:14px 16px;font-size:var(--text-sm);color:var(--text-secondary);border-bottom:1px solid var(--border-color);vertical-align:middle;}
+.table tr:last-child td{border-bottom:none;}
+.table tr:hover td{background:rgba(59,130,246,0.05);}
+.avatar{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:var(--text-xs);color:white;background:linear-gradient(135deg,var(--accent-500),var(--accent-600));}
+.tag{display:inline-flex;align-items:center;gap:4px;padding:4px 12px;border-radius:9999px;font-size:var(--text-xs);font-weight:500;}
+.tag-bronze{background:linear-gradient(135deg,#cd7f32,#b87333);color:white;}
+.tag-silver{background:linear-gradient(135deg,#94a3b8,#64748b);color:white;}
+.tag-gold{background:linear-gradient(135deg,#fbbf24,#d97706);color:white;}
+.tag-platinum{background:linear-gradient(135deg,#a78bfa,#7c3aed);color:white;}
+.tag-green{background:rgba(16,185,129,0.15);color:var(--success-500);}
+.tag-amber{background:rgba(245,158,11,0.15);color:var(--amber-500);}
+.tag-red{background:rgba(244,63,94,0.15);color:var(--error-500);}
+.actions{display:flex;gap:6px;}
+.action-btn{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;background:transparent;border:none;color:var(--text-muted);cursor:pointer;transition:all var(--duration-fast);}
+.action-btn:hover{background:var(--accent-glow);color:var(--accent-400);}
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-bottom:24px;}
+.stat-card{background:rgba(15,23,42,0.6);border:1px solid var(--border-color);border-radius:var(--radius-xl);padding:20px;backdrop-filter:blur(8px);transition:all var(--duration-fast);}
+.stat-card:hover{border-color:var(--accent-500);}
+.stat-label{font-size:var(--text-xs);font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:8px;}
+.stat-value{font-size:var(--text-2xl);font-weight:700;color:var(--text-primary);}
+.stat-change{font-size:var(--text-xs);color:var(--success-500);margin-top:4px;}
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:200;display:none;align-items:center;justify-content:center;backdrop-filter:blur(6px);}
+.modal-overlay.active{display:flex;}
+.modal{background:rgba(15,23,42,0.95);border:1px solid var(--border-color);border-radius:var(--radius-xl);width:100%;max-width:640px;max-height:90vh;overflow-y:auto;box-shadow:0 25px 50px -12px rgba(0,0,0,0.5);animation:modalIn 0.3s ease;}
+@keyframes modalIn{from{opacity:0;transform:translateY(20px) scale(0.98);}to{opacity:1;transform:translateY(0) scale(1);}}
+.modal-header{padding:20px 24px;border-bottom:1px solid var(--border-color);display:flex;align-items:center;justify-content:space-between;}
+.modal-title{font-size:var(--text-lg);font-weight:700;color:var(--text-primary);}
+.modal-close{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;background:transparent;border:none;color:var(--text-muted);cursor:pointer;transition:all var(--duration-fast);}
+.modal-close:hover{background:var(--bg-tertiary);color:var(--text-primary);}
+.modal-body{padding:20px 24px;}
+.modal-footer{padding:16px 24px;border-top:1px solid var(--border-color);display:flex;gap:12px;justify-content:flex-end;}
+.form-group{margin-bottom:16px;}
+.form-label{display:block;font-size:var(--text-xs);font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:6px;}
+.form-input,.form-select{width:100%;padding:10px 14px;background:rgba(30,41,59,0.6);border:1.5px solid var(--border-color);border-radius:var(--radius-md);color:var(--text-primary);font-size:var(--text-sm);transition:all var(--duration-fast);}
+.form-input:focus,.form-select:focus{border-color:var(--accent-500);box-shadow:0 0 0 3px var(--accent-glow);outline:none;}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.customer-detail{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px;}
+.detail-item{background:rgba(30,41,59,0.6);border-radius:var(--radius-md);padding:12px 16px;border:1px solid var(--border-color);}
+.detail-label{font-size:var(--text-xs);color:var(--text-muted);margin-bottom:4px;}
+.detail-value{font-size:var(--text-sm);font-weight:600;color:var(--text-primary);}
+.visit-history{max-height:280px;overflow-y:auto;}
+.visit-item{display:flex;align-items:center;justify-content:space-between;padding:10px 12px;background:rgba(30,41,59,0.4);border-radius:var(--radius-md);margin-bottom:8px;border:1px solid var(--border-color);}
+.visit-item:hover{background:rgba(59,130,246,0.08);}
+.visit-info{font-size:var(--text-sm);color:var(--text-primary);}
+.visit-date{font-size:var(--text-xs);color:var(--text-muted);}
+.visit-amount{font-size:var(--text-sm);font-weight:600;color:var(--accent-400);}
+@media (max-width:1024px){.form-row,.customer-detail{grid-template-columns:1fr;}}
+@media (max-width:768px){.sidebar{transform:translateX(-100%);transition:transform var(--duration-normal);}.sidebar.open{transform:translateX(0);}.main-content{margin-left:0;}.hamburger{display:block;}.stats-grid{grid-template-columns:1fr 1fr;}.content{padding:20px;}}
+@media (max-width:480px){.stats-grid{grid-template-columns:1fr;}.toolbar{flex-direction:column;align-items:stretch;}.search-box{min-width:100%;}}
+</style>
+</head>
+<body>
+<div class="dashboard">
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-logo">CF</div>
+      <div><div style="font-weight:700;font-size:var(--text-sm);color:var(--text-primary);">CleanFix</div><div style="font-size:var(--text-xs);color:var(--text-muted);">CarWash Paneli</div></div>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="nav-group">
+        <div class="nav-group-header">Ana Menü</div>
+        <a href="../../company.html" class="nav-item"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>Dashboard</a>
+        <a href="customers.html" class="nav-item active"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>Müşteriler</a>
+        <a href="staff.html" class="nav-item"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>Personel</a>
+        <a href="invoices.html" class="nav-item"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>Faturalar</a>
+      </div>
+      <div class="nav-group">
+        <div class="nav-group-header">Sektörler</div>
+        <a href="../barber/customers.html" class="nav-item"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><line x1="20" y1="4" x2="8.12" y2="15.88"/><line x1="14.47" y1="14.48" x2="20" y2="20"/><line x1="8.12" y1="8.12" x2="12" y2="12"/></svg>Berber</a>
+        <a href="../construction/customers.html" class="nav-item"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="6" width="20" height="8" rx="1"/><line x1="6" y1="6" x2="6" y2="14"/><line x1="10" y1="6" x2="10" y2="14"/><line x1="14" y1="6" x2="14" y2="14"/><line x1="18" y1="6" x2="18" y2="14"/></svg>İnşaat</a>
+        <a href="../doctor/customers.html" class="nav-item"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4.8 2.3A.3.3 0 1 0 5 2H4a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-15a2 2 0 0 0-2-2H5a2 2 0 0 0-1 2.3"/></svg>Doktor</a>
+        <a href="../market/customers.html" class="nav-item"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>Market</a>
+        <a href="../restaurant/customers.html" class="nav-item"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 2v13c0 1.1-.9 2-2 2h-4a2 2 0 0 1-2-2V2"/><path d="M15 2v20"/></svg>Restoran</a>
+      </div>
+      <div class="nav-group">
+        <div class="nav-group-header">Ayarlar</div>
+        <a href="../../company-profile.html" class="nav-item"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Firma Profili</a>
+        <a href="../../login.html" class="nav-item"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>Çıkış Yap</a>
+      </div>
+    </nav>
+  </aside>
+
+  <main class="main-content">
+    <header class="header">
+      <div style="display:flex;align-items:center;gap:16px;">
+        <button class="hamburger" onclick="document.getElementById('sidebar').classList.toggle('open')">☰</button>
+        <h1 class="page-title">🚗 Müşteri Yönetimi</h1>
+      </div>
+      <div style="display:flex;align-items:center;gap:12px;">
+        <span style="font-size:var(--text-sm);color:var(--text-muted);">CarWash Sektörü</span>
+        <div style="width:8px;height:8px;border-radius:50%;background:var(--success-500);box-shadow:0 0 8px var(--success-500);"></div>
+      </div>
+    </header>
+
+    <div class="content">
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-label">Toplam Müşteri</div>
+          <div class="stat-value">1,247</div>
+          <div class="stat-change">↑ 12% bu ay</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Aktif Üyeler</div>
+          <div class="stat-value">856</div>
+          <div class="stat-change">↑ 8% bu ay</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Platin Üyeler</div>
+          <div class="stat-value">142</div>
+          <div class="stat-change">↑ 3% bu ay</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Ort. Harcama</div>
+          <div class="stat-value">₺482</div>
+          <div class="stat-change">↑ 5% bu ay</div>
+        </div>
+      </div>
+
+      <div class="toolbar">
+        <div class="search-box">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <input type="text" placeholder="Müşteri adı, telefon veya plaka ara..." id="searchInput">
+        </div>
+        <button class="btn-primary" onclick="openModal('addModal')">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          Yeni Müşteri
+        </button>
+      </div>
+
+      <div class="card">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Müşteri</th>
+              <th>Telefon</th>
+              <th>Araç</th>
+              <th>Üyelik</th>
+              <th>Ziyaret</th>
+              <th>Son Ziyaret</th>
+              <th>Harcama</th>
+              <th style="text-align:right;">İşlemler</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><div style="display:flex;align-items:center;gap:10px;"><div class="avatar">MA</div><span style="font-weight:500;color:var(--text-primary);">Mehmet Aydın</span></div></td>
+              <td>0532 456 78 90</td>
+              <td><div><div style="font-weight:500;color:var(--text-primary);">BMW 320i</div><div style="font-size:var(--text-xs);color:var(--text-muted);">34 ABC 123</div></div></td>
+              <td><span class="tag tag-platinum">Platin</span></td>
+              <td>47</td>
+              <td>14 May 2026</td>
+              <td style="font-weight:600;color:var(--accent-400);">₺18,420</td>
+              <td><div class="actions"><button class="action-btn" onclick="openDetail(1)" title="Detay"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg></button><button class="action-btn" onclick="openEdit(1)" title="Düzenle"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn" onclick="openDelete(1,'Mehmet Aydın')" title="Sil"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
+            </tr>
+            <tr>
+              <td><div style="display:flex;align-items:center;gap:10px;"><div class="avatar">SK</div><span style="font-weight:500;color:var(--text-primary);">Selen Kaya</span></div></td>
+              <td>0533 789 12 34</td>
+              <td><div><div style="font-weight:500;color:var(--text-primary);">Mercedes C200</div><div style="font-size:var(--text-xs);color:var(--text-muted);">34 XYZ 456</div></div></td>
+              <td><span class="tag tag-gold">Altın</span></td>
+              <td>32</td>
+              <td>13 May 2026</td>
+              <td style="font-weight:600;color:var(--accent-400);">₺12,850</td>
+              <td><div class="actions"><button class="action-btn" onclick="openDetail(2)" title="Detay"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg></button><button class="action-btn" onclick="openEdit(2)" title="Düzenle"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn" onclick="openDelete(2,'Selen Kaya')" title="Sil"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
+            </tr>
+            <tr>
+              <td><div style="display:flex;align-items:center;gap:10px;"><div class="avatar" style="background:linear-gradient(135deg,#f59e0b,#d97706);">BO</div><span style="font-weight:500;color:var(--text-primary);">Burak Özdemir</span></div></td>
+              <td>0541 234 56 78</td>
+              <td><div><div style="font-weight:500;color:var(--text-primary);">Audi A4</div><div style="font-size:var(--text-xs);color:var(--text-muted);">06 DEF 789</div></div></td>
+              <td><span class="tag tag-silver">Gümüş</span></td>
+              <td>18</td>
+              <td>10 May 2026</td>
+              <td style="font-weight:600;color:var(--accent-400);">₺5,640</td>
+              <td><div class="actions"><button class="action-btn" onclick="openDetail(3)" title="Detay"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg></button><button class="action-btn" onclick="openEdit(3)" title="Düzenle"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn" onclick="openDelete(3,'Burak Özdemir')" title="Sil"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
+            </tr>
+            <tr>
+              <td><div style="display:flex;align-items:center;gap:10px;"><div class="avatar" style="background:linear-gradient(135deg,#10b981,#059669);">ES</div><span style="font-weight:500;color:var(--text-primary);">Emine Şahin</span></div></td>
+              <td>0555 876 54 32</td>
+              <td><div><div style="font-weight:500;color:var(--text-primary);">Toyota Corolla</div><div style="font-size:var(--text-xs);color:var(--text-muted);">35 GHI 012</div></div></td>
+              <td><span class="tag tag-bronze">Bronz</span></td>
+              <td>8</td>
+              <td>5 May 2026</td>
+              <td style="font-weight:600;color:var(--accent-400);">₺1,890</td>
+              <td><div class="actions"><button class="action-btn" onclick="openDetail(4)" title="Detay"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg></button><button class="action-btn" onclick="openEdit(4)" title="Düzenle"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn" onclick="openDelete(4,'Emine Şahin')" title="Sil"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
+            </tr>
+            <tr>
+              <td><div style="display:flex;align-items:center;gap:10px;"><div class="avatar">CY</div><span style="font-weight:500;color:var(--text-primary);">Can Yılmaz</span></div></td>
+              <td>0536 111 22 33</td>
+              <td><div><div style="font-weight:500;color:var(--text-primary);">Volkswagen Passat</div><div style="font-size:var(--text-xs);color:var(--text-muted);">34 JKL 345</div></div></td>
+              <td><span class="tag tag-platinum">Platin</span></td>
+              <td>63</td>
+              <td>14 May 2026</td>
+              <td style="font-weight:600;color:var(--accent-400);">₺24,780</td>
+              <td><div class="actions"><button class="action-btn" onclick="openDetail(5)" title="Detay"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg></button><button class="action-btn" onclick="openEdit(5)" title="Düzenle"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn" onclick="openDelete(5,'Can Yılmaz')" title="Sil"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
+            </tr>
+            <tr>
+              <td><div style="display:flex;align-items:center;gap:10px;"><div class="avatar" style="background:linear-gradient(135deg,#ec4899,#db2777);">AK</div><span style="font-weight:500;color:var(--text-primary);">Ayşe Korkmaz</span></div></td>
+              <td>0542 555 66 77</td>
+              <td><div><div style="font-weight:500;color:var(--text-primary);">Honda Civic</div><div style="font-size:var(--text-xs);color:var(--text-muted);">16 MNO 678</div></div></td>
+              <td><span class="tag tag-gold">Altın</span></td>
+              <td>24</td>
+              <td>12 May 2026</td>
+              <td style="font-weight:600;color:var(--accent-400);">₺9,120</td>
+              <td><div class="actions"><button class="action-btn" onclick="openDetail(6)" title="Detay"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg></button><button class="action-btn" onclick="openEdit(6)" title="Düzenle"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn" onclick="openDelete(6,'Ayşe Korkmaz')" title="Sil"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+</div>
+
+<!-- Add Modal -->
+<div class="modal-overlay" id="addModal" onclick="if(event.target===this)closeModal('addModal')">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">Yeni Müşteri Ekle</div>
+      <button class="modal-close" onclick="closeModal('addModal')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Ad Soyad</label>
+          <input type="text" class="form-input" placeholder="Örn: Ahmet Yılmaz">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Telefon</label>
+          <input type="tel" class="form-input" placeholder="05XX XXX XX XX">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">E-posta</label>
+          <input type="email" class="form-input" placeholder="ornek@email.com">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Üyelik Seviyesi</label>
+          <select class="form-select">
+            <option value="">Seçiniz</option>
+            <option value="bronze">Bronz</option>
+            <option value="silver">Gümüş</option>
+            <option value="gold">Altın</option>
+            <option value="platinum">Platin</option>
+          </select>
+        </div>
+      </div>
+      <div style="font-size:var(--text-sm);font-weight:600;color:var(--text-primary);margin:16px 0 8px;">Araç Bilgileri</div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Marka</label>
+          <input type="text" class="form-input" placeholder="Örn: BMW">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Model</label>
+          <input type="text" class="form-input" placeholder="Örn: 320i">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Plaka</label>
+        <input type="text" class="form-input" placeholder="Örn: 34 ABC 123">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Notlar</label>
+        <textarea class="form-input" rows="3" placeholder="Müşteri hakkında notlar..."></textarea>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-secondary" onclick="closeModal('addModal')">İptal</button>
+      <button class="btn-primary" onclick="closeModal('addModal')">Kaydet</button>
+    </div>
+  </div>
+</div>
+
+<!-- Edit Modal -->
+<div class="modal-overlay" id="editModal" onclick="if(event.target===this)closeModal('editModal')">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">Müşteri Düzenle</div>
+      <button class="modal-close" onclick="closeModal('editModal')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Ad Soyad</label>
+          <input type="text" class="form-input" id="editName" value="Mehmet Aydın">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Telefon</label>
+          <input type="tel" class="form-input" id="editPhone" value="0532 456 78 90">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">E-posta</label>
+          <input type="email" class="form-input" value="mehmet@email.com">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Üyelik Seviyesi</label>
+          <select class="form-select" id="editMembership">
+            <option>Bronz</option>
+            <option>Gümüş</option>
+            <option>Altın</option>
+            <option selected>Platin</option>
+          </select>
+        </div>
+      </div>
+      <div style="font-size:var(--text-sm);font-weight:600;color:var(--text-primary);margin:16px 0 8px;">Araç Bilgileri</div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Marka</label>
+          <input type="text" class="form-input" value="BMW">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Model</label>
+          <input type="text" class="form-input" value="320i">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Plaka</label>
+        <input type="text" class="form-input" value="34 ABC 123">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Notlar</label>
+        <textarea class="form-input" rows="3">VIP müşteri, her Cuma gelir.</textarea>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-secondary" onclick="closeModal('editModal')">İptal</button>
+      <button class="btn-primary" onclick="closeModal('editModal')">Güncelle</button>
+    </div>
+  </div>
+</div>
+
+<!-- Detail Modal -->
+<div class="modal-overlay" id="detailModal" onclick="if(event.target===this)closeModal('detailModal')">
+  <div class="modal" style="max-width:520px;">
+    <div class="modal-header">
+      <div class="modal-title">Müşteri Detayı</div>
+      <button class="modal-close" onclick="closeModal('detailModal')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="customer-detail">
+        <div class="detail-item"><div class="detail-label">Ad Soyad</div><div class="detail-value" id="detailName">Mehmet Aydın</div></div>
+        <div class="detail-item"><div class="detail-label">Telefon</div><div class="detail-value">0532 456 78 90</div></div>
+        <div class="detail-item"><div class="detail-label">E-posta</div><div class="detail-value">mehmet@email.com</div></div>
+        <div class="detail-item"><div class="detail-label">Üyelik</div><div class="detail-value"><span class="tag tag-platinum">Platin</span></div></div>
+        <div class="detail-item"><div class="detail-label">Araç</div><div class="detail-value">BMW 320i — 34 ABC 123</div></div>
+        <div class="detail-item"><div class="detail-label">Toplam Harcama</div><div class="detail-value" style="color:var(--accent-400);">₺18,420</div></div>
+      </div>
+      <div style="font-size:var(--text-sm);font-weight:600;color:var(--text-primary);margin-bottom:12px;">Ziyaret Geçmişi</div>
+      <div class="visit-history">
+        <div class="visit-item"><div><div class="visit-info">İç-Dış Yıkama + Cila</div><div class="visit-date">14 May 2026 — 14:30</div></div><div class="visit-amount">₺450</div></div>
+        <div class="visit-item"><div><div class="visit-info">Detaylı Temizlik</div><div class="visit-date">10 May 2026 — 11:00</div></div><div class="visit-amount">₺680</div></div>
+        <div class="visit-item"><div><div class="visit-info">Motor Yıkama</div><div class="visit-date">3 May 2026 — 09:15</div></div><div class="visit-amount">₺350</div></div>
+        <div class="visit-item"><div><div class="visit-info">İç-Dış Yıkama</div><div class="visit-date">26 Nis 2026 — 16:45</div></div><div class="visit-amount">₺280</div></div>
+        <div class="visit-item"><div><div class="visit-info">Seramik Kaplama</div><div class="visit-date">15 Nis 2026 — 10:00</div></div><div class="visit-amount">₺2,500</div></div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-secondary" onclick="closeModal('detailModal')">Kapat</button>
+      <button class="btn-primary" onclick="closeModal('detailModal');openModal('editModal')">Düzenle</button>
+    </div>
+  </div>
+</div>
+
+<!-- Delete Modal -->
+<div class="modal-overlay" id="deleteModal" onclick="if(event.target===this)closeModal('deleteModal')">
+  <div class="modal" style="max-width:400px;">
+    <div class="modal-header">
+      <div class="modal-title">Müşteri Sil</div>
+      <button class="modal-close" onclick="closeModal('deleteModal')">✕</button>
+    </div>
+    <div class="modal-body" style="text-align:center;">
+      <div style="width:64px;height:64px;border-radius:50%;background:rgba(244,63,94,0.1);display:flex;align-items:center;justify-content:center;margin:0 auto 16px;">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#f43f5e" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+      </div>
+      <p style="color:var(--text-primary);font-size:var(--text-base);margin-bottom:8px;"><strong id="deleteCustomerName">Mehmet Aydın</strong> adlı müşteriyi silmek istediğinize emin misiniz?</p>
+      <p style="color:var(--text-muted);font-size:var(--text-sm);">Bu işlem geri alınamaz. Müşteriye ait tüm kayıtlar ve geçmiş silinecektir.</p>
+    </div>
+    <div class="modal-footer" style="justify-content:center;">
+      <button class="btn-secondary" onclick="closeModal('deleteModal')">İptal</button>
+      <button class="btn-primary" style="background:var(--error-500);box-shadow:0 4px 14px rgba(244,63,94,0.25);" onclick="closeModal('deleteModal')">Evet, Sil</button>
+    </div>
+  </div>
+</div>
+
+<script>
+function openModal(id){document.getElementById(id).classList.add('active');document.body.style.overflow='hidden';}
+function closeModal(id){document.getElementById(id).classList.remove('active');document.body.style.overflow='';}
+function openDetail(id){openModal('detailModal');}
+function openEdit(id){openModal('editModal');}
+function openDelete(id,name){document.getElementById('deleteCustomerName').textContent=name;openModal('deleteModal');}
+
+// Search filter
+document.getElementById('searchInput').addEventListener('input',function(){
+  const term=this.value.toLowerCase();
+  document.querySelectorAll('.table tbody tr').forEach(row=>{
+    row.style.display=row.textContent.toLowerCase().includes(term)?'':'none';
+  });
+});
+</script>
+</body>
+</html>

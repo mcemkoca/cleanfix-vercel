@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CleanFix — Oto Yıkama Personel Yönetimi</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>tailwind.config = { darkMode: 'class', theme: { extend: { fontFamily: { sans: ['Inter', 'sans-serif'] } } } }</script>
+<style>
+:root { --bg-dark: #0f172a; --bg-card: rgba(30,41,59,0.6); --bg-glass: rgba(30,41,59,0.4); --border: rgba(148,163,184,0.12); --text: #e2e8f0; --text-muted: #94a3b8; --accent: #3b82f6; --accent-hover: #2563eb; --accent-glow: rgba(59,130,246,0.25); --success: #22c55e; --warning: #eab308; --danger: #ef4444; }
+*{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}body{font-family:'Inter',sans-serif;background:var(--bg-dark);color:var(--text);min-height:100vh;line-height:1.6}
+body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse 80% 50% at 50% -20%,rgba(59,130,246,0.08),transparent),radial-gradient(ellipse 60% 40% at 80% 100%,rgba(139,92,246,0.05),transparent);pointer-events:none;z-index:0}
+.glass{background:var(--bg-card);backdrop-filter:blur(20px) saturate(180%);-webkit-backdrop-filter:blur(20px) saturate(180%);border:1px solid var(--border);border-radius:1rem}
+.glass-light{background:var(--bg-glass);backdrop-filter:blur(16px) saturate(150%);-webkit-backdrop-filter:blur(16px) saturate(150%);border:1px solid var(--border);border-radius:0.75rem}
+.sidebar{width:260px;min-height:100vh;position:fixed;left:0;top:0;z-index:40;border-right:1px solid var(--border);background:rgba(15,23,42,0.85);backdrop-filter:blur(20px);transition:transform .3s ease}
+.main-content{margin-left:260px;min-height:100vh;padding:1.5rem;position:relative;z-index:1}
+@media(max-width:1024px){.sidebar{transform:translateX(-100%)}.sidebar.open{transform:translateX(0)}.main-content{margin-left:0}}
+.nav-link{display:flex;align-items:center;gap:.75rem;padding:.65rem 1rem;border-radius:.5rem;color:var(--text-muted);font-size:.875rem;font-weight:500;transition:all .2s;text-decoration:none}
+.nav-link:hover,.nav-link.active{background:rgba(59,130,246,0.12);color:var(--accent)}
+.nav-link.active{box-shadow:0 0 12px var(--accent-glow)}
+.nav-icon{width:20px;height:20px;opacity:.7}
+.table-container{overflow-x:auto;border-radius:.75rem;border:1px solid var(--border)}
+table{width:100%;border-collapse:collapse;font-size:.875rem}th{padding:.85rem 1rem;text-align:left;font-weight:600;color:var(--text-muted);font-size:.75rem;text-transform:uppercase;letter-spacing:.03em;border-bottom:1px solid var(--border);white-space:nowrap;background:rgba(30,41,59,0.4)}
+td{padding:.85rem 1rem;border-bottom:1px solid rgba(148,163,184,0.06);vertical-align:middle}tr:hover td{background:rgba(59,130,246,0.04)}tr:last-child td{border-bottom:none}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.4rem;padding:.55rem 1.1rem;border-radius:.5rem;font-size:.875rem;font-weight:500;cursor:pointer;border:none;transition:all .2s;white-space:nowrap}
+.btn-primary{background:var(--accent);color:#fff;box-shadow:0 2px 8px var(--accent-glow)}
+.btn-primary:hover{background:var(--accent-hover);transform:translateY(-1px);box-shadow:0 4px 16px var(--accent-glow)}
+.btn-sm{padding:.4rem .8rem;font-size:.8rem;border-radius:.4rem}
+.btn-outline{background:transparent;border:1px solid var(--border);color:var(--text-muted)}
+.btn-outline:hover{border-color:var(--accent);color:var(--accent);background:rgba(59,130,246,0.08)}
+.btn-danger{background:rgba(239,68,68,0.15);color:var(--danger);border:1px solid rgba(239,68,68,0.2)}
+.btn-danger:hover{background:rgba(239,68,68,0.25)}
+.search-input{width:100%;padding:.65rem 1rem .65rem 2.5rem;border:1px solid var(--border);border-radius:.5rem;background:rgba(30,41,59,0.5);color:var(--text);font-size:.875rem;transition:all .2s}
+.search-input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-glow);background:rgba(30,41,59,0.7)}
+.select-input{padding:.55rem .9rem;border:1px solid var(--border);border-radius:.5rem;background:rgba(30,41,59,0.5);color:var(--text);font-size:.875rem;cursor:pointer;transition:all .2s}
+.select-input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-glow)}
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.65);backdrop-filter:blur(4px);z-index:100;display:flex;align-items:center;justify-content:center;padding:1rem;opacity:0;visibility:hidden;transition:all .3s ease}
+.modal-overlay.active{opacity:1;visibility:visible}
+.modal{max-width:640px;width:100%;max-height:90vh;overflow-y:auto;transform:scale(.92) translateY(10px);transition:transform .3s ease}
+.modal-overlay.active .modal{transform:scale(1) translateY(0)}
+.form-input{width:100%;padding:.65rem .9rem;border:1px solid var(--border);border-radius:.5rem;background:rgba(30,41,59,0.5);color:var(--text);font-size:.875rem;transition:all .2s}
+.form-input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-glow);background:rgba(30,41,59,0.7)}
+.form-label{display:block;font-size:.8rem;font-weight:500;color:var(--text-muted);margin-bottom:.35rem}
+.form-row{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem}
+@media(max-width:640px){.form-row{grid-template-columns:1fr}}
+.card-icon{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.25rem;background:rgba(59,130,246,0.12);color:var(--accent);flex-shrink:0}
+.stat-card{position:relative;overflow:hidden}
+.stat-card::before{content:'';position:absolute;top:0;right:0;width:100px;height:100px;background:radial-gradient(circle,rgba(59,130,246,0.08),transparent 70%);border-radius:50%;transform:translate(30%,-30%)}
+.hamburger{display:none;flex-direction:column;gap:4px;padding:.5rem;cursor:pointer;z-index:50}
+.hamburger span{width:22px;height:2px;background:var(--text);border-radius:2px;transition:all .3s}
+@media(max-width:1024px){.hamburger{display:flex}}
+.sidebar-close{display:none;position:absolute;top:1rem;right:1rem;width:32px;height:32px;align-items:center;justify-content:center;border-radius:.5rem;cursor:pointer;color:var(--text-muted)}
+.sidebar-close:hover{background:rgba(255,255,255,0.1);color:var(--text)}@media(max-width:1024px){.sidebar-close{display:flex}}
+.avatar{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:.85rem;flex-shrink:0}
+.rating{display:flex;gap:.15rem;font-size:.9rem}
+.rating-star{color:var(--warning);text-shadow:0 0 4px rgba(234,179,8,0.3)}
+.rating-star.empty{color:rgba(148,163,184,0.3)}
+.performance-bar{height:6px;border-radius:3px;background:rgba(148,163,184,0.12);overflow:hidden}
+.performance-fill{height:100%;border-radius:3px;transition:width .5s ease}
+.badge{display:inline-flex;align-items:center;gap:.25rem;padding:.25rem .65rem;border-radius:999px;font-size:.75rem;font-weight:600}
+.badge-active{background:rgba(34,197,94,0.15);color:var(--success);border:1px solid rgba(34,197,94,0.25)}
+.badge-off{background:rgba(148,163,184,0.15);color:var(--text-muted);border:1px solid rgba(148,163,184,0.25)}
+.badge-break{background:rgba(234,179,8,0.15);color:var(--warning);border:1px solid rgba(234,179,8,0.25)}
+.badge-leave{background:rgba(239,68,68,0.15);color:var(--danger);border:1px solid rgba(239,68,68,0.25)}
+.role-tag{padding:.2rem .5rem;border-radius:.35rem;font-size:.75rem;font-weight:500;background:rgba(59,130,246,0.1);color:var(--accent);border:1px solid rgba(59,130,246,0.15)}
+@keyframes fadeIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.fade-in{animation:fadeIn .4s ease forwards}
+.empty-state{text-align:center;padding:3rem 1rem}
+.empty-state-icon{width:72px;height:72px;border-radius:50%;background:rgba(59,130,246,0.08);display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;font-size:2rem;color:var(--accent)}
+.toast{position:fixed;bottom:2rem;right:2rem;padding:1rem 1.25rem;border-radius:.75rem;background:var(--bg-card);border:1px solid var(--border);backdrop-filter:blur(16px);z-index:200;transform:translateY(100px);opacity:0;transition:all .4s ease;max-width:360px}
+.toast.show{transform:translateY(0);opacity:1}
+.toast-success{border-left:4px solid var(--success)}
+.toast-danger{border-left:4px solid var(--danger)}
+.toast-info{border-left:4px solid var(--accent)}
+::-webkit-scrollbar{width:6px;height:6px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:rgba(148,163,184,0.25);border-radius:3px}
+::-webkit-scrollbar-thumb:hover{background:rgba(148,163,184,0.4)}
+</style>
+</head>
+<body>
+<div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+<aside class="sidebar" id="sidebar">
+<div class="sidebar-close" id="sidebarClose"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg></div>
+<div style="padding:1.5rem 1rem 1rem">
+<div style="display:flex;align-items:center;gap:.75rem;margin-bottom:2rem">
+<div style="width:40px;height:40px;border-radius:10px;background:linear-gradient(135deg,var(--accent),#8b5cf6);display:flex;align-items:center;justify-content:center;font-weight:700;color:#fff;font-size:1.1rem">CF</div>
+<div><div style="font-weight:700;font-size:1rem">CleanFix</div><div style="font-size:.75rem;color:var(--text-muted)">Oto Yıkama Sektörü</div></div>
+</div>
+<nav style="display:flex;flex-direction:column;gap:.25rem">
+<a href="customers.html" class="nav-link"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>Müşteriler</a>
+<a href="staff.html" class="nav-link active"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Personel</a>
+<a href="invoices.html" class="nav-link"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>Faturalar</a>
+<a href="../company-dashboard.html" class="nav-link"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>Ana Panel</a>
+</nav>
+</div>
+</aside>
+<main class="main-content">
+<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem;flex-wrap:wrap;gap:1rem">
+<div>
+<h1 style="font-size:1.5rem;font-weight:700;margin-bottom:.25rem">Personel Yönetimi</h1>
+<p style="color:var(--text-muted);font-size:.875rem">Ekibinizi yönetin, performansı takip edin ve vardiya durumunu görün.</p>
+</div>
+<div style="display:flex;align-items:center;gap:1rem">
+<div class="glass-light" style="padding:.4rem .75rem;display:flex;align-items:center;gap:.5rem">
+<div style="width:8px;height:8px;border-radius:50%;background:var(--success);box-shadow:0 0 6px var(--success)"></div>
+<span style="font-size:.8rem;color:var(--text-muted)">Sistem Aktif</span>
+</div>
+</div>
+</div>
+<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-bottom:1.5rem" class="stats-grid">
+<div class="glass stat-card" style="padding:1.25rem">
+<div style="display:flex;align-items:center;gap:.75rem;margin-bottom:.75rem">
+<div class="card-icon">👥</div>
+<div style="text-align:right;flex:1">
+<div style="font-size:1.75rem;font-weight:700" id="totalStaff">0</div>
+<div style="font-size:.75rem;color:var(--text-muted)">Toplam Personel</div>
+</div>
+</div>
+<div style="display:flex;align-items:center;gap:.4rem;font-size:.8rem">
+<span style="color:var(--success)">↑ 2</span><span style="color:var(--text-muted)">bu ay yeni</span>
+</div>
+</div>
+<div class="glass stat-card" style="padding:1.25rem">
+<div style="display:flex;align-items:center;gap:.75rem;margin-bottom:.75rem">
+<div class="card-icon" style="background:rgba(34,197,94,0.12);color:var(--success)">✅</div>
+<div style="text-align:right;flex:1">
+<div style="font-size:1.75rem;font-weight:700" id="activeStaff">0</div>
+<div style="font-size:.75rem;color:var(--text-muted)">Aktif Çalışan</div>
+</div>
+</div>
+<div style="display:flex;align-items:center;gap:.4rem;font-size:.8rem">
+<span style="color:var(--text-muted)">Bugün vardiyada</span>
+</div>
+</div>
+<div class="glass stat-card" style="padding:1.25rem">
+<div style="display:flex;align-items:center;gap:.75rem;margin-bottom:.75rem">
+<div class="card-icon" style="background:rgba(234,179,8,0.12);color:var(--warning)">⭐</div>
+<div style="text-align:right;flex:1">
+<div style="font-size:1.75rem;font-weight:700" id="avgRating">0.0</div>
+<div style="font-size:.75rem;color:var(--text-muted)">Ort. Puan</div>
+</div>
+</div>
+<div style="display:flex;align-items:center;gap:.4rem;font-size:.8rem">
+<span style="color:var(--success)">↑ 0.2</span><span style="color:var(--text-muted)">geçen aya göre</span>
+</div>
+</div>
+<div class="glass stat-card" style="padding:1.25rem">
+<div style="display:flex;align-items:center;gap:.75rem;margin-bottom:.75rem">
+<div class="card-icon" style="background:rgba(139,92,246,0.12);color:#8b5cf6">🧰</div>
+<div style="text-align:right;flex:1">
+<div style="font-size:1.75rem;font-weight:700" id="todayJobs">0</div>
+<div style="font-size:.75rem;color:var(--text-muted)">Bugünkü İş</div>
+</div>
+</div>
+<div style="display:flex;align-items:center;gap:.4rem;font-size:.8rem">
+<span style="color:var(--text-muted)">Tüm personele dağılmış</span>
+</div>
+</div>
+</div>
+<div class="glass" style="padding:1.25rem;margin-bottom:1rem">
+<div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem">
+<div style="display:flex;align-items:center;gap:1rem;flex-wrap:wrap;flex:1">
+<div style="position:relative;min-width:240px;flex:1;max-width:360px">
+<svg style="position:absolute;left:.85rem;top:50%;transform:translateY(-50%);color:var(--text-muted);width:16px;height:16px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+<input type="text" class="search-input" id="searchInput" placeholder="Personel ara (isim, telefon, rol...)">
+</div>
+<select class="select-input" id="roleFilter">
+<option value="">Tüm Roller</option>
+<option value="Yıkama Uzmanı">Yıkama Uzmanı</option>
+<option value="Cila Uzmanı">Cila Uzmanı</option>
+<option value="Motor Uzmanı">Motor Uzmanı</option>
+<option value="Kasiyer">Kasiyer</option>
+<option value="Yönetici">Yönetici</option>
+</select>
+<select class="select-input" id="statusFilter">
+<option value="">Tüm Durumlar</option>
+<option value="Aktif">Aktif</option>
+<option value="Mola">Mola</option>
+<option value="İzin">İzin</option>
+<option value="Pasif">Pasif</option>
+</select>
+</div>
+<button class="btn btn-primary" id="addStaffBtn"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>Yeni Personel</button>
+</div>
+</div>
+<div class="table-container glass">
+<table id="staffTable">
+<thead>
+<tr>
+<th>Personel</th>
+<th>Rol</th>
+<th>Telefon</th>
+<th>Durum</th>
+<th>Bugünkü İş</th>
+<th>Aylık Performans</th>
+<th>İşlemler</th>
+</tr>
+</thead>
+<tbody id="staffTableBody"></tbody>
+</table>
+<div id="emptyState" class="empty-state" style="display:none">
+<div class="empty-state-icon">🔍</div>
+<h3 style="font-size:1rem;font-weight:600;margin-bottom:.5rem">Sonuç Bulunamadı</h3>
+<p style="color:var(--text-muted);font-size:.875rem">Arama kriterlerinize uygun personel bulunamadı.</p>
+</div>
+</div>
+<div id="staffTablePagination" style="display:flex;align-items:center;justify-content:space-between;padding:1rem;border-top:1px solid var(--border)">
+<div style="font-size:.875rem;color:var(--text-muted)"><span id="showingCount">0</span> personel gösteriliyor</div>
+<div style="display:flex;gap:.5rem">
+<button class="btn btn-outline btn-sm" id="prevPage">← Önceki</button>
+<button class="btn btn-outline btn-sm" id="nextPage">Sonraki →</button>
+</div>
+</div>
+</main>
+<div class="modal-overlay" id="addModal">
+<div class="modal glass">
+<div style="padding:1.5rem;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between">
+<h2 style="font-size:1.15rem;font-weight:600" id="addModalTitle">Yeni Personel Ekle</h2>
+<button class="btn btn-outline btn-sm" onclick="closeModal('addModal')">✕</button>
+</div>
+<div style="padding:1.5rem">
+<form id="staffForm">
+<input type="hidden" id="editId">
+<div class="form-row">
+<div><label class="form-label">Ad Soyad *</label><input type="text" class="form-input" id="staffName" required placeholder="Örn: Mehmet Kaya"></div>
+<div><label class="form-label">Telefon *</label><input type="tel" class="form-input" id="staffPhone" required placeholder="0555 123 45 67"></div>
+</div>
+<div class="form-row" style="margin-top:1rem">
+<div><label class="form-label">E-posta</label><input type="email" class="form-input" id="staffEmail" placeholder="ornek@email.com"></div>
+<div><label class="form-label">Rol *</label>
+<select class="form-input" id="staffRole" required>
+<option value="Yıkama Uzmanı">Yıkama Uzmanı</option>
+<option value="Cila Uzmanı">Cila Uzmanı</option>
+<option value="Motor Uzmanı">Motor Uzmanı</option>
+<option value="Kasiyer">Kasiyer</option>
+<option value="Yönetici">Yönetici</option>
+<option value="Genel Personel">Genel Personel</option>
+</select>
+</div>
+</div>
+<div class="form-row" style="margin-top:1rem">
+<div><label class="form-label">Durum</label>
+<select class="form-input" id="staffStatus">
+<option value="Aktif" selected>Aktif</option>
+<option value="Mola">Mola</option>
+<option value="İzin">İzin</option>
+<option value="Pasif">Pasif</option>
+</select>
+</div>
+<div><label class="form-label">Performans Puanı (1-5)</label><input type="number" class="form-input" id="staffRating" min="1" max="5" step="0.1" value="3.5" placeholder="3.5"></div>
+</div>
+<div class="form-row" style="margin-top:1rem">
+<div><label class="form-label">Maaş (₺)</label><input type="number" class="form-input" id="staffSalary" placeholder="25000" min="0"></div>
+<div><label class="form-label">İşe Başlama Tarihi</label><input type="date" class="form-input" id="staffStartDate"></div>
+</div>
+<div class="form-row" style="margin-top:1rem">
+<div><label class="form-label">Notlar</label><textarea class="form-input" id="staffNotes" rows="3" placeholder="Personel hakkında notlar..."></textarea></div>
+</div>
+</form>
+</div>
+<div style="padding:1rem 1.5rem;border-top:1px solid var(--border);display:flex;justify-content:flex-end;gap:.5rem">
+<button class="btn btn-outline" onclick="closeModal('addModal')">İptal</button>
+<button class="btn btn-primary" id="saveStaffBtn">Kaydet</button>
+</div>
+</div>
+</div>
+<div class="modal-overlay" id="deleteModal">
+<div class="modal glass" style="max-width:400px">
+<div style="padding:1.5rem;text-align:center">
+<div style="width:56px;height:56px;border-radius:50%;background:rgba(239,68,68,0.12);display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;font-size:1.5rem">⚠️</div>
+<h3 style="font-size:1.1rem;font-weight:600;margin-bottom:.5rem">Personeli Sil</h3>
+<p style="color:var(--text-muted);font-size:.875rem;margin-bottom:1.5rem" id="deleteMessage">Bu personeli silmek istediğinize emin misiniz? Bu işlem geri alınamaz.</p>
+<div style="display:flex;gap:.5rem;justify-content:center">
+<button class="btn btn-outline" onclick="closeModal('deleteModal')">İptal</button>
+<button class="btn btn-danger" id="confirmDeleteBtn">Evet, Sil</button>
+</div>
+</div>
+</div>
+</div>
+<div class="toast" id="toast"></div>
+<script>
+const roles = ['Yıkama Uzmanı','Cila Uzmanı','Motor Uzmanı','Kasiyer','Yönetici','Genel Personel'];
+const statuses = ['Aktif','Mola','İzin','Pasif'];
+const firstNames = ['Ahmet','Mehmet','Ali','Mustafa','Hakan','Emre','Burak','Oğuz','Kaan','Can','Cem','Deniz','Ege','Furkan','Gökhan','Halil','İbrahim','Kemal','Levent','Murat','Onur','Serkan','Tolga','Ufuk','Volkan','Yusuf','Zeki','Ayşe','Fatma','Elif','Zeynep','Merve','Buse','Ece','Gamze','Hande','İrem','Kübra','Leyla','Melis','Neslihan','Özge','Pınar','Rabia','Seda','Tuğba','Ümran','Vildan','Yasemin','Zehra'];
+const lastNames = ['Yılmaz','Kaya','Demir','Şahin','Çelik','Aydın','Öztürk','Arslan','Doğan','Kılıç','Aslan','Kara','Koç','Güneş','Bozkurt','Turan','Yıldız','Aktaş','Bulut','Erol','Korkmaz','Polat','Yavuz','Aksoy','Bayram','Can','Duman','Erdoğan','Güler','İnan','Keskin','Mutlu','Orhan','Pak','Sarı','Tekin','Uslu','Vural','Yalçın','Zengin'];
+let staff = [], currentPage = 1, perPage = 10, deleteTargetId = null;
+function generateStaff() {
+  const data = [];
+  for (let i = 1; i <= 36; i++) {
+    const fn = firstNames[Math.floor(Math.random()*firstNames.length)];
+    const ln = lastNames[Math.floor(Math.random()*lastNames.length)];
+    const role = roles[Math.floor(Math.random()*roles.length)];
+    const status = statuses[Math.floor(Math.random()*statuses.length)];
+    const rating = (2.5 + Math.random()*2.5).toFixed(1);
+    const jobsToday = Math.floor(Math.random()*12);
+    const monthlyJobs = Math.floor(jobsToday*20 + Math.random()*150);
+    const monthlyRevenue = Math.floor(monthlyJobs*(100 + Math.random()*500));
+    const salary = Math.floor(18000 + Math.random()*22000);
+    const startDate = new Date(Date.now() - Math.floor(Math.random()*1095)*86400000);
+    data.push({
+      id:i,name:`${fn} ${ln}`,phone:`05${Math.floor(30+Math.random()*70)} ${Math.floor(100+Math.random()*900)} ${Math.floor(10+Math.random()*90)} ${Math.floor(10+Math.random()*90)}`,
+      email:`${fn.toLowerCase()}.${ln.toLowerCase()}${Math.floor(1+Math.random()*999)}@${['gmail.com','hotmail.com','yahoo.com','outlook.com'][Math.floor(Math.random()*4)]}`,
+      role,status,rating,jobsToday,monthlyJobs,monthlyRevenue,salary,startDate:startDate.toISOString().split('T')[0],
+      notes:`${fn} ${role} olarak ${Math.floor((Date.now()-startDate)/86400000/30)} aydır çalışıyor. Müşteri memnuniyeti yüksek.`
+    });
+  }
+  return data;
+}
+function formatCurrency(n) { return '₺' + n.toLocaleString('tr-TR'); }
+function getStatusBadge(s) {
+  const cls = {Aktif:'badge-active',Mola:'badge-break',İzin:'badge-leave',Pasif:'badge-off'}[s]||'badge-off';
+  return `<span class="badge ${cls}">${s}</span>`;
+}
+function getRoleBadge(r) { return `<span class="role-tag">${r}</span>`; }
+function renderStars(rating) {
+  let html = '<div class="rating">';
+  for (let i = 1; i <= 5; i++) {
+    if (i <= Math.floor(rating)) html += '<span class="rating-star">★</span>';
+    else if (i - 0.5 <= rating) html += '<span class="rating-star">★</span>';
+    else html += '<span class="rating-star empty">★</span>';
+  }
+  html += '</div>';
+  return html;
+}
+function getInitials(name) { return name.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase(); }
+function getPerfColor(r) { return r >= 4.5 ? 'var(--success)' : r >= 3.5 ? 'var(--accent)' : r >= 2.5 ? 'var(--warning)' : 'var(--danger)'; }
+function renderStaff(data, page = 1) {
+  const tbody = document.getElementById('staffTableBody');
+  const emptyState = document.getElementById('emptyState');
+  const start = (page - 1) * perPage, end = start + perPage;
+  const pageData = data.slice(start, end);
+  if (!pageData.length) { tbody.innerHTML = ''; emptyState.style.display = 'block'; document.getElementById('staffTablePagination').style.display = 'none'; return; }
+  emptyState.style.display = 'none'; document.getElementById('staffTablePagination').style.display = 'flex';
+  tbody.innerHTML = pageData.map(s => `
+    <tr class="fade-in">
+      <td>
+        <div style="display:flex;align-items:center;gap:.75rem">
+          <div class="avatar" style="background:linear-gradient(135deg,hsl(${(s.id*53)%360},65%,45%),hsl(${(s.id*89)%360},55%,35%));color:#fff">${getInitials(s.name)}</div>
+          <div><div style="font-weight:600">${s.name}</div><div style="font-size:.75rem;color:var(--text-muted)">#${String(s.id).padStart(3,'0')}</div></div>
+        </div>
+      </td>
+      <td>${getRoleBadge(s.role)}</td>
+      <td><div style="font-size:.875rem">${s.phone}</div><div style="font-size:.75rem;color:var(--text-muted)">${s.email}</div></td>
+      <td>${getStatusBadge(s.status)}</td>
+      <td><div style="font-weight:600">${s.jobsToday}</div><div style="font-size:.75rem;color:var(--text-muted)">bugün tamamlandı</div></td>
+      <td>
+        <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.25rem">
+          ${renderStars(parseFloat(s.rating))}
+          <span style="font-weight:600;font-size:.875rem">${s.rating}</span>
+        </div>
+        <div class="performance-bar"><div class="performance-fill" style="width:${(parseFloat(s.rating)/5*100)}%;background:${getPerfColor(parseFloat(s.rating))}"></div></div>
+        <div style="font-size:.75rem;color:var(--text-muted);margin-top:.15rem">${s.monthlyJobs} iş / ${formatCurrency(s.monthlyRevenue)}</div>
+      </td>
+      <td>
+        <div style="display:flex;gap:.35rem">
+          <button class="btn btn-outline btn-sm" onclick="editStaff(${s.id})" title="Düzenle">✏️</button>
+          <button class="btn btn-danger btn-sm" onclick="confirmDelete(${s.id})" title="Sil">🗑</button>
+        </div>
+      </td>
+    </tr>
+  `).join('');
+  document.getElementById('showingCount').textContent = data.length;
+  updatePagination(data.length, page);
+}
+function updatePagination(total, page) {
+  currentPage = page;
+  const maxPage = Math.ceil(total / perPage) || 1;
+  document.getElementById('prevPage').disabled = page <= 1;
+  document.getElementById('nextPage').disabled = page >= maxPage;
+  document.getElementById('prevPage').style.opacity = page <= 1 ? '0.4' : '1';
+  document.getElementById('nextPage').style.opacity = page >= maxPage ? '0.4' : '1';
+}
+function getFilteredStaff() {
+  const search = document.getElementById('searchInput').value.toLowerCase();
+  const role = document.getElementById('roleFilter').value;
+  const status = document.getElementById('statusFilter').value;
+  return staff.filter(s => {
+    const matchesSearch = !search || s.name.toLowerCase().includes(search) || s.phone.includes(search) || s.role.toLowerCase().includes(search);
+    const matchesRole = !role || s.role === role;
+    const matchesStatus = !status || s.status === status;
+    return matchesSearch && matchesRole && matchesStatus;
+  });
+}
+function refreshTable() { renderStaff(getFilteredStaff(), 1); }
+function openModal(id) { document.getElementById(id).classList.add('active'); document.body.style.overflow = 'hidden'; }
+function closeModal(id) { document.getElementById(id).classList.remove('active'); document.body.style.overflow = ''; }
+function showToast(msg, type = 'info') {
+  const t = document.getElementById('toast'); t.className = 'toast toast-' + type; t.textContent = msg; t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3000);
+}
+function editStaff(id) {
+  const s = staff.find(x => x.id === id); if (!s) return;
+  document.getElementById('editId').value = s.id;
+  document.getElementById('staffName').value = s.name;
+  document.getElementById('staffPhone').value = s.phone;
+  document.getElementById('staffEmail').value = s.email;
+  document.getElementById('staffRole').value = s.role;
+  document.getElementById('staffStatus').value = s.status;
+  document.getElementById('staffRating').value = s.rating;
+  document.getElementById('staffSalary').value = s.salary;
+  document.getElementById('staffStartDate').value = s.startDate;
+  document.getElementById('staffNotes').value = s.notes;
+  document.getElementById('addModalTitle').textContent = 'Personel Düzenle';
+  openModal('addModal');
+}
+function confirmDelete(id) {
+  const s = staff.find(x => x.id === id); if (!s) return;
+  deleteTargetId = id;
+  document.getElementById('deleteMessage').textContent = `"${s.name}" adlı personeli silmek istediğinize emin misiniz? Bu işlem geri alınamaz.`;
+  openModal('deleteModal');
+}
+document.getElementById('addStaffBtn').onclick = () => {
+  document.getElementById('staffForm').reset();
+  document.getElementById('editId').value = '';
+  document.getElementById('addModalTitle').textContent = 'Yeni Personel Ekle';
+  openModal('addModal');
+};
+document.getElementById('saveStaffBtn').onclick = () => {
+  const name = document.getElementById('staffName').value.trim();
+  const phone = document.getElementById('staffPhone').value.trim();
+  if (!name || !phone) { showToast('Ad Soyad ve Telefon zorunludur.', 'danger'); return; }
+  const editId = document.getElementById('editId').value;
+  const newData = {
+    name, phone, email: document.getElementById('staffEmail').value.trim(),
+    role: document.getElementById('staffRole').value,
+    status: document.getElementById('staffStatus').value,
+    rating: document.getElementById('staffRating').value || '3.5',
+    salary: parseInt(document.getElementById('staffSalary').value) || 20000,
+    startDate: document.getElementById('staffStartDate').value || new Date().toISOString().split('T')[0],
+    notes: document.getElementById('staffNotes').value.trim()
+  };
+  if (editId) {
+    const idx = staff.findIndex(s => s.id === parseInt(editId));
+    if (idx >= 0) { staff[idx] = { ...staff[idx], ...newData }; showToast('Personel güncellendi.', 'info'); }
+  } else {
+    const newId = Math.max(...staff.map(s => s.id), 0) + 1;
+    staff.push({ id: newId, ...newData, jobsToday: 0, monthlyJobs: 0, monthlyRevenue: 0 });
+    showToast('Yeni personel eklendi.', 'success');
+  }
+  updateStats();
+  refreshTable();
+  closeModal('addModal');
+};
+document.getElementById('confirmDeleteBtn').onclick = () => {
+  if (deleteTargetId) {
+    staff = staff.filter(s => s.id !== deleteTargetId);
+    showToast('Personel silindi.', 'info');
+    updateStats(); refreshTable(); closeModal('deleteModal'); deleteTargetId = null;
+  }
+};
+['searchInput','roleFilter','statusFilter'].forEach(id => {
+  document.getElementById(id).addEventListener(id === 'searchInput' ? 'input' : 'change', () => refreshTable());
+});
+document.getElementById('prevPage').onclick = () => { if (currentPage > 1) renderStaff(getFilteredStaff(), currentPage - 1); };
+document.getElementById('nextPage').onclick = () => { const max = Math.ceil(getFilteredStaff().length / perPage); if (currentPage < max) renderStaff(getFilteredStaff(), currentPage + 1); };
+function updateStats() {
+  document.getElementById('totalStaff').textContent = staff.length;
+  document.getElementById('activeStaff').textContent = staff.filter(s => s.status === 'Aktif').length;
+  const avg = staff.length ? (staff.reduce((s, x) => s + parseFloat(x.rating), 0) / staff.length).toFixed(1) : '0.0';
+  document.getElementById('avgRating').textContent = avg;
+  document.getElementById('todayJobs').textContent = staff.reduce((s, x) => s + x.jobsToday, 0);
+}
+['addModal','deleteModal'].forEach(id => {
+  document.getElementById(id).addEventListener('click', e => { if (e.target === document.getElementById(id)) closeModal(id); });
+});
+document.addEventListener('keydown', e => { if (e.key === 'Escape') ['addModal','deleteModal'].forEach(id => closeModal(id)); });
+const hamburger = document.getElementById('hamburger'), sidebar = document.getElementById('sidebar'), sidebarClose = document.getElementById('sidebarClose');
+hamburger.onclick = () => sidebar.classList.toggle('open');
+sidebarClose.onclick = () => sidebar.classList.remove('open');
+document.addEventListener('click', e => { if (window.innerWidth <= 1024 && sidebar.classList.contains('open') && !sidebar.contains(e.target) && !hamburger.contains(e.target)) sidebar.classList.remove('open'); });
+staff = generateStaff();
+updateStats();
+refreshTable();
+</script>
+</body>
+</html>

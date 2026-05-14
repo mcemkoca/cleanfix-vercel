@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CleanFix — CarWash Randevuları</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../css/main.css">
+<link rel="stylesheet" href="../../css/components.css">
+<style>
+:root, [data-theme="dark"] {
+  --blue-500: #3b82f6; --blue-400: #60a5fa; --blue-600: #2563eb; --blue-700: #1d4ed8;
+  --blue-glow: rgba(59, 130, 246, 0.15);
+  --glass-bg: rgba(15, 23, 42, 0.60);
+  --glass-border: rgba(148, 163, 184, 0.08);
+  --glass-highlight: rgba(255, 255, 255, 0.03);
+  --card-shadow: 0 1px 3px rgba(0,0,0,0.3), 0 8px 24px rgba(0,0,0,0.2);
+}
+.dashboard { display: flex; min-height: 100vh; }
+.sidebar {
+  width: 280px; height: 100vh; background: var(--bg-card); border-right: 1px solid var(--border-color);
+  display: flex; flex-direction: column; position: fixed; left: 0; top: 0; z-index: 100;
+  transition: transform var(--duration-slow) var(--ease-out);
+}
+.sidebar.collapsed { transform: translateX(-100%); }
+.sidebar-header { padding: 20px 24px; border-bottom: 1px solid var(--border-color); display: flex; align-items: center; gap: 12px; }
+.sidebar-logo {
+  width: 40px; height: 40px; background: linear-gradient(135deg, var(--blue-500), var(--blue-700));
+  border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center;
+  font-size: 14px; font-weight: 700; color: white;
+}
+.sidebar-logo-text { font-weight: 700; font-size: var(--text-base); letter-spacing: -0.02em; }
+.sidebar-logo-sub { font-size: var(--text-xs); color: var(--text-muted); }
+.sidebar-nav { flex: 1; overflow-y: auto; padding: 16px 12px; }
+.nav-group { margin-bottom: var(--space-4); }
+.nav-label {
+  font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em;
+  color: var(--text-muted); padding: 0 var(--space-3) var(--space-2);
+}
+.nav-item {
+  display: flex; align-items: center; gap: var(--space-3); padding: 10px var(--space-3);
+  border-radius: var(--radius-md); cursor: pointer; transition: all var(--duration-fast);
+  color: var(--text-secondary); font-size: var(--text-sm); font-weight: 500; margin-bottom: 2px; text-decoration: none;
+}
+.nav-item:hover { background: var(--bg-tertiary); color: var(--text-primary); }
+.nav-item.active {
+  background: rgba(59, 130, 246, 0.1); color: var(--blue-500);
+  box-shadow: inset 0 0 0 1px rgba(59, 130, 246, 0.15);
+}
+.nav-item svg { flex-shrink: 0; }
+.nav-badge {
+  margin-left: auto; background: var(--bg-tertiary); color: var(--text-secondary);
+  font-size: var(--text-xs); font-weight: 600; padding: 2px 8px; border-radius: 9999px;
+}
+.nav-item.active .nav-badge { background: var(--blue-500); color: white; }
+.sidebar-footer { padding: var(--space-4); border-top: 1px solid var(--border-color); }
+.sidebar-user { display: flex; align-items: center; gap: var(--space-3); }
+.sidebar-user-info { flex: 1; }
+.sidebar-user-info p { font-size: var(--text-sm); font-weight: 600; }
+.sidebar-user-info span { font-size: var(--text-xs); color: var(--text-muted); }
+
+.main { flex: 1; margin-left: 280px; display: flex; flex-direction: column; min-height: 100vh; }
+
+.header {
+  height: 64px; background: var(--bg-card); border-bottom: 1px solid var(--border-color);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 var(--space-6); position: sticky; top: 0; z-index: 50;
+  backdrop-filter: blur(12px); background: rgba(15, 23, 42, 0.85);
+}
+.header-left { display: flex; align-items: center; gap: var(--space-4); }
+.menu-btn {
+  width: 36px; height: 36px; border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center;
+  background: var(--bg-tertiary); border: 1px solid var(--border-color); color: var(--text-secondary);
+  cursor: pointer; transition: all var(--duration-fast);
+}
+.menu-btn:hover { color: var(--blue-500); border-color: var(--blue-500); }
+.page-title { font-size: 20px; font-weight: 800; letter-spacing: -0.03em; }
+.header-right { display: flex; align-items: center; gap: var(--space-3); }
+.header-btn {
+  width: 38px; height: 38px; border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center;
+  background: var(--bg-tertiary); border: 1px solid var(--border-color); color: var(--text-secondary);
+  cursor: pointer; transition: all var(--duration-fast);
+}
+.header-btn:hover { color: var(--blue-500); border-color: var(--blue-500); }
+
+.content { flex: 1; padding: var(--space-6); }
+
+.toolbar { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 24px; flex-wrap: wrap; }
+.search-box { flex: 1; min-width: 240px; position: relative; }
+.search-box input {
+  width: 100%; padding: 10px 14px 10px 38px; background: var(--bg-card); border: 1.5px solid var(--border-color);
+  border-radius: var(--radius-md); color: var(--text-primary); font-size: var(--text-sm); transition: all var(--duration-fast);
+}
+.search-box input:focus { border-color: var(--blue-500); box-shadow: 0 0 0 3px var(--blue-glow); outline: none; }
+.search-box svg { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--text-muted); pointer-events: none; }
+.filters { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+.filters select {
+  padding: 10px 32px 10px 14px; background: var(--bg-card); border: 1.5px solid var(--border-color);
+  border-radius: var(--radius-md); color: var(--text-primary); font-size: var(--text-sm); appearance: none; cursor: pointer;
+}
+.card {
+  background: var(--glass-bg); backdrop-filter: blur(16px) saturate(1.4);
+  -webkit-backdrop-filter: blur(16px) saturate(1.4);
+  border: 1px solid var(--glass-border); border-radius: var(--radius-lg);
+  box-shadow: var(--card-shadow), inset 0 1px 0 var(--glass-highlight);
+  overflow: hidden;
+}
+.card-header { padding: 20px 24px; border-bottom: 1px solid var(--border-color); display: flex; align-items: center; justify-content: space-between; }
+.card-title { font-size: var(--text-base); font-weight: 600; }
+.table { width: 100%; border-collapse: collapse; }
+.table th {
+  text-align: left; padding: 14px 16px; font-size: var(--text-xs); font-weight: 600; color: var(--text-muted);
+  text-transform: uppercase; letter-spacing: 0.05em; border-bottom: 1px solid var(--border-color); white-space: nowrap;
+}
+.table td { padding: 14px 16px; font-size: var(--text-sm); color: var(--text-secondary); border-bottom: 1px solid var(--border-color); vertical-align: middle; }
+.table tr:last-child td { border-bottom: none; }
+.table tr:hover td { background: rgba(255,255,255,0.02); }
+
+.tag { display: inline-flex; align-items: center; gap: 4px; padding: 4px 12px; border-radius: 9999px; font-size: var(--text-xs); font-weight: 500; }
+.tag-green { background: rgba(16,185,129,0.1); color: var(--success-500); }
+.tag-amber { background: rgba(245,158,11,0.1); color: var(--amber-500); }
+.tag-blue { background: rgba(59,130,246,0.1); color: var(--blue-500); }
+.tag-red { background: rgba(244,63,94,0.1); color: var(--error-500); }
+.tag-gray { background: rgba(100,116,139,0.1); color: var(--text-muted); }
+
+.plate {
+  font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 4px;
+  background: var(--bg-tertiary); color: var(--text-secondary); letter-spacing: 0.05em;
+  border: 1px solid var(--border-color); display: inline-block;
+}
+
+.actions { display: flex; gap: 6px; }
+.action-btn {
+  width: 28px; height: 28px; border-radius: 6px; display: flex; align-items: center; justify-content: center;
+  background: transparent; border: none; color: var(--text-muted); cursor: pointer; transition: all var(--duration-fast);
+}
+.action-btn:hover { background: var(--bg-tertiary); color: var(--text-primary); }
+.action-btn.edit:hover { color: var(--info-500); background: rgba(59,130,246,0.1); }
+.action-btn.delete:hover { color: var(--error-500); background: rgba(244,63,94,0.1); }
+
+.modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 200; display: none; align-items: center; justify-content: center; backdrop-filter: blur(4px); }
+.modal-overlay.active { display: flex; }
+.modal {
+  background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-xl);
+  width: 100%; max-width: 560px; max-height: 90vh; overflow-y: auto;
+  box-shadow: var(--shadow-xl); animation: modalIn 0.3s cubic-bezier(0.16,1,0.3,1);
+}
+@keyframes modalIn { from { opacity: 0; transform: translateY(20px) scale(0.98); } to { opacity: 1; transform: translateY(0) scale(1); } }
+.modal-header { padding: 20px 24px; border-bottom: 1px solid var(--border-color); display: flex; align-items: center; justify-content: space-between; }
+.modal-title { font-size: var(--text-lg); font-weight: 700; }
+.modal-close { width: 32px; height: 32px; border-radius: 8px; display: flex; align-items: center; justify-content: center; background: transparent; border: none; color: var(--text-muted); cursor: pointer; transition: all var(--duration-fast); }
+.modal-close:hover { background: var(--bg-tertiary); color: var(--text-primary); }
+.modal-body { padding: 20px 24px; }
+.modal-footer { padding: 16px 24px; border-top: 1px solid var(--border-color); display: flex; gap: 12px; justify-content: flex-end; }
+.form-group { margin-bottom: 16px; }
+.form-label { display: block; font-size: var(--text-xs); font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 6px; }
+.form-input {
+  width: 100%; padding: 10px 14px; background: var(--bg-card); border: 1.5px solid var(--border-color);
+  border-radius: var(--radius-md); color: var(--text-primary); font-size: var(--text-sm); transition: all var(--duration-fast);
+}
+.form-input:focus { border-color: var(--blue-500); box-shadow: 0 0 0 3px var(--blue-glow); outline: none; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: var(--space-2);
+  padding: 10px 18px; border-radius: var(--radius-md); font-size: var(--text-sm); font-weight: 600;
+  cursor: pointer; transition: all var(--duration-fast); border: none;
+}
+.btn-primary { background: linear-gradient(135deg, var(--blue-500), var(--blue-700)); color: white; }
+.btn-primary:hover { transform: translateY(-1px); box-shadow: 0 4px 12px var(--blue-glow); }
+.btn-secondary { background: var(--bg-tertiary); color: var(--text-secondary); border: 1px solid var(--border-color); }
+.btn-secondary:hover { border-color: var(--blue-500); color: var(--blue-500); }
+.btn-danger { background: var(--error-500); color: white; }
+.btn-danger:hover { background: #e11d48; }
+
+.avatar { width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: var(--text-xs); color: white; }
+
+.pagination { display: flex; align-items: center; justify-content: space-between; padding: 16px 24px; border-top: 1px solid var(--border-color); }
+.page-info { font-size: var(--text-sm); color: var(--text-muted); }
+.page-btns { display: flex; gap: 6px; }
+.page-btn { padding: 6px 12px; border-radius: var(--radius-md); background: var(--bg-tertiary); border: 1px solid var(--border-color); color: var(--text-secondary); font-size: var(--text-sm); cursor: pointer; transition: all var(--duration-fast); }
+.page-btn:hover { border-color: var(--blue-500); color: var(--blue-500); }
+.page-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+/* ===== VIEW TOGGLE ===== */
+.view-toggle { display: flex; align-items: center; gap: 4px; background: var(--bg-tertiary); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 3px; }
+.view-toggle button { padding: 7px 14px; border-radius: 6px; border: none; background: transparent; color: var(--text-muted); font-size: var(--text-sm); font-weight: 500; cursor: pointer; transition: all var(--duration-fast); display: flex; align-items: center; gap: 6px; }
+.view-toggle button.active { background: var(--blue-500); color: white; box-shadow: 0 2px 6px rgba(59,130,246,0.3); }
+.view-toggle button:hover:not(.active) { color: var(--text-primary); }
+
+/* ===== CARDS GRID ===== */
+.cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; padding: 20px 24px; display: none; }
+.cards-grid.active { display: grid; }
+.booking-card {
+  background: var(--glass-bg); backdrop-filter: blur(16px) saturate(1.4);
+  border: 1px solid var(--glass-border); border-radius: var(--radius-lg);
+  box-shadow: var(--card-shadow), inset 0 1px 0 var(--glass-highlight);
+  padding: 20px; transition: all 0.25s var(--ease-out); cursor: pointer; position: relative; overflow: hidden;
+}
+.booking-card:hover { transform: translateY(-4px); box-shadow: 0 12px 24px rgba(0,0,0,0.25); border-color: rgba(59,130,246,0.3); }
+.booking-card-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 14px; }
+.booking-card-name { font-size: var(--text-base); font-weight: 600; color: var(--text-primary); }
+.booking-card-service { font-size: var(--text-sm); color: var(--text-secondary); margin-top: 4px; }
+.booking-card-plate { margin-top: 6px; }
+.booking-card-meta { display: flex; align-items: center; gap: 12px; margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--border-color); }
+.booking-card-time { display: flex; align-items: center; gap: 5px; font-size: var(--text-xs); color: var(--text-muted); }
+.booking-card-price { font-size: var(--text-base); font-weight: 700; color: var(--blue-500); margin-left: auto; }
+.booking-card-actions { position: absolute; top: 16px; right: 16px; display: flex; gap: 4px; opacity: 0; transition: opacity 0.2s; }
+.booking-card:hover .booking-card-actions { opacity: 1; }
+
+/* ===== MINI CALENDAR ===== */
+.mini-calendar {
+  background: var(--glass-bg); backdrop-filter: blur(16px) saturate(1.4);
+  border: 1px solid var(--glass-border); border-radius: var(--radius-xl);
+  box-shadow: var(--card-shadow), inset 0 1px 0 var(--glass-highlight);
+  padding: 16px 20px; margin-bottom: 20px; max-width: 360px;
+}
+.mc-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+.mc-title { font-size: var(--text-sm); font-weight: 700; color: var(--text-primary); }
+.mc-nav { display: flex; align-items: center; gap: 4px; }
+.mc-nav button { width: 28px; height: 28px; border-radius: 6px; border: none; background: transparent; color: var(--text-muted); cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all var(--duration-fast); }
+.mc-nav button:hover { background: var(--bg-tertiary); color: var(--text-primary); }
+.mc-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; text-align: center; }
+.mc-day-label { font-size: var(--text-xs); font-weight: 600; color: var(--text-muted); padding: 6px 0; text-transform: uppercase; }
+.mc-day { width: 36px; height: 36px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: var(--text-xs); font-weight: 500; color: var(--text-secondary); cursor: pointer; position: relative; transition: all var(--duration-fast); border: none; background: transparent; margin: 0 auto; }
+.mc-day:hover { background: var(--bg-tertiary); color: var(--text-primary); }
+.mc-day.selected { background: var(--blue-500); color: white; }
+.mc-day.has-booking::after { content: ''; position: absolute; bottom: 4px; left: 50%; transform: translateX(-50%); width: 4px; height: 4px; border-radius: 50%; background: var(--blue-500); }
+.mc-day.selected.has-booking::after { background: white; }
+.mc-day.other-month { color: var(--text-muted); opacity: 0.5; }
+.mc-day.today { box-shadow: inset 0 0 0 1.5px var(--blue-500); }
+
+/* ===== LAYOUT HELPERS ===== */
+.topbar { display: flex; align-items: flex-start; gap: 24px; flex-wrap: wrap; }
+.topbar-main { flex: 1; min-width: 300px; }
+
+.toast-container { position: fixed; top: 20px; right: 20px; z-index: 300; }
+
+.sidebar-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.4); z-index: 99; opacity: 0; visibility: hidden; transition: all var(--duration-normal); }
+.sidebar-overlay.active { opacity: 1; visibility: visible; }
+
+@media (max-width:1024px) {
+  .sidebar { transform: translateX(-100%); }
+  .sidebar.open { transform: translateX(0); }
+  .main { margin-left: 0; }
+}
+@media (max-width:768px) {
+  .form-row { grid-template-columns: 1fr; }
+  .toolbar { flex-direction: column; align-items: stretch; }
+  .topbar { flex-direction: column; }
+  .mini-calendar { max-width: 100%; }
+}
+</style>
+</head>
+<body>
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+<div class="dashboard">
+
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-header">
+    <div class="sidebar-logo">CW</div>
+    <div>
+      <div class="sidebar-logo-text">CleanFix</div>
+      <div class="sidebar-logo-sub">CarWash Sektörü</div>
+    </div>
+  </div>
+  <nav class="sidebar-nav">
+    <div class="nav-group">
+      <div class="nav-label">Ana Menü</div>
+      <a class="nav-item" href="index.html">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg>
+        Dashboard
+      </a>
+      <a class="nav-item active" href="bookings.html">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        Randevular
+        <span class="nav-badge">42</span>
+      </a>
+      <a class="nav-item" href="services.html">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+        Hizmetler
+        <span class="nav-badge">8</span>
+      </a>
+      <a class="nav-item" href="#">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        Müşteriler
+        <span class="nav-badge">210</span>
+      </a>
+      <a class="nav-item" href="#">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        Personel
+        <span class="nav-badge">6</span>
+      </a>
+      <a class="nav-item" href="#">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+        Faturalar
+        <span class="nav-badge">28</span>
+      </a>
+    </div>
+    <div class="nav-group">
+      <div class="nav-label">Operasyon</div>
+      <a class="nav-item" href="#">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+        Stok
+      </a>
+      <a class="nav-item" href="#">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+        Ekipman
+      </a>
+      <a class="nav-item" href="#">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+        Kalite
+      </a>
+      <a class="nav-item" href="#">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+        Giderler
+      </a>
+      <a class="nav-item" href="../../company-sectors.html">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+        Çıkış
+      </a>
+    </div>
+  </nav>
+  <div class="sidebar-footer">
+    <div class="sidebar-user">
+      <div class="avatar" style="background:linear-gradient(135deg,var(--blue-500),var(--blue-700));">MK</div>
+      <div class="sidebar-user-info">
+        <p>Mehmet Kaya</p>
+        <span>CarWash Müdürü</span>
+      </div>
+    </div>
+  </div>
+</aside>
+
+<div class="main">
+  <header class="header">
+    <div class="header-left">
+      <button class="menu-btn" id="menuBtn">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+      <h1 class="page-title">Randevular</h1>
+    </div>
+    <div class="header-right">
+      <button class="header-btn" onclick="showToast('3 yeni randevu talebi','success')">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
+        <span class="dot" style="position:absolute;top:6px;right:6px;width:8px;height:8px;background:var(--error-500);border-radius:50%;border:2px solid var(--bg-card);animation:pulse-dot 2s ease-in-out infinite;"></span>
+      </button>
+      <div style="display:flex;align-items:center;gap:10px;">
+        <div class="avatar" style="background:linear-gradient(135deg,var(--blue-500),var(--blue-700));">MK</div>
+        <div>
+          <div style="font-weight:600;font-size:var(--text-sm);">Mehmet Kaya</div>
+          <div style="font-size:var(--text-xs);color:var(--text-muted);">CarWash Müdürü</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="content">
+    <div class="topbar">
+      <div class="topbar-main">
+        <div class="toolbar">
+          <div class="search-box">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <input type="text" placeholder="Müşteri, plaka veya hizmet ara..." id="searchInput">
+          </div>
+          <div class="filters">
+            <select id="statusFilter"><option value="">Tüm Durumlar</option><option value="pending">Bekliyor</option><option value="progress">Devam Ediyor</option><option value="completed">Tamamlandı</option><option value="cancelled">İptal</option></select>
+            <select id="dateFilter"><option value="">Tüm Tarihler</option><option value="today">Bugün</option><option value="week">Bu Hafta</option><option value="month">Bu Ay</option></select>
+            <div class="view-toggle">
+              <button class="active" onclick="toggleView('table')" id="btnTable"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg> Tablo</button>
+              <button onclick="toggleView('card')" id="btnCard"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg> Kart</button>
+            </div>
+            <button class="btn btn-primary" onclick="openModal('addModal')">+ Yeni Randevu</button>
+          </div>
+        </div>
+      </div>
+      <div class="mini-calendar" id="miniCalendar"></div>
+    </div>
+
+    <div class="card">
+      <div class="card-body" style="padding:0;">
+        <table class="table" id="bookingsTable">
+          <thead><tr><th>Tarih / Saat</th><th>Müşteri</th><th>Plaka</th><th>Hizmet</th><th>Çalışan</th><th>Durum</th><th>Tutar</th><th>İşlemler</th></tr></thead>
+          <tbody>
+            <tr data-id="1" data-date="2026-05-15"><td><div style="font-weight:600;">15 Mayıs</div><div style="font-size:var(--text-xs);color:var(--text-muted);">08:00</div></td><td>Ahmet Yılmaz</td><td><span class="plate">34 ABC 123</span></td><td>İç Detaylı Temizlik</td><td>Mehmet Kaya</td><td><span class="tag tag-green">Tamamlandı</span></td><td style="font-weight:600;">€45</td><td><div class="actions"><button class="action-btn edit" onclick="openEditModal(1)" title="Düzenle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(1)" title="Sil"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td></tr>
+            <tr data-id="2" data-date="2026-05-15"><td><div style="font-weight:600;">15 Mayıs</div><div style="font-size:var(--text-xs);color:var(--text-muted);">09:30</div></td><td>Zeynep Kaya</td><td><span class="plate">34 DEF 456</span></td><td>Dış Yıkama Premium</td><td>Can Özdemir</td><td><span class="tag tag-green">Tamamlandı</span></td><td style="font-weight:600;">€25</td><td><div class="actions"><button class="action-btn edit" onclick="openEditModal(2)" title="Düzenle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(2)" title="Sil"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td></tr>
+            <tr data-id="3" data-date="2026-05-15"><td><div style="font-weight:600;">15 Mayıs</div><div style="font-size:var(--text-xs);color:var(--text-muted);">11:00</div></td><td>Burak Demir</td><td><span class="plate">34 GHI 789</span></td><td>Dış + Cila</td><td>Selin Koç</td><td><span class="tag tag-amber">Devam Ediyor</span></td><td style="font-weight:600;">€55</td><td><div class="actions"><button class="action-btn edit" onclick="openEditModal(3)" title="Düzenle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(3)" title="Sil"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td></tr>
+            <tr data-id="4" data-date="2026-05-15"><td><div style="font-weight:600;">15 Mayıs</div><div style="font-size:var(--text-xs);color:var(--text-muted);">13:00</div></td><td>Elif Şahin</td><td><span class="plate">34 JKL 012</span></td><td>Motor Buharlı Temizlik</td><td>Mehmet Kaya</td><td><span class="tag tag-blue">Bekliyor</span></td><td style="font-weight:600;">€85</td><td><div class="actions"><button class="action-btn edit" onclick="openEditModal(4)" title="Düzenle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(4)" title="Sil"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td></tr>
+            <tr data-id="5" data-date="2026-05-15"><td><div style="font-weight:600;">15 Mayıs</div><div style="font-size:var(--text-xs);color:var(--text-muted);">14:30</div></td><td>Can Özdemir</td><td><span class="plate">34 MNO 345</span></td><td>Seramik Kaplama</td><td>Burak Yılmaz</td><td><span class="tag tag-blue">Bekliyor</span></td><td style="font-weight:600;">€299</td><td><div class="actions"><button class="action-btn edit" onclick="openEditModal(5)" title="Düzenle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(5)" title="Sil"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td></tr>
+            <tr data-id="6" data-date="2026-05-15"><td><div style="font-weight:600;">15 Mayıs</div><div style="font-size:var(--text-xs);color:var(--text-muted);">16:00</div></td><td>Selin Koç</td><td><span class="plate">34 PQR 678</span></td><td>Far Parlatma + Jant</td><td>Merve Demir</td><td><span class="tag tag-blue">Bekliyor</span></td><td style="font-weight:600;">€60</td><td><div class="actions"><button class="action-btn edit" onclick="openEditModal(6)" title="Düzenle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(6)" title="Sil"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td></tr>
+            <tr data-id="7" data-date="2026-05-16"><td><div style="font-weight:600;">16 Mayıs</div><div style="font-size:var(--text-xs);color:var(--text-muted);">09:00</div></td><td>Ali Veli</td><td><span class="plate">34 STU 901</span></td><td>Komple Paket (İç+Dış+Cila)</td><td>Mehmet Kaya</td><td><span class="tag tag-blue">Bekliyor</span></td><td style="font-weight:600;">€120</td><td><div class="actions"><button class="action-btn edit" onclick="openEditModal(7)" title="Düzenle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(7)" title="Sil"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td></tr>
+            <tr data-id="8" data-date="2026-05-16"><td><div style="font-weight:600;">16 Mayıs</div><div style="font-size:var(--text-xs);color:var(--text-muted);">10:30</div></td><td>Ayşe Yıldız</td><td><span class="plate">34 VWX 234</span></td><td>Cam Su İtici</td><td>Can Özdemir</td><td><span class="tag tag-red">İptal</span></td><td style="font-weight:600;">€15</td><td><div class="actions"><button class="action-btn edit" onclick="openEditModal(8)" title="Düzenle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(8)" title="Sil"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td></tr>
+          </tbody>
+        </table>
+        <div class="cards-grid" id="cardsGrid"></div>
+      </div>
+      <div class="pagination">
+        <span class="page-info" id="pageInfo">8 randevudan 1-8 gösteriliyor</span>
+        <div class="page-btns">
+          <button class="page-btn" disabled>← Önceki</button>
+          <button class="page-btn" disabled>Sonraki →</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- Add Modal -->
+<div class="modal-overlay" id="addModal" onclick="if(event.target===this)closeModal(this.id)">
+  <div class="modal">
+    <div class="modal-header">
+      <span class="modal-title">Yeni Randevu Ekle</span>
+      <button class="modal-close" onclick="closeModal('addModal')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Müşteri Adı</label>
+          <input type="text" class="form-input" placeholder="Örn: Ahmet Yılmaz" id="addCustomer">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Telefon</label>
+          <input type="tel" class="form-input" placeholder="+90 532 123 45 67" id="addPhone">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Plaka</label>
+          <input type="text" class="form-input" placeholder="34 ABC 123" id="addPlate">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Araç Modeli</label>
+          <input type="text" class="form-input" placeholder="BMW 3 Serisi" id="addCarModel">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Tarih</label>
+          <input type="date" class="form-input" id="addDate">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Saat</label>
+          <input type="time" class="form-input" id="addTime">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Hizmet</label>
+          <select class="form-input" id="addService">
+            <option value="">Seçin...</option>
+            <option>İç Detaylı Temizlik</option>
+            <option>Dış Yıkama Premium</option>
+            <option>Dış + Cila</option>
+            <option>Motor Buharlı Temizlik</option>
+            <option>Seramik Kaplama</option>
+            <option>Far Parlatma</option>
+            <option>Jant Temizliği</option>
+            <option>Cam Su İtici</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Çalışan</label>
+          <select class="form-input" id="addStaff">
+            <option value="">Seçin...</option>
+            <option>Mehmet Kaya</option>
+            <option>Can Özdemir</option>
+            <option>Burak Yılmaz</option>
+            <option>Selin Koç</option>
+            <option>Merve Demir</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Notlar</label>
+        <textarea class="form-input" rows="3" placeholder="Müşteri talepleri, özel notlar..." id="addNotes" style="resize:vertical;"></textarea>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('addModal')">İptal</button>
+      <button class="btn btn-primary" onclick="addBooking()">Randevu Oluştur</button>
+    </div>
+  </div>
+</div>
+
+<!-- Edit Modal -->
+<div class="modal-overlay" id="editModal" onclick="if(event.target===this)closeModal(this.id)">
+  <div class="modal">
+    <div class="modal-header">
+      <span class="modal-title">Randevu Düzenle</span>
+      <button class="modal-close" onclick="closeModal('editModal')">✕</button>
+    </div>
+    <div class="modal-body">
+      <input type="hidden" id="editId">
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Müşteri Adı</label>
+          <input type="text" class="form-input" id="editCustomer">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Telefon</label>
+          <input type="tel" class="form-input" id="editPhone">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Plaka</label>
+          <input type="text" class="form-input" id="editPlate">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Araç Modeli</label>
+          <input type="text" class="form-input" id="editCarModel">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Tarih</label>
+          <input type="date" class="form-input" id="editDate">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Saat</label>
+          <input type="time" class="form-input" id="editTime">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Hizmet</label>
+          <select class="form-input" id="editService">
+            <option>İç Detaylı Temizlik</option>
+            <option>Dış Yıkama Premium</option>
+            <option>Dış + Cila</option>
+            <option>Motor Buharlı Temizlik</option>
+            <option>Seramik Kaplama</option>
+            <option>Far Parlatma</option>
+            <option>Jant Temizliği</option>
+            <option>Cam Su İtici</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Çalışan</label>
+          <select class="form-input" id="editStaff">
+            <option>Mehmet Kaya</option>
+            <option>Can Özdemir</option>
+            <option>Burak Yılmaz</option>
+            <option>Selin Koç</option>
+            <option>Merve Demir</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Durum</label>
+          <select class="form-input" id="editStatus">
+            <option value="pending">Bekliyor</option>
+            <option value="progress">Devam Ediyor</option>
+            <option value="completed">Tamamlandı</option>
+            <option value="cancelled">İptal</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Tutar (€)</label>
+          <input type="number" class="form-input" id="editPrice" step="0.01">
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('editModal')">İptal</button>
+      <button class="btn btn-primary" onclick="saveEdit()">Değişiklikleri Kaydet</button>
+    </div>
+  </div>
+</div>
+
+<!-- Delete Modal -->
+<div class="modal-overlay" id="deleteModal" onclick="if(event.target===this)closeModal(this.id)">
+  <div class="modal" style="max-width:420px;">
+    <div class="modal-header">
+      <span class="modal-title" style="color:var(--error-500);">Randevu Sil</span>
+      <button class="modal-close" onclick="closeModal('deleteModal')">✕</button>
+    </div>
+    <div class="modal-body">
+      <p style="font-size:var(--text-sm);color:var(--text-secondary);line-height:1.6;">
+        <strong id="deleteTarget"></strong> tarihli randevuyu silmek üzeresiniz. Bu işlem geri alınamaz.
+      </p>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('deleteModal')">İptal</button>
+      <button class="btn btn-danger" onclick="confirmDelete()">Evet, Sil</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast-container" id="toastContainer"></div>
+
+<script>
+function showToast(msg, type='success', dur=3000){
+  const c=document.getElementById('toastContainer');
+  const t=document.createElement('div');
+  const icon=type==='success'?'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>':'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>';
+  t.style.cssText='background:var(--bg-card);border:1px solid var(--border-color);border-radius:var(--radius-lg);padding:14px 18px;display:flex;align-items:center;gap:12px;box-shadow:var(--shadow-xl);margin-bottom:10px;animation:modalIn 0.3s ease;min-width:260px;';
+  const color=type==='success'?'var(--success-500)':'var(--error-500)';
+  t.innerHTML=`<span style="color:${color};">${icon}</span><span style="font-size:var(--text-sm);font-weight:500;">${msg}</span>`;
+  c.appendChild(t);
+  setTimeout(()=>{t.style.opacity='0';t.style.transform='translateX(20px)';t.style.transition='all 0.3s';setTimeout(()=>t.remove(),300);},dur);
+}
+
+function openModal(id){document.getElementById(id).classList.add('active');}
+function closeModal(id){document.getElementById(id).classList.remove('active');}
+
+const menuBtn = document.getElementById('menuBtn');
+const sidebar = document.getElementById('sidebar');
+const overlay = document.getElementById('sidebarOverlay');
+menuBtn.addEventListener('click', () => { sidebar.classList.toggle('open'); overlay.classList.toggle('active'); });
+overlay.addEventListener('click', () => { sidebar.classList.remove('open'); overlay.classList.remove('active'); });
+
+let deleteId=null;
+function openDeleteModal(id){
+  deleteId=id;
+  const row=document.querySelector(`tr[data-id="${id}"]`);
+  const name=row.cells[1].textContent;
+  const date=row.cells[0].querySelector('div').textContent;
+  document.getElementById('deleteTarget').textContent=`${name} — ${date}`;
+  openModal('deleteModal');
+}
+function confirmDelete(){
+  if(deleteId){
+    const row=document.querySelector(`tr[data-id="${deleteId}"]`);
+    if(row) row.remove();
+    const card=document.querySelector(`.booking-card[data-id="${deleteId}"]`);
+    if(card) card.remove();
+    delete demoData[deleteId];
+    showToast('Randevu silindi','success');
+    deleteId=null;
+    renderCards();
+    renderMiniCalendar();
+    updatePageInfo();
+  }
+  closeModal('deleteModal');
+}
+
+let editId=null;
+const demoData={
+  1:{customer:'Ahmet Yılmaz',phone:'+90 532 111 22 33',plate:'34 ABC 123',carModel:'BMW 3 Serisi',date:'2026-05-15',time:'08:00',service:'İç Detaylı Temizlik',staff:'Mehmet Kaya',status:'completed',price:'45'},
+  2:{customer:'Zeynep Kaya',phone:'+90 533 222 33 44',plate:'34 DEF 456',carModel:'Mercedes C200',date:'2026-05-15',time:'09:30',service:'Dış Yıkama Premium',staff:'Can Özdemir',status:'completed',price:'25'},
+  3:{customer:'Burak Demir',phone:'+90 534 333 44 55',plate:'34 GHI 789',carModel:'Audi A4',date:'2026-05-15',time:'11:00',service:'Dış + Cila',staff:'Selin Koç',status:'progress',price:'55'},
+  4:{customer:'Elif Şahin',phone:'+90 535 444 55 66',plate:'34 JKL 012',carModel:'Volkswagen Passat',date:'2026-05-15',time:'13:00',service:'Motor Buharlı Temizlik',staff:'Mehmet Kaya',status:'pending',price:'85'},
+  5:{customer:'Can Özdemir',phone:'+90 536 555 66 77',plate:'34 MNO 345',carModel:'Porsche Cayenne',date:'2026-05-15',time:'14:30',service:'Seramik Kaplama',staff:'Burak Yılmaz',status:'pending',price:'299'},
+  6:{customer:'Selin Koç',phone:'+90 537 666 77 88',plate:'34 PQR 678',carModel:'Mini Cooper',date:'2026-05-15',time:'16:00',service:'Far Parlatma + Jant',staff:'Merve Demir',status:'pending',price:'60'},
+  7:{customer:'Ali Veli',phone:'+90 538 777 88 99',plate:'34 STU 901',carModel:'Ford Focus',date:'2026-05-16',time:'09:00',service:'Komple Paket (İç+Dış+Cila)',staff:'Mehmet Kaya',status:'pending',price:'120'},
+  8:{customer:'Ayşe Yıldız',phone:'+90 539 888 99 00',plate:'34 VWX 234',carModel:'Renault Clio',date:'2026-05-16',time:'10:30',service:'Cam Su İtici',staff:'Can Özdemir',status:'cancelled',price:'15'},
+};
+
+function openEditModal(id){
+  editId=id;
+  const d=demoData[id];
+  if(d){
+    document.getElementById('editCustomer').value=d.customer;
+    document.getElementById('editPhone').value=d.phone;
+    document.getElementById('editPlate').value=d.plate;
+    document.getElementById('editCarModel').value=d.carModel;
+    document.getElementById('editDate').value=d.date;
+    document.getElementById('editTime').value=d.time;
+    document.getElementById('editService').value=d.service;
+    document.getElementById('editStaff').value=d.staff;
+    document.getElementById('editStatus').value=d.status;
+    document.getElementById('editPrice').value=d.price;
+  }
+  openModal('editModal');
+}
+function saveEdit(){
+  if(editId){
+    const row=document.querySelector(`tr[data-id="${editId}"]`);
+    const s=document.getElementById('editStatus').value;
+    const tagMap={pending:'tag-blue',progress:'tag-amber',completed:'tag-green',cancelled:'tag-red'};
+    const labelMap={pending:'Bekliyor',progress:'Devam Ediyor',completed:'Tamamlandı',cancelled:'İptal'};
+    const dateVal=document.getElementById('editDate').value;
+    const timeVal=document.getElementById('editTime').value;
+    const d=new Date(dateVal);
+    const months=['Ocak','Şubat','Mart','Nisan','Mayıs','Haziran','Temmuz','Ağustos','Eylül','Ekim','Kasım','Aralık'];
+    row.cells[0].innerHTML=`<div style="font-weight:600;">${d.getDate()} ${months[d.getMonth()]}</div><div style="font-size:var(--text-xs);color:var(--text-muted);">${timeVal}</div>`;
+    row.cells[1].textContent=document.getElementById('editCustomer').value;
+    row.cells[2].innerHTML=`<span class="plate">${document.getElementById('editPlate').value}</span>`;
+    row.cells[3].textContent=document.getElementById('editService').value;
+    row.cells[4].textContent=document.getElementById('editStaff').value;
+    row.cells[5].innerHTML=`<span class="tag ${tagMap[s]}">${labelMap[s]}</span>`;
+    row.cells[6].textContent='€'+document.getElementById('editPrice').value;
+    row.setAttribute('data-date',dateVal);
+    demoData[editId]={
+      customer:document.getElementById('editCustomer').value,
+      phone:document.getElementById('editPhone').value,
+      plate:document.getElementById('editPlate').value,
+      carModel:document.getElementById('editCarModel').value,
+      date:dateVal,
+      time:timeVal,
+      service:document.getElementById('editService').value,
+      staff:document.getElementById('editStaff').value,
+      status:s,
+      price:document.getElementById('editPrice').value,
+    };
+    showToast('Randevu güncellendi','success');
+    editId=null;
+    renderCards();
+    renderMiniCalendar();
+  }
+  closeModal('editModal');
+}
+function addBooking(){
+  const customer=document.getElementById('addCustomer').value;
+  const date=document.getElementById('addDate').value;
+  const time=document.getElementById('addTime').value;
+  const service=document.getElementById('addService').value;
+  const staff=document.getElementById('addStaff').value;
+  if(!customer||!date||!time||!service||!staff){showToast('Lütfen tüm alanları doldurun','error');return;}
+  const tbody=document.querySelector('#bookingsTable tbody');
+  const newId=Math.max(...Array.from(document.querySelectorAll('tr[data-id]')).map(r=>+r.dataset.id),0)+1;
+  const tr=document.createElement('tr');tr.dataset.id=newId;tr.setAttribute('data-date',date);
+  const d=new Date(date);const months=['Ocak','Şubat','Mart','Nisan','Mayıs','Haziran','Temmuz','Ağustos','Eylül','Ekim','Kasım','Aralık'];
+  const dateStr=`${d.getDate()} ${months[d.getMonth()]}`;
+  const plate=document.getElementById('addPlate').value||'—';
+  tr.innerHTML=`<td><div style="font-weight:600;">${dateStr}</div><div style="font-size:var(--text-xs);color:var(--text-muted);">${time}</div></td><td>${customer}</td><td><span class="plate">${plate}</span></td><td>${service}</td><td>${staff}</td><td><span class="tag tag-blue">Bekliyor</span></td><td style="font-weight:600;">€—</td><td><div class="actions"><button class="action-btn edit" onclick="openEditModal(${newId})" title="Düzenle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(${newId})" title="Sil"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>`;
+  tbody.appendChild(tr);
+  demoData[newId]={customer,phone:document.getElementById('addPhone').value||'',plate,carModel:document.getElementById('addCarModel').value||'',date,time,service,staff,status:'pending',price:''};
+  ['addCustomer','addPhone','addPlate','addCarModel','addDate','addTime','addService','addStaff','addNotes'].forEach(id=>document.getElementById(id).value='');
+  closeModal('addModal');showToast('Randevu eklendi','success');
+  renderCards();
+  renderMiniCalendar();
+  updatePageInfo();
+}
+
+/* ===== VIEW TOGGLE ===== */
+let currentView='table';
+function toggleView(view){
+  currentView=view;
+  document.getElementById('btnTable').classList.toggle('active',view==='table');
+  document.getElementById('btnCard').classList.toggle('active',view==='card');
+  document.getElementById('bookingsTable').style.display=view==='table'?'':'none';
+  const grid=document.getElementById('cardsGrid');
+  grid.classList.toggle('active',view==='card');
+  if(view==='card') renderCards();
+}
+
+function renderCards(){
+  const grid=document.getElementById('cardsGrid');
+  grid.innerHTML='';
+  const rows=Array.from(document.querySelectorAll('#bookingsTable tbody tr'));
+  const tagMap={pending:'tag-blue',progress:'tag-amber',completed:'tag-green',cancelled:'tag-red'};
+  const labelMap={pending:'Bekliyor',progress:'Devam Ediyor',completed:'Tamamlandı',cancelled:'İptal'};
+  rows.forEach(row=>{
+    if(row.style.display==='none') return;
+    const id=row.dataset.id;
+    const d=demoData[id]||{};
+    const dateEl=row.cells[0];
+    const dateText=dateEl.querySelector('div').textContent;
+    const timeText=dateEl.querySelectorAll('div')[1].textContent;
+    const customer=row.cells[1].textContent;
+    const plate=row.cells[2].innerHTML;
+    const service=row.cells[3].textContent;
+    const staff=row.cells[4].textContent;
+    const statusSpan=row.cells[5].querySelector('.tag');
+    const statusClass=statusSpan?Array.from(statusSpan.classList).find(c=>c.startsWith('tag-')):'tag-blue';
+    const statusText=statusSpan?statusSpan.textContent:'Bekliyor';
+    const price=row.cells[6].textContent;
+    const card=document.createElement('div');
+    card.className='booking-card';
+    card.dataset.id=id;
+    card.dataset.date=row.dataset.date;
+    card.innerHTML=`
+      <div class="booking-card-actions">
+        <button class="action-btn edit" onclick="openEditModal(${id})" title="Düzenle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>
+        <button class="action-btn delete" onclick="openDeleteModal(${id})" title="Sil"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button>
+      </div>
+      <div class="booking-card-header">
+        <div>
+          <div class="booking-card-name">${customer}</div>
+          <div class="booking-card-service">${service}</div>
+          <div class="booking-card-plate">${plate}</div>
+        </div>
+        <span class="tag ${statusClass}">${statusText}</span>
+      </div>
+      <div class="booking-card-meta">
+        <div class="booking-card-time"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg> ${dateText} — ${timeText}</div>
+        <div class="booking-card-time"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg> ${staff}</div>
+        <div class="booking-card-price">${price}</div>
+      </div>`;
+    grid.appendChild(card);
+  });
+}
+
+/* ===== MINI CALENDAR ===== */
+let calDate=new Date();
+function renderMiniCalendar(){
+  const el=document.getElementById('miniCalendar');
+  const y=calDate.getFullYear(),m=calDate.getMonth();
+  const monthNames=['Ocak','Şubat','Mart','Nisan','Mayıs','Haziran','Temmuz','Ağustos','Eylül','Ekim','Kasım','Aralık'];
+  const firstDay=new Date(y,m,1).getDay();
+  const daysInMonth=new Date(y,m+1,0).getDate();
+  const today=new Date();
+  const bookingDates=new Set(Array.from(document.querySelectorAll('#bookingsTable tbody tr')).map(r=>r.dataset.date).filter(Boolean));
+  let html=`<div class="mc-header"><div class="mc-title">${monthNames[m]} ${y}</div><div class="mc-nav"><button onclick="changeMonth(-1)">‹</button><button onclick="changeMonth(1)">›</button></div></div>`;
+  html+='<div class="mc-grid">';
+  ['Pt','Sa','Ça','Pe','Cu','Ct','Pa'].forEach(d=>html+=`<div class="mc-day-label">${d}</div>`);
+  for(let i=0;i<firstDay;i++) html+='<div></div>';
+  for(let day=1;day<=daysInMonth;day++){
+    const dateStr=`${y}-${String(m+1).padStart(2,'0')}-${String(day).padStart(2,'0')}`;
+    const isToday=today.getFullYear()===y&&today.getMonth()===m&&today.getDate()===day;
+    const hasBooking=bookingDates.has(dateStr);
+    const classes=['mc-day',isToday?'today':'',hasBooking?'has-booking':''].filter(Boolean).join(' ');
+    html+=`<button class="${classes}" onclick="selectDate('${dateStr}')">${day}</button>`;
+  }
+  html+='</div>';
+  el.innerHTML=html;
+}
+function changeMonth(delta){calDate.setMonth(calDate.getMonth()+delta);renderMiniCalendar();}
+function selectDate(dateStr){
+  document.querySelectorAll('.mc-day').forEach(b=>b.classList.remove('selected'));
+  event.target.classList.add('selected');
+  document.querySelectorAll('#bookingsTable tbody tr').forEach(row=>{row.style.display=row.dataset.date===dateStr?'':'none';});
+  renderCards();
+  updatePageInfo();
+}
+renderMiniCalendar();
+
+function updatePageInfo(){
+  const visible=Array.from(document.querySelectorAll('#bookingsTable tbody tr')).filter(r=>r.style.display!=='none').length;
+  document.getElementById('pageInfo').textContent=`${visible} randevu gösteriliyor`;
+}
+
+/* ===== SEARCH & FILTER ===== */
+document.getElementById('searchInput').addEventListener('input',function(){
+  const val=this.value.toLowerCase();
+  document.querySelectorAll('#bookingsTable tbody tr').forEach(row=>{
+    row.style.display=row.textContent.toLowerCase().includes(val)?'':'none';
+  });
+  renderCards();
+  updatePageInfo();
+});
+document.getElementById('statusFilter').addEventListener('change',function(){
+  const val=this.value;
+  const labelMap={pending:'Bekliyor',progress:'Devam Ediyor',completed:'Tamamlandı',cancelled:'İptal'};
+  document.querySelectorAll('#bookingsTable tbody tr').forEach(row=>{
+    if(!val){row.style.display='';return;}
+    const status=row.cells[5].querySelector('.tag').textContent;
+    row.style.display=status===labelMap[val]?'':'none';
+  });
+  renderCards();
+  updatePageInfo();
+});
+</script>
+</body>
+</html>
