@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CleanFix — Çalışan Yönetimi</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../css/main.css">
+<link rel="stylesheet" href="../../css/components.css">
+<style>
+.dashboard{display:flex;min-height:100vh;background:var(--bg-primary);}
+.sidebar{width:280px;height:100vh;background:var(--bg-card);border-right:1px solid var(--border-color);display:flex;flex-direction:column;position:fixed;left:0;top:0;z-index:100;transition:transform var(--duration-slow) var(--ease-out);}
+.sidebar-header{padding:20px 24px;border-bottom:1px solid var(--border-color);display:flex;align-items:center;gap:12px;}
+.sidebar-logo{width:36px;height:36px;background:linear-gradient(135deg,var(--teal-500),var(--teal-700));border-radius:10px;display:flex;align-items:center;justify-content:center;font-weight:700;color:white;font-size:14px;}
+.sidebar-nav{flex:1;overflow-y:auto;padding:16px 12px;}
+.nav-group{margin-bottom:8px;}
+.nav-group-header{display:flex;align-items:center;gap:8px;padding:8px 12px;font-size:var(--text-xs);font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.05em;}
+.nav-item{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:var(--radius-md);color:var(--text-secondary);font-size:var(--text-sm);font-weight:500;cursor:pointer;transition:all var(--duration-fast);text-decoration:none;margin-bottom:2px;}
+.nav-item:hover{background:var(--bg-tertiary);color:var(--text-primary);}
+.nav-item.active{background:rgba(20,184,166,0.1);color:var(--teal-500);}
+.nav-icon{width:20px;height:20px;opacity:0.7;}
+.nav-item.active .nav-icon{opacity:1;}
+.main-content{flex:1;margin-left:280px;min-height:100vh;}
+.header{height:64px;background:var(--bg-card);border-bottom:1px solid var(--border-color);display:flex;align-items:center;justify-content:space-between;padding:0 32px;position:sticky;top:0;z-index:50;}
+.header-left{display:flex;align-items:center;gap:16px;}
+.hamburger{display:none;background:none;border:none;color:var(--text-secondary);cursor:pointer;padding:8px;}
+.page-title{font-size:var(--text-lg);font-weight:700;}
+.header-right{display:flex;align-items:center;gap:16px;}
+.header-btn{width:36px;height:36px;border-radius:var(--radius-md);background:var(--bg-tertiary);border:1px solid var(--border-color);display:flex;align-items:center;justify-content:center;color:var(--text-secondary);cursor:pointer;transition:all var(--duration-fast);}
+.header-btn:hover{border-color:var(--teal-500);color:var(--teal-500);}
+.content{padding:32px;max-width:1400px;}
+.toolbar{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:24px;flex-wrap:wrap;}
+.search-box{flex:1;min-width:240px;position:relative;}
+.search-box input{width:100%;padding:10px 14px 10px 38px;background:var(--bg-card);border:1.5px solid var(--border-color);border-radius:var(--radius-md);color:var(--text-primary);font-size:var(--text-sm);}
+.search-box input:focus{border-color:var(--teal-500);box-shadow:0 0 0 3px var(--shadow-glow);outline:none;}
+.search-box svg{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--text-muted);pointer-events:none;}
+.card{background:var(--bg-card);border:1px solid var(--border-color);border-radius:var(--radius-xl);overflow:hidden;}
+.table{width:100%;border-collapse:collapse;}
+.table th{text-align:left;padding:14px 16px;font-size:var(--text-xs);font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.05em;border-bottom:1px solid var(--border-color);white-space:nowrap;}
+.table td{padding:14px 16px;font-size:var(--text-sm);color:var(--text-secondary);border-bottom:1px solid var(--border-color);vertical-align:middle;}
+.table tr:last-child td{border-bottom:none;}
+.table tr:hover td{background:rgba(255,255,255,0.02);}
+.avatar{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:var(--text-sm);color:white;}
+.tag{display:inline-flex;align-items:center;gap:4px;padding:4px 12px;border-radius:9999px;font-size:var(--text-xs);font-weight:500;}
+.tag-green{background:rgba(16,185,129,0.1);color:var(--success-500);}
+.tag-amber{background:rgba(245,158,11,0.1);color:var(--amber-500);}
+.tag-red{background:rgba(244,63,94,0.1);color:var(--error-500);}
+.tag-blue{background:rgba(59,130,246,0.1);color:var(--info-500);}
+.actions{display:flex;gap:6px;}
+.action-btn{width:28px;height:28px;border-radius:6px;display:flex;align-items:center;justify-content:center;background:transparent;border:none;color:var(--text-muted);cursor:pointer;transition:all var(--duration-fast);}
+.action-btn:hover{background:var(--bg-tertiary);color:var(--text-primary);}
+.action-btn.edit:hover{color:var(--info-500);background:rgba(59,130,246,0.1);}
+.action-btn.delete:hover{color:var(--error-500);background:rgba(244,63,94,0.1);}
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:200;display:none;align-items:center;justify-content:center;backdrop-filter:blur(4px);}
+.modal-overlay.active{display:flex;}
+.modal{background:var(--bg-card);border:1px solid var(--border-color);border-radius:var(--radius-xl);width:100%;max-width:560px;max-height:90vh;overflow-y:auto;box-shadow:var(--shadow-xl);animation:modalIn 0.3s cubic-bezier(0.16,1,0.3,1);}
+@keyframes modalIn{from{opacity:0;transform:translateY(20px) scale(0.98);}to{opacity:1;transform:translateY(0) scale(1);}}
+.modal-header{padding:20px 24px;border-bottom:1px solid var(--border-color);display:flex;align-items:center;justify-content:space-between;}
+.modal-title{font-size:var(--text-lg);font-weight:700;}
+.modal-close{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;background:transparent;border:none;color:var(--text-muted);cursor:pointer;transition:all var(--duration-fast);}
+.modal-close:hover{background:var(--bg-tertiary);color:var(--text-primary);}
+.modal-body{padding:20px 24px;}
+.modal-footer{padding:16px 24px;border-top:1px solid var(--border-color);display:flex;gap:12px;justify-content:flex-end;}
+.form-group{margin-bottom:16px;}
+.form-label{display:block;font-size:var(--text-xs);font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:6px;}
+.form-input{width:100%;padding:10px 14px;background:var(--bg-card);border:1.5px solid var(--border-color);border-radius:var(--radius-md);color:var(--text-primary);font-size:var(--text-sm);transition:all var(--duration-fast);}
+.form-input:focus{border-color:var(--teal-500);box-shadow:0 0 0 3px var(--shadow-glow);outline:none;}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.shift-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;margin-top:8px;}
+.shift-day{background:var(--bg-tertiary);border:1.5px solid var(--border-color);border-radius:var(--radius-md);padding:10px;text-align:center;cursor:pointer;transition:all var(--duration-fast);}
+.shift-day:hover{border-color:var(--teal-500);}
+.shift-day.active{background:rgba(20,184,166,0.15);border-color:var(--teal-500);color:var(--teal-500);}
+.shift-day .day-name{font-size:var(--text-xs);font-weight:600;margin-bottom:4px;}
+.shift-day .day-hours{font-size:var(--text-xs);color:var(--text-muted);}
+@media (max-width:1024px){.form-row{grid-template-columns:1fr;}.shift-grid{grid-template-columns:repeat(4,1fr);}}
+@media (max-width:768px){.sidebar{transform:translateX(-100%);}.sidebar.open{transform:translateX(0);}.main-content{margin-left:0;}.hamburger{display:block;}}
+</style>
+</head>
+<body>
+<div class="dashboard">
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-logo">CF</div>
+      <div><div style="font-weight:700;font-size:var(--text-sm);">CleanFix</div><div style="font-size:var(--text-xs);color:var(--text-muted);">Firma Paneli</div></div>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="nav-group">
+        <div class="nav-group-header">Ana Menü</div>
+        <a href="../../company.html" class="nav-item"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>Dashboard</a>
+        <a href="bookings.html" class="nav-item"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>Randevular</a>
+        <a href="staff.html" class="nav-item active"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>Çalışanlar</a>
+        <a href="services.html" class="nav-item"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>Hizmetler</a>
+        <a href="invoices.html" class="nav-item"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>Faturalar</a>
+      </div>
+      <div class="nav-group">
+        <div class="nav-group-header">Ayarlar</div>
+        <a href="profile.html" class="nav-item"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Firma Profili</a>
+        <a href="../../login.html" class="nav-item"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>Çıkış Yap</a>
+      </div>
+    </nav>
+  </aside>
+
+  <main class="main-content">
+    <header class="header">
+      <div class="header-left">
+        <button class="hamburger" onclick="document.getElementById('sidebar').classList.toggle('open')"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
+        <h1 class="page-title">Çalışanlar</h1>
+      </div>
+      <div class="header-right">
+        <button class="header-btn" onclick="showToast('2 yeni başvuru','success')"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg></button>
+        <div style="display:flex;align-items:center;gap:10px;"><div class="avatar" style="background:linear-gradient(135deg,#14b8a6,#0d9488);">CF</div><div><div style="font-weight:600;font-size:var(--text-sm);">CleanFix Demo BV</div><div style="font-size:var(--text-xs);color:var(--text-muted);">Business Plan</div></div></div>
+      </div>
+    </header>
+
+    <div class="content">
+      <div class="toolbar">
+        <div class="search-box">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <input type="text" placeholder="Çalışan ara..." id="searchInput">
+        </div>
+        <div style="display:flex;gap:10px;">
+          <select id="roleFilter" style="padding:10px 32px 10px 14px;background:var(--bg-card);border:1.5px solid var(--border-color);border-radius:var(--radius-md);color:var(--text-primary);font-size:var(--text-sm);appearance:none;cursor:pointer;">
+            <option value="">Tüm Roller</option>
+            <option value="Usta">Usta</option>
+            <option value="Yardımcı">Yardımcı</option>
+            <option value="Resepsiyon">Resepsiyon</option>
+          </select>
+          <button class="btn btn-primary" onclick="openModal('addModal')">+ Yeni Çalışan</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <div style="padding:0;">
+          <table class="table" id="staffTable">
+            <thead><tr><th>Çalışan</th><th>Kod</th><th>Rol</th><th>Telefon</th><th>Haftalık Mesai</th><th>Durum</th><th>İşlemler</th></tr></thead>
+            <tbody>
+              <tr data-id="1">
+                <td><div style="display:flex;align-items:center;gap:12px;"><div class="avatar" style="background:linear-gradient(135deg,#3b82f6,#1d4ed8);">AK</div><div><div style="font-weight:600;">Ahmet Kaya</div><div style="font-size:var(--text-xs);color:var(--text-muted);">ahmet@cleanfix.demo</div></div></div></td>
+                <td><code style="background:var(--bg-tertiary);padding:4px 8px;border-radius:4px;font-size:var(--text-xs);">EMP-001</code></td>
+                <td><span class="tag tag-blue">Usta</span></td>
+                <td>+32 470 10 00 01</td>
+                <td>40 saat</td>
+                <td><span class="tag tag-green">Aktif</span></td>
+                <td><div class="actions"><button class="action-btn edit" onclick="openEditModal(1)" title="Düzenle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(1)" title="Sil"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
+              </tr>
+              <tr data-id="2">
+                <td><div style="display:flex;align-items:center;gap:12px;"><div class="avatar" style="background:linear-gradient(135deg,#8b5cf6,#6d28d9);">MD</div><div><div style="font-weight:600;">Merve Demir</div><div style="font-size:var(--text-xs);color:var(--text-muted);">merve@cleanfix.demo</div></div></div></td>
+                <td><code style="background:var(--bg-tertiary);padding:4px 8px;border-radius:4px;font-size:var(--text-xs);">EMP-002</code></td>
+                <td><span class="tag tag-blue">Usta</span></td>
+                <td>+32 470 10 00 02</td>
+                <td>38 saat</td>
+                <td><span class="tag tag-green">Aktif</span></td>
+                <td><div class="actions"><button class="action-btn edit" onclick="openEditModal(2)" title="Düzenle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(2)" title="Sil"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
+              </tr>
+              <tr data-id="3">
+                <td><div style="display:flex;align-items:center;gap:12px;"><div class="avatar" style="background:linear-gradient(135deg,#f59e0b,#d97706);">AR</div><div><div style="font-weight:600;">Ali Rıza</div><div style="font-size:var(--text-xs);color:var(--text-muted);">ali@cleanfix.demo</div></div></div></td>
+                <td><code style="background:var(--bg-tertiary);padding:4px 8px;border-radius:4px;font-size:var(--text-xs);">EMP-003</code></td>
+                <td><span class="tag tag-amber">Yardımcı</span></td>
+                <td>+32 470 10 00 03</td>
+                <td>40 saat</td>
+                <td><span class="tag tag-green">Aktif</span></td>
+                <td><div class="actions"><button class="action-btn edit" onclick="openEditModal(3)" title="Düzenle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(3)" title="Sil"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
+              </tr>
+              <tr data-id="4">
+                <td><div style="display:flex;align-items:center;gap:12px;"><div class="avatar" style="background:linear-gradient(135deg,#10b981,#059669);">SC</div><div><div style="font-weight:600;">Selim Çelik</div><div style="font-size:var(--text-xs);color:var(--text-muted);">selim@cleanfix.demo</div></div></div></td>
+                <td><code style="background:var(--bg-tertiary);padding:4px 8px;border-radius:4px;font-size:var(--text-xs);">EMP-004</code></td>
+                <td><span class="tag tag-blue">Usta</span></td>
+                <td>+32 470 10 00 04</td>
+                <td>35 saat</td>
+                <td><span class="tag tag-green">Aktif</span></td>
+                <td><div class="actions"><button class="action-btn edit" onclick="openEditModal(4)" title="Düzenle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(4)" title="Sil"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
+              </tr>
+              <tr data-id="5">
+                <td><div style="display:flex;align-items:center;gap:12px;"><div class="avatar" style="background:linear-gradient(135deg,#ef4444,#dc2626);">NY</div><div><div style="font-weight:600;">Naz Yılmaz</div><div style="font-size:var(--text-xs);color:var(--text-muted);">naz@cleanfix.demo</div></div></div></td>
+                <td><code style="background:var(--bg-tertiary);padding:4px 8px;border-radius:4px;font-size:var(--text-xs);">EMP-005</code></td>
+                <td><span class="tag tag-blue">Usta</span></td>
+                <td>+32 470 10 00 05</td>
+                <td>0 saat</td>
+                <td><span class="tag tag-red">İzinli</span></td>
+                <td><div class="actions"><button class="action-btn edit" onclick="openEditModal(5)" title="Düzenle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(5)" title="Sil"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
+              </tr>
+              <tr data-id="6">
+                <td><div style="display:flex;align-items:center;gap:12px;"><div class="avatar" style="background:linear-gradient(135deg,#ec4899,#db2777);">EO</div><div><div style="font-weight:600;">Elif Özdemir</div><div style="font-size:var(--text-xs);color:var(--text-muted);">elif@cleanfix.demo</div></div></div></td>
+                <td><code style="background:var(--bg-tertiary);padding:4px 8px;border-radius:4px;font-size:var(--text-xs);">EMP-006</code></td>
+                <td><span class="tag tag-amber">Resepsiyon</span></td>
+                <td>+32 470 10 00 06</td>
+                <td>30 saat</td>
+                <td><span class="tag tag-green">Aktif</span></td>
+                <td><div class="actions"><button class="action-btn edit" onclick="openEditModal(6)" title="Düzenle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(6)" title="Sil"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<!-- Add Modal -->
+<div class="modal-overlay" id="addModal">
+  <div class="modal">
+    <div class="modal-header"><span class="modal-title">Yeni Çalışan Ekle</span><button class="modal-close" onclick="closeModal('addModal')">✕</button></div>
+    <div class="modal-body">
+      <div class="form-row">
+        <div class="form-group"><label class="form-label">Ad</label><input type="text" class="form-input" placeholder="Ahmet" id="addFirstName"></div>
+        <div class="form-group"><label class="form-label">Soyad</label><input type="text" class="form-input" placeholder="Kaya" id="addLastName"></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label class="form-label">E-posta</label><input type="email" class="form-input" placeholder="ad@cleanfix.demo" id="addEmail"></div>
+        <div class="form-group"><label class="form-label">Telefon</label><input type="tel" class="form-input" placeholder="+32 470 10 00 00" id="addPhone"></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label class="form-label">Rol</label><select class="form-input" id="addRole"><option value="">Seçin...</option><option>Usta</option><option>Yardımcı</option><option>Resepsiyon</option></select></div>
+        <div class="form-group"><label class="form-label">Haftalık Mesai (saat)</label><input type="number" class="form-input" placeholder="40" id="addHours"></div>
+      </div>
+      <div class="form-group"><label class="form-label">Uzmanlık Alanları</label><input type="text" class="form-input" placeholder="Detaylı temizlik, cila, motor..." id="addSkills"></div>
+      <div class="form-group"><label class="form-label">Haftalık Çalışma Günleri</label>
+        <div class="shift-grid">
+          <div class="shift-day" onclick="this.classList.toggle('active')" data-day="Pzt"><div class="day-name">Pzt</div><div class="day-hours">09-18</div></div>
+          <div class="shift-day" onclick="this.classList.toggle('active')" data-day="Sal"><div class="day-name">Sal</div><div class="day-hours">09-18</div></div>
+          <div class="shift-day active" onclick="this.classList.toggle('active')" data-day="Çar"><div class="day-name">Çar</div><div class="day-hours">09-18</div></div>
+          <div class="shift-day active" onclick="this.classList.toggle('active')" data-day="Per"><div class="day-name">Per</div><div class="day-hours">09-18</div></div>
+          <div class="shift-day active" onclick="this.classList.toggle('active')" data-day="Cum"><div class="day-name">Cum</div><div class="day-hours">09-18</div></div>
+          <div class="shift-day" onclick="this.classList.toggle('active')" data-day="Cmt"><div class="day-name">Cmt</div><div class="day-hours">Kapalı</div></div>
+          <div class="shift-day" onclick="this.classList.toggle('active')" data-day="Paz"><div class="day-name">Paz</div><div class="day-hours">Kapalı</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('addModal')">İptal</button>
+      <button class="btn btn-primary" onclick="addStaff()">Çalışan Ekle</button>
+    </div>
+  </div>
+</div>
+
+<!-- Edit Modal -->
+<div class="modal-overlay" id="editModal">
+  <div class="modal">
+    <div class="modal-header"><span class="modal-title">Çalışan Düzenle</span><button class="modal-close" onclick="closeModal('editModal')">✕</button></div>
+    <div class="modal-body">
+      <input type="hidden" id="editId">
+      <div class="form-row">
+        <div class="form-group"><label class="form-label">Ad</label><input type="text" class="form-input" id="editFirstName"></div>
+        <div class="form-group"><label class="form-label">Soyad</label><input type="text" class="form-input" id="editLastName"></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label class="form-label">E-posta</label><input type="email" class="form-input" id="editEmail"></div>
+        <div class="form-group"><label class="form-label">Telefon</label><input type="tel" class="form-input" id="editPhone"></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label class="form-label">Rol</label><select class="form-input" id="editRole"><option>Usta</option><option>Yardımcı</option><option>Resepsiyon</option></select></div>
+        <div class="form-group"><label class="form-label">Durum</label><select class="form-input" id="editStatus"><option value="active">Aktif</option><option value="leave">İzinli</option><option value="inactive">Pasif</option></select></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label class="form-label">Haftalık Mesai (saat)</label><input type="number" class="form-input" id="editHours"></div>
+        <div class="form-group"><label class="form-label">Çalışan Kodu</label><input type="text" class="form-input" id="editCode" readonly style="background:var(--bg-tertiary);color:var(--text-muted);"></div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('editModal')">İptal</button>
+      <button class="btn btn-primary" onclick="saveEdit()">Kaydet</button>
+    </div>
+  </div>
+</div>
+
+<!-- Delete Modal -->
+<div class="modal-overlay" id="deleteModal">
+  <div class="modal" style="max-width:420px;">
+    <div class="modal-header"><span class="modal-title" style="color:var(--error-500);">Çalışan Sil</span><button class="modal-close" onclick="closeModal('deleteModal')">✕</button></div>
+    <div class="modal-body"><p style="font-size:var(--text-sm);color:var(--text-secondary);line-height:1.6;"><strong id="deleteTarget"></strong> adlı çalışanı silmek üzeresiniz. Bu işlem geri alınamaz.</p></div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('deleteModal')">İptal</button>
+      <button class="btn btn-danger" onclick="confirmDelete()" style="background:var(--error-500);color:white;">Evet, Sil</button>
+    </div>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast-container" id="toastContainer" style="position:fixed;top:20px;right:20px;z-index:300;"></div>
+
+<script>
+function showToast(msg,type='success',dur=3000){
+  const c=document.getElementById('toastContainer');
+  const t=document.createElement('div');
+  const icon=type==='success'?'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>':'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>';
+  t.style.cssText='background:var(--bg-card);border:1px solid var(--border-color);border-radius:var(--radius-lg);padding:14px 18px;display:flex;align-items:center;gap:12px;box-shadow:var(--shadow-xl);margin-bottom:10px;animation:toastIn 0.3s ease;min-width:260px;';
+  const color=type==='success'?'var(--success-500)':'var(--error-500)';
+  t.innerHTML=`<span style="color:${color};">${icon}</span><span style="font-size:var(--text-sm);font-weight:500;">${msg}</span>`;
+  c.appendChild(t);
+  setTimeout(()=>{t.style.opacity='0';t.style.transform='translateX(20px)';t.style.transition='all 0.3s';setTimeout(()=>t.remove(),300);},dur);
+}
+function openModal(id){document.getElementById(id).classList.add('active');}
+function closeModal(id){document.getElementById(id).classList.remove('active');}
+
+let deleteId=null;
+function openDeleteModal(id){
+  deleteId=id;
+  const row=document.querySelector(`tr[data-id="${id}"]`);
+  const name=row.querySelector('.avatar').nextElementSibling.querySelector('div').textContent;
+  document.getElementById('deleteTarget').textContent=name;
+  openModal('deleteModal');
+}
+function confirmDelete(){
+  if(deleteId){document.querySelector(`tr[data-id="${deleteId}"]`).remove();showToast('Çalışan silindi','success');deleteId=null;}
+  closeModal('deleteModal');
+}
+
+const demoData={
+  1:{firstName:'Ahmet',lastName:'Kaya',email:'ahmet@cleanfix.demo',phone:'+32 470 10 00 01',role:'Usta',status:'active',hours:'40',code:'EMP-001'},
+  2:{firstName:'Merve',lastName:'Demir',email:'merve@cleanfix.demo',phone:'+32 470 10 00 02',role:'Usta',status:'active',hours:'38',code:'EMP-002'},
+  3:{firstName:'Ali',lastName:'Rıza',email:'ali@cleanfix.demo',phone:'+32 470 10 00 03',role:'Yardımcı',status:'active',hours:'40',code:'EMP-003'},
+  4:{firstName:'Selim',lastName:'Çelik',email:'selim@cleanfix.demo',phone:'+32 470 10 00 04',role:'Usta',status:'active',hours:'35',code:'EMP-004'},
+  5:{firstName:'Naz',lastName:'Yılmaz',email:'naz@cleanfix.demo',phone:'+32 470 10 00 05',role:'Usta',status:'leave',hours:'0',code:'EMP-005'},
+  6:{firstName:'Elif',lastName:'Özdemir',email:'elif@cleanfix.demo',phone:'+32 470 10 00 06',role:'Resepsiyon',status:'active',hours:'30',code:'EMP-006'},
+};
+let editId=null;
+function openEditModal(id){
+  editId=id;
+  const d=demoData[id];
+  if(d){
+    document.getElementById('editFirstName').value=d.firstName;
+    document.getElementById('editLastName').value=d.lastName;
+    document.getElementById('editEmail').value=d.email;
+    document.getElementById('editPhone').value=d.phone;
+    document.getElementById('editRole').value=d.role;
+    document.getElementById('editStatus').value=d.status;
+    document.getElementById('editHours').value=d.hours;
+    document.getElementById('editCode').value=d.code;
+  }
+  openModal('editModal');
+}
+function saveEdit(){
+  if(editId){
+    const row=document.querySelector(`tr[data-id="${editId}"]`);
+    const fn=document.getElementById('editFirstName').value;
+    const ln=document.getElementById('editLastName').value;
+    const role=document.getElementById('editRole').value;
+    const status=document.getElementById('editStatus').value;
+    const hours=document.getElementById('editHours').value;
+    const email=document.getElementById('editEmail').value;
+    const phone=document.getElementById('editPhone').value;
+    const initials=fn.charAt(0)+ln.charAt(0);
+    const roleTag=role==='Usta'?'<span class="tag tag-blue">Usta</span>':role==='Yardımcı'?'<span class="tag tag-amber">Yardımcı</span>':'<span class="tag tag-amber">Resepsiyon</span>';
+    const statusTag=status==='active'?'<span class="tag tag-green">Aktif</span>':status==='leave'?'<span class="tag tag-red">İzinli</span>':'<span class="tag tag-gray">Pasif</span>';
+    row.cells[0].innerHTML=`<div style="display:flex;align-items:center;gap:12px;"><div class="avatar" style="background:linear-gradient(135deg,#3b82f6,#1d4ed8);">${initials}</div><div><div style="font-weight:600;">${fn} ${ln}</div><div style="font-size:var(--text-xs);color:var(--text-muted);">${email}</div></div></div>`;
+    row.cells[2].innerHTML=roleTag;
+    row.cells[3].textContent=phone;
+    row.cells[4].textContent=hours+' saat';
+    row.cells[5].innerHTML=statusTag;
+    showToast('Çalışan güncellendi','success');
+    editId=null;
+  }
+  closeModal('editModal');
+}
+function addStaff(){
+  const fn=document.getElementById('addFirstName').value;
+  const ln=document.getElementById('addLastName').value;
+  const email=document.getElementById('addEmail').value;
+  const phone=document.getElementById('addPhone').value;
+  const role=document.getElementById('addRole').value;
+  const hours=document.getElementById('addHours').value;
+  if(!fn||!ln||!email||!role||!hours){showToast('Lütfen zorunlu alanları doldurun','error');return;}
+  const tbody=document.querySelector('#staffTable tbody');
+  const newId=Math.max(...Array.from(document.querySelectorAll('tr[data-id]')).map(r=>+r.dataset.id))+1;
+  const initials=fn.charAt(0)+ln.charAt(0);
+  const code='EMP-00'+newId;
+  const roleTag=role==='Usta'?'<span class="tag tag-blue">Usta</span>':role==='Yardımcı'?'<span class="tag tag-amber">Yardımcı</span>':'<span class="tag tag-amber">Resepsiyon</span>';
+  const tr=document.createElement('tr');tr.dataset.id=newId;
+  tr.innerHTML=`<td><div style="display:flex;align-items:center;gap:12px;"><div class="avatar" style="background:linear-gradient(135deg,#3b82f6,#1d4ed8);">${initials}</div><div><div style="font-weight:600;">${fn} ${ln}</div><div style="font-size:var(--text-xs);color:var(--text-muted);">${email}</div></div></div></td><td><code style="background:var(--bg-tertiary);padding:4px 8px;border-radius:4px;font-size:var(--text-xs);">${code}</code></td><td>${roleTag}</td><td>${phone||'—'}</td><td>${hours} saat</td><td><span class="tag tag-green">Aktif</span></td><td><div class="actions"><button class="action-btn edit" onclick="openEditModal(${newId})" title="Düzenle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(${newId})" title="Sil"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>`;
+  tbody.appendChild(tr);
+  ['addFirstName','addLastName','addEmail','addPhone','addHours','addSkills'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('addRole').value='';
+  document.querySelectorAll('#addModal .shift-day').forEach(d=>d.classList.remove('active'));
+  closeModal('addModal');showToast('Çalışan eklendi','success');
+}
+
+document.querySelectorAll('.modal-overlay').forEach(o=>o.addEventListener('click',e=>{if(e.target===o)o.classList.remove('active');}));
+document.getElementById('searchInput').addEventListener('input',function(){
+  const v=this.value.toLowerCase();
+  document.querySelectorAll('#staffTable tbody tr').forEach(r=>{r.style.display=r.textContent.toLowerCase().includes(v)?'':'none';});
+});
+document.getElementById('roleFilter').addEventListener('change',function(){
+  const v=this.value;
+  document.querySelectorAll('#staffTable tbody tr').forEach(r=>{
+    if(!v){r.style.display='';return;}
+    const role=r.cells[2].textContent.trim();
+    r.style.display=role===v?'':'none';
+  });
+});
+</script>
+</body>
+</html>

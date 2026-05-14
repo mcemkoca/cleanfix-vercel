@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CleanFix — Stok Yönetimi</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../css/main.css">
+<link rel="stylesheet" href="../../css/components.css">
+<style>
+.dashboard{display:flex;min-height:100vh;background:var(--bg-primary);}
+.sidebar{width:280px;height:100vh;background:var(--bg-card);border-right:1px solid var(--border-color);display:flex;flex-direction:column;position:fixed;left:0;top:0;z-index:100;transition:transform var(--duration-slow) var(--ease-out);}
+.sidebar-header{padding:20px 24px;border-bottom:1px solid var(--border-color);display:flex;align-items:center;gap:12px;}
+.sidebar-logo{width:36px;height:36px;background:linear-gradient(135deg,var(--teal-500),var(--teal-700));border-radius:10px;display:flex;align-items:center;justify-content:center;font-weight:700;color:white;font-size:14px;}
+.sidebar-nav{flex:1;overflow-y:auto;padding:16px 12px;}
+.nav-group{margin-bottom:8px;}
+.nav-group-header{display:flex;align-items:center;gap:8px;padding:8px 12px;font-size:var(--text-xs);font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.05em;}
+.nav-item{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:var(--radius-md);color:var(--text-secondary);font-size:var(--text-sm);font-weight:500;cursor:pointer;transition:all var(--duration-fast);text-decoration:none;margin-bottom:2px;}
+.nav-item:hover{background:var(--bg-tertiary);color:var(--text-primary);}
+.nav-item.active{background:rgba(20,184,166,0.1);color:var(--teal-500);}
+.nav-icon{width:20px;height:20px;opacity:0.7;}
+.nav-item.active .nav-icon{opacity:1;}
+.main-content{flex:1;margin-left:280px;min-height:100vh;}
+.header{height:64px;background:var(--bg-card);border-bottom:1px solid var(--border-color);display:flex;align-items:center;justify-content:space-between;padding:0 32px;position:sticky;top:0;z-index:50;}
+.header-left{display:flex;align-items:center;gap:16px;}
+.hamburger{display:none;background:none;border:none;color:var(--text-secondary);cursor:pointer;padding:8px;}
+.page-title{font-size:var(--text-lg);font-weight:700;}
+.header-right{display:flex;align-items:center;gap:16px;}
+.header-btn{width:36px;height:36px;border-radius:var(--radius-md);background:var(--bg-tertiary);border:1px solid var(--border-color);display:flex;align-items:center;justify-content:center;color:var(--text-secondary);cursor:pointer;transition:all var(--duration-fast);}
+.header-btn:hover{border-color:var(--teal-500);color:var(--teal-500);}
+.content{padding:32px;max-width:1400px;}
+.toolbar{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:24px;flex-wrap:wrap;}
+.search-box{flex:1;min-width:240px;position:relative;}
+.search-box input{width:100%;padding:10px 14px 10px 38px;background:var(--bg-card);border:1.5px solid var(--border-color);border-radius:var(--radius-md);color:var(--text-primary);font-size:var(--text-sm);}
+.search-box input:focus{border-color:var(--teal-500);box-shadow:0 0 0 3px var(--shadow-glow);outline:none;}
+.search-box svg{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--text-muted);pointer-events:none;}
+.card{background:var(--bg-card);border:1px solid var(--border-color);border-radius:var(--radius-xl);overflow:hidden;}
+.table{width:100%;border-collapse:collapse;}
+.table th{text-align:left;padding:14px 16px;font-size:var(--text-xs);font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.05em;border-bottom:1px solid var(--border-color);white-space:nowrap;}
+.table td{padding:14px 16px;font-size:var(--text-sm);color:var(--text-secondary);border-bottom:1px solid var(--border-color);vertical-align:middle;}
+.table tr:last-child td{border-bottom:none;}
+.table tr:hover td{background:rgba(255,255,255,0.02);}
+.tag{display:inline-flex;align-items:center;gap:4px;padding:4px 12px;border-radius:9999px;font-size:var(--text-xs);font-weight:500;}
+.tag-green{background:rgba(16,185,129,0.1);color:var(--success-500);}
+.tag-amber{background:rgba(245,158,11,0.1);color:var(--amber-500);}
+.tag-red{background:rgba(244,63,94,0.1);color:var(--error-500);}
+.tag-gray{background:rgba(100,116,139,0.1);color:var(--text-muted);}
+.tag-blue{background:rgba(59,130,246,0.1);color:var(--info-500);}
+.tag-purple{background:rgba(139,92,246,0.1);color:#8b5cf6;}
+.stock-bar{height:6px;background:var(--bg-tertiary);border-radius:9999px;overflow:hidden;margin-top:6px;}
+.stock-fill{height:100%;border-radius:9999px;transition:width 0.5s ease,background 0.3s ease;}
+.stock-info{display:flex;align-items:center;gap:8px;font-size:var(--text-xs);color:var(--text-muted);margin-top:4px;}
+.actions{display:flex;gap:6px;}
+.action-btn{width:28px;height:28px;border-radius:6px;display:flex;align-items:center;justify-content:center;background:transparent;border:none;color:var(--text-muted);cursor:pointer;transition:all var(--duration-fast);}
+.action-btn:hover{background:var(--bg-tertiary);color:var(--text-primary);}
+.action-btn.edit:hover{color:var(--info-500);background:rgba(59,130,246,0.1);}
+.action-btn.delete:hover{color:var(--error-500);background:rgba(244,63,94,0.1);}
+.action-btn.move:hover{color:var(--success-500);background:rgba(16,185,129,0.1);}
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:200;display:none;align-items:center;justify-content:center;backdrop-filter:blur(4px);}
+.modal-overlay.active{display:flex;}
+.modal{background:var(--bg-card);border:1px solid var(--border-color);border-radius:var(--radius-xl);width:100%;max-width:560px;max-height:90vh;overflow-y:auto;box-shadow:var(--shadow-xl);animation:modalIn 0.3s cubic-bezier(0.16,1,0.3,1);}
+@keyframes modalIn{from{opacity:0;transform:translateY(20px) scale(0.98);}to{opacity:1;transform:translateY(0) scale(1);}}
+.modal-header{padding:20px 24px;border-bottom:1px solid var(--border-color);display:flex;align-items:center;justify-content:space-between;}
+.modal-title{font-size:var(--text-lg);font-weight:700;}
+.modal-close{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;background:transparent;border:none;color:var(--text-muted);cursor:pointer;transition:all var(--duration-fast);}
+.modal-close:hover{background:var(--bg-tertiary);color:var(--text-primary);}
+.modal-body{padding:20px 24px;}
+.modal-footer{padding:16px 24px;border-top:1px solid var(--border-color);display:flex;gap:12px;justify-content:flex-end;}
+.form-group{margin-bottom:16px;}
+.form-label{display:block;font-size:var(--text-xs);font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:6px;}
+.form-input{width:100%;padding:10px 14px;background:var(--bg-card);border:1.5px solid var(--border-color);border-radius:var(--radius-md);color:var(--text-primary);font-size:var(--text-sm);transition:all var(--duration-fast);}
+.form-input:focus{border-color:var(--teal-500);box-shadow:0 0 0 3px var(--shadow-glow);outline:none;}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.move-preview{margin-top:12px;padding:12px;background:var(--bg-tertiary);border-radius:var(--radius-md);font-size:var(--text-sm);}
+.move-preview-bar{height:6px;background:var(--bg-card);border-radius:9999px;overflow:hidden;margin-top:8px;}
+@media (max-width:1024px){.form-row{grid-template-columns:1fr;}}
+@media (max-width:768px){.sidebar{transform:translateX(-100%);}.sidebar.open{transform:translateX(0);}.main-content{margin-left:0;}.hamburger{display:block;}}
+</style>
+</head>
+<body>
+<div class="dashboard">
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-logo">CF</div>
+      <div><div style="font-weight:700;font-size:var(--text-sm);">CleanFix</div><div style="font-size:var(--text-xs);color:var(--text-muted);">Firma Paneli</div></div>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="nav-group">
+        <div class="nav-group-header">Ana Menü</div>
+        <a href="../../company.html" class="nav-item"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>Dashboard</a>
+        <a href="bookings.html" class="nav-item"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>Randevular</a>
+        <a href="staff.html" class="nav-item"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>Çalışanlar</a>
+        <a href="services.html" class="nav-item"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>Hizmetler</a>
+        <a href="invoices.html" class="nav-item"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>Faturalar</a>
+        <a href="customers.html" class="nav-item"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>Müşteriler</a>
+        <a href="stock.html" class="nav-item active"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>Stok</a>
+        <a href="reviews.html" class="nav-item"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>Değerlendirmeler</a>
+      </div>
+      <div class="nav-group">
+        <div class="nav-group-header">Ayarlar</div>
+        <a href="profile.html" class="nav-item"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Firma Profili</a>
+        <a href="../../login.html" class="nav-item"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>Çıkış Yap</a>
+      </div>
+    </nav>
+  </aside>
+
+  <main class="main-content">
+    <header class="header">
+      <div class="header-left">
+        <button class="hamburger" onclick="document.getElementById('sidebar').classList.toggle('open')"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
+        <h1 class="page-title">Stok Yönetimi</h1>
+      </div>
+      <div class="header-right">
+        <button class="header-btn" onclick="showToast('Stok raporu güncellendi','success')"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></button>
+        <div style="display:flex;align-items:center;gap:10px;"><div class="avatar" style="width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:var(--text-xs);color:white;background:linear-gradient(135deg,#14b8a6,#0d9488);">CF</div><div><div style="font-weight:600;font-size:var(--text-sm);">CleanFix Demo BV</div><div style="font-size:var(--text-xs);color:var(--text-muted);">Business Plan</div></div></div>
+      </div>
+    </header>
+
+    <div class="content">
+      <div class="toolbar">
+        <div class="search-box">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <input type="text" placeholder="Ürün ara..." id="searchInput">
+        </div>
+        <div style="display:flex;gap:10px;">
+          <select id="catFilter" style="padding:10px 32px 10px 14px;background:var(--bg-card);border:1.5px solid var(--border-color);border-radius:var(--radius-md);color:var(--text-primary);font-size:var(--text-sm);appearance:none;cursor:pointer;">
+            <option value="">Tüm Kategoriler</option>
+            <option value="Temizlik Malzemeleri">Temizlik Malzemeleri</option>
+            <option value="Ekipman">Ekipman</option>
+            <option value="Sarf Malzeme">Sarf Malzeme</option>
+            <option value="Kimyasal">Kimyasal</option>
+          </select>
+          <select id="stockFilter" style="padding:10px 32px 10px 14px;background:var(--bg-card);border:1.5px solid var(--border-color);border-radius:var(--radius-md);color:var(--text-primary);font-size:var(--text-sm);appearance:none;cursor:pointer;">
+            <option value="">Tüm Seviyeler</option>
+            <option value="Yeterli">Yeterli</option>
+            <option value="Az">Az</option>
+            <option value="Kritik">Kritik</option>
+          </select>
+          <button class="btn btn-primary" onclick="openModal('addModal')">+ Yeni Ürün</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <div style="padding:0;">
+          <table class="table" id="stockTable">
+            <thead><tr><th>Ürün</th><th>Kategori</th><th>Stok Seviyesi</th><th>Eşik (Min/Max)</th><th>Birim</th><th>Durum</th><th>İşlemler</th></tr></thead>
+            <tbody>
+              <tr data-id="1">
+                <td><div style="font-weight:600;">Çok Amaçlı Temizleyici</div></td>
+                <td><span class="tag tag-blue">Temizlik Malzemeleri</span></td>
+                <td>
+                  <div style="font-weight:600;">15 adet</div>
+                  <div class="stock-bar"><div class="stock-fill" style="width:30%;background:var(--success-500);"></div></div>
+                  <div class="stock-info"><span class="tag tag-green">Yeterli</span></div>
+                </td>
+                <td>5 / 50</td>
+                <td style="font-size:var(--text-xs);color:var(--text-muted);">1L şişe</td>
+                <td><span class="tag tag-green">Aktif</span></td>
+                <td><div class="actions"><button class="action-btn move" onclick="openMoveModal(1,'in')" title="Stok Girişi"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button><button class="action-btn move" onclick="openMoveModal(1,'out')" title="Stok Çıkışı"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/></svg></button><button class="action-btn edit" onclick="openEditModal(1)" title="Düzenle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(1)" title="Sil"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
+              </tr>
+              <tr data-id="2">
+                <td><div style="font-weight:600;">Cam Temizleyici</div></td>
+                <td><span class="tag tag-blue">Temizlik Malzemeleri</span></td>
+                <td>
+                  <div style="font-weight:600;">8 adet</div>
+                  <div class="stock-bar"><div class="stock-fill" style="width:20%;background:var(--amber-500);"></div></div>
+                  <div class="stock-info"><span class="tag tag-amber">Az</span></div>
+                </td>
+                <td>5 / 40</td>
+                <td style="font-size:var(--text-xs);color:var(--text-muted);">750ml sprey</td>
+                <td><span class="tag tag-green">Aktif</span></td>
+                <td><div class="actions"><button class="action-btn move" onclick="openMoveModal(2,'in')" title="Stok Girişi"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button><button class="action-btn move" onclick="openMoveModal(2,'out')" title="Stok Çıkışı"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/></svg></button><button class="action-btn edit" onclick="openEditModal(2)" title="Düzenle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(2)" title="Sil"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
+              </tr>
+              <tr data-id="3">
+                <td><div style="font-weight:600;">Banyo Temizleyici</div></td>
+                <td><span class="tag tag-blue">Temizlik Malzemeleri</span></td>
+                <td>
+                  <div style="font-weight:600;">22 adet</div>
+                  <div class="stock-bar"><div class="stock-fill" style="width:37%;background:var(--success-500);"></div></div>
+                  <div class="stock-info"><span class="tag tag-green">Yeterli</span></div>
+                </td>
+                <td>10 / 60</td>
+                <td style="font-size:var(--text-xs);color:var(--text-muted);">500ml şişe</td>
+                <td><span class="tag tag-green">Aktif</span></td>
+                <td><div class="actions"><button class="action-btn move" onclick="openMoveModal(3,'in')" title="Stok Girişi"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button><button class="action-btn move" onclick="openMoveModal(3,'out')" title="Stok Çıkışı"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/></svg></button><button class="action-btn edit" onclick="openEditModal(3)" title="Düzenle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(3)" title="Sil"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
+              </tr>
+              <tr data-id="4">
+                <td><div style="font-weight:600;">Zemin Cilası</div></td>
+                <td><span class="tag tag-blue">Temizlik Malzemeleri</span></td>
+                <td>
+                  <div style="font-weight:600;">3 adet</div>
+                  <div class="stock-bar"><div class="stock-fill" style="width:15%;background:var(--success-500);"></div></div>
+                  <div class="stock-info"><span class="tag tag-green">Yeterli</span></div>
+                </td>
+                <td>2 / 20</td>
+                <td style="font-size:var(--text-xs);color:var(--text-muted);">5L bidon</td>
+                <td><span class="tag tag-green">Aktif</span></td>
+                <td><div class="actions"><button class="action-btn move" onclick="openMoveModal(4,'in')" title="Stok Girişi"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button><button class="action-btn move" onclick="openMoveModal(4,'out')" title="Stok Çıkışı"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/></svg></button><button class="action-btn edit" onclick="openEditModal(4)" title="Düzenle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(4)" title="Sil"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
+              </tr>
+              <tr data-id="5">
+                <td><div style="font-weight:600;">Vakum Süpürge</div></td>
+                <td><span class="tag tag-green">Ekipman</span></td>
+                <td>
+                  <div style="font-weight:600;">4 adet</div>
+                  <div class="stock-bar"><div class="stock-fill" style="width:40%;background:var(--success-500);"></div></div>
+                  <div class="stock-info"><span class="tag tag-green">Yeterli</span></div>
+                </td>
+                <td>2 / 10</td>
+                <td style="font-size:var(--text-xs);color:var(--text-muted);">Karcher WD 3</td>
+                <td><span class="tag tag-green">Aktif</span></td>
+                <td><div class="actions"><button class="action-btn move" onclick="openMoveModal(5,'in')" title="Stok Girişi"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button><button class="action-btn move" onclick="openMoveModal(5,'out')" title="Stok Çıkışı"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/></svg></button><button class="action-btn edit" onclick="openEditModal(5)" title="Düzenle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(5)" title="Sil"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
+              </tr>
+              <tr data-id="6">
+                <td><div style="font-weight:600;">Buharlı Makine</div></td>
+                <td><span class="tag tag-green">Ekipman</span></td>
+                <td>
+                  <div style="font-weight:600;">2 adet</div>
+                  <div class="stock-bar"><div class="stock-fill" style="width:40%;background:var(--success-500);"></div></div>
+                  <div class="stock-info"><span class="tag tag-green">Yeterli</span></div>
+                </td>
+                <td>1 / 5</td>
+                <td style="font-size:var(--text-xs);color:var(--text-muted);">Karcher SC 3</td>
+                <td><span class="tag tag-green">Aktif</span></td>
+                <td><div class="actions"><button class="action-btn move" onclick="openMoveModal(6,'in')" title="Stok Girişi"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button><button class="action-btn move" onclick="openMoveModal(6,'out')" title="Stok Çıkışı"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/></svg></button><button class="action-btn edit" onclick="openEditModal(6)" title="Düzenle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(6)" title="Sil"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
+              </tr>
+              <tr data-id="7">
+                <td><div style="font-weight:600;">Zemin Yıkama Makinesi</div></td>
+                <td><span class="tag tag-green">Ekipman</span></td>
+                <td>
+                  <div style="font-weight:600;">1 adet</div>
+                  <div class="stock-bar"><div class="stock-fill" style="width:33%;background:var(--success-500);"></div></div>
+                  <div class="stock-info"><span class="tag tag-green">Yeterli</span></div>
+                </td>
+                <td>1 / 3</td>
+                <td style="font-size:var(--text-xs);color:var(--text-muted);">Tennant T300</td>
+                <td><span class="tag tag-green">Aktif</span></td>
+                <td><div class="actions"><button class="action-btn move" onclick="openMoveModal(7,'in')" title="Stok Girişi"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button><button class="action-btn move" onclick="openMoveModal(7,'out')" title="Stok Çıkışı"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/></svg></button><button class="action-btn edit" onclick="openEditModal(7)" title="Düzenle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(7)" title="Sil"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
+              </tr>
+              <tr data-id="8">
+                <td><div style="font-weight:600;">Mikrofiber Mop</div></td>
+                <td><span class="tag tag-green">Ekipman</span></td>
+                <td>
+                  <div style="font-weight:600;">12 adet</div>
+                  <div class="stock-bar"><div class="stock-fill" style="width:40%;background:var(--success-500);"></div></div>
+                  <div class="stock-info"><span class="tag tag-green">Yeterli</span></div>
+                </td>
+                <td>5 / 30</td>
+                <td style="font-size:var(--text-xs);color:var(--text-muted);">Profesyonel</td>
+                <td><span class="tag tag-green">Aktif</span></td>
+                <td><div class="actions"><button class="action-btn move" onclick="openMoveModal(8,'in')" title="Stok Girişi"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button><button class="action-btn move" onclick="openMoveModal(8,'out')" title="Stok Çıkışı"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/></svg></button><button class="action-btn edit" onclick="openEditModal(8)" title="Düzenle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(8)" title="Sil"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
+              </tr>
+              <tr data-id="9">
+                <td><div style="font-weight:600;">Mikrofiber Bez</div></td>
+                <td><span class="tag tag-amber">Sarf Malzeme</span></td>
+                <td>
+                  <div style="font-weight:600;">45 adet</div>
+                  <div class="stock-bar"><div class="stock-fill" style="width:45%;background:var(--success-500);"></div></div>
+                  <div class="stock-info"><span class="tag tag-green">Yeterli</span></div>
+                </td>
+                <td>20 / 100</td>
+                <td style="font-size:var(--text-xs);color:var(--text-muted);">Paket (10 adet)</td>
+                <td><span class="tag tag-green">Aktif</span></td>
+                <td><div class="actions"><button class="action-btn move" onclick="openMoveModal(9,'in')" title="Stok Girişi"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button><button class="action-btn move" onclick="openMoveModal(9,'out')" title="Stok Çıkışı"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/></svg></button><button class="action-btn edit" onclick="openEditModal(9)" title="Düzenle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(9)" title="Sil"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
+              </tr>
+              <tr data-id="10">
+                <td><div style="font-weight:600;">Mop Başlığı</div></td>
+                <td><span class="tag tag-amber">Sarf Malzeme</span></td>
+                <td>
+                  <div style="font-weight:600;">18 adet</div>
+                  <div class="stock-bar"><div class="stock-fill" style="width:36%;background:var(--success-500);"></div></div>
+                  <div class="stock-info"><span class="tag tag-green">Yeterli</span></div>
+                </td>
+                <td>10 / 50</td>
+                <td style="font-size:var(--text-xs);color:var(--text-muted);">Yedek</td>
+                <td><span class="tag tag-green">Aktif</span></td>
+                <td><div class="actions"><button class="action-btn move" onclick="openMoveModal(10,'in')" title="Stok Girişi"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button><button class="action-btn move" onclick="openMoveModal(10,'out')" title="Stok Çıkışı"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/></svg></button><button class="action-btn edit" onclick="openEditModal(10)" title="Düzenle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(10)" title="Sil"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
+              </tr>
+              <tr data-id="11">
+                <td><div style="font-weight:600;">Eldiven</div></td>
+                <td><span class="tag tag-amber">Sarf Malzeme</span></td>
+                <td>
+                  <div style="font-weight:600;">8 adet</div>
+                  <div class="stock-bar"><div class="stock-fill" style="width:27%;background:var(--amber-500);"></div></div>
+                  <div class="stock-info"><span class="tag tag-amber">Az</span></div>
+                </td>
+                <td>5 / 30</td>
+                <td style="font-size:var(--text-xs);color:var(--text-muted);">Nitril (100'lü)</td>
+                <td><span class="tag tag-green">Aktif</span></td>
+                <td><div class="actions"><button class="action-btn move" onclick="openMoveModal(11,'in')" title="Stok Girişi"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button><button class="action-btn move" onclick="openMoveModal(11,'out')" title="Stok Çıkışı"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/></svg></button><button class="action-btn edit" onclick="openEditModal(11)" title="Düzenle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(11)" title="Sil"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
+              </tr>
+              <tr data-id="12">
+                <td><div style="font-weight:600;">Çöp Torbası</div></td>
+                <td><span class="tag tag-amber">Sarf Malzeme</span></td>
+                <td>
+                  <div style="font-weight:600;">6 adet</div>
+                  <div class="stock-bar"><div class="stock-fill" style="width:12%;background:var(--error-500);"></div></div>
+                  <div class="stock-info"><span class="tag tag-red">Kritik</span></div>
+                </td>
+                <td>10 / 50</td>
+                <td style="font-size:var(--text-xs);color:var(--text-muted);">120L (25'li)</td>
+                <td><span class="tag tag-green">Aktif</span></td>
+                <td><div class="actions"><button class="action-btn move" onclick="openMoveModal(12,'in')" title="Stok Girişi"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button><button class="action-btn move" onclick="openMoveModal(12,'out')" title="Stok Çıkışı"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/></svg></button><button class="action-btn edit" onclick="openEditModal(12)" title="Düzenle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(12)" title="Sil"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
+              </tr>
+              <tr data-id="13">
+                <td><div style="font-weight:600;">Dezenfektan</div></td>
+                <td><span class="tag tag-purple">Kimyasal</span></td>
+                <td>
+                  <div style="font-weight:600;">4 adet</div>
+                  <div class="stock-bar"><div class="stock-fill" style="width:27%;background:var(--success-500);"></div></div>
+                  <div class="stock-info"><span class="tag tag-green">Yeterli</span></div>
+                </td>
+                <td>3 / 15</td>
+                <td style="font-size:var(--text-xs);color:var(--text-muted);">5L bidon</td>
+                <td><span class="tag tag-green">Aktif</span></td>
+                <td><div class="actions"><button class="action-btn move" onclick="openMoveModal(13,'in')" title="Stok Girişi"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button><button class="action-btn move" onclick="openMoveModal(13,'out')" title="Stok Çıkışı"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/></svg></button><button class="action-btn edit" onclick="openEditModal(13)" title="Düzenle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(13)" title="Sil"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
+              </tr>
+              <tr data-id="14">
+                <td><div style="font-weight:600;">Leke Çıkarıcı</div></td>
+                <td><span class="tag tag-purple">Kimyasal</span></td>
+                <td>
+                  <div style="font-weight:600;">9 adet</div>
+                  <div class="stock-bar"><div class="stock-fill" style="width:36%;background:var(--success-500);"></div></div>
+                  <div class="stock-info"><span class="tag tag-green">Yeterli</span></div>
+                </td>
+                <td>5 / 25</td>
+                <td style="font-size:var(--text-xs);color:var(--text-muted);">500ml şişe</td>
+                <td><span class="tag tag-green">Aktif</span></td>
+                <td><div class="actions"><button class="action-btn move" onclick="openMoveModal(14,'in')" title="Stok Girişi"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button><button class="action-btn move" onclick="openMoveModal(14,'out')" title="Stok Çıkışı"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/></svg></button><button class="action-btn edit" onclick="openEditModal(14)" title="Düzenle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(14)" title="Sil"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
+              </tr>
+              <tr data-id="15">
+                <td><div style="font-weight:600;">Kireç Çözücü</div></td>
+                <td><span class="tag tag-purple">Kimyasal</span></td>
+                <td>
+                  <div style="font-weight:600;">14 adet</div>
+                  <div class="stock-bar"><div class="stock-fill" style="width:47%;background:var(--success-500);"></div></div>
+                  <div class="stock-info"><span class="tag tag-green">Yeterli</span></div>
+                </td>
+                <td>5 / 30</td>
+                <td style="font-size:var(--text-xs);color:var(--text-muted);">1L şişe</td>
+                <td><span class="tag tag-gray">Pasif</span></td>
+                <td><div class="actions"><button class="action-btn move" onclick="openMoveModal(15,'in')" title="Stok Girişi"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button><button class="action-btn move" onclick="openMoveModal(15,'out')" title="Stok Çıkışı"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/></svg></button><button class="action-btn edit" onclick="openEditModal(15)" title="Düzenle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(15)" title="Sil"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
+              </tr>
+              <tr data-id="16">
+                <td><div style="font-weight:600;">Parlatıcı</div></td>
+                <td><span class="tag tag-purple">Kimyasal</span></td>
+                <td>
+                  <div style="font-weight:600;">7 adet</div>
+                  <div class="stock-bar"><div class="stock-fill" style="width:35%;background:var(--success-500);"></div></div>
+                  <div class="stock-info"><span class="tag tag-green">Yeterli</span></div>
+                </td>
+                <td>5 / 20</td>
+                <td style="font-size:var(--text-xs);color:var(--text-muted);">750ml sprey</td>
+                <td><span class="tag tag-green">Aktif</span></td>
+                <td><div class="actions"><button class="action-btn move" onclick="openMoveModal(16,'in')" title="Stok Girişi"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button><button class="action-btn move" onclick="openMoveModal(16,'out')" title="Stok Çıkışı"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/></svg></button><button class="action-btn edit" onclick="openEditModal(16)" title="Düzenle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(16)" title="Sil"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<!-- Add Modal -->
+<div class="modal-overlay" id="addModal">
+  <div class="modal">
+    <div class="modal-header"><span class="modal-title">Yeni Ürün Ekle</span><button class="modal-close" onclick="closeModal('addModal')">✕</button></div>
+    <div class="modal-body">
+      <div class="form-group"><label class="form-label">Ürün Adı</label><input type="text" class="form-input" placeholder="Örn: Çok Amaçlı Temizleyici" id="addName"></div>
+      <div class="form-row">
+        <div class="form-group"><label class="form-label">Kategori</label><select class="form-input" id="addCat"><option value="">Seçin...</option><option>Temizlik Malzemeleri</option><option>Ekipman</option><option>Sarf Malzeme</option><option>Kimyasal</option></select></div>
+        <div class="form-group"><label class="form-label">Durum</label><select class="form-input" id="addStatus"><option value="active">Aktif</option><option value="passive">Pasif</option></select></div>
+      </div>
+      <div class="form-group"><label class="form-label">Birim Açıklaması</label><input type="text" class="form-input" placeholder="Örn: 1L şişe, Paket (10 adet), Karcher WD 3" id="addUnit"></div>
+      <div class="form-row">
+        <div class="form-group"><label class="form-label">Mevcut Stok</label><input type="number" class="form-input" placeholder="0" id="addQty" min="0"></div>
+        <div class="form-group"><label class="form-label">Minimum Eşik</label><input type="number" class="form-input" placeholder="5" id="addMin" min="0"></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label class="form-label">Maksimum Eşik</label><input type="number" class="form-input" placeholder="50" id="addMax" min="1"></div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('addModal')">İptal</button>
+      <button class="btn btn-primary" onclick="addProduct()">Ürün Ekle</button>
+    </div>
+  </div>
+</div>
+
+<!-- Edit Modal -->
+<div class="modal-overlay" id="editModal">
+  <div class="modal">
+    <div class="modal-header"><span class="modal-title">Ürün Düzenle</span><button class="modal-close" onclick="closeModal('editModal')">✕</button></div>
+    <div class="modal-body">
+      <input type="hidden" id="editId">
+      <div class="form-group"><label class="form-label">Ürün Adı</label><input type="text" class="form-input" id="editName"></div>
+      <div class="form-row">
+        <div class="form-group"><label class="form-label">Kategori</label><select class="form-input" id="editCat"><option>Temizlik Malzemeleri</option><option>Ekipman</option><option>Sarf Malzeme</option><option>Kimyasal</option></select></div>
+        <div class="form-group"><label class="form-label">Durum</label><select class="form-input" id="editStatus"><option value="active">Aktif</option><option value="passive">Pasif</option></select></div>
+      </div>
+      <div class="form-group"><label class="form-label">Birim Açıklaması</label><input type="text" class="form-input" id="editUnit"></div>
+      <div class="form-row">
+        <div class="form-group"><label class="form-label">Mevcut Stok</label><input type="number" class="form-input" id="editQty" min="0"></div>
+        <div class="form-group"><label class="form-label">Minimum Eşik</label><input type="number" class="form-input" id="editMin" min="0"></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label class="form-label">Maksimum Eşik</label><input type="number" class="form-input" id="editMax" min="1"></div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('editModal')">İptal</button>
+      <button class="btn btn-primary" onclick="saveEdit()">Kaydet</button>
+    </div>
+  </div>
+</div>
+
+<!-- Move Modal -->
+<div class="modal-overlay" id="moveModal">
+  <div class="modal" style="max-width:460px;">
+    <div class="modal-header"><span class="modal-title" id="moveTitle">Stok Girişi</span><button class="modal-close" onclick="closeModal('moveModal')">✕</button></div>
+    <div class="modal-body">
+      <input type="hidden" id="moveId">
+      <input type="hidden" id="moveType">
+      <input type="hidden" id="moveCurrent">
+      <input type="hidden" id="moveMin">
+      <input type="hidden" id="moveMax">
+      <div class="form-group"><label class="form-label">Miktar</label><input type="number" class="form-input" placeholder="1" id="moveQty" min="1" oninput="updateMovePreview()"></div>
+      <div class="form-group"><label class="form-label">Açıklama</label><input type="text" class="form-input" placeholder="Tedarik / Kullanım nedeni..." id="moveDesc"></div>
+      <div class="move-preview" id="movePreview" style="display:none;">
+        <div style="display:flex;justify-content:space-between;margin-bottom:4px;"><span style="color:var(--text-muted);">Mevcut:</span><span id="previewCurrent" style="font-weight:600;"></span></div>
+        <div style="display:flex;justify-content:space-between;margin-bottom:4px;"><span style="color:var(--text-muted);">Sonuç:</span><span id="previewResult" style="font-weight:600;"></span></div>
+        <div class="move-preview-bar"><div id="previewBar" style="height:100%;border-radius:9999px;transition:width 0.3s ease;"></div></div>
+        <div style="margin-top:6px;font-size:var(--text-xs);color:var(--text-muted);" id="previewStatus"></div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('moveModal')">İptal</button>
+      <button class="btn btn-primary" onclick="submitMove()">Onayla</button>
+    </div>
+  </div>
+</div>
+
+<!-- Delete Modal -->
+<div class="modal-overlay" id="deleteModal">
+  <div class="modal" style="max-width:420px;">
+    <div class="modal-header"><span class="modal-title" style="color:var(--error-500);">Ürün Sil</span><button class="modal-close" onclick="closeModal('deleteModal')">✕</button></div>
+    <div class="modal-body"><p style="font-size:var(--text-sm);color:var(--text-secondary);line-height:1.6;"><strong id="deleteTarget"></strong> ürününü silmek üzeresiniz. Bu işlem geri alınamaz.</p></div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('deleteModal')">İptal</button>
+      <button class="btn btn-danger" onclick="confirmDelete()" style="background:var(--error-500);color:white;">Evet, Sil</button>
+    </div>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast-container" id="toastContainer" style="position:fixed;top:20px;right:20px;z-index:300;"></div>
+
+<script>
+function showToast(msg,type='success',dur=3000){
+  const c=document.getElementById('toastContainer');
+  const t=document.createElement('div');
+  const icon=type==='success'?'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>':'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>';
+  t.style.cssText='background:var(--bg-card);border:1px solid var(--border-color);border-radius:var(--radius-lg);padding:14px 18px;display:flex;align-items:center;gap:12px;box-shadow:var(--shadow-xl);margin-bottom:10px;animation:toastIn 0.3s ease;min-width:260px;';
+  const color=type==='success'?'var(--success-500)':'var(--error-500)';
+  t.innerHTML=`<span style="color:${color};">${icon}</span><span style="font-size:var(--text-sm);font-weight:500;">${msg}</span>`;
+  c.appendChild(t);
+  setTimeout(()=>{t.style.opacity='0';t.style.transform='translateX(20px)';t.style.transition='all 0.3s';setTimeout(()=>t.remove(),300);},dur);
+}
+function openModal(id){document.getElementById(id).classList.add('active');}
+function closeModal(id){document.getElementById(id).classList.remove('active');}
+
+let deleteId=null;
+function openDeleteModal(id){
+  deleteId=id;
+  const row=document.querySelector(`tr[data-id="${id}"]`);
+  const name=row.cells[0].querySelector('div').textContent;
+  document.getElementById('deleteTarget').textContent=name;
+  openModal('deleteModal');
+}
+function confirmDelete(){
+  if(deleteId){document.querySelector(`tr[data-id="${deleteId}"]`).remove();showToast('Ürün silindi','success');deleteId=null;}
+  closeModal('deleteModal');
+}
+
+let moveId=null;
+function openMoveModal(id,type){
+  moveId=id;
+  const row=document.querySelector(`tr[data-id="${id}"]`);
+  const qty=parseInt(row.cells[2].querySelector('div').textContent);
+  const minMax=row.cells[3].textContent.split('/');
+  const min=parseInt(minMax[0].trim());
+  const max=parseInt(minMax[1].trim());
+  document.getElementById('moveId').value=id;
+  document.getElementById('moveType').value=type;
+  document.getElementById('moveCurrent').value=qty;
+  document.getElementById('moveMin').value=min;
+  document.getElementById('moveMax').value=max;
+  document.getElementById('moveTitle').textContent=type==='in'?'Stok Girişi':'Stok Çıkışı';
+  document.getElementById('moveQty').value='';
+  document.getElementById('moveDesc').value='';
+  document.getElementById('movePreview').style.display='none';
+  openModal('moveModal');
+}
+function updateMovePreview(){
+  const qtyInput=document.getElementById('moveQty');
+  const qty=parseInt(qtyInput.value)||0;
+  const type=document.getElementById('moveType').value;
+  const current=parseInt(document.getElementById('moveCurrent').value);
+  const min=parseInt(document.getElementById('moveMin').value);
+  const max=parseInt(document.getElementById('moveMax').value);
+  if(qty<1){document.getElementById('movePreview').style.display='none';return;}
+  let result=type==='in'?current+qty:current-qty;
+  const preview=document.getElementById('movePreview');
+  preview.style.display='block';
+  document.getElementById('previewCurrent').textContent=current+' adet';
+  const resultEl=document.getElementById('previewResult');
+  resultEl.textContent=result+' adet';
+  resultEl.style.color=result<0?'var(--error-500)':'var(--text-primary)';
+  const pct=Math.max(0,Math.min((result/max)*100,100));
+  const bar=document.getElementById('previewBar');
+  bar.style.width=pct+'%';
+  let statusText='',barColor='';
+  if(result<=min){statusText='Kritik seviye — sipariş vermelisiniz';barColor='var(--error-500)';}
+  else if(result<=min*2){statusText='Az seviye — yakında sipariş planlayın';barColor='var(--amber-500)';}
+  else{statusText='Yeterli seviye';barColor='var(--success-500)';}
+  if(result<0){statusText='Yetersiz stok! Çıkış yapılamaz.';barColor='var(--error-500)';}
+  document.getElementById('previewStatus').textContent=statusText;
+  bar.style.background=barColor;
+}
+function submitMove(){
+  const qty=parseInt(document.getElementById('moveQty').value);
+  const type=document.getElementById('moveType').value;
+  if(!qty||qty<1){showToast('Geçerli miktar girin','error');return;}
+  const row=document.querySelector(`tr[data-id="${moveId}"]`);
+  const current=parseInt(document.getElementById('moveCurrent').value);
+  let newQty=type==='in'?current+qty:current-qty;
+  if(type==='out'&&current<qty){showToast('Yetersiz stok!','error');return;}
+  const min=parseInt(document.getElementById('moveMin').value);
+  const max=parseInt(document.getElementById('moveMax').value);
+  updateRowStock(row,newQty,min,max);
+  if(type==='in'){showToast(`${qty} adet giriş yapıldı`,'success');}
+  else{showToast(`${qty} adet çıkış yapıldı`,'success');}
+  closeModal('moveModal');
+}
+function updateRowStock(row,qty,min,max){
+  const pct=Math.min((qty/max)*100,100);
+  let status,statusClass,color;
+  if(qty<=min){status='Kritik';statusClass='tag-red';color='var(--error-500)';}
+  else if(qty<=min*2){status='Az';statusClass='tag-amber';color='var(--amber-500)';}
+  else{status='Yeterli';statusClass='tag-green';color='var(--success-500)';}
+  row.cells[2].innerHTML=`<div style="font-weight:600;">${qty} adet</div><div class="stock-bar"><div class="stock-fill" style="width:${pct}%;background:${color};"></div></div><div class="stock-info"><span class="tag ${statusClass}">${status}</span></div>`;
+}
+
+const demoData={
+  1:{name:'Çok Amaçlı Temizleyici',cat:'Temizlik Malzemeleri',unit:'1L şişe',qty:15,min:5,max:50,status:'active'},
+  2:{name:'Cam Temizleyici',cat:'Temizlik Malzemeleri',unit:'750ml sprey',qty:8,min:5,max:40,status:'active'},
+  3:{name:'Banyo Temizleyici',cat:'Temizlik Malzemeleri',unit:'500ml şişe',qty:22,min:10,max:60,status:'active'},
+  4:{name:'Zemin Cilası',cat:'Temizlik Malzemeleri',unit:'5L bidon',qty:3,min:2,max:20,status:'active'},
+  5:{name:'Vakum Süpürge',cat:'Ekipman',unit:'Karcher WD 3',qty:4,min:2,max:10,status:'active'},
+  6:{name:'Buharlı Makine',cat:'Ekipman',unit:'Karcher SC 3',qty:2,min:1,max:5,status:'active'},
+  7:{name:'Zemin Yıkama Makinesi',cat:'Ekipman',unit:'Tennant T300',qty:1,min:1,max:3,status:'active'},
+  8:{name:'Mikrofiber Mop',cat:'Ekipman',unit:'Profesyonel',qty:12,min:5,max:30,status:'active'},
+  9:{name:'Mikrofiber Bez',cat:'Sarf Malzeme',unit:'Paket (10 adet)',qty:45,min:20,max:100,status:'active'},
+  10:{name:'Mop Başlığı',cat:'Sarf Malzeme',unit:'Yedek',qty:18,min:10,max:50,status:'active'},
+  11:{name:'Eldiven',cat:'Sarf Malzeme',unit:'Nitril (100\'lü)',qty:8,min:5,max:30,status:'active'},
+  12:{name:'Çöp Torbası',cat:'Sarf Malzeme',unit:'120L (25\'li)',qty:6,min:10,max:50,status:'active'},
+  13:{name:'Dezenfektan',cat:'Kimyasal',unit:'5L bidon',qty:4,min:3,max:15,status:'active'},
+  14:{name:'Leke Çıkarıcı',cat:'Kimyasal',unit:'500ml şişe',qty:9,min:5,max:25,status:'active'},
+  15:{name:'Kireç Çözücü',cat:'Kimyasal',unit:'1L şişe',qty:14,min:5,max:30,status:'passive'},
+  16:{name:'Parlatıcı',cat:'Kimyasal',unit:'750ml sprey',qty:7,min:5,max:20,status:'active'},
+};
+function getCatTag(cat){
+  const map={
+    'Temizlik Malzemeleri':'tag-blue',
+    'Ekipman':'tag-green',
+    'Sarf Malzeme':'tag-amber',
+    'Kimyasal':'tag-purple'
+  };
+  return `<span class="tag ${map[cat]||'tag-gray'}">${cat}</span>`;
+}
+function getStatusTag(status){
+  return status==='active'?'<span class="tag tag-green">Aktif</span>':'<span class="tag tag-gray">Pasif</span>';
+}
+
+let editId=null;
+function openEditModal(id){
+  editId=id;
+  const d=demoData[id];
+  if(d){
+    document.getElementById('editName').value=d.name;
+    document.getElementById('editCat').value=d.cat;
+    document.getElementById('editUnit').value=d.unit;
+    document.getElementById('editQty').value=d.qty;
+    document.getElementById('editMin').value=d.min;
+    document.getElementById('editMax').value=d.max;
+    document.getElementById('editStatus').value=d.status;
+  }
+  openModal('editModal');
+}
+function saveEdit(){
+  if(editId){
+    const row=document.querySelector(`tr[data-id="${editId}"]`);
+    const name=document.getElementById('editName').value;
+    const cat=document.getElementById('editCat').value;
+    const unit=document.getElementById('editUnit').value;
+    const qty=parseInt(document.getElementById('editQty').value);
+    const min=parseInt(document.getElementById('editMin').value);
+    const max=parseInt(document.getElementById('editMax').value);
+    const status=document.getElementById('editStatus').value;
+    if(!name||!cat||!unit||isNaN(qty)||isNaN(min)||isNaN(max)){showToast('Lütfen tüm alanları doldurun','error');return;}
+    row.cells[0].innerHTML=`<div style="font-weight:600;">${name}</div>`;
+    row.cells[1].innerHTML=getCatTag(cat);
+    updateRowStock(row,qty,min,max);
+    row.cells[3].textContent=`${min} / ${max}`;
+    row.cells[4].innerHTML=`<div style="font-size:var(--text-xs);color:var(--text-muted);">${unit}</div>`;
+    row.cells[5].innerHTML=getStatusTag(status);
+    demoData[editId]={name,cat,unit,qty,min,max,status};
+    showToast('Ürün güncellendi','success');
+    editId=null;
+  }
+  closeModal('editModal');
+}
+function addProduct(){
+  const name=document.getElementById('addName').value;
+  const cat=document.getElementById('addCat').value;
+  const unit=document.getElementById('addUnit').value;
+  const qty=parseInt(document.getElementById('addQty').value);
+  const min=parseInt(document.getElementById('addMin').value);
+  const max=parseInt(document.getElementById('addMax').value);
+  const status=document.getElementById('addStatus').value;
+  if(!name||!cat||!unit||isNaN(qty)||isNaN(min)||isNaN(max)){showToast('Lütfen tüm alanları doldurun','error');return;}
+  const tbody=document.querySelector('#stockTable tbody');
+  const newId=Math.max(...Array.from(document.querySelectorAll('tr[data-id]')).map(r=>+r.dataset.id))+1;
+  const pct=Math.min((qty/max)*100,100);
+  let stockStatus,stockClass,color;
+  if(qty<=min){stockStatus='Kritik';stockClass='tag-red';color='var(--error-500)';}
+  else if(qty<=min*2){stockStatus='Az';stockClass='tag-amber';color='var(--amber-500)';}
+  else{stockStatus='Yeterli';stockClass='tag-green';color='var(--success-500)';}
+  const tr=document.createElement('tr');tr.dataset.id=newId;
+  tr.innerHTML=`<td><div style="font-weight:600;">${name}</div></td><td>${getCatTag(cat)}</td><td><div style="font-weight:600;">${qty} adet</div><div class="stock-bar"><div class="stock-fill" style="width:${pct}%;background:${color};"></div></div><div class="stock-info"><span class="tag ${stockClass}">${stockStatus}</span></div></td><td>${min} / ${max}</td><td style="font-size:var(--text-xs);color:var(--text-muted);">${unit}</td><td>${getStatusTag(status)}</td><td><div class="actions"><button class="action-btn move" onclick="openMoveModal(${newId},'in')" title="Stok Girişi"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button><button class="action-btn move" onclick="openMoveModal(${newId},'out')" title="Stok Çıkışı"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/></svg></button><button class="action-btn edit" onclick="openEditModal(${newId})" title="Düzenle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(${newId})" title="Sil"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>`;
+  tbody.appendChild(tr);
+  demoData[newId]={name,cat,unit,qty,min,max,status};
+  ['addName','addUnit','addQty','addMin','addMax'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('addCat').value='';
+  document.getElementById('addStatus').value='active';
+  closeModal('addModal');showToast('Ürün eklendi','success');
+}
+
+document.querySelectorAll('.modal-overlay').forEach(o=>o.addEventListener('click',e=>{if(e.target===o)o.classList.remove('active');}));
+document.getElementById('searchInput').addEventListener('input',function(){
+  const v=this.value.toLowerCase();
+  document.querySelectorAll('#stockTable tbody tr').forEach(r=>{r.style.display=r.textContent.toLowerCase().includes(v)?'':'none';});
+});
+document.getElementById('catFilter').addEventListener('change',function(){
+  const v=this.value;
+  document.querySelectorAll('#stockTable tbody tr').forEach(r=>{
+    if(!v){r.style.display='';return;}
+    const cat=r.cells[1].textContent.trim();
+    r.style.display=cat===v?'':'none';
+  });
+});
+document.getElementById('stockFilter').addEventListener('change',function(){
+  const v=this.value;
+  document.querySelectorAll('#stockTable tbody tr').forEach(r=>{
+    if(!v){r.style.display='';return;}
+    const status=r.cells[2].querySelector('.stock-info .tag').textContent.trim();
+    r.style.display=status===v?'':'none';
+  });
+});
+</script>
+</body>
+</html>

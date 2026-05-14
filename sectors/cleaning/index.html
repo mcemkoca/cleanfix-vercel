@@ -6,8 +6,8 @@
 <title>CleanFix — Admin Dashboard</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/main.css">
-<link rel="stylesheet" href="css/components.css">
+<link rel="stylesheet" href="../../css/main.css">
+<link rel="stylesheet" href="../../css/components.css">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 <style>
 /* ── Variables Override ── */
@@ -54,46 +54,6 @@
 }
 .sidebar-logo h2 { font-size:var(--text-base); font-weight:700; letter-spacing:-0.02em; }
 .sidebar-logo p { font-size:var(--text-xs); color:var(--text-muted); }
-
-/* ── Sector Dropdown ── */
-.sector-dropdown { margin-top: var(--space-3); position: relative; }
-.sector-dropdown-toggle {
-  display: flex; align-items: center; justify-content: space-between; gap: var(--space-2);
-  width: 100%; padding: 8px var(--space-3); border-radius: var(--radius-md);
-  background: var(--bg-secondary); border: 1px solid var(--border-color);
-  color: var(--text-primary); font-size: var(--text-sm); font-weight: 500;
-  cursor: pointer; transition: all var(--duration-fast);
-}
-.sector-dropdown-toggle:hover { border-color: var(--teal-500); background: var(--bg-tertiary); }
-.sector-dropdown-toggle .sector-icon { font-size: 16px; }
-.sector-dropdown-toggle .sector-name { flex: 1; text-align: left; }
-.sector-dropdown-toggle svg { color: var(--text-muted); flex-shrink: 0; }
-.sector-dropdown-menu {
-  position: absolute; top: 100%; left: 0; right: 0; margin-top: 4px;
-  background: var(--bg-card); border: 1px solid var(--border-color);
-  border-radius: var(--radius-md); box-shadow: var(--card-shadow-hover);
-  z-index: 200; opacity: 0; visibility: hidden;
-  transform: translateY(-4px); transition: all var(--duration-fast);
-  max-height: 260px; overflow-y: auto;
-}
-.sector-dropdown.open .sector-dropdown-menu { opacity: 1; visibility: visible; transform: translateY(0); }
-.sector-dropdown-item {
-  display: flex; align-items: center; gap: var(--space-3);
-  padding: 10px var(--space-3); color: var(--text-secondary);
-  font-size: var(--text-sm); text-decoration: none; transition: all var(--duration-fast);
-  border-bottom: 1px solid var(--border-color);
-}
-.sector-dropdown-item:last-child { border-bottom: none; }
-.sector-dropdown-item:hover { background: var(--bg-secondary); color: var(--text-primary); }
-.sector-dropdown-item .sector-item-icon { font-size: 18px; width: 24px; text-align: center; }
-.sector-dropdown-item .sector-item-name { flex: 1; }
-.sector-dropdown-item .sector-item-status {
-  font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em;
-  padding: 2px 6px; border-radius: 4px;
-}
-.sector-dropdown-item .sector-item-status.active { background: rgba(16,185,129,0.15); color: #10b981; }
-.sector-dropdown-item .sector-item-status.planned { background: var(--bg-tertiary); color: var(--text-muted); }
-.sector-dropdown-item.current { background: rgba(20,184,166,0.08); color: var(--teal-500); }
 .sidebar-nav { flex:1; overflow-y:auto; padding:var(--space-3); }
 .nav-group { margin-bottom:var(--space-4); }
 .nav-label {
@@ -459,55 +419,11 @@
         <p>CleanFix Demo BV</p>
       </div>
     </div>
-    <div class="sector-dropdown" id="sectorDropdown">
-      <button class="sector-dropdown-toggle" onclick="toggleSectorDropdown()">
-        <span class="sector-icon">🧹</span>
-        <span class="sector-name">Temizlik</span>
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
-      </button>
-      <div class="sector-dropdown-menu">
-        <a class="sector-dropdown-item current" href="sectors/cleaning/index.html">
-          <span class="sector-item-icon">🧹</span>
-          <span class="sector-item-name">Temizlik</span>
-          <span class="sector-item-status active">Aktif</span>
-        </a>
-        <a class="sector-dropdown-item" href="sectors/carwash/index.html">
-          <span class="sector-item-icon">🚗</span>
-          <span class="sector-item-name">CarWash</span>
-          <span class="sector-item-status active">Aktif</span>
-        </a>
-        <a class="sector-dropdown-item" href="sectors/construction/index.html">
-          <span class="sector-item-icon">🏗️</span>
-          <span class="sector-item-name">İnşaat</span>
-          <span class="sector-item-status planned">Planlanan</span>
-        </a>
-        <a class="sector-dropdown-item" href="sectors/barber/index.html">
-          <span class="sector-item-icon">✂️</span>
-          <span class="sector-item-name">Berber & Kuaför</span>
-          <span class="sector-item-status planned">Planlanan</span>
-        </a>
-        <a class="sector-dropdown-item" href="sectors/market/index.html">
-          <span class="sector-item-icon">🛒</span>
-          <span class="sector-item-name">Market & Bakkal</span>
-          <span class="sector-item-status planned">Planlanan</span>
-        </a>
-        <a class="sector-dropdown-item" href="sectors/doctor/index.html">
-          <span class="sector-item-icon">🏥</span>
-          <span class="sector-item-name">Doktor & Klinik</span>
-          <span class="sector-item-status planned">Planlanan</span>
-        </a>
-        <a class="sector-dropdown-item" href="sectors/restaurant/index.html">
-          <span class="sector-item-icon">🍽️</span>
-          <span class="sector-item-name">Restoran</span>
-          <span class="sector-item-status planned">Planlanan</span>
-        </a>
-      </div>
-    </div>
   </div>
   <nav class="sidebar-nav">
     <div class="nav-group">
       <div class="nav-label">Ana Menü</div>
-      <a class="nav-item active" href="dashboard.html">
+      <a class="nav-item active" href="index.html">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg>
         Dashboard
       </a>
@@ -521,17 +437,17 @@
         Müşteriler
         <span class="nav-badge">156</span>
       </a>
-      <a class="nav-item" href="company-services.html">
+      <a class="nav-item" href="services.html">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
         Hizmetler
         <span class="nav-badge">12</span>
       </a>
-      <a class="nav-item" href="company-stock.html">
+      <a class="nav-item" href="stock.html">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
         Ürünler
         <span class="nav-badge">45</span>
       </a>
-      <a class="nav-item" href="company-invoices.html">
+      <a class="nav-item" href="invoices.html">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
         Faturalar
         <span class="nav-badge">28</span>
@@ -539,29 +455,29 @@
     </div>
     <div class="nav-group">
       <div class="nav-label">Yönetim</div>
-      <a class="nav-item" href="company-analytics.html">
+      <a class="nav-item" href="analytics.html">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 20V10"/><path d="M12 20V4"/><path d="M6 20v-6"/></svg>
         Raporlar
       </a>
-      <a class="nav-item" href="company-staff.html">
+      <a class="nav-item" href="staff.html">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
         Personel
         <span class="nav-badge">8</span>
       </a>
-      <a class="nav-item" href="company-sectors.html">
+      <a class="nav-item" href="../../company-sectors.html">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M17 21v-4"/><path d="M7 21v-4"/><path d="M12 21v-4"/></svg>
         Sektörler
       </a>
-      <a class="nav-item" href="company-tools.html">
+      <a class="nav-item" href="tools.html">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
         Araçlar
       </a>
-      <a class="nav-item" href="company-profile.html">
+      <a class="nav-item" href="profile.html">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>
         Destek
         <span class="nav-badge">5</span>
       </a>
-      <a class="nav-item" href="company-profile.html">
+      <a class="nav-item" href="profile.html">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
         Ayarlar
       </a>
@@ -1103,18 +1019,6 @@ function markAllRead(){
   if(badge){badge.style.display='none';}
   showToast('Tüm bildirimler okundu olarak işaretlendi','success');
 }
-
-/* ── Sector Dropdown ── */
-function toggleSectorDropdown(){
-  const dd=document.getElementById('sectorDropdown');
-  dd.classList.toggle('open');
-}
-document.addEventListener('click',(e)=>{
-  const dd=document.getElementById('sectorDropdown');
-  if(dd&&dd.classList.contains('open')&&!dd.contains(e.target)){
-    dd.classList.remove('open');
-  }
-});
 
 /* ── Toast ── */
 function showToast(msg,type='success',dur=3000){

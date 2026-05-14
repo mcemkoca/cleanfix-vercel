@@ -11,7 +11,7 @@
       "icon": "🧹",
       "status": "active",
       "description": "Profesyonel temizlik firmaları için yönetim paneli",
-      "path": "/",
+      "path": "/sectors/cleaning/",
       "themeColor": "#14b8a6",
       "modules": ["dashboard", "bookings", "customers", "services", "staff", "invoices", "stock", "equipment", "quality", "expenses", "tools"],
       "firms": 4,
