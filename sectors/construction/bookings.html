@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CleanFix — İnşaat Projeleri</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0f0f0f;--card:#1a1a1a;--card-2:#242424;--text:#f0f0f0;--text-2:#a0a0a0;--accent:#f59e0b;--accent-2:#d97706;--border:rgba(255,255,255,0.06);--glass:rgba(255,255,255,0.04);--success:#22c55e;--warning:#eab308;--danger:#ef4444;--info:#3b82f6}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden}
+::-webkit-scrollbar{width:6px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--accent);border-radius:3px}
+@keyframes fadeIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+@keyframes slideIn{from{opacity:0;transform:translateX(-20px)}to{opacity:1;transform:translateX(0)}}
+.glass{background:var(--glass);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid var(--border);border-radius:16px}
+.card{background:linear-gradient(145deg,var(--card),var(--card-2));border:1px solid var(--border);border-radius:16px;transition:all .3s ease}
+.card:hover{border-color:rgba(245,158,11,.3);transform:translateY(-2px)}
+.btn-accent{background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#000;border:none;padding:10px 20px;border-radius:10px;font-weight:600;cursor:pointer;transition:all .3s ease;font-size:13px}
+.btn-accent:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(245,158,11,.35)}
+.btn-outline{background:transparent;border:1px solid var(--border);color:var(--text);padding:10px 20px;border-radius:10px;cursor:pointer;transition:all .3s ease;font-size:13px}
+.btn-outline:hover{border-color:var(--accent);color:var(--accent)}
+.btn-danger{background:transparent;border:1px solid var(--danger);color:var(--danger);padding:10px 20px;border-radius:10px;cursor:pointer;transition:all .3s ease;font-size:13px}
+.btn-danger:hover{background:var(--danger);color:#fff}
+.badge{padding:4px 12px;border-radius:20px;font-size:11px;font-weight:600}
+.badge-planlama{background:rgba(59,130,246,.15);color:#60a5fa}
+.badge-kazi{background:rgba(234,179,8,.15);color:#facc15}
+.badge-temel{background:rgba(168,85,247,.15);color:#c084fc}
+.badge-duvar{background:rgba(245,158,11,.15);color:#fbbf24}
+.badge-siva{background:rgba(14,165,233,.15);color:#38bdf8}
+.badge-boya{background:rgba(34,197,94,.15);color:#4ade80}
+.badge-temizlik{background:rgba(6,182,212,.15);color:#22d3ee}
+.badge-teslim{background:rgba(34,197,94,.2);color:#22c55e}
+.badge-devam{background:rgba(245,158,11,.15);color:#fbbf24}
+.sidebar{position:fixed;left:0;top:0;width:260px;height:100vh;background:linear-gradient(180deg,var(--card),#121212);border-right:1px solid var(--border);z-index:100;display:flex;flex-direction:column;padding:20px 0;overflow-y:auto;transition:transform .3s ease}
+.sidebar-header{padding:0 20px 20px;border-bottom:1px solid var(--border);margin-bottom:16px}
+.logo{display:flex;align-items:center;gap:10px;font-size:18px;font-weight:800;color:var(--accent);letter-spacing:-.5px}
+.logo i{font-size:22px}
+.sector-switch{position:relative;margin:12px 20px}
+.sector-switch select{width:100%;padding:10px 14px;background:var(--card-2);border:1px solid var(--border);border-radius:10px;color:var(--text);font-family:inherit;font-size:13px;cursor:pointer;appearance:none;-webkit-appearance:none}
+.sector-switch::after{content:'\f107';font-family:'Font Awesome 6 Free';font-weight:900;position:absolute;right:14px;top:50%;transform:translateY(-50%);color:var(--accent);pointer-events:none;font-size:12px}
+.nav-item{display:flex;align-items:center;gap:12px;padding:12px 20px;color:var(--text-2);text-decoration:none;font-size:14px;font-weight:500;transition:all .2s ease;border-left:3px solid transparent;margin:2px 0;cursor:pointer}
+.nav-item:hover,.nav-item.active{color:var(--accent);background:rgba(245,158,11,.06);border-left-color:var(--accent)}
+.nav-item i{width:20px;text-align:center;font-size:15px}
+.nav-bottom{margin-top:auto;border-top:1px solid var(--border);padding-top:12px}
+.main-content{margin-left:260px;padding:28px 32px;min-height:100vh}
+.header-bar{display:flex;justify-content:space-between;align-items:center;margin-bottom:28px;animation:fadeIn .5s ease}
+.header-bar h1{font-size:26px;font-weight:700;letter-spacing:-.3px}
+.header-bar h1 span{color:var(--accent);font-weight:800}
+.header-actions{display:flex;gap:12px;align-items:center}
+.search-box{position:relative}
+.search-box input{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:10px 14px 10px 38px;color:var(--text);font-family:inherit;font-size:13px;width:260px;transition:all .3s ease}
+.search-box input:focus{outline:none;border-color:var(--accent);width:300px}
+.search-box i{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--text-2);font-size:13px}
+.user-avatar{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent-2));display:flex;align-items:center;justify-content:center;font-weight:700;color:#000;font-size:14px;cursor:pointer;border:2px solid rgba(245,158,11,.3)}
+.view-toggle{display:flex;background:var(--card);border:1px solid var(--border);border-radius:10px;padding:3px}
+.view-toggle button{background:none;border:none;color:var(--text-2);padding:8px 16px;border-radius:8px;font-size:13px;cursor:pointer;transition:all .2s ease;font-family:inherit}
+.view-toggle button.active{background:rgba(245,158,11,.15);color:var(--accent);font-weight:600}
+.calendar-mini{padding:20px}
+.calendar-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
+.calendar-header h4{font-size:15px;font-weight:600}
+.calendar-header button{background:none;border:none;color:var(--accent);cursor:pointer;font-size:14px;width:28px;height:28px;border-radius:6px;display:flex;align-items:center;justify-content:center}
+.calendar-header button:hover{background:rgba(245,158,11,.1)}
+.calendar-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;text-align:center}
+.calendar-day-header{font-size:11px;color:var(--text-2);font-weight:600;padding:6px 0;text-transform:uppercase}
+.calendar-day{aspect-ratio:1;display:flex;flex-direction:column;align-items:center;justify-content:center;border-radius:8px;font-size:12px;cursor:pointer;transition:all .2s ease;position:relative;padding:4px}
+.calendar-day:hover{background:rgba(245,158,11,.1)}
+.calendar-day.today{background:rgba(245,158,11,.15);color:var(--accent);font-weight:700}
+.calendar-day.other{color:var(--text-2);opacity:.4}
+.calendar-day .dot{width:5px;height:5px;border-radius:50%;margin-top:3px}
+.calendar-day .dot.planlama{background:#3b82f6}
+.calendar-day .dot.kazi{background:#eab308}
+.calendar-day .dot.temel{background:#a855f7}
+.calendar-day .dot.duvar{background:#f59e0b}
+.calendar-day .dot.siva{background:#0ea5e9}
+.calendar-day .dot.boya{background:#22c55e}
+.calendar-day .dot.teslim{background:#22c55e}
+.project-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-bottom:24px}
+.project-card{padding:20px;position:relative;overflow:hidden}
+.project-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--accent),var(--accent-2));transform:scaleX(0);transition:transform .3s ease}
+.project-card:hover::before{transform:scaleX(1)}
+.project-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px}
+.project-title{font-size:15px;font-weight:700;line-height:1.3}
+.project-customer{font-size:12px;color:var(--text-2);margin-top:4px}
+.project-meta{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
+.project-meta-item{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--text-2)}
+.project-meta-item i{color:var(--accent);font-size:11px;width:14px}
+.project-phase{display:flex;align-items:center;gap:6px;margin-bottom:14px;padding:10px;background:var(--card-2);border-radius:10px;font-size:12px}
+.phase-bar{display:flex;flex:1;gap:3px;height:6px}
+.phase-segment{flex:1;border-radius:3px;background:rgba(255,255,255,.08);transition:all .3s ease}
+.phase-segment.completed{background:var(--success)}
+.phase-segment.active{background:var(--accent)}
+.phase-segment.pending{background:rgba(255,255,255,.08)}
+.phase-labels{display:flex;justify-content:space-between;font-size:10px;color:var(--text-2);margin-top:6px}
+.progress-row{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.progress-bar{flex:1;background:rgba(255,255,255,.06);border-radius:6px;height:8px;overflow:hidden}
+.progress-fill{background:linear-gradient(90deg,var(--accent),var(--accent-2));height:100%;border-radius:6px;transition:width .5s ease}
+.progress-text{font-size:12px;color:var(--text-2);font-weight:500;min-width:40px;text-align:right}
+.project-footer{display:flex;justify-content:space-between;align-items:center;padding-top:14px;border-top:1px solid var(--border)}
+.project-foreman{font-size:12px;color:var(--text-2);display:flex;align-items:center;gap:6px}
+.project-foreman i{color:var(--accent)}
+.project-table{width:100%;border-collapse:collapse;margin-bottom:24px;display:none}
+.project-table.active{display:table}
+.project-table th{text-align:left;padding:14px 16px;font-size:12px;font-weight:600;color:var(--text-2);text-transform:uppercase;letter-spacing:.5px;border-bottom:1px solid var(--border);background:rgba(245,158,11,.04)}
+.project-table td{padding:14px 16px;font-size:13px;border-bottom:1px solid var(--border);vertical-align:middle}
+.project-table tr:hover td{background:rgba(245,158,11,.03)}
+.phase-indicator{display:flex;gap:4px;align-items:center}
+.phase-dot{width:10px;height:10px;border-radius:50%;border:2px solid transparent;position:relative}
+.phase-dot.completed{background:var(--success);border-color:var(--success)}
+.phase-dot.active{background:var(--accent);border-color:var(--accent);box-shadow:0 0 8px var(--accent)}
+.phase-dot.pending{background:transparent;border-color:rgba(255,255,255,.15)}
+.phase-connector{flex:1;height:2px;background:rgba(255,255,255,.08);max-width:20px}
+.phase-connector.completed{background:var(--success)}
+.phase-connector.active{background:rgba(245,158,11,.3)}
+.menu-toggle{display:none;position:fixed;top:16px;left:16px;z-index:200;width:40px;height:40px;border-radius:10px;background:var(--card);border:1px solid var(--border);color:var(--text);align-items:center;justify-content:center;cursor:pointer;font-size:18px}
+.overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);backdrop-filter:blur(4px);z-index:99}
+@media(max-width:1200px){.project-cards{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:768px){.sidebar{transform:translateX(-100%)}.sidebar.open{transform:translateX(0)}.main-content{margin-left:0;padding:20px}.menu-toggle{display:flex}.overlay.active{display:block}.project-cards{grid-template-columns:1fr}.search-box input{width:180px}.header-bar h1{font-size:20px}}
+</style>
+</head>
+<body>
+<button class="menu-toggle" onclick="toggleSidebar()"><i class="fas fa-bars"></i></button>
+<div class="overlay" onclick="toggleSidebar()"></div>
+<aside class="sidebar" id="sidebar">
+<div class="sidebar-header">
+<div class="logo"><i class="fas fa-hard-hat"></i> CleanFix</div>
+<div style="font-size:12px;color:var(--text-2);margin-top:6px;margin-left:32px">İnşaat Sektörü</div>
+</div>
+<div class="sector-switch">
+<select onchange="switchSector(this.value)">
+<option value="" selected>Sektör Seç</option>
+<option value="construction">İnşaat</option>
+<option value="healthcare">Sağlık</option>
+<option value="logistics">Lojistik</option>
+<option value="hospitality">Konaklama</option>
+<option value="manufacturing">Üretim</option>
+<option value="retail">Perakende</option>
+<option value="education">Eğitim</option>
+<option value="finance">Finans</option>
+<option value="realestate">Emlak</option>
+<option value="agriculture">Tarım</option>
+</select>
+</div>
+<nav>
+<a class="nav-item" href="index.html"><i class="fas fa-chart-line"></i> Dashboard</a>
+<a class="nav-item active" href="bookings.html"><i class="fas fa-project-diagram"></i> Projeler</a>
+<a class="nav-item" href="services.html"><i class="fas fa-tools"></i> Hizmetler</a>
+<a class="nav-item" href="#"><i class="fas fa-users"></i> Müşteriler</a>
+<a class="nav-item" href="#"><i class="fas fa-user-hard-hat"></i> Personel</a>
+<a class="nav-item" href="#"><i class="fas fa-file-invoice"></i> Faturalar</a>
+<a class="nav-item" href="#"><i class="fas fa-boxes"></i> Stok</a>
+<a class="nav-item" href="#"><i class="fas fa-truck-moving"></i> Ekipman</a>
+<a class="nav-item" href="#"><i class="fas fa-clipboard-check"></i> Kalite</a>
+<a class="nav-item" href="#"><i class="fas fa-coins"></i> Giderler</a>
+<a class="nav-item" href="#"><i class="fas fa-shield-alt"></i> İş Güvenliği</a>
+</nav>
+<div class="nav-bottom">
+<a class="nav-item" href="/cleanfix-vercel/company-dashboard.html"><i class="fas fa-arrow-left"></i> Ana Dashboard</a>
+<a class="nav-item" href="#" style="color:var(--danger)"><i class="fas fa-sign-out-alt"></i> Çıkış</a>
+</div>
+</aside>
+<main class="main-content">
+<div class="header-bar">
+<div>
+<h1>İnşaat <span>Projeleri</span></h1>
+<div style="font-size:13px;color:var(--text-2);margin-top:4px">Tüm şantiye projeleri, takvimi ve durumları</div>
+</div>
+<div class="header-actions">
+<div class="search-box"><i class="fas fa-search"></i><input type="text" id="projectSearch" placeholder="Proje ara..." onkeyup="filterProjects()"></div>
+<div class="view-toggle">
+<button class="active" onclick="setView('cards')" id="btnCards"><i class="fas fa-th-large"></i> Kart</button>
+<button onclick="setView('table')" id="btnTable"><i class="fas fa-list"></i> Liste</button>
+</div>
+<button class="btn-accent" onclick="openModal('addProjectModal')"><i class="fas fa-plus" style="margin-right:6px"></i>Yeni Proje</button>
+<div class="user-avatar">MK</div>
+</div>
+</div>
+<div style="display:grid;grid-template-columns:3fr 1fr;gap:18px;margin-bottom:24px">
+<div class="card calendar-mini">
+<div class="calendar-header">
+<button onclick="changeMonth(-1)"><i class="fas fa-chevron-left"></i></button>
+<h4 id="calendarTitle">Mayıs 2026</h4>
+<button onclick="changeMonth(1)"><i class="fas fa-chevron-right"></i></button>
+</div>
+<div class="calendar-grid" id="calendarGrid">
+<div class="calendar-day-header">Pzt</div>
+<div class="calendar-day-header">Sal</div>
+<div class="calendar-day-header">Çar</div>
+<div class="calendar-day-header">Per</div>
+<div class="calendar-day-header">Cum</div>
+<div class="calendar-day-header">Cmt</div>
+<div class="calendar-day-header">Paz</div>
+</div>
+<div style="display:flex;gap:16px;justify-content:center;margin-top:14px;flex-wrap:wrap">
+<div style="display:flex;align-items:center;gap:6px;font-size:11px;color:var(--text-2)"><span class="dot planlama" style="width:8px;height:8px;border-radius:50%;display:inline-block"></span>Planlama</div>
+<div style="display:flex;align-items:center;gap:6px;font-size:11px;color:var(--text-2)"><span class="dot kazi" style="width:8px;height:8px;border-radius:50%;display:inline-block"></span>Kazı</div>
+<div style="display:flex;align-items:center;gap:6px;font-size:11px;color:var(--text-2)"><span class="dot temel" style="width:8px;height:8px;border-radius:50%;display:inline-block"></span>Temel</div>
+<div style="display:flex;align-items:center;gap:6px;font-size:11px;color:var(--text-2)"><span class="dot duvar" style="width:8px;height:8px;border-radius:50%;display:inline-block"></span>Duvar</div>
+<div style="display:flex;align-items:center;gap:6px;font-size:11px;color:var(--text-2)"><span class="dot siva" style="width:8px;height:8px;border-radius:50%;display:inline-block"></span>Sıva</div>
+<div style="display:flex;align-items:center;gap:6px;font-size:11px;color:var(--text-2)"><span class="dot boya" style="width:8px;height:8px;border-radius:50%;display:inline-block"></span>Boya</div>
+<div style="display:flex;align-items:center;gap:6px;font-size:11px;color:var(--text-2)"><span class="dot teslim" style="width:8px;height:8px;border-radius:50%;display:inline-block"></span>Teslim</div>
+</div>
+</div>
+<div class="card" style="padding:20px">
+<div style="font-size:15px;font-weight:700;margin-bottom:16px">Proje Özet</div>
+<div style="display:flex;flex-direction:column;gap:14px">
+<div style="display:flex;justify-content:space-between;align-items:center"><span style="font-size:13px;color:var(--text-2)">Planlama</span><span style="font-size:14px;font-weight:700;color:#60a5fa">2</span></div>
+<div style="display:flex;justify-content:space-between;align-items:center"><span style="font-size:13px;color:var(--text-2)">Kazı</span><span style="font-size:14px;font-weight:700;color:#facc15">1</span></div>
+<div style="display:flex;justify-content:space-between;align-items:center"><span style="font-size:13px;color:var(--text-2)">Duvar</span><span style="font-size:14px;font-weight:700;color:#fbbf24">1</span></div>
+<div style="display:flex;justify-content:space-between;align-items:center"><span style="font-size:13px;color:var(--text-2)">Sıva</span><span style="font-size:14px;font-weight:700;color:#38bdf8">1</span></div>
+<div style="display:flex;justify-content:space-between;align-items:center"><span style="font-size:13px;color:var(--text-2)">Boya</span><span style="font-size:14px;font-weight:700;color:#4ade80">1</span></div>
+<div style="display:flex;justify-content:space-between;align-items:center"><span style="font-size:13px;color:var(--text-2)">Temizlik</span><span style="font-size:14px;font-weight:700;color:#22d3ee">1</span></div>
+<div style="display:flex;justify-content:space-between;align-items:center"><span style="font-size:13px;color:var(--text-2)">Teslim</span><span style="font-size:14px;font-weight:700;color:#22c55e">3</span></div>
+<div style="border-top:1px solid var(--border);padding-top:14px;display:flex;justify-content:space-between;align-items:center"><span style="font-size:14px;font-weight:700">Toplam</span><span style="font-size:18px;font-weight:800;color:var(--accent)">10</span></div>
+</div>
+</div>
+</div>
+<div class="project-cards" id="cardsView">
+<div class="card project-card" data-status="kazi">
+<div class="project-header">
+<div><div class="project-title">Merkez Plaza Temeli</div><div class="project-customer"><i class="fas fa-user"></i> ABC İnşaat Ltd.</div></div>
+<span class="badge badge-kazi">Kazı</span>
+</div>
+<div class="project-meta">
+<div class="project-meta-item"><i class="fas fa-map-marker-alt"></i>Kadıköy, İstanbul</div>
+<div class="project-meta-item"><i class="fas fa-calendar"></i>15.03.2026</div>
+<div class="project-meta-item"><i class="fas fa-calendar-check"></i>30.08.2026</div>
+<div class="project-meta-item"><i class="fas fa-tools"></i>Temel Kazı</div>
+</div>
+<div class="project-phase">
+<div class="phase-bar"><div class="phase-segment completed"></div><div class="phase-segment active"></div><div class="phase-segment pending"></div><div class="phase-segment pending"></div><div class="phase-segment pending"></div><div class="phase-segment pending"></div><div class="phase-segment pending"></div></div>
+</div>
+<div class="phase-labels"><span>Planlama</span><span>Kazı</span><span>Temel</span><span>Duvar</span><span>Sıva</span><span>Boya</span><span>Teslim</span></div>
+<div class="progress-row">
+<div class="progress-bar"><div class="progress-fill" style="width:25%"></div></div>
+<span class="progress-text">%25</span>
+</div>
+<div class="project-footer">
+<div class="project-foreman"><i class="fas fa-user-hard-hat"></i>Ahmet Yılmaz</div>
+<div style="display:flex;gap:8px">
+<button class="action-btn-sm" style="width:32px;height:32px;border-radius:8px;border:1px solid var(--border);background:var(--card-2);color:var(--text-2);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:13px" onclick="openEditProject('Merkez Plaza Temeli','ABC İnşaat Ltd.','Kadıköy, İstanbul','15.03.2026','30.08.2026','Temel Kazı','Ahmet Yılmaz','Kazı','25')"><i class="fas fa-pen"></i></button>
+<button class="action-btn-sm" style="width:32px;height:32px;border-radius:8px;border:1px solid var(--border);background:var(--card-2);color:var(--text-2);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:13px" onclick="deleteProject(this)"><i class="fas fa-trash"></i></button>
+</div>
+</div>
+</div>
+<div class="card project-card" data-status="duvar">
+<div class="project-header">
+<div><div class="project-title">Villa Projesi A</div><div class="project-customer"><i class="fas fa-user"></i> Mehmet Öz — Ev Sahibi</div></div>
+<span class="badge badge-duvar">Duvar</span>
+</div>
+<div class="project-meta">
+<div class="project-meta-item"><i class="fas fa-map-marker-alt"></i>Beşiktaş, İstanbul</div>
+<div class="project-meta-item"><i class="fas fa-calendar"></i>01.04.2026</div>
+<div class="project-meta-item"><i class="fas fa-calendar-check"></i>15.09.2026</div>
+<div class="project-meta-item"><i class="fas fa-tools"></i>Duvar Örme</div>
+</div>
+<div class="project-phase">
+<div class="phase-bar"><div class="phase-segment completed"></div><div class="phase-segment completed"></div><div class="phase-segment active"></div><div class="phase-segment pending"></div><div class="phase-segment pending"></div><div class="phase-segment pending"></div><div class="phase-segment pending"></div></div>
+</div>
+<div class="phase-labels"><span>Planlama</span><span>Kazı</span><span>Temel</span><span>Duvar</span><span>Sıva</span><span>Boya</span><span>Teslim</span></div>
+<div class="progress-row">
+<div class="progress-bar"><div class="progress-fill" style="width:45%"></div></div>
+<span class="progress-text">%45</span>
+</div>
+<div class="project-footer">
+<div class="project-foreman"><i class="fas fa-user-hard-hat"></i>Mehmet Kaya</div>
+<div style="display:flex;gap:8px">
+<button class="action-btn-sm" style="width:32px;height:32px;border-radius:8px;border:1px solid var(--border);background:var(--card-2);color:var(--text-2);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:13px" onclick="openEditProject('Villa Projesi A','Mehmet Öz — Ev Sahibi','Beşiktaş, İstanbul','01.04.2026','15.09.2026','Duvar Örme','Mehmet Kaya','Duvar','45')"><i class="fas fa-pen"></i></button>
+<button class="action-btn-sm" style="width:32px;height:32px;border-radius:8px;border:1px solid var(--border);background:var(--card-2);color:var(--text-2);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:13px" onclick="deleteProject(this)"><i class="fas fa-trash"></i></button>
+</div>
+</div>
+</div>
+<div class="card project-card" data-status="siva">
+<div class="project-header">
+<div><div class="project-title">Ofis Kompleksi B</div><div class="project-customer"><i class="fas fa-user"></i> Delta Holding A.Ş.</div></div>
+<span class="badge badge-siva">Sıva</span>
+</div>
+<div class="project-meta">
+<div class="project-meta-item"><i class="fas fa-map-marker-alt"></i>Şişli, İstanbul</div>
+<div class="project-meta-item"><i class="fas fa-calendar"></i>20.04.2026</div>
+<div class="project-meta-item"><i class="fas fa-calendar-check"></i>10.10.2026</div>
+<div class="project-meta-item"><i class="fas fa-tools"></i>Sıva & Boya</div>
+</div>
+<div class="project-phase">
+<div class="phase-bar"><div class="phase-segment completed"></div><div class="phase-segment completed"></div><div class="phase-segment completed"></div><div class="phase-segment completed"></div><div class="phase-segment active"></div><div class="phase-segment pending"></div><div class="phase-segment pending"></div></div>
+</div>
+<div class="phase-labels"><span>Planlama</span><span>Kazı</span><span>Temel</span><span>Duvar</span><span>Sıva</span><span>Boya</span><span>Teslim</span></div>
+<div class="progress-row">
+<div class="progress-bar"><div class="progress-fill" style="width:60%"></div></div>
+<span class="progress-text">%60</span>
+</div>
+<div class="project-footer">
+<div class="project-foreman"><i class="fas fa-user-hard-hat"></i>Hasan Demir</div>
+<div style="display:flex;gap:8px">
+<button class="action-btn-sm" style="width:32px;height:32px;border-radius:8px;border:1px solid var(--border);background:var(--card-2);color:var(--text-2);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:13px" onclick="openEditProject('Ofis Kompleksi B','Delta Holding A.Ş.','Şişli, İstanbul','20.04.2026','10.10.2026','Sıva & Boya','Hasan Demir','Sıva','60')"><i class="fas fa-pen"></i></button>
+<button class="action-btn-sm" style="width:32px;height:32px;border-radius:8px;border:1px solid var(--border);background:var(--card-2);color:var(--text-2);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:13px" onclick="deleteProject(this)"><i class="fas fa-trash"></i></button>
+</div>
+</div>
+</div>
+<div class="card project-card" data-status="planlama">
+<div class="project-header">
+<div><div class="project-title">Rezidans C Blok</div><div class="project-customer"><i class="fas fa-user"></i> Emlak GYO</div></div>
+<span class="badge badge-planlama">Planlama</span>
+</div>
+<div class="project-meta">
+<div class="project-meta-item"><i class="fas fa-map-marker-alt"></i>Ümraniye, İstanbul</div>
+<div class="project-meta-item"><i class="fas fa-calendar"></i>10.05.2026</div>
+<div class="project-meta-item"><i class="fas fa-calendar-check"></i>20.11.2026</div>
+<div class="project-meta-item"><i class="fas fa-tools"></i>Temel & Tesisat</div>
+</div>
+<div class="project-phase">
+<div class="phase-bar"><div class="phase-segment active"></div><div class="phase-segment pending"></div><div class="phase-segment pending"></div><div class="phase-segment pending"></div><div class="phase-segment pending"></div><div class="phase-segment pending"></div><div class="phase-segment pending"></div></div>
+</div>
+<div class="phase-labels"><span>Planlama</span><span>Kazı</span><span>Temel</span><span>Duvar</span><span>Sıva</span><span>Boya</span><span>Teslim</span></div>
+<div class="progress-row">
+<div class="progress-bar"><div class="progress-fill" style="width:15%"></div></div>
+<span class="progress-text">%15</span>
+</div>
+<div class="project-footer">
+<div class="project-foreman"><i class="fas fa-user-hard-hat"></i>Ali Çelik</div>
+<div style="display:flex;gap:8px">
+<button class="action-btn-sm" style="width:32px;height:32px;border-radius:8px;border:1px solid var(--border);background:var(--card-2);color:var(--text-2);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:13px" onclick="openEditProject('Rezidans C Blok','Emlak GYO','Ümraniye, İstanbul','10.05.2026','20.11.2026','Temel & Tesisat','Ali Çelik','Planlama','15')"><i class="fas fa-pen"></i></button>
+<button class="action-btn-sm" style="width:32px;height:32px;border-radius:8px;border:1px solid var(--border);background:var(--card-2);color:var(--text-2);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:13px" onclick="deleteProject(this)"><i class="fas fa-trash"></i></button>
+</div>
+</div>
+</div>
+<div class="card project-card" data-status="boya">
+<div class="project-header">
+<div><div class="project-title">Alışveriş Merkezi</div><div class="project-customer"><i class="fas fa-user"></i> Retail Group</div></div>
+<span class="badge badge-boya">Boya</span>
+</div>
+<div class="project-meta">
+<div class="project-meta-item"><i class="fas fa-map-marker-alt"></i>Ataşehir, İstanbul</div>
+<div class="project-meta-item"><i class="fas fa-calendar"></i>05.03.2026</div>
+<div class="project-meta-item"><i class="fas fa-calendar-check"></i>25.06.2026</div>
+<div class="project-meta-item"><i class="fas fa-tools"></i>Boya & Kaplama</div>
+</div>
+<div class="project-phase">
+<div class="phase-bar"><div class="phase-segment completed"></div><div class="phase-segment completed"></div><div class="phase-segment completed"></div><div class="phase-segment completed"></div><div class="phase-segment completed"></div><div class="phase-segment active"></div><div class="phase-segment pending"></div></div>
+</div>
+<div class="phase-labels"><span>Planlama</span><span>Kazı</span><span>Temel</span><span>Duvar</span><span>Sıva</span><span>Boya</span><span>Teslim</span></div>
+<div class="progress-row">
+<div class="progress-bar"><div class="progress-fill" style="width:85%"></div></div>
+<span class="progress-text">%85</span>
+</div>
+<div class="project-footer">
+<div class="project-foreman"><i class="fas fa-user-hard-hat"></i>Burak Şahin</div>
+<div style="display:flex;gap:8px">
+<button class="action-btn-sm" style="width:32px;height:32px;border-radius:8px;border:1px solid var(--border);background:var(--card-2);color:var(--text-2);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:13px" onclick="openEditProject('Alışveriş Merkezi','Retail Group','Ataşehir, İstanbul','05.03.2026','25.06.2026','Boya & Kaplama','Burak Şahin','Boya','85')"><i class="fas fa-pen"></i></button>
+<button class="action-btn-sm" style="width:32px;height:32px;border-radius:8px;border:1px solid var(--border);background:var(--card-2);color:var(--text-2);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:13px" onclick="deleteProject(this)"><i class="fas fa-trash"></i></button>
+</div>
+</div>
+</div>
+<div class="card project-card" data-status="temizlik">
+<div class="project-header">
+<div><div class="project-title">Endüstriyel Depo</div><div class="project-customer"><i class="fas fa-user"></i> Lojistik A.Ş.</div></div>
+<span class="badge badge-temizlik">Temizlik</span>
+</div>
+<div class="project-meta">
+<div class="project-meta-item"><i class="fas fa-map-marker-alt"></i>Tuzla, İstanbul</div>
+<div class="project-meta-item"><i class="fas fa-calendar"></i>22.02.2026</div>
+<div class="project-meta-item"><i class="fas fa-calendar-check"></i>18.05.2026</div>
+<div class="project-meta-item"><i class="fas fa-tools"></i>Genel Yapım</div>
+</div>
+<div class="project-phase">
+<div class="phase-bar"><div class="phase-segment completed"></div><div class="phase-segment completed"></div><div class="phase-segment completed"></div><div class="phase-segment completed"></div><div class="phase-segment completed"></div><div class="phase-segment completed"></div><div class="phase-segment active"></div></div>
+</div>
+<div class="phase-labels"><span>Planlama</span><span>Kazı</span><span>Temel</span><span>Duvar</span><span>Sıva</span><span>Boya</span><span>Teslim</span></div>
+<div class="progress-row">
+<div class="progress-bar"><div class="progress-fill" style="width:92%"></div></div>
+<span class="progress-text">%92</span>
+</div>
+<div class="project-footer">
+<div class="project-foreman"><i class="fas fa-user-hard-hat"></i>Selin Aydın</div>
+<div style="display:flex;gap:8px">
+<button class="action-btn-sm" style="width:32px;height:32px;border-radius:8px;border:1px solid var(--border);background:var(--card-2);color:var(--text-2);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:13px" onclick="openEditProject('Endüstriyel Depo','Lojistik A.Ş.','Tuzla, İstanbul','22.02.2026','18.05.2026','Genel Yapım','Selin Aydın','Temizlik','92')"><i class="fas fa-pen"></i></button>
+<button class="action-btn-sm" style="width:32px;height:32px;border-radius:8px;border:1px solid var(--border);background:var(--card-2);color:var(--text-2);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:13px" onclick="deleteProject(this)"><i class="fas fa-trash"></i></button>
+</div>
+</div>
+</div>
+<div class="card project-card" data-status="teslim">
+<div class="project-header">
+<div><div class="project-title">Konut Sitesi D Blok</div><div class="project-customer"><i class="fas fa-user"></i> Yapı Kooperatifi</div></div>
+<span class="badge badge-teslim">Teslim</span>
+</div>
+<div class="project-meta">
+<div class="project-meta-item"><i class="fas fa-map-marker-alt"></i>Maltepe, İstanbul</div>
+<div class="project-meta-item"><i class="fas fa-calendar"></i>10.01.2026</div>
+<div class="project-meta-item"><i class="fas fa-calendar-check"></i>12.05.2026</div>
+<div class="project-meta-item"><i class="fas fa-tools"></i>Komple Yapım</div>
+</div>
+<div class="project-phase">
+<div class="phase-bar"><div class="phase-segment completed"></div><div class="phase-segment completed"></div><div class="phase-segment completed"></div><div class="phase-segment completed"></div><div class="phase-segment completed"></div><div class="phase-segment completed"></div><div class="phase-segment completed"></div></div>
+</div>
+<div class="phase-labels"><span>Planlama</span><span>Kazı</span><span>Temel</span><span>Duvar</span><span>Sıva</span><span>Boya</span><span>Teslim</span></div>
+<div class="progress-row">
+<div class="progress-bar"><div class="progress-fill" style="width:100%"></div></div>
+<span class="progress-text">%100</span>
+</div>
+<div class="project-footer">
+<div class="project-foreman"><i class="fas fa-user-hard-hat"></i>Cem Özdemir</div>
+<div style="display:flex;gap:8px">
+<button class="action-btn-sm" style="width:32px;height:32px;border-radius:8px;border:1px solid var(--border);background:var(--card-2);color:var(--text-2);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:13px" onclick="openEditProject('Konut Sitesi D Blok','Yapı Kooperatifi','Maltepe, İstanbul','10.01.2026','12.05.2026','Komple Yapım','Cem Özdemir','Teslim','100')"><i class="fas fa-pen"></i></button>
+<button class="action-btn-sm" style="width:32px;height:32px;border-radius:8px;border:1px solid var(--border);background:var(--card-2);color:var(--text-2);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:13px" onclick="deleteProject(this)"><i class="fas fa-trash"></i></button>
+</div>
+</div>
+</div>
+</div>
+<table class="project-table" id="tableView">
+<thead><tr><th>Proje</th><th>Müşteri</th><th>Lokasyon</th><th>Aşama</th><th>İlerleme</th><th>Şef</th><th>Başlangıç</th><th>Bitiş</th><th>İşlem</th></tr></thead>
+<tbody>
+<tr data-status="kazi"><td><strong>Merkez Plaza Temeli</strong></td><td>ABC İnşaat Ltd.</td><td>Kadıköy</td><td><span class="badge badge-kazi">Kazı</span></td><td><div class="progress-bar" style="min-width:80px"><div class="progress-fill" style="width:25%"></div></div><div style="font-size:11px;color:var(--text-2);margin-top:3px">%25</div></td><td>Ahmet Yılmaz</td><td>15.03.2026</td><td>30.08.2026</td><td><button class="action-btn-sm" onclick="openEditProject('Merkez Plaza Temeli','ABC İnşaat Ltd.','Kadıköy, İstanbul','15.03.2026','30.08.2026','Temel Kazı','Ahmet Yılmaz','Kazı','25')"><i class="fas fa-pen"></i></button><button class="action-btn-sm" onclick="deleteProject(this)"><i class="fas fa-trash"></i></button></td></tr>
+<tr data-status="duvar"><td><strong>Villa Projesi A</strong></td><td>Mehmet Öz</td><td>Beşiktaş</td><td><span class="badge badge-duvar">Duvar</span></td><td><div class="progress-bar" style="min-width:80px"><div class="progress-fill" style="width:45%"></div></div><div style="font-size:11px;color:var(--text-2);margin-top:3px">%45</div></td><td>Mehmet Kaya</td><td>01.04.2026</td><td>15.09.2026</td><td><button class="action-btn-sm" onclick="openEditProject('Villa Projesi A','Mehmet Öz','Beşiktaş, İstanbul','01.04.2026','15.09.2026','Duvar Örme','Mehmet Kaya','Duvar','45')"><i class="fas fa-pen"></i></button><button class="action-btn-sm" onclick="deleteProject(this)"><i class="fas fa-trash"></i></button></td></tr>
+<tr data-status="siva"><td><strong>Ofis Kompleksi B</strong></td><td>Delta Holding</td><td>Şişli</td><td><span class="badge badge-siva">Sıva</span></td><td><div class="progress-bar" style="min-width:80px"><div class="progress-fill" style="width:60%"></div></div><div style="font-size:11px;color:var(--text-2);margin-top:3px">%60</div></td><td>Hasan Demir</td><td>20.04.2026</td><td>10.10.2026</td><td><button class="action-btn-sm" onclick="openEditProject('Ofis Kompleksi B','Delta Holding','Şişli, İstanbul','20.04.2026','10.10.2026','Sıva & Boya','Hasan Demir','Sıva','60')"><i class="fas fa-pen"></i></button><button class="action-btn-sm" onclick="deleteProject(this)"><i class="fas fa-trash"></i></button></td></tr>
+<tr data-status="planlama"><td><strong>Rezidans C Blok</strong></td><td>Emlak GYO</td><td>Ümraniye</td><td><span class="badge badge-planlama">Planlama</span></td><td><div class="progress-bar" style="min-width:80px"><div class="progress-fill" style="width:15%"></div></div><div style="font-size:11px;color:var(--text-2);margin-top:3px">%15</div></td><td>Ali Çelik</td><td>10.05.2026</td><td>20.11.2026</td><td><button class="action-btn-sm" onclick="openEditProject('Rezidans C Blok','Emlak GYO','Ümraniye, İstanbul','10.05.2026','20.11.2026','Temel & Tesisat','Ali Çelik','Planlama','15')"><i class="fas fa-pen"></i></button><button class="action-btn-sm" onclick="deleteProject(this)"><i class="fas fa-trash"></i></button></td></tr>
+<tr data-status="boya"><td><strong>Alışveriş Merkezi</strong></td><td>Retail Group</td><td>Ataşehir</td><td><span class="badge badge-boya">Boya</span></td><td><div class="progress-bar" style="min-width:80px"><div class="progress-fill" style="width:85%"></div></div><div style="font-size:11px;color:var(--text-2);margin-top:3px">%85</div></td><td>Burak Şahin</td><td>05.03.2026</td><td>25.06.2026</td><td><button class="action-btn-sm" onclick="openEditProject('Alışveriş Merkezi','Retail Group','Ataşehir, İstanbul','05.03.2026','25.06.2026','Boya & Kaplama','Burak Şahin','Boya','85')"><i class="fas fa-pen"></i></button><button class="action-btn-sm" onclick="deleteProject(this)"><i class="fas fa-trash"></i></button></td></tr>
+<tr data-status="temizlik"><td><strong>Endüstriyel Depo</strong></td><td>Lojistik A.Ş.</td><td>Tuzla</td><td><span class="badge badge-temizlik">Temizlik</span></td><td><div class="progress-bar" style="min-width:80px"><div class="progress-fill" style="width:92%"></div></div><div style="font-size:11px;color:var(--text-2);margin-top:3px">%92</div></td><td>Selin Aydın</td><td>22.02.2026</td><td>18.05.2026</td><td><button class="action-btn-sm" onclick="openEditProject('Endüstriyel Depo','Lojistik A.Ş.','Tuzla, İstanbul','22.02.2026','18.05.2026','Genel Yapım','Selin Aydın','Temizlik','92')"><i class="fas fa-pen"></i></button><button class="action-btn-sm" onclick="deleteProject(this)"><i class="fas fa-trash"></i></button></td></tr>
+<tr data-status="teslim"><td><strong>Konut Sitesi D Blok</strong></td><td>Yapı Kooperatifi</td><td>Maltepe</td><td><span class="badge badge-teslim">Teslim</span></td><td><div class="progress-bar" style="min-width:80px"><div class="progress-fill" style="width:100%"></div></div><div style="font-size:11px;color:var(--text-2);margin-top:3px">%100</div></td><td>Cem Özdemir</td><td>10.01.2026</td><td>12.05.2026</td><td><button class="action-btn-sm" onclick="openEditProject('Konut Sitesi D Blok','Yapı Kooperatifi','Maltepe, İstanbul','10.01.2026','12.05.2026','Komple Yapım','Cem Özdemir','Teslim','100')"><i class="fas fa-pen"></i></button><button class="action-btn-sm" onclick="deleteProject(this)"><i class="fas fa-trash"></i></button></td></tr>
+</tbody>
+</table>
+<div style="margin-top:24px">
+<div class="section-title" style="margin-bottom:16px"><i class="fas fa-tasks"></i> Proje Zaman Çizelgesi — Mayıs 2026</div>
+<div class="card" style="padding:20px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<div style="display:flex;align-items:center;gap:14px">
+<div style="width:140px;flex-shrink:0"><div style="font-size:13px;font-weight:600">Merkez Plaza</div><div style="font-size:11px;color:var(--text-2)">15.03 → 30.08</div></div>
+<div style="flex:1">
+<div style="display:flex;align-items:center;gap:4px;height:32px">
+<div style="width:20%;height:100%;background:rgba(59,130,246,.25);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:10px;color:#60a5fa">Planlama</div>
+<div style="width:30%;height:100%;background:rgba(234,179,8,.25);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:10px;color:#facc15">Kazı</div>
+<div style="width:25%;height:100%;background:rgba(168,85,247,.15);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:10px;color:var(--text-2)">Temel</div>
+<div style="width:25%;height:100%;background:rgba(255,255,255,.04);border-radius:6px"></div>
+</div>
+</div>
+<div style="width:60px;text-align:right;font-size:12px;color:var(--text-2)">%25</div>
+</div>
+<div style="display:flex;align-items:center;gap:14px">
+<div style="width:140px;flex-shrink:0"><div style="font-size:13px;font-weight:600">Villa Projesi A</div><div style="font-size:11px;color:var(--text-2)">01.04 → 15.09</div></div>
+<div style="flex:1">
+<div style="display:flex;align-items:center;gap:4px;height:32px">
+<div style="width:15%;height:100%;background:rgba(59,130,246,.25);border-radius:6px"></div>
+<div style="width:20%;height:100%;background:rgba(234,179,8,.25);border-radius:6px"></div>
+<div style="width:15%;height:100%;background:rgba(168,85,247,.25);border-radius:6px"></div>
+<div style="width:35%;height:100%;background:rgba(245,158,11,.25);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:10px;color:#fbbf24">Duvar</div>
+<div style="width:15%;height:100%;background:rgba(255,255,255,.04);border-radius:6px"></div>
+</div>
+</div>
+<div style="width:60px;text-align:right;font-size:12px;color:var(--text-2)">%45</div>
+</div>
+<div style="display:flex;align-items:center;gap:14px">
+<div style="width:140px;flex-shrink:0"><div style="font-size:13px;font-weight:600">Ofis Kompleksi B</div><div style="font-size:11px;color:var(--text-2)">20.04 → 10.10</div></div>
+<div style="flex:1">
+<div style="display:flex;align-items:center;gap:4px;height:32px">
+<div style="width:12%;height:100%;background:rgba(59,130,246,.25);border-radius:6px"></div>
+<div style="width:15%;height:100%;background:rgba(234,179,8,.25);border-radius:6px"></div>
+<div style="width:13%;height:100%;background:rgba(168,85,247,.25);border-radius:6px"></div>
+<div style="width:20%;height:100%;background:rgba(245,158,11,.25);border-radius:6px"></div>
+<div style="width:30%;height:100%;background:rgba(14,165,233,.25);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:10px;color:#38bdf8">Sıva</div>
+<div style="width:10%;height:100%;background:rgba(255,255,255,.04);border-radius:6px"></div>
+</div>
+</div>
+<div style="width:60px;text-align:right;font-size:12px;color:var(--text-2)">%60</div>
+</div>
+<div style="display:flex;align-items:center;gap:14px">
+<div style="width:140px;flex-shrink:0"><div style="font-size:13px;font-weight:600">Rezidans C Blok</div><div style="font-size:11px;color:var(--text-2)">10.05 → 20.11</div></div>
+<div style="flex:1">
+<div style="display:flex;align-items:center;gap:4px;height:32px">
+<div style="width:40%;height:100%;background:rgba(59,130,246,.25);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:10px;color:#60a5fa">Planlama</div>
+<div style="width:60%;height:100%;background:rgba(255,255,255,.04);border-radius:6px"></div>
+</div>
+</div>
+<div style="width:60px;text-align:right;font-size:12px;color:var(--text-2)">%15</div>
+</div>
+<div style="display:flex;align-items:center;gap:14px">
+<div style="width:140px;flex-shrink:0"><div style="font-size:13px;font-weight:600">Alışveriş Merkezi</div><div style="font-size:11px;color:var(--text-2)">05.03 → 25.06</div></div>
+<div style="flex:1">
+<div style="display:flex;align-items:center;gap:4px;height:32px">
+<div style="width:10%;height:100%;background:rgba(59,130,246,.25);border-radius:6px"></div>
+<div style="width:12%;height:100%;background:rgba(234,179,8,.25);border-radius:6px"></div>
+<div style="width:13%;height:100%;background:rgba(168,85,247,.25);border-radius:6px"></div>
+<div style="width:15%;height:100%;background:rgba(245,158,11,.25);border-radius:6px"></div>
+<div style="width:15%;height:100%;background:rgba(14,165,233,.25);border-radius:6px"></div>
+<div style="width:25%;height:100%;background:rgba(34,197,94,.25);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:10px;color:#4ade80">Boya</div>
+<div style="width:10%;height:100%;background:rgba(255,255,255,.04);border-radius:6px"></div>
+</div>
+</div>
+<div style="width:60px;text-align:right;font-size:12px;color:var(--text-2)">%85</div>
+</div>
+<div style="display:flex;align-items:center;gap:14px">
+<div style="width:140px;flex-shrink:0"><div style="font-size:13px;font-weight:600">Endüstriyel Depo</div><div style="font-size:11px;color:var(--text-2)">22.02 → 18.05</div></div>
+<div style="flex:1">
+<div style="display:flex;align-items:center;gap:4px;height:32px">
+<div style="width:8%;height:100%;background:rgba(59,130,246,.25);border-radius:6px"></div>
+<div style="width:10%;height:100%;background:rgba(234,179,8,.25);border-radius:6px"></div>
+<div style="width:12%;height:100%;background:rgba(168,85,247,.25);border-radius:6px"></div>
+<div style="width:15%;height:100%;background:rgba(245,158,11,.25);border-radius:6px"></div>
+<div style="width:15%;height:100%;background:rgba(14,165,233,.25);border-radius:6px"></div>
+<div style="width:20%;height:100%;background:rgba(34,197,94,.25);border-radius:6px"></div>
+<div style="width:20%;height:100%;background:rgba(6,182,212,.25);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:10px;color:#22d3ee">Temizlik</div>
+</div>
+</div>
+<div style="width:60px;text-align:right;font-size:12px;color:var(--text-2)">%92</div>
+</div>
+<div style="display:flex;align-items:center;gap:14px">
+<div style="width:140px;flex-shrink:0"><div style="font-size:13px;font-weight:600">Konut Sitesi D Blok</div><div style="font-size:11px;color:var(--text-2)">10.01 → 12.05</div></div>
+<div style="flex:1">
+<div style="display:flex;align-items:center;gap:4px;height:32px">
+<div style="width:10%;height:100%;background:rgba(59,130,246,.25);border-radius:6px"></div>
+<div style="width:12%;height:100%;background:rgba(234,179,8,.25);border-radius:6px"></div>
+<div style="width:13%;height:100%;background:rgba(168,85,247,.25);border-radius:6px"></div>
+<div style="width:15%;height:100%;background:rgba(245,158,11,.25);border-radius:6px"></div>
+<div style="width:15%;height:100%;background:rgba(14,165,233,.25);border-radius:6px"></div>
+<div style="width:20%;height:100%;background:rgba(34,197,94,.25);border-radius:6px"></div>
+<div style="width:15%;height:100%;background:rgba(22,163,74,.35);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:10px;color:#4ade80">Teslim</div>
+</div>
+</div>
+<div style="width:60px;text-align:right;font-size:12px;color:var(--text-2)">%100</div>
+</div>
+</div>
+</div>
+</div>
+<div style="margin-top:24px">
+<div class="section-title" style="margin-bottom:16px"><i class="fas fa-users-cog"></i> Şantiye Ekibi Atamaları</div>
+<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px">
+<div class="card" style="padding:16px;text-align:center">
+<div style="width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent-2));display:flex;align-items:center;justify-content:center;margin:0 auto 10px;font-weight:700;color:#000;font-size:16px">AY</div>
+<div style="font-size:14px;font-weight:600">Ahmet Yılmaz</div>
+<div style="font-size:12px;color:var(--text-2);margin-top:4px">Şantiye Şefi</div>
+<div style="font-size:11px;color:var(--accent);margin-top:6px">Merkez Plaza</div>
+<div style="margin-top:10px;font-size:12px;color:var(--text-2)">12 personel bağlı</div>
+</div>
+<div class="card" style="padding:16px;text-align:center">
+<div style="width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent-2));display:flex;align-items:center;justify-content:center;margin:0 auto 10px;font-weight:700;color:#000;font-size:16px">MK</div>
+<div style="font-size:14px;font-weight:600">Mehmet Kaya</div>
+<div style="font-size:12px;color:var(--text-2);margin-top:4px">Şantiye Şefi</div>
+<div style="font-size:11px;color:var(--accent);margin-top:6px">Villa Projesi A</div>
+<div style="margin-top:10px;font-size:12px;color:var(--text-2)">8 personel bağlı</div>
+</div>
+<div class="card" style="padding:16px;text-align:center">
+<div style="width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent-2));display:flex;align-items:center;justify-content:center;margin:0 auto 10px;font-weight:700;color:#000;font-size:16px">HD</div>
+<div style="font-size:14px;font-weight:600">Hasan Demir</div>
+<div style="font-size:12px;color:var(--text-2);margin-top:4px">Şantiye Şefi</div>
+<div style="font-size:11px;color:var(--accent);margin-top:6px">Ofis Kompleksi B</div>
+<div style="margin-top:10px;font-size:12px;color:var(--text-2)">15 personel bağlı</div>
+</div>
+<div class="card" style="padding:16px;text-align:center">
+<div style="width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent-2));display:flex;align-items:center;justify-content:center;margin:0 auto 10px;font-weight:700;color:#000;font-size:16px">AC</div>
+<div style="font-size:14px;font-weight:600">Ali Çelik</div>
+<div style="font-size:12px;color:var(--text-2);margin-top:4px">Şantiye Şefi</div>
+<div style="font-size:11px;color:var(--accent);margin-top:6px">Rezidans C Blok</div>
+<div style="margin-top:10px;font-size:12px;color:var(--text-2)">6 personel bağlı</div>
+</div>
+</div>
+</div>
+</main>
+<div id="addProjectModal" class="modal" style="display:none;position:fixed;inset:0;z-index:300;align-items:center;justify-content:center;background:rgba(0,0,0,.7);backdrop-filter:blur(6px)">
+<div class="modal-content" style="background:linear-gradient(145deg,var(--card),var(--card-2));border:1px solid var(--border);border-radius:20px;padding:28px;width:90%;max-width:560px;max-height:85vh;overflow-y:auto;animation:fadeIn .3s ease">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px">
+<h3 style="font-size:18px;font-weight:700">Yeni Proje</h3>
+<button onclick="closeModal('addProjectModal')" style="background:none;border:none;color:var(--text-2);cursor:pointer;font-size:20px"><i class="fas fa-times"></i></button>
+</div>
+<form onsubmit="event.preventDefault();closeModal('addProjectModal')">
+<div style="margin-bottom:16px">
+<label style="display:block;font-size:13px;font-weight:500;margin-bottom:6px;color:var(--text-2)">Proje Adı</label>
+<input type="text" placeholder="örn: Merkez Plaza" style="width:100%;padding:12px 14px;background:var(--card-2);border:1px solid var(--border);border-radius:10px;color:var(--text);font-family:inherit;font-size:14px" required>
+</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:16px">
+<div>
+<label style="display:block;font-size:13px;font-weight:500;margin-bottom:6px;color:var(--text-2)">Müşteri Tipi</label>
+<select style="width:100%;padding:12px 14px;background:var(--card-2);border:1px solid var(--border);border-radius:10px;color:var(--text);font-family:inherit;font-size:14px">
+<option>Ev Sahibi</option>
+<option>Müteahhit</option>
+<option>Firma</option>
+<option>Kooperatif</option>
+</select>
+</div>
+<div>
+<label style="display:block;font-size:13px;font-weight:500;margin-bottom:6px;color:var(--text-2)">Müşteri Adı</label>
+<input type="text" placeholder="Müşteri adı" style="width:100%;padding:12px 14px;background:var(--card-2);border:1px solid var(--border);border-radius:10px;color:var(--text);font-family:inherit;font-size:14px" required>
+</div>
+</div>
+<div style="margin-bottom:16px">
+<label style="display:block;font-size:13px;font-weight:500;margin-bottom:6px;color:var(--text-2)">Şantiye Adresi</label>
+<textarea placeholder="Tam adres" style="width:100%;padding:12px 14px;background:var(--card-2);border:1px solid var(--border);border-radius:10px;color:var(--text);font-family:inherit;font-size:14px;resize:vertical;min-height:60px" required></textarea>
+</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:16px">
+<div>
+<label style="display:block;font-size:13px;font-weight:500;margin-bottom:6px;color:var(--text-2)">Başlangıç Tarihi</label>
+<input type="date" style="width:100%;padding:12px 14px;background:var(--card-2);border:1px solid var(--border);border-radius:10px;color:var(--text);font-family:inherit;font-size:14px" required>
+</div>
+<div>
+<label style="display:block;font-size:13px;font-weight:500;margin-bottom:6px;color:var(--text-2)">Bitiş Tarihi (Tahmini)</label>
+<input type="date" style="width:100%;padding:12px 14px;background:var(--card-2);border:1px solid var(--border);border-radius:10px;color:var(--text);font-family:inherit;font-size:14px">
+</div>
+</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:16px">
+<div>
+<label style="display:block;font-size:13px;font-weight:500;margin-bottom:6px;color:var(--text-2)">Hizmet Türü</label>
+<select style="width:100%;padding:12px 14px;background:var(--card-2);border:1px solid var(--border);border-radius:10px;color:var(--text);font-family:inherit;font-size:14px">
+<option>Temel Kazı</option>
+<option>Duvar Örme</option>
+<option>Sıva</option>
+<option>Boya</option>
+<option>Fayans</option>
+<option>Elektrik Tesisatı</option>
+<option>Su Tesisatı</option>
+<option>Çatı</option>
+<option>İzolasyon</option>
+<option>Peyzaj</option>
+<option>Komple Yapım</option>
+</select>
+</div>
+<div>
+<label style="display:block;font-size:13px;font-weight:500;margin-bottom:6px;color:var(--text-2)">Şantiye Şefi</label>
+<select style="width:100%;padding:12px 14px;background:var(--card-2);border:1px solid var(--border);border-radius:10px;color:var(--text);font-family:inherit;font-size:14px">
+<option>Ahmet Yılmaz</option>
+<option>Mehmet Kaya</option>
+<option>Hasan Demir</option>
+<option>Ali Çelik</option>
+<option>Burak Şahin</option>
+<option>Selin Aydın</option>
+<option>Cem Özdemir</option>
+</select>
+</div>
+</div>
+<div style="margin-bottom:20px">
+<label style="display:block;font-size:13px;font-weight:500;margin-bottom:6px;color:var(--text-2)">Mevcut Aşama</label>
+<select style="width:100%;padding:12px 14px;background:var(--card-2);border:1px solid var(--border);border-radius:10px;color:var(--text);font-family:inherit;font-size:14px">
+<option>Planlama</option>
+<option>Kazı</option>
+<option>Temel</option>
+<option>Duvar</option>
+<option>Sıva</option>
+<option>Boya</option>
+<option>Temizlik</option>
+<option>Teslim</option>
+</select>
+</div>
+<div style="display:flex;gap:10px;justify-content:flex-end">
+<button type="button" class="btn-outline" onclick="closeModal('addProjectModal')">İptal</button>
+<button type="submit" class="btn-accent">Oluştur</button>
+</div>
+</form>
+</div>
+</div>
+<div id="editProjectModal" class="modal" style="display:none;position:fixed;inset:0;z-index:300;align-items:center;justify-content:center;background:rgba(0,0,0,.7);backdrop-filter:blur(6px)">
+<div class="modal-content" style="background:linear-gradient(145deg,var(--card),var(--card-2));border:1px solid var(--border);border-radius:20px;padding:28px;width:90%;max-width:560px;max-height:85vh;overflow-y:auto;animation:fadeIn .3s ease">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px">
+<h3 style="font-size:18px;font-weight:700">Proje Düzenle</h3>
+<button onclick="closeModal('editProjectModal')" style="background:none;border:none;color:var(--text-2);cursor:pointer;font-size:20px"><i class="fas fa-times"></i></button>
+</div>
+<form onsubmit="event.preventDefault();closeModal('editProjectModal')">
+<div style="margin-bottom:16px">
+<label style="display:block;font-size:13px;font-weight:500;margin-bottom:6px;color:var(--text-2)">Proje Adı</label>
+<input type="text" id="editPName" style="width:100%;padding:12px 14px;background:var(--card-2);border:1px solid var(--border);border-radius:10px;color:var(--text);font-family:inherit;font-size:14px" required>
+</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:16px">
+<div>
+<label style="display:block;font-size:13px;font-weight:500;margin-bottom:6px;color:var(--text-2)">Müşteri</label>
+<input type="text" id="editPCustomer" style="width:100%;padding:12px 14px;background:var(--card-2);border:1px solid var(--border);border-radius:10px;color:var(--text);font-family:inherit;font-size:14px" required>
+</div>
+<div>
+<label style="display:block;font-size:13px;font-weight:500;margin-bottom:6px;color:var(--text-2)">Lokasyon</label>
+<input type="text" id="editPLoc" style="width:100%;padding:12px 14px;background:var(--card-2);border:1px solid var(--border);border-radius:10px;color:var(--text);font-family:inherit;font-size:14px" required>
+</div>
+</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:16px">
+<div>
+<label style="display:block;font-size:13px;font-weight:500;margin-bottom:6px;color:var(--text-2)">Başlangıç</label>
+<input type="text" id="editPStart" style="width:100%;padding:12px 14px;background:var(--card-2);border:1px solid var(--border);border-radius:10px;color:var(--text);font-family:inherit;font-size:14px" required>
+</div>
+<div>
+<label style="display:block;font-size:13px;font-weight:500;margin-bottom:6px;color:var(--text-2)">Bitiş</label>
+<input type="text" id="editPEnd" style="width:100%;padding:12px 14px;background:var(--card-2);border:1px solid var(--border);border-radius:10px;color:var(--text);font-family:inherit;font-size:14px" required>
+</div>
+</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:16px">
+<div>
+<label style="display:block;font-size:13px;font-weight:500;margin-bottom:6px;color:var(--text-2)">Hizmet Türü</label>
+<input type="text" id="editPService" style="width:100%;padding:12px 14px;background:var(--card-2);border:1px solid var(--border);border-radius:10px;color:var(--text);font-family:inherit;font-size:14px">
+</div>
+<div>
+<label style="display:block;font-size:13px;font-weight:500;margin-bottom:6px;color:var(--text-2)">Şef</label>
+<input type="text" id="editPForeman" style="width:100%;padding:12px 14px;background:var(--card-2);border:1px solid var(--border);border-radius:10px;color:var(--text);font-family:inherit;font-size:14px">
+</div>
+</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:20px">
+<div>
+<label style="display:block;font-size:13px;font-weight:500;margin-bottom:6px;color:var(--text-2)">Durum</label>
+<select id="editPStatus" style="width:100%;padding:12px 14px;background:var(--card-2);border:1px solid var(--border);border-radius:10px;color:var(--text);font-family:inherit;font-size:14px">
+<option>Planlama</option>
+<option>Kazı</option>
+<option>Temel</option>
+<option>Duvar</option>
+<option>Sıva</option>
+<option>Boya</option>
+<option>Temizlik</option>
+<option>Teslim</option>
+</select>
+</div>
+<div>
+<label style="display:block;font-size:13px;font-weight:500;margin-bottom:6px;color:var(--text-2)">İlerleme %</label>
+<input type="number" id="editPProgress" min="0" max="100" style="width:100%;padding:12px 14px;background:var(--card-2);border:1px solid var(--border);border-radius:10px;color:var(--text);font-family:inherit;font-size:14px">
+</div>
+</div>
+<div style="display:flex;gap:10px;justify-content:flex-end">
+<button type="button" class="btn-outline" onclick="closeModal('editProjectModal')">İptal</button>
+<button type="submit" class="btn-accent">Kaydet</button>
+</div>
+</form>
+</div>
+</div>
+<div id="deleteProjectModal" class="modal" style="display:none;position:fixed;inset:0;z-index:300;align-items:center;justify-content:center;background:rgba(0,0,0,.7);backdrop-filter:blur(6px)">
+<div class="modal-content" style="background:linear-gradient(145deg,var(--card),var(--card-2));border:1px solid var(--border);border-radius:20px;padding:28px;width:90%;max-width:420px;animation:fadeIn .3s ease;text-align:center">
+<div style="width:64px;height:64px;border-radius:50%;background:rgba(239,68,68,.15);display:flex;align-items:center;justify-content:center;margin:0 auto 20px">
+<i class="fas fa-exclamation-triangle" style="font-size:28px;color:var(--danger)"></i>
+</div>
+<h3 style="font-size:18px;font-weight:700;margin-bottom:10px">Projeyi Sil</h3>
+<p style="font-size:14px;color:var(--text-2);margin-bottom:24px">Bu projeyi silmek istediğinizden emin misiniz? Bu işlem geri alınamaz.</p>
+<div style="display:flex;gap:10px;justify-content:center">
+<button type="button" class="btn-outline" onclick="closeModal('deleteProjectModal')">İptal</button>
+<button type="button" class="btn-danger" onclick="confirmDeleteProject()">Sil</button>
+</div>
+</div>
+</div>
+<script>
+function toggleSidebar(){const s=document.getElementById('sidebar');s.classList.toggle('open');document.querySelector('.overlay').classList.toggle('active')}
+function openModal(id){const m=document.getElementById(id);m.style.display='flex';document.body.style.overflow='hidden'}
+function closeModal(id){const m=document.getElementById(id);m.style.display='none';document.body.style.overflow=''}
+function switchSector(v){if(v)window.location.href='/cleanfix-vercel/sectors/'+v+'/index.html'}
+document.querySelectorAll('.modal').forEach(m=>{m.addEventListener('click',e=>{if(e.target===m)closeModal(m.id)})})
+document.addEventListener('keydown',e=>{if(e.key==='Escape')document.querySelectorAll('.modal').forEach(m=>{if(m.style.display==='flex')closeModal(m.id)})})
+let currentMonth=4;let currentYear=2026;
+const monthNames=['Ocak','Şubat','Mart','Nisan','Mayıs','Haziran','Temmuz','Ağustos','Eylül','Ekim','Kasım','Aralık'];
+function changeMonth(d){currentMonth+=d;if(currentMonth>11){currentMonth=0;currentYear++}if(currentMonth<0){currentMonth=11;currentYear--}renderCalendar()}
+function renderCalendar(){document.getElementById('calendarTitle').textContent=monthNames[currentMonth]+' '+currentYear;const grid=document.getElementById('calendarGrid');while(grid.children.length>7)grid.removeChild(grid.lastChild);const firstDay=new Date(currentYear,currentMonth,1).getDay();const daysInMonth=new Date(currentYear,currentMonth+1,0).getDate();const start=(firstDay===0)?6:firstDay-1;for(let i=0;i<start;i++){const d=document.createElement('div');d.className='calendar-day other';grid.appendChild(d)}for(let i=1;i<=daysInMonth;i++){const d=document.createElement('div');d.className='calendar-day';d.textContent=i;if(currentYear===2026&&currentMonth===4&&i===15)d.classList.add('today');const dot=document.createElement('span');dot.className='dot';if([3,8,12,18,22,25,28].includes(i)){const phases=['planlama','kazi','temel','duvar','siva','boya','teslim'];dot.classList.add(phases[Math.floor(Math.random()*phases.length)])}d.appendChild(dot);grid.appendChild(d)}}
+renderCalendar();
+let deleteProjectTarget=null;
+function deleteProject(btn){deleteProjectTarget=btn.closest('.project-card')||btn.closest('tr');openModal('deleteProjectModal')}
+function confirmDeleteProject(){if(deleteProjectTarget){deleteProjectTarget.remove();deleteProjectTarget=null;closeModal('deleteProjectModal')}}
+function setView(v){const cards=document.getElementById('cardsView');const table=document.getElementById('tableView');const btnCards=document.getElementById('btnCards');const btnTable=document.getElementById('btnTable');if(v==='cards'){cards.style.display='grid';table.classList.remove('active');btnCards.classList.add('active');btnTable.classList.remove('active')}else{cards.style.display='none';table.classList.add('active');btnCards.classList.remove('active');btnTable.classList.add('active')}}
+function openEditProject(name,customer,loc,start,end,service,foreman,status,progress){document.getElementById('editPName').value=name;document.getElementById('editPCustomer').value=customer;document.getElementById('editPLoc').value=loc;document.getElementById('editPStart').value=start;document.getElementById('editPEnd').value=end;document.getElementById('editPService').value=service;document.getElementById('editPForeman').value=foreman;document.getElementById('editPStatus').value=status;document.getElementById('editPProgress').value=progress;openModal('editProjectModal')}
+function filterProjects(){const q=document.getElementById('projectSearch').value.toLowerCase();document.querySelectorAll('.project-card').forEach(c=>{c.style.display=c.textContent.toLowerCase().includes(q)?'':'none'});document.querySelectorAll('#tableView tbody tr').forEach(r=>{r.style.display=r.textContent.toLowerCase().includes(q)?'':'none'})}
+</script>
+</body>
+</html>
