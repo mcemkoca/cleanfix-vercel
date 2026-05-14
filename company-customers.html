@@ -188,7 +188,7 @@
 </div>
 
 <!-- Add Modal -->
-<div class="modal-overlay" id="addModal">
+<div class="modal-overlay" id="addModal" onclick="if(event.target===this)closeModal(this.id)">
   <div class="modal">
     <div class="modal-header"><span class="modal-title">Yeni Müşteri Ekle</span><button class="modal-close" onclick="closeModal('addModal')">✕</button></div>
     <div class="modal-body">
@@ -215,7 +215,7 @@
 </div>
 
 <!-- Edit Modal -->
-<div class="modal-overlay" id="editModal">
+<div class="modal-overlay" id="editModal" onclick="if(event.target===this)closeModal(this.id)">
   <div class="modal">
     <div class="modal-header"><span class="modal-title">Müşteri Düzenle</span><button class="modal-close" onclick="closeModal('editModal')">✕</button></div>
     <div class="modal-body">
@@ -242,7 +242,7 @@
 </div>
 
 <!-- Detail Modal -->
-<div class="modal-overlay" id="detailModal">
+<div class="modal-overlay" id="detailModal" onclick="if(event.target===this)closeModal(this.id)">
   <div class="modal" style="max-width:640px;">
     <div class="modal-header"><span class="modal-title" id="detailTitle">Müşteri Detayı</span><button class="modal-close" onclick="closeModal('detailModal')">✕</button></div>
     <div class="modal-body">
@@ -265,7 +265,7 @@
 </div>
 
 <!-- Delete Modal -->
-<div class="modal-overlay" id="deleteModal">
+<div class="modal-overlay" id="deleteModal" onclick="if(event.target===this)closeModal(this.id)">
   <div class="modal" style="max-width:420px;">
     <div class="modal-header"><span class="modal-title" style="color:var(--error-500);">Müşteri Sil</span><button class="modal-close" onclick="closeModal('deleteModal')">✕</button></div>
     <div class="modal-body"><p style="font-size:var(--text-sm);color:var(--text-secondary);"><strong id="deleteTarget"></strong> adlı müşteriyi silmek üzeresiniz. Bu işlem geri alınamaz.</p></div>

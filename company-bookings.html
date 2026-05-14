@@ -34,7 +34,7 @@
 .search-box input{width:100%;padding:10px 14px 10px 38px;background:var(--bg-card);border:1.5px solid var(--border-color);border-radius:var(--radius-md);color:var(--text-primary);font-size:var(--text-sm);}
 .search-box input:focus{border-color:var(--teal-500);box-shadow:0 0 0 3px var(--shadow-glow);outline:none;}
 .search-box svg{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--text-muted);pointer-events:none;}
-.filters{display:flex;gap:10px;flex-wrap:wrap;}
+.filters{display:flex;gap:10px;flex-wrap:wrap;align-items:center;}
 .filters select{padding:10px 32px 10px 14px;background:var(--bg-card);border:1.5px solid var(--border-color);border-radius:var(--radius-md);color:var(--text-primary);font-size:var(--text-sm);appearance:none;cursor:pointer;}
 .card{background:var(--bg-card);border:1px solid var(--border-color);border-radius:var(--radius-xl);overflow:hidden;}
 .card-header{padding:20px 24px;border-bottom:1px solid var(--border-color);display:flex;align-items:center;justify-content:space-between;}
@@ -71,14 +71,56 @@
 .form-input{width:100%;padding:10px 14px;background:var(--bg-card);border:1.5px solid var(--border-color);border-radius:var(--radius-md);color:var(--text-primary);font-size:var(--text-sm);transition:all var(--duration-fast);}
 .form-input:focus{border-color:var(--teal-500);box-shadow:0 0 0 3px var(--shadow-glow);outline:none;}
 .form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
-.pagination{display:flex;align-items:center;justify-content:space-between;padding:16px 24px;border-top:1px solid var(--border-color;}
+.pagination{display:flex;align-items:center;justify-content:space-between;padding:16px 24px;border-top:1px solid var(--border-color);}
 .page-info{font-size:var(--text-sm);color:var(--text-muted);}
 .page-btns{display:flex;gap:6px;}
 .page-btn{padding:6px 12px;border-radius:var(--radius-md);background:var(--bg-tertiary);border:1px solid var(--border-color);color:var(--text-secondary);font-size:var(--text-sm);cursor:pointer;transition:all var(--duration-fast);}
 .page-btn:hover{border-color:var(--teal-500);color:var(--teal-500);}
 .page-btn:disabled{opacity:0.4;cursor:not-allowed;}
+
+/* ===== VIEW TOGGLE ===== */
+.view-toggle{display:flex;align-items:center;gap:4px;background:var(--bg-tertiary);border:1px solid var(--border-color);border-radius:var(--radius-md);padding:3px;}
+.view-toggle button{padding:7px 14px;border-radius:6px;border:none;background:transparent;color:var(--text-muted);font-size:var(--text-sm);font-weight:500;cursor:pointer;transition:all var(--duration-fast);display:flex;align-items:center;gap:6px;}
+.view-toggle button.active{background:var(--teal-500);color:white;box-shadow:0 2px 6px rgba(20,184,166,0.3);}
+.view-toggle button:hover:not(.active){color:var(--text-primary);}
+
+/* ===== CARDS GRID ===== */
+.cards-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;padding:20px 24px;display:none;}
+.cards-grid.active{display:grid;}
+.booking-card{background:var(--bg-card);border:1px solid var(--border-color);border-radius:var(--radius-lg);padding:20px;transition:all 0.25s var(--ease-out);cursor:pointer;position:relative;overflow:hidden;}
+.booking-card:hover{transform:translateY(-4px);box-shadow:0 12px 24px rgba(0,0,0,0.25);border-color:rgba(20,184,166,0.3);}
+.booking-card-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:14px;}
+.booking-card-name{font-size:var(--text-base);font-weight:600;color:var(--text-primary);}
+.booking-card-service{font-size:var(--text-sm);color:var(--text-secondary);margin-top:4px;}
+.booking-card-meta{display:flex;align-items:center;gap:12px;margin-top:14px;padding-top:14px;border-top:1px solid var(--border-color);}
+.booking-card-time{display:flex;align-items:center;gap:5px;font-size:var(--text-xs);color:var(--text-muted);}
+.booking-card-price{font-size:var(--text-base);font-weight:700;color:var(--teal-500);margin-left:auto;}
+.booking-card-actions{position:absolute;top:16px;right:16px;display:flex;gap:4px;opacity:0;transition:opacity 0.2s;}
+.booking-card:hover .booking-card-actions{opacity:1;}
+
+/* ===== MINI CALENDAR ===== */
+.mini-calendar{background:var(--bg-card);border:1px solid var(--border-color);border-radius:var(--radius-xl);padding:16px 20px;margin-bottom:20px;max-width:360px;}
+.mc-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;}
+.mc-title{font-size:var(--text-sm);font-weight:700;color:var(--text-primary);}
+.mc-nav{display:flex;align-items:center;gap:4px;}
+.mc-nav button{width:28px;height:28px;border-radius:6px;border:none;background:transparent;color:var(--text-muted);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all var(--duration-fast);}
+.mc-nav button:hover{background:var(--bg-tertiary);color:var(--text-primary);}
+.mc-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;text-align:center;}
+.mc-day-label{font-size:var(--text-xs);font-weight:600;color:var(--text-muted);padding:6px 0;text-transform:uppercase;}
+.mc-day{width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:var(--text-xs);font-weight:500;color:var(--text-secondary);cursor:pointer;position:relative;transition:all var(--duration-fast);border:none;background:transparent;margin:0 auto;}
+.mc-day:hover{background:var(--bg-tertiary);color:var(--text-primary);}
+.mc-day.selected{background:var(--teal-500);color:white;}
+.mc-day.has-booking::after{content:'';position:absolute;bottom:4px;left:50%;transform:translateX(-50%);width:4px;height:4px;border-radius:50%;background:var(--teal-500);}
+.mc-day.selected.has-booking::after{background:white;}
+.mc-day.other-month{color:var(--text-muted);opacity:0.5;}
+.mc-day.today{box-shadow:inset 0 0 0 1.5px var(--teal-500);}
+
+/* ===== LAYOUT HELPERS ===== */
+.topbar{display:flex;align-items:flex-start;gap:24px;flex-wrap:wrap;}
+.topbar-main{flex:1;min-width:300px;}
+
 @media (max-width:1024px){.form-row{grid-template-columns:1fr;}}
-@media (max-width:768px){.sidebar{transform:translateX(-100%);}.sidebar.open{transform:translateX(0);}.main-content{margin-left:0;}.hamburger{display:block;}.toolbar{flex-direction:column;align-items:stretch;}}
+@media (max-width:768px){.sidebar{transform:translateX(-100%);}.sidebar.open{transform:translateX(0);}.main-content{margin-left:0;}.hamburger{display:block;}.toolbar{flex-direction:column;align-items:stretch;}.topbar{flex-direction:column;}.mini-calendar{max-width:100%;}}
 </style>
 </head>
 <body>
@@ -118,16 +160,25 @@
     </header>
 
     <div class="content">
-      <div class="toolbar">
-        <div class="search-box">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-          <input type="text" placeholder="Müşteri, hizmet veya çalışan ara..." id="searchInput">
+      <div class="topbar">
+        <div class="topbar-main">
+          <div class="toolbar">
+            <div class="search-box">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+              <input type="text" placeholder="Müşteri, hizmet veya çalışan ara..." id="searchInput">
+            </div>
+            <div class="filters">
+              <select id="statusFilter"><option value="">Tüm Durumlar</option><option value="pending">Bekliyor</option><option value="progress">Devam Ediyor</option><option value="completed">Tamamlandı</option><option value="cancelled">İptal</option></select>
+              <select id="dateFilter"><option value="">Tüm Tarihler</option><option value="today">Bugün</option><option value="week">Bu Hafta</option><option value="month">Bu Ay</option></select>
+              <div class="view-toggle">
+                <button class="active" onclick="toggleView('table')" id="btnTable"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg> Tablo</button>
+                <button onclick="toggleView('card')" id="btnCard"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg> Kart</button>
+              </div>
+              <button class="btn btn-primary" onclick="openModal('addModal')">+ Yeni Randevu</button>
+            </div>
+          </div>
         </div>
-        <div class="filters">
-          <select id="statusFilter"><option value="">Tüm Durumlar</option><option value="pending">Bekliyor</option><option value="progress">Devam Ediyor</option><option value="completed">Tamamlandı</option><option value="cancelled">İptal</option></select>
-          <select id="dateFilter"><option value="">Tüm Tarihler</option><option value="today">Bugün</option><option value="week">Bu Hafta</option><option value="month">Bu Ay</option></select>
-          <button class="btn btn-primary" onclick="openModal('addModal')">+ Yeni Randevu</button>
-        </div>
+        <div class="mini-calendar" id="miniCalendar"></div>
       </div>
 
       <div class="card">
@@ -135,19 +186,20 @@
           <table class="table" id="bookingsTable">
             <thead><tr><th>Tarih / Saat</th><th>Müşteri</th><th>Hizmet</th><th>Çalışan</th><th>Durum</th><th>Tutar</th><th>İşlemler</th></tr></thead>
             <tbody>
-              <tr data-id="1"><td><div style="font-weight:600;">14 Mayıs</div><div style="font-size:var(--text-xs);color:var(--text-muted);">09:00</div></td><td>Jan Peeters</td><td>Komple Detaylı Temizlik</td><td>Ahmet Kaya</td><td><span class="tag tag-green">Tamamlandı</span></td><td style="font-weight:600;">€149</td><td><div class="actions"><button class="action-btn edit" onclick="openEditModal(1)" title="Düzenle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(1)" title="Sil"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td></tr>
-              <tr data-id="2"><td><div style="font-weight:600;">14 Mayıs</div><div style="font-size:var(--text-xs);color:var(--text-muted);">10:30</div></td><td>Lisa Wouters</td><td>İç Temizlik</td><td>Merve Demir</td><td><span class="tag tag-amber">Devam Ediyor</span></td><td style="font-weight:600;">€89</td><td><div class="actions"><button class="action-btn edit" onclick="openEditModal(2)" title="Düzenle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(2)" title="Sil"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td></tr>
-              <tr data-id="3"><td><div style="font-weight:600;">14 Mayıs</div><div style="font-size:var(--text-xs);color:var(--text-muted);">13:00</div></td><td>Pieter De Vos</td><td>Dış Yıkama + Cila</td><td>Ali Rıza</td><td><span class="tag tag-blue">Bekliyor</span></td><td style="font-weight:600;">€199</td><td><div class="actions"><button class="action-btn edit" onclick="openEditModal(3)" title="Düzenle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(3)" title="Sil"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td></tr>
-              <tr data-id="4"><td><div style="font-weight:600;">14 Mayıs</div><div style="font-size:var(--text-xs);color:var(--text-muted);">15:00</div></td><td>Sarah Janssens</td><td>Motor Temizliği</td><td>Ahmet Kaya</td><td><span class="tag tag-blue">Bekliyor</span></td><td style="font-weight:600;">€349</td><td><div class="actions"><button class="action-btn edit" onclick="openEditModal(4)" title="Düzenle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(4)" title="Sil"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td></tr>
-              <tr data-id="5"><td><div style="font-weight:600;">14 Mayıs</div><div style="font-size:var(--text-xs);color:var(--text-muted);">16:30</div></td><td>Marc Dubois</td><td>Keramik Kaplama</td><td>Merve Demir</td><td><span class="tag tag-blue">Bekliyor</span></td><td style="font-weight:600;">€449</td><td><div class="actions"><button class="action-btn edit" onclick="openEditModal(5)" title="Düzenle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(5)" title="Sil"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td></tr>
-              <tr data-id="6"><td><div style="font-weight:600;">15 Mayıs</div><div style="font-size:var(--text-xs);color:var(--text-muted);">09:00</div></td><td>Eva Peeters</td><td>İç + Dış Temizlik</td><td>Ali Rıza</td><td><span class="tag tag-blue">Bekliyor</span></td><td style="font-weight:600;">€129</td><td><div class="actions"><button class="action-btn edit" onclick="openEditModal(6)" title="Düzenle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(6)" title="Sil"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td></tr>
-              <tr data-id="7"><td><div style="font-weight:600;">15 Mayıs</div><div style="font-size:var(--text-xs);color:var(--text-muted);">11:00</div></td><td>Lucas Vermeulen</td><td>Deri Koltuk Bakımı</td><td>Naz Yılmaz</td><td><span class="tag tag-red">İptal</span></td><td style="font-weight:600;">€79</td><td><div class="actions"><button class="action-btn edit" onclick="openEditModal(7)" title="Düzenle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(7)" title="Sil"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td></tr>
-              <tr data-id="8"><td><div style="font-weight:600;">15 Mayıs</div><div style="font-size:var(--text-xs);color:var(--text-muted);">14:00</div></td><td>Emma Jacobs</td><td>Far Parlatma</td><td>Selim Çelik</td><td><span class="tag tag-blue">Bekliyor</span></td><td style="font-weight:600;">€59</td><td><div class="actions"><button class="action-btn edit" onclick="openEditModal(8)" title="Düzenle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(8)" title="Sil"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td></tr>
+              <tr data-id="1" data-date="2026-05-14"><td><div style="font-weight:600;">14 Mayıs</div><div style="font-size:var(--text-xs);color:var(--text-muted);">09:00</div></td><td>Jan Peeters</td><td>Komple Detaylı Temizlik</td><td>Ahmet Kaya</td><td><span class="tag tag-green">Tamamlandı</span></td><td style="font-weight:600;">€149</td><td><div class="actions"><button class="action-btn edit" onclick="openEditModal(1)" title="Düzenle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(1)" title="Sil"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td></tr>
+              <tr data-id="2" data-date="2026-05-14"><td><div style="font-weight:600;">14 Mayıs</div><div style="font-size:var(--text-xs);color:var(--text-muted);">10:30</div></td><td>Lisa Wouters</td><td>İç Temizlik</td><td>Merve Demir</td><td><span class="tag tag-amber">Devam Ediyor</span></td><td style="font-weight:600;">€89</td><td><div class="actions"><button class="action-btn edit" onclick="openEditModal(2)" title="Düzenle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(2)" title="Sil"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td></tr>
+              <tr data-id="3" data-date="2026-05-14"><td><div style="font-weight:600;">14 Mayıs</div><div style="font-size:var(--text-xs);color:var(--text-muted);">13:00</div></td><td>Pieter De Vos</td><td>Dış Yıkama + Cila</td><td>Ali Rıza</td><td><span class="tag tag-blue">Bekliyor</span></td><td style="font-weight:600;">€199</td><td><div class="actions"><button class="action-btn edit" onclick="openEditModal(3)" title="Düzenle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(3)" title="Sil"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td></tr>
+              <tr data-id="4" data-date="2026-05-14"><td><div style="font-weight:600;">14 Mayıs</div><div style="font-size:var(--text-xs);color:var(--text-muted);">15:00</div></td><td>Sarah Janssens</td><td>Motor Temizliği</td><td>Ahmet Kaya</td><td><span class="tag tag-blue">Bekliyor</span></td><td style="font-weight:600;">€349</td><td><div class="actions"><button class="action-btn edit" onclick="openEditModal(4)" title="Düzenle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(4)" title="Sil"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td></tr>
+              <tr data-id="5" data-date="2026-05-14"><td><div style="font-weight:600;">14 Mayıs</div><div style="font-size:var(--text-xs);color:var(--text-muted);">16:30</div></td><td>Marc Dubois</td><td>Keramik Kaplama</td><td>Merve Demir</td><td><span class="tag tag-blue">Bekliyor</span></td><td style="font-weight:600;">€449</td><td><div class="actions"><button class="action-btn edit" onclick="openEditModal(5)" title="Düzenle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(5)" title="Sil"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td></tr>
+              <tr data-id="6" data-date="2026-05-15"><td><div style="font-weight:600;">15 Mayıs</div><div style="font-size:var(--text-xs);color:var(--text-muted);">09:00</div></td><td>Eva Peeters</td><td>İç + Dış Temizlik</td><td>Ali Rıza</td><td><span class="tag tag-blue">Bekliyor</span></td><td style="font-weight:600;">€129</td><td><div class="actions"><button class="action-btn edit" onclick="openEditModal(6)" title="Düzenle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(6)" title="Sil"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td></tr>
+              <tr data-id="7" data-date="2026-05-15"><td><div style="font-weight:600;">15 Mayıs</div><div style="font-size:var(--text-xs);color:var(--text-muted);">11:00</div></td><td>Lucas Vermeulen</td><td>Deri Koltuk Bakımı</td><td>Naz Yılmaz</td><td><span class="tag tag-red">İptal</span></td><td style="font-weight:600;">€79</td><td><div class="actions"><button class="action-btn edit" onclick="openEditModal(7)" title="Düzenle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(7)" title="Sil"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td></tr>
+              <tr data-id="8" data-date="2026-05-15"><td><div style="font-weight:600;">15 Mayıs</div><div style="font-size:var(--text-xs);color:var(--text-muted);">14:00</div></td><td>Emma Jacobs</td><td>Far Parlatma</td><td>Selim Çelik</td><td><span class="tag tag-blue">Bekliyor</span></td><td style="font-weight:600;">€59</td><td><div class="actions"><button class="action-btn edit" onclick="openEditModal(8)" title="Düzenle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(8)" title="Sil"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td></tr>
             </tbody>
           </table>
+          <div class="cards-grid" id="cardsGrid"></div>
         </div>
         <div class="pagination">
-          <span class="page-info">8 randevudan 1-8 gösteriliyor</span>
+          <span class="page-info" id="pageInfo">8 randevudan 1-8 gösteriliyor</span>
           <div class="page-btns">
             <button class="page-btn" disabled>← Önceki</button>
             <button class="page-btn" disabled>Sonraki →</button>
@@ -159,7 +211,7 @@
 </div>
 
 <!-- Add Modal -->
-<div class="modal-overlay" id="addModal">
+<div class="modal-overlay" id="addModal" onclick="if(event.target===this)closeModal(this.id)">
   <div class="modal">
     <div class="modal-header">
       <span class="modal-title">Yeni Randevu Ekle</span>
@@ -227,7 +279,7 @@
 </div>
 
 <!-- Edit Modal -->
-<div class="modal-overlay" id="editModal">
+<div class="modal-overlay" id="editModal" onclick="if(event.target===this)closeModal(this.id)">
   <div class="modal">
     <div class="modal-header">
       <span class="modal-title">Randevu Düzenle</span>
@@ -305,7 +357,7 @@
 </div>
 
 <!-- Delete Modal -->
-<div class="modal-overlay" id="deleteModal">
+<div class="modal-overlay" id="deleteModal" onclick="if(event.target===this)closeModal(this.id)">
   <div class="modal" style="max-width:420px;">
     <div class="modal-header">
       <span class="modal-title" style="color:var(--error-500);">Randevu Sil</span>
@@ -351,7 +403,18 @@ function openDeleteModal(id){
   openModal('deleteModal');
 }
 function confirmDelete(){
-  if(deleteId){document.querySelector(`tr[data-id="${deleteId}"]`).remove();showToast('Randevu silindi','success');deleteId=null;}
+  if(deleteId){
+    const row=document.querySelector(`tr[data-id="${deleteId}"]`);
+    if(row) row.remove();
+    const card=document.querySelector(`.booking-card[data-id="${deleteId}"]`);
+    if(card) card.remove();
+    delete demoData[deleteId];
+    showToast('Randevu silindi','success');
+    deleteId=null;
+    renderCards();
+    renderMiniCalendar();
+    updatePageInfo();
+  }
   closeModal('deleteModal');
 }
 
@@ -366,6 +429,7 @@ const demoData={
   7:{customer:'Lucas Vermeulen',phone:'+32 476 77 88 99',date:'2026-05-15',time:'11:00',service:'Deri Koltuk Bakımı',staff:'Naz Yılmaz',status:'cancelled',price:'79'},
   8:{customer:'Emma Jacobs',phone:'+32 477 88 99 00',date:'2026-05-15',time:'14:00',service:'Far Parlatma',staff:'Selim Çelik',status:'pending',price:'59'},
 };
+
 function openEditModal(id){
   editId=id;
   const d=demoData[id];
@@ -388,14 +452,32 @@ function saveEdit(){
     const tagMap={pending:'tag-blue',progress:'tag-amber',completed:'tag-green',cancelled:'tag-red'};
     const labelMap={pending:'Bekliyor',progress:'Devam Ediyor',completed:'Tamamlandı',cancelled:'İptal'};
     const colorMap={pending:'var(--info-500)',progress:'var(--amber-500)',completed:'var(--success-500)',cancelled:'var(--error-500)'};
+    const dateVal=document.getElementById('editDate').value;
+    const timeVal=document.getElementById('editTime').value;
+    const d=new Date(dateVal);
+    const months=['Ocak','Şubat','Mart','Nisan','Mayıs','Haziran','Temmuz','Ağustos','Eylül','Ekim','Kasım','Aralık'];
+    row.cells[0].innerHTML=`<div style="font-weight:600;">${d.getDate()} ${months[d.getMonth()]}</div><div style="font-size:var(--text-xs);color:var(--text-muted);">${timeVal}</div>`;
     row.cells[1].textContent=document.getElementById('editCustomer').value;
     row.cells[2].textContent=document.getElementById('editService').value;
     row.cells[3].textContent=document.getElementById('editStaff').value;
     row.cells[4].innerHTML=`<span class="tag ${tagMap[s]}">${labelMap[s]}</span>`;
     row.cells[5].style.color=colorMap[s]||'var(--text-primary)';
     row.cells[5].textContent='€'+document.getElementById('editPrice').value;
+    row.setAttribute('data-date',dateVal);
+    demoData[editId]={
+      customer:document.getElementById('editCustomer').value,
+      phone:document.getElementById('editPhone').value,
+      date:dateVal,
+      time:timeVal,
+      service:document.getElementById('editService').value,
+      staff:document.getElementById('editStaff').value,
+      status:s,
+      price:document.getElementById('editPrice').value,
+    };
     showToast('Randevu güncellendi','success');
     editId=null;
+    renderCards();
+    renderMiniCalendar();
   }
   closeModal('editModal');
 }
@@ -407,30 +489,210 @@ function addBooking(){
   const staff=document.getElementById('addStaff').value;
   if(!customer||!date||!time||!service||!staff){showToast('Lütfen tüm alanları doldurun','error');return;}
   const tbody=document.querySelector('#bookingsTable tbody');
-  const newId=Math.max(...Array.from(document.querySelectorAll('tr[data-id]')).map(r=>+r.dataset.id))+1;
-  const tr=document.createElement('tr');tr.dataset.id=newId;
+  const newId=Math.max(...Array.from(document.querySelectorAll('tr[data-id]')).map(r=>+r.dataset.id),0)+1;
+  const tr=document.createElement('tr');tr.dataset.id=newId;tr.setAttribute('data-date',date);
   const d=new Date(date);const months=['Ocak','Şubat','Mart','Nisan','Mayıs','Haziran','Temmuz','Ağustos','Eylül','Ekim','Kasım','Aralık'];
   const dateStr=`${d.getDate()} ${months[d.getMonth()]}`;
   tr.innerHTML=`<td><div style="font-weight:600;">${dateStr}</div><div style="font-size:var(--text-xs);color:var(--text-muted);">${time}</div></td><td>${customer}</td><td>${service}</td><td>${staff}</td><td><span class="tag tag-blue">Bekliyor</span></td><td style="font-weight:600;">€—</td><td><div class="actions"><button class="action-btn edit" onclick="openEditModal(${newId})" title="Düzenle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(${newId})" title="Sil"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>`;
   tbody.appendChild(tr);
+  demoData[newId]={customer,phone:document.getElementById('addPhone').value||'',date,time,service,staff,status:'pending',price:''};
   ['addCustomer','addPhone','addDate','addTime','addService','addStaff','addNotes'].forEach(id=>document.getElementById(id).value='');
   closeModal('addModal');showToast('Randevu eklendi','success');
+  renderCards();
+  renderMiniCalendar();
+  updatePageInfo();
 }
 
+/* ===== VIEW TOGGLE ===== */
+let currentView='table';
+function toggleView(view){
+  currentView=view;
+  document.getElementById('btnTable').classList.toggle('active',view==='table');
+  document.getElementById('btnCard').classList.toggle('active',view==='card');
+  document.getElementById('bookingsTable').style.display=view==='table'?'':'none';
+  const grid=document.getElementById('cardsGrid');
+  grid.classList.toggle('active',view==='card');
+  if(view==='card') renderCards();
+}
+
+function renderCards(){
+  const grid=document.getElementById('cardsGrid');
+  grid.innerHTML='';
+  const rows=Array.from(document.querySelectorAll('#bookingsTable tbody tr'));
+  const tagMap={pending:'tag-blue',progress:'tag-amber',completed:'tag-green',cancelled:'tag-red'};
+  const labelMap={pending:'Bekliyor',progress:'Devam Ediyor',completed:'Tamamlandı',cancelled:'İptal'};
+  const colorMap={pending:'var(--info-500)',progress:'var(--amber-500)',completed:'var(--success-500)',cancelled:'var(--error-500)'};
+  rows.forEach(row=>{
+    if(row.style.display==='none') return;
+    const id=row.dataset.id;
+    const d=demoData[id]||{};
+    const dateEl=row.cells[0];
+    const dateText=dateEl.querySelector('div').textContent;
+    const timeText=dateEl.querySelectorAll('div')[1].textContent;
+    const customer=row.cells[1].textContent;
+    const service=row.cells[2].textContent;
+    const staff=row.cells[3].textContent;
+    const statusSpan=row.cells[4].querySelector('.tag');
+    const statusClass=statusSpan?Array.from(statusSpan.classList).find(c=>c.startsWith('tag-')):'tag-blue';
+    const statusText=statusSpan?statusSpan.textContent:'Bekliyor';
+    const price=row.cells[5].textContent;
+    const card=document.createElement('div');
+    card.className='booking-card';
+    card.dataset.id=id;
+    card.dataset.date=row.dataset.date;
+    card.innerHTML=`
+      <div class="booking-card-actions">
+        <button class="action-btn edit" onclick="openEditModal(${id})" title="Düzenle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>
+        <button class="action-btn delete" onclick="openDeleteModal(${id})" title="Sil"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button>
+      </div>
+      <div class="booking-card-header">
+        <div>
+          <div class="booking-card-name">${customer}</div>
+          <div class="booking-card-service">${service}</div>
+        </div>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
+        <span class="tag ${statusClass}">${statusText}</span>
+      </div>
+      <div class="booking-card-meta">
+        <span class="booking-card-time"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>${dateText} · ${timeText}</span>
+        <span class="booking-card-price">${price}</span>
+      </div>
+      <div style="font-size:var(--text-xs);color:var(--text-muted);margin-top:6px;">${staff}</div>
+    `;
+    grid.appendChild(card);
+  });
+  updatePageInfo();
+}
+
+/* ===== MINI CALENDAR ===== */
+let calYear=new Date().getFullYear();
+let calMonth=new Date().getMonth();
+let selectedCalDate=null;
+
+function renderMiniCalendar(){
+  const el=document.getElementById('miniCalendar');
+  const monthNames=['Ocak','Şubat','Mart','Nisan','Mayıs','Haziran','Temmuz','Ağustos','Eylül','Ekim','Kasım','Aralık'];
+  const firstDay=new Date(calYear,calMonth,1).getDay();
+  const daysInMonth=new Date(calYear,calMonth+1,0).getDate();
+  const prevDays=new Date(calYear,calMonth,0).getDate();
+  const dayLabels=['Pzt','Sal','Çar','Per','Cum','Cmt','Paz'];
+
+  const bookingDates=new Set();
+  document.querySelectorAll('tr[data-date]').forEach(r=>{
+    if(r.style.display!=='none') bookingDates.add(r.dataset.date);
+  });
+  document.querySelectorAll('.booking-card[data-date]').forEach(c=>{
+    if(c.style.display!=='none') bookingDates.add(c.dataset.date);
+  });
+
+  let html=`
+    <div class="mc-header">
+      <span class="mc-title">${monthNames[calMonth]} ${calYear}</span>
+      <div class="mc-nav">
+        <button onclick="changeCalMonth(-1)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg></button>
+        <button onclick="changeCalMonth(1)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></button>
+      </div>
+    </div>
+    <div class="mc-grid">
+  `;
+  dayLabels.forEach(l=>html+=`<div class="mc-day-label">${l}</div>`);
+  let startOffset=(firstDay+6)%7;
+  for(let i=startOffset-1;i>=0;i--){
+    html+=`<button class="mc-day other-month">${prevDays-i}</button>`;
+  }
+  const today=new Date();
+  for(let d=1;d<=daysInMonth;d++){
+    const dateStr=`${calYear}-${String(calMonth+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+    const isToday=today.getFullYear()===calYear&&today.getMonth()===calMonth&&today.getDate()===d;
+    const hasBooking=bookingDates.has(dateStr);
+    const isSelected=selectedCalDate===dateStr;
+    const cls=['mc-day',isToday?'today':'',hasBooking?'has-booking':'',isSelected?'selected':''].filter(Boolean).join(' ');
+    html+=`<button class="${cls}" onclick="selectCalDate('${dateStr}',this)">${d}</button>`;
+  }
+  html+=`</div>`;
+  if(selectedCalDate){
+    html+=`<div style="margin-top:10px;display:flex;align-items:center;gap:8px;"><span style="font-size:var(--text-xs);color:var(--text-muted);">Filtre: ${selectedCalDate}</span><button onclick="clearCalFilter()" style="font-size:var(--text-xs);padding:3px 8px;border-radius:4px;border:none;background:var(--bg-tertiary);color:var(--text-muted);cursor:pointer;">Temizle</button></div>`;
+  }
+  el.innerHTML=html;
+}
+function changeCalMonth(dir){
+  calMonth+=dir;
+  if(calMonth<0){calMonth=11;calYear--;}
+  if(calMonth>11){calMonth=0;calYear++;}
+  renderMiniCalendar();
+}
+function selectCalDate(dateStr,btn){
+  selectedCalDate=dateStr;
+  document.querySelectorAll('.mc-day').forEach(b=>b.classList.remove('selected'));
+  btn.classList.add('selected');
+  document.querySelectorAll('#bookingsTable tbody tr').forEach(r=>{
+    r.style.display=r.dataset.date===dateStr?'':'none';
+  });
+  if(currentView==='card') renderCards();
+  renderMiniCalendar();
+  updatePageInfo();
+}
+function clearCalFilter(){
+  selectedCalDate=null;
+  document.querySelectorAll('#bookingsTable tbody tr').forEach(r=>{r.style.display='';});
+  applyStatusFilter();
+  applySearchFilter();
+  if(currentView==='card') renderCards();
+  renderMiniCalendar();
+  updatePageInfo();
+}
+
+function applyStatusFilter(){
+  const v=document.getElementById('statusFilter').value;
+  if(!v) return;
+  const labels={pending:'Bekliyor',progress:'Devam Ediyor',completed:'Tamamlandı',cancelled:'İptal'};
+  document.querySelectorAll('#bookingsTable tbody tr').forEach(r=>{
+    if(r.style.display==='none' && selectedCalDate && r.dataset.date!==selectedCalDate) return;
+    const status=r.cells[4].textContent.trim();
+    r.style.display=status===labels[v]?'':'none';
+  });
+}
+function applySearchFilter(){
+  const v=document.getElementById('searchInput').value.toLowerCase();
+  if(!v) return;
+  document.querySelectorAll('#bookingsTable tbody tr').forEach(r=>{
+    if(r.style.display==='none' && ((selectedCalDate && r.dataset.date!==selectedCalDate))) return;
+    r.style.display=r.textContent.toLowerCase().includes(v)?'':'none';
+  });
+}
+function updatePageInfo(){
+  const visible=document.querySelectorAll('#bookingsTable tbody tr:not([style*="display: none"])').length;
+  const total=document.querySelectorAll('#bookingsTable tbody tr').length;
+  document.getElementById('pageInfo').textContent=`${total} randevudan ${visible} gösteriliyor`;
+}
+
+/* ===== EVENT LISTENERS ===== */
 document.querySelectorAll('.modal-overlay').forEach(o=>o.addEventListener('click',e=>{if(e.target===o)o.classList.remove('active');}));
 document.getElementById('searchInput').addEventListener('input',function(){
   const v=this.value.toLowerCase();
-  document.querySelectorAll('#bookingsTable tbody tr').forEach(r=>{r.style.display=r.textContent.toLowerCase().includes(v)?'':'none';});
+  document.querySelectorAll('#bookingsTable tbody tr').forEach(r=>{
+    if(selectedCalDate && r.dataset.date!==selectedCalDate){r.style.display='none';return;}
+    r.style.display=r.textContent.toLowerCase().includes(v)?'':'none';
+  });
+  if(currentView==='card') renderCards();
+  updatePageInfo();
 });
 document.getElementById('statusFilter').addEventListener('change',function(){
   const v=this.value;
   const labels={pending:'Bekliyor',progress:'Devam Ediyor',completed:'Tamamlandı',cancelled:'İptal'};
   document.querySelectorAll('#bookingsTable tbody tr').forEach(r=>{
+    if(selectedCalDate && r.dataset.date!==selectedCalDate){r.style.display='none';return;}
     if(!v){r.style.display='';return;}
     const status=r.cells[4].textContent.trim();
     r.style.display=status===labels[v]?'':'none';
   });
+  if(currentView==='card') renderCards();
+  updatePageInfo();
 });
+
+/* ===== INIT ===== */
+renderMiniCalendar();
 </script>
 </body>
 </html>
