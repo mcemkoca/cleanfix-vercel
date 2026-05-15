@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BuildPro — Stok ve Malzeme Yönetimi</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/main.css">
+<link rel="stylesheet" href="css/components.css">
+<style>
+.dashboard{display:flex;min-height:100vh;background:var(--bg-primary);}
+.sidebar{width:260px;height:100vh;background:var(--bg-card);border-right:1px solid var(--border-color);display:flex;flex-direction:column;position:fixed;left:0;top:0;z-index:100;}
+.sidebar-header{padding:20px 24px;border-bottom:1px solid var(--border-color);display:flex;align-items:center;gap:12px;}
+.sidebar-logo{width:36px;height:36px;background:linear-gradient(135deg,var(--teal-500),var(--teal-700));border-radius:10px;display:flex;align-items:center;justify-content:center;font-weight:700;color:white;font-size:14px;}
+.sidebar-nav{flex:1;overflow-y:auto;padding:16px 12px;}
+.nav-group{margin-bottom:8px;}
+.nav-group-header{display:flex;align-items:center;gap:8px;padding:8px 12px;font-size:var(--text-xs);font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.05em;}
+.nav-item{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:var(--radius-md);color:var(--text-secondary);font-size:var(--text-sm);font-weight:500;text-decoration:none;}
+.nav-item:hover{background:var(--bg-tertiary);color:var(--text-primary);}
+.nav-item.active{background:rgba(20,184,166,0.1);color:var(--teal-500);}
+.nav-icon{width:20px;height:20px;opacity:0.7;}
+.main-content{flex:1;margin-left:260px;min-height:100vh;}
+.header{height:64px;background:var(--bg-card);border-bottom:1px solid var(--border-color);display:flex;align-items:center;justify-content:space-between;padding:0 32px;position:sticky;top:0;z-index:50;}
+.hamburger{display:none;background:none;border:none;color:var(--text-secondary);cursor:pointer;padding:8px;}
+.content{padding:32px;max-width:1400px;}
+.toolbar{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:24px;flex-wrap:wrap;}
+.search-box{flex:1;min-width:240px;position:relative;}
+.search-box input{width:100%;padding:10px 14px 10px 38px;background:var(--bg-card);border:1.5px solid var(--border-color);border-radius:var(--radius-md);color:var(--text-primary);font-size:var(--text-sm);}
+.search-box input:focus{border-color:var(--teal-500);box-shadow:0 0 0 3px var(--shadow-glow);outline:none;}
+.card{background:var(--bg-card);border:1px solid var(--border-color);border-radius:var(--radius-xl);overflow:hidden;}
+.table{width:100%;border-collapse:collapse;}
+.table th{text-align:left;padding:14px 16px;font-size:var(--text-xs);font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.05em;border-bottom:1px solid var(--border-color);white-space:nowrap;}
+.table td{padding:14px 16px;font-size:var(--text-sm);color:var(--text-secondary);border-bottom:1px solid var(--border-color);vertical-align:middle;white-space:nowrap;}
+.table tr:last-child td{border-bottom:none;}
+.table tr:hover td{background:rgba(255,255,255,0.02);}
+.avatar{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:var(--text-xs);color:white;}
+.tag{display:inline-flex;align-items:center;gap:4px;padding:4px 12px;border-radius:9999px;font-size:var(--text-xs);font-weight:500;}
+.tag-green{background:rgba(16,185,129,0.1);color:var(--success-500);}
+.tag-blue{background:rgba(59,130,246,0.1);color:var(--info-500);}
+.tag-amber{background:rgba(245,158,11,0.1);color:var(--amber-500);}
+.tag-red{background:rgba(244,63,94,0.1);color:var(--error-500);}
+.tag-purple{background:rgba(139,92,246,0.1);color:#14b8a6;}
+.actions{display:flex;gap:6px;}
+.action-btn{width:28px;height:28px;border-radius:6px;display:flex;align-items:center;justify-content:center;background:transparent;border:none;color:var(--text-muted);cursor:pointer;transition:all var(--duration-fast);}
+.action-btn:hover{background:var(--bg-tertiary);color:var(--text-primary);}
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:200;display:none;align-items:center;justify-content:center;backdrop-filter:blur(4px);}
+.modal-overlay.active{display:flex;}
+.modal{background:var(--bg-card);border:1px solid var(--border-color);border-radius:var(--radius-xl);width:100%;max-width:560px;max-height:90vh;overflow-y:auto;box-shadow:var(--shadow-xl);animation:modalIn 0.3s ease;}
+.modal-lg{max-width:720px;}
+@keyframes modalIn{from{opacity:0;transform:translateY(20px) scale(0.98);}to{opacity:1;transform:translateY(0) scale(1);}}
+.modal-header{padding:20px 24px;border-bottom:1px solid var(--border-color);display:flex;align-items:center;justify-content:space-between;}
+.modal-title{font-size:var(--text-lg);font-weight:700;}
+.modal-close{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;background:transparent;border:none;color:var(--text-muted);cursor:pointer;}
+.modal-body{padding:20px 24px;}
+.modal-footer{padding:16px 24px;border-top:1px solid var(--border-color);display:flex;gap:12px;justify-content:flex-end;}
+.form-group{margin-bottom:16px;}
+.form-label{display:block;font-size:var(--text-xs);font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:6px;}
+.form-input,.form-select{width:100%;padding:10px 14px;background:var(--bg-card);border:1.5px solid var(--border-color);border-radius:var(--radius-md);color:var(--text-primary);font-size:var(--text-sm);transition:all var(--duration-fast);}
+.form-input:focus,.form-select:focus{border-color:var(--teal-500);box-shadow:0 0 0 3px var(--shadow-glow);outline:none;}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.pagination{display:flex;align-items:center;gap:8px;justify-content:center;margin-top:20px;}
+.page-btn{padding:6px 12px;border-radius:var(--radius-md);background:var(--bg-tertiary);border:1px solid var(--border-color);color:var(--text-secondary);font-size:var(--text-sm);cursor:pointer;}
+.page-btn:hover{border-color:var(--teal-500);color:var(--teal-500);}
+.page-btn.active{background:var(--teal-500);color:white;border-color:var(--teal-500);}
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:24px;}
+.stat-card{background:var(--bg-card);border:1px solid var(--border-color);border-radius:var(--radius-xl);padding:20px;}
+.stat-value{font-size:var(--text-2xl);font-weight:700;color:var(--text-primary);}
+.stat-label{font-size:var(--text-sm);color:var(--text-muted);margin-top:4px;}
+.stat-trend{font-size:var(--text-xs);font-weight:500;margin-top:6px;}
+.alert-section-title{font-size:var(--text-sm);font-weight:600;color:var(--text-primary);margin-bottom:12px;display:flex;align-items:center;gap:8px;}
+.alert-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:24px;}
+.alert-card{background:var(--bg-card);border:1.5px solid var(--error-500);border-radius:var(--radius-xl);padding:16px;}
+.alert-card-title{font-size:var(--text-sm);font-weight:600;color:var(--text-primary);margin-bottom:4px;}
+.alert-card-meta{font-size:var(--text-xs);color:var(--text-muted);}
+.alert-card-stock{font-size:var(--text-lg);font-weight:700;color:var(--error-500);margin-top:8px;}
+.alert-card-btn{width:100%;margin-top:10px;padding:6px 10px;border-radius:var(--radius-md);background:rgba(244,63,94,0.1);color:var(--error-500);border:none;font-size:var(--text-xs);font-weight:600;cursor:pointer;}
+.alert-card-btn:hover{background:var(--error-500);color:white;}
+.toast-container{position:fixed;top:24px;right:24px;z-index:300;display:flex;flex-direction:column;gap:10px;}
+.toast{background:var(--bg-card);border:1px solid var(--border-color);border-radius:var(--radius-xl);padding:14px 18px;display:flex;align-items:center;gap:12px;box-shadow:var(--shadow-xl);min-width:280px;animation:toastIn 0.3s ease;}
+.toast.exit{animation:toastOut 0.3s ease forwards;}
+.toast-icon{width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:white;flex-shrink:0;}
+.toast-success .toast-icon{background:var(--success-500);}
+.toast-error .toast-icon{background:var(--error-500);}
+.toast-warning .toast-icon{background:var(--amber-500);}
+.toast-info .toast-icon{background:var(--info-500);}
+.toast-content{flex:1;}
+.toast-title{font-size:var(--text-sm);font-weight:600;color:var(--text-primary);}
+.toast-message{font-size:var(--text-xs);color:var(--text-muted);margin-top:2px;}
+.toast-close{background:none;border:none;color:var(--text-muted);cursor:pointer;font-size:14px;padding:4px;}
+.toast-progress{position:absolute;bottom:0;left:0;height:2px;background:var(--teal-500);animation:progress 4s linear forwards;}
+.toast{position:relative;overflow:hidden;}
+@keyframes toastIn{from{opacity:0;transform:translateX(20px);}to{opacity:1;transform:translateX(0);}}
+@keyframes toastOut{from{opacity:1;transform:translateX(0);}to{opacity:0;transform:translateX(20px);}}
+@keyframes progress{from{width:100%;}to{width:0%;}}
+@media (max-width:1024px){.form-row{grid-template-columns:1fr 1fr;}.stats-row{grid-template-columns:repeat(2,1fr);}.alert-grid{grid-template-columns:repeat(2,1fr);}}
+@media (max-width:768px){.sidebar{transform:translateX(-100%);}.sidebar.open{transform:translateX(0);}.main-content{margin-left:0;}.hamburger{display:block;}.form-row,.stats-row,.alert-grid{grid-template-columns:1fr;}.table th,.table td{padding:10px 12px;font-size:var(--text-xs);}}
+</style>
+</head>
+<body>
+<div class="dashboard">
+  <!-- Sidebar -->
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-header">
+    <div class="sidebar-logo">
+      <div class="logo-icon">🏗️</div>
+      <div>
+        <h2>BuildPro</h2>
+        <p>İnşaat Yönetimi</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="sidebar-nav">
+    <div class="nav-group">
+      <div class="nav-label">Ana Menü</div>
+      <a class="nav-item" href="dashboard.html">📊 Dashboard</a>
+      <a class="nav-item" href="buildpro-projects.html">📋 Projeler</a>
+      <a class="nav-item" href="buildpro-quotes.html">📄 Teklifler</a>
+      <a class="nav-item" href="buildpro-site.html">🏗️ Şantiye</a>
+      <a class="nav-item" href="buildpro-equipment.html">⚙️ Ekipman</a>
+      <a class="nav-item" href="buildpro-staff.html">👷 Personel</a>
+      <a class="nav-item active" href="buildpro-stock.html">📦 Stok</a>
+    </div>
+
+    <div class="nav-group">
+      <div class="nav-label">Finans ve Rapor</div>
+      <a class="nav-item" href="buildpro-costs.html">💰 Finansman</a>
+      <a class="nav-item" href="buildpro-reports.html">📈 Raporlar</a>
+    </div>
+
+    <div class="nav-group">
+      <div class="nav-label">Diğer</div>
+      <a class="nav-item" href="buildpro-calendar.html">📅 Takvim</a>
+      <a class="nav-item" href="buildpro-settings.html">⚙️ Ayarlar</a>
+    </div>
+  </div>
+
+  <div class="sidebar-footer">
+    <div class="sidebar-user">
+      <div class="sidebar-user-info">
+        <p>BuildPro Demo</p>
+        <span>İnşaat Sektörü</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <main class="main-content">
+    <header class="header">
+      <div class="header-left">
+        <button class="hamburger" onclick="document.getElementById('sidebar').classList.toggle('open')">☰</button>
+        <h1 style="font-size:var(--text-lg);font-weight:700;">Stok ve Malzeme Yönetimi</h1>
+      </div>
+      <div class="header-right">
+        <div style="display:flex;align-items:center;gap:10px;"><div class="avatar" style="background:linear-gradient(135deg,#14b8a6,#0d9488);">BP</div><div><div style="font-weight:600;font-size:var(--text-sm);">BuildPro NV</div><div style="font-size:var(--text-xs);color:var(--text-muted);">Enterprise Plan</div></div></div>
+      </div>
+    </header>
+
+    <div class="content">
+      <!-- KPI Cards -->
+      <div class="stats-row">
+        <div class="stat-card">
+          <div class="stat-value" style="color:var(--teal-500);">342</div>
+          <div class="stat-label">Toplam Malzeme Çeşidi</div>
+          <div class="stat-trend" style="color:var(--success-500);">↑ 12 yeni</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" style="color:var(--info-500);">€890K</div>
+          <div class="stat-label">Depo Değeri</div>
+          <div class="stat-trend" style="color:var(--success-500);">↑ €45K</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" style="color:var(--error-500);">8</div>
+          <div class="stat-label">Kritik Stok</div>
+          <div class="stat-trend" style="color:var(--success-500);">↓ 3</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" style="color:var(--amber-500);">12</div>
+          <div class="stat-label">Bekleyen Sipariş</div>
+          <div class="stat-trend" style="color:var(--success-500);">↑ 2</div>
+        </div>
+      </div>
+
+      <!-- Toolbar -->
+      <div class="toolbar">
+        <div class="search-box">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="position:absolute;left:12px;top:50%;transform:translateY(-50%);"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <input type="text" placeholder="Malzeme ara..." id="searchInput">
+        </div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;">
+          <select id="categoryFilter" style="padding:10px 32px 10px 14px;background:var(--bg-card);border:1.5px solid var(--border-color);border-radius:var(--radius-md);color:var(--text-primary);font-size:var(--text-sm);">
+            <option value="">Tüm Kategoriler</option>
+            <option value="Beton">Beton</option>
+            <option value="Demir">Demir</option>
+            <option value="Tuğla">Tuğla</option>
+            <option value="Yalıtım">Yalıtım</option>
+            <option value="Boya">Boya</option>
+            <option value="Elektrik">Elektrik</option>
+            <option value="Sıhhi Tesisat">Sıhhi Tesisat</option>
+            <option value="Ahşap">Ahşap</option>
+            <option value="Cam">Cam</option>
+            <option value="Diğer">Diğer</option>
+          </select>
+          <select id="statusFilter" style="padding:10px 32px 10px 14px;background:var(--bg-card);border:1.5px solid var(--border-color);border-radius:var(--radius-md);color:var(--text-primary);font-size:var(--text-sm);">
+            <option value="">Tüm Durumlar</option>
+            <option value="Yeterli">Yeterli</option>
+            <option value="Kritik">Kritik</option>
+            <option value="Tükenmek Üzere">Tükenmek Üzere</option>
+            <option value="Fazla">Fazla</option>
+          </select>
+          <select id="warehouseFilter" style="padding:10px 32px 10px 14px;background:var(--bg-card);border:1.5px solid var(--border-color);border-radius:var(--radius-md);color:var(--text-primary);font-size:var(--text-sm);">
+            <option value="">Tüm Depolar</option>
+            <option value="Ana Depo Brüksel">Ana Depo Brüksel</option>
+            <option value="Şantiye Depo Antwerp">Şantiye Depo Antwerp</option>
+            <option value="Merkez Depo Gent">Merkez Depo Gent</option>
+            <option value="Yedek Depo Liège">Yedek Depo Liège</option>
+          </select>
+          <button class="btn btn-primary" onclick="openModal('addModal')">+ Yeni Malzeme</button>
+        </div>
+      </div>
+
+      <!-- Low Stock Alerts -->
+      <div class="alert-section-title">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--error-500)" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        Kritik Stok Uyarıları — Acil Sipariş Gerekli
+      </div>
+      <div class="alert-grid">
+        <div class="alert-card">
+          <div class="alert-card-title">Demir Çelik B500B</div>
+          <div class="alert-card-meta">Demir • Şantiye Depo Antwerp</div>
+          <div class="alert-card-stock">8,500 kg / Min: 10,000</div>
+          <button class="alert-card-btn" onclick="openModal('orderModal')">Sipariş Ver</button>
+        </div>
+        <div class="alert-card">
+          <div class="alert-card-title">Ytong Blok</div>
+          <div class="alert-card-meta">Tuğla • Ana Depo Brüksel</div>
+          <div class="alert-card-stock">800 adet / Min: 1,000</div>
+          <button class="alert-card-btn" onclick="openModal('orderModal')">Sipariş Ver</button>
+        </div>
+        <div class="alert-card">
+          <div class="alert-card-title">Boya İç Cephe</div>
+          <div class="alert-card-meta">Boya • Merkez Depo Gent</div>
+          <div class="alert-card-stock">180 lt / Min: 200</div>
+          <button class="alert-card-btn" onclick="openModal('orderModal')">Sipariş Ver</button>
+        </div>
+        <div class="alert-card">
+          <div class="alert-card-title">Granit Tezgah</div>
+          <div class="alert-card-meta">Diğer • Ana Depo Brüksel</div>
+          <div class="alert-card-stock">45 m² / Min: 50</div>
+          <button class="alert-card-btn" onclick="openModal('orderModal')">Sipariş Ver</button>
+        </div>
+        <div class="alert-card">
+          <div class="alert-card-title">PVC Boru</div>
+          <div class="alert-card-meta">Sıhhi Tesisat • Şantiye Depo Antwerp</div>
+          <div class="alert-card-stock">350 m / Min: 500</div>
+          <button class="alert-card-btn" onclick="openModal('orderModal')">Sipariş Ver</button>
+        </div>
+        <div class="alert-card">
+          <div class="alert-card-title">Alüminyum Doğrama</div>
+          <div class="alert-card-meta">Diğer • Ana Depo Brüksel</div>
+          <div class="alert-card-stock">80 m² / Min: 100</div>
+          <button class="alert-card-btn" onclick="openModal('orderModal')">Sipariş Ver</button>
+        </div>
+        <div class="alert-card">
+          <div class="alert-card-title">Çelik Kapı</div>
+          <div class="alert-card-meta">Diğer • Şantiye Depo Antwerp</div>
+          <div class="alert-card-stock">12 adet / Min: 15</div>
+          <button class="alert-card-btn" onclick="openModal('orderModal')">Sipariş Ver</button>
+        </div>
+        <div class="alert-card">
+          <div class="alert-card-title">Asansör Kabini</div>
+          <div class="alert-card-meta">Diğer • Merkez Depo Gent</div>
+          <div class="alert-card-stock">2 adet / Min: 3</div>
+          <button class="alert-card-btn" onclick="openModal('orderModal')">Sipariş Ver</button>
+        </div>
+      </div>
+
+      <!-- Material Table -->
+      <div class="card">
+        <div style="overflow-x:auto;">
+          <table class="table" id="materialsTable">
+            <thead>
+              <tr>
+                <th>Malzeme Kodu</th>
+                <th>Malzeme Adı</th>
+                <th>Kategori</th>
+                <th>Birim</th>
+                <th>Stok Miktarı</th>
+                <th>Min. Stok</th>
+                <th>Durum</th>
+                <th>Depo</th>
+                <th>Birim Fiyat (€)</th>
+                <th>Toplam Değer (€)</th>
+                <th>Son Giriş</th>
+                <th>İşlemler</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr data-id="1" data-category="Beton" data-status="Yeterli" data-warehouse="Ana Depo Brüksel">
+                <td style="font-weight:600;color:var(--text-primary);">MAT-2026-001</td>
+                <td>Beton C30/37</td>
+                <td><span class="tag tag-blue">Beton</span></td>
+                <td>m³</td>
+                <td style="font-weight:600;">120</td>
+                <td>100</td>
+                <td><span class="tag tag-green">Yeterli</span></td>
+                <td>Ana Depo Brüksel</td>
+                <td>€95.00</td>
+                <td style="font-weight:600;">€11,400</td>
+                <td>10 May 2026</td>
+                <td><div class="actions"><button class="action-btn" onclick="openEditModal(1)" title="Düzenle">✎</button><button class="action-btn" onclick="openDeleteModal(1)" title="Sil">🗑</button><button class="action-btn" onclick="openModal('orderModal')" title="Sipariş Ver">📦</button></div></td>
+              </tr>
+              <tr data-id="2" data-category="Demir" data-status="Kritik" data-warehouse="Şantiye Depo Antwerp">
+                <td style="font-weight:600;color:var(--text-primary);">MAT-2026-002</td>
+                <td>Demir Çelik B500B</td>
+                <td><span class="tag tag-purple">Demir</span></td>
+                <td>kg</td>
+                <td style="font-weight:600;color:var(--error-500);">8,500</td>
+                <td>10,000</td>
+                <td><span class="tag tag-red">Kritik</span></td>
+                <td>Şantiye Depo Antwerp</td>
+                <td>€1.20</td>
+                <td style="font-weight:600;">€10,200</td>
+                <td>08 May 2026</td>
+                <td><div class="actions"><button class="action-btn" onclick="openEditModal(2)" title="Düzenle">✎</button><button class="action-btn" onclick="openDeleteModal(2)" title="Sil">🗑</button><button class="action-btn" onclick="openModal('orderModal')" title="Sipariş Ver">📦</button></div></td>
+              </tr>
+              <tr data-id="3" data-category="Tuğla" data-status="Fazla" data-warehouse="Merkez Depo Gent">
+                <td style="font-weight:600;color:var(--text-primary);">MAT-2026-003</td>
+                <td>Tuğla Poroton</td>
+                <td><span class="tag tag-amber">Tuğla</span></td>
+                <td>adet</td>
+                <td style="font-weight:600;">15,000</td>
+                <td>12,000</td>
+                <td><span class="tag tag-blue">Fazla</span></td>
+                <td>Merkez Depo Gent</td>
+                <td>€0.45</td>
+                <td style="font-weight:600;">€6,750</td>
+                <td>05 May 2026</td>
+                <td><div class="actions"><button class="action-btn" onclick="openEditModal(3)" title="Düzenle">✎</button><button class="action-btn" onclick="openDeleteModal(3)" title="Sil">🗑</button><button class="action-btn" onclick="openModal('orderModal')" title="Sipariş Ver">📦</button></div></td>
+              </tr>
+              <tr data-id="4" data-category="Tuğla" data-status="Kritik" data-warehouse="Ana Depo Brüksel">
+                <td style="font-weight:600;color:var(--text-primary);">MAT-2026-004</td>
+                <td>Ytong Blok</td>
+                <td><span class="tag tag-amber">Tuğla</span></td>
+                <td>adet</td>
+                <td style="font-weight:600;color:var(--error-500);">800</td>
+                <td>1,000</td>
+                <td><span class="tag tag-red">Kritik</span></td>
+                <td>Ana Depo Brüksel</td>
+                <td>€2.80</td>
+                <td style="font-weight:600;">€2,240</td>
+                <td>12 May 2026</td>
+                <td><div class="actions"><button class="action-btn" onclick="openEditModal(4)" title="Düzenle">✎</button><button class="action-btn" onclick="openDeleteModal(4)" title="Sil">🗑</button><button class="action-btn" onclick="openModal('orderModal')" title="Sipariş Ver">📦</button></div></td>
+              </tr>
+              <tr data-id="5" data-category="Boya" data-status="Yeterli" data-warehouse="Şantiye Depo Antwerp">
+                <td style="font-weight:600;color:var(--text-primary);">MAT-2026-005</td>
+                <td>Alçı Sıva</td>
+                <td><span class="tag tag-green">Boya</span></td>
+                <td>kg</td>
+                <td style="font-weight:600;">2,500</td>
+                <td>2,000</td>
+                <td><span class="tag tag-green">Yeterli</span></td>
+                <td>Şantiye Depo Antwerp</td>
+                <td>€0.35</td>
+                <td style="font-weight:600;">€875</td>
+                <td>15 May 2026</td>
+                <td><div class="actions"><button class="action-btn" onclick="openEditModal(5)" title="Düzenle">✎</button><button class="action-btn" onclick="openDeleteModal(5)" title="Sil">🗑</button><button class="action-btn" onclick="openModal('orderModal')" title="Sipariş Ver">📦</button></div></td>
+              </tr>
+              <tr data-id="6" data-category="Boya" data-status="Kritik" data-warehouse="Merkez Depo Gent">
+                <td style="font-weight:600;color:var(--text-primary);">MAT-2026-006</td>
+                <td>Boya İç Cephe</td>
+                <td><span class="tag tag-green">Boya</span></td>
+                <td>lt</td>
+                <td style="font-weight:600;color:var(--error-500);">180</td>
+                <td>200</td>
+                <td><span class="tag tag-red">Kritik</span></td>
+                <td>Merkez Depo Gent</td>
+                <td>€12.50</td>
+                <td style="font-weight:600;">€2,250</td>
+                <td>14 May 2026</td>
+                <td><div class="actions"><button class="action-btn" onclick="openEditModal(6)" title="Düzenle">✎</button><button class="action-btn" onclick="openDeleteModal(6)" title="Sil">🗑</button><button class="action-btn" onclick="openModal('orderModal')" title="Sipariş Ver">📦</button></div></td>
+              </tr>
+              <tr data-id="7" data-category="Yalıtım" data-status="Fazla" data-warehouse="Ana Depo Brüksel">
+                <td style="font-weight:600;color:var(--text-primary);">MAT-2026-007</td>
+                <td>Yalıtım EPS</td>
+                <td><span class="tag tag-blue">Yalıtım</span></td>
+                <td>m²</td>
+                <td style="font-weight:600;">5,000</td>
+                <td>3,000</td>
+                <td><span class="tag tag-blue">Fazla</span></td>
+                <td>Ana Depo Brüksel</td>
+                <td>€4.20</td>
+                <td style="font-weight:600;">€21,000</td>
+                <td>02 May 2026</td>
+                <td><div class="actions"><button class="action-btn" onclick="openEditModal(7)" title="Düzenle">✎</button><button class="action-btn" onclick="openDeleteModal(7)" title="Sil">🗑</button><button class="action-btn" onclick="openModal('orderModal')" title="Sipariş Ver">📦</button></div></td>
+              </tr>
+              <tr data-id="8" data-category="Diğer" data-status="Yeterli" data-warehouse="Şantiye Depo Antwerp">
+                <td style="font-weight:600;color:var(--text-primary);">MAT-2026-008</td>
+                <td>Seramik 60x60</td>
+                <td><span class="tag tag-purple">Diğer</span></td>
+                <td>m²</td>
+                <td style="font-weight:600;">1,200</td>
+                <td>800</td>
+                <td><span class="tag tag-green">Yeterli</span></td>
+                <td>Şantiye Depo Antwerp</td>
+                <td>€28.00</td>
+                <td style="font-weight:600;">€33,600</td>
+                <td>01 May 2026</td>
+                <td><div class="actions"><button class="action-btn" onclick="openEditModal(8)" title="Düzenle">✎</button><button class="action-btn" onclick="openDeleteModal(8)" title="Sil">🗑</button><button class="action-btn" onclick="openModal('orderModal')" title="Sipariş Ver">📦</button></div></td>
+              </tr>
+              <tr data-id="9" data-category="Ahşap" data-status="Yeterli" data-warehouse="Merkez Depo Gent">
+                <td style="font-weight:600;color:var(--text-primary);">MAT-2026-009</td>
+                <td>Laminat Parke</td>
+                <td><span class="tag tag-amber">Ahşap</span></td>
+                <td>m²</td>
+                <td style="font-weight:600;">600</td>
+                <td>500</td>
+                <td><span class="tag tag-green">Yeterli</span></td>
+                <td>Merkez Depo Gent</td>
+                <td>€22.00</td>
+                <td style="font-weight:600;">€13,200</td>
+                <td>03 May 2026</td>
+                <td><div class="actions"><button class="action-btn" onclick="openEditModal(9)" title="Düzenle">✎</button><button class="action-btn" onclick="openDeleteModal(9)" title="Sil">🗑</button><button class="action-btn" onclick="openModal('orderModal')" title="Sipariş Ver">📦</button></div></td>
+              </tr>
+              <tr data-id="10" data-category="Diğer" data-status="Kritik" data-warehouse="Ana Depo Brüksel">
+                <td style="font-weight:600;color:var(--text-primary);">MAT-2026-010</td>
+                <td>Granit Tezgah</td>
+                <td><span class="tag tag-purple">Diğer</span></td>
+                <td>m²</td>
+                <td style="font-weight:600;color:var(--error-500);">45</td>
+                <td>50</td>
+                <td><span class="tag tag-red">Kritik</span></td>
+                <td>Ana Depo Brüksel</td>
+                <td>€185.00</td>
+                <td style="font-weight:600;">€8,325</td>
+                <td>11 May 2026</td>
+                <td><div class="actions"><button class="action-btn" onclick="openEditModal(10)" title="Düzenle">✎</button><button class="action-btn" onclick="openDeleteModal(10)" title="Sil">🗑</button><button class="action-btn" onclick="openModal('orderModal')" title="Sipariş Ver">📦</button></div></td>
+              </tr>
+              <tr data-id="11" data-category="Sıhhi Tesisat" data-status="Kritik" data-warehouse="Şantiye Depo Antwerp">
+                <td style="font-weight:600;color:var(--text-primary);">MAT-2026-011</td>
+                <td>PVC Boru</td>
+                <td><span class="tag tag-blue">Sıhhi Tesisat</span></td>
+                <td>m</td>
+                <td style="font-weight:600;color:var(--error-500);">350</td>
+                <td>500</td>
+                <td><span class="tag tag-red">Kritik</span></td>
+                <td>Şantiye Depo Antwerp</td>
+                <td>€3.50</td>
+                <td style="font-weight:600;">€1,225</td>
+                <td>09 May 2026</td>
+                <td><div class="actions"><button class="action-btn" onclick="openEditModal(11)" title="Düzenle">✎</button><button class="action-btn" onclick="openDeleteModal(11)" title="Sil">🗑</button><button class="action-btn" onclick="openModal('orderModal')" title="Sipariş Ver">📦</button></div></td>
+              </tr>
+              <tr data-id="12" data-category="Elektrik" data-status="Fazla" data-warehouse="Merkez Depo Gent">
+                <td style="font-weight:600;color:var(--text-primary);">MAT-2026-012</td>
+                <td>Bakır Kablo</td>
+                <td><span class="tag tag-amber">Elektrik</span></td>
+                <td>m</td>
+                <td style="font-weight:600;">1,200</td>
+                <td>1,000</td>
+                <td><span class="tag tag-blue">Fazla</span></td>
+                <td>Merkez Depo Gent</td>
+                <td>€2.80</td>
+                <td style="font-weight:600;">€3,360</td>
+                <td>07 May 2026</td>
+                <td><div class="actions"><button class="action-btn" onclick="openEditModal(12)" title="Düzenle">✎</button><button class="action-btn" onclick="openDeleteModal(12)" title="Sil">🗑</button><button class="action-btn" onclick="openModal('orderModal')" title="Sipariş Ver">📦</button></div></td>
+              </tr>
+              <tr data-id="13" data-category="Diğer" data-status="Kritik" data-warehouse="Ana Depo Brüksel">
+                <td style="font-weight:600;color:var(--text-primary);">MAT-2026-013</td>
+                <td>Alüminyum Doğrama</td>
+                <td><span class="tag tag-purple">Diğer</span></td>
+                <td>m²</td>
+                <td style="font-weight:600;color:var(--error-500);">80</td>
+                <td>100</td>
+                <td><span class="tag tag-red">Kritik</span></td>
+                <td>Ana Depo Brüksel</td>
+                <td>€145.00</td>
+                <td style="font-weight:600;">€11,600</td>
+                <td>13 May 2026</td>
+                <td><div class="actions"><button class="action-btn" onclick="openEditModal(13)" title="Düzenle">✎</button><button class="action-btn" onclick="openDeleteModal(13)" title="Sil">🗑</button><button class="action-btn" onclick="openModal('orderModal')" title="Sipariş Ver">📦</button></div></td>
+              </tr>
+              <tr data-id="14" data-category="Diğer" data-status="Kritik" data-warehouse="Şantiye Depo Antwerp">
+                <td style="font-weight:600;color:var(--text-primary);">MAT-2026-014</td>
+                <td>Çelik Kapı</td>
+                <td><span class="tag tag-purple">Diğer</span></td>
+                <td>adet</td>
+                <td style="font-weight:600;color:var(--error-500);">12</td>
+                <td>15</td>
+                <td><span class="tag tag-red">Kritik</span></td>
+                <td>Şantiye Depo Antwerp</td>
+                <td>€850.00</td>
+                <td style="font-weight:600;">€10,200</td>
+                <td>04 May 2026</td>
+                <td><div class="actions"><button class="action-btn" onclick="openEditModal(14)" title="Düzenle">✎</button><button class="action-btn" onclick="openDeleteModal(14)" title="Sil">🗑</button><button class="action-btn" onclick="openModal('orderModal')" title="Sipariş Ver">📦</button></div></td>
+              </tr>
+              <tr data-id="15" data-category="Diğer" data-status="Kritik" data-warehouse="Merkez Depo Gent">
+                <td style="font-weight:600;color:var(--text-primary);">MAT-2026-015</td>
+                <td>Asansör Kabini</td>
+                <td><span class="tag tag-purple">Diğer</span></td>
+                <td>adet</td>
+                <td style="font-weight:600;color:var(--error-500);">2</td>
+                <td>3</td>
+                <td><span class="tag tag-red">Kritik</span></td>
+                <td>Merkez Depo Gent</td>
+                <td>€12,500.00</td>
+                <td style="font-weight:600;">€25,000</td>
+                <td>06 May 2026</td>
+                <td><div class="actions"><button class="action-btn" onclick="openEditModal(15)" title="Düzenle">✎</button><button class="action-btn" onclick="openDeleteModal(15)" title="Sil">🗑</button><button class="action-btn" onclick="openModal('orderModal')" title="Sipariş Ver">📦</button></div></td>
+              </tr>
+              <tr data-id="16" data-category="Diğer" data-status="Fazla" data-warehouse="Şantiye Depo Antwerp">
+                <td style="font-weight:600;color:var(--text-primary);">MAT-2026-016</td>
+                <td>Vinç Kiralama</td>
+                <td><span class="tag tag-purple">Diğer</span></td>
+                <td>adet</td>
+                <td style="font-weight:600;">3</td>
+                <td>2</td>
+                <td><span class="tag tag-blue">Fazla</span></td>
+                <td>Şantiye Depo Antwerp</td>
+                <td>€2,400.00</td>
+                <td style="font-weight:600;">€7,200</td>
+                <td>16 May 2026</td>
+                <td><div class="actions"><button class="action-btn" onclick="openEditModal(16)" title="Düzenle">✎</button><button class="action-btn" onclick="openDeleteModal(16)" title="Sil">🗑</button><button class="action-btn" onclick="openModal('orderModal')" title="Sipariş Ver">📦</button></div></td>
+              </tr>
+              <tr data-id="17" data-category="Diğer" data-status="Fazla" data-warehouse="Ana Depo Brüksel">
+                <td style="font-weight:600;color:var(--text-primary);">MAT-2026-017</td>
+                <td>İskele Sistemi</td>
+                <td><span class="tag tag-purple">Diğer</span></td>
+                <td>m²</td>
+                <td style="font-weight:600;">2,500</td>
+                <td>2,000</td>
+                <td><span class="tag tag-blue">Fazla</span></td>
+                <td>Ana Depo Brüksel</td>
+                <td>€8.50</td>
+                <td style="font-weight:600;">€21,250</td>
+                <td>10 May 2026</td>
+                <td><div class="actions"><button class="action-btn" onclick="openEditModal(17)" title="Düzenle">✎</button><button class="action-btn" onclick="openDeleteModal(17)" title="Sil">🗑</button><button class="action-btn" onclick="openModal('orderModal')" title="Sipariş Ver">📦</button></div></td>
+              </tr>
+              <tr data-id="18" data-category="Ahşap" data-status="Yeterli" data-warehouse="Merkez Depo Gent">
+                <td style="font-weight:600;color:var(--text-primary);">MAT-2026-018</td>
+                <td>Kereste Çam</td>
+                <td><span class="tag tag-amber">Ahşap</span></td>
+                <td>m³</td>
+                <td style="font-weight:600;">45</td>
+                <td>30</td>
+                <td><span class="tag tag-green">Yeterli</span></td>
+                <td>Merkez Depo Gent</td>
+                <td>€380.00</td>
+                <td style="font-weight:600;">€17,100</td>
+                <td>08 May 2026</td>
+                <td><div class="actions"><button class="action-btn" onclick="openEditModal(18)" title="Düzenle">✎</button><button class="action-btn" onclick="openDeleteModal(18)" title="Sil">🗑</button><button class="action-btn" onclick="openModal('orderModal')" title="Sipariş Ver">📦</button></div></td>
+              </tr>
+              <tr data-id="19" data-category="Beton" data-status="Yeterli" data-warehouse="Ana Depo Brüksel">
+                <td style="font-weight:600;color:var(--text-primary);">MAT-2026-019</td>
+                <td>Çimento Portland</td>
+                <td><span class="tag tag-blue">Beton</span></td>
+                <td>kg</td>
+                <td style="font-weight:600;">5,000</td>
+                <td>4,000</td>
+                <td><span class="tag tag-green">Yeterli</span></td>
+                <td>Ana Depo Brüksel</td>
+                <td>€0.18</td>
+                <td style="font-weight:600;">€900</td>
+                <td>12 May 2026</td>
+                <td><div class="actions"><button class="action-btn" onclick="openEditModal(19)" title="Düzenle">✎</button><button class="action-btn" onclick="openDeleteModal(19)" title="Sil">🗑</button><button class="action-btn" onclick="openModal('orderModal')" title="Sipariş Ver">📦</button></div></td>
+              </tr>
+              <tr data-id="20" data-category="Beton" data-status="Yeterli" data-warehouse="Şantiye Depo Antwerp">
+                <td style="font-weight:600;color:var(--text-primary);">MAT-2026-020</td>
+                <td>Kum İnce</td>
+                <td><span class="tag tag-blue">Beton</span></td>
+                <td>m³</td>
+                <td style="font-weight:600;">60</td>
+                <td>50</td>
+                <td><span class="tag tag-green">Yeterli</span></td>
+                <td>Şantiye Depo Antwerp</td>
+                <td>€45.00</td>
+                <td style="font-weight:600;">€2,700</td>
+                <td>15 May 2026</td>
+                <td><div class="actions"><button class="action-btn" onclick="openEditModal(20)" title="Düzenle">✎</button><button class="action-btn" onclick="openDeleteModal(20)" title="Sil">🗑</button><button class="action-btn" onclick="openModal('orderModal')" title="Sipariş Ver">📦</button></div></td>
+              </tr>
+              <tr data-id="21" data-category="Beton" data-status="Yeterli" data-warehouse="Merkez Depo Gent">
+                <td style="font-weight:600;color:var(--text-primary);">MAT-2026-021</td>
+                <td>Kireç</td>
+                <td><span class="tag tag-blue">Beton</span></td>
+                <td>kg</td>
+                <td style="font-weight:600;">800</td>
+                <td>600</td>
+                <td><span class="tag tag-green">Yeterli</span></td>
+                <td>Merkez Depo Gent</td>
+                <td>€0.25</td>
+                <td style="font-weight:600;">€200</td>
+                <td>14 May 2026</td>
+                <td><div class="actions"><button class="action-btn" onclick="openEditModal(21)" title="Düzenle">✎</button><button class="action-btn" onclick="openDeleteModal(21)" title="Sil">🗑</button><button class="action-btn" onclick="openModal('orderModal')" title="Sipariş Ver">📦</button></div></td>
+              </tr>
+              <tr data-id="22" data-category="Demir" data-status="Yeterli" data-warehouse="Ana Depo Brüksel">
+                <td style="font-weight:600;color:var(--text-primary);">MAT-2026-022</td>
+                <td>Demir Doğrama</td>
+                <td><span class="tag tag-purple">Demir</span></td>
+                <td>kg</td>
+                <td style="font-weight:600;">600</td>
+                <td>500</td>
+                <td><span class="tag tag-green">Yeterli</span></td>
+                <td>Ana Depo Brüksel</td>
+                <td>€3.20</td>
+                <td style="font-weight:600;">€1,920</td>
+                <td>09 May 2026</td>
+                <td><div class="actions"><button class="action-btn" onclick="openEditModal(22)" title="Düzenle">✎</button><button class="action-btn" onclick="openDeleteModal(22)" title="Sil">🗑</button><button class="action-btn" onclick="openModal('orderModal')" title="Sipariş Ver">📦</button></div></td>
+              </tr>
+              <tr data-id="23" data-category="Cam" data-status="Yeterli" data-warehouse="Şantiye Depo Antwerp">
+                <td style="font-weight:600;color:var(--text-primary);">MAT-2026-023</td>
+                <td>Cam Isıcam</td>
+                <td><span class="tag tag-blue">Cam</span></td>
+                <td>m²</td>
+                <td style="font-weight:600;">200</td>
+                <td>150</td>
+                <td><span class="tag tag-green">Yeterli</span></td>
+                <td>Şantiye Depo Antwerp</td>
+                <td>€65.00</td>
+                <td style="font-weight:600;">€13,000</td>
+                <td>11 May 2026</td>
+                <td><div class="actions"><button class="action-btn" onclick="openEditModal(23)" title="Düzenle">✎</button><button class="action-btn" onclick="openDeleteModal(23)" title="Sil">🗑</button><button class="action-btn" onclick="openModal('orderModal')" title="Sipariş Ver">📦</button></div></td>
+              </tr>
+              <tr data-id="24" data-category="Yalıtım" data-status="Yeterli" data-warehouse="Merkez Depo Gent">
+                <td style="font-weight:600;color:var(--text-primary);">MAT-2026-024</td>
+                <td>membran Su Yalıtımı</td>
+                <td><span class="tag tag-blue">Yalıtım</span></td>
+                <td>m²</td>
+                <td style="font-weight:600;">300</td>
+                <td>250</td>
+                <td><span class="tag tag-green">Yeterli</span></td>
+                <td>Merkez Depo Gent</td>
+                <td>€18.00</td>
+                <td style="font-weight:600;">€5,400</td>
+                <td>05 May 2026</td>
+                <td><div class="actions"><button class="action-btn" onclick="openEditModal(24)" title="Düzenle">✎</button><button class="action-btn" onclick="openDeleteModal(24)" title="Sil">🗑</button><button class="action-btn" onclick="openModal('orderModal')" title="Sipariş Ver">📦</button></div></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="pagination">
+        <button class="page-btn" disabled>←</button>
+        <button class="page-btn active">1</button>
+        <button class="page-btn">2</button>
+        <button class="page-btn">→</button>
+      </div>
+
+      <!-- Footer -->
+      <div style="margin-top:40px;padding-top:20px;border-top:1px solid var(--border-color);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;">
+        <span style="font-size:var(--text-xs);color:var(--text-muted);">© 2026 BuildPro BV. Tüm hakları saklıdır. Belçika'da geliştirildi 🏗️</span>
+        <a href="../../index.html" style="font-size:var(--text-sm);color:var(--teal-500);text-decoration:none;font-weight:500;">← CleanFix Ana Sayfa</a>
+      </div>
+    </div>
+  </main>
+</div>
+
+<!-- Add Modal -->
+<div class="modal-overlay" id="addModal">
+  <div class="modal modal-lg">
+    <div class="modal-header"><div class="modal-title">Yeni Malzeme Ekle</div><button class="modal-close" onclick="closeModal('addModal')">✕</button></div>
+    <div class="modal-body">
+      <div class="form-row">
+        <div class="form-group"><label class="form-label">Malzeme Adı</label><input class="form-input" placeholder="Örn: Beton C30/37"></div>
+        <div class="form-group"><label class="form-label">Malzeme Kodu</label><input class="form-input" placeholder="MAT-2026-XXX"></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label class="form-label">Kategori</label>
+          <select class="form-select"><option>Beton</option><option>Demir</option><option>Tuğla</option><option>Yalıtım</option><option>Boya</option><option>Elektrik</option><option>Sıhhi Tesisat</option><option>Ahşap</option><option>Cam</option><option>Diğer</option></select>
+        </div>
+        <div class="form-group"><label class="form-label">Birim</label>
+          <select class="form-select"><option>m³</option><option>kg</option><option>m²</option><option>adet</option><option>lt</option><option>m</option></select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label class="form-label">Stok Miktarı</label><input class="form-input" type="number" placeholder="0"></div>
+        <div class="form-group"><label class="form-label">Min. Stok</label><input class="form-input" type="number" placeholder="0"></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label class="form-label">Depo</label>
+          <select class="form-select"><option>Ana Depo Brüksel</option><option>Şantiye Depo Antwerp</option><option>Merkez Depo Gent</option><option>Yedek Depo Liège</option></select>
+        </div>
+        <div class="form-group"><label class="form-label">Birim Fiyat (€)</label><input class="form-input" type="number" step="0.01" placeholder="0.00"></div>
+      </div>
+      <div class="form-group"><label class="form-label">Açıklama / Notlar</label><textarea class="form-input" rows="3" placeholder="Malzeme detayları, üretici, vb."></textarea></div>
+    </div>
+    <div class="modal-footer"><button class="btn btn-secondary" onclick="closeModal('addModal')">İptal</button><button class="btn btn-primary" onclick="closeModal('addModal');showToast('Malzeme başarıyla eklendi','success')">Kaydet</button></div>
+  </div>
+</div>
+
+<!-- Edit Modal -->
+<div class="modal-overlay" id="editModal">
+  <div class="modal modal-lg">
+    <div class="modal-header"><div class="modal-title">Malzemeyi Düzenle</div><button class="modal-close" onclick="closeModal('editModal')">✕</button></div>
+    <div class="modal-body">
+      <div class="form-row">
+        <div class="form-group"><label class="form-label">Malzeme Adı</label><input class="form-input" value="Beton C30/37"></div>
+        <div class="form-group"><label class="form-label">Malzeme Kodu</label><input class="form-input" value="MAT-2026-001"></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label class="form-label">Kategori</label>
+          <select class="form-select"><option selected>Beton</option><option>Demir</option><option>Tuğla</option><option>Yalıtım</option><option>Boya</option><option>Elektrik</option><option>Sıhhi Tesisat</option><option>Ahşap</option><option>Cam</option><option>Diğer</option></select>
+        </div>
+        <div class="form-group"><label class="form-label">Birim</label>
+          <select class="form-select"><option selected>m³</option><option>kg</option><option>m²</option><option>adet</option><option>lt</option><option>m</option></select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label class="form-label">Stok Miktarı</label><input class="form-input" type="number" value="120"></div>
+        <div class="form-group"><label class="form-label">Min. Stok</label><input class="form-input" type="number" value="100"></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label class="form-label">Depo</label>
+          <select class="form-select"><option selected>Ana Depo Brüksel</option><option>Şantiye Depo Antwerp</option><option>Merkez Depo Gent</option><option>Yedek Depo Liège</option></select>
+        </div>
+        <div class="form-group"><label class="form-label">Birim Fiyat (€)</label><input class="form-input" type="number" step="0.01" value="95.00"></div>
+      </div>
+      <div class="form-group"><label class="form-label">Açıklama / Notlar</label><textarea class="form-input" rows="3">Hazır beton C30/37 — BESIX tedarikli</textarea></div>
+    </div>
+    <div class="modal-footer"><button class="btn btn-secondary" onclick="closeModal('editModal')">İptal</button><button class="btn btn-primary" onclick="closeModal('editModal');showToast('Malzeme güncellendi','success')">Kaydet</button></div>
+  </div>
+</div>
+
+<!-- Delete Modal -->
+<div class="modal-overlay" id="deleteModal">
+  <div class="modal" style="max-width:400px;">
+    <div class="modal-header"><div class="modal-title" style="color:var(--error-500);">Malzemeyi Sil</div><button class="modal-close" onclick="closeModal('deleteModal')">✕</button></div>
+    <div class="modal-body"><p style="font-size:var(--text-sm);color:var(--text-secondary);">Bu malzemeyi silmek istediğinize emin misiniz? Bu işlem geri alınamaz.</p></div>
+    <div class="modal-footer"><button class="btn btn-secondary" onclick="closeModal('deleteModal')">İptal</button><button class="btn btn-primary" style="background:var(--error-500);" onclick="closeModal('deleteModal');showToast('Malzeme silindi','error')">Sil</button></div>
+  </div>
+</div>
+
+<!-- Order Modal -->
+<div class="modal-overlay" id="orderModal">
+  <div class="modal modal-lg">
+    <div class="modal-header"><div class="modal-title">Sipariş Oluştur</div><button class="modal-close" onclick="closeModal('orderModal')">✕</button></div>
+    <div class="modal-body">
+      <div class="form-row">
+        <div class="form-group"><label class="form-label">Tedarikçi</label><input class="form-input" placeholder="Tedarikçi firma adı"></div>
+        <div class="form-group"><label class="form-label">Malzeme</label>
+          <select class="form-select">
+            <option>Beton C30/37</option>
+            <option>Demir Çelik B500B</option>
+            <option>Tuğla Poroton</option>
+            <option>Ytong Blok</option>
+            <option>Alçı Sıva</option>
+            <option>Boya İç Cephe</option>
+            <option>Yalıtım EPS</option>
+            <option>Seramik 60x60</option>
+            <option>Laminat Parke</option>
+            <option>Granit Tezgah</option>
+            <option>PVC Boru</option>
+            <option>Bakır Kablo</option>
+            <option>Alüminyum Doğrama</option>
+            <option>Çelik Kapı</option>
+            <option>Asansör Kabini</option>
+            <option>Vinç Kiralama</option>
+            <option>İskele Sistemi</option>
+            <option>Kereste Çam</option>
+            <option>Çimento Portland</option>
+            <option>Kum İnce</option>
+            <option>Kireç</option>
+            <option>Demir Doğrama</option>
+            <option>Cam Isıcam</option>
+            <option>membran Su Yalıtımı</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label class="form-label">Sipariş Miktarı</label><input class="form-input" type="number" placeholder="0"></div>
+        <div class="form-group"><label class="form-label">Teslimat Tarihi</label><input class="form-input" type="date"></div>
+      </div>
+      <div class="form-group"><label class="form-label">Notlar</label><textarea class="form-input" rows="3" placeholder="Sipariş ile ilgili özel notlar, teslimat adresi, vb."></textarea></div>
+    </div>
+    <div class="modal-footer"><button class="btn btn-secondary" onclick="closeModal('orderModal')">İptal</button><button class="btn btn-primary" onclick="closeModal('orderModal');showToast('Sipariş oluşturuldu','success')">Sipariş Ver</button></div>
+  </div>
+</div>
+
+<div class="toast-container" id="toastContainer"></div>
+
+<script>
+function openModal(id){document.getElementById(id).classList.add('active');}
+function closeModal(id){document.getElementById(id).classList.remove('active');}
+function openEditModal(id){openModal('editModal');}
+function openDeleteModal(id){openModal('deleteModal');}
+function showToast(message,type='info'){
+  const c=document.getElementById('toastContainer');
+  const t=document.createElement('div');
+  t.className='toast toast-'+type;
+  const icons={success:'✓',error:'✕',warning:'▲',info:'ℹ'};
+  t.innerHTML='<div class="toast-icon">'+icons[type]+'</div><div class="toast-content"><div class="toast-title">'+(type==='success'?'Başarılı':type==='error'?'Hata':type==='warning'?'Uyarı':'Bilgi')+'</div><div class="toast-message">'+message+'</div></div><button class="toast-close" onclick="this.parentElement.remove()">✕</button><div class="toast-progress"></div>';
+  c.appendChild(t);
+  setTimeout(()=>{t.classList.add('exit');setTimeout(()=>t.remove(),300);},4000);
+}
+
+function filterTable(){
+  const s=document.getElementById('searchInput').value.toLowerCase();
+  const c=document.getElementById('categoryFilter').value;
+  const st=document.getElementById('statusFilter').value;
+  const w=document.getElementById('warehouseFilter').value;
+  document.querySelectorAll('#materialsTable tbody tr').forEach(r=>{
+    const txt=r.textContent.toLowerCase();
+    const hasSearch=txt.includes(s);
+    const hasCat=c?r.dataset.category===c:true;
+    const hasStatus=st?r.dataset.status===st:true;
+    const hasWare=w?r.dataset.warehouse===w:true;
+    r.style.display=(hasSearch&&hasCat&&hasStatus&&hasWare)?'':'none';
+  });
+}
+
+document.getElementById('searchInput').addEventListener('input',filterTable);
+document.getElementById('categoryFilter').addEventListener('change',filterTable);
+document.getElementById('statusFilter').addEventListener('change',filterTable);
+document.getElementById('warehouseFilter').addEventListener('change',filterTable);
+
+document.querySelectorAll('.modal-overlay').forEach(o=>{o.addEventListener('click',e=>{if(e.target===o)o.classList.remove('active');});});
+</script>
+</body>
+</html>

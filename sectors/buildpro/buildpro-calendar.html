@@ -60,35 +60,52 @@
 </head>
 <body>
   <div class="dashboard">
-    <aside class="sidebar" id="sidebar">
-      <div class="sidebar-brand">
-        <div class="sidebar-brand-icon">BP</div>
-        <span class="sidebar-brand-text">BuildPro</span>
+    <!-- Sidebar -->
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-header">
+    <div class="sidebar-logo">
+      <div class="logo-icon">🏗️</div>
+      <div>
+        <h2>BuildPro</h2>
+        <p>İnşaat Yönetimi</p>
       </div>
-      <nav class="sidebar-nav">
-        <div class="sidebar-section">
-          <div class="sidebar-section-title">Genel</div>
-          <a class="sidebar-link" href="buildpro-dashboard.html"><span class="icon">📊</span><span class="sidebar-text">Dashboard</span></a>
-          <a class="sidebar-link" href="buildpro-projects.html"><span class="icon">🏗️</span><span class="sidebar-text">Projeler</span></a>
-          <a class="sidebar-link" href="buildpro-staff.html"><span class="icon">👷</span><span class="sidebar-text">Personel</span></a>
-          <a class="sidebar-link" href="buildpro-site.html"><span class="icon">📍</span><span class="sidebar-text">Şantiyeler</span></a>
-        </div>
-        <div class="sidebar-section">
-          <div class="sidebar-section-title">Operasyon</div>
-          <a class="sidebar-link active" href="buildpro-calendar.html"><span class="icon">📅</span><span class="sidebar-text">Takvim</span></a>
-          <a class="sidebar-link" href="buildpro-costs.html"><span class="icon">💶</span><span class="sidebar-text">Maliyetler</span></a>
-          <a class="sidebar-link" href="buildpro-equipment.html"><span class="icon">🚜</span><span class="sidebar-text">Ekipman</span></a>
-        </div>
-        <div class="sidebar-section">
-          <div class="sidebar-section-title">Müşteri</div>
-          <a class="sidebar-link" href="buildpro-clients.html"><span class="icon">🤝</span><span class="sidebar-text">Müşteriler</span></a>
-          <a class="sidebar-link" href="buildpro-quotes.html"><span class="icon">📄</span><span class="sidebar-text">Teklifler</span></a>
-        </div>
-      </nav>
-      <div class="sidebar-footer">
-        <a class="sidebar-link" href="#"><span class="icon">⚙️</span><span class="sidebar-text">Ayarlar</span></a>
+    </div>
+  </div>
+
+  <div class="sidebar-nav">
+    <div class="nav-group">
+      <div class="nav-label">Ana Menü</div>
+      <a class="nav-item" href="dashboard.html">📊 Dashboard</a>
+      <a class="nav-item" href="buildpro-projects.html">📋 Projeler</a>
+      <a class="nav-item" href="buildpro-quotes.html">📄 Teklifler</a>
+      <a class="nav-item" href="buildpro-site.html">🏗️ Şantiye</a>
+      <a class="nav-item" href="buildpro-equipment.html">⚙️ Ekipman</a>
+      <a class="nav-item" href="buildpro-staff.html">👷 Personel</a>
+      <a class="nav-item" href="buildpro-stock.html">📦 Stok</a>
+    </div>
+
+    <div class="nav-group">
+      <div class="nav-label">Finans ve Rapor</div>
+      <a class="nav-item" href="buildpro-costs.html">💰 Finansman</a>
+      <a class="nav-item" href="buildpro-reports.html">📈 Raporlar</a>
+    </div>
+
+    <div class="nav-group">
+      <div class="nav-label">Diğer</div>
+      <a class="nav-item active" href="buildpro-calendar.html">📅 Takvim</a>
+      <a class="nav-item" href="buildpro-settings.html">⚙️ Ayarlar</a>
+    </div>
+  </div>
+
+  <div class="sidebar-footer">
+    <div class="sidebar-user">
+      <div class="sidebar-user-info">
+        <p>BuildPro Demo</p>
+        <span>İnşaat Sektörü</span>
       </div>
-    </aside>
+    </div>
+  </div>
+</div>
     <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
 
     <main class="main">
