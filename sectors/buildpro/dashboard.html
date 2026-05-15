@@ -989,7 +989,7 @@
                   <div style="display:flex;gap:4px;">
                     <button class="btn btn-icon-sm btn-ghost" onclick="openModal('viewProjectModal','Rivierpark Konutları')" title="Görüntüle">👁</button>
                     <button class="btn btn-icon-sm btn-ghost" onclick="openModal('editProjectModal','Rivierpark Konutları')" title="Düzenle">✎</button>
-                    <button class="btn btn-icon-sm btn-ghost" onclick="showToast('Rivierpark Konutları silindi','error')" title="Sil">🗑</button>
+                    <button class="btn btn-icon-sm btn-ghost" onclick="openDeleteModal('Rivierpark Konutları')" title="Sil">🗑</button>
                   </div>
                 </td>
               </tr>
@@ -1010,7 +1010,7 @@
                   <div style="display:flex;gap:4px;">
                     <button class="btn btn-icon-sm btn-ghost" onclick="openModal('viewProjectModal','Merkez Ofis Kulesi')" title="Görüntüle">👁</button>
                     <button class="btn btn-icon-sm btn-ghost" onclick="openModal('editProjectModal','Merkez Ofis Kulesi')" title="Düzenle">✎</button>
-                    <button class="btn btn-icon-sm btn-ghost" onclick="showToast('Merkez Ofis Kulesi silindi','error')" title="Sil">🗑</button>
+                    <button class="btn btn-icon-sm btn-ghost" onclick="openDeleteModal('Merkez Ofis Kulesi')" title="Sil">🗑</button>
                   </div>
                 </td>
               </tr>
@@ -1031,7 +1031,7 @@
                   <div style="display:flex;gap:4px;">
                     <button class="btn btn-icon-sm btn-ghost" onclick="openModal('viewProjectModal','Grand Hotel Restore')" title="Görüntüle">👁</button>
                     <button class="btn btn-icon-sm btn-ghost" onclick="openModal('editProjectModal','Grand Hotel Restore')" title="Düzenle">✎</button>
-                    <button class="btn btn-icon-sm btn-ghost" onclick="showToast('Grand Hotel Restore silindi','error')" title="Sil">🗑</button>
+                    <button class="btn btn-icon-sm btn-ghost" onclick="openDeleteModal('Grand Hotel Restore')" title="Sil">🗑</button>
                   </div>
                 </td>
               </tr>
@@ -1052,7 +1052,7 @@
                   <div style="display:flex;gap:4px;">
                     <button class="btn btn-icon-sm btn-ghost" onclick="openModal('viewProjectModal','Liman Yolu Altyapı')" title="Görüntüle">👁</button>
                     <button class="btn btn-icon-sm btn-ghost" onclick="openModal('editProjectModal','Liman Yolu Altyapı')" title="Düzenle">✎</button>
-                    <button class="btn btn-icon-sm btn-ghost" onclick="showToast('Liman Yolu Altyapı silindi','error')" title="Sil">🗑</button>
+                    <button class="btn btn-icon-sm btn-ghost" onclick="openDeleteModal('Liman Yolu Altyapı')" title="Sil">🗑</button>
                   </div>
                 </td>
               </tr>
@@ -1073,7 +1073,7 @@
                   <div style="display:flex;gap:4px;">
                     <button class="btn btn-icon-sm btn-ghost" onclick="openModal('viewProjectModal','Nordik Fabrika Genişleme')" title="Görüntüle">👁</button>
                     <button class="btn btn-icon-sm btn-ghost" onclick="openModal('editProjectModal','Nordik Fabrika Genişleme')" title="Düzenle">✎</button>
-                    <button class="btn btn-icon-sm btn-ghost" onclick="showToast('Nordik Fabrika Genişleme silindi','error')" title="Sil">🗑</button>
+                    <button class="btn btn-icon-sm btn-ghost" onclick="openDeleteModal('Nordik Fabrika Genişleme')" title="Sil">🗑</button>
                   </div>
                 </td>
               </tr>
@@ -1094,7 +1094,7 @@
                   <div style="display:flex;gap:4px;">
                     <button class="btn btn-icon-sm btn-ghost" onclick="openModal('viewProjectModal','Botanik Park')" title="Görüntüle">👁</button>
                     <button class="btn btn-icon-sm btn-ghost" onclick="openModal('editProjectModal','Botanik Park')" title="Düzenle">✎</button>
-                    <button class="btn btn-icon-sm btn-ghost" onclick="showToast('Botanik Park silindi','error')" title="Sil">🗑</button>
+                    <button class="btn btn-icon-sm btn-ghost" onclick="openDeleteModal('Botanik Park')" title="Sil">🗑</button>
                   </div>
                 </td>
               </tr>
@@ -1115,7 +1115,7 @@
                   <div style="display:flex;gap:4px;">
                     <button class="btn btn-icon-sm btn-ghost" onclick="openModal('viewProjectModal','Zilverpark Villa Sitesi')" title="Görüntüle">👁</button>
                     <button class="btn btn-icon-sm btn-ghost" onclick="openModal('editProjectModal','Zilverpark Villa Sitesi')" title="Düzenle">✎</button>
-                    <button class="btn btn-icon-sm btn-ghost" onclick="showToast('Zilverpark Villa Sitesi silindi','error')" title="Sil">🗑</button>
+                    <button class="btn btn-icon-sm btn-ghost" onclick="openDeleteModal('Zilverpark Villa Sitesi')" title="Sil">🗑</button>
                   </div>
                 </td>
               </tr>
@@ -1136,7 +1136,7 @@
                   <div style="display:flex;gap:4px;">
                     <button class="btn btn-icon-sm btn-ghost" onclick="openModal('viewProjectModal','Avrupa Komisyonu Ek Bina')" title="Görüntüle">👁</button>
                     <button class="btn btn-icon-sm btn-ghost" onclick="openModal('editProjectModal','Avrupa Komisyonu Ek Bina')" title="Düzenle">✎</button>
-                    <button class="btn btn-icon-sm btn-ghost" onclick="showToast('Avrupa Komisyonu Ek Bina silindi','error')" title="Sil">🗑</button>
+                    <button class="btn btn-icon-sm btn-ghost" onclick="openDeleteModal('Avrupa Komisyonu Ek Bina')" title="Sil">🗑</button>
                   </div>
                 </td>
               </tr>
@@ -1514,6 +1514,29 @@
   </div>
 </div>
 
+<!-- Delete Project Confirmation Modal -->
+<div class="modal-overlay" id="deleteProjectModal">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title" style="color:var(--error-500);">Projeyi Sil</div>
+      <button class="modal-close" onclick="closeModal('deleteProjectModal')">✕</button>
+    </div>
+    <div class="modal-body">
+      <p style="font-size:var(--text-sm);color:var(--text-secondary);margin-bottom:var(--space-4);">
+        <strong id="deleteProjectName"></strong> projesini silmek üzeresiniz. Bu işlem geri alınamaz.
+      </p>
+      <div style="background:rgba(244,63,94,0.08);border:1px solid rgba(244,63,94,0.2);border-radius:var(--radius-md);padding:var(--space-4);">
+        <div style="font-size:var(--text-xs);color:var(--error-500);font-weight:600;margin-bottom:4px;">⚠️ Dikkat</div>
+        <div style="font-size:var(--text-sm);color:var(--text-secondary);">Projeye ait tüm teklifler, maliyet kayıtları ve raporlar da silinecektir.</div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('deleteProjectModal')">İptal</button>
+      <button class="btn btn-primary" style="background:var(--error-500);" onclick="closeModal('deleteProjectModal');showToast(document.getElementById('deleteProjectName').textContent + ' silindi','error')">Sil</button>
+    </div>
+  </div>
+</div>
+
 <script>
 /* ── Sidebar Toggle ── */
 const sidebar=document.getElementById('sidebar');
@@ -1605,6 +1628,11 @@ function openModal(id, title){
       }
     }
   }
+}
+function openDeleteModal(name){
+  const nameEl=document.getElementById('deleteProjectName');
+  if(nameEl) nameEl.textContent=name;
+  openModal('deleteProjectModal');
 }
 function closeModal(id){
   const modal=document.getElementById(id);

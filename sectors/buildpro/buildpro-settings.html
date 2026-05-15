@@ -118,6 +118,10 @@
 [data-theme="dark"] .modal-close:hover{background:rgba(244,63,94,0.15);}
 .modal-body{padding:20px 24px;}
 .modal-footer{padding:16px 24px;border-top:1px solid var(--border-color);display:flex;gap:12px;justify-content:flex-end;}
+.form-group{margin-bottom:16px;}
+.form-label{display:block;font-size:var(--text-xs);font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:6px;}
+.form-input,.form-select{width:100%;padding:10px 14px;background:var(--bg-card);border:1.5px solid var(--border-color);border-radius:var(--radius-md);color:var(--text-primary);font-size:var(--text-sm);transition:all var(--duration-fast);}
+.form-input:focus,.form-select:focus{border-color:var(--teal-500);box-shadow:0 0 0 3px var(--shadow-glow);outline:none;}
 
 /* Toast */
 .toast-container{position:fixed;top:24px;right:24px;z-index:2000;display:flex;flex-direction:column;gap:12px;pointer-events:none;max-width:400px;}
@@ -145,29 +149,41 @@
 </head>
 <body>
 <div class="dashboard">
+  <!-- Sidebar -->
   <aside class="sidebar" id="sidebar">
     <div class="sidebar-header">
-      <div class="sidebar-logo">BP</div>
-      <div><div style="font-weight:700;font-size:var(--text-sm);">BuildPro</div><div style="font-size:var(--text-xs);color:var(--text-muted);">İnşaat &amp; Yenileme</div></div>
+      <div class="sidebar-logo">
+        <div class="logo-icon">🏗️</div>
+        <div>
+          <h2>BuildPro</h2>
+          <p>İnşaat Yönetimi</p>
+        </div>
+      </div>
     </div>
     <nav class="sidebar-nav">
       <div class="nav-group">
         <div class="nav-group-header">Ana Menü</div>
-        <a href="buildpro-dashboard.html" class="nav-item"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>Dashboard</a>
-        <a href="buildpro-projects.html" class="nav-item"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 20h.01"/><path d="M7 20v-4"/><path d="M12 20v-8"/><path d="M17 20V8"/></svg>Projeler</a>
-        <a href="buildpro-quotes.html" class="nav-item"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>Teklifler</a>
-        <a href="buildpro-equipment.html" class="nav-item"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>Ekipman</a>
-        <a href="buildpro-staff.html" class="nav-item"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/></svg>Çalışanlar</a>
-        <a href="buildpro-reports.html" class="nav-item"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 20V10"/><path d="M12 20V4"/><path d="M6 20v-6"/></svg>Raporlar</a>
+        <a href="dashboard.html" class="nav-item">📊 Dashboard</a>
+        <a href="buildpro-projects.html" class="nav-item">📋 Projeler</a>
+        <a href="buildpro-quotes.html" class="nav-item">📄 Teklifler</a>
+        <a href="buildpro-site.html" class="nav-item">🏗️ Şantiye</a>
+        <a href="buildpro-equipment.html" class="nav-item">⚙️ Ekipman</a>
+        <a href="buildpro-staff.html" class="nav-item">👷 Personel</a>
+        <a href="buildpro-stock.html" class="nav-item">📦 Stok</a>
       </div>
       <div class="nav-group">
-        <div class="nav-group-header">Ayarlar</div>
-        <a href="buildpro-profile.html" class="nav-item"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Firma Profili</a>
-        <a href="login.html" class="nav-item"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>Çıkış Yap</a>
+        <div class="nav-group-header">Finans ve Rapor</div>
+        <a href="buildpro-costs.html" class="nav-item">💰 Finansman</a>
+        <a href="buildpro-reports.html" class="nav-item">📈 Raporlar</a>
+      </div>
+      <div class="nav-group">
+        <div class="nav-group-header">Diğer</div>
+        <a href="buildpro-calendar.html" class="nav-item">📅 Takvim</a>
+        <a href="buildpro-settings.html" class="nav-item active">⚙️ Ayarlar</a>
       </div>
     </nav>
     <div class="sidebar-footer">
-      <a href="buildpro-settings.html" style="color:var(--teal-500);"><span>⚙️</span><span>Ayarlar</span></a>
+      <a href="../login.html"><span>🔓</span><span>Çıkış Yap</span></a>
     </div>
   </aside>
 
@@ -181,7 +197,7 @@
         </div>
       </div>
       <div style="display:flex;align-items:center;gap:12px;">
-        <button class="btn btn-secondary btn-sm" onclick="showToast('Değişiklikler kaydedildi','success')">💾 Kaydet</button>
+        <button class="btn btn-secondary btn-sm" onclick="saveAll()">💾 Kaydet</button>
       </div>
     </header>
 
@@ -242,15 +258,15 @@
                 <div class="logo-upload">
                   <div class="logo-preview">BP</div>
                   <div class="logo-actions">
-                    <button class="btn btn-primary btn-sm">Yeni Logo Yükle</button>
-                    <button class="btn btn-secondary btn-sm">Mevcut Logoyu Kaldır</button>
+                    <button class="btn btn-primary btn-sm" onclick="showToast('Logo seçim penceresi açıldı','info')">Yeni Logo Yükle</button>
+                    <button class="btn btn-secondary btn-sm" onclick="showToast('Logo kaldırıldı','warning')">Mevcut Logoyu Kaldır</button>
                   </div>
                 </div>
               </div>
             </div>
             <div class="settings-actions">
-              <button class="btn btn-secondary" onclick="showToast('Değişiklikler iptal edildi','warning')">İptal</button>
-              <button class="btn btn-primary" onclick="showToast('Şirket bilgileri güncellendi','success')">Değişiklikleri Kaydet</button>
+              <button class="btn btn-secondary" onclick="cancelChanges()">İptal</button>
+              <button class="btn btn-primary" onclick="saveCompany()">Değişiklikleri Kaydet</button>
             </div>
           </div>
 
@@ -293,8 +309,8 @@
               </div>
             </div>
             <div class="settings-actions">
-              <button class="btn btn-secondary" onclick="showToast('Değişiklikler iptal edildi','warning')">İptal</button>
-              <button class="btn btn-primary" onclick="showToast('Finansal ayarlar güncellendi','success')">Değişiklikleri Kaydet</button>
+              <button class="btn btn-secondary" onclick="cancelChanges()">İptal</button>
+              <button class="btn btn-primary" onclick="saveFinance()">Değişiklikleri Kaydet</button>
             </div>
           </div>
 
@@ -316,8 +332,8 @@
                   </div>
                 </div>
                 <div class="settings-list-actions">
-                  <button class="btn btn-ghost btn-icon-sm" onclick="showToast('Şablon düzenlendi','info')" title="Düzenle">✎</button>
-                  <button class="btn btn-ghost btn-icon-sm" onclick="showToast('Şablon silindi','error')" title="Sil">🗑</button>
+                  <button class="btn btn-ghost btn-icon-sm" onclick="openEditTemplate('Konut İnşaatı')" title="Düzenle">✎</button>
+                  <button class="btn btn-ghost btn-icon-sm" onclick="openDeleteTemplate('Konut İnşaatı')" title="Sil">🗑</button>
                 </div>
               </div>
               <div class="settings-list-item">
@@ -331,8 +347,8 @@
                   </div>
                 </div>
                 <div class="settings-list-actions">
-                  <button class="btn btn-ghost btn-icon-sm" onclick="showToast('Şablon düzenlendi','info')" title="Düzenle">✎</button>
-                  <button class="btn btn-ghost btn-icon-sm" onclick="showToast('Şablon silindi','error')" title="Sil">🗑</button>
+                  <button class="btn btn-ghost btn-icon-sm" onclick="openEditTemplate('Ticari Bina')" title="Düzenle">✎</button>
+                  <button class="btn btn-ghost btn-icon-sm" onclick="openDeleteTemplate('Ticari Bina')" title="Sil">🗑</button>
                 </div>
               </div>
               <div class="settings-list-item">
@@ -346,8 +362,8 @@
                   </div>
                 </div>
                 <div class="settings-list-actions">
-                  <button class="btn btn-ghost btn-icon-sm" onclick="showToast('Şablon düzenlendi','info')" title="Düzenle">✎</button>
-                  <button class="btn btn-ghost btn-icon-sm" onclick="showToast('Şablon silindi','error')" title="Sil">🗑</button>
+                  <button class="btn btn-ghost btn-icon-sm" onclick="openEditTemplate('Renovasyon')" title="Düzenle">✎</button>
+                  <button class="btn btn-ghost btn-icon-sm" onclick="openDeleteTemplate('Renovasyon')" title="Sil">🗑</button>
                 </div>
               </div>
               <div class="settings-list-item">
@@ -361,8 +377,8 @@
                   </div>
                 </div>
                 <div class="settings-list-actions">
-                  <button class="btn btn-ghost btn-icon-sm" onclick="showToast('Şablon düzenlendi','info')" title="Düzenle">✎</button>
-                  <button class="btn btn-ghost btn-icon-sm" onclick="showToast('Şablon silindi','error')" title="Sil">🗑</button>
+                  <button class="btn btn-ghost btn-icon-sm" onclick="openEditTemplate('Altyapı')" title="Düzenle">✎</button>
+                  <button class="btn btn-ghost btn-icon-sm" onclick="openDeleteTemplate('Altyapı')" title="Sil">🗑</button>
                 </div>
               </div>
             </div>
@@ -430,8 +446,8 @@
             </div>
 
             <div class="settings-actions">
-              <button class="btn btn-secondary" onclick="showToast('Değişiklikler iptal edildi','warning')">İptal</button>
-              <button class="btn btn-primary" onclick="showToast('Personel ayarları güncellendi','success')">Değişiklikleri Kaydet</button>
+              <button class="btn btn-secondary" onclick="cancelChanges()">İptal</button>
+              <button class="btn btn-primary" onclick="savePersonnel()">Değişiklikleri Kaydet</button>
             </div>
           </div>
 
@@ -449,8 +465,8 @@
                   <div class="settings-list-meta"><span>💶 Günlük kiralama: €350-€850</span><span>📦 4 alt tip</span></div>
                 </div>
                 <div class="settings-list-actions">
-                  <button class="btn btn-ghost btn-icon-sm" title="Düzenle">✎</button>
-                  <button class="btn btn-ghost btn-icon-sm" title="Sil">🗑</button>
+                  <button class="btn btn-ghost btn-icon-sm" onclick="openEditEquipCat('Vinç')" title="Düzenle">✎</button>
+                  <button class="btn btn-ghost btn-icon-sm" onclick="openDeleteEquipCat('Vinç')" title="Sil">🗑</button>
                 </div>
               </div>
               <div class="settings-list-item">
@@ -460,8 +476,8 @@
                   <div class="settings-list-meta"><span>💶 Günlük kiralama: €45-€120</span><span>📦 3 alt tip</span></div>
                 </div>
                 <div class="settings-list-actions">
-                  <button class="btn btn-ghost btn-icon-sm" title="Düzenle">✎</button>
-                  <button class="btn btn-ghost btn-icon-sm" title="Sil">🗑</button>
+                  <button class="btn btn-ghost btn-icon-sm" onclick="openEditEquipCat('İskele')" title="Düzenle">✎</button>
+                  <button class="btn btn-ghost btn-icon-sm" onclick="openDeleteEquipCat('İskele')" title="Sil">🗑</button>
                 </div>
               </div>
               <div class="settings-list-item">
@@ -471,8 +487,8 @@
                   <div class="settings-list-meta"><span>💶 Günlük kiralama: €280-€450</span><span>📦 2 alt tip</span></div>
                 </div>
                 <div class="settings-list-actions">
-                  <button class="btn btn-ghost btn-icon-sm" title="Düzenle">✎</button>
-                  <button class="btn btn-ghost btn-icon-sm" title="Sil">🗑</button>
+                  <button class="btn btn-ghost btn-icon-sm" onclick="openEditEquipCat('Beton Pompası')" title="Düzenle">✎</button>
+                  <button class="btn btn-ghost btn-icon-sm" onclick="openDeleteEquipCat('Beton Pompası')" title="Sil">🗑</button>
                 </div>
               </div>
               <div class="settings-list-item">
@@ -482,8 +498,8 @@
                   <div class="settings-list-meta"><span>💶 Günlük kiralama: €85-€180</span><span>📦 3 alt tip</span></div>
                 </div>
                 <div class="settings-list-actions">
-                  <button class="btn btn-ghost btn-icon-sm" title="Düzenle">✎</button>
-                  <button class="btn btn-ghost btn-icon-sm" title="Sil">🗑</button>
+                  <button class="btn btn-ghost btn-icon-sm" onclick="openEditEquipCat('Kompaktör')" title="Düzenle">✎</button>
+                  <button class="btn btn-ghost btn-icon-sm" onclick="openDeleteEquipCat('Kompaktör')" title="Sil">🗑</button>
                 </div>
               </div>
               <div class="settings-list-item">
@@ -493,8 +509,8 @@
                   <div class="settings-list-meta"><span>💶 Günlük kiralama: €65-€220</span><span>📦 4 alt tip</span></div>
                 </div>
                 <div class="settings-list-actions">
-                  <button class="btn btn-ghost btn-icon-sm" title="Düzenle">✎</button>
-                  <button class="btn btn-ghost btn-icon-sm" title="Sil">🗑</button>
+                  <button class="btn btn-ghost btn-icon-sm" onclick="openEditEquipCat('Jeneratör')" title="Düzenle">✎</button>
+                  <button class="btn btn-ghost btn-icon-sm" onclick="openDeleteEquipCat('Jeneratör')" title="Sil">🗑</button>
                 </div>
               </div>
               <div class="settings-list-item">
@@ -504,8 +520,8 @@
                   <div class="settings-list-meta"><span>💶 Günlük kiralama: €150-€320</span><span>📦 2 alt tip</span></div>
                 </div>
                 <div class="settings-list-actions">
-                  <button class="btn btn-ghost btn-icon-sm" title="Düzenle">✎</button>
-                  <button class="btn btn-ghost btn-icon-sm" title="Sil">🗑</button>
+                  <button class="btn btn-ghost btn-icon-sm" onclick="openEditEquipCat('Asansör (Yük/Halı)')" title="Düzenle">✎</button>
+                  <button class="btn btn-ghost btn-icon-sm" onclick="openDeleteEquipCat('Asansör (Yük/Halı)')" title="Sil">🗑</button>
                 </div>
               </div>
               <div class="settings-list-item">
@@ -515,8 +531,8 @@
                   <div class="settings-list-meta"><span>💶 Günlük kiralama: €55-€140</span><span>📦 3 alt tip</span></div>
                 </div>
                 <div class="settings-list-actions">
-                  <button class="btn btn-ghost btn-icon-sm" title="Düzenle">✎</button>
-                  <button class="btn btn-ghost btn-icon-sm" title="Sil">🗑</button>
+                  <button class="btn btn-ghost btn-icon-sm" onclick="openEditEquipCat('Kalıp Sistemi')" title="Düzenle">✎</button>
+                  <button class="btn btn-ghost btn-icon-sm" onclick="openDeleteEquipCat('Kalıp Sistemi')" title="Sil">🗑</button>
                 </div>
               </div>
             </div>
@@ -536,8 +552,8 @@
                   <div class="settings-list-meta"><span>🏭 Varsayılan tedarikçi: BetonCentrale Antwerpen</span><span>📏 Birim: m³</span></div>
                 </div>
                 <div class="settings-list-actions">
-                  <button class="btn btn-ghost btn-icon-sm" title="Düzenle">✎</button>
-                  <button class="btn btn-ghost btn-icon-sm" title="Sil">🗑</button>
+                  <button class="btn btn-ghost btn-icon-sm" onclick="openEditMatCat('Beton')" title="Düzenle">✎</button>
+                  <button class="btn btn-ghost btn-icon-sm" onclick="openDeleteMatCat('Beton')" title="Sil">🗑</button>
                 </div>
               </div>
               <div class="settings-list-item">
@@ -547,8 +563,8 @@
                   <div class="settings-list-meta"><span>🏭 Varsayılan tedarikçi: ArcelorMittal Belgium</span><span>📏 Birim: kg</span></div>
                 </div>
                 <div class="settings-list-actions">
-                  <button class="btn btn-ghost btn-icon-sm" title="Düzenle">✎</button>
-                  <button class="btn btn-ghost btn-icon-sm" title="Sil">🗑</button>
+                  <button class="btn btn-ghost btn-icon-sm" onclick="openEditMatCat('Demir (Donatı)')" title="Düzenle">✎</button>
+                  <button class="btn btn-ghost btn-icon-sm" onclick="openDeleteMatCat('Demir (Donatı)')" title="Sil">🗑</button>
                 </div>
               </div>
               <div class="settings-list-item">
@@ -558,8 +574,8 @@
                   <div class="settings-list-meta"><span>🏭 Varsayılan tedarikçi: Wienerberger Belgium</span><span>📏 Birim: adet</span></div>
                 </div>
                 <div class="settings-list-actions">
-                  <button class="btn btn-ghost btn-icon-sm" title="Düzenle">✎</button>
-                  <button class="btn btn-ghost btn-icon-sm" title="Sil">🗑</button>
+                  <button class="btn btn-ghost btn-icon-sm" onclick="openEditMatCat('Tuğla / Blok')" title="Düzenle">✎</button>
+                  <button class="btn btn-ghost btn-icon-sm" onclick="openDeleteMatCat('Tuğla / Blok')" title="Sil">🗑</button>
                 </div>
               </div>
               <div class="settings-list-item">
@@ -569,8 +585,8 @@
                   <div class="settings-list-meta"><span>🏭 Varsayılan tedarikçi: Rockwool Benelux</span><span>📏 Birim: m²</span></div>
                 </div>
                 <div class="settings-list-actions">
-                  <button class="btn btn-ghost btn-icon-sm" title="Düzenle">✎</button>
-                  <button class="btn btn-ghost btn-icon-sm" title="Sil">🗑</button>
+                  <button class="btn btn-ghost btn-icon-sm" onclick="openEditMatCat('Yalıtım')" title="Düzenle">✎</button>
+                  <button class="btn btn-ghost btn-icon-sm" onclick="openDeleteMatCat('Yalıtım')" title="Sil">🗑</button>
                 </div>
               </div>
               <div class="settings-list-item">
@@ -580,8 +596,8 @@
                   <div class="settings-list-meta"><span>🏭 Varsayılan tedarikçi: Sigma Coatings</span><span>📏 Birim: litre</span></div>
                 </div>
                 <div class="settings-list-actions">
-                  <button class="btn btn-ghost btn-icon-sm" title="Düzenle">✎</button>
-                  <button class="btn btn-ghost btn-icon-sm" title="Sil">🗑</button>
+                  <button class="btn btn-ghost btn-icon-sm" onclick="openEditMatCat('Boya ve Kaplama')" title="Düzenle">✎</button>
+                  <button class="btn btn-ghost btn-icon-sm" onclick="openDeleteMatCat('Boya ve Kaplama')" title="Sil">🗑</button>
                 </div>
               </div>
               <div class="settings-list-item">
@@ -591,8 +607,8 @@
                   <div class="settings-list-meta"><span>🏭 Varsayılan tedarikçi: Porcelanosa Belgium</span><span>📏 Birim: m²</span></div>
                 </div>
                 <div class="settings-list-actions">
-                  <button class="btn btn-ghost btn-icon-sm" title="Düzenle">✎</button>
-                  <button class="btn btn-ghost btn-icon-sm" title="Sil">🗑</button>
+                  <button class="btn btn-ghost btn-icon-sm" onclick="openEditMatCat('Seramik ve Fayans')" title="Düzenle">✎</button>
+                  <button class="btn btn-ghost btn-icon-sm" onclick="openDeleteMatCat('Seramik ve Fayans')" title="Sil">🗑</button>
                 </div>
               </div>
               <div class="settings-list-item">
@@ -602,8 +618,8 @@
                   <div class="settings-list-meta"><span>🏭 Varsayılan tedarikçi: Legrand Belgium</span><span>📏 Birim: adet/m</span></div>
                 </div>
                 <div class="settings-list-actions">
-                  <button class="btn btn-ghost btn-icon-sm" title="Düzenle">✎</button>
-                  <button class="btn btn-ghost btn-icon-sm" title="Sil">🗑</button>
+                  <button class="btn btn-ghost btn-icon-sm" onclick="openEditMatCat('Elektrik Malzemeleri')" title="Düzenle">✎</button>
+                  <button class="btn btn-ghost btn-icon-sm" onclick="openDeleteMatCat('Elektrik Malzemeleri')" title="Sil">🗑</button>
                 </div>
               </div>
               <div class="settings-list-item">
@@ -613,8 +629,8 @@
                   <div class="settings-list-meta"><span>🏭 Varsayılan tedarikçi: Geberit Belgium</span><span>📏 Birim: adet/m</span></div>
                 </div>
                 <div class="settings-list-actions">
-                  <button class="btn btn-ghost btn-icon-sm" title="Düzenle">✎</button>
-                  <button class="btn btn-ghost btn-icon-sm" title="Sil">🗑</button>
+                  <button class="btn btn-ghost btn-icon-sm" onclick="openEditMatCat('Sıhhi Tesisat')" title="Düzenle">✎</button>
+                  <button class="btn btn-ghost btn-icon-sm" onclick="openDeleteMatCat('Sıhhi Tesisat')" title="Sil">🗑</button>
                 </div>
               </div>
             </div>
@@ -641,7 +657,7 @@
                 </div>
               </div>
               <div style="margin-top:12px;">
-                <button class="btn btn-primary btn-sm" onclick="showToast('Şifre başarıyla değiştirildi','success')">Şifreyi Güncelle</button>
+                <button class="btn btn-primary btn-sm" onclick="changePassword()">Şifreyi Güncelle</button>
               </div>
             </div>
 
@@ -652,7 +668,7 @@
                   <div class="toggle-row-title">Google Authenticator ile 2FA</div>
                   <div class="toggle-row-desc">Her girişte telefonunuza gönderilen kod ile ek güvenlik katmanı</div>
                 </div>
-                <label class="toggle"><input type="checkbox" id="toggle2FA" onchange="showToast(this.checked?'2FA etkinleştirildi':'2FA devre dışı bırakıldı',this.checked?'success':'warning')"><span class="toggle-track"></span></label>
+                <label class="toggle"><input type="checkbox" id="toggle2FA" onchange="toggle2FA(this.checked)"><span class="toggle-track"></span></label>
               </div>
               <div class="toggle-row">
                 <div class="toggle-row-info">
@@ -674,8 +690,8 @@
               <div class="security-section-title">🔌 API Anahtarı</div>
               <div class="api-key-box">
                 <span style="flex:1;word-break:break-all;">bp_live_sk_2v8xK9mNpQ4rL7wJ3tY5hG6bF1cA0dE</span>
-                <button class="btn btn-secondary btn-sm" onclick="showToast('API anahtarı panoya kopyalandı','info')">Kopyala</button>
-                <button class="btn btn-amber btn-sm" onclick="showToast('API anahtarı yenilendi','warning')">Yenile</button>
+                <button class="btn btn-secondary btn-sm" onclick="copyAPIKey()">Kopyala</button>
+                <button class="btn btn-amber btn-sm" onclick="renewAPIKey()">Yenile</button>
               </div>
               <div style="font-size:var(--text-xs);color:var(--text-muted);margin-top:8px;">Son yenileme: 12 Mayıs 2026 — Bu anahtarı üçüncü parti entegrasyonlarda kullanın.</div>
             </div>
@@ -695,7 +711,7 @@
                 </tbody>
               </table>
               <div style="margin-top:12px;">
-                <button class="btn btn-secondary btn-sm" onclick="showToast('Tüm oturumlar sonlandırıldı','success')">Tüm Oturumları Sonlandır</button>
+                <button class="btn btn-secondary btn-sm" onclick="terminateAllSessions()">Tüm Oturumları Sonlandır</button>
               </div>
             </div>
           </div>
@@ -743,6 +759,60 @@
   </div>
 </div>
 
+<!-- Edit Template Modal -->
+<div class="modal-overlay" id="editTemplateModal">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">Şablon Düzenle</div>
+      <button class="modal-close" onclick="closeModal('editTemplateModal')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label class="form-label">Şablon Adı</label>
+        <input type="text" class="form-input" id="editTemplateName" value="">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Varsayılan Aşama Sayısı</label>
+        <input type="number" class="form-input" value="8" min="1">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Varsayılan Kontrol Listesi</label>
+        <input type="number" class="form-input" value="24" min="1">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Bütçe Şablonu</label>
+        <select class="form-select">
+          <option>Standart</option>
+          <option selected>Konut</option>
+          <option>Ticari</option>
+          <option>Altyapı</option>
+        </select>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('editTemplateModal')">İptal</button>
+      <button class="btn btn-primary" onclick="closeModal('editTemplateModal');showToast('Şablon güncellendi','success')">Güncelle</button>
+    </div>
+  </div>
+</div>
+
+<!-- Delete Template Modal -->
+<div class="modal-overlay" id="deleteTemplateModal">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">Şablon Sil</div>
+      <button class="modal-close" onclick="closeModal('deleteTemplateModal')">✕</button>
+    </div>
+    <div class="modal-body">
+      <p style="color:var(--text-secondary);"><strong style="color:var(--text-primary);" id="deleteTemplateName">Konut İnşaatı</strong> şablonunu silmek istediğinize emin misiniz?</p>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('deleteTemplateModal')">İptal</button>
+      <button class="btn btn-amber" onclick="closeModal('deleteTemplateModal');showToast('Şablon silindi','warning')">Sil</button>
+    </div>
+  </div>
+</div>
+
 <!-- Add Equipment Category Modal -->
 <div class="modal-overlay" id="addEquipCatModal">
   <div class="modal">
@@ -770,6 +840,54 @@
     <div class="modal-footer">
       <button class="btn btn-secondary" onclick="closeModal('addEquipCatModal')">İptal</button>
       <button class="btn btn-primary" onclick="closeModal('addEquipCatModal');showToast('Kategori eklendi','success')">Ekle</button>
+    </div>
+  </div>
+</div>
+
+<!-- Edit Equipment Category Modal -->
+<div class="modal-overlay" id="editEquipCatModal">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">Kategori Düzenle</div>
+      <button class="modal-close" onclick="closeModal('editEquipCatModal')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label class="form-label">Kategori Adı</label>
+        <input type="text" class="form-input" id="editEquipCatName" value="">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Açıklama</label>
+        <input type="text" class="form-input" placeholder="Kısa açıklama">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Günlük Kiralama Aralığı (€)</label>
+        <div style="display:flex;gap:12px;">
+          <input type="number" class="form-input" placeholder="Min" value="50">
+          <input type="number" class="form-input" placeholder="Max" value="200">
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('editEquipCatModal')">İptal</button>
+      <button class="btn btn-primary" onclick="closeModal('editEquipCatModal');showToast('Kategori güncellendi','success')">Güncelle</button>
+    </div>
+  </div>
+</div>
+
+<!-- Delete Equipment Category Modal -->
+<div class="modal-overlay" id="deleteEquipCatModal">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">Kategori Sil</div>
+      <button class="modal-close" onclick="closeModal('deleteEquipCatModal')">✕</button>
+    </div>
+    <div class="modal-body">
+      <p style="color:var(--text-secondary);"><strong style="color:var(--text-primary);" id="deleteEquipCatName">Vinç</strong> kategorisini silmek istediğinize emin misiniz?</p>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('deleteEquipCatModal')">İptal</button>
+      <button class="btn btn-amber" onclick="closeModal('deleteEquipCatModal');showToast('Kategori silindi','warning')">Sil</button>
     </div>
   </div>
 </div>
@@ -814,6 +932,63 @@
   </div>
 </div>
 
+<!-- Edit Material Category Modal -->
+<div class="modal-overlay" id="editMatCatModal">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">Kategori Düzenle</div>
+      <button class="modal-close" onclick="closeModal('editMatCatModal')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label class="form-label">Kategori Adı</label>
+        <input type="text" class="form-input" id="editMatCatName" value="">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Açıklama</label>
+        <input type="text" class="form-input" placeholder="Kısa açıklama">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Varsayılan Tedarikçi</label>
+        <input type="text" class="form-input" placeholder="Tedarikçi adı">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Birim</label>
+        <select class="form-select">
+          <option>adet</option>
+          <option selected>m²</option>
+          <option>m³</option>
+          <option>kg</option>
+          <option>ton</option>
+          <option>litre</option>
+          <option>metre</option>
+        </select>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('editMatCatModal')">İptal</button>
+      <button class="btn btn-primary" onclick="closeModal('editMatCatModal');showToast('Kategori güncellendi','success')">Güncelle</button>
+    </div>
+  </div>
+</div>
+
+<!-- Delete Material Category Modal -->
+<div class="modal-overlay" id="deleteMatCatModal">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">Kategori Sil</div>
+      <button class="modal-close" onclick="closeModal('deleteMatCatModal')">✕</button>
+    </div>
+    <div class="modal-body">
+      <p style="color:var(--text-secondary);"><strong style="color:var(--text-primary);" id="deleteMatCatName">Beton</strong> kategorisini silmek istediğinize emin misiniz?</p>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('deleteMatCatModal')">İptal</button>
+      <button class="btn btn-amber" onclick="closeModal('deleteMatCatModal');showToast('Kategori silindi','warning')">Sil</button>
+    </div>
+  </div>
+</div>
+
 <div class="toast-container" id="toastContainer"></div>
 
 <script>
@@ -844,6 +1019,48 @@ function openModal(id){
 function closeModal(id){
   document.getElementById(id).classList.remove('active');
 }
+
+/* Template modals */
+function openEditTemplate(name){
+  document.getElementById('editTemplateName').value = name;
+  openModal('editTemplateModal');
+}
+function openDeleteTemplate(name){
+  document.getElementById('deleteTemplateName').textContent = name;
+  openModal('deleteTemplateModal');
+}
+
+/* Equipment category modals */
+function openEditEquipCat(name){
+  document.getElementById('editEquipCatName').value = name;
+  openModal('editEquipCatModal');
+}
+function openDeleteEquipCat(name){
+  document.getElementById('deleteEquipCatName').textContent = name;
+  openModal('deleteEquipCatModal');
+}
+
+/* Material category modals */
+function openEditMatCat(name){
+  document.getElementById('editMatCatName').value = name;
+  openModal('editMatCatModal');
+}
+function openDeleteMatCat(name){
+  document.getElementById('deleteMatCatName').textContent = name;
+  openModal('deleteMatCatModal');
+}
+
+/* Save actions */
+function saveAll(){ showToast('Tüm değişiklikler kaydedildi','success'); }
+function saveCompany(){ showToast('Şirket bilgileri güncellendi','success'); }
+function saveFinance(){ showToast('Finansal ayarlar güncellendi','success'); }
+function savePersonnel(){ showToast('Personel ayarları güncellendi','success'); }
+function cancelChanges(){ showToast('Değişiklikler iptal edildi','warning'); }
+function changePassword(){ showToast('Şifre başarıyla değiştirildi','success'); }
+function copyAPIKey(){ showToast('API anahtarı panoya kopyalandı','info'); }
+function renewAPIKey(){ showToast('API anahtarı yenilendi','warning'); }
+function terminateAllSessions(){ showToast('Tüm oturumlar sonlandırıldı','success'); }
+function toggle2FA(enabled){ showToast(enabled ? '2FA etkinleştirildi' : '2FA devre dışı bırakıldı', enabled ? 'success' : 'warning'); }
 
 /* Toast */
 function showToast(message, type='info'){

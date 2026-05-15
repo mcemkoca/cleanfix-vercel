@@ -18,7 +18,7 @@
 .nav-group-header{display:flex;align-items:center;gap:8px;padding:8px 12px;font-size:var(--text-xs);font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.05em;}
 .nav-item{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:var(--radius-md);color:var(--text-secondary);font-size:var(--text-sm);font-weight:500;text-decoration:none;}
 .nav-item:hover{background:var(--bg-tertiary);color:var(--text-primary);}
-.nav-item.active{background:rgba(20,184,166,0.1);color:var(--teal-500);}
+.nav-item.active{background:var(--teal-500);color:white;box-shadow:0 4px 12px rgba(20,184,166,0.3);}
 .nav-icon{width:20px;height:20px;opacity:0.7;}
 .sidebar-footer{padding:16px;border-top:1px solid var(--border-color);}
 .sidebar-user{display:flex;align-items:center;gap:10px;}
@@ -99,6 +99,42 @@
 .filter-row select,.filter-row input{padding:8px 14px;background:var(--bg-card);border:1.5px solid var(--border-color);border-radius:var(--radius-md);color:var(--text-primary);font-size:var(--text-sm);outline:none;}
 .filter-row select:focus,.filter-row input:focus{border-color:var(--teal-500);box-shadow:0 0 0 3px var(--shadow-glow);}
 
+/* Modal */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:200;display:none;align-items:center;justify-content:center;backdrop-filter:blur(4px);}
+.modal-overlay.active{display:flex;}
+.modal{background:var(--bg-card);border:1px solid var(--border-color);border-radius:var(--radius-xl);width:100%;max-width:560px;max-height:90vh;overflow-y:auto;box-shadow:var(--shadow-xl);animation:modalIn 0.3s ease;}
+@keyframes modalIn{from{opacity:0;transform:translateY(20px) scale(0.98);}to{opacity:1;transform:translateY(0) scale(1);}}
+.modal-header{padding:20px 24px;border-bottom:1px solid var(--border-color);display:flex;align-items:center;justify-content:space-between;}
+.modal-title{font-size:var(--text-lg);font-weight:700;}
+.modal-close{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;background:transparent;border:none;color:var(--text-muted);cursor:pointer;}
+.modal-close:hover{background:var(--error-100);color:var(--error-500);}
+[data-theme="dark"] .modal-close:hover{background:rgba(244,63,94,0.15);}
+.modal-body{padding:20px 24px;}
+.modal-footer{padding:16px 24px;border-top:1px solid var(--border-color);display:flex;gap:12px;justify-content:flex-end;}
+.form-group{margin-bottom:16px;}
+.form-label{display:block;font-size:var(--text-xs);font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:6px;}
+.form-input,.form-select{width:100%;padding:10px 14px;background:var(--bg-card);border:1.5px solid var(--border-color);border-radius:var(--radius-md);color:var(--text-primary);font-size:var(--text-sm);transition:all var(--duration-fast);}
+.form-input:focus,.form-select:focus{border-color:var(--teal-500);box-shadow:0 0 0 3px var(--shadow-glow);outline:none;}
+
+/* Toast */
+.toast-container{position:fixed;top:24px;right:24px;z-index:2000;display:flex;flex-direction:column;gap:12px;pointer-events:none;max-width:400px;}
+.toast{pointer-events:all;background:var(--bg-card);border:1px solid var(--border-color);border-radius:var(--radius-lg);padding:14px 16px;display:flex;align-items:flex-start;gap:10px;box-shadow:var(--shadow-lg);animation:toastIn 0.3s ease forwards;}
+.toast.exit{animation:toastOut 0.3s ease forwards;}
+.toast-success{border-color:var(--success-500);}
+.toast-error{border-color:var(--error-500);}
+.toast-warning{border-color:var(--warning-500);}
+.toast-info{border-color:var(--info-500);}
+.toast-icon{flex-shrink:0;margin-top:2px;}
+.toast-content{flex:1;}
+.toast-title{font-weight:600;font-size:var(--text-sm);}
+.toast-message{font-size:var(--text-sm);color:var(--text-secondary);margin-top:2px;}
+.toast-close{flex-shrink:0;color:var(--text-muted);cursor:pointer;transition:color var(--duration-fast);padding:2px;background:none;border:none;}
+.toast-close:hover{color:var(--text-primary);}
+.toast-progress{position:absolute;bottom:0;left:0;height:2px;animation:progressBar 4s linear forwards;}
+@keyframes toastIn{from{opacity:0;transform:translateY(-20px) scale(0.95);}to{opacity:1;transform:translateY(0) scale(1);}}
+@keyframes toastOut{from{opacity:1;transform:translateY(0) scale(1);}to{opacity:0;transform:translateY(-20px) scale(0.95);}}
+@keyframes progressBar{from{width:100%;}to{width:0;}}
+
 /* Responsive */
 @media (max-width:1024px){.kpi-row{grid-template-columns:repeat(2,1fr);}.chart-grid{grid-template-columns:1fr;}.chart-card.full-width{grid-column:span 1;}}
 @media (max-width:768px){.sidebar{transform:translateX(-100%);}.sidebar.open{transform:translateX(0);}.main-content{margin-left:0;}.hamburger{display:block;}.kpi-row{grid-template-columns:1fr;}.toolbar{flex-direction:column;align-items:flex-start;}.report-tabs{gap:0;}}
@@ -156,7 +192,12 @@
   <main class="main-content">
     <header class="header">
       <div style="display:flex;align-items:center;gap:16px;">
-        <button class="hamburger" onclick="document.getElementById('sidebar').classList.toggle('open')">☰</button>
+        <button class="hamburger" onclick="toggleSidebar()">☰</button>
+    <script>
+      function toggleSidebar() {
+        document.getElementById('sidebar').classList.toggle('open');
+      }
+    </script>
         <h1 style="font-size:var(--text-lg);font-weight:700;">Finans ve Proje Raporları</h1>
       </div>
       <div style="display:flex;align-items:center;gap:10px;">
@@ -165,8 +206,8 @@
           <span>→</span>
           <input type="date" value="2026-05-15" id="dateTo">
         </div>
-        <button class="btn btn-secondary btn-sm" onclick="showToast('Raporlar güncellendi','success')">🔄 Yenile</button>
-        <div style="display:flex;align-items:center;gap:10px;"><div class="avatar" style="background:linear-gradient(135deg,#14b8a6,#0d9488);">PV</div></div>
+        <button class="btn btn-secondary btn-sm" onclick="refreshReports()">🔄 Yenile</button>
+        <div style="display:flex;align-items:center;gap:10px;"><div class="avatar" style="background:linear-gradient(135deg,#14b8a6,#0d9488);">DY</div></div>
       </div>
     </header>
 
@@ -236,8 +277,8 @@
       <!-- TAB 2: Finansal -->
       <div class="tab-panel" id="tab-finansal">
         <div class="toolbar-left" style="margin-bottom:16px;">
-          <button class="btn btn-primary btn-sm" onclick="showToast('CSV dışa aktarımı başarılı','success')">📄 CSV İndir</button>
-          <button class="btn btn-secondary btn-sm" onclick="showToast('PDF raporu oluşturuldu','success')">📑 PDF İndir</button>
+          <button class="btn btn-primary btn-sm" onclick="exportCSV()">📄 CSV İndir</button>
+          <button class="btn btn-secondary btn-sm" onclick="exportPDF()">📑 PDF İndir</button>
         </div>
         <div class="chart-grid">
           <div class="chart-card">
@@ -260,9 +301,9 @@
                 <tr><td><div style="font-weight:600;">Lemaire Konutları — Blok A</div><div style="font-size:var(--text-xs);color:var(--text-muted);">PRJ-2026-001</div></td><td style="font-weight:600;">€1.250.000</td><td>€890.000</td><td>€360.000</td><td style="color:var(--success-500);font-weight:600;">-3%</td><td><span class="tag tag-green">Bütçede</span></td></tr>
                 <tr><td><div style="font-weight:600;">EU Tower Ofis Kompleksi</div><div style="font-size:var(--text-xs);color:var(--text-muted);">PRJ-2026-002</div></td><td style="font-weight:600;">€4.800.000</td><td>€2.160.000</td><td>€2.640.000</td><td style="color:var(--success-500);font-weight:600;">-2%</td><td><span class="tag tag-green">Bütçede</span></td></tr>
                 <tr><td><div style="font-weight:600;">Leuven Tarihi Bina Restorasyonu</div><div style="font-size:var(--text-xs);color:var(--text-muted);">PRJ-2026-003</div></td><td style="font-weight:600;">€850.000</td><td>€765.000</td><td>€85.000</td><td style="color:var(--amber-500);font-weight:600;">+5%</td><td><span class="tag tag-amber">Risk</span></td></tr>
-                <tr><td><div style="font-weight:600;">Antwerp Ring Yolu Altyapı</div><div style="font-size:var(--text-xs);color:var(--text-muted);">PRJ-2026-004</div></td><td style="font-weight:600;">€3.200.000</td><td>€1.920.000</td><td>€1.280.000</td><td style="color:var(--error-500);font-weight:600;">+12%</td><td><span class="tag tag-red">Aşım</span></td></tr>
-                <tr><td><div style="font-weight:600;">Ghent Endüstriyel Parkı</div><div style="font-size:var(--text-xs);color:var(--text-muted);">PRJ-2026-005</div></td><td style="font-weight:600;">€2.100.000</td><td>€1.260.000</td><td>€840.000</td><td style="color:var(--success-500);font-weight:600;">-1%</td><td><span class="tag tag-green">Bütçede</span></td></tr>
-                <tr><td><div style="font-weight:600;">Bruges Peyzaj Dönüşümü</div><div style="font-size:var(--text-xs);color:var(--text-muted);">PRJ-2026-006</div></td><td style="font-weight:600;">€2.000.000</td><td>€1.205.000</td><td>€795.000</td><td style="color:var(--success-500);font-weight:600;">-0.5%</td><td><span class="tag tag-green">Bütçede</span></td></tr>
+                <tr><td><div style="font-weight:600;">E19 Otoyol Genişletme</div><div style="font-size:var(--text-xs);color:var(--text-muted);">PRJ-2026-004</div></td><td style="font-weight:600;">€5.200.000</td><td>€3.120.000</td><td>€2.080.000</td><td style="color:var(--success-500);font-weight:600;">-1%</td><td><span class="tag tag-green">Bütçede</span></td></tr>
+                <tr><td><div style="font-weight:600;">Port of Antwerp Depo Kompleksi</div><div style="font-size:var(--text-xs);color:var(--text-muted);">PRJ-2026-006</div></td><td style="font-weight:600;">€3.100.000</td><td>€1.860.000</td><td>€1.240.000</td><td style="color:var(--success-500);font-weight:600;">-1%</td><td><span class="tag tag-green">Bütçede</span></td></tr>
+                <tr><td><div style="font-weight:600;">Brüksel Kanalizasyon Altyapı</div><div style="font-size:var(--text-xs);color:var(--text-muted);">PRJ-2026-010</div></td><td style="font-weight:600;">€2.400.000</td><td>€1.728.000</td><td>€672.000</td><td style="color:var(--error-500);font-weight:600;">+8%</td><td><span class="tag tag-red">Aşım</span></td></tr>
               </tbody>
             </table>
           </div>
@@ -291,7 +332,7 @@
             </select>
           </div>
           <div>
-            <button class="btn btn-primary btn-sm" onclick="showToast('CSV dışa aktarımı başarılı','success')">📄 CSV İndir</button>
+            <button class="btn btn-primary btn-sm" onclick="exportCSV()">📄 CSV İndir</button>
           </div>
         </div>
         <div class="card">
@@ -305,7 +346,7 @@
                   <td><div class="table-progress"><div class="progress-bar"><div class="progress-bar-fill" style="width:72%;"></div></div><span>72%</span></div></td>
                   <td><span class="tag tag-green">Devam Ediyor</span></td>
                   <td><span style="color:var(--success-500);font-weight:600;">0 gün</span></td>
-                  <td><div style="display:flex;align-items:center;gap:8px;"><div class="avatar" style="background:linear-gradient(135deg,#3b82f6,#1d4ed8);width:28px;height:28px;font-size:10px;">MK</div><span style="font-size:var(--text-sm);">Marc Kenis</span></div></td>
+                  <td><div style="display:flex;align-items:center;gap:8px;"><div class="avatar" style="background:linear-gradient(135deg,#3b82f6,#1d4ed8);width:28px;height:28px;font-size:10px;">MB</div><span style="font-size:var(--text-sm);">Marc Baudewijn</span></div></td>
                 </tr>
                 <tr data-status="Devam Ediyor" data-sektor="Ticari">
                   <td><div style="font-weight:600;">EU Tower Ofis Kompleksi</div><div style="font-size:var(--text-xs);color:var(--text-muted);">PRJ-2026-002</div></td>
@@ -313,7 +354,7 @@
                   <td><div class="table-progress"><div class="progress-bar"><div class="progress-bar-fill" style="width:45%;"></div></div><span>45%</span></div></td>
                   <td><span class="tag tag-green">Devam Ediyor</span></td>
                   <td><span style="color:var(--error-500);font-weight:600;">+12 gün</span></td>
-                  <td><div style="display:flex;align-items:center;gap:8px;"><div class="avatar" style="background:linear-gradient(135deg,#14b8a6,#0f766e);width:28px;height:28px;font-size:10px;">SB</div><span style="font-size:var(--text-sm);">Sophie Bernard</span></div></td>
+                  <td><div style="display:flex;align-items:center;gap:8px;"><div class="avatar" style="background:linear-gradient(135deg,#14b8a6,#0f766e);width:28px;height:28px;font-size:10px;">PO</div><span style="font-size:var(--text-sm);">Pieter Ooms</span></div></td>
                 </tr>
                 <tr data-status="Devam Ediyor" data-sektor="Renovasyon">
                   <td><div style="font-weight:600;">Leuven Tarihi Bina Restorasyonu</div><div style="font-size:var(--text-xs);color:var(--text-muted);">PRJ-2026-003</div></td>
@@ -321,31 +362,31 @@
                   <td><div class="table-progress"><div class="progress-bar"><div class="progress-bar-fill" style="width:90%;"></div></div><span>90%</span></div></td>
                   <td><span class="tag tag-green">Devam Ediyor</span></td>
                   <td><span style="color:var(--success-500);font-weight:600;">0 gün</span></td>
-                  <td><div style="display:flex;align-items:center;gap:8px;"><div class="avatar" style="background:linear-gradient(135deg,#14b8a6,#0f766e);width:28px;height:28px;font-size:10px;">JV</div><span style="font-size:var(--text-sm);">Johan Vermeulen</span></div></td>
+                  <td><div style="display:flex;align-items:center;gap:8px;"><div class="avatar" style="background:linear-gradient(135deg,#14b8a6,#0f766e);width:28px;height:28px;font-size:10px;">TC</div><span style="font-size:var(--text-sm);">Thomas Claes</span></div></td>
                 </tr>
                 <tr data-status="Devam Ediyor" data-sektor="Altyapı">
-                  <td><div style="font-weight:600;">Antwerp Ring Yolu Altyapı</div><div style="font-size:var(--text-xs);color:var(--text-muted);">PRJ-2026-004</div></td>
+                  <td><div style="font-weight:600;">E19 Otoyol Genişletme</div><div style="font-size:var(--text-xs);color:var(--text-muted);">PRJ-2026-004</div></td>
                   <td><span class="tag tag-purple">Altyapı</span></td>
                   <td><div class="table-progress"><div class="progress-bar"><div class="progress-bar-fill" style="width:60%;"></div></div><span>60%</span></div></td>
                   <td><span class="tag tag-amber">Devam Ediyor</span></td>
                   <td><span style="color:var(--error-500);font-weight:600;">+28 gün</span></td>
-                  <td><div style="display:flex;align-items:center;gap:8px;"><div class="avatar" style="background:linear-gradient(135deg,#f59e0b,#d97706);width:28px;height:28px;font-size:10px;">DV</div><span style="font-size:var(--text-sm);">Dirk Van Looy</span></div></td>
+                  <td><div style="display:flex;align-items:center;gap:8px;"><div class="avatar" style="background:linear-gradient(135deg,#f59e0b,#d97706);width:28px;height:28px;font-size:10px;">DV</div><span style="font-size:var(--text-sm);">Dirk Vermeulen</span></div></td>
                 </tr>
                 <tr data-status="Tamamlandı" data-sektor="Endüstriyel">
-                  <td><div style="font-weight:600;">Ghent Endüstriyel Parkı</div><div style="font-size:var(--text-xs);color:var(--text-muted);">PRJ-2026-005</div></td>
+                  <td><div style="font-weight:600;">Port of Antwerp Depo Kompleksi</div><div style="font-size:var(--text-xs);color:var(--text-muted);">PRJ-2026-006</div></td>
                   <td><span class="tag tag-red">Endüstriyel</span></td>
                   <td><div class="table-progress"><div class="progress-bar"><div class="progress-bar-fill" style="width:100%;"></div></div><span>100%</span></div></td>
                   <td><span class="tag tag-green">Tamamlandı</span></td>
                   <td><span style="color:var(--success-500);font-weight:600;">0 gün</span></td>
-                  <td><div style="display:flex;align-items:center;gap:8px;"><div class="avatar" style="background:linear-gradient(135deg,#14b8a6,#0d9488);width:28px;height:28px;font-size:10px;">LW</div><span style="font-size:var(--text-sm);">Lucas Wauters</span></div></td>
+                  <td><div style="display:flex;align-items:center;gap:8px;"><div class="avatar" style="background:linear-gradient(135deg,#14b8a6,#0d9488);width:28px;height:28px;font-size:10px;">MK</div><span style="font-size:var(--text-sm);">Mehmet Kaya</span></div></td>
                 </tr>
                 <tr data-status="Devam Ediyor" data-sektor="Peyzaj">
-                  <td><div style="font-weight:600;">Bruges Peyzaj Dönüşümü</div><div style="font-size:var(--text-xs);color:var(--text-muted);">PRJ-2026-006</div></td>
+                  <td><div style="font-weight:600;">Brugge Villa Projesi</div><div style="font-size:var(--text-xs);color:var(--text-muted);">PRJ-2026-005</div></td>
                   <td><span class="tag tag-blue">Peyzaj</span></td>
                   <td><div class="table-progress"><div class="progress-bar"><div class="progress-bar-fill" style="width:35%;"></div></div><span>35%</span></div></td>
                   <td><span class="tag tag-green">Devam Ediyor</span></td>
                   <td><span style="color:var(--warning-500);font-weight:600;">+5 gün</span></td>
-                  <td><div style="display:flex;align-items:center;gap:8px;"><div class="avatar" style="background:linear-gradient(135deg,#8b5cf6,#7c3aed);width:28px;height:28px;font-size:10px;">ED</div><span style="font-size:var(--text-sm);">Eva De Vries</span></div></td>
+                  <td><div style="display:flex;align-items:center;gap:8px;"><div class="avatar" style="background:linear-gradient(135deg,#8b5cf6,#7c3aed);width:28px;height:28px;font-size:10px;">ED</div><span style="font-size:var(--text-sm);">Elke Dubois</span></div></td>
                 </tr>
               </tbody>
             </table>
@@ -364,20 +405,20 @@
         <div class="card" style="margin-top:16px;">
           <div style="padding:16px 20px;border-bottom:1px solid var(--border-color);display:flex;align-items:center;justify-content:space-between;">
             <div style="font-size:var(--text-base);font-weight:600;">Personel Performans</div>
-            <button class="btn btn-primary btn-sm" onclick="showToast('CSV dışa aktarımı başarılı','success')">📄 CSV İndir</button>
+            <button class="btn btn-primary btn-sm" onclick="exportCSV()">📄 CSV İndir</button>
           </div>
           <div class="table-wrap">
             <table class="table">
               <thead><tr><th>Personel</th><th>Görev</th><th>Proje Sayısı</th><th>Çalışma Saati</th><th>Verimlilik</th></tr></thead>
               <tbody>
-                <tr><td><div style="display:flex;align-items:center;gap:10px;"><div class="avatar" style="background:linear-gradient(135deg,#3b82f6,#1d4ed8);width:28px;height:28px;font-size:10px;">MK</div><div><div style="font-weight:600;">Marc Kenis</div><div style="font-size:var(--text-xs);color:var(--text-muted);">İnşaat Mühendisi</div></div></div></td><td>Proje Müdürü</td><td>3</td><td>1.240</td><td><div class="table-progress"><div class="progress-bar"><div class="progress-bar-fill" style="width:94%;"></div></div><span style="color:var(--success-500);">94%</span></div></td></tr>
-                <tr><td><div style="display:flex;align-items:center;gap:10px;"><div class="avatar" style="background:linear-gradient(135deg,#14b8a6,#0f766e);width:28px;height:28px;font-size:10px;">SB</div><div><div style="font-weight:600;">Sophie Bernard</div><div style="font-size:var(--text-xs);color:var(--text-muted);">Mimar</div></div></div></td><td>Teknik Sorumlu</td><td>2</td><td>1.180</td><td><div class="table-progress"><div class="progress-bar"><div class="progress-bar-fill" style="width:91%;"></div></div><span style="color:var(--success-500);">91%</span></div></td></tr>
-                <tr><td><div style="display:flex;align-items:center;gap:10px;"><div class="avatar" style="background:linear-gradient(135deg,#14b8a6,#0f766e);width:28px;height:28px;font-size:10px;">JV</div><div><div style="font-weight:600;">Johan Vermeulen</div><div style="font-size:var(--text-xs);color:var(--text-muted);">Restorasyon Uzmanı</div></div></div></td><td>Saha Şefi</td><td>2</td><td>1.320</td><td><div class="table-progress"><div class="progress-bar"><div class="progress-bar-fill" style="width:88%;"></div></div><span style="color:var(--amber-500);">88%</span></div></td></tr>
-                <tr><td><div style="display:flex;align-items:center;gap:10px;"><div class="avatar" style="background:linear-gradient(135deg,#f59e0b,#d97706);width:28px;height:28px;font-size:10px;">DV</div><div><div style="font-weight:600;">Dirk Van Looy</div><div style="font-size:var(--text-xs);color:var(--text-muted);">Altyapı Mühendisi</div></div></div></td><td>Proje Müdürü</td><td>1</td><td>980</td><td><div class="table-progress"><div class="progress-bar"><div class="progress-bar-fill" style="width:85%;"></div></div><span style="color:var(--amber-500);">85%</span></div></td></tr>
-                <tr><td><div style="display:flex;align-items:center;gap:10px;"><div class="avatar" style="background:linear-gradient(135deg,#14b8a6,#0d9488);width:28px;height:28px;font-size:10px;">LW</div><div><div style="font-weight:600;">Lucas Wauters</div><div style="font-size:var(--text-xs);color:var(--text-muted);">Endüstriyel Mühendis</div></div></div></td><td>Saha Şefi</td><td>2</td><td>1.150</td><td><div class="table-progress"><div class="progress-bar"><div class="progress-bar-fill" style="width:92%;"></div></div><span style="color:var(--success-500);">92%</span></div></td></tr>
-                <tr><td><div style="display:flex;align-items:center;gap:10px;"><div class="avatar" style="background:linear-gradient(135deg,#8b5cf6,#7c3aed);width:28px;height:28px;font-size:10px;">ED</div><div><div style="font-weight:600;">Eva De Vries</div><div style="font-size:var(--text-xs);color:var(--text-muted);">Peyzaj Mimarı</div></div></div></td><td>Teknik Sorumlu</td><td>1</td><td>720</td><td><div class="table-progress"><div class="progress-bar"><div class="progress-bar-fill" style="width:96%;"></div></div><span style="color:var(--success-500);">96%</span></div></td></tr>
-                <tr><td><div style="display:flex;align-items:center;gap:10px;"><div class="avatar" style="background:linear-gradient(135deg,#ec4899,#db2777);width:28px;height:28px;font-size:10px;">PB</div><div><div style="font-weight:600;">Piet Braem</div><div style="font-size:var(--text-xs);color:var(--text-muted);">Usta</div></div></div></td><td>İşçi Başı</td><td>4</td><td>1.440</td><td><div class="table-progress"><div class="progress-bar"><div class="progress-bar-fill" style="width:89%;"></div></div><span style="color:var(--amber-500);">89%</span></div></td></tr>
-                <tr><td><div style="display:flex;align-items:center;gap:10px;"><div class="avatar" style="background:linear-gradient(135deg,#06b6d4,#0891b2);width:28px;height:28px;font-size:10px;">SV</div><div><div style="font-weight:600;">Sofie Verdonck</div><div style="font-size:var(--text-xs);color:var(--text-muted);">Elektrik Mühendisi</div></div></div></td><td>Teknik Sorumlu</td><td>3</td><td>1.100</td><td><div class="table-progress"><div class="progress-bar"><div class="progress-bar-fill" style="width:93%;"></div></div><span style="color:var(--success-500);">93%</span></div></td></tr>
+                <tr><td><div style="display:flex;align-items:center;gap:10px;"><div class="avatar" style="background:linear-gradient(135deg,#3b82f6,#1d4ed8);width:28px;height:28px;font-size:10px;">MB</div><div><div style="font-weight:600;">Marc Baudewijn</div><div style="font-size:var(--text-xs);color:var(--text-muted);">Proje Müdürü</div></div></div></td><td>Proje Müdürü</td><td>3</td><td>1.240</td><td><div class="table-progress"><div class="progress-bar"><div class="progress-bar-fill" style="width:94%;"></div></div><span style="color:var(--success-500);">94%</span></div></td></tr>
+                <tr><td><div style="display:flex;align-items:center;gap:10px;"><div class="avatar" style="background:linear-gradient(135deg,#14b8a6,#0f766e);width:28px;height:28px;font-size:10px;">PO</div><div><div style="font-weight:600;">Pieter Ooms</div><div style="font-size:var(--text-xs);color:var(--text-muted);">Mimar</div></div></div></td><td>Teknik Sorumlu</td><td>2</td><td>1.180</td><td><div class="table-progress"><div class="progress-bar"><div class="progress-bar-fill" style="width:91%;"></div></div><span style="color:var(--success-500);">91%</span></div></td></tr>
+                <tr><td><div style="display:flex;align-items:center;gap:10px;"><div class="avatar" style="background:linear-gradient(135deg,#14b8a6,#0f766e);width:28px;height:28px;font-size:10px;">TC</div><div><div style="font-weight:600;">Thomas Claes</div><div style="font-size:var(--text-xs);color:var(--text-muted);">Restorasyon Uzmanı</div></div></div></td><td>Saha Şefi</td><td>2</td><td>1.320</td><td><div class="table-progress"><div class="progress-bar"><div class="progress-bar-fill" style="width:88%;"></div></div><span style="color:var(--amber-500);">88%</span></div></td></tr>
+                <tr><td><div style="display:flex;align-items:center;gap:10px;"><div class="avatar" style="background:linear-gradient(135deg,#f59e0b,#d97706);width:28px;height:28px;font-size:10px;">DV</div><div><div style="font-weight:600;">Dirk Vermeulen</div><div style="font-size:var(--text-xs);color:var(--text-muted);">İnşaat Mühendisi</div></div></div></td><td>Proje Müdürü</td><td>1</td><td>980</td><td><div class="table-progress"><div class="progress-bar"><div class="progress-bar-fill" style="width:85%;"></div></div><span style="color:var(--amber-500);">85%</span></div></td></tr>
+                <tr><td><div style="display:flex;align-items:center;gap:10px;"><div class="avatar" style="background:linear-gradient(135deg,#14b8a6,#0d9488);width:28px;height:28px;font-size:10px;">MK</div><div><div style="font-weight:600;">Mehmet Kaya</div><div style="font-size:var(--text-xs);color:var(--text-muted);">Endüstriyel Mühendis</div></div></div></td><td>Saha Şefi</td><td>2</td><td>1.150</td><td><div class="table-progress"><div class="progress-bar"><div class="progress-bar-fill" style="width:92%;"></div></div><span style="color:var(--success-500);">92%</span></div></td></tr>
+                <tr><td><div style="display:flex;align-items:center;gap:10px;"><div class="avatar" style="background:linear-gradient(135deg,#8b5cf6,#7c3aed);width:28px;height:28px;font-size:10px;">ED</div><div><div style="font-weight:600;">Elke Dubois</div><div style="font-size:var(--text-xs);color:var(--text-muted);">Peyzaj Mimarı</div></div></div></td><td>Teknik Sorumlu</td><td>1</td><td>720</td><td><div class="table-progress"><div class="progress-bar"><div class="progress-bar-fill" style="width:96%;"></div></div><span style="color:var(--success-500);">96%</span></div></td></tr>
+                <tr><td><div style="display:flex;align-items:center;gap:10px;"><div class="avatar" style="background:linear-gradient(135deg,#ec4899,#db2777);width:28px;height:28px;font-size:10px;">HK</div><div><div style="font-weight:600;">Hassan Demir</div><div style="font-size:var(--text-xs);color:var(--text-muted);">Usta</div></div></div></td><td>İşçi Başı</td><td>4</td><td>1.440</td><td><div class="table-progress"><div class="progress-bar"><div class="progress-bar-fill" style="width:89%;"></div></div><span style="color:var(--amber-500);">89%</span></div></td></tr>
+                <tr><td><div style="display:flex;align-items:center;gap:10px;"><div class="avatar" style="background:linear-gradient(135deg,#06b6d4,#0891b2);width:28px;height:28px;font-size:10px;">WS</div><div><div style="font-weight:600;">Wouter Smets</div><div style="font-size:var(--text-xs);color:var(--text-muted);">Elektrik Mühendisi</div></div></div></td><td>Teknik Sorumlu</td><td>3</td><td>1.100</td><td><div class="table-progress"><div class="progress-bar"><div class="progress-bar-fill" style="width:93%;"></div></div><span style="color:var(--success-500);">93%</span></div></td></tr>
               </tbody>
             </table>
           </div>
@@ -399,20 +440,20 @@
         <div class="card" style="margin-top:16px;">
           <div style="padding:16px 20px;border-bottom:1px solid var(--border-color);display:flex;align-items:center;justify-content:space-between;">
             <div style="font-size:var(--text-base);font-weight:600;">Ekipman Envanteri</div>
-            <button class="btn btn-primary btn-sm" onclick="showToast('CSV dışa aktarımı başarılı','success')">📄 CSV İndir</button>
+            <button class="btn btn-primary btn-sm" onclick="exportCSV()">📄 CSV İndir</button>
           </div>
           <div class="table-wrap">
             <table class="table">
               <thead><tr><th>Ekipman</th><th>Tip</th><th>Edinim</th><th>Günlük Maliyet</th><th>Kullanım Saati</th><th>Durum</th></tr></thead>
               <tbody>
-                <tr><td><div style="font-weight:600;">Caterpillar 336E Ekskavatör</div><div style="font-size:var(--text-xs);color:var(--text-muted);">CAT-336E-2024</div></td><td>İş Makinesi</td><td><span class="tag tag-amber">Kiralık</span></td><td style="font-weight:600;">€420</td><td>2.340</td><td><span class="tag tag-green">Aktif</span></td></tr>
-                <tr><td><div style="font-weight:600;">Komatsu D61P İş Makinesi</div><div style="font-size:var(--text-xs);color:var(--text-muted);">KOM-D61P-2023</div></td><td>İş Makinesi</td><td><span class="tag tag-green">Satın Alınan</span></td><td style="font-weight:600;">€180</td><td>1.890</td><td><span class="tag tag-green">Aktif</span></td></tr>
-                <tr><td><div style="font-weight:600;">Putzmeister BSF 46.16 Pompa</div><div style="font-size:var(--text-xs);color:var(--text-muted);">PUT-BSF46-2025</div></td><td>Beton Ekipmanı</td><td><span class="tag tag-amber">Kiralık</span></td><td style="font-weight:600;">€290</td><td>1.560</td><td><span class="tag tag-green">Aktif</span></td></tr>
-                <tr><td><div style="font-weight:600;">JLG 1350SJP Platform</div><div style="font-size:var(--text-xs);color:var(--text-muted);">JLG-1350S-2024</div></td><td>Yüksek Erişim</td><td><span class="tag tag-amber">Kiralık</span></td><td style="font-weight:600;">€350</td><td>980</td><td><span class="tag tag-amber">Bakımda</span></td></tr>
-                <tr><td><div style="font-weight:600;">Wacker Neuson Vibratör</div><div style="font-size:var(--text-xs);color:var(--text-muted);">WAC-VIB-2023</div></td><td>Kompakt Ekipman</td><td><span class="tag tag-green">Satın Alınan</span></td><td style="font-weight:600;">€45</td><td>2.780</td><td><span class="tag tag-green">Aktif</span></td></tr>
-                <tr><td><div style="font-weight:600;">Liebherr LTM 1090 Vinç</div><div style="font-size:var(--text-xs);color:var(--text-muted);">LIE-LTM90-2025</div></td><td>Vinç</td><td><span class="tag tag-amber">Kiralık</span></td><td style="font-weight:600;">€680</td><td>720</td><td><span class="tag tag-green">Aktif</span></td></tr>
-                <tr><td><div style="font-weight:600;">Bosch GRL 600 HVH Lazer</div><div style="font-size:var(--text-xs);color:var(--text-muted);">BOS-GRL600-2024</div></td><td>Ölçüm</td><td><span class="tag tag-green">Satın Alınan</span></td><td style="font-weight:600;">€25</td><td>3.120</td><td><span class="tag tag-green">Aktif</span></td></tr>
-                <tr><td><div style="font-weight:600;">Hilti TE 70-AVR Kırıcı</div><div style="font-size:var(--text-xs);color:var(--text-muted);">HIL-TE70-2023</div></td><td>Kırıcı</td><td><span class="tag tag-green">Satın Alınan</span></td><td style="font-weight:600;">€35</td><td>2.450</td><td><span class="tag tag-amber">Bakımda</span></td></tr>
+                <tr><td><div style="font-weight:600;">CAT 320E Ekskavatör</div><div style="font-size:var(--text-xs);color:var(--text-muted);">CAT0320E7ABC</div></td><td>İş Makinesi</td><td><span class="tag tag-amber">Kiralık</span></td><td style="font-weight:600;">€420</td><td>2.340</td><td><span class="tag tag-green">Aktif</span></td></tr>
+                <tr><td><div style="font-weight:600;">Liebherr 81K Vinç</div><div style="font-size:var(--text-xs);color:var(--text-muted);">LBH-81K-2025</div></td><td>Vinç</td><td><span class="tag tag-amber">Kiralık</span></td><td style="font-weight:600;">€680</td><td>1.890</td><td><span class="tag tag-green">Aktif</span></td></tr>
+                <tr><td><div style="font-weight:600;">Mercedes Arocs 4142 Beton Mikseri</div><div style="font-size:var(--text-xs);color:var(--text-muted);">MRC-AROCS-2024</div></td><td>Taşıma</td><td><span class="tag tag-green">Satın Alınan</span></td><td style="font-weight:600;">€180</td><td>1.560</td><td><span class="tag tag-green">Aktif</span></td></tr>
+                <tr><td><div style="font-weight:600;">İskele Sistemi (Modüler)</div><div style="font-size:var(--text-xs);color:var(--text-muted);">ISK-MOD-2024</div></td><td>İskele</td><td><span class="tag tag-amber">Kiralık</span></td><td style="font-weight:600;">€120</td><td>980</td><td><span class="tag tag-amber">Bakımda</span></td></tr>
+                <tr><td><div style="font-weight:600;">Forklift (3.5 Ton)</div><div style="font-size:var(--text-xs);color:var(--text-muted);">FL-35T-2023</div></td><td>Taşıma</td><td><span class="tag tag-green">Satın Alınan</span></td><td style="font-weight:600;">€45</td><td>2.780</td><td><span class="tag tag-green">Aktif</span></td></tr>
+                <tr><td><div style="font-weight:600;">Beton Pompası (36m)</div><div style="font-size:var(--text-xs);color:var(--text-muted);">BTP-36M-2025</div></td><td>Beton</td><td><span class="tag tag-amber">Kiralık</span></td><td style="font-weight:600;">€290</td><td>720</td><td><span class="tag tag-green">Aktif</span></td></tr>
+                <tr><td><div style="font-weight:600;">Lazer Nivo (Rotatif)</div><div style="font-size:var(--text-xs);color:var(--text-muted);">LZR-ROT-2024</div></td><td>Ölçüm</td><td><span class="tag tag-green">Satın Alınan</span></td><td style="font-weight:600;">€25</td><td>3.120</td><td><span class="tag tag-green">Aktif</span></td></tr>
+                <tr><td><div style="font-weight:600;">Hilti TE 70-AVR Kırıcı</div><div style="font-size:var(--text-xs);color:var(--text-muted);">HLT-TE70-2023</div></td><td>Kırıcı</td><td><span class="tag tag-green">Satın Alınan</span></td><td style="font-weight:600;">€35</td><td>2.450</td><td><span class="tag tag-amber">Bakımda</span></td></tr>
               </tbody>
             </table>
           </div>
@@ -424,16 +465,17 @@
       <div class="footer-inner">
         <div class="footer-text">© 2026 BuildPro NV. Tüm hakları saklıdır.</div>
         <div class="footer-links">
-          <a href="#">Gizlilik</a>
-          <a href="#">Kullanım Koşulları</a>
-          <a href="#">Yardım</a>
-          <a href="#">Sürüm 2.4.1</a>
+          <a href="buildpro-settings.html">Ayarlar</a>
+          <a href="buildpro-calendar.html">Takvim</a>
+          <a href="buildpro-costs.html">Finansman</a>
+          <span style="font-size:var(--text-xs);color:var(--text-muted);">Sürüm 2.4.1</span>
         </div>
       </div>
     </footer>
   </main>
 </div>
 
+<!-- Toast -->
 <div class="toast-container" id="toastContainer"></div>
 
 <script>
@@ -457,6 +499,10 @@ function showToast(message, type='info') {
   c.appendChild(t);
   setTimeout(() => { t.classList.add('exit'); setTimeout(()=>t.remove(),300); }, 4000);
 }
+
+function refreshReports() { showToast('Raporlar güncellendi', 'success'); }
+function exportCSV() { showToast('CSV dışa aktarımı başarılı', 'success'); }
+function exportPDF() { showToast('PDF raporu oluşturuldu', 'success'); }
 
 // ===== Chart Defaults =====
 Chart.defaults.color = '#94a3b8';
@@ -589,7 +635,7 @@ const staffCtx = document.getElementById('staffAllocationChart').getContext('2d'
 new Chart(staffCtx, {
   type: 'bar',
   data: {
-    labels: ['Lemaire Konut','EU Tower','Leuven Restorasyon','Antwerp Altyapı','Ghent Park','Bruges Peyzaj'],
+    labels: ['Lemaire Konut','EU Tower','Leuven Restorasyon','E19 Otoyol','Port of Antwerp','Brugge Villa'],
     datasets: [
       { label: 'Mühendis', data: [3,4,2,3,2,2], backgroundColor: '#14b8a6' },
       { label: 'İşçi', data: [12,18,8,15,10,14], backgroundColor: '#3b82f6' },
@@ -613,7 +659,7 @@ const equipUtilCtx = document.getElementById('equipmentUtilChart').getContext('2
 new Chart(equipUtilCtx, {
   type: 'bar',
   data: {
-    labels: ['Ekskavatör','Bulldozer','Beton Pompa','Platform','Vibratör','Vinç','Lazer','Kırıcı'],
+    labels: ['Ekskavatör','Vinç','Mikser','İskele','Forklift','Pompa','Lazer','Kırıcı'],
     datasets: [{
       label: 'Kullanım %',
       data: [82,74,68,45,91,38,94,78],
@@ -634,7 +680,7 @@ new Chart(equipUtilCtx, {
   }
 });
 
-// ===== Equipment Cost Pie =====
+// ===== Equipment Cost Doughnut =====
 const equipCostCtx = document.getElementById('equipmentCostChart').getContext('2d');
 new Chart(equipCostCtx, {
   type: 'doughnut',
