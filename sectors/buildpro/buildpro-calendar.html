@@ -123,7 +123,7 @@
             <input type="text" placeholder="Etkinlik ara..." id="eventSearch" oninput="searchEvents()">
           </div>
           <button class="header-btn" onclick="toggleTheme()" aria-label="Tema">🌓</button>
-          <button class="header-btn" aria-label="Bildirimler">🔔<span class="badge-dot"></span></button>
+          <button class="header-btn" onclick="showToast('2 yeni bildirim: Beton döküm onayı + Ekipman bakımı', 'info')" aria-label="Bildirimler">🔔<span class="badge-dot"></span></button>
           <div class="header-avatar">DY</div>
         </div>
       </header>
@@ -396,6 +396,44 @@
     </div>
   </div>
 
+  <!-- Event Detail Modal -->
+  <div class="modal-overlay" id="eventDetailModal">
+    <div class="modal">
+      <div class="modal-header">
+        <div class="modal-title" id="eventDetailTitle">Etkinlik Detayı</div>
+        <button class="modal-close" onclick="closeModal('eventDetailModal')">✕</button>
+      </div>
+      <div class="modal-body">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-4);margin-bottom:var(--space-4);">
+          <div class="form-group">
+            <label class="form-label">Etkinlik Tipi</label>
+            <div class="form-input" id="eventDetailType" style="background:var(--bg-secondary);">—</div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Saat</label>
+            <div class="form-input" id="eventDetailTime" style="background:var(--bg-secondary);">—</div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Lokasyon</label>
+            <div class="form-input" id="eventDetailLocation" style="background:var(--bg-secondary);">—</div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Durum</label>
+            <div class="form-input" style="background:var(--bg-secondary);color:var(--success-500);">✓ Planlandı</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Açıklama</label>
+          <div id="eventDetailDesc" style="background:var(--bg-secondary);padding:var(--space-3);border-radius:var(--radius-md);font-size:var(--text-sm);color:var(--text-secondary);min-height:60px;">—</div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" onclick="closeModal('eventDetailModal')">Kapat</button>
+        <button class="btn btn-primary" onclick="closeModal('eventDetailModal');showToast('Etkinlik düzenleme modu açıldı','info')">Düzenle</button>
+      </div>
+    </div>
+  </div>
+
   <div class="toast-container" id="toastContainer"></div>
 
   <script>
@@ -421,13 +459,13 @@
       currentMonth--;
       if (currentMonth < 0) { currentMonth = 11; currentYear--; }
       updateCalendarTitle();
-      showToast(monthNames[currentMonth] + ' ' + currentYear + ' gösteriliyor', 'info');
+      showToast(monthNames[currentMonth] + ' ' + currentYear + ' başlık güncellendi (demo: takvim grid statik)', 'info');
     }
     function nextMonth() {
       currentMonth++;
       if (currentMonth > 11) { currentMonth = 0; currentYear++; }
       updateCalendarTitle();
-      showToast(monthNames[currentMonth] + ' ' + currentYear + ' gösteriliyor', 'info');
+      showToast(monthNames[currentMonth] + ' ' + currentYear + ' başlık güncellendi (demo: takvim grid statik)', 'info');
     }
 
     function setView(view, btn) {
@@ -436,6 +474,15 @@
       document.getElementById('monthView').style.display = view === 'month' ? 'block' : 'none';
       document.getElementById('weekView').style.display = view === 'week' ? 'block' : 'none';
       document.getElementById('dayView').style.display = view === 'day' ? 'block' : 'none';
+    }
+
+    function showEventDetail(title, type, time, location, desc) {
+      document.getElementById('eventDetailTitle').textContent = title;
+      document.getElementById('eventDetailType').textContent = type;
+      document.getElementById('eventDetailTime').textContent = time;
+      document.getElementById('eventDetailLocation').textContent = location;
+      document.getElementById('eventDetailDesc').textContent = desc || 'Açıklama bulunmuyor.';
+      openModal('eventDetailModal');
     }
 
     function saveEvent() {
@@ -459,6 +506,20 @@
       container.appendChild(toast);
       setTimeout(() => { toast.classList.add('exit'); setTimeout(()=>toast.remove(),300); }, 4000);
     }
+
+    document.querySelectorAll('.cal-event').forEach(ev => {
+      ev.addEventListener('click', function() {
+        const title = this.textContent.trim();
+        const type = this.classList.contains('start') ? 'Proje Başlangıç' :
+                     this.classList.contains('concrete') ? 'Beton Döküm' :
+                     this.classList.contains('delivery') ? 'Teslimat' :
+                     this.classList.contains('inspection') ? 'Denetim' :
+                     this.classList.contains('maintenance') ? 'Bakım' :
+                     this.classList.contains('leave') ? 'İzin' :
+                     this.classList.contains('handover') ? 'Teslim' : 'Diğer';
+        showEventDetail(title, type, '08:00 — 17:00', 'Brüksel / Antwerp', 'Detaylar için personel yöneticisine danışın.');
+      });
+    });
 
     updateCalendarTitle();
   </script>

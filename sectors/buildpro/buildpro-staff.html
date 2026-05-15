@@ -613,7 +613,7 @@
     function closeModal(id) { document.getElementById(id).classList.remove('active'); }
     function editStaff(id) { openModal('editModal'); }
     function deleteStaff(id) { openModal('deleteModal'); }
-    function saveStaff() {}
+    function saveStaff() { closeModal('addModal'); showToast('Personel kaydedildi','success'); }
     function exportStaff() { showToast('Personel listesi dışa aktarıldı','info'); }
 
     function showToast(message, type='info') {
