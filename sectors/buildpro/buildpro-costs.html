@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="css/main.css">
   <link rel="stylesheet" href="css/components.css">
   <link rel="stylesheet" href="css/dashboard.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
   <style>
     .cost-summary { display:grid; grid-template-columns:repeat(4,1fr); gap:var(--space-4); margin-bottom:var(--space-6); }
     @media (max-width:1024px){ .cost-summary { grid-template-columns:repeat(2,1fr); } }
@@ -233,7 +234,9 @@
                 <div class="card-subtitle">Aylık maliyet akışı</div>
               </div>
             </div>
-            <div class="chart-placeholder">Aylık maliyet trend grafiği alanı</div>
+            <div style="height:200px;">
+              <canvas id="costTrendChart"></canvas>
+            </div>
           </div>
         </div>
 
@@ -665,6 +668,65 @@
           if (to && iso > to) hasDate = false;
         }
         row.style.display = hasSearch && hasCat && hasProj && hasDate ? '' : 'none';
+      });
+    }
+
+    // Monthly Cost Trend Chart
+    const ctx = document.getElementById('costTrendChart');
+    if (ctx) {
+      new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: ['Oca','Şub','Mar','Nis','May','Haz','Tem','Ağu','Eyl','Eki','Kas','Ara'],
+          datasets: [{
+            label: 'Planlanan (€)',
+            data: [98000,105000,112000,118000,125000,130000,135000,128000,122000,115000,108000,102000],
+            borderColor: '#14b8a6',
+            backgroundColor: 'rgba(20,184,166,0.1)',
+            borderWidth: 2.5,
+            pointBackgroundColor: '#14b8a6',
+            pointBorderColor: 'var(--bg-card)',
+            pointBorderWidth: 2,
+            pointRadius: 4,
+            pointHoverRadius: 6,
+            fill: true,
+            tension: 0.4
+          }, {
+            label: 'Gerçekleşen (€)',
+            data: [92000,108000,115000,120000,124000,null,null,null,null,null,null,null],
+            borderColor: '#f59e0b',
+            backgroundColor: 'transparent',
+            borderWidth: 2.5,
+            borderDash: [6, 4],
+            pointBackgroundColor: '#f59e0b',
+            pointBorderColor: 'var(--bg-card)',
+            pointBorderWidth: 2,
+            pointRadius: 4,
+            pointHoverRadius: 6,
+            fill: false,
+            tension: 0.4
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          interaction: { mode: 'index', intersect: false },
+          plugins: {
+            legend: { display: true, labels: { boxWidth: 10, boxHeight: 10, padding: 12, font: { family: 'Inter', size: 11 }, color: 'rgba(148,163,184,0.5)' } },
+            tooltip: {
+              backgroundColor: 'var(--bg-card)',
+              borderColor: 'var(--border-color)', borderWidth: 1,
+              titleColor: 'var(--text-primary)', titleFont: { family: 'Inter', size: 12, weight: '600' },
+              bodyColor: '#14b8a6', bodyFont: { family: 'Inter', size: 13, weight: '700' },
+              padding: 10, cornerRadius: 10, displayColors: false,
+              callbacks: { label: (ctx) => `${ctx.dataset.label}: €${ctx.parsed.y.toLocaleString('tr-TR')}` }
+            }
+          },
+          scales: {
+            x: { grid: { color: 'rgba(148,163,184,0.06)', drawBorder: false }, ticks: { color: 'rgba(148,163,184,0.5)', font: { family: 'Inter', size: 11 } } },
+            y: { grid: { color: 'rgba(148,163,184,0.06)', drawBorder: false }, ticks: { color: 'rgba(148,163,184,0.5)', font: { family: 'Inter', size: 11 }, callback: (v) => `€${v/1000}k` }, beginAtZero: false }
+          }
+        }
       });
     }
   </script>
