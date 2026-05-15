@@ -595,16 +595,16 @@
       <div class="quick-action" onclick="openModal('addQuoteModal');showToast('Yeni teklif modalı açıldı','success')">
         <span class="icon">📄</span> Yeni Teklif
       </div>
-      <div class="quick-action" onclick="showToast('Personel ekleme sayfası yakında','info')">
+      <div class="quick-action" onclick="openModal('addStaffModal')">
         <span class="icon">👷</span> Personel Ekle
       </div>
-      <div class="quick-action" onclick="showToast('Şantiye raporu sayfası yakında','info')">
+      <div class="quick-action" onclick="openModal('siteReportModal')">
         <span class="icon">🏗️</span> Şantiye Raporu
       </div>
-      <div class="quick-action" onclick="showToast('Maliyet girişi sayfası yakında','info')">
+      <div class="quick-action" onclick="openModal('costEntryModal')">
         <span class="icon">💰</span> Maliyet Girişi
       </div>
-      <div class="quick-action" onclick="showToast('Ekipman rezervasyonu sayfası yakında','info')">
+      <div class="quick-action" onclick="openModal('equipmentReserveModal')">
         <span class="icon">⚙️</span> Ekipman Rezervasyonu
       </div>
     </div>
@@ -1408,6 +1408,108 @@
     <div class="modal-footer">
       <button class="btn btn-secondary" onclick="closeModal('addQuoteModal')">İptal</button>
       <button class="btn btn-primary" onclick="closeModal('addQuoteModal');showToast('Teklif başarıyla oluşturuldu','success')">Oluştur</button>
+    </div>
+  </div>
+</div>
+
+<!-- Add Staff Modal -->
+<div class="modal-overlay" id="addStaffModal">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">Yeni Personel Ekle</div>
+      <button class="modal-close" onclick="closeModal('addStaffModal')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-4);">
+        <div class="form-group"><label class="form-label">Ad Soyad</label><input type="text" class="form-input" placeholder="Örn: Jan De Smet"></div>
+        <div class="form-group"><label class="form-label">Görev</label><select class="form-select"><option>Proje Müdürü</option><option>Şantiye Şefi</option><option>Mühendis</option><option>Usta</option><option>İşçi</option><option>Stajyer</option></select></div>
+        <div class="form-group"><label class="form-label">Telefon</label><input type="text" class="form-input" placeholder="+32 3 123 45 67"></div>
+        <div class="form-group"><label class="form-label">E-posta</label><input type="email" class="form-input" placeholder="personel@buildpro.be"></div>
+        <div class="form-group"><label class="form-label">Günlük Ücret (€)</label><input type="text" class="form-input" placeholder="0.00"></div>
+        <div class="form-group"><label class="form-label">Atanacak Proje</label><select class="form-select"><option>Rivierpark Konutları</option><option>Merkez Ofis Kulesi</option><option>Grand Hotel Restore</option><option>Liman Yolu Altyapı</option></select></div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('addStaffModal')">İptal</button>
+      <button class="btn btn-primary" onclick="closeModal('addStaffModal');showToast('Personel başarıyla eklendi','success')">Kaydet</button>
+    </div>
+  </div>
+</div>
+
+<!-- Site Report Modal -->
+<div class="modal-overlay" id="siteReportModal">
+  <div class="modal modal-lg">
+    <div class="modal-header">
+      <div class="modal-title">Şantiye Günlük Raporu</div>
+      <button class="modal-close" onclick="closeModal('siteReportModal')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-4);">
+        <div class="form-group"><label class="form-label">Şantiye</label><select class="form-select"><option>Rivierpark Konutları</option><option>Merkez Ofis Kulesi</option><option>Grand Hotel Restore</option></select></div>
+        <div class="form-group"><label class="form-label">Rapor Tarihi</label><input type="date" class="form-input"></div>
+        <div class="form-group"><label class="form-label">Hava Durumu</label><select class="form-select"><option>Güneşli</option><option>Bulutlu</option><option>Yağmurlu</option><option>Karlı</option><option>Sisli</option></select></div>
+        <div class="form-group"><label class="form-label">Çalışan Sayısı</label><input type="number" class="form-input" placeholder="0"></div>
+        <div class="form-group"><label class="form-label">Tamamlanan İş</label><input type="text" class="form-input" placeholder="Örn: Blok A kalıp demiri"></div>
+        <div class="form-group"><label class="form-label">İlerleme (%)</label><input type="number" class="form-input" value="0" min="0" max="100"></div>
+      </div>
+      <div class="form-group" style="margin-top:var(--space-4);">
+        <label class="form-label">Günlük Notlar</label>
+        <textarea class="form-textarea" rows="4" placeholder="Bugün yapılan işlemler, karşılaşılan sorunlar, güvenlik notları..."></textarea>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('siteReportModal')">İptal</button>
+      <button class="btn btn-primary" onclick="closeModal('siteReportModal');showToast('Şantiye raporu kaydedildi','success')">Kaydet</button>
+    </div>
+  </div>
+</div>
+
+<!-- Cost Entry Modal -->
+<div class="modal-overlay" id="costEntryModal">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">Maliyet Girişi</div>
+      <button class="modal-close" onclick="closeModal('costEntryModal')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-4);">
+        <div class="form-group"><label class="form-label">Proje</label><select class="form-select"><option>Rivierpark Konutları</option><option>Merkez Ofis Kulesi</option><option>Grand Hotel Restore</option><option>Liman Yolu Altyapı</option></select></div>
+        <div class="form-group"><label class="form-label">Kategori</label><select class="form-select"><option>Malzeme</option><option>İşçilik</option><option>Ekipman</option><option>Alt Yüklenici</option><option>Diğer</option></select></div>
+        <div class="form-group"><label class="form-label">Tutar (€)</label><input type="text" class="form-input" placeholder="0.00"></div>
+        <div class="form-group"><label class="form-label">Tarih</label><input type="date" class="form-input"></div>
+      </div>
+      <div class="form-group" style="margin-top:var(--space-4);">
+        <label class="form-label">Açıklama</label>
+        <textarea class="form-textarea" rows="3" placeholder="Maliyet detayı, fatura no, tedarikçi..."></textarea>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('costEntryModal')">İptal</button>
+      <button class="btn btn-primary" onclick="closeModal('costEntryModal');showToast('Maliyet başarıyla kaydedildi','success')">Kaydet</button>
+    </div>
+  </div>
+</div>
+
+<!-- Equipment Reserve Modal -->
+<div class="modal-overlay" id="equipmentReserveModal">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">Ekipman Rezervasyonu</div>
+      <button class="modal-close" onclick="closeModal('equipmentReserveModal')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-4);">
+        <div class="form-group"><label class="form-label">Ekipman</label><select class="form-select"><option>Vinç 50 Ton</option><option>İskele Sistemi</option><option>Beton Pompası</option><option>Kompaktör</option><option>Jeneratör 100kVA</option><option>Asansör Kulesi</option><option>Kalıp Sistemi</option></select></div>
+        <div class="form-group"><label class="form-label">Proje</label><select class="form-select"><option>Rivierpark Konutları</option><option>Merkez Ofis Kulesi</option><option>Grand Hotel Restore</option><option>Liman Yolu Altyapı</option></select></div>
+        <div class="form-group"><label class="form-label">Başlangıç Tarihi</label><input type="date" class="form-input"></div>
+        <div class="form-group"><label class="form-label">Bitiş Tarihi</label><input type="date" class="form-input"></div>
+        <div class="form-group"><label class="form-label">Günlük Maliyet (€)</label><input type="text" class="form-input" placeholder="0.00"></div>
+        <div class="form-group"><label class="form-label">Operatör</label><input type="text" class="form-input" placeholder="Operatör adı"></div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('equipmentReserveModal')">İptal</button>
+      <button class="btn btn-primary" onclick="closeModal('equipmentReserveModal');showToast('Ekipman rezervasyonu oluşturuldu','success')">Rezerve Et</button>
     </div>
   </div>
 </div>
