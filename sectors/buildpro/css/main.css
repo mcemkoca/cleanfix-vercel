@@ -462,7 +462,10 @@ ul, ol { list-style:none; }
   text-decoration:none;
 }
 .nav-item:hover { background:var(--bg-secondary); color:var(--text-primary); }
-.nav-item.active {
+.nav-item.active,
+a.nav-item.active,
+a.nav-item.active:link,
+a.nav-item.active:visited {
   background:var(--teal-500); color:white;
   box-shadow:0 4px 12px rgba(20,184,166,0.3);
 }
