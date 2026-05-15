@@ -272,6 +272,7 @@
                   <button class="btn btn-icon-sm btn-ghost" onclick="openModal('orderDetailModal','M02')">👁</button>
                   <button class="btn btn-icon-sm btn-ghost" onclick="showToast('Sipariş servis edildi','success')">🍽️</button>
                   <button class="btn btn-icon-sm btn-ghost" onclick="openModal('paymentModal','M02')">💶</button>
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openDeleteModal('#SP-2026-1147')">🗑</button>
                 </div>
               </td>
             </tr>
@@ -289,6 +290,7 @@
                   <button class="btn btn-icon-sm btn-ghost" onclick="openModal('orderDetailModal','M03')">👁</button>
                   <button class="btn btn-icon-sm btn-ghost" onclick="showToast('Sipariş servis edildi','success')">🍽️</button>
                   <button class="btn btn-icon-sm btn-ghost" onclick="openModal('paymentModal','M03')">💶</button>
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openDeleteModal('#SP-2026-1146')">🗑</button>
                 </div>
               </td>
             </tr>
@@ -306,6 +308,7 @@
                   <button class="btn btn-icon-sm btn-ghost" onclick="openModal('orderDetailModal','M06')">👁</button>
                   <button class="btn btn-icon-sm btn-ghost" onclick="showToast('Sipariş servis edildi','success')">🍽️</button>
                   <button class="btn btn-icon-sm btn-ghost" onclick="openModal('paymentModal','M06')">💶</button>
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openDeleteModal('#SP-2026-1145')">🗑</button>
                 </div>
               </td>
             </tr>
@@ -323,6 +326,7 @@
                   <button class="btn btn-icon-sm btn-ghost" onclick="openModal('orderDetailModal','M09')">👁</button>
                   <button class="btn btn-icon-sm btn-ghost" onclick="showToast('Sipariş servis edildi','success')">🍽️</button>
                   <button class="btn btn-icon-sm btn-ghost" onclick="openModal('paymentModal','M09')">💶</button>
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openDeleteModal('#SP-2026-1144')">🗑</button>
                 </div>
               </td>
             </tr>
@@ -340,6 +344,7 @@
                   <button class="btn btn-icon-sm btn-ghost" onclick="openModal('orderDetailModal','T02')">👁</button>
                   <button class="btn btn-icon-sm btn-ghost" onclick="showToast('Sipariş servis edildi','success')">🍽️</button>
                   <button class="btn btn-icon-sm btn-ghost" onclick="openModal('paymentModal','T02')">💶</button>
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openDeleteModal('#SP-2026-1143')">🗑</button>
                 </div>
               </td>
             </tr>
@@ -357,6 +362,7 @@
                   <button class="btn btn-icon-sm btn-ghost" onclick="openModal('orderDetailModal','T05')">👁</button>
                   <button class="btn btn-icon-sm btn-ghost" onclick="showToast('Sipariş servis edildi','success')">🍽️</button>
                   <button class="btn btn-icon-sm btn-ghost" onclick="openModal('paymentModal','T05')">💶</button>
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openDeleteModal('#SP-2026-1142')">🗑</button>
                 </div>
               </td>
             </tr>
@@ -374,6 +380,7 @@
                   <button class="btn btn-icon-sm btn-ghost" onclick="openModal('orderDetailModal','M12')">👁</button>
                   <button class="btn btn-icon-sm btn-ghost" onclick="showToast('Sipariş servis edildi','success')">🍽️</button>
                   <button class="btn btn-icon-sm btn-ghost" onclick="openModal('paymentModal','M12')">💶</button>
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openDeleteModal('#SP-2026-1141')">🗑</button>
                 </div>
               </td>
             </tr>
@@ -391,6 +398,7 @@
                   <button class="btn btn-icon-sm btn-ghost" onclick="openModal('orderDetailModal','M10')">👁</button>
                   <button class="btn btn-icon-sm btn-ghost" onclick="showToast('Sipariş servis edildi','success')">🍽️</button>
                   <button class="btn btn-icon-sm btn-ghost" onclick="openModal('printReceiptModal','M10')">🧾</button>
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openDeleteModal('#SP-2026-1140')">🗑</button>
                 </div>
               </td>
             </tr>
@@ -408,6 +416,7 @@
                   <button class="btn btn-icon-sm btn-ghost" onclick="openModal('orderDetailModal','B01')">👁</button>
                   <button class="btn btn-icon-sm btn-ghost" onclick="showToast('Sipariş servis edildi','success')">🍽️</button>
                   <button class="btn btn-icon-sm btn-ghost" onclick="openModal('paymentModal','B01')">💶</button>
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openDeleteModal('#SP-2026-1139')">🗑</button>
                 </div>
               </td>
             </tr>
@@ -425,6 +434,7 @@
                   <button class="btn btn-icon-sm btn-ghost" onclick="openModal('orderDetailModal','T01')">👁</button>
                   <button class="btn btn-icon-sm btn-ghost" onclick="showToast('Sipariş servis edildi','success')">🍽️</button>
                   <button class="btn btn-icon-sm btn-ghost" onclick="openModal('paymentModal','T01')">💶</button>
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openDeleteModal('#SP-2026-1138')">🗑</button>
                 </div>
               </td>
             </tr>
@@ -634,6 +644,7 @@ function openModal(id, title){
   if(modal){modal.classList.add('active');if(title){const t=modal.querySelector('.modal-title');if(t&&t.id){if(t.id==='orderDetailTitle')t.textContent='Detay — '+title;}}}
 }
 function closeModal(id){const modal=document.getElementById(id);if(modal)modal.classList.remove('active');}
+function openDeleteModal(name){ document.getElementById('deleteOrderName').textContent=name; openModal('deleteOrderModal'); }
 document.querySelectorAll('.modal-overlay').forEach(o=>{o.addEventListener('click',(e)=>{if(e.target===o)o.classList.remove('active');});});
 
 document.addEventListener('DOMContentLoaded',()=>{setTimeout(animateCounters,400);});
@@ -644,6 +655,19 @@ document.addEventListener('DOMContentLoaded',()=>{setTimeout(animateCounters,400
 @keyframes toastOut{from{opacity:1;transform:translateY(0) scale(1);}to{opacity:0;transform:translateY(-20px) scale(0.95);}}
 @keyframes progressBar{from{width:100%;}to{width:0;}}
 </style>
+
+<!-- Delete Order Confirmation Modal -->
+<div class="modal" id="deleteOrderModal">
+  <div class="modal-overlay" onclick="closeModal('deleteOrderModal')"></div>
+  <div class="modal-content">
+    <div class="modal-header"><h3>Sipariş Sil</h3><button class="modal-close" onclick="closeModal('deleteOrderModal')">✕</button></div>
+    <p style="color:var(--text-secondary);margin-bottom:20px;"><strong id="deleteOrderName"></strong> siparişini silmek üzeresiniz. Bu işlem geri alınamaz.</p>
+    <div class="modal-actions">
+      <button class="btn btn-secondary" onclick="closeModal('deleteOrderModal')">İptal</button>
+      <button class="btn btn-primary" style="background:var(--error-500);" onclick="closeModal('deleteOrderModal');showToast('Sipariş silindi','error')">Sil</button>
+    </div>
+  </div>
+</div>
 
 </body>
 </html>

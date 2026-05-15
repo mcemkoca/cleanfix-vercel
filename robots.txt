@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://mcemkoca.github.io/cleanfix-vercel/sitemap.xml

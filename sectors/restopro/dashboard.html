@@ -437,6 +437,7 @@
                   <div style="display:flex;gap:4px;">
                     <button class="btn btn-icon-sm btn-ghost" onclick="showToast('Sipariş servis edildi','success')">🍽️</button>
                     <button class="btn btn-icon-sm btn-ghost" onclick="openModal('editOrderModal','M02')">✎</button>
+                    <button class="btn btn-icon-sm btn-ghost" onclick="openDeleteModal('Sipariş M02')">🗑</button>
                   </div>
                 </td>
               </tr>
@@ -451,6 +452,7 @@
                   <div style="display:flex;gap:4px;">
                     <button class="btn btn-icon-sm btn-ghost" onclick="showToast('Sipariş servis edildi','success')">🍽️</button>
                     <button class="btn btn-icon-sm btn-ghost" onclick="openModal('editOrderModal','M03')">✎</button>
+                    <button class="btn btn-icon-sm btn-ghost" onclick="openDeleteModal('Sipariş M03')">🗑</button>
                   </div>
                 </td>
               </tr>
@@ -465,6 +467,7 @@
                   <div style="display:flex;gap:4px;">
                     <button class="btn btn-icon-sm btn-ghost" onclick="showToast('Sipariş servis edildi','success')">🍽️</button>
                     <button class="btn btn-icon-sm btn-ghost" onclick="openModal('editOrderModal','M06')">✎</button>
+                    <button class="btn btn-icon-sm btn-ghost" onclick="openDeleteModal('Sipariş M06')">🗑</button>
                   </div>
                 </td>
               </tr>
@@ -479,6 +482,7 @@
                   <div style="display:flex;gap:4px;">
                     <button class="btn btn-icon-sm btn-ghost" onclick="showToast('Sipariş servis edildi','success')">🍽️</button>
                     <button class="btn btn-icon-sm btn-ghost" onclick="openModal('editOrderModal','M09')">✎</button>
+                    <button class="btn btn-icon-sm btn-ghost" onclick="openDeleteModal('Sipariş M09')">🗑</button>
                   </div>
                 </td>
               </tr>
@@ -493,6 +497,7 @@
                   <div style="display:flex;gap:4px;">
                     <button class="btn btn-icon-sm btn-ghost" onclick="showToast('Sipariş servis edildi','success')">🍽️</button>
                     <button class="btn btn-icon-sm btn-ghost" onclick="openModal('editOrderModal','T02')">✎</button>
+                    <button class="btn btn-icon-sm btn-ghost" onclick="openDeleteModal('Sipariş T02')">🗑</button>
                   </div>
                 </td>
               </tr>
@@ -507,6 +512,7 @@
                   <div style="display:flex;gap:4px;">
                     <button class="btn btn-icon-sm btn-ghost" onclick="showToast('Sipariş servis edildi','success')">🍽️</button>
                     <button class="btn btn-icon-sm btn-ghost" onclick="openModal('editOrderModal','T05')">✎</button>
+                    <button class="btn btn-icon-sm btn-ghost" onclick="openDeleteModal('Sipariş T05')">🗑</button>
                   </div>
                 </td>
               </tr>
@@ -521,6 +527,7 @@
                   <div style="display:flex;gap:4px;">
                     <button class="btn btn-icon-sm btn-ghost" onclick="showToast('Sipariş servis edildi','success')">🍽️</button>
                     <button class="btn btn-icon-sm btn-ghost" onclick="openModal('editOrderModal','M12')">✎</button>
+                    <button class="btn btn-icon-sm btn-ghost" onclick="openDeleteModal('Sipariş M12')">🗑</button>
                   </div>
                 </td>
               </tr>
@@ -535,6 +542,7 @@
                   <div style="display:flex;gap:4px;">
                     <button class="btn btn-icon-sm btn-ghost" onclick="showToast('Sipariş servis edildi','success')">🍽️</button>
                     <button class="btn btn-icon-sm btn-ghost" onclick="openModal('editOrderModal','M10')">✎</button>
+                    <button class="btn btn-icon-sm btn-ghost" onclick="openDeleteModal('Sipariş M10')">🗑</button>
                   </div>
                 </td>
               </tr>
@@ -891,6 +899,8 @@ function animateCounters(){
   });
 }
 
+function openDeleteModal(name){ document.getElementById('deleteItemName').textContent=name; openModal('deleteItemModal'); }
+
 /* Modal Functions */
 function openModal(id, title){
   const modal=document.getElementById(id);
@@ -1025,6 +1035,20 @@ document.addEventListener('DOMContentLoaded',()=>{
 @keyframes progressBar{from{width:100%;}to{width:0;}}
 @keyframes pulse-dot{0%,100%{opacity:1;transform:scale(1);}50%{opacity:0.5;transform:scale(1.3);}}
 </style>
+
+<!-- Delete Confirmation Modal -->
+<div class="modal-overlay" id="deleteItemModal">
+  <div class="modal">
+    <div class="modal-header"><div class="modal-title">Sil</div><button class="modal-close" onclick="closeModal('deleteItemModal')">✕</button></div>
+    <div class="modal-body">
+      <p style="color:var(--text-secondary);margin-bottom:20px;"><strong id="deleteItemName"></strong> silmek üzeresiniz. Bu işlem geri alınamaz.</p>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('deleteItemModal')">İptal</button>
+      <button class="btn btn-primary" style="background:var(--error-500);" onclick="closeModal('deleteItemModal');showToast('Silindi','error')">Sil</button>
+    </div>
+  </div>
+</div>
 
 </body>
 </html>

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <!-- CleanFix (Ana Platform) -->
+  <url><loc>https://mcemkoca.github.io/cleanfix-vercel/index.html</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
+  <url><loc>https://mcemkoca.github.io/cleanfix-vercel/dashboard.html</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://mcemkoca.github.io/cleanfix-vercel/company-sectors.html</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://mcemkoca.github.io/cleanfix-vercel/login.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+
+  <!-- BuildPro (İnşaat & Renovasyon) -->
+  <url><loc>https://mcemkoca.github.io/cleanfix-vercel/sectors/buildpro/index.html</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://mcemkoca.github.io/cleanfix-vercel/sectors/buildpro/dashboard.html</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://mcemkoca.github.io/cleanfix-vercel/sectors/buildpro/buildpro-projects.html</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mcemkoca.github.io/cleanfix-vercel/sectors/buildpro/buildpro-quotes.html</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mcemkoca.github.io/cleanfix-vercel/sectors/buildpro/buildpro-site.html</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mcemkoca.github.io/cleanfix-vercel/sectors/buildpro/buildpro-equipment.html</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mcemkoca.github.io/cleanfix-vercel/sectors/buildpro/buildpro-staff.html</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mcemkoca.github.io/cleanfix-vercel/sectors/buildpro/buildpro-stock.html</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mcemkoca.github.io/cleanfix-vercel/sectors/buildpro/buildpro-calendar.html</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mcemkoca.github.io/cleanfix-vercel/sectors/buildpro/buildpro-costs.html</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mcemkoca.github.io/cleanfix-vercel/sectors/buildpro/buildpro-reports.html</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://mcemkoca.github.io/cleanfix-vercel/sectors/buildpro/buildpro-settings.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+
+  <!-- BarberPro (Berber & Kuaför) -->
+  <url><loc>https://mcemkoca.github.io/cleanfix-vercel/sectors/barberpro/index.html</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://mcemkoca.github.io/cleanfix-vercel/sectors/barberpro/dashboard.html</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://mcemkoca.github.io/cleanfix-vercel/sectors/barberpro/barberpro-appointments.html</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mcemkoca.github.io/cleanfix-vercel/sectors/barberpro/barberpro-services.html</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mcemkoca.github.io/cleanfix-vercel/sectors/barberpro/barberpro-staff.html</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mcemkoca.github.io/cleanfix-vercel/sectors/barberpro/barberpro-reports.html</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://mcemkoca.github.io/cleanfix-vercel/sectors/barberpro/barberpro-bookings.html</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mcemkoca.github.io/cleanfix-vercel/sectors/barberpro/barberpro-customers.html</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mcemkoca.github.io/cleanfix-vercel/sectors/barberpro/barberpro-inventory.html</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mcemkoca.github.io/cleanfix-vercel/sectors/barberpro/barberpro-loyalty.html</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://mcemkoca.github.io/cleanfix-vercel/sectors/barberpro/customer-portal.html</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+
+  <!-- MarketPro (Market / Bakkal) -->
+  <url><loc>https://mcemkoca.github.io/cleanfix-vercel/sectors/marketpro/index.html</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://mcemkoca.github.io/cleanfix-vercel/sectors/marketpro/dashboard.html</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://mcemkoca.github.io/cleanfix-vercel/sectors/marketpro/marketpro-products.html</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mcemkoca.github.io/cleanfix-vercel/sectors/marketpro/marketpro-stock.html</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mcemkoca.github.io/cleanfix-vercel/sectors/marketpro/marketpro-sales.html</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mcemkoca.github.io/cleanfix-vercel/sectors/marketpro/marketpro-suppliers.html</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+
+  <!-- RestoPro (Restoran) -->
+  <url><loc>https://mcemkoca.github.io/cleanfix-vercel/sectors/restopro/index.html</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://mcemkoca.github.io/cleanfix-vercel/sectors/restopro/dashboard.html</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://mcemkoca.github.io/cleanfix-vercel/sectors/restopro/restopro-menu.html</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mcemkoca.github.io/cleanfix-vercel/sectors/restopro/restopro-tables.html</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mcemkoca.github.io/cleanfix-vercel/sectors/restopro/restopro-orders.html</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mcemkoca.github.io/cleanfix-vercel/sectors/restopro/restopro-staff.html</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+
+  <!-- WoodPro (Marangoz & Mobilya) -->
+  <url><loc>https://mcemkoca.github.io/cleanfix-vercel/sectors/woodpro/index.html</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://mcemkoca.github.io/cleanfix-vercel/sectors/woodpro/dashboard.html</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://mcemkoca.github.io/cleanfix-vercel/sectors/woodpro/woodpro-orders.html</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mcemkoca.github.io/cleanfix-vercel/sectors/woodpro/woodpro-inventory.html</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mcemkoca.github.io/cleanfix-vercel/sectors/woodpro/woodpro-cnc.html</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mcemkoca.github.io/cleanfix-vercel/sectors/woodpro/woodpro-customers.html</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+
+  <!-- ElektroPro (Elektrik & Sıhhi Tesisat) -->
+  <url><loc>https://mcemkoca.github.io/cleanfix-vercel/sectors/elektropro/index.html</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://mcemkoca.github.io/cleanfix-vercel/sectors/elektropro/dashboard.html</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://mcemkoca.github.io/cleanfix-vercel/sectors/elektropro/elektropro-projects.html</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mcemkoca.github.io/cleanfix-vercel/sectors/elektropro/elektropro-inspection.html</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mcemkoca.github.io/cleanfix-vercel/sectors/elektropro/elektropro-certs.html</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mcemkoca.github.io/cleanfix-vercel/sectors/elektropro/elektropro-suppliers.html</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+</urlset>
