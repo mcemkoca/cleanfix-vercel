@@ -167,7 +167,7 @@
             <input type="text" placeholder="Şantiye ara...">
           </div>
           <button class="header-btn" onclick="toggleTheme()" aria-label="Tema">🌓</button>
-          <button class="header-btn" aria-label="Bildirimler">🔔<span class="badge-dot"></span></button>
+          <button class="header-btn" onclick="showToast('3 yeni bildirim','info')" aria-label="Bildirimler">🔔<span class="badge-dot"></span></button>
           <div class="header-avatar">DY</div>
         </div>
       </header>
@@ -179,7 +179,7 @@
             <div class="page-subtitle">Belçika genelindeki tüm aktif şantiyeler</div>
           </div>
           <div class="page-actions">
-            <button class="btn btn-secondary">📥 Rapor</button>
+            <button class="btn btn-secondary" onclick="showToast('Rapor hazırlanıyor...','info')">📥 Rapor</button>
             <button class="btn btn-primary" onclick="openModal('addSiteModal')">+ Şantiye Ekle</button>
           </div>
         </div>
