@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ElektroPro — Tedarikçi ve Malzeme</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/main.css">
+<link rel="stylesheet" href="css/components.css">
+<style>
+:root, [data-theme="dark"] { --glass-bg: rgba(15, 23, 42, 0.60); --glass-border: rgba(148, 163, 184, 0.08); --glass-highlight: rgba(255, 255, 255, 0.03); --card-shadow: 0 1px 3px rgba(0,0,0,0.3), 0 8px 24px rgba(0,0,0,0.2); --card-shadow-hover: 0 2px 6px rgba(0,0,0,0.4), 0 16px 48px rgba(0,0,0,0.3); }
+.reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.6s cubic-bezier(0.22,1,0.36,1), transform 0.6s cubic-bezier(0.22,1,0.36,1); }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+.dashboard { display:flex; min-height:100vh; }
+.sidebar { width:260px; background:var(--bg-card); border-right:1px solid var(--border-color); display:flex; flex-direction:column; position:fixed; inset:0 auto 0 0; z-index:100; transition:transform var(--duration-slow) var(--ease-out); }
+.sidebar.collapsed { transform:translateX(-100%); }
+.sidebar-header { padding:var(--space-5); border-bottom:1px solid var(--border-color); }
+.sidebar-logo { display:flex; align-items:center; gap:var(--space-3); }
+.sidebar-logo .logo-icon { width:40px; height:40px; background:linear-gradient(135deg,var(--teal-500),var(--teal-700)); border-radius:var(--radius-md); display:flex; align-items:center; justify-content:center; font-size:16px; font-weight:700; color:white; }
+.sidebar-logo h2 { font-size:var(--text-base); font-weight:700; letter-spacing:-0.02em; }
+.sidebar-logo p { font-size:var(--text-xs); color:var(--text-muted); }
+.sidebar-nav { flex:1; overflow-y:auto; padding:var(--space-3); }
+.nav-group { margin-bottom:var(--space-4); }
+.nav-label { font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:0.1em; color:var(--text-muted); padding:0 var(--space-3) var(--space-2); }
+.nav-item { display:flex; align-items:center; gap:var(--space-3); padding:10px var(--space-3); border-radius:var(--radius-md); cursor:pointer; transition:all var(--duration-fast); color:var(--text-secondary); font-size:var(--text-sm); font-weight:500; margin-bottom:2px; text-decoration:none; }
+.nav-item:hover { background:var(--bg-secondary); color:var(--text-primary); }
+.nav-item.active { background:rgba(20,184,166,0.1); color:var(--teal-500); box-shadow: inset 0 0 0 1px rgba(20,184,166,0.15); }
+.nav-badge { margin-left:auto; background:var(--bg-tertiary); color:var(--text-secondary); font-size:var(--text-xs); font-weight:600; padding:2px 8px; border-radius:9999px; }
+.nav-item.active .nav-badge { background:var(--teal-500); color:white; }
+.sidebar-footer { padding:var(--space-4); border-top:1px solid var(--border-color); }
+.sidebar-user { display:flex; align-items:center; gap:var(--space-3); }
+.sidebar-user-info { flex:1; }
+.sidebar-user-info p { font-size:var(--text-sm); font-weight:600; }
+.sidebar-user-info span { font-size:var(--text-xs); color:var(--text-muted); }
+.main { flex:1; margin-left:260px; display:flex; flex-direction:column; min-height:100vh; }
+.header { height:64px; background:rgba(15,23,42,0.85); border-bottom:1px solid var(--border-color); display:flex; align-items:center; justify-content:space-between; padding:0 var(--space-6); position:sticky; top:0; z-index:50; backdrop-filter:blur(12px); }
+.header-left { display:flex; align-items:center; gap:var(--space-4); }
+.menu-btn { width:36px; height:36px; border-radius:var(--radius-md); display:flex; align-items:center; justify-content:center; background:var(--bg-secondary); border:1px solid var(--border-color); color:var(--text-secondary); cursor:pointer; transition:all var(--duration-fast); }
+.menu-btn:hover { color:var(--teal-500); border-color:var(--teal-500); }
+.page-title { font-size:20px; font-weight:800; letter-spacing:-0.03em; }
+.header-right { display:flex; align-items:center; gap:var(--space-3); }
+.header-btn { width:38px; height:38px; border-radius:var(--radius-md); display:flex; align-items:center; justify-content:center; background:var(--bg-secondary); border:1px solid var(--border-color); color:var(--text-secondary); cursor:pointer; transition:all var(--duration-fast); position:relative; }
+.header-btn:hover { color:var(--teal-500); border-color:var(--teal-500); }
+.header-btn .badge-count { position:absolute; top:-4px; right:-4px; min-width:18px; height:18px; background:var(--error-500); color:white; font-size:10px; font-weight:700; border-radius:9999px; display:flex; align-items:center; justify-content:center; border:2px solid var(--bg-card); padding:0 4px; }
+.content { flex:1; padding:var(--space-6); }
+.glass-card { background:var(--glass-bg); backdrop-filter:blur(16px) saturate(1.4); -webkit-backdrop-filter:blur(16px) saturate(1.4); border:1px solid var(--glass-border); border-radius:var(--radius-lg); box-shadow:var(--card-shadow), inset 0 1px 0 var(--glass-highlight); overflow:hidden; transition:transform 0.3s ease, box-shadow 0.3s ease; }
+.glass-card:hover { transform:translateY(-2px); box-shadow:var(--card-shadow-hover), inset 0 1px 0 var(--glass-highlight); }
+.card-header { display:flex; align-items:center; justify-content:space-between; padding:var(--space-4) var(--space-5); border-bottom:1px solid var(--border-color); }
+.card-title { display:flex; align-items:center; gap:var(--space-2); font-size:var(--text-sm); font-weight:700; letter-spacing:-0.01em; }
+.table-compact td { padding:10px var(--space-4); font-size:var(--text-sm); }
+.table-compact thead th { padding:10px var(--space-4); }
+.filters-bar { display:flex; gap:var(--space-3); flex-wrap:wrap; margin-bottom:var(--space-5); align-items:center; }
+.sidebar-overlay { position:fixed; inset:0; background:rgba(0,0,0,0.4); z-index:99; opacity:0; visibility:hidden; transition:all var(--duration-normal); }
+.sidebar-overlay.active { opacity:1; visibility:visible; }
+@media (max-width:1024px) { .sidebar { transform:translateX(-100%); } .sidebar.open { transform:translateX(0); } .main { margin-left:0; } }
+</style>
+</head>
+<body>
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+<div class="dashboard">
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-header">
+    <div class="sidebar-logo">
+      <div class="logo-icon">⚡</div>
+      <div><h2>ElektroPro</h2><p>Elektrik ve Tesisat</p></div>
+    </div>
+  </div>
+  <div class="sidebar-nav">
+    <div class="nav-group">
+      <div class="nav-label">Ana Menü</div>
+      <a class="nav-item" href="dashboard.html">📊 Dashboard</a>
+      <a class="nav-item" href="elektropro-projects.html">📋 Projeler</a>
+      <a class="nav-item" href="elektropro-inspection.html">🔍 Keşif ve Teklif</a>
+      <a class="nav-item" href="elektropro-certs.html">📜 Sertifikalar</a>
+      <a class="nav-item active" href="elektropro-suppliers.html">📦 Tedarikçiler</a>
+    </div>
+    <div class="nav-group">
+      <div class="nav-label">Platform</div>
+      <a class="nav-item" href="../../index.html">🏠 CleanFix Ana Sayfa</a>
+      <a class="nav-item" href="../buildpro/index.html">🏗️ BuildPro</a>
+      <a class="nav-item" href="../barberpro/index.html">💜 BarberPro</a>
+    </div>
+  </div>
+  <div class="sidebar-footer">
+    <div class="sidebar-user">
+      <div class="sidebar-user-info"><p>ElektroPro Demo</p><span>Elektrik Sektörü</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="main">
+  <header class="header">
+    <div class="header-left">
+      <button class="menu-btn" id="menuBtn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
+      <h1 class="page-title">Tedarikçi ve Malzeme</h1>
+    </div>
+    <div class="header-right">
+      <div class="search-input" style="max-width:240px;"><svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg><input type="text" class="form-input" placeholder="Ürün veya tedarikçi ara..." style="padding-left:36px;font-size:var(--text-sm);"></div>
+      <button class="header-btn" id="notifBtn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg><span class="badge-count">4</span></button>
+      <button class="header-btn" id="themeToggle"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/></svg></button>
+      <div class="avatar avatar-sm" style="cursor:pointer;">EP</div>
+    </div>
+  </header>
+
+  <main class="content">
+    <div class="filters-bar">
+      <div class="filter-group"><label style="font-size:var(--text-xs);color:var(--text-muted);font-weight:600;text-transform:uppercase;letter-spacing:0.05em;">Tür</label><select class="form-select" style="min-width:140px;"><option>Tümü</option><option>Elektrik</option><option>Tesisat</option><option>Kombi</option><option>Aydınlatma</option><option>Kamera</option></select></div>
+      <div class="filter-group"><label style="font-size:var(--text-xs);color:var(--text-muted);font-weight:600;text-transform:uppercase;letter-spacing:0.05em;">Tedarikçi</label><select class="form-select" style="min-width:140px;"><option>Tümü</option><option>Hager</option><option>Legrand</option><option>Viega</option><option>Schneider</option><option>Vaillant</option><option>NXBO</option></select></div>
+      <div class="filter-group"><label style="font-size:var(--text-xs);color:var(--text-muted);font-weight:600;text-transform:uppercase;letter-spacing:0.05em;">Stok Durumu</label><select class="form-select" style="min-width:140px;"><option>Tümü</option><option>Stokta Var</option><option>Kritik Stok</option><option>Tükenmiş</option></select></div>
+      <div style="flex:1;"></div>
+      <button class="btn btn-primary" onclick="openModal('addSupplierModal')">+ Tedarikçi Ekle</button>
+      <button class="btn btn-secondary" onclick="openModal('addProductModal')">+ Ürün Ekle</button>
+    </div>
+
+    <div class="glass-card reveal">
+      <div class="card-header"><div class="card-title"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--teal-500)" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg> Tedarikçi ve Ürün Stok — 78 Ürün</div></div>
+      <div class="table-wrap">
+        <table class="table table-compact">
+          <thead><tr><th>Ürün Kodu</th><th>Ürün Adı</th><th>Tedarikçi</th><th>Tür</th><th>Birim Fiyat</th><th>Stok</th><th>Kritik Seviye</th><th>Durum</th><th>Actions</th></tr></thead>
+          <tbody>
+            <tr><td><strong>NXBO-325</strong></td><td>NXBO 3x2.5mm Kablo (100m)</td><td>NXBO Belgium</td><td><span class="badge badge-info">Elektrik</span></td><td>€89.50</td><td>142 rulo</td><td>50 rulo</td><td><span class="badge badge-success">Yeterli</span></td><td><div style="display:flex;gap:4px;"><button class="btn btn-icon-sm btn-ghost" onclick="openModal('viewProductModal')">👁</button><button class="btn btn-icon-sm btn-ghost" onclick="openModal('editProductModal')">✎</button><button class="btn btn-icon-sm btn-ghost" onclick="openDeleteModal('NXBO 3x2.5mm Kablo')">🗑</button></div></td></tr>
+            <tr><td><strong>LGR-RX3-16</strong></td><td>Legrand RX³ 16A Sigorta (10'lu)</td><td>Legrand Belgium</td><td><span class="badge badge-info">Elektrik</span></td><td>€12.30</td><td>38 paket</td><td>20 paket</td><td><span class="badge badge-warning">Kritik</span></td><td><div style="display:flex;gap:4px;"><button class="btn btn-icon-sm btn-ghost" onclick="openModal('viewProductModal')">👁</button><button class="btn btn-icon-sm btn-ghost" onclick="openModal('editProductModal')">✎</button><button class="btn btn-icon-sm btn-ghost" onclick="openDeleteModal('Legrand RX³ 16A Sigorta')">🗑</button></div></td></tr>
+            <tr><td><strong>VG-PF-25</strong></td><td>Viega PureFlow Boru 25mm (5m)</td><td>Viega Belgium</td><td><span class="badge badge-warning">Tesisat</span></td><td>€24.90</td><td>86 rulo</td><td>30 rulo</td><td><span class="badge badge-success">Yeterli</span></td><td><div style="display:flex;gap:4px;"><button class="btn btn-icon-sm btn-ghost" onclick="openModal('viewProductModal')">👁</button><button class="btn btn-icon-sm btn-ghost" onclick="openModal('editProductModal')">✎</button><button class="btn btn-icon-sm btn-ghost" onclick="openDeleteModal('Viega PureFlow Boru')">🗑</button></div></td></tr>
+            <tr><td><strong>HGR-AT-16</strong></td><td>Hager t Jord Topraklama (1.5m)</td><td>Hager Belgium</td><td><span class="badge badge-info">Elektrik</span></td><td>€18.75</td><td>12 adet</td><td>15 adet</td><td><span class="badge badge-error">Tükenmiş</span></td><td><div style="display:flex;gap:4px;"><button class="btn btn-icon-sm btn-ghost" onclick="openModal('viewProductModal')">👁</button><button class="btn btn-icon-sm btn-ghost" onclick="openModal('editProductModal')">✎</button><button class="btn btn-icon-sm btn-ghost" onclick="openDeleteModal('Hager t Jord Topraklama')">🗑</button></div></td></tr>
+            <tr><td><strong>VAI-ECO-24</strong></td><td>Vaillant ecotec Kombi 24kW</td><td>Vaillant Belgium</td><td><span class="badge badge-neutral">Kombi</span></td><td>€1,850.00</td><td>6 adet</td><td>3 adet</td><td><span class="badge badge-success">Yeterli</span></td><td><div style="display:flex;gap:4px;"><button class="btn btn-icon-sm btn-ghost" onclick="openModal('viewProductModal')">👁</button><button class="btn btn-icon-sm btn-ghost" onclick="openModal('editProductModal')">✎</button><button class="btn btn-icon-sm btn-ghost" onclick="openDeleteModal('Vaillant ecotec Kombi')">🗑</button></div></td></tr>
+            <tr><td><strong>SCN-ACTI9</strong></td><td>Schneider Acti9 iC60N 3P 32A</td><td>Schneider Electric</td><td><span class="badge badge-info">Elektrik</span></td><td>€34.20</td><td>54 adet</td><td>20 adet</td><td><span class="badge badge-success">Yeterli</span></td><td><div style="display:flex;gap:4px;"><button class="btn btn-icon-sm btn-ghost" onclick="openModal('viewProductModal')">👁</button><button class="btn btn-icon-sm btn-ghost" onclick="openModal('editProductModal')">✎</button><button class="btn btn-icon-sm btn-ghost" onclick="openDeleteModal('Schneider Acti9 iC60N')">🗑</button></div></td></tr>
+            <tr><td><strong>LGR-LED-P</strong></td><td>Legrand LED Panel 60x60 40W</td><td>Legrand Belgium</td><td><span class="badge badge-success">Aydınlatma</span></td><td>€28.50</td><td>24 adet</td><td>20 adet</td><td><span class="badge badge-warning">Kritik</span></td><td><div style="display:flex;gap:4px;"><button class="btn btn-icon-sm btn-ghost" onclick="openModal('viewProductModal')">👁</button><button class="btn btn-icon-sm btn-ghost" onclick="openModal('editProductModal')">✎</button><button class="btn btn-icon-sm btn-ghost" onclick="openDeleteModal('Legrand LED Panel')">🗑</button></div></td></tr>
+            <tr><td><strong>HGR-DB-48</strong></td><td>Hager Distribution Board 48 Modül</td><td>Hager Belgium</td><td><span class="badge badge-info">Elektrik</span></td><td>€145.00</td><td>9 adet</td><td>5 adet</td><td><span class="badge badge-success">Yeterli</span></td><td><div style="display:flex;gap:4px;"><button class="btn btn-icon-sm btn-ghost" onclick="openModal('viewProductModal')">👁</button><button class="btn btn-icon-sm btn-ghost" onclick="openModal('editProductModal')">✎</button><button class="btn btn-icon-sm btn-ghost" onclick="openDeleteModal('Hager Distribution Board')">🗑</button></div></td></tr>
+            <tr><td><strong>VG-PF-16</strong></td><td>Viega PureFlow Boru 16mm (5m)</td><td>Viega Belgium</td><td><span class="badge badge-warning">Tesisat</span></td><td>€19.40</td><td>112 rulo</td><td>30 rulo</td><td><span class="badge badge-success">Yeterli</span></td><td><div style="display:flex;gap:4px;"><button class="btn btn-icon-sm btn-ghost" onclick="openModal('viewProductModal')">👁</button><button class="btn btn-icon-sm btn-ghost" onclick="openModal('editProductModal')">✎</button><button class="btn btn-icon-sm btn-ghost" onclick="openDeleteModal('Viega PureFlow 16mm')">🗑</button></div></td></tr>
+            <tr><td><strong>NXBO-525</strong></td><td>NXBO 5x2.5mm Kablo (100m)</td><td>NXBO Belgium</td><td><span class="badge badge-info">Elektrik</span></td><td>€112.00</td><td>67 rulo</td><td>25 rulo</td><td><span class="badge badge-success">Yeterli</span></td><td><div style="display:flex;gap:4px;"><button class="btn btn-icon-sm btn-ghost" onclick="openModal('viewProductModal')">👁</button><button class="btn btn-icon-sm btn-ghost" onclick="openModal('editProductModal')">✎</button><button class="btn btn-icon-sm btn-ghost" onclick="openDeleteModal('NXBO 5x2.5mm Kablo')">🗑</button></div></td></tr>
+            <tr><td><strong>SCN-PM-5</strong></td><td>Schneider PowerTag 5A Sensör</td><td>Schneider Electric</td><td><span class="badge badge-info">Elektrik</span></td><td>€78.00</td><td>18 adet</td><td>10 adet</td><td><span class="badge badge-success">Yeterli</span></td><td><div style="display:flex;gap:4px;"><button class="btn btn-icon-sm btn-ghost" onclick="openModal('viewProductModal')">👁</button><button class="btn btn-icon-sm btn-ghost" onclick="openModal('editProductModal')">✎</button><button class="btn btn-icon-sm btn-ghost" onclick="openDeleteModal('Schneider PowerTag')">🗑</button></div></td></tr>
+            <tr><td><strong>LGR-PR-20</strong></td><td>Legrand Prise 20A Terre Française</td><td>Legrand Belgium</td><td><span class="badge badge-info">Elektrik</span></td><td>€8.90</td><td>0 adet</td><td>30 adet</td><td><span class="badge badge-error">Tükenmiş</span></td><td><div style="display:flex;gap:4px;"><button class="btn btn-icon-sm btn-ghost" onclick="openModal('viewProductModal')">👁</button><button class="btn btn-icon-sm btn-ghost" onclick="openModal('editProductModal')">✎</button><button class="btn btn-icon-sm btn-ghost" onclick="openDeleteModal('Legrand Prise 20A')">🗑</button></div></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div style="display:flex;justify-content:space-between;align-items:center;padding:var(--space-4) var(--space-5);border-top:1px solid var(--border-color);">
+        <span style="font-size:var(--text-sm);color:var(--text-muted);">Gösterilen: 1-12 / 78 ürün</span>
+        <div style="display:flex;gap:4px;">
+          <button class="btn btn-sm btn-ghost" disabled>← Önceki</button>
+          <button class="btn btn-sm btn-primary">1</button>
+          <button class="btn btn-sm btn-ghost">2</button>
+          <button class="btn btn-sm btn-ghost">3</button>
+          <button class="btn btn-sm btn-ghost">Sonraki →</button>
+        </div>
+      </div>
+    </div>
+
+    <div style="text-align:center; padding:var(--space-6) 0; border-top:1px solid var(--border-color); margin-top:var(--space-4);">
+      <p style="font-size:var(--text-xs); color:var(--text-muted); margin-bottom:var(--space-3);">Diğer CleanFix Platformları</p>
+      <div style="display:flex; gap:var(--space-3); justify-content:center; flex-wrap:wrap;">
+        <a href="../../index.html" class="btn btn-sm btn-secondary">🧹 CleanFix</a>
+        <a href="../buildpro/index.html" class="btn btn-sm btn-secondary">🏗️ BuildPro</a>
+        <a href="../barberpro/index.html" class="btn btn-sm btn-secondary">💜 BarberPro</a>
+        <a href="../marketpro/index.html" class="btn btn-sm btn-secondary">🛒 MarketPro</a>
+        <a href="../restopro/index.html" class="btn btn-sm btn-secondary">🏥 MediPro</a>
+      </div>
+      <p style="font-size:var(--text-xs); color:var(--text-muted); margin-top:var(--space-4);">© 2026 ElektroPro BVBA — Belçika'da geliştirildi ⚡</p>
+    </div>
+  </main>
+</div>
+</div>
+
+<div class="modal-overlay" id="addSupplierModal">
+  <div class="modal">
+    <div class="modal-header"><div class="modal-title">Yeni Tedarikçi Ekle</div><button class="modal-close" onclick="closeModal('addSupplierModal')">✕</button></div>
+    <div class="modal-body">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-4);">
+        <div class="form-group"><label class="form-label">Firma Adı</label><input type="text" class="form-input" placeholder="Örn: Hager Belgium"></div>
+        <div class="form-group"><label class="form-label">Vergi No (BTW)</label><input type="text" class="form-input" placeholder="BE0123.456.789"></div>
+        <div class="form-group"><label class="form-label">Telefon</label><input type="text" class="form-input" placeholder="+32 2 123 45 67"></div>
+        <div class="form-group"><label class="form-label">E-posta</label><input type="email" class="form-input" placeholder="info@firma.be"></div>
+      </div>
+      <div class="form-group" style="margin-top:var(--space-4);"><label class="form-label">Adres</label><input type="text" class="form-input" placeholder="Sokak, Posta Kodu, Şehir"></div>
+      <div class="form-group"><label class="form-label">Notlar</label><textarea class="form-textarea" rows="3" placeholder="Ödeme koşulları, teslimat süresi, özel anlaşmalar..."></textarea></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('addSupplierModal')">İptal</button>
+      <button class="btn btn-primary" onclick="closeModal('addSupplierModal');showToast('Tedarikçi başarıyla eklendi','success')">Kaydet</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="addProductModal">
+  <div class="modal modal-lg">
+    <div class="modal-header"><div class="modal-title">Yeni Ürün Ekle</div><button class="modal-close" onclick="closeModal('addProductModal')">✕</button></div>
+    <div class="modal-body">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-4);">
+        <div class="form-group"><label class="form-label">Ürün Kodu</label><input type="text" class="form-input" placeholder="Örn: NXBO-325"></div>
+        <div class="form-group"><label class="form-label">Ürün Adı</label><input type="text" class="form-input" placeholder="Ürün adı"></div>
+        <div class="form-group"><label class="form-label">Tedarikçi</label><select class="form-select"><option>Hager Belgium</option><option>Legrand Belgium</option><option>Viega Belgium</option><option>Schneider Electric</option><option>Vaillant Belgium</option><option>NXBO Belgium</option></select></div>
+        <div class="form-group"><label class="form-label">Tür</label><select class="form-select"><option>Elektrik</option><option>Tesisat</option><option>Kombi</option><option>Aydınlatma</option><option>Kamera</option></select></div>
+        <div class="form-group"><label class="form-label">Birim Fiyat (€)</label><input type="text" class="form-input" placeholder="0.00"></div>
+        <div class="form-group"><label class="form-label">Kritik Stok Seviyesi</label><input type="number" class="form-input" placeholder="Min. stok miktarı"></div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('addProductModal')">İptal</button>
+      <button class="btn btn-primary" onclick="closeModal('addProductModal');showToast('Ürün başarıyla eklendi','success')">Kaydet</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="editProductModal">
+  <div class="modal modal-lg">
+    <div class="modal-header"><div class="modal-title">Ürünü Düzenle</div><button class="modal-close" onclick="closeModal('editProductModal')">✕</button></div>
+    <div class="modal-body">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-4);">
+        <div class="form-group"><label class="form-label">Ürün Kodu</label><input type="text" class="form-input" value="NXBO-325"></div>
+        <div class="form-group"><label class="form-label">Ürün Adı</label><input type="text" class="form-input" value="NXBO 3x2.5mm Kablo (100m)"></div>
+        <div class="form-group"><label class="form-label">Tedarikçi</label><select class="form-select"><option selected>NXBO Belgium</option><option>Hager Belgium</option><option>Legrand Belgium</option></select></div>
+        <div class="form-group"><label class="form-label">Tür</label><select class="form-select"><option selected>Elektrik</option><option>Tesisat</option><option>Kombi</option></select></div>
+        <div class="form-group"><label class="form-label">Birim Fiyat (€)</label><input type="text" class="form-input" value="89.50"></div>
+        <div class="form-group"><label class="form-label">Mevcut Stok</label><input type="number" class="form-input" value="142"></div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('editProductModal')">İptal</button>
+      <button class="btn btn-primary" onclick="closeModal('editProductModal');showToast('Ürün güncellendi','success')">Güncelle</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="viewProductModal">
+  <div class="modal modal-lg">
+    <div class="modal-header"><div class="modal-title">Ürün Detayları</div><button class="modal-close" onclick="closeModal('viewProductModal')">✕</button></div>
+    <div class="modal-body">
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-4);margin-bottom:var(--space-4);">
+        <div style="background:var(--bg-secondary);padding:var(--space-4);border-radius:var(--radius-md);"><div style="font-size:var(--text-xs);color:var(--text-muted);margin-bottom:4px;">Ürün Kodu</div><div style="font-size:var(--text-lg);font-weight:700;">NXBO-325</div></div>
+        <div style="background:var(--bg-secondary);padding:var(--space-4);border-radius:var(--radius-md);"><div style="font-size:var(--text-xs);color:var(--text-muted);margin-bottom:4px;">Birim Fiyat</div><div style="font-size:var(--text-lg);font-weight:700;color:var(--teal-500);">€89.50</div></div>
+        <div style="background:var(--bg-secondary);padding:var(--space-4);border-radius:var(--radius-md);"><div style="font-size:var(--text-xs);color:var(--text-muted);margin-bottom:4px;">Mevcut Stok</div><div style="font-size:var(--text-lg);font-weight:700;color:var(--success-500);">142 rulo</div></div>
+      </div>
+      <div class="form-group"><label class="form-label">Ürün Adı</label><input type="text" class="form-input" value="NXBO 3x2.5mm Kablo (100m)" readonly></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-4);">
+        <div class="form-group"><label class="form-label">Tedarikçi</label><input type="text" class="form-input" value="NXBO Belgium" readonly></div>
+        <div class="form-group"><label class="form-label">Tür</label><input type="text" class="form-input" value="Elektrik" readonly></div>
+        <div class="form-group"><label class="form-label">Kritik Seviye</label><input type="text" class="form-input" value="50 rulo" readonly></div>
+        <div class="form-group"><label class="form-label">Son Sipariş</label><input type="text" class="form-input" value="10 May 2026 — 80 rulo" readonly></div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('viewProductModal')">Kapat</button>
+      <button class="btn btn-primary" onclick="closeModal('viewProductModal');openModal('editProductModal')">Düzenle</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="deleteProductModal">
+  <div class="modal">
+    <div class="modal-header"><div class="modal-title" style="color:var(--error-500);">Ürünü Sil</div><button class="modal-close" onclick="closeModal('deleteProductModal')">✕</button></div>
+    <div class="modal-body">
+      <p style="font-size:var(--text-sm);color:var(--text-secondary);margin-bottom:var(--space-4);"><strong id="deleteProductName"></strong> ürününü silmek üzeresiniz. Bu işlem geri alınamaz.</p>
+      <div style="background:rgba(244,63,94,0.08);border:1px solid rgba(244,63,94,0.2);border-radius:var(--radius-md);padding:var(--space-4);">
+        <div style="font-size:var(--text-xs);color:var(--error-500);font-weight:600;margin-bottom:4px;">⚠️ Dikkat</div>
+        <div style="font-size:var(--text-sm);color:var(--text-secondary);">Ürüne ait tüm sipariş geçmişi, fiyat değişimleri ve stok hareketleri de silinecektir.</div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('deleteProductModal')">İptal</button>
+      <button class="btn btn-primary" style="background:var(--error-500);" onclick="closeModal('deleteProductModal');showToast(document.getElementById('deleteProductName').textContent + ' silindi','error')">Sil</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const sidebar=document.getElementById('sidebar');
+const menuBtn=document.getElementById('menuBtn');
+const overlay=document.getElementById('sidebarOverlay');
+menuBtn.addEventListener('click',()=>{sidebar.classList.toggle('open');overlay.classList.toggle('active');});
+overlay.addEventListener('click',()=>{sidebar.classList.remove('open');overlay.classList.remove('active');});
+const html=document.documentElement;
+let theme=localStorage.getItem('ep-theme')||'dark';
+html.setAttribute('data-theme',theme);
+document.getElementById('themeToggle').addEventListener('click',()=>{theme=theme==='dark'?'light':'dark';html.setAttribute('data-theme',theme);localStorage.setItem('ep-theme',theme);});
+function showToast(msg,type='success',dur=3000){
+  let c=document.querySelector('.toast-container');
+  if(!c){c=document.createElement('div');c.className='toast-container';c.style.cssText='position:fixed;top:80px;right:24px;z-index:2000;display:flex;flex-direction:column;gap:12px;pointer-events:none;max-width:360px;';document.body.appendChild(c);}
+  const t=document.createElement('div');
+  const colors={success:'var(--success-500)',error:'var(--error-500)',warning:'var(--warning-500)',info:'var(--info-500)'};
+  const icons={success:'✓',error:'✕',warning:'!',info:'ℹ'};
+  const titles={success:'Başarılı',error:'Hata',warning:'Uyarı',info:'Bilgi'};
+  t.style.cssText=`pointer-events:all;background:var(--bg-card);border:1px solid ${colors[type]};border-radius:12px;padding:14px 18px;display:flex;align-items:flex-start;gap:12px;box-shadow:var(--shadow-lg);animation:toastIn 0.3s ease-out;position:relative;overflow:hidden;`;
+  t.innerHTML=`<span style="flex-shrink:0;margin-top:2px;width:20px;height:20px;border-radius:50%;background:${colors[type]};color:white;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;">${icons[type]}</span><div style="flex:1;"><div style="font-weight:600;font-size:var(--text-sm);">${titles[type]}</div><div style="font-size:var(--text-sm);color:var(--text-muted);margin-top:2px;">${msg}</div></div><span style="flex-shrink:0;color:var(--text-muted);cursor:pointer;font-size:14px;" onclick="this.parentElement.remove()">✕</span><div style="position:absolute;bottom:0;left:0;height:2px;background:${colors[type]};animation:progressBar 4s linear forwards;width:100%;"></div>`;
+  c.appendChild(t);
+  setTimeout(()=>{t.style.animation='toastOut 0.3s ease-in forwards';setTimeout(()=>t.remove(),300);},dur);
+}
+function openModal(id,name){
+  const modal=document.getElementById(id);
+  if(modal) modal.classList.add('active');
+  if(name&&id==='deleteProductModal'){const el=document.getElementById('deleteProductName');if(el)el.textContent=name;}
+}
+function closeModal(id){const modal=document.getElementById(id);if(modal)modal.classList.remove('active');}
+function openDeleteModal(name){openModal('deleteProductModal',name);}
+document.querySelectorAll('.modal-overlay').forEach(overlay=>{overlay.addEventListener('click',(e)=>{if(e.target===overlay)overlay.classList.remove('active');});});
+const revealObserver=new IntersectionObserver((entries)=>{entries.forEach(entry=>{if(entry.isIntersecting)entry.target.classList.add('visible');});},{threshold:0.1,rootMargin:'0px 0px -50px 0px'});
+document.querySelectorAll('.reveal').forEach(el=>revealObserver.observe(el));
+</script>
+</body>
+</html>
