@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WoodPro — Marangoz ve Mobilya Yönetimi</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/main.css">
+<style>
+/* ================================================================
+   WoodPro Landing Page Styles
+   ================================================================ */
+.landing { font-family:'Inter',sans-serif; }
+
+/* ── Hero ── */
+.hero {
+  min-height:100vh; display:flex; flex-direction:column; align-items:center; justify-content:center;
+  text-align:center; position:relative; overflow:hidden; padding:120px 24px 80px;
+}
+.hero-bg {
+  position:absolute; inset:0; z-index:0;
+  background:
+    radial-gradient(ellipse at 30% 20%, rgba(20,184,166,0.12) 0%, transparent 50%),
+    radial-gradient(ellipse at 70% 80%, rgba(139,92,46,0.10) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 50%, rgba(20,184,166,0.06) 0%, transparent 70%),
+    var(--bg-primary);
+}
+.hero-orb {
+  position:absolute; border-radius:50%; filter:blur(100px); opacity:0.3;
+  animation:heroFloat 15s ease-in-out infinite;
+}
+.hero-orb-1 { width:500px; height:500px; background:rgba(20,184,166,0.25); top:10%; left:20%; }
+.hero-orb-2 { width:400px; height:400px; background:rgba(139,92,46,0.15); bottom:10%; right:15%; animation-delay:-7s; }
+@keyframes heroFloat {
+  0%,100% { transform:translate(0,0) scale(1); }
+  50% { transform:translate(20px,-30px) scale(1.05); }
+}
+
+.hero-content { position:relative; z-index:10; max-width:800px; }
+.hero-badge {
+  display:inline-flex; align-items:center; gap:8px;
+  background:rgba(20,184,166,0.1); border:1px solid rgba(20,184,166,0.2);
+  color:var(--teal-400); padding:8px 16px; border-radius:9999px;
+  font-size:var(--text-sm); font-weight:500; margin-bottom:32px;
+}
+.hero-badge .pulse { width:8px; height:8px; background:var(--teal-500); border-radius:50%; animation:pulseDot 2s ease-in-out infinite; }
+.hero h1 { font-size:clamp(2.5rem,5vw,4rem); font-weight:800; line-height:1.1; letter-spacing:-0.03em; margin-bottom:20px; }
+.hero h1 span { background:linear-gradient(135deg,var(--teal-400),var(--amber-400)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+.hero p { font-size:var(--text-lg); color:var(--text-muted); max-width:560px; margin:0 auto 40px; line-height:1.6; }
+.hero-buttons { display:flex; gap:16px; justify-content:center; flex-wrap:wrap; }
+.hero-buttons .btn { padding:14px 28px; font-size:var(--text-base); }
+
+/* Floating Project Cards */
+.hero-float-cards {
+  position:relative; z-index:10;
+  display:flex; gap:24px; justify-content:center; margin-top:48px;
+  flex-wrap:wrap; max-width:900px;
+}
+.float-card {
+  background:var(--bg-card); border:1px solid var(--border-color); border-radius:var(--radius-xl);
+  padding:24px 28px; min-width:200px; text-align:left;
+  box-shadow:var(--shadow-lg); transition:all var(--duration-normal);
+  animation:floatCard 5s ease-in-out infinite;
+}
+.float-card:nth-child(2) { animation-delay:-2s; }
+.float-card:nth-child(3) { animation-delay:-4s; }
+@keyframes floatCard {
+  0%,100% { transform:translateY(0); }
+  50% { transform:translateY(-8px); }
+}
+.float-card:hover { transform:translateY(-4px) scale(1.02); border-color:var(--teal-500); }
+.float-card .fc-label { font-size:var(--text-xs); color:var(--text-muted); text-transform:uppercase; letter-spacing:0.05em; margin-bottom:6px; }
+.float-card .fc-value { font-size:var(--text-2xl); font-weight:700; color:var(--text-primary); }
+.float-card .fc-change { font-size:var(--text-xs); margin-top:4px; display:flex; align-items:center; gap:4px; }
+.float-card .fc-change.up { color:var(--success-500); }
+.float-card .fc-change.down { color:var(--error-500); }
+
+/* ── Trust Bar ── */
+.trust { padding:40px 24px; background:var(--bg-secondary); border-top:1px solid var(--border-color); border-bottom:1px solid var(--border-color); text-align:center; }
+.trust p { font-size:var(--text-sm); color:var(--text-muted); text-transform:uppercase; letter-spacing:0.1em; font-weight:600; margin-bottom:20px; }
+.trust-logos { display:flex; gap:40px; justify-content:center; align-items:center; flex-wrap:wrap; opacity:0.5; }
+.trust-logos span { font-size:var(--text-lg); font-weight:700; color:var(--text-muted); }
+
+/* ── Section Base ── */
+.section { padding:80px 24px; }
+.section-header { text-align:center; max-width:640px; margin:0 auto 60px; }
+.section-header h2 { font-size:clamp(1.8rem,3vw,2.5rem); font-weight:700; margin-bottom:12px; }
+.section-header p { font-size:var(--text-lg); color:var(--text-muted); }
+
+/* ── Features Grid ── */
+.features-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:24px; max-width:1100px; margin:0 auto; }
+.feature-card {
+  background:var(--bg-card); border:1px solid var(--border-color); border-radius:var(--radius-xl);
+  padding:32px; transition:all var(--duration-normal); position:relative; overflow:hidden;
+}
+.feature-card:hover { transform:translateY(-4px); border-color:var(--teal-500); box-shadow:0 20px 40px rgba(20,184,166,0.08); }
+.feature-card::before {
+  content:''; position:absolute; top:0; left:0; right:0; height:3px;
+  background:linear-gradient(90deg, var(--teal-500), var(--amber-500));
+  opacity:0; transition:opacity var(--duration-normal);
+}
+.feature-card:hover::before { opacity:1; }
+.feature-icon {
+  width:56px; height:56px; border-radius:var(--radius-lg); display:flex; align-items:center; justify-content:center;
+  font-size:28px; margin-bottom:20px; background:rgba(20,184,166,0.08);
+}
+.feature-card h3 { font-size:var(--text-lg); font-weight:600; margin-bottom:8px; }
+.feature-card p { font-size:var(--text-sm); color:var(--text-muted); line-height:1.6; margin-bottom:16px; }
+.feature-tags { display:flex; flex-wrap:wrap; gap:6px; }
+.feature-tags span {
+  font-size:var(--text-xs); background:var(--bg-secondary); color:var(--text-secondary);
+  padding:4px 10px; border-radius:9999px; font-weight:500;
+}
+
+/* ── Wood Types Showcase ── */
+.wood-showcase { background:var(--bg-secondary); }
+.wood-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:20px; max-width:1100px; margin:0 auto; }
+.wood-card {
+  background:var(--bg-card); border:1px solid var(--border-color); border-radius:var(--radius-xl);
+  padding:28px; text-align:center; transition:all var(--duration-normal);
+}
+.wood-card:hover { transform:translateY(-4px); border-color:var(--teal-500); }
+.wood-card .wood-icon { font-size:48px; margin-bottom:16px; }
+.wood-card h4 { font-size:var(--text-base); font-weight:600; margin-bottom:4px; }
+.wood-card .wood-price { font-size:var(--text-sm); color:var(--teal-500); font-weight:600; }
+.wood-card .wood-origin { font-size:var(--text-xs); color:var(--text-muted); margin-top:4px; }
+
+/* ── Workshop Grid ── */
+.workshop-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:24px; max-width:900px; margin:0 auto; }
+.workshop-card {
+  background:var(--bg-card); border:1px solid var(--border-color); border-radius:var(--radius-xl);
+  padding:28px; transition:all var(--duration-normal); display:flex; gap:20px; align-items:flex-start;
+}
+.workshop-card:hover { border-color:var(--teal-500); box-shadow:var(--shadow-lg); }
+.workshop-card .workshop-icon {
+  width:48px; height:48px; border-radius:var(--radius-lg); background:var(--bg-secondary);
+  display:flex; align-items:center; justify-content:center; font-size:24px; flex-shrink:0;
+}
+.workshop-card h4 { font-size:var(--text-base); font-weight:600; margin-bottom:6px; }
+.workshop-card p { font-size:var(--text-sm); color:var(--text-muted); line-height:1.5; }
+.workshop-card .workshop-meta { display:flex; gap:12px; margin-top:12px; font-size:var(--text-xs); color:var(--text-muted); }
+
+/* ── How It Works ── */
+.steps { display:flex; gap:24px; max-width:1000px; margin:0 auto; counter-reset:step; }
+.step {
+  flex:1; background:var(--bg-card); border:1px solid var(--border-color);
+  border-radius:var(--radius-xl); padding:32px; position:relative; text-align:center;
+}
+.step::before {
+  counter-increment:step; content:counter(step);
+  width:36px; height:36px; border-radius:50%;
+  background:var(--teal-500); color:white;
+  display:flex; align-items:center; justify-content:center;
+  font-weight:700; font-size:var(--text-sm);
+  margin:0 auto 16px;
+}
+.step h4 { font-size:var(--text-base); font-weight:600; margin-bottom:8px; }
+.step p { font-size:var(--text-sm); color:var(--text-muted); line-height:1.5; }
+
+/* ── Pricing ── */
+.pricing-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:24px; max-width:900px; margin:0 auto; }
+.pricing-card {
+  background:var(--bg-card); border:1px solid var(--border-color);
+  border-radius:var(--radius-xl); padding:36px; text-align:center;
+  transition:all var(--duration-normal); position:relative;
+}
+.pricing-card:hover { transform:translateY(-4px); box-shadow:var(--shadow-xl); }
+.pricing-card.popular { border-color:var(--teal-500); box-shadow:0 0 0 1px var(--teal-500), var(--shadow-lg); }
+.popular-badge {
+  position:absolute; top:-12px; left:50%; transform:translateX(-50%);
+  background:var(--teal-500); color:white; font-size:var(--text-xs); font-weight:600;
+  padding:4px 14px; border-radius:9999px;
+}
+.pricing-card h3 { font-size:var(--text-xl); font-weight:600; margin-bottom:8px; }
+.pricing-card .price { font-size:var(--text-4xl); font-weight:800; margin-bottom:24px; }
+.pricing-card .price span { font-size:var(--text-base); font-weight:500; color:var(--text-muted); }
+.pricing-features { text-align:left; margin-bottom:28px; }
+.pricing-features li { display:flex; align-items:center; gap:8px; font-size:var(--text-sm); color:var(--text-secondary); margin-bottom:10px; }
+.pricing-features li svg { color:var(--success-500); flex-shrink:0; }
+
+/* ── Testimonials ── */
+.testimonial-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:24px; max-width:1000px; margin:0 auto; }
+.testimonial-card {
+  background:var(--bg-card); border:1px solid var(--border-color);
+  border-radius:var(--radius-xl); padding:28px;
+}
+.testimonial-card .stars { color:var(--amber-400); font-size:var(--text-sm); margin-bottom:12px; }
+.testimonial-card p { font-size:var(--text-sm); color:var(--text-secondary); line-height:1.6; margin-bottom:16px; }
+.testimonial-card .author { display:flex; align-items:center; gap:12px; }
+.testimonial-card .author-avatar {
+  width:40px; height:40px; border-radius:50%;
+  background:linear-gradient(135deg,var(--teal-500),var(--teal-700));
+  display:flex; align-items:center; justify-content:center;
+  color:white; font-weight:600; font-size:var(--text-sm);
+}
+.testimonial-card .author-info h5 { font-size:var(--text-sm); font-weight:600; }
+.testimonial-card .author-info span { font-size:var(--text-xs); color:var(--text-muted); }
+
+/* ── Footer ── */
+.footer { background:var(--bg-card); border-top:1px solid var(--border-color); padding:60px 24px 30px; }
+.footer-grid { display:grid; grid-template-columns:2fr 1fr 1fr 1fr; gap:40px; max-width:1100px; margin:0 auto 40px; }
+.footer-brand h3 { font-size:var(--text-xl); font-weight:700; margin-bottom:8px; }
+.footer-brand p { font-size:var(--text-sm); color:var(--text-muted); line-height:1.6; margin-bottom:16px; }
+.footer-brand .sector-links { display:flex; flex-wrap:wrap; gap:8px; }
+.footer-brand .sector-links a {
+  font-size:var(--text-xs); background:var(--bg-secondary); color:var(--text-secondary);
+  padding:4px 10px; border-radius:9999px; text-decoration:none; transition:all var(--duration-fast);
+}
+.footer-brand .sector-links a:hover { background:var(--teal-500); color:white; }
+.footer h4 { font-size:var(--text-sm); font-weight:600; margin-bottom:16px; }
+.footer ul li { margin-bottom:10px; }
+.footer ul li a { font-size:var(--text-sm); color:var(--text-muted); text-decoration:none; transition:color var(--duration-fast); }
+.footer ul li a:hover { color:var(--teal-500); }
+.footer-bottom { border-top:1px solid var(--border-color); padding-top:24px; max-width:1100px; margin:0 auto; display:flex; justify-content:space-between; align-items:center; }
+.footer-bottom p { font-size:var(--text-xs); color:var(--text-muted); }
+.footer-bottom .footer-links { display:flex; gap:20px; }
+.footer-bottom .footer-links a { font-size:var(--text-xs); color:var(--text-muted); text-decoration:none; }
+
+/* ── CTA Banner ── */
+.cta-banner {
+  background:linear-gradient(135deg, var(--teal-900), var(--slate-900));
+  border-radius:var(--radius-xl); padding:60px 40px; text-align:center;
+  max-width:800px; margin:0 auto; position:relative; overflow:hidden;
+}
+.cta-banner::before {
+  content:''; position:absolute; inset:0;
+  background:radial-gradient(ellipse at 50% 0%, rgba(20,184,166,0.2) 0%, transparent 60%);
+}
+.cta-banner h2 { font-size:clamp(1.8rem,3vw,2.5rem); font-weight:700; margin-bottom:16px; position:relative; }
+.cta-banner p { font-size:var(--text-lg); color:var(--text-muted); margin-bottom:32px; max-width:480px; margin-left:auto; margin-right:auto; position:relative; }
+.cta-banner .btn { position:relative; }
+
+/* ── Animations ── */
+@keyframes pulseDot {
+  0%,100% { opacity:1; transform:scale(1); }
+  50% { opacity:0.6; transform:scale(0.8); }
+}
+.reveal { opacity:0; transform:translateY(24px); transition:all 0.6s cubic-bezier(0.22,1,0.36,1); }
+.reveal.visible { opacity:1; transform:translateY(0); }
+
+/* ── Responsive ── */
+@media (max-width:900px) {
+  .features-grid, .wood-grid, .pricing-grid, .testimonial-grid { grid-template-columns:repeat(2,1fr); }
+  .footer-grid { grid-template-columns:1fr 1fr; }
+  .steps { flex-direction:column; }
+}
+@media (max-width:640px) {
+  .features-grid, .wood-grid, .pricing-grid, .testimonial-grid { grid-template-columns:1fr; }
+  .footer-grid { grid-template-columns:1fr; }
+  .hero-float-cards { flex-direction:column; align-items:center; }
+  .float-card { min-width:260px; }
+}
+</style>
+</head>
+<body class="landing">
+
+<!-- ========== HEADER ========== -->
+<header style="position:fixed; top:0; left:0; right:0; z-index:50; background:rgba(15,23,42,0.8); backdrop-filter:blur(16px); border-bottom:1px solid var(--border-color);">
+  <div style="max-width:1200px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; padding:0 24px; height:64px;">
+    <a href="../../index.html" style="display:flex; align-items:center; gap:10px; text-decoration:none;">
+      <div style="width:32px; height:32px; border-radius:8px; background:linear-gradient(135deg,var(--teal-500),var(--teal-700)); display:flex; align-items:center; justify-content:center; color:white; font-weight:700; font-size:14px;">🪵</div>
+      <span style="font-weight:700; font-size:16px; color:var(--text-primary);">WoodPro</span>
+    </a>
+    <nav style="display:flex; gap:24px; align-items:center;">
+      <a href="#ozellikler" style="font-size:14px; color:var(--text-secondary); text-decoration:none; font-weight:500;">Özellikler</a>
+      <a href="#marangozlar" style="font-size:14px; color:var(--text-secondary); text-decoration:none; font-weight:500;">Marangozlar</a>
+      <a href="#fiyatlandirma" style="font-size:14px; color:var(--text-secondary); text-decoration:none; font-weight:500;">Fiyatlandırma</a>
+      <a href="dashboard.html" class="btn btn-primary btn-sm">Panele Git</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ========== HERO ========== -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-orb hero-orb-1"></div>
+  <div class="hero-orb hero-orb-2"></div>
+
+  <div class="hero-content" style="padding-top:40px;">
+    <div class="hero-badge">
+      <span class="pulse"></span>
+      Belçika'nın Marangoz Platformu
+    </div>
+    <h1>
+      Ahşap İşlerinizi<br>
+      <span>Akıllıca Yönetin</span>
+    </h1>
+    <p>Ağaç stokundan CNC programlamaya, sipariş takibinden montaja kadar — marangoz atölyenizin her aşamasını tek bir platformda kontrol edin.</p>
+    <div class="hero-buttons">
+      <a href="dashboard.html" class="btn btn-primary">🚀 Panele Başla</a>
+      <a href="#ozellikler" class="btn btn-secondary">Özellikleri Keşfet</a>
+    </div>
+  </div>
+
+  <div class="hero-float-cards">
+    <div class="float-card">
+      <div class="fc-label">Aktif Sipariş</div>
+      <div class="fc-value">47</div>
+      <div class="fc-change up">▲ 12% bu hafta</div>
+    </div>
+    <div class="float-card">
+      <div class="fc-label">Ağaç Stok (m³)</div>
+      <div class="fc-value">128</div>
+      <div class="fc-change up">▲ 3% yenilendi</div>
+    </div>
+    <div class="float-card">
+      <div class="fc-label">CNC Program</div>
+      <div class="fc-value">15</div>
+      <div class="fc-change down">▼ 2 beklemede</div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== TRUST BAR ========== -->
+<section class="trust">
+  <p>Belçika'daki Güvenilir Marangoz Atölyeleri</p>
+  <div class="trust-logos">
+    <span>Atelier du Bois</span>
+    <span>Houtwerk Gent</span>
+    <span>Menuiserie Liège</span>
+    <span>Ebéniste Bruxelles</span>
+    <span>Houtstudio Antwerpen</span>
+  </div>
+</section>
+
+<!-- ========== FEATURES ========== -->
+<section class="section" id="ozellikler">
+  <div class="section-header reveal">
+    <h2>Tam Kapsamlı Marangoz Yönetimi</h2>
+    <p>Atölyenizin her ihtiyacını düşündük. Stok, üretim, teslimat — hepsi tek çatı altında.</p>
+  </div>
+  <div class="features-grid">
+    <div class="feature-card reveal">
+      <div class="feature-icon">🌳</div>
+      <h3>Ağaç Türü Envanteri</h3>
+      <p>Meşe, ceviz, kayın, ladin ve özel tropikal ağaç türlerini parti bazında takip edin. Nem oranı, kalite sınıfı ve tedarikçi bilgileriyle tam kontrol.</p>
+      <div class="feature-tags">
+        <span>Stok Takibi</span>
+        <span>Kalite Sınıfı</span>
+        <span>Nem Oranı</span>
+      </div>
+    </div>
+    <div class="feature-card reveal">
+      <div class="feature-icon">⚙️</div>
+      <h3>CNC Program Yönetimi</h3>
+      <p>G-code dosyalarını atölye bazında organize edin. Kesim optimizasyonu, malzeme verimliliği raporları ve otomatik program sıralaması.</p>
+      <div class="feature-tags">
+        <span>G-Code</span>
+        <span>Kesim Optimizasyonu</span>
+        <span>Verimlilik</span>
+      </div>
+    </div>
+    <div class="feature-card reveal">
+      <div class="feature-icon">📋</div>
+      <h3>Sipariş Takibi</h3>
+      <p>Müşteri siparişlerini teslimat tarihine göre sıralayın. Üretim aşamalarını güncelleyin, otomatik durum bildirimleri gönderin.</p>
+      <div class="feature-tags">
+        <span>Durum Bildirimi</span>
+        <span>Teslimat Takvimi</span>
+        <span>Müşteri Portalı</span>
+      </div>
+    </div>
+    <div class="feature-card reveal">
+      <div class="feature-icon">📐</div>
+      <h3>Ölçü ve Fit-Out</h3>
+      <p>Her projeye özel ölçü kartları oluşturun. Alan ölçümü, montaj planı ve fit-out kontrol listelerini dijitalleştirin.</p>
+      <div class="feature-tags">
+        <span>Ölçü Kartı</span>
+        <span>Montaj Planı</span>
+        <span>Kontrol Listesi</span>
+      </div>
+    </div>
+    <div class="feature-card reveal">
+      <div class="feature-icon">🎨</div>
+      <h3>Lake ve Boya Yönetimi</h3>
+      <p>Renk kodlarını, boya türlerini (su bazlı, poliüretan, cellulosik) ve kat sayılarını takip edin. Kuruma süreleri ve kalite kontrolü.</p>
+      <div class="feature-tags">
+        <span>Renk Kartelası</span>
+        <span>Boya Türü</span>
+        <span>Kuruma Süresi</span>
+      </div>
+    </div>
+    <div class="feature-card reveal">
+      <div class="feature-icon">🔧</div>
+      <h3>Montaj ve Teslimat</h3>
+      <p>Montaj ekiplerini planlayın, teslimat rotalarını optimize edin. Müşteri imzalı teslimat kağıtları ve fotoğraf dokümantasyonu.</p>
+      <div class="feature-tags">
+        <span>Ekip Planlama</span>
+        <span>Rota Optimizasyonu</span>
+        <span>Dokümantasyon</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== WOOD TYPES ========== -->
+<section class="section wood-showcase">
+  <div class="section-header reveal">
+    <h2>Desteklenen Ağaç Türleri</h2>
+    <p>Avrupa ve ithal ağaç türleriyle geniş malzeme kütüphanesi</p>
+  </div>
+  <div class="wood-grid">
+    <div class="wood-card reveal">
+      <div class="wood-icon">🌳</div>
+      <h4>Meşe (Oak)</h4>
+      <div class="wood-price">€2.850 / m³</div>
+      <div class="wood-origin">Fransa • Kalite AB</div>
+    </div>
+    <div class="wood-card reveal">
+      <div class="wood-icon">🌲</div>
+      <h4>Ceviz (Walnut)</h4>
+      <div class="wood-price">€4.200 / m³</div>
+      <div class="wood-origin">ABD • Seçme Ceviz</div>
+    </div>
+    <div class="wood-card reveal">
+      <div class="wood-icon">🌿</div>
+      <h4>Kayın (Beech)</h4>
+      <div class="wood-price">€1.650 / m³</div>
+      <div class="wood-origin">Almanya • A Kalite</div>
+    </div>
+    <div class="wood-card reveal">
+      <div class="wood-icon">🍃</div>
+      <h4>Ladin (Spruce)</h4>
+      <div class="wood-price">€890 / m³</div>
+      <div class="wood-origin">Avusturya • Konstrüksiyon</div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== WORKSHOPS ========== -->
+<section class="section" id="marangozlar">
+  <div class="section-header reveal">
+    <h2>Öne Çıkan Marangoz Atölyeleri</h2>
+    <p>WoodPro'yu kullanarak üretimlerini dijitalleştiren Belçikalı atölyeler</p>
+  </div>
+  <div class="workshop-grid">
+    <div class="workshop-card reveal">
+      <div class="workshop-icon">🏭</div>
+      <div>
+        <h4>Atelier du Bois Bruxelles</h4>
+        <p>Özel mutfak dolabı ve iç mekan tasarımında uzmanlaşmış 25 kişilik atölye. Haftalık 12 proje kapasitesi.</p>
+        <div class="workshop-meta">
+          <span>📍 Brüksel</span>
+          <span>👥 25 çalışan</span>
+          <span>⭐ 4.9/5</span>
+        </div>
+      </div>
+    </div>
+    <div class="workshop-card reveal">
+      <div class="workshop-icon">🪚</div>
+      <div>
+        <h4>Houtwerk Gent</h4>
+        <p>CNC destekli seri üretim ve özel mobilya imalatı. 3 adet Biesse Rover CNC makinesi.</p>
+        <div class="workshop-meta">
+          <span>📍 Gent</span>
+          <span>👥 18 çalışan</span>
+          <span>⭐ 4.7/5</span>
+        </div>
+      </div>
+    </div>
+    <div class="workshop-card reveal">
+      <div class="workshop-icon">🛠️</div>
+      <div>
+        <h4>Menuiserie Liège</h4>
+        <p>Tarihi bina restorasyonu ve özel kapı-pencere üretimi. 40 yıllık tecrübe.</p>
+        <div class="workshop-meta">
+          <span>📍 Liège</span>
+          <span>👥 12 çalışan</span>
+          <span>⭐ 4.8/5</span>
+        </div>
+      </div>
+    </div>
+    <div class="workshop-card reveal">
+      <div class="workshop-icon">🎨</div>
+      <div>
+        <h4>Ebéniste Bruxelles</h4>
+        <p>Lükus mobilya ve sanatsal marangozluk. Tamamlayıcı lake ve cila atölyesi.</p>
+        <div class="workshop-meta">
+          <span>📍 Brüksel</span>
+          <span>👥 8 çalışan</span>
+          <span>⭐ 5.0/5</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== HOW IT WORKS ========== -->
+<section class="section" style="background:var(--bg-secondary);">
+  <div class="section-header reveal">
+    <h2>Nasıl Çalışır?</h2>
+    <p>5 adımda atölyenizi dijital dünyaya taşıyın</p>
+  </div>
+  <div class="steps">
+    <div class="step reveal">
+      <h4>Sipariş Al</h4>
+      <p>Müşteri talebini sisteme girin, otomatik fiyatlandırma ve teslimat tarihi önerisi alın.</p>
+    </div>
+    <div class="step reveal">
+      <h4>Stok Kontrol</h4>
+      <p>Gerekli ağaç türlerini envanterden rezerve edin, eksik malzeme için otomatik sipariş oluşturun.</p>
+    </div>
+    <div class="step reveal">
+      <h4>CNC Programı</h4>
+      <p>Ölçü kartından otomatik G-code üretin, kesim optimizasyonu ile fireyi minimize edin.</p>
+    </div>
+    <div class="step reveal">
+      <h4>Üretim Takip</h4>
+      <p>Lake, boya ve montaj aşamalarını gerçek zamanlı güncelleyin.</p>
+    </div>
+    <div class="step reveal">
+      <h4>Teslimat</h4>
+      <p>Montaj ekibini planlayın, teslimat sonrası müşteri onayı ve değerlendirmesi alın.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ========== PRICING ========== -->
+<section class="section" id="fiyatlandirma">
+  <div class="section-header reveal">
+    <h2>Basit ve Şeffaf Fiyatlandırma</h2>
+    <p>Atölyenizin büyüklüğüne uygun plan seçin</p>
+  </div>
+  <div class="pricing-grid">
+    <div class="pricing-card reveal">
+      <h3>Başlangıç</h3>
+      <div class="price">€79<span>/ay</span></div>
+      <ul class="pricing-features">
+        <li><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> 1 atölye</li>
+        <li><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> 50 aktif sipariş</li>
+        <li><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Ağaç stok yönetimi</li>
+        <li><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Temel raporlar</li>
+      </ul>
+      <a href="dashboard.html" class="btn btn-secondary" style="width:100%;">Demo'yu Başlat</a>
+    </div>
+    <div class="pricing-card popular reveal">
+      <div class="popular-badge">En Popüler</div>
+      <h3>Profesyonel</h3>
+      <div class="price">€149<span>/ay</span></div>
+      <ul class="pricing-features">
+        <li><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> 3 atölye</li>
+        <li><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Sınırsız sipariş</li>
+        <li><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> CNC program entegrasyonu</li>
+        <li><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Lake/boya takibi</li>
+        <li><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Müşteri portalı</li>
+        <li><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Detaylı analitik</li>
+      </ul>
+      <a href="dashboard.html" class="btn btn-primary" style="width:100%;">Demo'yu Başlat</a>
+    </div>
+    <div class="pricing-card reveal">
+      <h3>Kurumsal</h3>
+      <div class="price">€299<span>/ay</span></div>
+      <ul class="pricing-features">
+        <li><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Sınırsız atölye</li>
+        <li><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> API erişimi</li>
+        <li><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Özel entegrasyonlar</li>
+        <li><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Öncelikli destek</li>
+        <li><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Veri yedekleme</li>
+      </ul>
+      <a href="dashboard.html" class="btn btn-secondary" style="width:100%;">Demo'yu Başlat</a>
+    </div>
+  </div>
+</section>
+
+<!-- ========== TESTIMONIALS ========== -->
+<section class="section" style="background:var(--bg-secondary);">
+  <div class="section-header reveal">
+    <h2>Atölyeler Ne Diyor?</h2>
+    <p>WoodPro'yu kullanan gerçek marangozlardan geri bildirimler</p>
+  </div>
+  <div class="testimonial-grid">
+    <div class="testimonial-card reveal">
+      <div class="stars">★★★★★</div>
+      <p>"Sipariş takibi artık kaos değil. Her müşterinin durumunu anında görüyorum. Brüksel'deki en yoğun atölyelerden biriyiz ve WoodPro olmadan bunu yönetemezdik."</p>
+      <div class="author">
+        <div class="author-avatar">PB</div>
+        <div class="author-info">
+          <h5>Pierre Bernard</h5>
+          <span>Atelier du Bois Bruxelles</span>
+        </div>
+      </div>
+    </div>
+    <div class="testimonial-card reveal">
+      <div class="stars">★★★★★</div>
+      <p>"CNC program entegrasyonu hayat kurtarıcı. G-code dosyalarını atölye bazında organize etmek artık 5 saniyemi alıyor. Kesim optimizasyonu sayesinde fire %18 azaldı."</p>
+      <div class="author">
+        <div class="author-avatar">JV</div>
+        <div class="author-info">
+          <h5>Jan Vermeulen</h5>
+          <span>Houtwerk Gent</span>
+        </div>
+      </div>
+    </div>
+    <div class="testimonial-card reveal">
+      <div class="stars">★★★★☆</div>
+      <p>"Lake takibi özelliği müthiş. Hangi projenin hangi boya aşamasında olduğunu artık Excel'de takip etmiyorum. Renk kartelası entegrasyonu da çok pratik."</p>
+      <div class="author">
+        <div class="author-avatar">LM</div>
+        <div class="author-info">
+          <h5>Lucas Moreau</h5>
+          <span>Ebéniste Bruxelles</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== CTA BANNER ========== -->
+<section class="section">
+  <div class="cta-banner reveal">
+    <h2>Atölyenizi Dijitalleştirmeye Hazır mısınız?</h2>
+    <p>WoodPro'yu ücretsiz deneyin. Kredi kartı gerekmez, kurulum süresi 5 dakika.</p>
+    <a href="dashboard.html" class="btn btn-primary btn-lg">🚀 Ücretsiz Demo Başlat</a>
+  </div>
+</section>
+
+<!-- ========== FOOTER ========== -->
+<footer class="footer">
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <h3>🪵 WoodPro</h3>
+      <p>Belçika'nın marangoz ve mobilya atölyeleri için üretim yönetimi platformu. Ağaç stokundan CNC programlamaya, sipariş takibinden montaja kadar her şey tek çatı altında.</p>
+      <div class="sector-links">
+        <a href="../buildpro/index.html">🏗️ BuildPro</a>
+        <a href="../barberpro/index.html">💈 BarberPro</a>
+        <a href="../../index.html">⚡ CleanFix</a>
+      </div>
+    </div>
+    <div>
+      <h4>Ürün</h4>
+      <ul>
+        <li><a href="#ozellikler">Özellikler</a></li>
+        <li><a href="#fiyatlandirma">Fiyatlandırma</a></li>
+        <li><a href="dashboard.html">Dashboard</a></li>
+        <li><a href="#marangozlar">Marangozlar</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Destek</h4>
+      <ul>
+        <li><a href="#">Dokümantasyon</a></li>
+        <li><a href="#">API Referansı</a></li>
+        <li><a href="#">Sıkça Sorulanlar</a></li>
+        <li><a href="#">İletişim</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Yasal</h4>
+      <ul>
+        <li><a href="#">Gizlilik Politikası</a></li>
+        <li><a href="#">Kullanım Şartları</a></li>
+        <li><a href="#">GDPR Uyumu</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 WoodPro by CleanFix. Tüm hakları saklıdır.</p>
+    <div class="footer-links">
+      <a href="#">Twitter</a>
+      <a href="#">LinkedIn</a>
+      <a href="#">GitHub</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ── Scroll Reveal ── */
+const revealEls = document.querySelectorAll('.reveal');
+const revealObs = new IntersectionObserver((entries) => {
+  entries.forEach((e, i) => { if (e.isIntersecting) { setTimeout(() => e.target.classList.add('visible'), i * 80); } });
+}, { threshold: 0.1 });
+revealEls.forEach(el => revealObs.observe(el));
+
+/* ── Smooth Scroll ── */
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const id = a.getAttribute('href');
+    if (id === '#') return;
+    e.preventDefault();
+    document.querySelector(id)?.scrollIntoView({ behavior: 'smooth' });
+  });
+});
+</script>
+</body>
+</html>

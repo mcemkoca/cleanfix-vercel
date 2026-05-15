@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ElektroPro — Keşif ve Teklif</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/main.css">
+<link rel="stylesheet" href="css/components.css">
+<style>
+:root, [data-theme="dark"] { --glass-bg: rgba(15, 23, 42, 0.60); --glass-border: rgba(148, 163, 184, 0.08); --glass-highlight: rgba(255, 255, 255, 0.03); --card-shadow: 0 1px 3px rgba(0,0,0,0.3), 0 8px 24px rgba(0,0,0,0.2); --card-shadow-hover: 0 2px 6px rgba(0,0,0,0.4), 0 16px 48px rgba(0,0,0,0.3); }
+.reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.6s cubic-bezier(0.22,1,0.36,1), transform 0.6s cubic-bezier(0.22,1,0.36,1); }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+.dashboard { display:flex; min-height:100vh; }
+.sidebar { width:260px; background:var(--bg-card); border-right:1px solid var(--border-color); display:flex; flex-direction:column; position:fixed; inset:0 auto 0 0; z-index:100; transition:transform var(--duration-slow) var(--ease-out); }
+.sidebar.collapsed { transform:translateX(-100%); }
+.sidebar-header { padding:var(--space-5); border-bottom:1px solid var(--border-color); }
+.sidebar-logo { display:flex; align-items:center; gap:var(--space-3); }
+.sidebar-logo .logo-icon { width:40px; height:40px; background:linear-gradient(135deg,var(--teal-500),var(--teal-700)); border-radius:var(--radius-md); display:flex; align-items:center; justify-content:center; font-size:16px; font-weight:700; color:white; }
+.sidebar-logo h2 { font-size:var(--text-base); font-weight:700; letter-spacing:-0.02em; }
+.sidebar-logo p { font-size:var(--text-xs); color:var(--text-muted); }
+.sidebar-nav { flex:1; overflow-y:auto; padding:var(--space-3); }
+.nav-group { margin-bottom:var(--space-4); }
+.nav-label { font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:0.1em; color:var(--text-muted); padding:0 var(--space-3) var(--space-2); }
+.nav-item { display:flex; align-items:center; gap:var(--space-3); padding:10px var(--space-3); border-radius:var(--radius-md); cursor:pointer; transition:all var(--duration-fast); color:var(--text-secondary); font-size:var(--text-sm); font-weight:500; margin-bottom:2px; text-decoration:none; }
+.nav-item:hover { background:var(--bg-secondary); color:var(--text-primary); }
+.nav-item.active { background:rgba(20,184,166,0.1); color:var(--teal-500); box-shadow: inset 0 0 0 1px rgba(20,184,166,0.15); }
+.nav-badge { margin-left:auto; background:var(--bg-tertiary); color:var(--text-secondary); font-size:var(--text-xs); font-weight:600; padding:2px 8px; border-radius:9999px; }
+.nav-item.active .nav-badge { background:var(--teal-500); color:white; }
+.sidebar-footer { padding:var(--space-4); border-top:1px solid var(--border-color); }
+.sidebar-user { display:flex; align-items:center; gap:var(--space-3); }
+.sidebar-user-info { flex:1; }
+.sidebar-user-info p { font-size:var(--text-sm); font-weight:600; }
+.sidebar-user-info span { font-size:var(--text-xs); color:var(--text-muted); }
+.main { flex:1; margin-left:260px; display:flex; flex-direction:column; min-height:100vh; }
+.header { height:64px; background:rgba(15,23,42,0.85); border-bottom:1px solid var(--border-color); display:flex; align-items:center; justify-content:space-between; padding:0 var(--space-6); position:sticky; top:0; z-index:50; backdrop-filter:blur(12px); }
+.header-left { display:flex; align-items:center; gap:var(--space-4); }
+.menu-btn { width:36px; height:36px; border-radius:var(--radius-md); display:flex; align-items:center; justify-content:center; background:var(--bg-secondary); border:1px solid var(--border-color); color:var(--text-secondary); cursor:pointer; transition:all var(--duration-fast); }
+.menu-btn:hover { color:var(--teal-500); border-color:var(--teal-500); }
+.page-title { font-size:20px; font-weight:800; letter-spacing:-0.03em; }
+.header-right { display:flex; align-items:center; gap:var(--space-3); }
+.header-btn { width:38px; height:38px; border-radius:var(--radius-md); display:flex; align-items:center; justify-content:center; background:var(--bg-secondary); border:1px solid var(--border-color); color:var(--text-secondary); cursor:pointer; transition:all var(--duration-fast); position:relative; }
+.header-btn:hover { color:var(--teal-500); border-color:var(--teal-500); }
+.header-btn .badge-count { position:absolute; top:-4px; right:-4px; min-width:18px; height:18px; background:var(--error-500); color:white; font-size:10px; font-weight:700; border-radius:9999px; display:flex; align-items:center; justify-content:center; border:2px solid var(--bg-card); padding:0 4px; }
+.content { flex:1; padding:var(--space-6); }
+.glass-card { background:var(--glass-bg); backdrop-filter:blur(16px) saturate(1.4); -webkit-backdrop-filter:blur(16px) saturate(1.4); border:1px solid var(--glass-border); border-radius:var(--radius-lg); box-shadow:var(--card-shadow), inset 0 1px 0 var(--glass-highlight); overflow:hidden; transition:transform 0.3s ease, box-shadow 0.3s ease; }
+.glass-card:hover { transform:translateY(-2px); box-shadow:var(--card-shadow-hover), inset 0 1px 0 var(--glass-highlight); }
+.card-header { display:flex; align-items:center; justify-content:space-between; padding:var(--space-4) var(--space-5); border-bottom:1px solid var(--border-color); }
+.card-title { display:flex; align-items:center; gap:var(--space-2); font-size:var(--text-sm); font-weight:700; letter-spacing:-0.01em; }
+.table-compact td { padding:10px var(--space-4); font-size:var(--text-sm); }
+.table-compact thead th { padding:10px var(--space-4); }
+.filters-bar { display:flex; gap:var(--space-3); flex-wrap:wrap; margin-bottom:var(--space-5); align-items:center; }
+.sidebar-overlay { position:fixed; inset:0; background:rgba(0,0,0,0.4); z-index:99; opacity:0; visibility:hidden; transition:all var(--duration-normal); }
+.sidebar-overlay.active { opacity:1; visibility:visible; }
+@media (max-width:1024px) { .sidebar { transform:translateX(-100%); } .sidebar.open { transform:translateX(0); } .main { margin-left:0; } }
+</style>
+</head>
+<body>
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+<div class="dashboard">
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-header">
+    <div class="sidebar-logo">
+      <div class="logo-icon">⚡</div>
+      <div><h2>ElektroPro</h2><p>Elektrik ve Tesisat</p></div>
+    </div>
+  </div>
+  <div class="sidebar-nav">
+    <div class="nav-group">
+      <div class="nav-label">Ana Menü</div>
+      <a class="nav-item" href="dashboard.html">📊 Dashboard</a>
+      <a class="nav-item" href="elektropro-projects.html">📋 Projeler</a>
+      <a class="nav-item active" href="elektropro-inspection.html">🔍 Keşif ve Teklif</a>
+      <a class="nav-item" href="elektropro-certs.html">📜 Sertifikalar</a>
+      <a class="nav-item" href="elektropro-suppliers.html">📦 Tedarikçiler</a>
+    </div>
+    <div class="nav-group">
+      <div class="nav-label">Platform</div>
+      <a class="nav-item" href="../../index.html">🏠 CleanFix Ana Sayfa</a>
+      <a class="nav-item" href="../buildpro/index.html">🏗️ BuildPro</a>
+      <a class="nav-item" href="../barberpro/index.html">💜 BarberPro</a>
+    </div>
+  </div>
+  <div class="sidebar-footer">
+    <div class="sidebar-user">
+      <div class="sidebar-user-info"><p>ElektroPro Demo</p><span>Elektrik Sektörü</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="main">
+  <header class="header">
+    <div class="header-left">
+      <button class="menu-btn" id="menuBtn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
+      <h1 class="page-title">Keşif ve Teklif</h1>
+    </div>
+    <div class="header-right">
+      <div class="search-input" style="max-width:240px;"><svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg><input type="text" class="form-input" placeholder="Keşif veya teklif ara..." style="padding-left:36px;font-size:var(--text-sm);"></div>
+      <button class="header-btn" id="notifBtn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg><span class="badge-count">4</span></button>
+      <button class="header-btn" id="themeToggle"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/></svg></button>
+      <div class="avatar avatar-sm" style="cursor:pointer;">EP</div>
+    </div>
+  </header>
+
+  <main class="content">
+    <div class="filters-bar">
+      <div class="filter-group"><label style="font-size:var(--text-xs);color:var(--text-muted);font-weight:600;text-transform:uppercase;letter-spacing:0.05em;">Durum</label><select class="form-select" style="min-width:140px;"><option>Tümü</option><option>Açık Teklif</option><option>Onaylandı</option><option>Reddedildi</option><option>Bekliyor</option></select></div>
+      <div class="filter-group"><label style="font-size:var(--text-xs);color:var(--text-muted);font-weight:600;text-transform:uppercase;letter-spacing:0.05em;">Tür</label><select class="form-select" style="min-width:140px;"><option>Tümü</option><option>Elektrik</option><option>Tesisat</option><option>Kombi</option><option>Kamera</option></select></div>
+      <div style="flex:1;"></div>
+      <button class="btn btn-primary" onclick="openModal('addInspectionModal')">+ Yeni Keşif</button>
+      <button class="btn btn-secondary" onclick="openModal('addQuoteModal')">+ Teklif Oluştur</button>
+    </div>
+
+    <div class="glass-card reveal">
+      <div class="card-header"><div class="card-title"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--teal-500)" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg> Keşif ve Teklif Listesi — 24 Kayıt</div></div>
+      <div class="table-wrap">
+        <table class="table table-compact">
+          <thead><tr><th>Teklif No</th><th>Keşif Tarihi</th><th>Müşteri</th><th>Adres</th><th>Tür</th><th>Teklif Tutarı</th><th>Geçerlilik</th><th>Durum</th><th>Actions</th></tr></thead>
+          <tbody>
+            <tr><td><strong>#EP-2026-089</strong></td><td>14 May 2026</td><td>Residence Europa YKB</td><td>Avenue de l'Europe 45, 1000 Bruxelles</td><td><span class="badge badge-info">Elektrik</span></td><td>€12,450</td><td>30 gün</td><td><span class="badge badge-success">Onaylandı</span></td><td><div style="display:flex;gap:4px;"><button class="btn btn-icon-sm btn-ghost" onclick="openModal('viewQuoteModal')">👁</button><button class="btn btn-icon-sm btn-ghost" onclick="openModal('editQuoteModal')">✎</button><button class="btn btn-icon-sm btn-ghost" onclick="openDeleteModal('#EP-2026-089')">🗑</button></div></td></tr>
+            <tr><td><strong>#EP-2026-088</strong></td><td>13 May 2026</td><td>Bistro Central</td><td>Rue du Marché 8, 1000 Bruxelles</td><td><span class="badge badge-warning">Tesisat</span></td><td>€8,200</td><td>30 gün</td><td><span class="badge badge-success">Onaylandı</span></td><td><div style="display:flex;gap:4px;"><button class="btn btn-icon-sm btn-ghost" onclick="openModal('viewQuoteModal')">👁</button><button class="btn btn-icon-sm btn-ghost" onclick="openModal('editQuoteModal')">✎</button><button class="btn btn-icon-sm btn-ghost" onclick="openDeleteModal('#EP-2026-088')">🗑</button></div></td></tr>
+            <tr><td><strong>#EP-2026-087</strong></td><td>12 May 2026</td><td>Villa du Parc</td><td>Avenue du Parc Royal 22, 1020 Bruxelles</td><td><span class="badge badge-success">Kamera</span></td><td>€4,850</td><td>30 gün</td><td><span class="badge badge-warning">Bekliyor</span></td><td><div style="display:flex;gap:4px;"><button class="btn btn-icon-sm btn-ghost" onclick="openModal('viewQuoteModal')">👁</button><button class="btn btn-icon-sm btn-ghost" onclick="openModal('editQuoteModal')">✎</button><button class="btn btn-icon-sm btn-ghost" onclick="openDeleteModal('#EP-2026-087')">🗑</button></div></td></tr>
+            <tr><td><strong>#EP-2026-086</strong></td><td>11 May 2026</td><td>Appartement Zuid</td><td>Vlaamsekaai 50, 2000 Antwerpen</td><td><span class="badge badge-neutral">Kombi</span></td><td>€6,300</td><td>30 gün</td><td><span class="badge badge-success">Onaylandı</span></td><td><div style="display:flex;gap:4px;"><button class="btn btn-icon-sm btn-ghost" onclick="openModal('viewQuoteModal')">👁</button><button class="btn btn-icon-sm btn-ghost" onclick="openModal('editQuoteModal')">✎</button><button class="btn btn-icon-sm btn-ghost" onclick="openDeleteModal('#EP-2026-086')">🗑</button></div></td></tr>
+            <tr><td><strong>#EP-2026-085</strong></td><td>10 May 2026</td><td>Centre Commercial Nord</td><td>Boulevard Léopold II 150, 1080 Molenbeek</td><td><span class="badge badge-info">Elektrik</span></td><td>€28,900</td><td>30 gün</td><td><span class="badge badge-warning">Bekliyor</span></td><td><div style="display:flex;gap:4px;"><button class="btn btn-icon-sm btn-ghost" onclick="openModal('viewQuoteModal')">👁</button><button class="btn btn-icon-sm btn-ghost" onclick="openModal('editQuoteModal')">✎</button><button class="btn btn-icon-sm btn-ghost" onclick="openDeleteModal('#EP-2026-085')">🗑</button></div></td></tr>
+            <tr><td><strong>#EP-2026-084</strong></td><td>09 May 2026</td><td>Maison Verte</td><td>Demerstraat 33, 3500 Hasselt</td><td><span class="badge badge-warning">Tesisat</span></td><td>€3,600</td><td>30 gün</td><td><span class="badge badge-error">Reddedildi</span></td><td><div style="display:flex;gap:4px;"><button class="btn btn-icon-sm btn-ghost" onclick="openModal('viewQuoteModal')">👁</button><button class="btn btn-icon-sm btn-ghost" onclick="openModal('editQuoteModal')">✎</button><button class="btn btn-icon-sm btn-ghost" onclick="openDeleteModal('#EP-2026-084')">🗑</button></div></td></tr>
+            <tr><td><strong>#EP-2026-083</strong></td><td>08 May 2026</td><td>École des Arbres</td><td>Rue de l'Arbre 88, 1050 Ixelles</td><td><span class="badge badge-info">Elektrik</span></td><td>€15,200</td><td>30 gün</td><td><span class="badge badge-success">Onaylandı</span></td><td><div style="display:flex;gap:4px;"><button class="btn btn-icon-sm btn-ghost" onclick="openModal('viewQuoteModal')">👁</button><button class="btn btn-icon-sm btn-ghost" onclick="openModal('editQuoteModal')">✎</button><button class="btn btn-icon-sm btn-ghost" onclick="openDeleteModal('#EP-2026-083')">🗑</button></div></td></tr>
+            <tr><td><strong>#EP-2026-082</strong></td><td>07 May 2026</td><td>Hôtel du Centre</td><td>Rue du Marché 12, 1000 Bruxelles</td><td><span class="badge badge-info">Elektrik</span></td><td>€22,500</td><td>30 gün</td><td><span class="badge badge-success">Onaylandı</span></td><td><div style="display:flex;gap:4px;"><button class="btn btn-icon-sm btn-ghost" onclick="openModal('viewQuoteModal')">👁</button><button class="btn btn-icon-sm btn-ghost" onclick="openModal('editQuoteModal')">✎</button><button class="btn btn-icon-sm btn-ghost" onclick="openDeleteModal('#EP-2026-082')">🗑</button></div></td></tr>
+            <tr><td><strong>#EP-2026-081</strong></td><td>06 May 2026</td><td>Supermarché Liège</td><td>Rue de la Wallonie 45, 4000 Liège</td><td><span class="badge badge-success">Aydınlatma</span></td><td>€18,700</td><td>30 gün</td><td><span class="badge badge-warning">Bekliyor</span></td><td><div style="display:flex;gap:4px;"><button class="btn btn-icon-sm btn-ghost" onclick="openModal('viewQuoteModal')">👁</button><button class="btn btn-icon-sm btn-ghost" onclick="openModal('editQuoteModal')">✎</button><button class="btn btn-icon-sm btn-ghost" onclick="openDeleteModal('#EP-2026-081')">🗑</button></div></td></tr>
+            <tr><td><strong>#EP-2026-080</strong></td><td>05 May 2026</td><td>Industriepark Noord</td><td>Industrieweg 78, 2030 Antwerpen</td><td><span class="badge badge-warning">Tesisat</span></td><td>€45,000</td><td>30 gün</td><td><span class="badge badge-success">Onaylandı</span></td><td><div style="display:flex;gap:4px;"><button class="btn btn-icon-sm btn-ghost" onclick="openModal('viewQuoteModal')">👁</button><button class="btn btn-icon-sm btn-ghost" onclick="openModal('editQuoteModal')">✎</button><button class="btn btn-icon-sm btn-ghost" onclick="openDeleteModal('#EP-2026-080')">🗑</button></div></td></tr>
+            <tr><td><strong>#EP-2026-079</strong></td><td>04 May 2026</td><td>Clinique Saint-Jean</td><td>Boulevard du Jardin Botanique 32, 1000 Bruxelles</td><td><span class="badge badge-error">Acil</span></td><td>€38,500</td><td>15 gün</td><td><span class="badge badge-success">Onaylandı</span></td><td><div style="display:flex;gap:4px;"><button class="btn btn-icon-sm btn-ghost" onclick="openModal('viewQuoteModal')">👁</button><button class="btn btn-icon-sm btn-ghost" onclick="openModal('editQuoteModal')">✎</button><button class="btn btn-icon-sm btn-ghost" onclick="openDeleteModal('#EP-2026-079')">🗑</button></div></td></tr>
+            <tr><td><strong>#EP-2026-078</strong></td><td>03 May 2026</td><td>Wijkproject Zuid</td><td>Kortrijksesteenweg 200, 9000 Gent</td><td><span class="badge badge-success">Aydınlatma</span></td><td>€52,000</td><td>45 gün</td><td><span class="badge badge-warning">Bekliyor</span></td><td><div style="display:flex;gap:4px;"><button class="btn btn-icon-sm btn-ghost" onclick="openModal('viewQuoteModal')">👁</button><button class="btn btn-icon-sm btn-ghost" onclick="openModal('editQuoteModal')">✎</button><button class="btn btn-icon-sm btn-ghost" onclick="openDeleteModal('#EP-2026-078')">🗑</button></div></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div style="display:flex;justify-content:space-between;align-items:center;padding:var(--space-4) var(--space-5);border-top:1px solid var(--border-color);">
+        <span style="font-size:var(--text-sm);color:var(--text-muted);">Gösterilen: 1-12 / 24 kayıt</span>
+        <div style="display:flex;gap:4px;">
+          <button class="btn btn-sm btn-ghost" disabled>← Önceki</button>
+          <button class="btn btn-sm btn-primary">1</button>
+          <button class="btn btn-sm btn-ghost">2</button>
+          <button class="btn btn-sm btn-ghost">Sonraki →</button>
+        </div>
+      </div>
+    </div>
+
+    <div style="text-align:center; padding:var(--space-6) 0; border-top:1px solid var(--border-color); margin-top:var(--space-4);">
+      <p style="font-size:var(--text-xs); color:var(--text-muted); margin-bottom:var(--space-3);">Diğer CleanFix Platformları</p>
+      <div style="display:flex; gap:var(--space-3); justify-content:center; flex-wrap:wrap;">
+        <a href="../../index.html" class="btn btn-sm btn-secondary">🧹 CleanFix</a>
+        <a href="../buildpro/index.html" class="btn btn-sm btn-secondary">🏗️ BuildPro</a>
+        <a href="../barberpro/index.html" class="btn btn-sm btn-secondary">💜 BarberPro</a>
+        <a href="../marketpro/index.html" class="btn btn-sm btn-secondary">🛒 MarketPro</a>
+        <a href="../restopro/index.html" class="btn btn-sm btn-secondary">🏥 MediPro</a>
+      </div>
+      <p style="font-size:var(--text-xs); color:var(--text-muted); margin-top:var(--space-4);">© 2026 ElektroPro BVBA — Belçika'da geliştirildi ⚡</p>
+    </div>
+  </main>
+</div>
+</div>
+
+<div class="modal-overlay" id="addInspectionModal">
+  <div class="modal">
+    <div class="modal-header"><div class="modal-title">Yeni Keşif Ekle</div><button class="modal-close" onclick="closeModal('addInspectionModal')">✕</button></div>
+    <div class="modal-body">
+      <div class="form-group"><label class="form-label">Müşteri</label><input type="text" class="form-input" placeholder="Müşteri adı"></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-4);">
+        <div class="form-group"><label class="form-label">Adres</label><input type="text" class="form-input" placeholder="Brüksel, Anvers..."></div>
+        <div class="form-group"><label class="form-label">Keşif Tarihi</label><input type="date" class="form-input"></div>
+        <div class="form-group"><label class="form-label">Tür</label><select class="form-select"><option>Elektrik</option><option>Tesisat</option><option>Kombi</option><option>Kamera</option></select></div>
+        <div class="form-group"><label class="form-label">Teknisyen</label><select class="form-select"><option>Jan De Smet</option><option>Pieter Bauwens</option><option>Marc Vermeiren</option><option>Sophie Janssens</option></select></div>
+      </div>
+      <div class="form-group"><label class="form-label">Notlar</label><textarea class="form-textarea" rows="3" placeholder="Keşif notları..."></textarea></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('addInspectionModal')">İptal</button>
+      <button class="btn btn-primary" onclick="closeModal('addInspectionModal');showToast('Keşif başarıyla eklendi','success')">Kaydet</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="addQuoteModal">
+  <div class="modal modal-lg">
+    <div class="modal-header"><div class="modal-title">Yeni Teklif Oluştur</div><button class="modal-close" onclick="closeModal('addQuoteModal')">✕</button></div>
+    <div class="modal-body">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-4);">
+        <div class="form-group"><label class="form-label">Teklif No</label><input type="text" class="form-input" placeholder="Örn: EP-2026-090"></div>
+        <div class="form-group"><label class="form-label">Müşteri</label><input type="text" class="form-input" placeholder="Müşteri adı"></div>
+        <div class="form-group"><label class="form-label">Tür</label><select class="form-select"><option>Elektrik</option><option>Tesisat</option><option>Kombi</option><option>Kamera</option><option>Aydınlatma</option></select></div>
+        <div class="form-group"><label class="form-label">Tutar (€)</label><input type="text" class="form-input" placeholder="0.00"></div>
+        <div class="form-group"><label class="form-label">Geçerlilik (gün)</label><input type="number" class="form-input" value="30"></div>
+        <div class="form-group"><label class="form-label">Teknisyen</label><select class="form-select"><option>Jan De Smet</option><option>Pieter Bauwens</option><option>Marc Vermeiren</option></select></div>
+      </div>
+      <div class="form-group" style="margin-top:var(--space-4);"><label class="form-label">Kapsam ve Notlar</label><textarea class="form-textarea" rows="4" placeholder="Teklif kapsamı, hariç tutulanlar, özel şartlar..."></textarea></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('addQuoteModal')">İptal</button>
+      <button class="btn btn-primary" onclick="closeModal('addQuoteModal');showToast('Teklif başarıyla oluşturuldu','success')">Oluştur</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="editQuoteModal">
+  <div class="modal modal-lg">
+    <div class="modal-header"><div class="modal-title">Teklifi Düzenle</div><button class="modal-close" onclick="closeModal('editQuoteModal')">✕</button></div>
+    <div class="modal-body">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-4);">
+        <div class="form-group"><label class="form-label">Teklif No</label><input type="text" class="form-input" value="EP-2026-089"></div>
+        <div class="form-group"><label class="form-label">Müşteri</label><input type="text" class="form-input" value="Residence Europa YKB"></div>
+        <div class="form-group"><label class="form-label">Tür</label><select class="form-select"><option selected>Elektrik</option><option>Tesisat</option></select></div>
+        <div class="form-group"><label class="form-label">Tutar (€)</label><input type="text" class="form-input" value="12450"></div>
+        <div class="form-group"><label class="form-label">Durum</label><select class="form-select"><option selected>Onaylandı</option><option>Bekliyor</option><option>Reddedildi</option></select></div>
+        <div class="form-group"><label class="form-label">Geçerlilik (gün)</label><input type="number" class="form-input" value="30"></div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('editQuoteModal')">İptal</button>
+      <button class="btn btn-primary" onclick="closeModal('editQuoteModal');showToast('Teklif güncellendi','success')">Güncelle</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="viewQuoteModal">
+  <div class="modal modal-lg">
+    <div class="modal-header"><div class="modal-title">Teklif Detayları</div><button class="modal-close" onclick="closeModal('viewQuoteModal')">✕</button></div>
+    <div class="modal-body">
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-4);margin-bottom:var(--space-4);">
+        <div style="background:var(--bg-secondary);padding:var(--space-4);border-radius:var(--radius-md);"><div style="font-size:var(--text-xs);color:var(--text-muted);margin-bottom:4px;">Teklif No</div><div style="font-size:var(--text-lg);font-weight:700;">#EP-2026-089</div></div>
+        <div style="background:var(--bg-secondary);padding:var(--space-4);border-radius:var(--radius-md);"><div style="font-size:var(--text-xs);color:var(--text-muted);margin-bottom:4px;">Tutar</div><div style="font-size:var(--text-lg);font-weight:700;color:var(--teal-500);">€12,450</div></div>
+        <div style="background:var(--bg-secondary);padding:var(--space-4);border-radius:var(--radius-md);"><div style="font-size:var(--text-xs);color:var(--text-muted);margin-bottom:4px;">Durum</div><div style="font-size:var(--text-lg);font-weight:700;color:var(--success-500);">Onaylandı</div></div>
+      </div>
+      <div class="form-group"><label class="form-label">Müşteri</label><input type="text" class="form-input" value="Residence Europa YKB" readonly></div>
+      <div class="form-group"><label class="form-label">Adres</label><input type="text" class="form-input" value="Avenue de l'Europe 45, 1000 Bruxelles" readonly></div>
+      <div class="form-group"><label class="form-label">Kapsam</label><textarea class="form-textarea" rows="4" readonly>Apartman elektrik tesisatı yenileme. 45 daire, ana pano değişimi, LED aydınlatma, topraklama kontrolü. NBN/AREI uyumlu.</textarea></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('viewQuoteModal')">Kapat</button>
+      <button class="btn btn-primary" onclick="closeModal('viewQuoteModal');openModal('editQuoteModal')">Düzenle</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="deleteQuoteModal">
+  <div class="modal">
+    <div class="modal-header"><div class="modal-title" style="color:var(--error-500);">Teklifi Sil</div><button class="modal-close" onclick="closeModal('deleteQuoteModal')">✕</button></div>
+    <div class="modal-body">
+      <p style="font-size:var(--text-sm);color:var(--text-secondary);margin-bottom:var(--space-4);"><strong id="deleteQuoteName"></strong> teklifini silmek üzeresiniz. Bu işlem geri alınamaz.</p>
+      <div style="background:rgba(244,63,94,0.08);border:1px solid rgba(244,63,94,0.2);border-radius:var(--radius-md);padding:var(--space-4);">
+        <div style="font-size:var(--text-xs);color:var(--error-500);font-weight:600;margin-bottom:4px;">⚠️ Dikkat</div>
+        <div style="font-size:var(--text-sm);color:var(--text-secondary);">Teklife ait tüm keşif kayıtları, malzeme listeleri ve PDF dosyaları da silinecektir.</div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('deleteQuoteModal')">İptal</button>
+      <button class="btn btn-primary" style="background:var(--error-500);" onclick="closeModal('deleteQuoteModal');showToast(document.getElementById('deleteQuoteName').textContent + ' silindi','error')">Sil</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const sidebar=document.getElementById('sidebar');
+const menuBtn=document.getElementById('menuBtn');
+const overlay=document.getElementById('sidebarOverlay');
+menuBtn.addEventListener('click',()=>{sidebar.classList.toggle('open');overlay.classList.toggle('active');});
+overlay.addEventListener('click',()=>{sidebar.classList.remove('open');overlay.classList.remove('active');});
+const html=document.documentElement;
+let theme=localStorage.getItem('ep-theme')||'dark';
+html.setAttribute('data-theme',theme);
+document.getElementById('themeToggle').addEventListener('click',()=>{theme=theme==='dark'?'light':'dark';html.setAttribute('data-theme',theme);localStorage.setItem('ep-theme',theme);});
+function showToast(msg,type='success',dur=3000){
+  let c=document.querySelector('.toast-container');
+  if(!c){c=document.createElement('div');c.className='toast-container';c.style.cssText='position:fixed;top:80px;right:24px;z-index:2000;display:flex;flex-direction:column;gap:12px;pointer-events:none;max-width:360px;';document.body.appendChild(c);}
+  const t=document.createElement('div');
+  const colors={success:'var(--success-500)',error:'var(--error-500)',warning:'var(--warning-500)',info:'var(--info-500)'};
+  const icons={success:'✓',error:'✕',warning:'!',info:'ℹ'};
+  const titles={success:'Başarılı',error:'Hata',warning:'Uyarı',info:'Bilgi'};
+  t.style.cssText=`pointer-events:all;background:var(--bg-card);border:1px solid ${colors[type]};border-radius:12px;padding:14px 18px;display:flex;align-items:flex-start;gap:12px;box-shadow:var(--shadow-lg);animation:toastIn 0.3s ease-out;position:relative;overflow:hidden;`;
+  t.innerHTML=`<span style="flex-shrink:0;margin-top:2px;width:20px;height:20px;border-radius:50%;background:${colors[type]};color:white;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;">${icons[type]}</span><div style="flex:1;"><div style="font-weight:600;font-size:var(--text-sm);">${titles[type]}</div><div style="font-size:var(--text-sm);color:var(--text-muted);margin-top:2px;">${msg}</div></div><span style="flex-shrink:0;color:var(--text-muted);cursor:pointer;font-size:14px;" onclick="this.parentElement.remove()">✕</span><div style="position:absolute;bottom:0;left:0;height:2px;background:${colors[type]};animation:progressBar 4s linear forwards;width:100%;"></div>`;
+  c.appendChild(t);
+  setTimeout(()=>{t.style.animation='toastOut 0.3s ease-in forwards';setTimeout(()=>t.remove(),300);},dur);
+}
+function openModal(id,name){
+  const modal=document.getElementById(id);
+  if(modal) modal.classList.add('active');
+  if(name&&id==='deleteQuoteModal'){const el=document.getElementById('deleteQuoteName');if(el)el.textContent=name;}
+}
+function closeModal(id){const modal=document.getElementById(id);if(modal)modal.classList.remove('active');}
+function openDeleteModal(name){openModal('deleteQuoteModal',name);}
+document.querySelectorAll('.modal-overlay').forEach(overlay=>{overlay.addEventListener('click',(e)=>{if(e.target===overlay)overlay.classList.remove('active');});});
+const revealObserver=new IntersectionObserver((entries)=>{entries.forEach(entry=>{if(entry.isIntersecting)entry.target.classList.add('visible');});},{threshold:0.1,rootMargin:'0px 0px -50px 0px'});
+document.querySelectorAll('.reveal').forEach(el=>revealObserver.observe(el));
+</script>
+</body>
+</html>

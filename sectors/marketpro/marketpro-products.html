@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MarketPro — Ürünler</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/main.css">
+<link rel="stylesheet" href="css/components.css">
+<style>
+:root, [data-theme="dark"] {
+  --glass-bg: rgba(15, 23, 42, 0.60);
+  --glass-border: rgba(148, 163, 184, 0.08);
+  --glass-highlight: rgba(255, 255, 255, 0.03);
+  --card-shadow: 0 1px 3px rgba(0,0,0,0.3), 0 8px 24px rgba(0,0,0,0.2);
+  --card-shadow-hover: 0 2px 6px rgba(0,0,0,0.4), 0 16px 48px rgba(0,0,0,0.3);
+}
+.dashboard { display:flex; min-height:100vh; }
+.sidebar {
+  width:260px; background:var(--bg-card); border-right:1px solid var(--border-color);
+  display:flex; flex-direction:column; position:fixed; inset:0 auto 0 0; z-index:100;
+  transition:transform var(--duration-slow) var(--ease-out);
+}
+.sidebar-header { padding:var(--space-5); border-bottom:1px solid var(--border-color); }
+.sidebar-logo { display:flex; align-items:center; gap:var(--space-3); }
+.sidebar-logo .logo-icon { width:40px; height:40px; background:linear-gradient(135deg,var(--teal-500),var(--teal-700)); border-radius:var(--radius-md); display:flex; align-items:center; justify-content:center; font-size:16px; font-weight:700; color:white; }
+.sidebar-logo h2 { font-size:var(--text-base); font-weight:700; }
+.sidebar-logo p { font-size:var(--text-xs); color:var(--text-muted); }
+.sidebar-nav { flex:1; overflow-y:auto; padding:var(--space-4); }
+.nav-group { margin-bottom:var(--space-5); }
+.nav-label { font-size:var(--text-xs); font-weight:600; text-transform:uppercase; letter-spacing:0.08em; color:var(--text-muted); margin-bottom:var(--space-2); padding-left:var(--space-3); }
+.nav-item { display:flex; align-items:center; gap:var(--space-3); padding:var(--space-2) var(--space-3); border-radius:var(--radius-md); font-size:var(--text-sm); font-weight:500; color:var(--text-secondary); transition:all var(--duration-fast); cursor:pointer; text-decoration:none; }
+.nav-item:hover { background:var(--bg-secondary); color:var(--text-primary); }
+.nav-item.active { background:rgba(20,184,166,0.12); color:var(--teal-400); font-weight:600; }
+.sidebar-footer { padding:var(--space-4); border-top:1px solid var(--border-color); }
+.sidebar-user-info p { font-size:var(--text-sm); font-weight:600; }
+.sidebar-user-info span { font-size:var(--text-xs); color:var(--text-muted); }
+
+.main { flex:1; margin-left:260px; min-height:100vh; display:flex; flex-direction:column; }
+.header { height:64px; padding:0 var(--space-6); display:flex; align-items:center; justify-content:space-between; border-bottom:1px solid var(--border-color); background:var(--bg-card); position:sticky; top:0; z-index:50; }
+.header-left { display:flex; align-items:center; gap:var(--space-4); }
+.menu-btn { width:36px; height:36px; border-radius:var(--radius-md); border:none; background:var(--bg-secondary); color:var(--text-primary); cursor:pointer; display:flex; align-items:center; justify-content:center; }
+.menu-btn:hover { background:var(--bg-tertiary); }
+.page-title { font-size:var(--text-xl); font-weight:700; letter-spacing:-0.02em; }
+.header-right { display:flex; align-items:center; gap:var(--space-3); }
+.header-btn { width:36px; height:36px; border-radius:var(--radius-md); border:none; background:var(--bg-secondary); color:var(--text-primary); cursor:pointer; display:flex; align-items:center; justify-content:center; position:relative; }
+.header-btn:hover { background:var(--bg-tertiary); }
+.header-btn .badge-count { position:absolute; top:-4px; right:-4px; min-width:18px; height:18px; background:var(--error-500); color:white; font-size:10px; font-weight:700; border-radius:9999px; display:flex; align-items:center; justify-content:center; border:2px solid var(--bg-card); padding:0 4px; }
+
+.content { flex:1; padding:var(--space-6); }
+
+.toolbar { display:flex; align-items:center; justify-content:space-between; margin-bottom:var(--space-5); flex-wrap:wrap; gap:var(--space-3); }
+.search-box { display:flex; align-items:center; gap:var(--space-2); background:var(--bg-card); border:1px solid var(--border-color); border-radius:var(--radius-lg); padding:8px 14px; flex:1; max-width:320px; }
+.search-box input { background:transparent; border:none; color:var(--text-primary); font-size:var(--text-sm); outline:none; width:100%; }
+.search-box input::placeholder { color:var(--text-muted); }
+
+.glass-card {
+  background:var(--glass-bg); backdrop-filter:blur(16px) saturate(1.4); -webkit-backdrop-filter:blur(16px) saturate(1.4);
+  border:1px solid var(--glass-border); border-radius:var(--radius-lg);
+  box-shadow:var(--card-shadow), inset 0 1px 0 var(--glass-highlight);
+  overflow:hidden;
+}
+.card-header { display:flex; align-items:center; justify-content:space-between; padding:var(--space-4) var(--space-5); border-bottom:1px solid var(--border-color); flex-wrap:wrap; gap:var(--space-3); }
+.card-title { display:flex; align-items:center; gap:var(--space-2); font-size:var(--text-sm); font-weight:700; }
+
+.table-wrap { overflow-x:auto; }
+.table { width:100%; border-collapse:collapse; font-size:var(--text-sm); }
+.table thead th { text-align:left; padding:12px var(--space-4); font-size:var(--text-xs); font-weight:600; text-transform:uppercase; letter-spacing:0.05em; color:var(--text-muted); border-bottom:1px solid var(--border-color); white-space:nowrap; }
+.table tbody td { padding:12px var(--space-4); border-bottom:1px solid var(--border-color); color:var(--text-secondary); }
+.table tbody tr:last-child td { border-bottom:none; }
+.table tbody tr:hover td { background:var(--bg-secondary); }
+
+.badge { display:inline-flex; align-items:center; padding:3px 10px; border-radius:9999px; font-size:11px; font-weight:700; }
+.badge-success { background:rgba(16,185,129,0.1); color:var(--success-500); }
+.badge-warning { background:rgba(245,158,11,0.1); color:var(--warning-500); }
+.badge-error { background:rgba(244,63,94,0.1); color:var(--error-500); }
+.badge-info { background:rgba(59,130,246,0.1); color:var(--info-500); }
+
+.pagination { display:flex; align-items:center; gap:var(--space-2); margin-top:var(--space-4); justify-content:flex-end; }
+.pagination button { padding:6px 12px; border-radius:var(--radius-md); border:1px solid var(--border-color); background:var(--bg-card); color:var(--text-primary); font-size:var(--text-sm); cursor:pointer; }
+.pagination button.active { background:var(--teal-500); color:white; border-color:var(--teal-500); }
+.pagination button:disabled { opacity:0.4; cursor:not-allowed; }
+
+/* Modal */
+.modal-overlay { z-index:1000; position:fixed; inset:0; background:rgba(0,0,0,0.5); backdrop-filter:blur(4px); display:flex; align-items:center; justify-content:center; padding:24px; opacity:0; visibility:hidden; transition:all var(--duration-normal); }
+.modal-overlay.active { opacity:1; visibility:visible; }
+.modal { background:var(--bg-card); border:1px solid var(--border-color); border-radius:var(--radius-xl); max-width:520px; width:100%; max-height:90vh; overflow-y:auto; box-shadow:var(--shadow-xl); transform:scale(0.95) translateY(10px); transition:transform var(--duration-normal) var(--ease-out); }
+.modal-overlay.active .modal { transform:scale(1) translateY(0); }
+.modal-lg { max-width:680px; }
+.modal-header { display:flex; align-items:center; justify-content:space-between; padding:20px 24px; border-bottom:1px solid var(--border-color); }
+.modal-title { font-size:var(--text-lg); font-weight:700; }
+.modal-close { width:32px; height:32px; border-radius:var(--radius-md); border:none; background:var(--bg-secondary); color:var(--text-muted); cursor:pointer; font-size:16px; }
+.modal-close:hover { background:var(--error-500); color:white; }
+.modal-body { padding:24px; }
+.modal-footer { display:flex; justify-content:flex-end; gap:12px; padding:16px 24px; border-top:1px solid var(--border-color); }
+.form-group { margin-bottom:16px; }
+.form-label { display:block; font-size:var(--text-sm); font-weight:600; margin-bottom:6px; }
+.form-input { width:100%; padding:10px 14px; border-radius:var(--radius-md); border:1px solid var(--border-color); background:var(--bg-input); color:var(--text-primary); font-size:var(--text-sm); }
+.form-input:focus { outline:none; border-color:var(--teal-500); box-shadow:0 0 0 3px rgba(20,184,166,0.15); }
+.form-select { width:100%; padding:10px 14px; border-radius:var(--radius-md); border:1px solid var(--border-color); background:var(--bg-input); color:var(--text-primary); font-size:var(--text-sm); }
+.form-textarea { width:100%; padding:10px 14px; border-radius:var(--radius-md); border:1px solid var(--border-color); background:var(--bg-input); color:var(--text-primary); font-size:var(--text-sm); resize:vertical; font-family:inherit; }
+
+/* Toast */
+.toast-container { position:fixed; top:80px; right:24px; z-index:2000; display:flex; flex-direction:column; gap:12px; pointer-events:none; max-width:360px; }
+
+/* Footer */
+.footer { padding:40px 24px 20px; background:var(--bg-card); border-top:1px solid var(--border-color); margin-top:var(--space-6); }
+.footer-grid { display:grid; grid-template-columns:1.5fr 1fr 1fr 1fr; gap:40px; max-width:1200px; margin:0 auto; }
+.footer-brand h3 { font-size:var(--text-lg); font-weight:700; margin-bottom:12px; }
+.footer-brand p { font-size:var(--text-sm); color:var(--text-muted); line-height:1.6; margin-bottom:16px; }
+.footer-col h4 { font-size:var(--text-sm); font-weight:700; margin-bottom:16px; }
+.footer-col a { display:block; font-size:var(--text-sm); color:var(--text-muted); padding:6px 0; transition:color var(--duration-fast); text-decoration:none; }
+.footer-col a:hover { color:var(--teal-500); }
+.footer-bottom { text-align:center; padding-top:20px; margin-top:20px; border-top:1px solid var(--border-color); font-size:var(--text-xs); color:var(--text-muted); }
+
+.sidebar-overlay { position:fixed; inset:0; background:rgba(0,0,0,0.4); z-index:99; opacity:0; visibility:hidden; transition:all var(--duration-normal); }
+.sidebar-overlay.active { opacity:1; visibility:visible; }
+
+@media (max-width:1024px) {
+  .sidebar { transform:translateX(-100%); }
+  .sidebar.open { transform:translateX(0); }
+  .main { margin-left:0; }
+  .footer-grid { grid-template-columns:1fr 1fr; }
+}
+@media (max-width:640px) {
+  .footer-grid { grid-template-columns:1fr; }
+  .content { padding:var(--space-4); }
+}
+
+@keyframes toastIn { from{opacity:0;transform:translateY(-20px) scale(0.95);}to{opacity:1;transform:translateY(0) scale(1);} }
+@keyframes toastOut { from{opacity:1;transform:translateY(0) scale(1);}to{opacity:0;transform:translateY(-20px) scale(0.95);} }
+@keyframes progressBar { from{width:100%;}to{width:0;} }
+</style>
+</head>
+<body>
+
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+<div class="dashboard">
+
+<!-- Sidebar -->
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-header">
+    <div class="sidebar-logo">
+      <div class="logo-icon">🛒</div>
+      <div>
+        <h2>MarketPro</h2>
+        <p>Market Yönetimi</p>
+      </div>
+    </div>
+  </div>
+  <div class="sidebar-nav">
+    <div class="nav-group">
+      <div class="nav-label">Ana Menü</div>
+      <a class="nav-item" href="dashboard.html">📊 Dashboard</a>
+      <a class="nav-item active" href="marketpro-products.html">🏷️ Ürünler</a>
+      <a class="nav-item" href="marketpro-stock.html">📦 Stok</a>
+      <a class="nav-item" href="marketpro-sales.html">💶 Satışlar</a>
+      <a class="nav-item" href="marketpro-suppliers.html">🚚 Tedarikçiler</a>
+    </div>
+    <div class="nav-group">
+      <div class="nav-label">Diğer</div>
+      <a class="nav-item" href="index.html">🏠 Ana Sayfa</a>
+      <span class="nav-item">⚙️ Ayarlar</span>
+    </div>
+  </div>
+  <div class="sidebar-footer">
+    <div class="sidebar-user-info">
+      <p>MarketPro Demo</p>
+      <span>Market Sektörü</span>
+    </div>
+  </div>
+</div>
+
+<!-- Main -->
+<div class="main">
+  <header class="header">
+    <div class="header-left">
+      <button class="menu-btn" id="menuBtn">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+      <h1 class="page-title">Ürün Kataloğu</h1>
+    </div>
+    <div class="header-right">
+      <button class="header-btn" id="themeToggle">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/></svg>
+      </button>
+      <div class="avatar" style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,#14b8a6,#0f766e);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:white;cursor:pointer;">AK</div>
+    </div>
+  </header>
+
+  <main class="content">
+    <div class="toolbar">
+      <div class="search-box">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        <input type="text" placeholder="Ürün adı, barkod veya kategori ara...">
+      </div>
+      <div style="display:flex;gap:8px;">
+        <button class="btn btn-secondary" onclick="showToast('Filtre paneli açıldı','info')">🔍 Filtre</button>
+        <button class="btn btn-primary" onclick="openModal('addProductModal')">+ Yeni Ürün</button>
+      </div>
+    </div>
+
+    <div class="glass-card">
+      <div class="card-header">
+        <div class="card-title">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--teal-500)" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+          Tüm Ürünler
+        </div>
+        <span style="font-size:var(--text-xs); color:var(--text-muted);">Toplam 4,832 ürün</span>
+      </div>
+      <div class="table-wrap">
+        <table class="table" id="productsTable">
+          <thead>
+            <tr>
+              <th>Barkod</th>
+              <th>Ürün Adı</th>
+              <th>Kategori</th>
+              <th>Fiyat</th>
+              <th>Stok</th>
+              <th>Birim</th>
+              <th>SKT</th>
+              <th>Durum</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>5400141123456</code></td>
+              <td><strong>Süt Tam Yağlı 1L</strong></td>
+              <td><span class="badge badge-info">Süt Ürünleri</span></td>
+              <td>€1.89</td>
+              <td>12</td>
+              <td>Adet</td>
+              <td>18 May 2026</td>
+              <td><span class="badge badge-warning">Düşük Stok</span></td>
+              <td>
+                <div style="display:flex;gap:4px;">
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openModal('viewProductModal','Süt Tam Yağlı 1L')" title="Görüntüle">👁</button>
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openModal('editProductModal','Süt Tam Yağlı 1L')" title="Düzenle">✎</button>
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openDeleteModal('Süt Tam Yağlı 1L')" title="Sil">🗑</button>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td><code>5400141123463</code></td>
+              <td><strong>Ekmek Taze Beyaz 400g</strong></td>
+              <td><span class="badge badge-info">Ekmek</span></td>
+              <td>€1.49</td>
+              <td>3</td>
+              <td>Adet</td>
+              <td>17 May 2026</td>
+              <td><span class="badge badge-error">Kritik</span></td>
+              <td>
+                <div style="display:flex;gap:4px;">
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openModal('viewProductModal','Ekmek Taze Beyaz 400g')" title="Görüntüle">👁</button>
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openModal('editProductModal','Ekmek Taze Beyaz 400g')" title="Düzenle">✎</button>
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openDeleteModal('Ekmek Taze Beyaz 400g')" title="Sil">🗑</button>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td><code>5400141123470</code></td>
+              <td><strong>Yumurta 10'lu L Boy</strong></td>
+              <td><span class="badge badge-info">Kahvaltılık</span></td>
+              <td>€3.29</td>
+              <td>2</td>
+              <td>Koli</td>
+              <td>25 May 2026</td>
+              <td><span class="badge badge-error">Kritik</span></td>
+              <td>
+                <div style="display:flex;gap:4px;">
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openModal('viewProductModal','Yumurta 10\'lu L Boy')" title="Görüntüle">👁</button>
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openModal('editProductModal','Yumurta 10\'lu L Boy')" title="Düzenle">✎</button>
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openDeleteModal('Yumurta 10\'lu L Boy')" title="Sil">🗑</button>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td><code>5400141123487</code></td>
+              <td><strong>Kaşar Peyniri 400g</strong></td>
+              <td><span class="badge badge-info">Süt Ürünleri</span></td>
+              <td>€7.99</td>
+              <td>6</td>
+              <td>Adet</td>
+              <td>30 Haz 2026</td>
+              <td><span class="badge badge-warning">Düşük Stok</span></td>
+              <td>
+                <div style="display:flex;gap:4px;">
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openModal('viewProductModal','Kaşar Peyniri 400g')" title="Görüntüle">👁</button>
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openModal('editProductModal','Kaşar Peyniri 400g')" title="Düzenle">✎</button>
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openDeleteModal('Kaşar Peyniri 400g')" title="Sil">🗑</button>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td><code>5400141123494</code></td>
+              <td><strong>Zeytin Siyah 500g</strong></td>
+              <td><span class="badge badge-info">Kahvaltılık</span></td>
+              <td>€4.75</td>
+              <td>5</td>
+              <td>Adet</td>
+              <td>12 Ara 2026</td>
+              <td><span class="badge badge-warning">Düşük Stok</span></td>
+              <td>
+                <div style="display:flex;gap:4px;">
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openModal('viewProductModal','Zeytin Siyah 500g')" title="Görüntüle">👁</button>
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openModal('editProductModal','Zeytin Siyah 500g')" title="Düzenle">✎</button>
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openDeleteModal('Zeytin Siyah 500g')" title="Sil">🗑</button>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td><code>5400141123500</code></td>
+              <td><strong>Dominos Pizza Margherita 410g</strong></td>
+              <td><span class="badge badge-info">Dondurulmuş</span></td>
+              <td>€5.99</td>
+              <td>24</td>
+              <td>Adet</td>
+              <td>15 Eyl 2026</td>
+              <td><span class="badge badge-success">Normal</span></td>
+              <td>
+                <div style="display:flex;gap:4px;">
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openModal('viewProductModal','Dominos Pizza')" title="Görüntüle">👁</button>
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openModal('editProductModal','Dominos Pizza')" title="Düzenle">✎</button>
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openDeleteModal('Dominos Pizza')" title="Sil">🗑</button>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td><code>5400141123517</code></td>
+              <td><strong>Coca-Cola 1L</strong></td>
+              <td><span class="badge badge-info">İçecek</span></td>
+              <td>€2.19</td>
+              <td>48</td>
+              <td>Adet</td>
+              <td>15 Mar 2027</td>
+              <td><span class="badge badge-success">Normal</span></td>
+              <td>
+                <div style="display:flex;gap:4px;">
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openModal('viewProductModal','Coca-Cola 1L')" title="Görüntüle">👁</button>
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openModal('editProductModal','Coca-Cola 1L')" title="Düzenle">✎</button>
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openDeleteModal('Coca-Cola 1L')" title="Sil">🗑</button>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td><code>5400141123524</code></td>
+              <td><strong>Activia Probiyotik 4x125g</strong></td>
+              <td><span class="badge badge-info">Süt Ürünleri</span></td>
+              <td>€3.49</td>
+              <td>18</td>
+              <td>Adet</td>
+              <td>22 May 2026</td>
+              <td><span class="badge badge-success">Normal</span></td>
+              <td>
+                <div style="display:flex;gap:4px;">
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openModal('viewProductModal','Activia Probiyotik')" title="Görüntüle">👁</button>
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openModal('editProductModal','Activia Probiyotik')" title="Düzenle">✎</button>
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openDeleteModal('Activia Probiyotik')" title="Sil">🗑</button>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td><code>5400141123531</code></td>
+              <td><strong>Çay Rize 500g</strong></td>
+              <td><span class="badge badge-info">İçecek</span></td>
+              <td>€6.49</td>
+              <td>32</td>
+              <td>Adet</td>
+              <td>01 Oca 2028</td>
+              <td><span class="badge badge-success">Normal</span></td>
+              <td>
+                <div style="display:flex;gap:4px;">
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openModal('viewProductModal','Çay Rize 500g')" title="Görüntüle">👁</button>
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openModal('editProductModal','Çay Rize 500g')" title="Düzenle">✎</button>
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openDeleteModal('Çay Rize 500g')" title="Sil">🗑</button>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td><code>5400141123548</code></td>
+              <td><strong>Persil Deterjan 2.5kg</strong></td>
+              <td><span class="badge badge-info">Temizlik</span></td>
+              <td>€16.99</td>
+              <td>14</td>
+              <td>Adet</td>
+              <td>01 Tem 2027</td>
+              <td><span class="badge badge-success">Normal</span></td>
+              <td>
+                <div style="display:flex;gap:4px;">
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openModal('viewProductModal','Persil Deterjan')" title="Görüntüle">👁</button>
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openModal('editProductModal','Persil Deterjan')" title="Düzenle">✎</button>
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openDeleteModal('Persil Deterjan')" title="Sil">🗑</button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="pagination">
+        <button disabled>‹ Önceki</button>
+        <button class="active">1</button>
+        <button>2</button>
+        <button>3</button>
+        <button>...</button>
+        <button>483</button>
+        <button>Sonraki ›</button>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <h3>MarketPro</h3>
+        <p>Market ve bakkal sektörünün dijital dönüşümünde güvenilir ortağınız. 320+ mağazaya hizmet veriyoruz.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Platformlar</h4>
+        <a href="../../index.html">🧹 CleanFix — Ana Sayfa</a>
+        <a href="../buildpro/">🏗️ BuildPro — İnşaat</a>
+        <a href="../barberpro/">💈 BarberPro — Berber</a>
+        <a href="../elektropro/">⚡ ElektroPro — Elektrik</a>
+      </div>
+      <div class="footer-col">
+        <h4>Sektörler</h4>
+        <a href="../woodpro/">🪵 WoodPro — Marangoz</a>
+        <a href="../restopro/">🍽️ RestoPro — Restoran</a>
+        <span style="display:block;font-size:var(--text-sm);color:var(--teal-400);font-weight:600;padding:6px 0;">🛒 MarketPro — Market</span>
+        <a href="../doctor/">🏥 MediPro — Klinik</a>
+      </div>
+      <div class="footer-col">
+        <h4>Yasal</h4>
+        <a href="#">Gizlilik</a>
+        <a href="#">Kullanım Koşulları</a>
+        <a href="#">GDPR</a>
+        <a href="#">Güvenlik</a>
+      </div>
+    </div>
+    <div class="footer-bottom">© 2026 MarketPro BV. Tüm hakları saklıdır. Belçika'da geliştirildi 🛒</div>
+  </footer>
+</div>
+</div>
+
+<!-- Add Product Modal -->
+<div class="modal-overlay" id="addProductModal">
+  <div class="modal">
+    <div class="modal-header"><div class="modal-title">Yeni Ürün Ekle</div><button class="modal-close" onclick="closeModal('addProductModal')">✕</button></div>
+    <div class="modal-body">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+        <div class="form-group"><label class="form-label">Ürün Adı</label><input type="text" class="form-input" placeholder="Örn: Süt Tam Yağlı 1L"></div>
+        <div class="form-group"><label class="form-label">Barkod (EAN-13)</label><input type="text" class="form-input" placeholder="5400141123456"></div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+        <div class="form-group"><label class="form-label">Kategori</label><select class="form-select"><option>Süt Ürünleri</option><option>Ekmek</option><option>Kahvaltılık</option><option>İçecek</option><option>Temizlik</option><option>Kozmetik</option><option>Dondurulmuş</option></select></div>
+        <div class="form-group"><label class="form-label">Fiyat (€)</label><input type="text" class="form-input" placeholder="0.00"></div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+        <div class="form-group"><label class="form-label">Stok Miktarı</label><input type="number" class="form-input" placeholder="0"></div>
+        <div class="form-group"><label class="form-label">Min. Stok Seviyesi</label><input type="number" class="form-input" placeholder="0"></div>
+      </div>
+      <div class="form-group"><label class="form-label">Son Kullanma Tarihi</label><input type="date" class="form-input"></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('addProductModal')">İptal</button>
+      <button class="btn btn-primary" onclick="closeModal('addProductModal');showToast('Ürün başarıyla eklendi','success')">Kaydet</button>
+    </div>
+  </div>
+</div>
+
+<!-- Edit Product Modal -->
+<div class="modal-overlay" id="editProductModal">
+  <div class="modal">
+    <div class="modal-header"><div class="modal-title" id="editProductTitle">Ürünü Düzenle</div><button class="modal-close" onclick="closeModal('editProductModal')">✕</button></div>
+    <div class="modal-body">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+        <div class="form-group"><label class="form-label">Ürün Adı</label><input type="text" class="form-input" value="Süt Tam Yağlı 1L"></div>
+        <div class="form-group"><label class="form-label">Barkod</label><input type="text" class="form-input" value="5400141123456"></div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+        <div class="form-group"><label class="form-label">Kategori</label><select class="form-select"><option selected>Süt Ürünleri</option><option>Ekmek</option></select></div>
+        <div class="form-group"><label class="form-label">Fiyat (€)</label><input type="text" class="form-input" value="1.89"></div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+        <div class="form-group"><label class="form-label">Stok</label><input type="number" class="form-input" value="12"></div>
+        <div class="form-group"><label class="form-label">Min. Seviye</label><input type="number" class="form-input" value="15"></div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('editProductModal')">İptal</button>
+      <button class="btn btn-primary" onclick="closeModal('editProductModal');showToast('Ürün güncellendi','success')">Güncelle</button>
+    </div>
+  </div>
+</div>
+
+<!-- View Product Modal -->
+<div class="modal-overlay" id="viewProductModal">
+  <div class="modal">
+    <div class="modal-header"><div class="modal-title" id="viewProductTitle">Ürün Detayları</div><button class="modal-close" onclick="closeModal('viewProductModal')">✕</button></div>
+    <div class="modal-body">
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:16px;">
+        <div style="background:var(--bg-secondary);padding:16px;border-radius:var(--radius-md);">
+          <div style="font-size:var(--text-xs);color:var(--text-muted);margin-bottom:4px;">Satış Fiyatı</div>
+          <div style="font-size:var(--text-lg);font-weight:700;">€1.89</div>
+        </div>
+        <div style="background:var(--bg-secondary);padding:16px;border-radius:var(--radius-md);">
+          <div style="font-size:var(--text-xs);color:var(--text-muted);margin-bottom:4px;">Maliyet</div>
+          <div style="font-size:var(--text-lg);font-weight:700;color:var(--teal-500);">€1.24</div>
+        </div>
+        <div style="background:var(--bg-secondary);padding:16px;border-radius:var(--radius-md);">
+          <div style="font-size:var(--text-xs);color:var(--text-muted);margin-bottom:4px;">Kar Marjı</div>
+          <div style="font-size:var(--text-lg);font-weight:700;color:var(--success-500);">%34</div>
+        </div>
+      </div>
+      <div class="form-group"><label class="form-label">Son 7 Gün Satışı</label>
+        <div style="display:flex;align-items:center;gap:8px;">
+          <div class="progress-bar" style="flex:1;height:8px;"><div class="progress-bar-fill" style="width:65%;"></div></div>
+          <span style="font-size:var(--text-sm);font-weight:700;">65 adet</span>
+        </div>
+      </div>
+      <div class="form-group"><label class="form-label">Tedarikçi</label><input type="text" class="form-input" value="Bidfood Belgium NV" disabled></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('viewProductModal')">Kapat</button>
+      <button class="btn btn-primary" onclick="closeModal('viewProductModal');openModal('editProductModal')">Düzenle</button>
+    </div>
+  </div>
+</div>
+
+<!-- Delete Modal -->
+<div class="modal-overlay" id="deleteProductModal">
+  <div class="modal">
+    <div class="modal-header"><div class="modal-title" style="color:var(--error-500);">Ürünü Sil</div><button class="modal-close" onclick="closeModal('deleteProductModal')">✕</button></div>
+    <div class="modal-body">
+      <p style="font-size:var(--text-sm);color:var(--text-secondary);margin-bottom:16px;"><strong id="deleteProductName"></strong> ürününü silmek üzeresiniz. Bu işlem geri alınamaz.</p>
+      <div style="background:rgba(244,63,94,0.08);border:1px solid rgba(244,63,94,0.2);border-radius:var(--radius-md);padding:16px;">
+        <div style="font-size:var(--text-xs);color:var(--error-500);font-weight:600;margin-bottom:4px;">⚠️ Dikkat</div>
+        <div style="font-size:var(--text-sm);color:var(--text-secondary);">Bu ürüne ait tüm stok kayıtları, satış geçmişi ve fiyat geçmişi de silinecektir.</div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('deleteProductModal')">İptal</button>
+      <button class="btn btn-primary" style="background:var(--error-500);" onclick="closeModal('deleteProductModal');showToast(document.getElementById('deleteProductName').textContent + ' silindi','error')">Sil</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const sidebar=document.getElementById('sidebar');
+const menuBtn=document.getElementById('menuBtn');
+const overlay=document.getElementById('sidebarOverlay');
+menuBtn.addEventListener('click',()=>{sidebar.classList.toggle('open');overlay.classList.toggle('active');});
+overlay.addEventListener('click',()=>{sidebar.classList.remove('open');overlay.classList.remove('active');});
+
+const html=document.documentElement;
+let theme=localStorage.getItem('mp-theme')||'dark';
+html.setAttribute('data-theme',theme);
+document.getElementById('themeToggle').addEventListener('click',()=>{theme=theme==='dark'?'light':'dark';html.setAttribute('data-theme',theme);localStorage.setItem('mp-theme',theme);});
+
+function showToast(msg,type='success',dur=3000){
+  let c=document.querySelector('.toast-container');
+  if(!c){c=document.createElement('div');c.className='toast-container';document.body.appendChild(c);}
+  const t=document.createElement('div');
+  const colors={success:'var(--success-500)',error:'var(--error-500)',warning:'var(--warning-500)',info:'var(--info-500)'};
+  const icons={success:'✓',error:'✕',warning:'!',info:'ℹ'};
+  const titles={success:'Başarılı',error:'Hata',warning:'Uyarı',info:'Bilgi'};
+  t.style.cssText=`pointer-events:all;background:var(--bg-card);border:1px solid ${colors[type]};border-radius:12px;padding:14px 18px;display:flex;align-items:flex-start;gap:12px;box-shadow:var(--shadow-lg);animation:toastIn 0.3s ease-out;position:relative;overflow:hidden;`;
+  t.innerHTML=`<span style="flex-shrink:0;margin-top:2px;width:20px;height:20px;border-radius:50%;background:${colors[type]};color:white;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;">${icons[type]}</span><div style="flex:1;"><div style="font-weight:600;font-size:var(--text-sm);">${titles[type]}</div><div style="font-size:var(--text-sm);color:var(--text-muted);margin-top:2px;">${msg}</div></div><span style="flex-shrink:0;color:var(--text-muted);cursor:pointer;font-size:14px;" onclick="this.parentElement.remove()">✕</span><div style="position:absolute;bottom:0;left:0;height:2px;background:${colors[type]};animation:progressBar 4s linear forwards;width:100%;"></div>`;
+  c.appendChild(t);
+  setTimeout(()=>{t.style.animation='toastOut 0.3s ease-in forwards';setTimeout(()=>t.remove(),300);},dur);
+}
+
+function openModal(id,title){
+  const modal=document.getElementById(id);
+  if(modal){modal.classList.add('active');if(title){
+    const titleEl=modal.querySelector('.modal-title');
+    if(titleEl&&titleEl.id==='editProductTitle')titleEl.textContent='Ürünü Düzenle — '+title;
+    if(titleEl&&titleEl.id==='viewProductTitle')titleEl.textContent='Ürün Detayları — '+title;
+  }}
+}
+function openDeleteModal(name){
+  const nameEl=document.getElementById('deleteProductName');
+  if(nameEl)nameEl.textContent=name;
+  openModal('deleteProductModal');
+}
+function closeModal(id){
+  const modal=document.getElementById(id);
+  if(modal) modal.classList.remove('active');
+}
+document.querySelectorAll('.modal-overlay').forEach(overlay=>{
+  overlay.addEventListener('click',(e)=>{if(e.target===overlay)overlay.classList.remove('active');});
+});
+</script>
+</body>
+</html>

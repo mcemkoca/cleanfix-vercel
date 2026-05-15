@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WoodPro — CNC Program Listesi</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/main.css">
+<link rel="stylesheet" href="css/components.css">
+<link rel="stylesheet" href="css/dashboard.css">
+<style>
+.nav-item.active, .sidebar-link.active { background:rgba(20,184,166,0.1); color:var(--teal-500); box-shadow:inset 0 0 0 1px rgba(20,184,166,0.15); }
+.kpi-icon { background:linear-gradient(135deg,var(--teal-500),var(--teal-700)) !important; }
+.btn-primary { background:linear-gradient(135deg,var(--teal-500),var(--teal-600)); }
+.status-badge.calistiriliyor { background:rgba(16,185,129,0.15); color:#10b981; }
+.status-badge.beklemede { background:rgba(245,158,11,0.15); color:#f59e0b; }
+.status-badge.tamamlandi { background:rgba(59,130,246,0.15); color:#3b82f6; }
+.status-badge.hazir { background:rgba(14,165,233,0.15); color:#0ea5e9; }
+.status-badge.bakimda { background:rgba(139,92,246,0.15); color:#8b5cf6; }
+
+.modal { display:none; position:fixed; inset:0; z-index:200; align-items:center; justify-content:center; }
+.modal.active { display:flex; }
+.modal-overlay { position:absolute; inset:0; background:rgba(0,0,0,0.6); }
+.modal-content { position:relative; background:var(--bg-card); border:1px solid var(--border-color); border-radius:var(--radius-xl); width:100%; max-width:560px; max-height:90vh; overflow-y:auto; padding:28px; z-index:10; }
+.modal-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:20px; }
+.modal-header h3 { font-size:var(--text-xl); font-weight:700; }
+.modal-close { width:32px; height:32px; border-radius:var(--radius-md); background:var(--bg-secondary); border:none; color:var(--text-muted); cursor:pointer; display:flex; align-items:center; justify-content:center; font-size:18px; }
+.modal-close:hover { background:var(--bg-tertiary); color:var(--text-primary); }
+.form-group { margin-bottom:16px; }
+.form-group label { display:block; font-size:var(--text-sm); font-weight:500; margin-bottom:6px; color:var(--text-secondary); }
+.form-group input, .form-group select, .form-group textarea { width:100%; padding:10px 14px; border-radius:var(--radius-md); border:1px solid var(--border-color); background:var(--bg-input); color:var(--text-primary); font-size:var(--text-sm); }
+.form-group input:focus, .form-group select:focus, .form-group textarea:focus { outline:none; border-color:var(--teal-500); box-shadow:0 0 0 3px rgba(20,184,166,0.15); }
+.modal-actions { display:flex; gap:12px; justify-content:flex-end; margin-top:24px; }
+.row-actions { display:flex; gap:6px; opacity:0; transition:opacity 0.2s; }
+tr:hover .row-actions { opacity:1; }
+.row-actions button { padding:4px 8px; border-radius:var(--radius-sm); border:none; background:var(--bg-secondary); color:var(--text-muted); cursor:pointer; font-size:var(--text-xs); }
+.row-actions button:hover { background:var(--teal-500); color:white; }
+.toast-container { position:fixed; bottom:24px; right:24px; z-index:300; display:flex; flex-direction:column; gap:8px; }
+.toast { background:var(--bg-card); border:1px solid var(--border-color); border-radius:var(--radius-lg); padding:14px 20px; box-shadow:var(--shadow-xl); display:flex; align-items:center; gap:10px; animation:toastIn 0.3s ease; }
+.toast.success { border-left:3px solid var(--success-500); }
+@keyframes toastIn { from { transform:translateX(20px); opacity:0; } to { transform:translateX(0); opacity:1; } }
+.filter-bar { display:flex; gap:12px; margin-bottom:20px; flex-wrap:wrap; }
+.filter-bar select, .filter-bar input { padding:8px 14px; border-radius:var(--radius-md); border:1px solid var(--border-color); background:var(--bg-input); color:var(--text-primary); font-size:var(--text-sm); }
+</style>
+</head>
+<body>
+
+<div class="dashboard">
+
+<!-- SIDEBAR -->
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-brand">
+    <div class="sidebar-brand-icon">🪵</div>
+    <span class="sidebar-brand-text">WoodPro</span>
+  </div>
+  <nav class="sidebar-nav">
+    <div class="sidebar-section">
+      <div class="sidebar-section-title">Ana Menü</div>
+      <a href="dashboard.html" class="sidebar-link"><span class="icon">📊</span><span class="sidebar-text">Dashboard</span></a>
+      <a href="woodpro-orders.html" class="sidebar-link"><span class="icon">📋</span><span class="sidebar-text">Siparişler</span></a>
+      <a href="woodpro-inventory.html" class="sidebar-link"><span class="icon">🌳</span><span class="sidebar-text">Envanter</span></a>
+      <a href="woodpro-cnc.html" class="sidebar-link active"><span class="icon">⚙️</span><span class="sidebar-text">CNC Program</span></a>
+      <a href="woodpro-customers.html" class="sidebar-link"><span class="icon">👥</span><span class="sidebar-text">Müşteriler</span></a>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-section-title">Sektörler</div>
+      <a href="../buildpro/dashboard.html" class="sidebar-link"><span class="icon">🏗️</span><span class="sidebar-text">BuildPro</span></a>
+      <a href="../barberpro/dashboard.html" class="sidebar-link"><span class="icon">💈</span><span class="sidebar-text">BarberPro</span></a>
+      <a href="../../index.html" class="sidebar-link"><span class="icon">⚡</span><span class="sidebar-text">CleanFix</span></a>
+    </div>
+  </nav>
+  <div class="sidebar-footer">
+    <div style="display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:var(--radius-md);background:var(--bg-secondary);">
+      <div style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--teal-500),var(--teal-700));display:flex;align-items:center;justify-content:center;color:white;font-weight:600;font-size:12px;">PB</div>
+      <div><div style="font-size:var(--text-sm);font-weight:600;">Pierre Bernard</div><div style="font-size:var(--text-xs);color:var(--text-muted);">Atölye Müdürü</div></div>
+    </div>
+  </div>
+</aside>
+
+<!-- MAIN -->
+<main class="main" id="main">
+  <header class="header">
+    <div class="header-left">
+      <button class="header-menu-toggle" id="menuToggle">☰</button>
+      <h1 class="header-title">CNC Program Listesi</h1>
+    </div>
+    <div class="header-actions">
+      <button class="btn btn-primary btn-sm" onclick="openModal('modalNewCnc')">➕ Program Ekle</button>
+    </div>
+  </header>
+
+  <div class="content">
+
+    <!-- KPI Cards -->
+    <div class="kpi-grid">
+      <div class="kpi-card"><div class="kpi-header"><span class="kpi-label">Toplam Program</span><span class="kpi-icon">⚙️</span></div><div class="kpi-value">15</div><div class="kpi-change up">▲ 3 yeni</div></div>
+      <div class="kpi-card"><div class="kpi-header"><span class="kpi-label">Çalışan Makine</span><span class="kpi-icon">🔨</span></div><div class="kpi-value">2</div><div class="kpi-change up">▲ Verimli</div></div>
+      <div class="kpi-card"><div class="kpi-header"><span class="kpi-label">Bekleyen Program</span><span class="kpi-icon">⏳</span></div><div class="kpi-value">8</div><div class="kpi-change down">▼ 2 kritik</div></div>
+      <div class="kpi-card"><div class="kpi-header"><span class="kpi-label">Bakımda</span><span class="kpi-icon">🔧</span></div><div class="kpi-value">1</div><div class="kpi-change">SCM Record</div></div>
+    </div>
+
+    <!-- Filters -->
+    <div class="card">
+      <div class="filter-bar">
+        <select><option value="">Tüm Makineler</option><option>Biesse Rover A</option><option>Biesse Rover B</option><option>SCM Record 130</option><option>Homag Weeke</option></select>
+        <select><option value="">Tüm Durumlar</option><option>Çalıştırılıyor</option><option>Beklemede</option><option>Tamamlandı</option><option>Hazır</option><option>Bakımda</option></select>
+        <select><option value="">Tüm Malzemeler</option><option>Meşe 18mm</option><option>Ceviz 18mm</option><option>Kayın 18mm</option><option>Ladin 25mm</option></select>
+        <input type="text" placeholder="🔍 Program adı ara...">
+        <button class="btn btn-secondary btn-sm" onclick="showToast('Filtreler uygulandı')">🔍 Filtrele</button>
+      </div>
+
+      <div class="table-responsive">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Program Adı</th>
+              <th>Makine</th>
+              <th>Sipariş No</th>
+              <th>Malzeme</th>
+              <th>Süre (dk)</th>
+              <th>Başlangıç</th>
+              <th>Durum</th>
+              <th style="width:80px;"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Mutfak_Kapak_001.nc</strong></td>
+              <td>Biesse Rover A</td>
+              <td>#WP-2026-0047</td>
+              <td>Meşe 18mm</td>
+              <td>45 dk</td>
+              <td>16 Mayıs 09:00</td>
+              <td><span class="status-badge calistiriliyor">Çalışıyor</span></td>
+              <td><div class="row-actions"><button onclick="openModal('modalEditCnc')">✏️</button><button onclick="showToast('Program silindi','error')">🗑️</button></div></td>
+            </tr>
+            <tr>
+              <td><strong>Gardırop_Panel_002.nc</strong></td>
+              <td>Biesse Rover B</td>
+              <td>#WP-2026-0046</td>
+              <td>Ceviz 18mm</td>
+              <td>62 dk</td>
+              <td>16 Mayıs 10:30</td>
+              <td><span class="status-badge calistiriliyor">Çalışıyor</span></td>
+              <td><div class="row-actions"><button onclick="openModal('modalEditCnc')">✏️</button><button onclick="showToast('Program silindi','error')">🗑️</button></div></td>
+            </tr>
+            <tr>
+              <td><strong>TV_Unitesi_003.nc</strong></td>
+              <td>Homag Weeke</td>
+              <td>#WP-2026-0044</td>
+              <td>Meşe 18mm</td>
+              <td>38 dk</td>
+              <td>—</td>
+              <td><span class="status-badge beklemede">Beklemede</span></td>
+              <td><div class="row-actions"><button onclick="openModal('modalEditCnc')">✏️</button><button onclick="showToast('Program silindi','error')">🗑️</button></div></td>
+            </tr>
+            <tr>
+              <td><strong>Toplanti_Masasi_004.nc</strong></td>
+              <td>Biesse Rover A</td>
+              <td>#WP-2026-0042</td>
+              <td>Ceviz 18mm</td>
+              <td>55 dk</td>
+              <td>15 Mayıs 14:00</td>
+              <td><span class="status-badge tamamlandi">Tamamlandı</span></td>
+              <td><div class="row-actions"><button onclick="openModal('modalEditCnc')">✏️</button><button onclick="showToast('Program silindi','error')">🗑️</button></div></td>
+            </tr>
+            <tr>
+              <td><strong>Kitaplik_Raf_005.nc</strong></td>
+              <td>Homag Weeke</td>
+              <td>#WP-2026-0045</td>
+              <td>Kayın 18mm</td>
+              <td>28 dk</td>
+              <td>14 Mayıs 11:00</td>
+              <td><span class="status-badge tamamlandi">Tamamlandı</span></td>
+              <td><div class="row-actions"><button onclick="openModal('modalEditCnc')">✏️</button><button onclick="showToast('Program silindi','error')">🗑️</button></div></td>
+            </tr>
+            <tr>
+              <td><strong>Ofis_Masasi_006.nc</strong></td>
+              <td>Biesse Rover B</td>
+              <td>#WP-2026-0043</td>
+              <td>Ladin 25mm</td>
+              <td>33 dk</td>
+              <td>12 Mayıs 08:30</td>
+              <td><span class="status-badge tamamlandi">Tamamlandı</span></td>
+              <td><div class="row-actions"><button onclick="openModal('modalEditCnc')">✏️</button><button onclick="showToast('Program silindi','error')">🗑️</button></div></td>
+            </tr>
+            <tr>
+              <td><strong>Portmanto_Kapak_007.nc</strong></td>
+              <td>Biesse Rover A</td>
+              <td>#WP-2026-0036</td>
+              <td>Meşe 18mm</td>
+              <td>22 dk</td>
+              <td>—</td>
+              <td><span class="status-badge beklemede">Beklemede</span></td>
+              <td><div class="row-actions"><button onclick="openModal('modalEditCnc')">✏️</button><button onclick="showToast('Program silindi','error')">🗑️</button></div></td>
+            </tr>
+            <tr>
+              <td><strong>Resepsiyon_Tezgah_008.nc</strong></td>
+              <td>Homag Weeke</td>
+              <td>#WP-2026-0038</td>
+              <td>Iroko 20mm</td>
+              <td>48 dk</td>
+              <td>—</td>
+              <td><span class="status-badge beklemede">Beklemede</span></td>
+              <td><div class="row-actions"><button onclick="openModal('modalEditCnc')">✏️</button><button onclick="showToast('Program silindi','error')">🗑️</button></div></td>
+            </tr>
+            <tr>
+              <td><strong>Maket_Tablo_009.nc</strong></td>
+              <td>Biesse Rover B</td>
+              <td>#WP-2026-0037</td>
+              <td>Ladin 25mm</td>
+              <td>15 dk</td>
+              <td>14 Mayıs 09:00</td>
+              <td><span class="status-badge tamamlandi">Tamamlandı</span></td>
+              <td><div class="row-actions"><button onclick="openModal('modalEditCnc')">✏️</button><button onclick="showToast('Program silindi','error')">🗑️</button></div></td>
+            </tr>
+            <tr>
+              <td><strong>Yatak_Odasi_Kapak_010.nc</strong></td>
+              <td>Biesse Rover A</td>
+              <td>#WP-2026-0040</td>
+              <td>Kayın 18mm</td>
+              <td>40 dk</td>
+              <td>—</td>
+              <td><span class="status-badge hazir">Hazır</span></td>
+              <td><div class="row-actions"><button onclick="openModal('modalEditCnc')">✏️</button><button onclick="showToast('Program silindi','error')">🗑️</button></div></td>
+            </tr>
+            <tr>
+              <td><strong>Giyinme_Raf_011.nc</strong></td>
+              <td>Homag Weeke</td>
+              <td>#WP-2026-0039</td>
+              <td>Ceviz 18mm</td>
+              <td>35 dk</td>
+              <td>—</td>
+              <td><span class="status-badge beklemede">Beklemede</span></td>
+              <td><div class="row-actions"><button onclick="openModal('modalEditCnc')">✏️</button><button onclick="showToast('Program silindi','error')">🗑️</button></div></td>
+            </tr>
+            <tr>
+              <td><strong>Bakim_Kalibrasyon_012.nc</strong></td>
+              <td>SCM Record 130</td>
+              <td>—</td>
+              <td>Test Malzeme</td>
+              <td>120 dk</td>
+              <td>16 Mayıs 08:00</td>
+              <td><span class="status-badge bakimda">Bakımda</span></td>
+              <td><div class="row-actions"><button onclick="openModal('modalEditCnc')">✏️</button><button onclick="showToast('Program silindi','error')">🗑️</button></div></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-top:16px;">
+        <p style="font-size:var(--text-sm);color:var(--text-muted);">12 / 15 program gösteriliyor</p>
+        <div style="display:flex;gap:8px;">
+          <button class="btn btn-ghost btn-sm" disabled>← Önceki</button>
+          <button class="btn btn-secondary btn-sm">1</button>
+          <button class="btn btn-ghost btn-sm">2</button>
+          <button class="btn btn-ghost btn-sm">Sonraki →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Machine Status Cards -->
+    <div class="content-grid">
+      <div class="card">
+        <div class="card-header"><h3 class="card-title">Makine Durumu</h3></div>
+        <div style="display:flex;flex-direction:column;gap:14px;">
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 16px;background:var(--bg-secondary);border-radius:var(--radius-md);">
+            <div style="display:flex;align-items:center;gap:12px;">
+              <div style="width:8px;height:8px;border-radius:50%;background:var(--success-500);"></div>
+              <div><div style="font-weight:600;font-size:var(--text-sm);">Biesse Rover A</div><div style="font-size:var(--text-xs);color:var(--text-muted);">Mutfak_Kapak_001.nc</div></div>
+            </div>
+            <span style="font-size:var(--text-xs);color:var(--success-500);font-weight:600;">Çalışıyor</span>
+          </div>
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 16px;background:var(--bg-secondary);border-radius:var(--radius-md);">
+            <div style="display:flex;align-items:center;gap:12px;">
+              <div style="width:8px;height:8px;border-radius:50%;background:var(--success-500);"></div>
+              <div><div style="font-weight:600;font-size:var(--text-sm);">Biesse Rover B</div><div style="font-size:var(--text-xs);color:var(--text-muted);">Gardırop_Panel_002.nc</div></div>
+            </div>
+            <span style="font-size:var(--text-xs);color:var(--success-500);font-weight:600;">Çalışıyor</span>
+          </div>
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 16px;background:var(--bg-secondary);border-radius:var(--radius-md);">
+            <div style="display:flex;align-items:center;gap:12px;">
+              <div style="width:8px;height:8px;border-radius:50%;background:var(--warning-500);"></div>
+              <div><div style="font-weight:600;font-size:var(--text-sm);">SCM Record 130</div><div style="font-size:var(--text-xs);color:var(--text-muted);">Bakim_Kalibrasyon_012.nc</div></div>
+            </div>
+            <span style="font-size:var(--text-xs);color:var(--warning-500);font-weight:600;">Bakımda</span>
+          </div>
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 16px;background:var(--bg-secondary);border-radius:var(--radius-md);">
+            <div style="display:flex;align-items:center;gap:12px;">
+              <div style="width:8px;height:8px;border-radius:50%;background:var(--teal-500);"></div>
+              <div><div style="font-weight:600;font-size:var(--text-sm);">Homag Weeke</div><div style="font-size:var(--text-xs);color:var(--text-muted);">Beklemede</div></div>
+            </div>
+            <span style="font-size:var(--text-xs);color:var(--teal-500);font-weight:600;">Hazır</span>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header"><h3 class="card-title">Program İstatistikleri</h3></div>
+        <div style="display:flex;flex-direction:column;gap:16px;">
+          <div>
+            <div style="display:flex;justify-content:space-between;font-size:var(--text-sm);margin-bottom:6px;"><span>Ortalama Süre</span><span style="font-weight:600;">42 dk</span></div>
+            <div style="height:6px;border-radius:9999px;background:var(--bg-secondary);"><div style="width:65%;height:100%;border-radius:9999px;background:var(--teal-500);"></div></div>
+          </div>
+          <div>
+            <div style="display:flex;justify-content:space-between;font-size:var(--text-sm);margin-bottom:6px;"><span>Haftalık Verimlilik</span><span style="font-weight:600;">87%</span></div>
+            <div style="height:6px;border-radius:9999px;background:var(--bg-secondary);"><div style="width:87%;height:100%;border-radius:9999px;background:var(--success-500);"></div></div>
+          </div>
+          <div>
+            <div style="display:flex;justify-content:space-between;font-size:var(--text-sm);margin-bottom:6px;"><span>Fire Oranı</span><span style="font-weight:600;">4.2%</span></div>
+            <div style="height:6px;border-radius:9999px;background:var(--bg-secondary);"><div style="width:42%;height:100%;border-radius:9999px;background:var(--amber-500);"></div></div>
+          </div>
+          <div>
+            <div style="display:flex;justify-content:space-between;font-size:var(--text-sm);margin-bottom:6px;"><span>Bu Ay Program</span><span style="font-weight:600;">48</span></div>
+            <div style="height:6px;border-radius:9999px;background:var(--bg-secondary);"><div style="width:72%;height:100%;border-radius:9999px;background:var(--info-500);"></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <footer style="padding:24px 32px;border-top:1px solid var(--border-color);margin-top:auto;">
+    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;">
+      <p style="font-size:var(--text-xs);color:var(--text-muted);">© 2026 WoodPro by CleanFix. Tüm hakları saklıdır.</p>
+      <div style="display:flex;gap:12px;">
+        <a href="../buildpro/dashboard.html" style="font-size:var(--text-xs);color:var(--text-muted);text-decoration:none;">BuildPro</a>
+        <a href="../barberpro/dashboard.html" style="font-size:var(--text-xs);color:var(--text-muted);text-decoration:none;">BarberPro</a>
+        <a href="../../index.html" style="font-size:var(--text-xs);color:var(--text-muted);text-decoration:none;">CleanFix</a>
+      </div>
+    </div>
+  </footer>
+</main>
+
+</div>
+
+<!-- MODAL: New CNC -->
+<div class="modal" id="modalNewCnc">
+  <div class="modal-overlay" onclick="closeModal('modalNewCnc')"></div>
+  <div class="modal-content">
+    <div class="modal-header"><h3>⚙️ CNC Program Ekle</h3><button class="modal-close" onclick="closeModal('modalNewCnc')">×</button></div>
+    <div class="form-group"><label>Program Adı</label><input type="text" placeholder="Örn: Mutfak_Dolabi_Kapak_001"></div>
+    <div class="form-group"><label>Makine</label><select><option>Biesse Rover A</option><option>Biesse Rover B</option><option>SCM Record 130</option><option>Homag Weeke</option></select></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+      <div class="form-group"><label>Tahmini Süre (dk)</label><input type="number" placeholder="45"></div>
+      <div class="form-group"><label>Malzeme</label><select><option>Meşe 18mm</option><option>Ceviz 18mm</option><option>Kayın 18mm</option><option>Ladin 25mm</option><option>Iroko 20mm</option></select></div>
+    </div>
+    <div class="form-group"><label>Sipariş</label><select><option>Sipariş Seçin</option><option>#WP-2026-0047</option><option>#WP-2026-0046</option><option>#WP-2026-0044</option><option>#WP-2026-0042</option></select></div>
+    <div class="modal-actions">
+      <button class="btn btn-secondary" onclick="closeModal('modalNewCnc')">İptal</button>
+      <button class="btn btn-primary" onclick="showToast('CNC programı eklendi'); closeModal('modalNewCnc')">💾 Kaydet</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: Edit CNC -->
+<div class="modal" id="modalEditCnc">
+  <div class="modal-overlay" onclick="closeModal('modalEditCnc')"></div>
+  <div class="modal-content">
+    <div class="modal-header"><h3>✏️ Program Düzenle</h3><button class="modal-close" onclick="closeModal('modalEditCnc')">×</button></div>
+    <div class="form-group"><label>Durum</label><select><option>Çalıştırılıyor</option><option>Beklemede</option><option>Hazır</option><option>Tamamlandı</option><option>Bakımda</option></select></div>
+    <div class="form-group"><label>Başlangıç Saati</label><input type="datetime-local"></div>
+    <div class="form-group"><label>Notlar</label><textarea rows="3" placeholder="Program notları..."></textarea></div>
+    <div class="modal-actions">
+      <button class="btn btn-secondary" onclick="closeModal('modalEditCnc')">İptal</button>
+      <button class="btn btn-primary" onclick="showToast('Program güncellendi'); closeModal('modalEditCnc')">💾 Güncelle</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast-container" id="toastContainer"></div>
+
+<script>
+const sidebar = document.getElementById('sidebar');
+const main = document.getElementById('main');
+document.getElementById('menuToggle').addEventListener('click', () => {
+  sidebar.classList.toggle('sidebar-collapsed');
+  main.classList.toggle('main-expanded');
+});
+function openModal(id) { document.getElementById(id).classList.add('active'); }
+function closeModal(id) { document.getElementById(id).classList.remove('active'); }
+document.addEventListener('keydown', e => { if (e.key === 'Escape') document.querySelectorAll('.modal.active').forEach(m => m.classList.remove('active')); });
+function showToast(msg, type='success') {
+  const container = document.getElementById('toastContainer');
+  const toast = document.createElement('div');
+  toast.className = `toast ${type}`;
+  toast.innerHTML = `<span>${type === 'success' ? '✅' : '❌'}</span><span>${msg}</span>`;
+  container.appendChild(toast);
+  setTimeout(() => { toast.remove(); }, 3000);
+}
+</script>
+</body>
+</html>

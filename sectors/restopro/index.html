@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RestoPro — Restoran Yönetim Platformu</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/main.css">
+<style>
+.landing { font-family:'Inter',sans-serif; }
+
+/* Hero */
+.hero {
+  min-height:100vh; display:flex; flex-direction:column; align-items:center; justify-content:center;
+  text-align:center; position:relative; overflow:hidden; padding:120px 24px 80px;
+}
+.hero-bg {
+  position:absolute; inset:0; z-index:0;
+  background:
+    radial-gradient(ellipse at 30% 20%, rgba(20,184,166,0.12) 0%, transparent 50%),
+    radial-gradient(ellipse at 70% 80%, rgba(245,158,11,0.08) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 50%, rgba(20,184,166,0.06) 0%, transparent 70%),
+    var(--bg-primary);
+}
+.hero-orb {
+  position:absolute; border-radius:50%; filter:blur(100px); opacity:0.3;
+  animation:heroFloat 15s ease-in-out infinite;
+}
+.hero-orb-1 { width:500px; height:500px; background:rgba(20,184,166,0.25); top:10%; left:20%; }
+.hero-orb-2 { width:400px; height:400px; background:rgba(245,158,11,0.15); bottom:10%; right:15%; animation-delay:-7s; }
+@keyframes heroFloat {
+  0%,100% { transform:translate(0,0) scale(1); }
+  50% { transform:translate(20px,-30px) scale(1.05); }
+}
+
+.hero-content { position:relative; z-index:10; max-width:800px; }
+.hero-badge {
+  display:inline-flex; align-items:center; gap:8px;
+  background:rgba(20,184,166,0.1); border:1px solid rgba(20,184,166,0.2);
+  color:var(--teal-400); padding:8px 16px; border-radius:9999px;
+  font-size:var(--text-sm); font-weight:500; margin-bottom:32px;
+}
+.hero-badge .pulse { width:8px; height:8px; background:var(--teal-500); border-radius:50%; animation:pulseDot 2s ease-in-out infinite; }
+.hero h1 { font-size:clamp(2.5rem,5vw,4rem); font-weight:800; line-height:1.1; letter-spacing:-0.03em; margin-bottom:20px; }
+.hero h1 span { background:linear-gradient(135deg,var(--teal-400),var(--amber-400)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+.hero p { font-size:var(--text-lg); color:var(--text-muted); max-width:560px; margin:0 auto 40px; line-height:1.6; }
+
+.hero-cta { display:flex; gap:16px; justify-content:center; flex-wrap:wrap; }
+.btn {
+  padding:14px 32px; border-radius:var(--radius-lg); font-size:var(--text-base);
+  font-weight:600; cursor:pointer; border:none; transition:all 0.2s;
+  font-family:inherit; text-decoration:none;
+}
+.btn-primary {
+  background:linear-gradient(135deg,var(--teal-500),var(--teal-600)); color:white;
+  box-shadow:0 4px 16px rgba(20,184,166,0.25);
+}
+.btn-primary:hover { transform:translateY(-2px); box-shadow:0 8px 24px rgba(20,184,166,0.35); }
+.btn-secondary {
+  background:var(--bg-card); color:var(--text-primary); border:1px solid var(--border-color);
+}
+.btn-secondary:hover { border-color:var(--teal-500); color:var(--teal-500); }
+
+.hero-stats {
+  display:flex; gap:40px; justify-content:center; margin-top:60px;
+}
+.hero-stat { text-align:center; }
+.hero-stat-value { font-size:28px; font-weight:800; color:var(--teal-400); }
+.hero-stat-label { font-size:var(--text-sm); color:var(--text-muted); margin-top:4px; }
+
+/* Trusted */
+.trusted { padding:60px 24px; text-align:center; border-bottom:1px solid var(--border-color); }
+.trusted p { font-size:var(--text-sm); color:var(--text-muted); margin-bottom:24px; text-transform:uppercase; letter-spacing:0.1em; font-weight:600; }
+.trusted-logos { display:flex; gap:40px; justify-content:center; align-items:center; flex-wrap:wrap; }
+.trusted-logo { font-size:var(--text-lg); font-weight:700; color:var(--text-muted); opacity:0.5; }
+
+/* Features */
+.features { padding:100px 24px; max-width:1100px; margin:0 auto; }
+.features-header { text-align:center; margin-bottom:60px; }
+.features-header h2 { font-size:36px; font-weight:800; margin-bottom:12px; }
+.features-header p { color:var(--text-muted); font-size:var(--text-lg); max-width:560px; margin:0 auto; }
+
+.feature-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:24px; }
+.feature-card {
+  background:var(--bg-card); border:1px solid var(--border-color); border-radius:var(--radius-lg);
+  padding:32px; transition:all 0.3s ease;
+}
+.feature-card:hover { border-color:var(--teal-500); transform:translateY(-4px); box-shadow:0 12px 32px rgba(20,184,166,0.08); }
+.feature-icon {
+  width:48px; height:48px; border-radius:var(--radius-md);
+  background:rgba(20,184,166,0.1); display:flex; align-items:center; justify-content:center;
+  font-size:24px; margin-bottom:20px;
+}
+.feature-card h3 { font-size:var(--text-lg); font-weight:700; margin-bottom:8px; }
+.feature-card p { font-size:var(--text-sm); color:var(--text-muted); line-height:1.6; }
+
+/* How it works */
+.how { padding:100px 24px; background:var(--bg-secondary); }
+.how-inner { max-width:900px; margin:0 auto; }
+.how h2 { text-align:center; font-size:36px; font-weight:800; margin-bottom:60px; }
+.step { display:flex; gap:32px; margin-bottom:48px; align-items:flex-start; }
+.step-num {
+  width:48px; height:48px; border-radius:50%; background:var(--teal-500); color:white;
+  display:flex; align-items:center; justify-content:center; font-size:20px; font-weight:800;
+  flex-shrink:0;
+}
+.step h3 { font-size:var(--text-xl); font-weight:700; margin-bottom:8px; }
+.step p { color:var(--text-muted); line-height:1.6; }
+
+/* Pricing */
+.pricing { padding:100px 24px; max-width:1000px; margin:0 auto; }
+.pricing h2 { text-align:center; font-size:36px; font-weight:800; margin-bottom:12px; }
+.pricing > p { text-align:center; color:var(--text-muted); margin-bottom:60px; }
+.pricing-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:24px; }
+.pricing-card {
+  background:var(--bg-card); border:1px solid var(--border-color); border-radius:var(--radius-lg);
+  padding:40px 32px; text-align:center; transition:all 0.3s;
+}
+.pricing-card:hover { border-color:var(--teal-500); }
+.pricing-card.featured { border-color:var(--teal-500); position:relative; }
+.pricing-card.featured::before {
+  content:'En Popüler'; position:absolute; top:-12px; left:50%; transform:translateX(-50%);
+  background:var(--teal-500); color:white; font-size:11px; font-weight:700;
+  padding:4px 16px; border-radius:9999px; text-transform:uppercase; letter-spacing:0.05em;
+}
+.pricing-card h3 { font-size:var(--text-lg); font-weight:700; margin-bottom:8px; }
+.pricing-card .price { font-size:42px; font-weight:800; margin:16px 0; }
+.pricing-card .price span { font-size:var(--text-base); color:var(--text-muted); font-weight:500; }
+.pricing-card ul { list-style:none; padding:0; margin:24px 0; text-align:left; }
+.pricing-card ul li { padding:8px 0; font-size:var(--text-sm); color:var(--text-secondary); display:flex; align-items:center; gap:8px; }
+.pricing-card ul li::before { content:'✓'; color:var(--teal-500); font-weight:700; }
+
+/* Testimonials */
+.testimonials { padding:100px 24px; max-width:1000px; margin:0 auto; }
+.testimonials h2 { text-align:center; font-size:36px; font-weight:800; margin-bottom:60px; }
+.testimonial-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:24px; }
+.testimonial-card {
+  background:var(--bg-card); border:1px solid var(--border-color); border-radius:var(--radius-lg);
+  padding:32px;
+}
+.testimonial-card .stars { color:#f59e0b; margin-bottom:16px; }
+.testimonial-card p { font-size:var(--text-base); line-height:1.7; margin-bottom:20px; }
+.testimonial-author { display:flex; align-items:center; gap:12px; }
+.testimonial-author .avatar { width:40px; height:40px; border-radius:50%; background:var(--teal-500); display:flex; align-items:center; justify-content:center; color:white; font-weight:700; }
+.testimonial-author .name { font-weight:600; font-size:var(--text-sm); }
+.testimonial-author .role { font-size:var(--text-xs); color:var(--text-muted); }
+
+/* Security */
+.security { padding:80px 24px; text-align:center; background:var(--bg-secondary); }
+.security h2 { font-size:28px; font-weight:800; margin-bottom:16px; }
+.security p { color:var(--text-muted); max-width:560px; margin:0 auto 32px; }
+.security-badges { display:flex; gap:16px; justify-content:center; flex-wrap:wrap; }
+.security-badge {
+  background:var(--bg-card); border:1px solid var(--border-color); border-radius:var(--radius-lg);
+  padding:16px 24px; display:flex; align-items:center; gap:10px;
+}
+.security-badge span { font-weight:600; font-size:var(--text-sm); }
+
+/* CTA */
+.cta { padding:100px 24px; text-align:center; background:var(--bg-primary); }
+.cta h2 { font-size:36px; font-weight:800; margin-bottom:16px; }
+.cta p { color:var(--text-muted); margin-bottom:32px; }
+.cta-form { display:flex; gap:12px; justify-content:center; max-width:440px; margin:0 auto; flex-wrap:wrap; }
+.cta-form input { flex:1; min-width:220px; padding:14px 18px; border-radius:var(--radius-lg); border:1px solid var(--border-color); background:var(--bg-card); color:var(--text-primary); font-size:var(--text-base); }
+.cta-form input:focus { border-color:var(--teal-500); outline:none; box-shadow:0 0 0 3px rgba(20,184,166,0.15); }
+
+/* Footer */
+.footer { padding:60px 24px 24px; border-top:1px solid var(--border-color); }
+.footer-grid { max-width:1100px; margin:0 auto; display:grid; grid-template-columns:2fr 1fr 1fr 1fr; gap:40px; }
+.footer-brand h3 { font-size:20px; font-weight:800; margin-bottom:12px; }
+.footer-brand p { font-size:var(--text-sm); color:var(--text-muted); line-height:1.6; margin-bottom:16px; }
+.footer-social { display:flex; gap:12px; }
+.footer-social-link {
+  width:36px; height:36px; border-radius:50%; background:var(--bg-secondary);
+  display:flex; align-items:center; justify-content:center;
+  font-size:14px; font-weight:700; color:var(--text-muted); cursor:pointer;
+  transition:all 0.2s;
+}
+.footer-social-link:hover { background:var(--teal-500); color:white; }
+.footer-col h4 { font-size:var(--text-sm); font-weight:700; margin-bottom:16px; text-transform:uppercase; letter-spacing:0.05em; }
+.footer-col a, .footer-col span.footer-link { display:block; font-size:var(--text-sm); color:var(--text-muted); margin-bottom:10px; text-decoration:none; cursor:pointer; transition:color 0.2s; }
+.footer-col a:hover, .footer-col span.footer-link:hover { color:var(--teal-500); }
+.footer-bottom { max-width:1100px; margin:40px auto 0; padding-top:24px; border-top:1px solid var(--border-color); text-align:center; font-size:var(--text-xs); color:var(--text-muted); }
+
+/* Reveal */
+.reveal { opacity:0; transform:translateY(24px); transition:opacity 0.6s cubic-bezier(0.22,1,0.36,1), transform 0.6s cubic-bezier(0.22,1,0.36,1); }
+.reveal.visible { opacity:1; transform:translateY(0); }
+
+@media (max-width:900px) {
+  .feature-grid, .pricing-grid, .testimonial-grid { grid-template-columns:1fr; }
+  .footer-grid { grid-template-columns:1fr 1fr; }
+  .hero-stats { gap:24px; }
+}
+@media (max-width:600px) {
+  .footer-grid { grid-template-columns:1fr; }
+  .step { flex-direction:column; }
+}
+
+@keyframes pulseDot {
+  0%,100%{opacity:1;transform:scale(1);}
+  50%{opacity:0.5;transform:scale(1.3);}
+}
+</style>
+</head>
+<body class="landing">
+
+<!-- Nav -->
+<nav style="position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 24px;display:flex;align-items:center;justify-content:space-between;background:rgba(15,23,42,0.8);backdrop-filter:blur(12px);border-bottom:1px solid var(--border-color);">
+  <a href="../../index.html" style="display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--text-primary);">
+    <span style="font-size:24px;">🍽️</span>
+    <span style="font-weight:800;font-size:18px;letter-spacing:-0.02em;">RestoPro</span>
+  </a>
+  <div style="display:flex;align-items:center;gap:20px;">
+    <a href="#features" style="font-size:var(--text-sm);color:var(--text-muted);text-decoration:none;font-weight:500;">Özellikler</a>
+    <a href="#pricing" style="font-size:var(--text-sm);color:var(--text-muted);text-decoration:none;font-weight:500;">Fiyatlandırma</a>
+    <a href="dashboard.html" class="btn btn-primary" style="padding:8px 20px;font-size:var(--text-sm);">Dashboard</a>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-orb hero-orb-1"></div>
+  <div class="hero-orb hero-orb-2"></div>
+  <div class="hero-content">
+    <div class="hero-badge">
+      <span class="pulse"></span>
+      Belçika'nın Lider Restoran Yönetim Platformu
+    </div>
+    <h1>Restoranınızı <span>Akıllı Yönetin</span></h1>
+    <p>Masa planından mutfak stoğuna, menü yönetiminden personel vardiyalarına kadar her şey tek platformda. Brasserie'den fine-dining'e, her ölçekte işletme için.</p>
+    <div class="hero-cta">
+      <a href="dashboard.html" class="btn btn-primary">Ücretsiz Demo Başlat</a>
+      <a href="#features" class="btn btn-secondary">Özellikleri Keşfet</a>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="hero-stat-value">340+</div>
+        <div class="hero-stat-label">Aktif Restoran</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-value">2.8M</div>
+        <div class="hero-stat-label">Aylık Sipariş</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-value">€94M</div>
+        <div class="hero-stat-label">Yıllık Ciro</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-value">99.7%</div>
+        <div class="hero-stat-label">Uptime</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Trusted -->
+<section class="trusted">
+  <p>Bize Güvenen Restoranlar</p>
+  <div class="trusted-logos">
+    <span class="trusted-logo">Brasserie Horta</span>
+    <span class="trusted-logo">Frites Atelier</span>
+    <span class="trusted-logo">Comme Chez Soi</span>
+    <span class="trusted-logo">Aux Armes de Bruxelles</span>
+    <span class="trusted-logo">Le Pain Quotidien</span>
+  </div>
+</section>
+
+<!-- Features -->
+<section class="features" id="features">
+  <div class="features-header reveal">
+    <h2>Tüm Restoran Operasyonları, Tek Platform</h2>
+    <p>Rezervasyondan mutfak stoğuna, sipariş takibinden personel vardiyalarına kadar her şeyi RestoPro ile yönetin.</p>
+  </div>
+  <div class="feature-grid">
+    <div class="feature-card reveal">
+      <div class="feature-icon">🪑</div>
+      <h3>Masa Planı</h3>
+      <p>Restoranınızın kat planını dijital ortama taşıyın. Rezervasyonları görsel olarak yönetin, masa doluluk oranlarını gerçek zamanlı izleyin.</p>
+    </div>
+    <div class="feature-card reveal reveal-delay-1">
+      <div class="feature-icon">🥘</div>
+      <h3>Mutfak Stok</h3>
+      <p>Malzeme takibi, otomatik sipariş önerileri, son kullanma tarihi uyarıları. İsrafı azaltın, karlılığı artırın.</p>
+    </div>
+    <div class="feature-card reveal reveal-delay-2">
+      <div class="feature-icon">📋</div>
+      <h3>Menü Yönetimi</h3>
+      <p>Dijital menü oluşturun, fiyatları anında güncelleyin, alerjen bilgilerini otomatik gösterin. QR menü desteği dahil.</p>
+    </div>
+    <div class="feature-card reveal">
+      <div class="feature-icon">📲</div>
+      <h3>Sipariş Takibi</h3>
+      <p>Mutfak ekranları, garson mobil uygulaması, self-sipariş kiosk. Siparişlerden masaya kadar her adımı izleyin.</p>
+    </div>
+    <div class="feature-card reveal reveal-delay-1">
+      <div class="feature-icon">📅</div>
+      <h3>Rezervasyon</h3>
+      <p>Online rezervasyon widget'ı, telefon rezervasyonları, bekleme listesi, otomatik SMS/WhatsApp hatırlatmaları.</p>
+    </div>
+    <div class="feature-card reveal reveal-delay-2">
+      <div class="feature-icon">👨‍🍳</div>
+      <h3>Personel Vardiya</h3>
+      <p>Vardiya planlama, izin yönetimi, saatlik ücret hesaplama, puantaj. Hem şef hem garson hem mutfak personeli.</p>
+    </div>
+  </div>
+</section>
+
+<!-- How it works -->
+<section class="how">
+  <div class="how-inner">
+    <h2 class="reveal">Nasıl Çalışır?</h2>
+    <div class="step reveal">
+      <div class="step-num">1</div>
+      <div>
+        <h3>Restoranınızı Tanımlayın</h3>
+        <p>Kat planınızı çizin, masa sayısını ve kapasitelerini belirleyin. Menünüzü dijital ortama aktarın — yemekler, fiyatlar, alerjenler.</p>
+      </div>
+    </div>
+    <div class="step reveal">
+      <div class="step-num">2</div>
+      <div>
+        <h3>Ekibinizi Ekleyin</h3>
+        <p>Şefler, garsonlar, mutfak personeli ve yöneticileri sisteme ekleyin. Her role özel yetkiler atayın. Vardiyaları planlamaya başlayın.</p>
+      </div>
+    </div>
+    <div class="step reveal">
+      <div class="step-num">3</div>
+      <div>
+        <h3>Operasyonu Başlatın</h3>
+        <p>Rezervasyonlar gelsin, siparişler mutfak ekranlarına düşsün, stoklar otomatik güncellensin. Raporlarla her şeyi izleyin.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Pricing -->
+<section class="pricing" id="pricing">
+  <h2 class="reveal">Basit ve Şeffaf Fiyatlandırma</h2>
+  <p class="reveal">Kredi kartı gerekmez. İstediğinizde iptal edin.</p>
+  <div class="pricing-grid">
+    <div class="pricing-card reveal">
+      <h3>Starter</h3>
+      <div class="price">€49<span>/ay</span></div>
+      <ul>
+        <li>1 lokasyon</li>
+        <li>25 masa</li>
+        <li>Masa planı</li>
+        <li>Temel rezervasyon</li>
+        <li>E-posta destek</li>
+      </ul>
+      <a href="dashboard.html" class="btn btn-secondary" style="width:100%;">Başla</a>
+    </div>
+    <div class="pricing-card featured reveal reveal-delay-1">
+      <h3>Professional</h3>
+      <div class="price">€149<span>/ay</span></div>
+      <ul>
+        <li>3 lokasyon</li>
+        <li>Sınırsız masa</li>
+        <li>Mutfak stok + otomatik sipariş</li>
+        <li>Online rezervasyon widget'ı</li>
+        <li>QR menü ve self-sipariş</li>
+        <li>Personel vardiya yönetimi</li>
+        <li>Öncelikli destek</li>
+      </ul>
+      <a href="dashboard.html" class="btn btn-primary" style="width:100%;">Başla</a>
+    </div>
+    <div class="pricing-card reveal reveal-delay-2">
+      <h3>Enterprise</h3>
+      <div class="price">€349<span>/ay</span></div>
+      <ul>
+        <li>Sınırsız lokasyon</li>
+        <li>Franchise yönetimi</li>
+        <li>API erişimi</li>
+        <li>Özel entegrasyonlar</li>
+        <li>Dedicated account manager</li>
+        <li>SLA garantisi</li>
+      </ul>
+      <a href="dashboard.html" class="btn btn-secondary" style="width:100%;">Satışla Konuş</a>
+    </div>
+  </div>
+</section>
+
+<!-- Testimonials -->
+<section class="testimonials">
+  <h2 class="reveal">Restoran Sahipleri Ne Diyor?</h2>
+  <div class="testimonial-grid">
+    <div class="testimonial-card reveal">
+      <div class="stars">★★★★★</div>
+      <p>"RestoPro sayesinde masa doluluk oranımız %23 arttı. Rezervasyon çakışmaları tamamen ortadan kalktı. Mutfak stok takibi de inanılmaz faydalı."</p>
+      <div class="testimonial-author">
+        <div class="avatar">MV</div>
+        <div>
+          <div class="name">Marc Van den Berghe</div>
+          <div class="role">Sahip, Brasserie Horta Bruxelles</div>
+        </div>
+      </div>
+    </div>
+    <div class="testimonial-card reveal reveal-delay-1">
+      <div class="stars">★★★★★</div>
+      <p>"Frites Atelier Gent olarak 3 şubeyi tek panelden yönetiyoruz. Personel vardiya planlama özelliği haftada bana 6 saat kazandırıyor."</p>
+      <div class="testimonial-author">
+        <div class="avatar">SD</div>
+        <div>
+          <div class="name">Sophie De Wilde</div>
+          <div class="role">İşletme Müdürü, Frites Atelier Gent</div>
+        </div>
+      </div>
+    </div>
+    <div class="testimonial-card reveal">
+      <div class="stars">★★★★★</div>
+      <p>"QR menü ve self-sipariş özelliği pandemi sonrası personel maliyetlerimizi %18 düşürdü. Müşteriler de daha hızlı sipariş veriyor."</p>
+      <div class="testimonial-author">
+        <div class="avatar">JL</div>
+        <div>
+          <div class="name">Jean-Pierre Lemaire</div>
+          <div class="role">Şef, Comme Chez Soi</div>
+        </div>
+      </div>
+    </div>
+    <div class="testimonial-card reveal reveal-delay-1">
+      <div class="stars">★★★★★</div>
+      <p>"Moules-frites gibi taze malzeme gerektiren yemeklerde stok takibi hayati. RestoPro'nun otomatik sipariş önerileri israfı neredeyse sıfırladı."</p>
+      <div class="testimonial-author">
+        <div class="avatar">CD</div>
+        <div>
+          <div class="name">Claire Dubois</div>
+          <div class="role">Genel Müdür, Aux Armes de Bruxelles</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Security -->
+<section class="security">
+  <h2 class="reveal">Verileriniz Güvende</h2>
+  <p class="reveal">GDPR tam uyumlu. Belçika sunucularında barındırılır. PCI-DSS sertifikalı ödeme altyapısı.</p>
+  <div class="security-badges reveal">
+    <div class="security-badge"><span style="font-size:20px;">🔒</span><span>SOC 2 Tip II</span></div>
+    <div class="security-badge"><span style="font-size:20px;">🛡️</span><span>GDPR Uyumlu</span></div>
+    <div class="security-badge"><span style="font-size:20px;">🇪🇺</span><span>EU Sunucuları</span></div>
+    <div class="security-badge"><span style="font-size:20px;">💳</span><span>PCI-DSS</span></div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta">
+  <div class="reveal">
+    <h2>Bugün Başlayın</h2>
+    <p>30 gün ücretsiz deneme. Kredi kartı gerekmez. İstediğinizde iptal edin.</p>
+    <div class="cta-form">
+      <input type="email" placeholder="E-posta adresiniz" id="ctaEmail">
+      <button class="btn btn-primary" onclick="const e=document.getElementById('ctaEmail').value;if(e&&e.includes('@')){location.href='dashboard.html?email='+encodeURIComponent(e);}else{alert('Geçerli bir e-posta girin');}">Ücretsiz Başla</button>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <h3>🍽️ RestoPro</h3>
+      <p>Belçika ve Avrupa'nın restoran, kafe ve yemek hizmetleri sektörünün dijital dönüşümünde güvenilir ortağınız. 2022'den beri 340+ işletmeye hizmet veriyoruz.</p>
+      <div class="footer-social">
+        <span class="footer-social-link">𝕏</span>
+        <span class="footer-social-link">in</span>
+        <span class="footer-social-link">f</span>
+        <span class="footer-social-link">ig</span>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Ürün</h4>
+      <a href="#features">Özellikler</a>
+      <a href="#pricing">Fiyatlandırma</a>
+      <a href="dashboard.html">Demo</a>
+      <span class="footer-link">Yol Haritası</span>
+      <span class="footer-link">API</span>
+    </div>
+    <div class="footer-col">
+      <h4>Platformlar</h4>
+      <a href="https://mcemkoca.github.io/cleanfix-vercel/">🧹 CleanFix — Temizlik</a>
+      <a href="https://mcemkoca.github.io/buildpro-vercel/">🏗️ BuildPro — İnşaat</a>
+      <a href="https://mcemkoca.github.io/barberpro-vercel/">💜 BarberPro — Berber</a>
+      <a href="index.html" style="color:var(--teal-400);font-weight:600;">🍽️ RestoPro — Restoran</a>
+      <span class="footer-link">🛒 MarketPro — Market</span>
+      <span class="footer-link">🏥 MediPro — Klinik</span>
+    </div>
+    <div class="footer-col">
+      <h4>Yasal</h4>
+      <span class="footer-link">Gizlilik</span>
+      <span class="footer-link">Kullanım Koşulları</span>
+      <span class="footer-link">GDPR</span>
+      <span class="footer-link">SLA</span>
+      <span class="footer-link">Güvenlik</span>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    © 2026 RestoPro BV. Tüm hakları saklıdır. Belçika'da geliştirildi 🍽️
+  </div>
+</footer>
+
+<script>
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+}, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>

@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RestoPro — Sipariş Takibi</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/main.css">
+<link rel="stylesheet" href="css/components.css">
+<link rel="stylesheet" href="css/dashboard.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<style>
+:root, [data-theme="dark"] {
+  --glass-bg: rgba(15, 23, 42, 0.60);
+  --glass-border: rgba(148, 163, 184, 0.08);
+  --glass-highlight: rgba(255, 255, 255, 0.03);
+  --teal-glow: rgba(20, 184, 166, 0.15);
+  --card-shadow: 0 1px 3px rgba(0,0,0,0.3), 0 8px 24px rgba(0,0,0,0.2);
+  --card-shadow-hover: 0 2px 6px rgba(0,0,0,0.4), 0 16px 48px rgba(0,0,0,0.3);
+}
+
+/* Kitchen board */
+.kitchen-board { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+.kitchen-card {
+  background:var(--glass-bg); backdrop-filter:blur(16px) saturate(1.4);
+  border:1px solid var(--glass-border); border-radius:var(--radius-lg);
+  box-shadow:var(--card-shadow); padding:var(--space-4);
+}
+.kitchen-card .k-header {
+  display:flex; align-items:center; justify-content:space-between; margin-bottom:var(--space-3);
+  padding-bottom:var(--space-3); border-bottom:1px solid var(--border-color);
+}
+.kitchen-card .k-title { font-size:var(--text-sm); font-weight:700; display:flex; align-items:center; gap:8px; }
+.kitchen-card .k-count { font-size:11px; font-weight:700; padding:2px 8px; border-radius:9999px; }
+
+.kitchen-card.waiting { border-top:3px solid var(--info-500); }
+.kitchen-card.waiting .k-count { background:rgba(59,130,246,0.15); color:var(--info-500); }
+.kitchen-card.cooking { border-top:3px solid var(--warning-500); }
+.kitchen-card.cooking .k-count { background:rgba(245,158,11,0.15); color:var(--warning-500); }
+.kitchen-card.ready { border-top:3px solid var(--success-500); }
+.kitchen-card.ready .k-count { background:rgba(16,185,129,0.15); color:var(--success-500); }
+
+.order-tile {
+  background:var(--bg-secondary); border:1px solid var(--border-color); border-radius:var(--radius-md);
+  padding:12px; margin-bottom:8px; cursor:pointer; transition:all 0.15s;
+}
+.order-tile:hover { border-color:var(--teal-500); }
+.order-tile .o-table { font-size:12px; font-weight:700; color:var(--teal-500); margin-bottom:4px; }
+.order-tile .o-items { font-size:12px; color:var(--text-secondary); line-height:1.5; }
+.order-tile .o-time { font-size:11px; color:var(--text-muted); margin-top:6px; }
+</style>
+</head>
+<body>
+
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+<div class="dashboard">
+
+<!-- Sidebar -->
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-header">
+    <div class="sidebar-logo">
+      <div class="logo-icon">🍽️</div>
+      <div><h2>RestoPro</h2><p>Restoran Yönetimi</p></div>
+    </div>
+  </div>
+  <div class="sidebar-nav">
+    <div class="nav-group">
+      <div class="nav-label">Ana Menü</div>
+      <a class="nav-item" href="dashboard.html">📊 Dashboard</a>
+      <a class="nav-item" href="restopro-menu.html">📋 Menü Yönetimi</a>
+      <a class="nav-item" href="restopro-tables.html">🪑 Masa Planı</a>
+      <a class="nav-item active" href="restopro-orders.html">📲 Sipariş Takibi</a>
+      <a class="nav-item" href="restopro-staff.html">👨‍🍳 Personel</a>
+    </div>
+    <div class="nav-group">
+      <div class="nav-label">Genel</div>
+      <a class="nav-item" href="index.html">🏠 Ana Sayfa</a>
+      <a class="nav-item" href="../../index.html">🧹 CleanFix</a>
+    </div>
+  </div>
+  <div class="sidebar-footer">
+    <div class="sidebar-user">
+      <div class="sidebar-user-info"><p>RestoPro Demo</p><span>Restoran Sektörü</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- Main -->
+<div class="main">
+
+  <!-- Header -->
+  <header class="header">
+    <div class="header-left">
+      <button class="menu-btn" id="menuBtn" title="Menü">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+      <h1 class="page-title">Sipariş Takibi</h1>
+    </div>
+    <div class="header-right">
+      <div class="search-input" style="max-width:240px;">
+        <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        <input type="text" class="form-input" placeholder="Sipariş, masa, yemek ara..." style="padding-left:36px;font-size:var(--text-sm);">
+      </div>
+      <button class="header-btn" id="themeToggle" title="Tema">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/></svg>
+      </button>
+      <div class="avatar avatar-sm" style="cursor:pointer;">MH</div>
+    </div>
+  </header>
+
+  <!-- Content -->
+  <main class="content">
+
+    <!-- Quick Actions -->
+    <div class="quick-actions-bar">
+      <div class="quick-action" onclick="openModal('addOrderModal')"><span class="icon">📲</span> Yeni Sipariş</div>
+      <div class="quick-action" onclick="openModal('batchReadyModal')"><span class="icon">🍽️</span> Toplu Hazır</div>
+      <div class="quick-action" onclick="openModal('kitchenDelayModal')"><span class="icon">⏱️</span> Mutfak Gecikme</div>
+      <div class="quick-action" onclick="openModal('cancelOrderModal')"><span class="icon">🚫</span> Sipariş İptal</div>
+    </div>
+
+    <!-- KPI Row -->
+    <div class="kpi-row">
+      <div class="kpi-card reveal">
+        <div class="kpi-top">
+          <div class="kpi-icon" style="background:rgba(20,184,166,0.1);color:var(--teal-500);">📲</div>
+          <div class="kpi-trend up"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/></svg> +12%</div>
+        </div>
+        <div class="kpi-value" data-target="147" data-suffix="">0</div>
+        <div class="kpi-label">Günlük Sipariş</div>
+      </div>
+      <div class="kpi-card reveal reveal-delay-1">
+        <div class="kpi-top">
+          <div class="kpi-icon" style="background:rgba(59,130,246,0.1);color:var(--info-500);">⏳</div>
+          <div class="kpi-trend up"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/></svg> +3</div>
+        </div>
+        <div class="kpi-value" data-target="6" data-suffix="">0</div>
+        <div class="kpi-label">Bekleyen</div>
+      </div>
+      <div class="kpi-card reveal reveal-delay-2">
+        <div class="kpi-top">
+          <div class="kpi-icon" style="background:rgba(245,158,11,0.1);color:var(--warning-500);">🔥</div>
+          <div class="kpi-trend down"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="23 18 13.5 8.5 8.5 13.5 1 6"/></svg> -2</div>
+        </div>
+        <div class="kpi-value" data-target="4" data-suffix="">0</div>
+        <div class="kpi-label">Pişiyor</div>
+      </div>
+      <div class="kpi-card reveal reveal-delay-3">
+        <div class="kpi-top">
+          <div class="kpi-icon" style="background:rgba(16,185,129,0.1);color:var(--success-500);">🍽️</div>
+          <div class="kpi-trend up"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/></svg> +8</div>
+        </div>
+        <div class="kpi-value" data-target="18" data-suffix="">0</div>
+        <div class="kpi-label">Hazır / Servis</div>
+      </div>
+    </div>
+
+    <!-- Kitchen Board -->
+    <div class="kitchen-board" style="margin-bottom:var(--space-6);">
+      <div class="kitchen-card waiting reveal">
+        <div class="k-header">
+          <div class="k-title"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--info-500)" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> Bekliyor</div>
+          <span class="k-count">3</span>
+        </div>
+        <div class="order-tile" onclick="openModal('orderDetailModal','M06')">
+          <div class="o-table">M06 — Marc D.</div>
+          <div class="o-items">Croquettes x1, Salata x1, Şarap x1</div>
+          <div class="o-time">⏱️ 5 dk bekliyor · €31.00</div>
+        </div>
+        <div class="order-tile" onclick="openModal('orderDetailModal','M12')">
+          <div class="o-table">M12 — Emma P.</div>
+          <div class="o-items">Chicons au Gratin x2, Frites x1</div>
+          <div class="o-time">⏱️ 8 dk bekliyor · €42.00</div>
+        </div>
+        <div class="order-tile" onclick="openModal('orderDetailModal','B01')">
+          <div class="o-table">B01 — Jan D.</div>
+          <div class="o-items">Belgian Beer Selection x1, Peynir x1</div>
+          <div class="o-time">⏱️ 12 dk bekliyor · €34.00</div>
+        </div>
+      </div>
+
+      <div class="kitchen-card cooking reveal reveal-delay-1">
+        <div class="k-header">
+          <div class="k-title"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--warning-500)" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg> Pişiyor</div>
+          <span class="k-count">4</span>
+        </div>
+        <div class="order-tile" onclick="openModal('orderDetailModal','M03')">
+          <div class="o-table">M03 — Marc D.</div>
+          <div class="o-items">Carbonnade x1, Waffle x1, Kahve x2</div>
+          <div class="o-time">🔥 12 dk pişiyor · €38.50</div>
+        </div>
+        <div class="order-tile" onclick="openModal('orderDetailModal','M09')">
+          <div class="o-table">M09 — Lisa V.</div>
+          <div class="o-items">Menü du jour x8, Şarap x4, Su x8</div>
+          <div class="o-time">🔥 28 dk pişiyor · €248.00</div>
+        </div>
+        <div class="order-tile" onclick="openModal('orderDetailModal','T05')">
+          <div class="o-table">T05 — Marc D.</div>
+          <div class="o-items">Moules-frites x1, Carbonnade x1</div>
+          <div class="o-time">🔥 15 dk pişiyor · €71.00</div>
+        </div>
+        <div class="order-tile" onclick="openModal('orderDetailModal','T01')">
+          <div class="o-table">T01 — Emma P.</div>
+          <div class="o-items">Waterzooi x2, Stoemp x2, Bira x4</div>
+          <div class="o-time">🔥 22 dk pişiyor · €89.00</div>
+        </div>
+      </div>
+
+      <div class="kitchen-card ready reveal reveal-delay-2">
+        <div class="k-header">
+          <div class="k-title"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--success-500)" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Hazır</div>
+          <span class="k-count">3</span>
+        </div>
+        <div class="order-tile" onclick="openModal('orderDetailModal','M02')">
+          <div class="o-table">M02 — Emma P.</div>
+          <div class="o-items">Moules-frites x2, Bira x2</div>
+          <div class="o-time">✅ 18 dk · €53.00</div>
+        </div>
+        <div class="order-tile" onclick="openModal('orderDetailModal','M10')">
+          <div class="o-table">M10 — Lisa V.</div>
+          <div class="o-items">Tiramisu x1, Kahve x1, Su x1</div>
+          <div class="o-time">✅ 6 dk · €14.50</div>
+        </div>
+        <div class="order-tile" onclick="openModal('orderDetailModal','T02')">
+          <div class="o-table">T02 — Jan D.</div>
+          <div class="o-items">Waterzooi x2, Stoemp x2, Bira x4</div>
+          <div class="o-time">✅ 22 dk · €89.00</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Orders Table -->
+    <div class="glass-card span-3 reveal">
+      <div class="card-header">
+        <div class="card-title">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--teal-500)" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+          Tüm Siparişler
+        </div>
+        <div style="display:flex;gap:8px;">
+          <button class="btn btn-sm btn-secondary" onclick="openModal('addOrderModal')">+ Yeni</button>
+        </div>
+      </div>
+      <div class="table-wrap">
+        <table class="table table-compact">
+          <thead>
+            <tr>
+              <th>#Sipariş</th>
+              <th>Masa</th>
+              <th>Garson</th>
+              <th>İçerik</th>
+              <th>Tutar</th>
+              <th>Mutfak</th>
+              <th>Ödeme</th>
+              <th>Süre</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>#SP-2026-1147</strong></td>
+              <td>M02</td>
+              <td>Emma P.</td>
+              <td>Moules-frites x2, Bira x2</td>
+              <td>€53.00</td>
+              <td><span class="badge badge-success">Hazır</span></td>
+              <td><span class="badge badge-warning">Bekliyor</span></td>
+              <td>18 dk</td>
+              <td>
+                <div style="display:flex;gap:4px;">
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openModal('orderDetailModal','M02')">👁</button>
+                  <button class="btn btn-icon-sm btn-ghost" onclick="showToast('Sipariş servis edildi','success')">🍽️</button>
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openModal('paymentModal','M02')">💶</button>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td><strong>#SP-2026-1146</strong></td>
+              <td>M03</td>
+              <td>Marc D.</td>
+              <td>Carbonnade x1, Waffle x1, Kahve x2</td>
+              <td>€38.50</td>
+              <td><span class="badge badge-warning">Pişiyor</span></td>
+              <td><span class="badge badge-neutral">—</span></td>
+              <td>12 dk</td>
+              <td>
+                <div style="display:flex;gap:4px;">
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openModal('orderDetailModal','M03')">👁</button>
+                  <button class="btn btn-icon-sm btn-ghost" onclick="showToast('Sipariş servis edildi','success')">🍽️</button>
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openModal('paymentModal','M03')">💶</button>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td><strong>#SP-2026-1145</strong></td>
+              <td>M06</td>
+              <td>Emma P.</td>
+              <td>Croquettes x1, Salata x1, Şarap x1</td>
+              <td>€31.00</td>
+              <td><span class="badge badge-info">Bekliyor</span></td>
+              <td><span class="badge badge-neutral">—</span></td>
+              <td>5 dk</td>
+              <td>
+                <div style="display:flex;gap:4px;">
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openModal('orderDetailModal','M06')">👁</button>
+                  <button class="btn btn-icon-sm btn-ghost" onclick="showToast('Sipariş servis edildi','success')">🍽️</button>
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openModal('paymentModal','M06')">💶</button>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td><strong>#SP-2026-1144</strong></td>
+              <td>M09</td>
+              <td>Lisa V.</td>
+              <td>Menü du jour x8, Şarap x4, Su x8</td>
+              <td>€248.00</td>
+              <td><span class="badge badge-warning">Pişiyor</span></td>
+              <td><span class="badge badge-neutral">—</span></td>
+              <td>28 dk</td>
+              <td>
+                <div style="display:flex;gap:4px;">
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openModal('orderDetailModal','M09')">👁</button>
+                  <button class="btn btn-icon-sm btn-ghost" onclick="showToast('Sipariş servis edildi','success')">🍽️</button>
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openModal('paymentModal','M09')">💶</button>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td><strong>#SP-2026-1143</strong></td>
+              <td>T02</td>
+              <td>Jan D.</td>
+              <td>Waterzooi x2, Stoemp x2, Bira x4</td>
+              <td>€89.00</td>
+              <td><span class="badge badge-success">Hazır</span></td>
+              <td><span class="badge badge-neutral">—</span></td>
+              <td>22 dk</td>
+              <td>
+                <div style="display:flex;gap:4px;">
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openModal('orderDetailModal','T02')">👁</button>
+                  <button class="btn btn-icon-sm btn-ghost" onclick="showToast('Sipariş servis edildi','success')">🍽️</button>
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openModal('paymentModal','T02')">💶</button>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td><strong>#SP-2026-1142</strong></td>
+              <td>T05</td>
+              <td>Marc D.</td>
+              <td>Moules-frites x1, Carbonnade x1, Waffle x2</td>
+              <td>€71.00</td>
+              <td><span class="badge badge-warning">Pişiyor</span></td>
+              <td><span class="badge badge-neutral">—</span></td>
+              <td>15 dk</td>
+              <td>
+                <div style="display:flex;gap:4px;">
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openModal('orderDetailModal','T05')">👁</button>
+                  <button class="btn btn-icon-sm btn-ghost" onclick="showToast('Sipariş servis edildi','success')">🍽️</button>
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openModal('paymentModal','T05')">💶</button>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td><strong>#SP-2026-1141</strong></td>
+              <td>M12</td>
+              <td>Emma P.</td>
+              <td>Chicons au Gratin x2, Frites x1, Su x2</td>
+              <td>€42.00</td>
+              <td><span class="badge badge-info">Bekliyor</span></td>
+              <td><span class="badge badge-neutral">—</span></td>
+              <td>8 dk</td>
+              <td>
+                <div style="display:flex;gap:4px;">
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openModal('orderDetailModal','M12')">👁</button>
+                  <button class="btn btn-icon-sm btn-ghost" onclick="showToast('Sipariş servis edildi','success')">🍽️</button>
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openModal('paymentModal','M12')">💶</button>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td><strong>#SP-2026-1140</strong></td>
+              <td>M10</td>
+              <td>Lisa V.</td>
+              <td>Speculoos Tiramisu x1, Kahve x1, Su x1</td>
+              <td>€14.50</td>
+              <td><span class="badge badge-success">Hazır</span></td>
+              <td><span class="badge badge-success">Ödendi</span></td>
+              <td>6 dk</td>
+              <td>
+                <div style="display:flex;gap:4px;">
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openModal('orderDetailModal','M10')">👁</button>
+                  <button class="btn btn-icon-sm btn-ghost" onclick="showToast('Sipariş servis edildi','success')">🍽️</button>
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openModal('printReceiptModal','M10')">🧾</button>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td><strong>#SP-2026-1139</strong></td>
+              <td>B01</td>
+              <td>Jan D.</td>
+              <td>Belgian Beer Selection x1, Peynir Tabağı x1</td>
+              <td>€34.00</td>
+              <td><span class="badge badge-info">Bekliyor</span></td>
+              <td><span class="badge badge-neutral">—</span></td>
+              <td>12 dk</td>
+              <td>
+                <div style="display:flex;gap:4px;">
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openModal('orderDetailModal','B01')">👁</button>
+                  <button class="btn btn-icon-sm btn-ghost" onclick="showToast('Sipariş servis edildi','success')">🍽️</button>
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openModal('paymentModal','B01')">💶</button>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td><strong>#SP-2026-1138</strong></td>
+              <td>T01</td>
+              <td>Emma P.</td>
+              <td>Paling in 't Groen x1, Waffle x1, Şarap x2</td>
+              <td>€56.00</td>
+              <td><span class="badge badge-success">Hazır</span></td>
+              <td><span class="badge badge-warning">Bekliyor</span></td>
+              <td>20 dk</td>
+              <td>
+                <div style="display:flex;gap:4px;">
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openModal('orderDetailModal','T01')">👁</button>
+                  <button class="btn btn-icon-sm btn-ghost" onclick="showToast('Sipariş servis edildi','success')">🍽️</button>
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openModal('paymentModal','T01')">💶</button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </main>
+</div>
+</div>
+
+<!-- ── MODALS ── -->
+
+<!-- Add Order Modal -->
+<div class="modal-overlay" id="addOrderModal">
+  <div class="modal modal-lg">
+    <div class="modal-header"><div class="modal-title">Yeni Sipariş</div><button class="modal-close" onclick="closeModal('addOrderModal')">✕</button></div>
+    <div class="modal-body">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-4);">
+        <div class="form-group"><label class="form-label">Masa</label><select class="form-select"><option>M01</option><option>M02</option><option>M03</option><option>T01</option><option>T02</option><option>B01</option></select></div>
+        <div class="form-group"><label class="form-label">Garson</label><select class="form-select"><option>Emma Peeters</option><option>Marc Dubois</option><option>Lisa Vermeulen</option></select></div>
+      </div>
+      <div style="margin-top:var(--space-4);">
+        <div style="font-size:var(--text-sm);font-weight:600;margin-bottom:8px;">Yemekler</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+          <div style="display:flex;align-items:center;gap:8px;padding:8px;background:var(--bg-secondary);border-radius:var(--radius-md);"><input type="checkbox"> <span>Moules-frites — €24.50</span></div>
+          <div style="display:flex;align-items:center;gap:8px;padding:8px;background:var(--bg-secondary);border-radius:var(--radius-md);"><input type="checkbox"> <span>Carbonnade — €22.00</span></div>
+          <div style="display:flex;align-items:center;gap:8px;padding:8px;background:var(--bg-secondary);border-radius:var(--radius-md);"><input type="checkbox"> <span>Waffle — €12.00</span></div>
+          <div style="display:flex;align-items:center;gap:8px;padding:8px;background:var(--bg-secondary);border-radius:var(--radius-md);"><input type="checkbox"> <span>Bira — €6.00</span></div>
+          <div style="display:flex;align-items:center;gap:8px;padding:8px;background:var(--bg-secondary);border-radius:var(--radius-md);"><input type="checkbox"> <span>Croquettes — €14.00</span></div>
+          <div style="display:flex;align-items:center;gap:8px;padding:8px;background:var(--bg-secondary);border-radius:var(--radius-md);"><input type="checkbox"> <span>Tiramisu — €10.50</span></div>
+        </div>
+      </div>
+      <div class="form-group" style="margin-top:var(--space-4);"><label class="form-label">Özel Not</label><textarea class="form-textarea" rows="2" placeholder="Alerji, pişirme tercihi..."></textarea></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('addOrderModal')">İptal</button>
+      <button class="btn btn-primary" onclick="closeModal('addOrderModal');showToast('Sipariş mutfağa iletildi','success')">Gönder</button>
+    </div>
+  </div>
+</div>
+
+<!-- Order Detail Modal -->
+<div class="modal-overlay" id="orderDetailModal">
+  <div class="modal modal-lg">
+    <div class="modal-header"><div class="modal-title" id="orderDetailTitle">Sipariş Detayı</div><button class="modal-close" onclick="closeModal('orderDetailModal')">✕</button></div>
+    <div class="modal-body">
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-4);margin-bottom:var(--space-4);">
+        <div style="background:var(--bg-secondary);padding:var(--space-4);border-radius:var(--radius-md);"><div style="font-size:var(--text-xs);color:var(--text-muted);margin-bottom:4px;">Masa</div><div style="font-size:var(--text-lg);font-weight:700;">M02</div></div>
+        <div style="background:var(--bg-secondary);padding:var(--space-4);border-radius:var(--radius-md);"><div style="font-size:var(--text-xs);color:var(--text-muted);margin-bottom:4px;">Tutar</div><div style="font-size:var(--text-lg);font-weight:700;color:var(--teal-500);">€53.00</div></div>
+        <div style="background:var(--bg-secondary);padding:var(--space-4);border-radius:var(--radius-md);"><div style="font-size:var(--text-xs);color:var(--text-muted);margin-bottom:4px;">Durum</div><div style="font-size:var(--text-lg);font-weight:700;color:var(--success-500);">Hazır</div></div>
+      </div>
+      <div class="table-wrap">
+        <table class="table table-compact">
+          <thead><tr><th>Yemek</th><th>Adet</th><th>Birim</th><th>Toplam</th></tr></thead>
+          <tbody>
+            <tr><td>Moules-frites Nature</td><td>2</td><td>€24.50</td><td>€49.00</td></tr>
+            <tr><td>Belgian Beer (Kwak)</td><td>2</td><td>€6.00</td><td>€12.00</td></tr>
+            <tr><td colspan="3" style="text-align:right;font-weight:600;">Toplam</td><td><strong>€53.00</strong></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('orderDetailModal')">Kapat</button>
+      <button class="btn btn-primary" onclick="closeModal('orderDetailModal');openModal('paymentModal')">Ödeme Al</button>
+    </div>
+  </div>
+</div>
+
+<!-- Payment Modal -->
+<div class="modal-overlay" id="paymentModal">
+  <div class="modal">
+    <div class="modal-header"><div class="modal-title">Ödeme</div><button class="modal-close" onclick="closeModal('paymentModal')">✕</button></div>
+    <div class="modal-body">
+      <div style="text-align:center;margin-bottom:var(--space-4);">
+        <div style="font-size:var(--text-xs);color:var(--text-muted);">Ödenecek Tutar</div>
+        <div style="font-size:36px;font-weight:800;color:var(--teal-500);">€53.00</div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-4);">
+        <div class="form-group"><label class="form-label">Ödeme Yöntemi</label><select class="form-select"><option>Kredi Kartı</option><option>Nakit</option><option>Bancontact</option><option>Apple Pay</option></select></div>
+        <div class="form-group"><label class="form-label">Bahşiş (€)</label><input type="text" class="form-input" placeholder="0.00"></div>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;margin-top:var(--space-4);"><input type="checkbox" id="printCheck" checked> <label for="printCheck" style="font-size:var(--text-sm);">Fiş yazdır</label></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('paymentModal')">İptal</button>
+      <button class="btn btn-primary" onclick="closeModal('paymentModal');showToast('Ödeme alındı: €53.00','success')">Ödeme Al</button>
+    </div>
+  </div>
+</div>
+
+<!-- Batch Ready Modal -->
+<div class="modal-overlay" id="batchReadyModal">
+  <div class="modal">
+    <div class="modal-header"><div class="modal-title">Toplu Hazır İşaretle</div><button class="modal-close" onclick="closeModal('batchReadyModal')">✕</button></div>
+    <div class="modal-body">
+      <p style="font-size:var(--text-sm);color:var(--text-secondary);margin-bottom:var(--space-4);">Hazır durumundaki tüm siparişleri servis edildi olarak işaretlemek üzeresiniz.</p>
+      <div style="background:var(--bg-secondary);padding:var(--space-4);border-radius:var(--radius-md);">
+        <div style="font-size:var(--text-sm);font-weight:600;">Etkilenecek siparişler:</div>
+        <div style="font-size:var(--text-sm);color:var(--text-secondary);margin-top:4px;">M02 (€53.00), M10 (€14.50), T02 (€89.00), T01 (€56.00)</div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('batchReadyModal')">İptal</button>
+      <button class="btn btn-primary" onclick="closeModal('batchReadyModal');showToast('4 sipariş servis edildi','success')">Onayla</button>
+    </div>
+  </div>
+</div>
+
+<!-- Kitchen Delay Modal -->
+<div class="modal-overlay" id="kitchenDelayModal">
+  <div class="modal">
+    <div class="modal-header"><div class="modal-title">Mutfak Gecikme Bildir</div><button class="modal-close" onclick="closeModal('kitchenDelayModal')">✕</button></div>
+    <div class="modal-body">
+      <div class="form-group"><label class="form-label">Masa</label><select class="form-select"><option>M09</option><option>M03</option><option>T05</option><option>T01</option></select></div>
+      <div class="form-group"><label class="form-label">Gecikme Nedeni</label><select class="form-select"><option>Yoğunluk</option><option>Malzeme eksikliği</option><option>Ekipman arızası</option><option>Diğer</option></select></div>
+      <div class="form-group"><label class="form-label">Tahmini Süre (dk)</label><input type="number" class="form-input" value="15"></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('kitchenDelayModal')">İptal</button>
+      <button class="btn btn-primary" onclick="closeModal('kitchenDelayModal');showToast('Gecikme bildirimi gönderildi','warning')">Bildir</button>
+    </div>
+  </div>
+</div>
+
+<!-- Cancel Order Modal -->
+<div class="modal-overlay" id="cancelOrderModal">
+  <div class="modal">
+    <div class="modal-header"><div class="modal-title" style="color:var(--error-500);">Sipariş İptal</div><button class="modal-close" onclick="closeModal('cancelOrderModal')">✕</button></div>
+    <div class="modal-body">
+      <div class="form-group"><label class="form-label">Sipariş No</label><select class="form-select"><option>#SP-2026-1147 — M02</option><option>#SP-2026-1146 — M03</option><option>#SP-2026-1145 — M06</option><option>#SP-2026-1144 — M09</option></select></div>
+      <div class="form-group"><label class="form-label">İptal Nedeni</label><select class="form-select"><option>Müşteri değişikliği</option><option>Malzeme yok</option><option>Müşteri çıktı</option><option>Diğer</option></select></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('cancelOrderModal')">İptal</button>
+      <button class="btn btn-primary" style="background:var(--error-500);" onclick="closeModal('cancelOrderModal');showToast('Sipariş iptal edildi','error')">Onayla</button>
+    </div>
+  </div>
+</div>
+
+<!-- Print Receipt Modal -->
+<div class="modal-overlay" id="printReceiptModal">
+  <div class="modal">
+    <div class="modal-header"><div class="modal-title">Fiş Yazdır</div><button class="modal-close" onclick="closeModal('printReceiptModal')">✕</button></div>
+    <div class="modal-body" style="text-align:center;">
+      <div style="background:var(--bg-secondary);padding:var(--space-4);border-radius:var(--radius-md);margin-bottom:var(--space-4);text-align:left;">
+        <div style="text-align:center;margin-bottom:12px;">
+          <div style="font-weight:700;">Brasserie Horta Bruxelles</div>
+          <div style="font-size:11px;color:var(--text-muted);">Rue des Bouchers 12, 1000 Bruxelles</div>
+        </div>
+        <hr style="border-color:var(--border-color);">
+        <div style="font-size:12px;">
+          <div style="display:flex;justify-content:space-between;margin-bottom:4px;"><span>Speculoos Tiramisu</span><span>€10.50</span></div>
+          <div style="display:flex;justify-content:space-between;margin-bottom:4px;"><span>Kahve</span><span>€3.00</span></div>
+          <div style="display:flex;justify-content:space-between;margin-bottom:4px;"><span>Su</span><span>€1.00</span></div>
+          <div style="display:flex;justify-content:space-between;margin-top:8px;font-weight:700;"><span>TOPLAM</span><span>€14.50</span></div>
+        </div>
+      </div>
+      <button class="btn btn-primary" onclick="closeModal('printReceiptModal');showToast('Fiş yazdırıldı','success')">🖨️ Yazdır</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const sidebar=document.getElementById('sidebar');
+const menuBtn=document.getElementById('menuBtn');
+const overlay=document.getElementById('sidebarOverlay');
+menuBtn.addEventListener('click',()=>{sidebar.classList.toggle('open');overlay.classList.toggle('active');});
+overlay.addEventListener('click',()=>{sidebar.classList.remove('open');overlay.classList.remove('active');});
+
+const html=document.documentElement;
+let theme=localStorage.getItem('rp-theme')||'dark';
+html.setAttribute('data-theme',theme);
+document.getElementById('themeToggle').addEventListener('click',()=>{theme=theme==='dark'?'light':'dark';html.setAttribute('data-theme',theme);localStorage.setItem('rp-theme',theme);});
+
+function showToast(msg,type='success',dur=3000){
+  let c=document.querySelector('.toast-container');
+  if(!c){c=document.createElement('div');c.className='toast-container';c.style.cssText='position:fixed;top:80px;right:24px;z-index:2000;display:flex;flex-direction:column;gap:12px;pointer-events:none;max-width:360px;';document.body.appendChild(c);}
+  const t=document.createElement('div');
+  const colors={success:'var(--success-500)',error:'var(--error-500)',warning:'var(--warning-500)',info:'var(--info-500)'};
+  const icons={success:'✓',error:'✕',warning:'!',info:'ℹ'};
+  const titles={success:'Başarılı',error:'Hata',warning:'Uyarı',info:'Bilgi'};
+  t.style.cssText=`pointer-events:all;background:var(--bg-card);border:1px solid ${colors[type]};border-radius:12px;padding:14px 18px;display:flex;align-items:flex-start;gap:12px;box-shadow:var(--shadow-lg);animation:toastIn 0.3s ease-out;position:relative;overflow:hidden;`;
+  t.innerHTML=`<span style="flex-shrink:0;margin-top:2px;width:20px;height:20px;border-radius:50%;background:${colors[type]};color:white;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;">${icons[type]}</span><div style="flex:1;"><div style="font-weight:600;font-size:var(--text-sm);">${titles[type]}</div><div style="font-size:var(--text-sm);color:var(--text-muted);margin-top:2px;">${msg}</div></div><span style="flex-shrink:0;color:var(--text-muted);cursor:pointer;font-size:14px;" onclick="this.parentElement.remove()">✕</span><div style="position:absolute;bottom:0;left:0;height:2px;background:${colors[type]};animation:progressBar 4s linear forwards;width:100%;"></div>`;
+  c.appendChild(t);
+  setTimeout(()=>{t.style.animation='toastOut 0.3s ease-in forwards';setTimeout(()=>t.remove(),300);},dur);
+}
+
+const revealObserver=new IntersectionObserver((entries)=>{entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('visible');}});},{threshold:0.08});
+document.querySelectorAll('.reveal').forEach(el=>revealObserver.observe(el));
+
+function animateCounters(){
+  document.querySelectorAll('.kpi-value[data-target]').forEach(el=>{
+    const target=parseInt(el.dataset.target);
+    const prefix=el.dataset.prefix||'';
+    const suffix=el.dataset.suffix||'';
+    const duration=1500; const start=performance.now();
+    function tick(now){const progress=Math.min((now-start)/duration,1);const eased=1-Math.pow(1-progress,3);const current=Math.round(eased*target);el.textContent=prefix+current.toLocaleString('tr-TR')+suffix;if(progress<1)requestAnimationFrame(tick);}
+    requestAnimationFrame(tick);
+  });
+}
+
+function openModal(id, title){
+  const modal=document.getElementById(id);
+  if(modal){modal.classList.add('active');if(title){const t=modal.querySelector('.modal-title');if(t&&t.id){if(t.id==='orderDetailTitle')t.textContent='Detay — '+title;}}}
+}
+function closeModal(id){const modal=document.getElementById(id);if(modal)modal.classList.remove('active');}
+document.querySelectorAll('.modal-overlay').forEach(o=>{o.addEventListener('click',(e)=>{if(e.target===o)o.classList.remove('active');});});
+
+document.addEventListener('DOMContentLoaded',()=>{setTimeout(animateCounters,400);});
+</script>
+
+<style>
+@keyframes toastIn{from{opacity:0;transform:translateY(-20px) scale(0.95);}to{opacity:1;transform:translateY(0) scale(1);}}
+@keyframes toastOut{from{opacity:1;transform:translateY(0) scale(1);}to{opacity:0;transform:translateY(-20px) scale(0.95);}}
+@keyframes progressBar{from{width:100%;}to{width:0;}}
+</style>
+
+</body>
+</html>

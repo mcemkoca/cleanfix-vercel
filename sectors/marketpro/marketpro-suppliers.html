@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MarketPro — Tedarikçiler</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/main.css">
+<link rel="stylesheet" href="css/components.css">
+<style>
+:root, [data-theme="dark"] { --glass-bg: rgba(15,23,42,0.60); --glass-border: rgba(148,163,184,0.08); --glass-highlight: rgba(255,255,255,0.03); --card-shadow: 0 1px 3px rgba(0,0,0,0.3), 0 8px 24px rgba(0,0,0,0.2); --card-shadow-hover: 0 2px 6px rgba(0,0,0,0.4), 0 16px 48px rgba(0,0,0,0.3); }
+.dashboard { display:flex; min-height:100vh; }
+.sidebar { width:260px; background:var(--bg-card); border-right:1px solid var(--border-color); display:flex; flex-direction:column; position:fixed; inset:0 auto 0 0; z-index:100; transition:transform var(--duration-slow) var(--ease-out); }
+.sidebar-header { padding:var(--space-5); border-bottom:1px solid var(--border-color); }
+.sidebar-logo { display:flex; align-items:center; gap:var(--space-3); }
+.sidebar-logo .logo-icon { width:40px; height:40px; background:linear-gradient(135deg,var(--teal-500),var(--teal-700)); border-radius:var(--radius-md); display:flex; align-items:center; justify-content:center; font-size:16px; font-weight:700; color:white; }
+.sidebar-logo h2 { font-size:var(--text-base); font-weight:700; }
+.sidebar-logo p { font-size:var(--text-xs); color:var(--text-muted); }
+.sidebar-nav { flex:1; overflow-y:auto; padding:var(--space-4); }
+.nav-group { margin-bottom:var(--space-5); }
+.nav-label { font-size:var(--text-xs); font-weight:600; text-transform:uppercase; letter-spacing:0.08em; color:var(--text-muted); margin-bottom:var(--space-2); padding-left:var(--space-3); }
+.nav-item { display:flex; align-items:center; gap:var(--space-3); padding:var(--space-2) var(--space-3); border-radius:var(--radius-md); font-size:var(--text-sm); font-weight:500; color:var(--text-secondary); transition:all var(--duration-fast); cursor:pointer; text-decoration:none; }
+.nav-item:hover { background:var(--bg-secondary); color:var(--text-primary); }
+.nav-item.active { background:rgba(20,184,166,0.12); color:var(--teal-400); font-weight:600; }
+.sidebar-footer { padding:var(--space-4); border-top:1px solid var(--border-color); }
+.sidebar-user-info p { font-size:var(--text-sm); font-weight:600; }
+.sidebar-user-info span { font-size:var(--text-xs); color:var(--text-muted); }
+
+.main { flex:1; margin-left:260px; min-height:100vh; display:flex; flex-direction:column; }
+.header { height:64px; padding:0 var(--space-6); display:flex; align-items:center; justify-content:space-between; border-bottom:1px solid var(--border-color); background:var(--bg-card); position:sticky; top:0; z-index:50; }
+.header-left { display:flex; align-items:center; gap:var(--space-4); }
+.menu-btn { width:36px; height:36px; border-radius:var(--radius-md); border:none; background:var(--bg-secondary); color:var(--text-primary); cursor:pointer; display:flex; align-items:center; justify-content:center; }
+.menu-btn:hover { background:var(--bg-tertiary); }
+.page-title { font-size:var(--text-xl); font-weight:700; letter-spacing:-0.02em; }
+.header-right { display:flex; align-items:center; gap:var(--space-3); }
+.header-btn { width:36px; height:36px; border-radius:var(--radius-md); border:none; background:var(--bg-secondary); color:var(--text-primary); cursor:pointer; display:flex; align-items:center; justify-content:center; position:relative; }
+.header-btn:hover { background:var(--bg-tertiary); }
+
+.content { flex:1; padding:var(--space-6); }
+.toolbar { display:flex; align-items:center; justify-content:space-between; margin-bottom:var(--space-5); flex-wrap:wrap; gap:var(--space-3); }
+.search-box { display:flex; align-items:center; gap:var(--space-2); background:var(--bg-card); border:1px solid var(--border-color); border-radius:var(--radius-lg); padding:8px 14px; flex:1; max-width:320px; }
+.search-box input { background:transparent; border:none; color:var(--text-primary); font-size:var(--text-sm); outline:none; width:100%; }
+.search-box input::placeholder { color:var(--text-muted); }
+
+.glass-card { background:var(--glass-bg); backdrop-filter:blur(16px) saturate(1.4); -webkit-backdrop-filter:blur(16px) saturate(1.4); border:1px solid var(--glass-border); border-radius:var(--radius-lg); box-shadow:var(--card-shadow), inset 0 1px 0 var(--glass-highlight); overflow:hidden; }
+.card-header { display:flex; align-items:center; justify-content:space-between; padding:var(--space-4) var(--space-5); border-bottom:1px solid var(--border-color); flex-wrap:wrap; gap:var(--space-3); }
+.card-title { display:flex; align-items:center; gap:var(--space-2); font-size:var(--text-sm); font-weight:700; }
+
+.table-wrap { overflow-x:auto; }
+.table { width:100%; border-collapse:collapse; font-size:var(--text-sm); }
+.table thead th { text-align:left; padding:12px var(--space-4); font-size:var(--text-xs); font-weight:600; text-transform:uppercase; letter-spacing:0.05em; color:var(--text-muted); border-bottom:1px solid var(--border-color); white-space:nowrap; }
+.table tbody td { padding:12px var(--space-4); border-bottom:1px solid var(--border-color); color:var(--text-secondary); }
+.table tbody tr:last-child td { border-bottom:none; }
+.table tbody tr:hover td { background:var(--bg-secondary); }
+
+.badge { display:inline-flex; align-items:center; padding:3px 10px; border-radius:9999px; font-size:11px; font-weight:700; }
+.badge-success { background:rgba(16,185,129,0.1); color:var(--success-500); }
+.badge-warning { background:rgba(245,158,11,0.1); color:var(--warning-500); }
+.badge-error { background:rgba(244,63,94,0.1); color:var(--error-500); }
+.badge-info { background:rgba(59,130,246,0.1); color:var(--info-500); }
+
+/* Modal */
+.modal-overlay { z-index:1000; position:fixed; inset:0; background:rgba(0,0,0,0.5); backdrop-filter:blur(4px); display:flex; align-items:center; justify-content:center; padding:24px; opacity:0; visibility:hidden; transition:all var(--duration-normal); }
+.modal-overlay.active { opacity:1; visibility:visible; }
+.modal { background:var(--bg-card); border:1px solid var(--border-color); border-radius:var(--radius-xl); max-width:520px; width:100%; max-height:90vh; overflow-y:auto; box-shadow:var(--shadow-xl); transform:scale(0.95) translateY(10px); transition:transform var(--duration-normal) var(--ease-out); }
+.modal-overlay.active .modal { transform:scale(1) translateY(0); }
+.modal-lg { max-width:680px; }
+.modal-header { display:flex; align-items:center; justify-content:space-between; padding:20px 24px; border-bottom:1px solid var(--border-color); }
+.modal-title { font-size:var(--text-lg); font-weight:700; }
+.modal-close { width:32px; height:32px; border-radius:var(--radius-md); border:none; background:var(--bg-secondary); color:var(--text-muted); cursor:pointer; font-size:16px; }
+.modal-close:hover { background:var(--error-500); color:white; }
+.modal-body { padding:24px; }
+.modal-footer { display:flex; justify-content:flex-end; gap:12px; padding:16px 24px; border-top:1px solid var(--border-color); }
+.form-group { margin-bottom:16px; }
+.form-label { display:block; font-size:var(--text-sm); font-weight:600; margin-bottom:6px; }
+.form-input { width:100%; padding:10px 14px; border-radius:var(--radius-md); border:1px solid var(--border-color); background:var(--bg-input); color:var(--text-primary); font-size:var(--text-sm); }
+.form-input:focus { outline:none; border-color:var(--teal-500); box-shadow:0 0 0 3px rgba(20,184,166,0.15); }
+.form-select { width:100%; padding:10px 14px; border-radius:var(--radius-md); border:1px solid var(--border-color); background:var(--bg-input); color:var(--text-primary); font-size:var(--text-sm); }
+
+.toast-container { position:fixed; top:80px; right:24px; z-index:2000; display:flex; flex-direction:column; gap:12px; pointer-events:none; max-width:360px; }
+
+.footer { padding:40px 24px 20px; background:var(--bg-card); border-top:1px solid var(--border-color); margin-top:var(--space-6); }
+.footer-grid { display:grid; grid-template-columns:1.5fr 1fr 1fr 1fr; gap:40px; max-width:1200px; margin:0 auto; }
+.footer-brand h3 { font-size:var(--text-lg); font-weight:700; margin-bottom:12px; }
+.footer-brand p { font-size:var(--text-sm); color:var(--text-muted); line-height:1.6; margin-bottom:16px; }
+.footer-col h4 { font-size:var(--text-sm); font-weight:700; margin-bottom:16px; }
+.footer-col a { display:block; font-size:var(--text-sm); color:var(--text-muted); padding:6px 0; transition:color var(--duration-fast); text-decoration:none; }
+.footer-col a:hover { color:var(--teal-500); }
+.footer-bottom { text-align:center; padding-top:20px; margin-top:20px; border-top:1px solid var(--border-color); font-size:var(--text-xs); color:var(--text-muted); }
+
+.sidebar-overlay { position:fixed; inset:0; background:rgba(0,0,0,0.4); z-index:99; opacity:0; visibility:hidden; transition:all var(--duration-normal); }
+.sidebar-overlay.active { opacity:1; visibility:visible; }
+
+@media (max-width:1024px) { .sidebar { transform:translateX(-100%); } .sidebar.open { transform:translateX(0); } .main { margin-left:0; } .footer-grid { grid-template-columns:1fr 1fr; } }
+@media (max-width:640px) { .footer-grid { grid-template-columns:1fr; } .content { padding:var(--space-4); } }
+
+@keyframes toastIn { from{opacity:0;transform:translateY(-20px) scale(0.95);}to{opacity:1;transform:translateY(0) scale(1);} }
+@keyframes toastOut { from{opacity:1;transform:translateY(0) scale(1);}to{opacity:0;transform:translateY(-20px) scale(0.95);} }
+@keyframes progressBar { from{width:100%;}to{width:0;} }
+</style>
+</head>
+<body>
+
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+<div class="dashboard">
+
+<!-- Sidebar -->
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-header">
+    <div class="sidebar-logo">
+      <div class="logo-icon">🛒</div>
+      <div>
+        <h2>MarketPro</h2>
+        <p>Market Yönetimi</p>
+      </div>
+    </div>
+  </div>
+  <div class="sidebar-nav">
+    <div class="nav-group">
+      <div class="nav-label">Ana Menü</div>
+      <a class="nav-item" href="dashboard.html">📊 Dashboard</a>
+      <a class="nav-item" href="marketpro-products.html">🏷️ Ürünler</a>
+      <a class="nav-item" href="marketpro-stock.html">📦 Stok</a>
+      <a class="nav-item" href="marketpro-sales.html">💶 Satışlar</a>
+      <a class="nav-item active" href="marketpro-suppliers.html">🚚 Tedarikçiler</a>
+    </div>
+    <div class="nav-group">
+      <div class="nav-label">Diğer</div>
+      <a class="nav-item" href="index.html">🏠 Ana Sayfa</a>
+      <span class="nav-item">⚙️ Ayarlar</span>
+    </div>
+  </div>
+  <div class="sidebar-footer">
+    <div class="sidebar-user-info">
+      <p>MarketPro Demo</p>
+      <span>Market Sektörü</span>
+    </div>
+  </div>
+</div>
+
+<!-- Main -->
+<div class="main">
+  <header class="header">
+    <div class="header-left">
+      <button class="menu-btn" id="menuBtn">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+      <h1 class="page-title">Tedarikçiler</h1>
+    </div>
+    <div class="header-right">
+      <button class="header-btn" id="themeToggle">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/></svg>
+      </button>
+      <div class="avatar" style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,#14b8a6,#0f766e);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:white;cursor:pointer;">AK</div>
+    </div>
+  </header>
+
+  <main class="content">
+    <div class="toolbar">
+      <div class="search-box">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        <input type="text" placeholder="Firma adı, temsilci veya kategori ara...">
+      </div>
+      <div style="display:flex;gap:8px;">
+        <button class="btn btn-secondary" onclick="showToast('Filtre paneli açıldı','info')">🔍 Filtre</button>
+        <button class="btn btn-primary" onclick="openModal('addSupplierModal')">+ Yeni Tedarikçi</button>
+      </div>
+    </div>
+
+    <div class="glass-card">
+      <div class="card-header">
+        <div class="card-title">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--teal-500)" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          Tedarikçi Listesi
+        </div>
+        <span style="font-size:var(--text-xs); color:var(--text-muted);">Toplam 18 aktif tedarikçi</span>
+      </div>
+      <div class="table-wrap">
+        <table class="table" id="suppliersTable">
+          <thead>
+            <tr>
+              <th>Firma</th>
+              <th>Temsilci</th>
+              <th>Telefon</th>
+              <th>E-posta</th>
+              <th>Kategori</th>
+              <th>Min. Sipariş</th>
+              <th>Son Sipariş</th>
+              <th>Durum</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Bidfood Belgium NV</strong></td>
+              <td>Jan De Vries</td>
+              <td>+32 2 543 89 12</td>
+              <td>jan.devries@bidfood.be</td>
+              <td><span class="badge badge-info">Gıda Genel</span></td>
+              <td>€250</td>
+              <td>15 May 2026</td>
+              <td><span class="badge badge-success">Aktif</span></td>
+              <td>
+                <div style="display:flex;gap:4px;">
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openModal('viewSupplierModal','Bidfood Belgium NV')" title="Görüntüle">👁</button>
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openModal('editSupplierModal','Bidfood Belgium NV')" title="Düzenle">✎</button>
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openDeleteModal('Bidfood Belgium NV')" title="Sil">🗑</button>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td><strong>Colruyt Group SA</strong></td>
+              <td>Sophie Peeters</td>
+              <td>+32 2 334 56 78</td>
+              <td>sophie.peeters@colruyt.be</td>
+              <td><span class="badge badge-info">Süt Ürünleri</span></td>
+              <td>€500</td>
+              <td>14 May 2026</td>
+              <td><span class="badge badge-success">Aktif</span></td>
+              <td>
+                <div style="display:flex;gap:4px;">
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openModal('viewSupplierModal','Colruyt Group SA')" title="Görüntüle">👁</button>
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openModal('editSupplierModal','Colruyt Group SA')" title="Düzenle">✎</button>
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openDeleteModal('Colruyt Group SA')" title="Sil">🗑</button>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td><strong>Makro Cash & Carry BV</strong></td>
+              <td>Pierre Dupont</td>
+              <td>+32 3 210 45 67</td>
+              <td>pierre.dupont@makro.be</td>
+              <td><span class="badge badge-info">Temizlik</span></td>
+              <td>€150</td>
+              <td>13 May 2026</td>
+              <td><span class="badge badge-success">Aktif</span></td>
+              <td>
+                <div style="display:flex;gap:4px;">
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openModal('viewSupplierModal','Makro Cash & Carry BV')" title="Görüntüle">👁</button>
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openModal('editSupplierModal','Makro Cash & Carry BV')" title="Düzenle">✎</button>
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openDeleteModal('Makro Cash & Carry BV')" title="Sil">🗑</button>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td><strong>Delhaize Supplier BV</strong></td>
+              <td>Lisa Vermeulen</td>
+              <td>+32 2 876 54 32</td>
+              <td>lisa.vermeulen@delhaize.be</td>
+              <td><span class="badge badge-info">Ekmek ve Unlu</span></td>
+              <td>€300</td>
+              <td>12 May 2026</td>
+              <td><span class="badge badge-success">Aktif</span></td>
+              <td>
+                <div style="display:flex;gap:4px;">
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openModal('viewSupplierModal','Delhaize Supplier BV')" title="Görüntüle">👁</button>
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openModal('editSupplierModal','Delhaize Supplier BV')" title="Düzenle">✎</button>
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openDeleteModal('Delhaize Supplier BV')" title="Sil">🗑</button>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td><strong>Unilever Belgium NV</strong></td>
+              <td>Marc Dubois</td>
+              <td>+32 2 445 67 89</td>
+              <td>marc.dubois@unilever.be</td>
+              <td><span class="badge badge-info">Kozmetik / Temizlik</span></td>
+              <td>€400</td>
+              <td>10 May 2026</td>
+              <td><span class="badge badge-success">Aktif</span></td>
+              <td>
+                <div style="display:flex;gap:4px;">
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openModal('viewSupplierModal','Unilever Belgium NV')" title="Görüntüle">👁</button>
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openModal('editSupplierModal','Unilever Belgium NV')" title="Düzenle">✎</button>
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openDeleteModal('Unilever Belgium NV')" title="Sil">🗑</button>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td><strong>Coca-Cola Europacific</strong></td>
+              <td>Anna Smets</td>
+              <td>+32 2 789 01 23</td>
+              <td>anna.smets@cocacola.be</td>
+              <td><span class="badge badge-info">İçecek</span></td>
+              <td>€600</td>
+              <td>11 May 2026</td>
+              <td><span class="badge badge-success">Aktif</span></td>
+              <td>
+                <div style="display:flex;gap:4px;">
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openModal('viewSupplierModal','Coca-Cola Europacific')" title="Görüntüle">👁</button>
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openModal('editSupplierModal','Coca-Cola Europacific')" title="Düzenle">✎</button>
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openDeleteModal('Coca-Cola Europacific')" title="Sil">🗑</button>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td><strong>Mondelez Belgium</strong></td>
+              <td>Tom Janssens</td>
+              <td>+32 2 567 89 01</td>
+              <td>tom.janssens@mondelez.be</td>
+              <td><span class="badge badge-info">Atıştırmalık</span></td>
+              <td>€200</td>
+              <td>09 May 2026</td>
+              <td><span class="badge badge-success">Aktif</span></td>
+              <td>
+                <div style="display:flex;gap:4px;">
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openModal('viewSupplierModal','Mondelez Belgium')" title="Görüntüle">👁</button>
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openModal('editSupplierModal','Mondelez Belgium')" title="Düzenle">✎</button>
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openDeleteModal('Mondelez Belgium')" title="Sil">🗑</button>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td><strong>Danone België NV</strong></td>
+              <td>Elena Rossi</td>
+              <td>+32 2 345 67 89</td>
+              <td>elena.rossi@danone.be</td>
+              <td><span class="badge badge-info">Süt Ürünleri</span></td>
+              <td>€350</td>
+              <td>08 May 2026</td>
+              <td><span class="badge badge-warning">Beklemede</span></td>
+              <td>
+                <div style="display:flex;gap:4px;">
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openModal('viewSupplierModal','Danone België NV')" title="Görüntüle">👁</button>
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openModal('editSupplierModal','Danone België NV')" title="Düzenle">✎</button>
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openDeleteModal('Danone België NV')" title="Sil">🗑</button>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td><strong>Barilla Belgium NV</strong></td>
+              <td>Pieter Van den Berg</td>
+              <td>+32 2 678 90 12</td>
+              <td>pieter.vandenberg@barilla.be</td>
+              <td><span class="badge badge-info">Makarna ve Unlu</span></td>
+              <td>€180</td>
+              <td>07 May 2026</td>
+              <td><span class="badge badge-success">Aktif</span></td>
+              <td>
+                <div style="display:flex;gap:4px;">
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openModal('viewSupplierModal','Barilla Belgium NV')" title="Görüntüle">👁</button>
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openModal('editSupplierModal','Barilla Belgium NV')" title="Düzenle">✎</button>
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openDeleteModal('Barilla Belgium NV')" title="Sil">🗑</button>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td><strong>Palmolive / Colgate Benelux</strong></td>
+              <td>Sarah Moussa</td>
+              <td>+32 2 890 12 34</td>
+              <td>sarah.moussa@colgate.be</td>
+              <td><span class="badge badge-info">Kozmetik</span></td>
+              <td>€220</td>
+              <td>06 May 2026</td>
+              <td><span class="badge badge-success">Aktif</span></td>
+              <td>
+                <div style="display:flex;gap:4px;">
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openModal('viewSupplierModal','Palmolive / Colgate Benelux')" title="Görüntüle">👁</button>
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openModal('editSupplierModal','Palmolive / Colgate Benelux')" title="Düzenle">✎</button>
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openDeleteModal('Palmolive / Colgate Benelux')" title="Sil">🗑</button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <h3>MarketPro</h3>
+        <p>Market ve bakkal sektörünün dijital dönüşümünde güvenilir ortağınız. 320+ mağazaya hizmet veriyoruz.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Platformlar</h4>
+        <a href="../../index.html">🧹 CleanFix — Ana Sayfa</a>
+        <a href="../buildpro/">🏗️ BuildPro — İnşaat</a>
+        <a href="../barberpro/">💈 BarberPro — Berber</a>
+        <a href="../elektropro/">⚡ ElektroPro — Elektrik</a>
+      </div>
+      <div class="footer-col">
+        <h4>Sektörler</h4>
+        <a href="../woodpro/">🪵 WoodPro — Marangoz</a>
+        <a href="../restopro/">🍽️ RestoPro — Restoran</a>
+        <span style="display:block;font-size:var(--text-sm);color:var(--teal-400);font-weight:600;padding:6px 0;">🛒 MarketPro — Market</span>
+        <a href="../doctor/">🏥 MediPro — Klinik</a>
+      </div>
+      <div class="footer-col">
+        <h4>Yasal</h4>
+        <a href="#">Gizlilik</a>
+        <a href="#">Kullanım Koşulları</a>
+        <a href="#">GDPR</a>
+        <a href="#">Güvenlik</a>
+      </div>
+    </div>
+    <div class="footer-bottom">© 2026 MarketPro BV. Tüm hakları saklıdır. Belçika'da geliştirildi 🛒</div>
+  </footer>
+</div>
+</div>
+
+<!-- Add Supplier Modal -->
+<div class="modal-overlay" id="addSupplierModal">
+  <div class="modal">
+    <div class="modal-header"><div class="modal-title">Yeni Tedarikçi Ekle</div><button class="modal-close" onclick="closeModal('addSupplierModal')">✕</button></div>
+    <div class="modal-body">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+        <div class="form-group"><label class="form-label">Firma Adı</label><input type="text" class="form-input" placeholder="Örn: Bidfood Belgium NV"></div>
+        <div class="form-group"><label class="form-label">Temsilci</label><input type="text" class="form-input" placeholder="Örn: Jan De Vries"></div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+        <div class="form-group"><label class="form-label">Telefon</label><input type="text" class="form-input" placeholder="+32 2 123 45 67"></div>
+        <div class="form-group"><label class="form-label">E-posta</label><input type="email" class="form-input" placeholder="ornek@firma.be"></div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+        <div class="form-group"><label class="form-label">Kategori</label><select class="form-select"><option>Gıda Genel</option><option>Süt Ürünleri</option><option>Ekmek ve Unlu</option><option>Temizlik</option><option>İçecek</option><option>Kozmetik</option><option>Atıştırmalık</option></select></div>
+        <div class="form-group"><label class="form-label">Min. Sipariş Tutarı (€)</label><input type="text" class="form-input" placeholder="0.00"></div>
+      </div>
+      <div class="form-group"><label class="form-label">Vergi No (VAT)</label><input type="text" class="form-input" placeholder="BE 0123.456.789"></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('addSupplierModal')">İptal</button>
+      <button class="btn btn-primary" onclick="closeModal('addSupplierModal');showToast('Tedarikçi eklendi','success')">Kaydet</button>
+    </div>
+  </div>
+</div>
+
+<!-- Edit Supplier Modal -->
+<div class="modal-overlay" id="editSupplierModal">
+  <div class="modal">
+    <div class="modal-header"><div class="modal-title" id="editSupplierTitle">Tedarikçiyi Düzenle</div><button class="modal-close" onclick="closeModal('editSupplierModal')">✕</button></div>
+    <div class="modal-body">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+        <div class="form-group"><label class="form-label">Firma Adı</label><input type="text" class="form-input" value="Bidfood Belgium NV"></div>
+        <div class="form-group"><label class="form-label">Temsilci</label><input type="text" class="form-input" value="Jan De Vries"></div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+        <div class="form-group"><label class="form-label">Telefon</label><input type="text" class="form-input" value="+32 2 543 89 12"></div>
+        <div class="form-group"><label class="form-label">E-posta</label><input type="email" class="form-input" value="jan.devries@bidfood.be"></div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+        <div class="form-group"><label class="form-label">Kategori</label><select class="form-select"><option selected>Gıda Genel</option><option>Süt Ürünleri</option><option>Temizlik</option></select></div>
+        <div class="form-group"><label class="form-label">Min. Sipariş (€)</label><input type="text" class="form-input" value="250"></div>
+      </div>
+      <div class="form-group"><label class="form-label">Durum</label><select class="form-select"><option selected>Aktif</option><option>Beklemede</option><option>Pasif</option></select></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('editSupplierModal')">İptal</button>
+      <button class="btn btn-primary" onclick="closeModal('editSupplierModal');showToast('Tedarikçi güncellendi','success')">Güncelle</button>
+    </div>
+  </div>
+</div>
+
+<!-- View Supplier Modal -->
+<div class="modal-overlay" id="viewSupplierModal">
+  <div class="modal modal-lg">
+    <div class="modal-header"><div class="modal-title" id="viewSupplierTitle">Tedarikçi Detayları</div><button class="modal-close" onclick="closeModal('viewSupplierModal')">✕</button></div>
+    <div class="modal-body">
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:16px;">
+        <div style="background:var(--bg-secondary);padding:16px;border-radius:var(--radius-md);">
+          <div style="font-size:var(--text-xs);color:var(--text-muted);margin-bottom:4px;">Toplam Sipariş</div>
+          <div style="font-size:var(--text-lg);font-weight:700;">€14,250</div>
+        </div>
+        <div style="background:var(--bg-secondary);padding:16px;border-radius:var(--radius-md);">
+          <div style="font-size:var(--text-xs);color:var(--text-muted);margin-bottom:4px;">Sipariş Sayısı</div>
+          <div style="font-size:var(--text-lg);font-weight:700;color:var(--teal-500);">24</div>
+        </div>
+        <div style="background:var(--bg-secondary);padding:16px;border-radius:var(--radius-md);">
+          <div style="font-size:var(--text-xs);color:var(--text-muted);margin-bottom:4px;">Ort. Sipariş</div>
+          <div style="font-size:var(--text-lg);font-weight:700;color:var(--success-500);">€594</div>
+        </div>
+      </div>
+      <div class="form-group"><label class="form-label">Firma</label><input type="text" class="form-input" value="Bidfood Belgium NV" disabled></div>
+      <div class="form-group"><label class="form-label">Temsilci</label><input type="text" class="form-input" value="Jan De Vries" disabled></div>
+      <div class="form-group"><label class="form-label">İletişim</label><input type="text" class="form-input" value="+32 2 543 89 12  |  jan.devries@bidfood.be" disabled></div>
+      <div class="table-wrap">
+        <table class="table table-compact">
+          <thead><tr><th>Tarih</th><th>Fiş No</th><th>Tutar</th><th>Durum</th></tr></thead>
+          <tbody>
+            <tr><td>15 May 2026</td><td>ORD-2026-042</td><td>€312.50</td><td><span class="badge badge-success">Teslim Edildi</span></td></tr>
+            <tr><td>08 May 2026</td><td>ORD-2026-038</td><td>€425.00</td><td><span class="badge badge-success">Teslim Edildi</span></td></tr>
+            <tr><td>01 May 2026</td><td>ORD-2026-031</td><td>€287.50</td><td><span class="badge badge-success">Teslim Edildi</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('viewSupplierModal')">Kapat</button>
+      <button class="btn btn-primary" onclick="closeModal('viewSupplierModal');openModal('editSupplierModal')">Düzenle</button>
+    </div>
+  </div>
+</div>
+
+<!-- Delete Modal -->
+<div class="modal-overlay" id="deleteSupplierModal">
+  <div class="modal">
+    <div class="modal-header"><div class="modal-title" style="color:var(--error-500);">Tedarikçiyi Sil</div><button class="modal-close" onclick="closeModal('deleteSupplierModal')">✕</button></div>
+    <div class="modal-body">
+      <p style="font-size:var(--text-sm);color:var(--text-secondary);margin-bottom:16px;"><strong id="deleteSupplierName"></strong> firmasını silmek üzeresiniz. Bu işlem geri alınamaz.</p>
+      <div style="background:rgba(244,63,94,0.08);border:1px solid rgba(244,63,94,0.2);border-radius:var(--radius-md);padding:16px;">
+        <div style="font-size:var(--text-xs);color:var(--error-500);font-weight:600;margin-bottom:4px;">⚠️ Dikkat</div>
+        <div style="font-size:var(--text-sm);color:var(--text-secondary);">Bu tedarikçiye ait tüm sipariş geçmişi, fiyat listeleri ve ürün eşleştirmeleri silinecektir.</div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('deleteSupplierModal')">İptal</button>
+      <button class="btn btn-primary" style="background:var(--error-500);" onclick="closeModal('deleteSupplierModal');showToast(document.getElementById('deleteSupplierName').textContent + ' silindi','error')">Sil</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const sidebar=document.getElementById('sidebar');
+const menuBtn=document.getElementById('menuBtn');
+const overlay=document.getElementById('sidebarOverlay');
+menuBtn.addEventListener('click',()=>{sidebar.classList.toggle('open');overlay.classList.toggle('active');});
+overlay.addEventListener('click',()=>{sidebar.classList.remove('open');overlay.classList.remove('active');});
+
+const html=document.documentElement;
+let theme=localStorage.getItem('mp-theme')||'dark';
+html.setAttribute('data-theme',theme);
+document.getElementById('themeToggle').addEventListener('click',()=>{theme=theme==='dark'?'light':'dark';html.setAttribute('data-theme',theme);localStorage.setItem('mp-theme',theme);});
+
+function showToast(msg,type='success',dur=3000){
+  let c=document.querySelector('.toast-container');
+  if(!c){c=document.createElement('div');c.className='toast-container';document.body.appendChild(c);}
+  const t=document.createElement('div');
+  const colors={success:'var(--success-500)',error:'var(--error-500)',warning:'var(--warning-500)',info:'var(--info-500)'};
+  const icons={success:'✓',error:'✕',warning:'!',info:'ℹ'};
+  const titles={success:'Başarılı',error:'Hata',warning:'Uyarı',info:'Bilgi'};
+  t.style.cssText=`pointer-events:all;background:var(--bg-card);border:1px solid ${colors[type]};border-radius:12px;padding:14px 18px;display:flex;align-items:flex-start;gap:12px;box-shadow:var(--shadow-lg);animation:toastIn 0.3s ease-out;position:relative;overflow:hidden;`;
+  t.innerHTML=`<span style="flex-shrink:0;margin-top:2px;width:20px;height:20px;border-radius:50%;background:${colors[type]};color:white;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;">${icons[type]}</span><div style="flex:1;"><div style="font-weight:600;font-size:var(--text-sm);">${titles[type]}</div><div style="font-size:var(--text-sm);color:var(--text-muted);margin-top:2px;">${msg}</div></div><span style="flex-shrink:0;color:var(--text-muted);cursor:pointer;font-size:14px;" onclick="this.parentElement.remove()">✕</span><div style="position:absolute;bottom:0;left:0;height:2px;background:${colors[type]};animation:progressBar 4s linear forwards;width:100%;"></div>`;
+  c.appendChild(t);
+  setTimeout(()=>{t.style.animation='toastOut 0.3s ease-in forwards';setTimeout(()=>t.remove(),300);},dur);
+}
+
+function openModal(id,title){
+  const modal=document.getElementById(id);
+  if(modal){modal.classList.add('active');if(title){
+    const titleEl=modal.querySelector('.modal-title');
+    if(titleEl&&titleEl.id==='editSupplierTitle')titleEl.textContent='Tedarikçiyi Düzenle — '+title;
+    if(titleEl&&titleEl.id==='viewSupplierTitle')titleEl.textContent='Tedarikçi Detayları — '+title;
+  }}
+}
+function openDeleteModal(name){
+  const nameEl=document.getElementById('deleteSupplierName');
+  if(nameEl)nameEl.textContent=name;
+  openModal('deleteSupplierModal');
+}
+function closeModal(id){const modal=document.getElementById(id);if(modal)modal.classList.remove('active');}
+document.querySelectorAll('.modal-overlay').forEach(overlay=>{
+  overlay.addEventListener('click',(e)=>{if(e.target===overlay)overlay.classList.remove('active');});
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RestoPro — Menü Yönetimi</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/main.css">
+<link rel="stylesheet" href="css/components.css">
+<link rel="stylesheet" href="css/dashboard.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<style>
+/* ── Variables Override ── */
+:root, [data-theme="dark"] {
+  --glass-bg: rgba(15, 23, 42, 0.60);
+  --glass-border: rgba(148, 163, 184, 0.08);
+  --glass-highlight: rgba(255, 255, 255, 0.03);
+  --teal-glow: rgba(20, 184, 166, 0.15);
+  --card-shadow: 0 1px 3px rgba(0,0,0,0.3), 0 8px 24px rgba(0,0,0,0.2);
+  --card-shadow-hover: 0 2px 6px rgba(0,0,0,0.4), 0 16px 48px rgba(0,0,0,0.3);
+}
+</style>
+</head>
+<body>
+
+<!-- Sidebar Overlay (mobile) -->
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+<div class="dashboard">
+
+<!-- Sidebar -->
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-header">
+    <div class="sidebar-logo">
+      <div class="logo-icon">🍽️</div>
+      <div>
+        <h2>RestoPro</h2>
+        <p>Restoran Yönetimi</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="sidebar-nav">
+    <div class="nav-group">
+      <div class="nav-label">Ana Menü</div>
+      <a class="nav-item" href="dashboard.html">📊 Dashboard</a>
+      <a class="nav-item active" href="restopro-menu.html">📋 Menü Yönetimi</a>
+      <a class="nav-item" href="restopro-tables.html">🪑 Masa Planı</a>
+      <a class="nav-item" href="restopro-orders.html">📲 Sipariş Takibi</a>
+      <a class="nav-item" href="restopro-staff.html">👨‍🍳 Personel</a>
+    </div>
+    <div class="nav-group">
+      <div class="nav-label">Genel</div>
+      <a class="nav-item" href="index.html">🏠 Ana Sayfa</a>
+      <a class="nav-item" href="../../index.html">🧹 CleanFix</a>
+    </div>
+  </div>
+
+  <div class="sidebar-footer">
+    <div class="sidebar-user">
+      <div class="sidebar-user-info">
+        <p>RestoPro Demo</p>
+        <span>Restoran Sektörü</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Main -->
+<div class="main">
+
+  <!-- Header -->
+  <header class="header">
+    <div class="header-left">
+      <button class="menu-btn" id="menuBtn" title="Menü">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+      <h1 class="page-title">Menü Yönetimi</h1>
+    </div>
+    <div class="header-right">
+      <div class="search-input" style="max-width:240px;">
+        <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        <input type="text" class="form-input" placeholder="Yemek, kategori ara..." style="padding-left:36px;font-size:var(--text-sm);">
+      </div>
+      <button class="header-btn" id="notifBtn" title="Bildirimler">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+        <span class="badge-count" id="notifBadge">3</span>
+      </button>
+      <button class="header-btn" id="themeToggle" title="Tema">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/></svg>
+      </button>
+      <div class="avatar avatar-sm" style="cursor:pointer;">MH</div>
+    </div>
+  </header>
+
+  <!-- Content -->
+  <main class="content">
+
+    <!-- Quick Actions -->
+    <div class="quick-actions-bar">
+      <div class="quick-action" onclick="openModal('addDishModal')">
+        <span class="icon">🍽️</span> Yeni Yemek Ekle
+      </div>
+      <div class="quick-action" onclick="openModal('addCategoryModal')">
+        <span class="icon">📁</span> Kategori Ekle
+      </div>
+      <div class="quick-action" onclick="openModal('priceBatchModal')">
+        <span class="icon">💶</span> Toplu Fiyat Güncelle
+      </div>
+      <div class="quick-action" onclick="openModal('qrMenuModal')">
+        <span class="icon">📱</span> QR Menü Önizleme
+      </div>
+    </div>
+
+    <!-- KPI Row -->
+    <div class="kpi-row">
+      <div class="kpi-card reveal">
+        <div class="kpi-top">
+          <div class="kpi-icon" style="background:rgba(20,184,166,0.1);color:var(--teal-500);">📋</div>
+          <div class="kpi-trend up">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/></svg>
+            +4
+          </div>
+        </div>
+        <div class="kpi-value" data-target="48" data-suffix="">0</div>
+        <div class="kpi-label">Toplam Yemek</div>
+      </div>
+      <div class="kpi-card reveal reveal-delay-1">
+        <div class="kpi-top">
+          <div class="kpi-icon" style="background:rgba(245,158,11,0.1);color:var(--amber-500);">⭐</div>
+          <div class="kpi-trend up">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/></svg>
+            +2
+          </div>
+        </div>
+        <div class="kpi-value" data-target="12" data-suffix="">0</div>
+        <div class="kpi-label">Kategori</div>
+      </div>
+      <div class="kpi-card reveal reveal-delay-2">
+        <div class="kpi-top">
+          <div class="kpi-icon" style="background:rgba(16,185,129,0.1);color:var(--success-500);">📈</div>
+          <div class="kpi-trend up">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/></svg>
+            +8%
+          </div>
+        </div>
+        <div class="kpi-value" data-target="2847" data-prefix="€">€0</div>
+        <div class="kpi-label">Ort. Günlük Ciroya Etki</div>
+      </div>
+      <div class="kpi-card reveal reveal-delay-3">
+        <div class="kpi-top">
+          <div class="kpi-icon" style="background:rgba(59,130,246,0.1);color:var(--info-500);">🥗</div>
+          <div class="kpi-trend up">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/></svg>
+            +1
+          </div>
+        </div>
+        <div class="kpi-value" data-target="6" data-suffix="">0</div>
+        <div class="kpi-label">Alerjen Uyarısı</div>
+      </div>
+    </div>
+
+    <!-- Menu Items Table -->
+    <div class="glass-card span-3 reveal">
+      <div class="card-header">
+        <div class="card-title">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--teal-500)" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+          Menü Listesi — Brasserie Horta Bruxelles
+        </div>
+        <div style="display:flex;gap:8px;">
+          <button class="btn btn-sm btn-secondary" onclick="openModal('addDishModal')">+ Yeni</button>
+        </div>
+      </div>
+      <div class="table-wrap">
+        <table class="table table-compact" id="menuTable">
+          <thead>
+            <tr>
+              <th>Yemek</th>
+              <th>Kategori</th>
+              <th>Açıklama</th>
+              <th>Fiyat</th>
+              <th>Maliyet</th>
+              <th>Kar%</th>
+              <th>Alerjen</th>
+              <th>Durum</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Moules-frites Nature</strong></td>
+              <td><span class="badge badge-info">Ana Yemek</span></td>
+              <td>Midye beyaz şarap ve tereyağında, kızarmış patates</td>
+              <td>€24.50</td>
+              <td>€9.80</td>
+              <td><span style="color:var(--success-500);font-weight:700;">60%</span></td>
+              <td><span class="badge badge-warning">🐚</span></td>
+              <td><span class="badge badge-success">Aktif</span></td>
+              <td>
+                <div style="display:flex;gap:4px;">
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openModal('viewDishModal','Moules-frites Nature')" title="Görüntüle">👁</button>
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openModal('editDishModal','Moules-frites Nature')" title="Düzenle">✎</button>
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openDeleteModal('Moules-frites Nature')" title="Sil">🗑</button>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td><strong>Carbonnade Flamande</strong></td>
+              <td><span class="badge badge-info">Ana Yemek</span></td>
+              <td>Flandra usulü dana eti, bira soslu, patates püresi</td>
+              <td>€22.00</td>
+              <td>€8.50</td>
+              <td><span style="color:var(--success-500);font-weight:700;">61%</span></td>
+              <td><span class="badge badge-neutral">—</span></td>
+              <td><span class="badge badge-success">Aktif</span></td>
+              <td>
+                <div style="display:flex;gap:4px;">
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openModal('viewDishModal','Carbonnade Flamande')" title="Görüntüle">👁</button>
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openModal('editDishModal','Carbonnade Flamande')" title="Düzenle">✎</button>
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openDeleteModal('Carbonnade Flamande')" title="Sil">🗑</button>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td><strong>Waterzooi de Poulet</strong></td>
+              <td><span class="badge badge-info">Ana Yemek</span></td>
+              <td>Tavuk suzooi, krema ve sebzelerle, Ghent usulü</td>
+              <td>€20.50</td>
+              <td>€7.20</td>
+              <td><span style="color:var(--success-500);font-weight:700;">65%</span></td>
+              <td><span class="badge badge-warning">🥛</span></td>
+              <td><span class="badge badge-success">Aktif</span></td>
+              <td>
+                <div style="display:flex;gap:4px;">
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openModal('viewDishModal','Waterzooi de Poulet')" title="Görüntüle">👁</button>
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openModal('editDishModal','Waterzooi de Poulet')" title="Düzenle">✎</button>
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openDeleteModal('Waterzooi de Poulet')" title="Sil">🗑</button>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td><strong>Belgian Waffle Bruxelles</strong></td>
+              <td><span class="badge badge-success">Tatlı</span></td>
+              <td>Brüksel waffle, çikolata sosu, taze çilek, krema</td>
+              <td>€12.00</td>
+              <td>€3.50</td>
+              <td><span style="color:var(--success-500);font-weight:700;">71%</span></td>
+              <td><span class="badge badge-warning">🥛🥚</span></td>
+              <td><span class="badge badge-success">Aktif</span></td>
+              <td>
+                <div style="display:flex;gap:4px;">
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openModal('viewDishModal','Belgian Waffle Bruxelles')" title="Görüntüle">👁</button>
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openModal('editDishModal','Belgian Waffle Bruxelles')" title="Düzenle">✎</button>
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openDeleteModal('Belgian Waffle Bruxelles')" title="Sil">🗑</button>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td><strong>Stoemp aux Saucisses</strong></td>
+              <td><span class="badge badge-info">Ana Yemek</span></td>
+              <td>Belçika usulü sosis, ezilmiş patates havuçlu</td>
+              <td>€18.50</td>
+              <td>€6.80</td>
+              <td><span style="color:var(--success-500);font-weight:700;">63%</span></td>
+              <td><span class="badge badge-neutral">—</span></td>
+              <td><span class="badge badge-success">Aktif</span></td>
+              <td>
+                <div style="display:flex;gap:4px;">
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openModal('viewDishModal','Stoemp aux Saucisses')" title="Görüntüle">👁</button>
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openModal('editDishModal','Stoemp aux Saucisses')" title="Düzenle">✎</button>
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openDeleteModal('Stoemp aux Saucisses')" title="Sil">🗑</button>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td><strong>Paling in 't Groen</strong></td>
+              <td><span class="badge badge-info">Ana Yemek</span></td>
+              <td>Yılan balığı, yeşil otlu sos, Antwerp usulü</td>
+              <td>€26.00</td>
+              <td>€11.50</td>
+              <td><span style="color:var(--success-500);font-weight:700;">56%</span></td>
+              <td><span class="badge badge-warning">🐟</span></td>
+              <td><span class="badge badge-warning">Sezonluk</span></td>
+              <td>
+                <div style="display:flex;gap:4px;">
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openModal('viewDishModal','Paling in \\'t Groen')" title="Görüntüle">👁</button>
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openModal('editDishModal','Paling in \\'t Groen')" title="Düzenle">✎</button>
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openDeleteModal('Paling in \\'t Groen')" title="Sil">🗑</button>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td><strong>Croquettes aux Crevettes</strong></td>
+              <td><span class="badge badge-warning">Başlangıç</span></td>
+              <td>Karides kroket, taze mayonez ve limon</td>
+              <td>€14.00</td>
+              <td>€5.20</td>
+              <td><span style="color:var(--success-500);font-weight:700;">63%</span></td>
+              <td><span class="badge badge-warning">🐚🥚</span></td>
+              <td><span class="badge badge-success">Aktif</span></td>
+              <td>
+                <div style="display:flex;gap:4px;">
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openModal('viewDishModal','Croquettes aux Crevettes')" title="Görüntüle">👁</button>
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openModal('editDishModal','Croquettes aux Crevettes')" title="Düzenle">✎</button>
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openDeleteModal('Croquettes aux Crevettes')" title="Sil">🗑</button>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td><strong>Speculoos Tiramisu</strong></td>
+              <td><span class="badge badge-success">Tatlı</span></td>
+              <td>Speculoos bisküvili tiramisu, mascarpone krema</td>
+              <td>€10.50</td>
+              <td>€3.00</td>
+              <td><span style="color:var(--success-500);font-weight:700;">71%</span></td>
+              <td><span class="badge badge-warning">🥛🥚🌾</span></td>
+              <td><span class="badge badge-success">Aktif</span></td>
+              <td>
+                <div style="display:flex;gap:4px;">
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openModal('viewDishModal','Speculoos Tiramisu')" title="Görüntüle">👁</button>
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openModal('editDishModal','Speculoos Tiramisu')" title="Düzenle">✎</button>
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openDeleteModal('Speculoos Tiramisu')" title="Sil">🗑</button>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td><strong>Chicons au Gratin</strong></td>
+              <td><span class="badge badge-info">Ana Yemek</span></td>
+              <td>Endive graten, jambon ve bechamel sos</td>
+              <td>€19.00</td>
+              <td>€7.10</td>
+              <td><span style="color:var(--success-500);font-weight:700;">63%</span></td>
+              <td><span class="badge badge-warning">🥛</span></td>
+              <td><span class="badge badge-success">Aktif</span></td>
+              <td>
+                <div style="display:flex;gap:4px;">
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openModal('viewDishModal','Chicons au Gratin')" title="Görüntüle">👁</button>
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openModal('editDishModal','Chicons au Gratin')" title="Düzenle">✎</button>
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openDeleteModal('Chicons au Gratin')" title="Sil">🗑</button>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td><strong>Boulettes Sauce Tomate</strong></td>
+              <td><span class="badge badge-info">Ana Yemek</span></td>
+              <td>Liège usulü köfte, domates sos, kızarmış patates</td>
+              <td>€17.50</td>
+              <td>€6.30</td>
+              <td><span style="color:var(--success-500);font-weight:700;">64%</span></td>
+              <td><span class="badge badge-neutral">—</span></td>
+              <td><span class="badge badge-success">Aktif</span></td>
+              <td>
+                <div style="display:flex;gap:4px;">
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openModal('viewDishModal','Boulettes Sauce Tomate')" title="Görüntüle">👁</button>
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openModal('editDishModal','Boulettes Sauce Tomate')" title="Düzenle">✎</button>
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openDeleteModal('Boulettes Sauce Tomate')" title="Sil">🗑</button>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td><strong>Flemish Asparagus</strong></td>
+              <td><span class="badge badge-warning">Başlangıç</span></td>
+              <td>Flandra usulü kuşkonmaz, hollandez sos, yumurta</td>
+              <td>€15.50</td>
+              <td>€6.00</td>
+              <td><span style="color:var(--success-500);font-weight:700;">61%</span></td>
+              <td><span class="badge badge-warning">🥚</span></td>
+              <td><span class="badge badge-warning">Sezonluk</span></td>
+              <td>
+                <div style="display:flex;gap:4px;">
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openModal('viewDishModal','Flemish Asparagus')" title="Görüntüle">👁</button>
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openModal('editDishModal','Flemish Asparagus')" title="Düzenle">✎</button>
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openDeleteModal('Flemish Asparagus')" title="Sil">🗑</button>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td><strong>Belgian Beer Selection</strong></td>
+              <td><span class="badge badge-error">İçecek</span></td>
+              <td>6 çeşit Belçika birası tadım seti, peynir tabağı</td>
+              <td>€28.00</td>
+              <td>€12.00</td>
+              <td><span style="color:var(--success-500);font-weight:700;">57%</span></td>
+              <td><span class="badge badge-neutral">—</span></td>
+              <td><span class="badge badge-success">Aktif</span></td>
+              <td>
+                <div style="display:flex;gap:4px;">
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openModal('viewDishModal','Belgian Beer Selection')" title="Görüntüle">👁</button>
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openModal('editDishModal','Belgian Beer Selection')" title="Düzenle">✎</button>
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openDeleteModal('Belgian Beer Selection')" title="Sil">🗑</button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </main>
+</div>
+</div>
+
+<!-- ── MODALS ── -->
+
+<!-- Add Dish Modal -->
+<div class="modal-overlay" id="addDishModal">
+  <div class="modal modal-lg">
+    <div class="modal-header">
+      <div class="modal-title">Yeni Yemek Ekle</div>
+      <button class="modal-close" onclick="closeModal('addDishModal')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-4);">
+        <div class="form-group"><label class="form-label">Yemek Adı</label><input type="text" class="form-input" placeholder="Örn: Moules-frites"></div>
+        <div class="form-group"><label class="form-label">Kategori</label><select class="form-select"><option>Ana Yemek</option><option>Başlangıç</option><option>Tatlı</option><option>İçecek</option><option>Salata</option></select></div>
+        <div class="form-group"><label class="form-label">Fiyat (€)</label><input type="text" class="form-input" placeholder="0.00"></div>
+        <div class="form-group"><label class="form-label">Maliyet (€)</label><input type="text" class="form-input" placeholder="0.00"></div>
+        <div class="form-group"><label class="form-label">Alerjenler</label><select class="form-select"><option>—</option><option>🥛 Süt</option><option>🥚 Yumurta</option><option>🌾 Gluten</option><option>🐚 Kabuklu Deniz</option><option>🐟 Balık</option></select></div>
+        <div class="form-group"><label class="form-label">Durum</label><select class="form-select"><option>Aktif</option><option>Sezonluk</option><option>Pasif</option></select></div>
+      </div>
+      <div class="form-group" style="margin-top:var(--space-4);"><label class="form-label">Açıklama</label><textarea class="form-textarea" rows="3" placeholder="Yemek açıklaması, içindekiler, sunum notları..."></textarea></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('addDishModal')">İptal</button>
+      <button class="btn btn-primary" onclick="closeModal('addDishModal');showToast('Yeni yemek başarıyla eklendi','success')">Kaydet</button>
+    </div>
+  </div>
+</div>
+
+<!-- Edit Dish Modal -->
+<div class="modal-overlay" id="editDishModal">
+  <div class="modal modal-lg">
+    <div class="modal-header"><div class="modal-title" id="editDishTitle">Yemeği Düzenle</div><button class="modal-close" onclick="closeModal('editDishModal')">✕</button></div>
+    <div class="modal-body">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-4);">
+        <div class="form-group"><label class="form-label">Yemek Adı</label><input type="text" class="form-input" value="Moules-frites Nature"></div>
+        <div class="form-group"><label class="form-label">Kategori</label><select class="form-select"><option selected>Ana Yemek</option><option>Başlangıç</option><option>Tatlı</option><option>İçecek</option></select></div>
+        <div class="form-group"><label class="form-label">Fiyat (€)</label><input type="text" class="form-input" value="24.50"></div>
+        <div class="form-group"><label class="form-label">Maliyet (€)</label><input type="text" class="form-input" value="9.80"></div>
+        <div class="form-group"><label class="form-label">Alerjenler</label><select class="form-select"><option>—</option><option selected>🐚 Kabuklu Deniz</option></select></div>
+        <div class="form-group"><label class="form-label">Durum</label><select class="form-select"><option selected>Aktif</option><option>Sezonluk</option><option>Pasif</option></select></div>
+      </div>
+      <div class="form-group" style="margin-top:var(--space-4);"><label class="form-label">Açıklama</label><textarea class="form-textarea" rows="3">Midye beyaz şarap ve tereyağında, kızarmış patates</textarea></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('editDishModal')">İptal</button>
+      <button class="btn btn-primary" onclick="closeModal('editDishModal');showToast('Yemek başarıyla güncellendi','success')">Güncelle</button>
+    </div>
+  </div>
+</div>
+
+<!-- View Dish Modal -->
+<div class="modal-overlay" id="viewDishModal">
+  <div class="modal modal-lg">
+    <div class="modal-header"><div class="modal-title" id="viewDishTitle">Yemek Detayları</div><button class="modal-close" onclick="closeModal('viewDishModal')">✕</button></div>
+    <div class="modal-body">
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-4);margin-bottom:var(--space-4);">
+        <div style="background:var(--bg-secondary);padding:var(--space-4);border-radius:var(--radius-md);"><div style="font-size:var(--text-xs);color:var(--text-muted);margin-bottom:4px;">Fiyat</div><div style="font-size:var(--text-lg);font-weight:700;">€24.50</div></div>
+        <div style="background:var(--bg-secondary);padding:var(--space-4);border-radius:var(--radius-md);"><div style="font-size:var(--text-xs);color:var(--text-muted);margin-bottom:4px;">Maliyet</div><div style="font-size:var(--text-lg);font-weight:700;color:var(--teal-500);">€9.80</div></div>
+        <div style="background:var(--bg-secondary);padding:var(--space-4);border-radius:var(--radius-md);"><div style="font-size:var(--text-xs);color:var(--text-muted);margin-bottom:4px;">Kar Marjı</div><div style="font-size:var(--text-lg);font-weight:700;color:var(--success-500);">%60</div></div>
+      </div>
+      <div style="margin-bottom:var(--space-4);"><div style="font-size:var(--text-sm);font-weight:600;margin-bottom:6px;">Açıklama</div><p style="font-size:var(--text-sm);color:var(--text-secondary);line-height:1.6;">Midye beyaz şarap ve tereyağında, kızarmış patates. Flandra'nın en klasik yemeği. Taze Noordze midyesi kullanılır.</p></div>
+      <div style="margin-bottom:var(--space-4);"><div style="font-size:var(--text-sm);font-weight:600;margin-bottom:6px;">Alerjen Bilgisi</div><div class="badge badge-warning">🐚 Kabuklu Deniz Ürünleri</div></div>
+      <div class="table-wrap">
+        <table class="table table-compact">
+          <thead><tr><th>Malzeme</th><th>Miktar</th><th>Birim Maliyet</th></tr></thead>
+          <tbody>
+            <tr><td>Taze Midye</td><td>500g</td><td>€4.50</td></tr>
+            <tr><td>Kızarmış Patates</td><td>200g</td><td>€1.20</td></tr>
+            <tr><td>Beyaz Şarap</td><td>100ml</td><td>€1.50</td></tr>
+            <tr><td>Tereyağı</td><td>30g</td><td>€0.80</td></tr>
+            <tr><td>Sarımsak & Soğan</td><td>50g</td><td>€0.50</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('viewDishModal')">Kapat</button>
+      <button class="btn btn-primary" onclick="closeModal('viewDishModal');openModal('editDishModal')">Düzenle</button>
+    </div>
+  </div>
+</div>
+
+<!-- Add Category Modal -->
+<div class="modal-overlay" id="addCategoryModal">
+  <div class="modal">
+    <div class="modal-header"><div class="modal-title">Yeni Kategori Ekle</div><button class="modal-close" onclick="closeModal('addCategoryModal')">✕</button></div>
+    <div class="modal-body">
+      <div class="form-group"><label class="form-label">Kategori Adı</label><input type="text" class="form-input" placeholder="Örn: Vegan Menü"></div>
+      <div class="form-group"><label class="form-label">Açıklama</label><textarea class="form-textarea" rows="2" placeholder="Kategori açıklaması..."></textarea></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('addCategoryModal')">İptal</button>
+      <button class="btn btn-primary" onclick="closeModal('addCategoryModal');showToast('Kategori eklendi','success')">Ekle</button>
+    </div>
+  </div>
+</div>
+
+<!-- Price Batch Modal -->
+<div class="modal-overlay" id="priceBatchModal">
+  <div class="modal modal-lg">
+    <div class="modal-header"><div class="modal-title">Toplu Fiyat Güncelle</div><button class="modal-close" onclick="closeModal('priceBatchModal')">✕</button></div>
+    <div class="modal-body">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-4);">
+        <div class="form-group"><label class="form-label">Kategori</label><select class="form-select"><option>Tümü</option><option>Ana Yemek</option><option>Başlangıç</option><option>Tatlı</option><option>İçecek</option></select></div>
+        <div class="form-group"><label class="form-label">Artış Oranı (%)</label><input type="number" class="form-input" value="5" step="0.5"></div>
+      </div>
+      <div style="background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.2);border-radius:var(--radius-md);padding:var(--space-4);margin-top:var(--space-4);">
+        <div style="font-size:var(--text-xs);color:var(--warning-500);font-weight:600;margin-bottom:4px;">⚠️ Dikkat</div>
+        <div style="font-size:var(--text-sm);color:var(--text-secondary);">Bu işlem seçili kategorideki tüm yemeklerin fiyatını günceller. İşlem geri alınamaz.</div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('priceBatchModal')">İptal</button>
+      <button class="btn btn-primary" onclick="closeModal('priceBatchModal');showToast('Fiyatlar güncellendi','success')">Güncelle</button>
+    </div>
+  </div>
+</div>
+
+<!-- QR Menu Modal -->
+<div class="modal-overlay" id="qrMenuModal">
+  <div class="modal">
+    <div class="modal-header"><div class="modal-title">QR Menü Önizleme</div><button class="modal-close" onclick="closeModal('qrMenuModal')">✕</button></div>
+    <div class="modal-body" style="text-align:center;">
+      <div style="width:200px;height:200px;background:var(--bg-secondary);border-radius:var(--radius-lg);margin:0 auto var(--space-4);display:flex;align-items:center;justify-content:center;font-size:80px;">📱</div>
+      <p style="font-size:var(--text-sm);color:var(--text-secondary);margin-bottom:var(--space-4);">Müşteriler masadaki QR kodu okutarak dijital menüye ulaşır. Anında fiyat güncellemeleri yansır.</p>
+      <div style="display:flex;gap:var(--space-3);justify-content:center;">
+        <button class="btn btn-primary" onclick="showToast('QR menü indirildi','success')">📥 İndir</button>
+        <button class="btn btn-secondary" onclick="showToast('Bağlantı kopyalandı','info')">🔗 Kopyala</button>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('qrMenuModal')">Kapat</button>
+    </div>
+  </div>
+</div>
+
+<!-- Delete Confirmation Modal -->
+<div class="modal-overlay" id="deleteDishModal">
+  <div class="modal">
+    <div class="modal-header"><div class="modal-title" style="color:var(--error-500);">Yemeği Sil</div><button class="modal-close" onclick="closeModal('deleteDishModal')">✕</button></div>
+    <div class="modal-body">
+      <p style="font-size:var(--text-sm);color:var(--text-secondary);margin-bottom:var(--space-4);"><strong id="deleteDishName"></strong> yemeğini silmek üzeresiniz.</p>
+      <div style="background:rgba(244,63,94,0.08);border:1px solid rgba(244,63,94,0.2);border-radius:var(--radius-md);padding:var(--space-4);">
+        <div style="font-size:var(--text-xs);color:var(--error-500);font-weight:600;margin-bottom:4px;">⚠️ Dikkat</div>
+        <div style="font-size:var(--text-sm);color:var(--text-secondary);">Bu yemeğe ait sipariş geçmişi korunur ancak menüden kaldırılır.</div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('deleteDishModal')">İptal</button>
+      <button class="btn btn-primary" style="background:var(--error-500);" onclick="closeModal('deleteDishModal');showToast(document.getElementById('deleteDishName').textContent + ' silindi','error')">Sil</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* Sidebar Toggle */
+const sidebar=document.getElementById('sidebar');
+const menuBtn=document.getElementById('menuBtn');
+const overlay=document.getElementById('sidebarOverlay');
+menuBtn.addEventListener('click',()=>{sidebar.classList.toggle('open');overlay.classList.toggle('active');});
+overlay.addEventListener('click',()=>{sidebar.classList.remove('open');overlay.classList.remove('active');});
+
+/* Theme */
+const html=document.documentElement;
+let theme=localStorage.getItem('rp-theme')||'dark';
+html.setAttribute('data-theme',theme);
+document.getElementById('themeToggle').addEventListener('click',()=>{theme=theme==='dark'?'light':'dark';html.setAttribute('data-theme',theme);localStorage.setItem('rp-theme',theme);});
+
+/* Toast */
+function showToast(msg,type='success',dur=3000){
+  let c=document.querySelector('.toast-container');
+  if(!c){c=document.createElement('div');c.className='toast-container';c.style.cssText='position:fixed;top:80px;right:24px;z-index:2000;display:flex;flex-direction:column;gap:12px;pointer-events:none;max-width:360px;';document.body.appendChild(c);}
+  const t=document.createElement('div');
+  const colors={success:'var(--success-500)',error:'var(--error-500)',warning:'var(--warning-500)',info:'var(--info-500)'};
+  const icons={success:'✓',error:'✕',warning:'!',info:'ℹ'};
+  const titles={success:'Başarılı',error:'Hata',warning:'Uyarı',info:'Bilgi'};
+  t.style.cssText=`pointer-events:all;background:var(--bg-card);border:1px solid ${colors[type]};border-radius:12px;padding:14px 18px;display:flex;align-items:flex-start;gap:12px;box-shadow:var(--shadow-lg);animation:toastIn 0.3s ease-out;position:relative;overflow:hidden;`;
+  t.innerHTML=`<span style="flex-shrink:0;margin-top:2px;width:20px;height:20px;border-radius:50%;background:${colors[type]};color:white;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;">${icons[type]}</span><div style="flex:1;"><div style="font-weight:600;font-size:var(--text-sm);">${titles[type]}</div><div style="font-size:var(--text-sm);color:var(--text-muted);margin-top:2px;">${msg}</div></div><span style="flex-shrink:0;color:var(--text-muted);cursor:pointer;font-size:14px;" onclick="this.parentElement.remove()">✕</span><div style="position:absolute;bottom:0;left:0;height:2px;background:${colors[type]};animation:progressBar 4s linear forwards;width:100%;"></div>`;
+  c.appendChild(t);
+  setTimeout(()=>{t.style.animation='toastOut 0.3s ease-in forwards';setTimeout(()=>t.remove(),300);},dur);
+}
+
+/* Scroll Reveal */
+const revealObserver=new IntersectionObserver((entries)=>{
+  entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('visible');}});
+},{threshold:0.08});
+document.querySelectorAll('.reveal').forEach(el=>revealObserver.observe(el));
+
+/* Animated Counters */
+function animateCounters(){
+  document.querySelectorAll('.kpi-value[data-target]').forEach(el=>{
+    const target=parseInt(el.dataset.target);
+    const prefix=el.dataset.prefix||'';
+    const suffix=el.dataset.suffix||'';
+    const duration=1500;
+    const start=performance.now();
+    function tick(now){
+      const progress=Math.min((now-start)/duration,1);
+      const eased=1-Math.pow(1-progress,3);
+      const current=Math.round(eased*target);
+      el.textContent=prefix+current.toLocaleString('tr-TR')+suffix;
+      if(progress<1)requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  });
+}
+
+/* Modal Functions */
+function openModal(id, title){
+  const modal=document.getElementById(id);
+  if(modal){modal.classList.add('active');if(title){const t=modal.querySelector('.modal-title');if(t){if(t.id==='editDishTitle')t.textContent='Düzenle — '+title;if(t.id==='viewDishTitle')t.textContent='Detay — '+title;}}}
+}
+function openDeleteModal(name){
+  const n=document.getElementById('deleteDishName');
+  if(n)n.textContent=name;
+  openModal('deleteDishModal');
+}
+function closeModal(id){
+  const modal=document.getElementById(id);
+  if(modal)modal.classList.remove('active');
+}
+document.querySelectorAll('.modal-overlay').forEach(o=>{o.addEventListener('click',(e)=>{if(e.target===o)o.classList.remove('active');});});
+
+/* Init */
+document.addEventListener('DOMContentLoaded',()=>{setTimeout(animateCounters,400);});
+</script>
+
+<style>
+@keyframes toastIn{from{opacity:0;transform:translateY(-20px) scale(0.95);}to{opacity:1;transform:translateY(0) scale(1);}}
+@keyframes toastOut{from{opacity:1;transform:translateY(0) scale(1);}to{opacity:0;transform:translateY(-20px) scale(0.95);}}
+@keyframes progressBar{from{width:100%;}to{width:0;}}
+</style>
+
+</body>
+</html>

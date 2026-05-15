@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WoodPro — Sipariş Takibi</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/main.css">
+<link rel="stylesheet" href="css/components.css">
+<link rel="stylesheet" href="css/dashboard.css">
+<style>
+.nav-item.active, .sidebar-link.active { background:rgba(20,184,166,0.1); color:var(--teal-500); box-shadow:inset 0 0 0 1px rgba(20,184,166,0.15); }
+.kpi-icon { background:linear-gradient(135deg,var(--teal-500),var(--teal-700)) !important; }
+.btn-primary { background:linear-gradient(135deg,var(--teal-500),var(--teal-600)); }
+.status-badge.uretimde { background:rgba(16,185,129,0.15); color:#10b981; }
+.status-badge.beklemede { background:rgba(245,158,11,0.15); color:#f59e0b; }
+.status-badge.tamamlandi { background:rgba(59,130,246,0.15); color:#3b82f6; }
+.status-badge.iptal { background:rgba(244,63,94,0.15); color:#f43f5e; }
+.status-badge.lake { background:rgba(139,92,246,0.15); color:#8b5cf6; }
+.status-badge.olcu { background:rgba(14,165,233,0.15); color:#0ea5e9; }
+
+.modal { display:none; position:fixed; inset:0; z-index:200; align-items:center; justify-content:center; }
+.modal.active { display:flex; }
+.modal-overlay { position:absolute; inset:0; background:rgba(0,0,0,0.6); }
+.modal-content { position:relative; background:var(--bg-card); border:1px solid var(--border-color); border-radius:var(--radius-xl); width:100%; max-width:560px; max-height:90vh; overflow-y:auto; padding:28px; z-index:10; }
+.modal-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:20px; }
+.modal-header h3 { font-size:var(--text-xl); font-weight:700; }
+.modal-close { width:32px; height:32px; border-radius:var(--radius-md); background:var(--bg-secondary); border:none; color:var(--text-muted); cursor:pointer; display:flex; align-items:center; justify-content:center; font-size:18px; }
+.modal-close:hover { background:var(--bg-tertiary); color:var(--text-primary); }
+.form-group { margin-bottom:16px; }
+.form-group label { display:block; font-size:var(--text-sm); font-weight:500; margin-bottom:6px; color:var(--text-secondary); }
+.form-group input, .form-group select, .form-group textarea { width:100%; padding:10px 14px; border-radius:var(--radius-md); border:1px solid var(--border-color); background:var(--bg-input); color:var(--text-primary); font-size:var(--text-sm); }
+.form-group input:focus, .form-group select:focus, .form-group textarea:focus { outline:none; border-color:var(--teal-500); box-shadow:0 0 0 3px rgba(20,184,166,0.15); }
+.modal-actions { display:flex; gap:12px; justify-content:flex-end; margin-top:24px; }
+.row-actions { display:flex; gap:6px; opacity:0; transition:opacity 0.2s; }
+tr:hover .row-actions { opacity:1; }
+.row-actions button { padding:4px 8px; border-radius:var(--radius-sm); border:none; background:var(--bg-secondary); color:var(--text-muted); cursor:pointer; font-size:var(--text-xs); }
+.row-actions button:hover { background:var(--teal-500); color:white; }
+.toast-container { position:fixed; bottom:24px; right:24px; z-index:300; display:flex; flex-direction:column; gap:8px; }
+.toast { background:var(--bg-card); border:1px solid var(--border-color); border-radius:var(--radius-lg); padding:14px 20px; box-shadow:var(--shadow-xl); display:flex; align-items:center; gap:10px; animation:toastIn 0.3s ease; }
+.toast.success { border-left:3px solid var(--success-500); }
+@keyframes toastIn { from { transform:translateX(20px); opacity:0; } to { transform:translateX(0); opacity:1; } }
+.filter-bar { display:flex; gap:12px; margin-bottom:20px; flex-wrap:wrap; }
+.filter-bar select, .filter-bar input { padding:8px 14px; border-radius:var(--radius-md); border:1px solid var(--border-color); background:var(--bg-input); color:var(--text-primary); font-size:var(--text-sm); }
+</style>
+</head>
+<body>
+
+<div class="dashboard">
+
+<!-- SIDEBAR -->
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-brand">
+    <div class="sidebar-brand-icon">🪵</div>
+    <span class="sidebar-brand-text">WoodPro</span>
+  </div>
+  <nav class="sidebar-nav">
+    <div class="sidebar-section">
+      <div class="sidebar-section-title">Ana Menü</div>
+      <a href="dashboard.html" class="sidebar-link"><span class="icon">📊</span><span class="sidebar-text">Dashboard</span></a>
+      <a href="woodpro-orders.html" class="sidebar-link active"><span class="icon">📋</span><span class="sidebar-text">Siparişler</span><span class="badge">47</span></a>
+      <a href="woodpro-inventory.html" class="sidebar-link"><span class="icon">🌳</span><span class="sidebar-text">Envanter</span></a>
+      <a href="woodpro-cnc.html" class="sidebar-link"><span class="icon">⚙️</span><span class="sidebar-text">CNC Program</span></a>
+      <a href="woodpro-customers.html" class="sidebar-link"><span class="icon">👥</span><span class="sidebar-text">Müşteriler</span></a>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-section-title">Sektörler</div>
+      <a href="../buildpro/dashboard.html" class="sidebar-link"><span class="icon">🏗️</span><span class="sidebar-text">BuildPro</span></a>
+      <a href="../barberpro/dashboard.html" class="sidebar-link"><span class="icon">💈</span><span class="sidebar-text">BarberPro</span></a>
+      <a href="../../index.html" class="sidebar-link"><span class="icon">⚡</span><span class="sidebar-text">CleanFix</span></a>
+    </div>
+  </nav>
+  <div class="sidebar-footer">
+    <div style="display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:var(--radius-md);background:var(--bg-secondary);">
+      <div style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--teal-500),var(--teal-700));display:flex;align-items:center;justify-content:center;color:white;font-weight:600;font-size:12px;">PB</div>
+      <div><div style="font-size:var(--text-sm);font-weight:600;">Pierre Bernard</div><div style="font-size:var(--text-xs);color:var(--text-muted);">Atölye Müdürü</div></div>
+    </div>
+  </div>
+</aside>
+
+<!-- MAIN -->
+<main class="main" id="main">
+  <header class="header">
+    <div class="header-left">
+      <button class="header-menu-toggle" id="menuToggle">☰</button>
+      <h1 class="header-title">Sipariş Takibi</h1>
+    </div>
+    <div class="header-actions">
+      <button class="btn btn-primary btn-sm" onclick="openModal('modalNewOrder')">➕ Yeni Sipariş</button>
+    </div>
+  </header>
+
+  <div class="content">
+
+    <!-- KPI Cards -->
+    <div class="kpi-grid">
+      <div class="kpi-card"><div class="kpi-header"><span class="kpi-label">Toplam Sipariş</span><span class="kpi-icon">📋</span></div><div class="kpi-value">47</div><div class="kpi-change up">▲ 12% artış</div></div>
+      <div class="kpi-card"><div class="kpi-header"><span class="kpi-label">Üretimde</span><span class="kpi-icon">🔨</span></div><div class="kpi-value">18</div><div class="kpi-change up">▲ 3 yeni</div></div>
+      <div class="kpi-card"><div class="kpi-header"><span class="kpi-label">Beklemede</span><span class="kpi-icon">⏳</span></div><div class="kpi-value">12</div><div class="kpi-change down">▼ 2 azaldı</div></div>
+      <div class="kpi-card"><div class="kpi-header"><span class="kpi-label">Bu Ay Tamamlanan</span><span class="kpi-icon">✅</span></div><div class="kpi-value">23</div><div class="kpi-change up">▲ 8% artış</div></div>
+    </div>
+
+    <!-- Filters -->
+    <div class="card">
+      <div class="filter-bar">
+        <select id="filterStatus">
+          <option value="">Tüm Durumlar</option>
+          <option>Üretimde</option>
+          <option>Beklemede</option>
+          <option>Tamamlandı</option>
+          <option>İptal Edildi</option>
+          <option>Lake Aşaması</option>
+          <option>Ölçü Aşaması</option>
+        </select>
+        <select id="filterWood">
+          <option value="">Tüm Malzemeler</option>
+          <option>Meşe</option>
+          <option>Ceviz</option>
+          <option>Kayın</option>
+          <option>Ladin</option>
+          <option>Iroko</option>
+        </select>
+        <input type="text" placeholder="🔍 Müşteri veya sipariş no ara...">
+        <button class="btn btn-secondary btn-sm" onclick="showToast('Filtreler uygulandı')">🔍 Filtrele</button>
+      </div>
+
+      <div class="table-responsive">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Sipariş No</th>
+              <th>Müşteri / Firma</th>
+              <th>Mobilya Tipi</th>
+              <th>Malzeme</th>
+              <th>Tutar</th>
+              <th>Teslim Tarihi</th>
+              <th>Durum</th>
+              <th style="width:80px;"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>#WP-2026-0047</strong></td>
+              <td>De Becker Ailesi</td>
+              <td>Mutfak Dolabı</td>
+              <td>Meşe (AB Kalite)</td>
+              <td>€14.500</td>
+              <td>20 Mayıs 2026</td>
+              <td><span class="status-badge uretimde">Üretimde</span></td>
+              <td><div class="row-actions"><button onclick="openModal('modalEditOrder')">✏️</button><button onclick="showToast('Sipariş silindi', 'error')">🗑️</button></div></td>
+            </tr>
+            <tr>
+              <td><strong>#WP-2026-0046</strong></td>
+              <td>Van den Bossche NV</td>
+              <td>Gardırop Sistemi</td>
+              <td>Ceviz (Seçme)</td>
+              <td>€8.200</td>
+              <td>18 Mayıs 2026</td>
+              <td><span class="status-badge beklemede">Beklemede</span></td>
+              <td><div class="row-actions"><button onclick="openModal('modalEditOrder')">✏️</button><button onclick="showToast('Sipariş silindi', 'error')">🗑️</button></div></td>
+            </tr>
+            <tr>
+              <td><strong>#WP-2026-0045</strong></td>
+              <td>Maison Verte</td>
+              <td>Kitaplık</td>
+              <td>Kayın (A Kalite)</td>
+              <td>€3.400</td>
+              <td>15 Mayıs 2026</td>
+              <td><span class="status-badge tamamlandi">Tamamlandı</span></td>
+              <td><div class="row-actions"><button onclick="openModal('modalEditOrder')">✏️</button><button onclick="showToast('Sipariş silindi', 'error')">🗑️</button></div></td>
+            </tr>
+            <tr>
+              <td><strong>#WP-2026-0044</strong></td>
+              <td>Dupont Residence</td>
+              <td>TV Ünitesi</td>
+              <td>Meşe (AB Kalite)</td>
+              <td>€5.800</td>
+              <td>25 Mayıs 2026</td>
+              <td><span class="status-badge uretimde">Üretimde</span></td>
+              <td><div class="row-actions"><button onclick="openModal('modalEditOrder')">✏️</button><button onclick="showToast('Sipariş silindi', 'error')">🗑️</button></div></td>
+            </tr>
+            <tr>
+              <td><strong>#WP-2026-0043</strong></td>
+              <td>Lemoine İnşaat</td>
+              <td>Ofis Masası</td>
+              <td>Ladin (Konstrüksiyon)</td>
+              <td>€2.100</td>
+              <td>12 Mayıs 2026</td>
+              <td><span class="status-badge tamamlandi">Tamamlandı</span></td>
+              <td><div class="row-actions"><button onclick="openModal('modalEditOrder')">✏️</button><button onclick="showToast('Sipariş silindi', 'error')">🗑️</button></div></td>
+            </tr>
+            <tr>
+              <td><strong>#WP-2026-0042</strong></td>
+              <td>Schmidt Hukuk Bürosu</td>
+              <td>Toplantı Masası</td>
+              <td>Ceviz (Seçme)</td>
+              <td>€11.200</td>
+              <td>28 Mayıs 2026</td>
+              <td><span class="status-badge lake">Lake Aşaması</span></td>
+              <td><div class="row-actions"><button onclick="openModal('modalEditOrder')">✏️</button><button onclick="showToast('Sipariş silindi', 'error')">🗑️</button></div></td>
+            </tr>
+            <tr>
+              <td><strong>#WP-2026-0041</strong></td>
+              <td>Martens Restaurant</td>
+              <td>Bar Tezgahı</td>
+              <td>Meşe (AB Kalite)</td>
+              <td>€7.500</td>
+              <td>10 Mayıs 2026</td>
+              <td><span class="status-badge iptal">İptal Edildi</span></td>
+              <td><div class="row-actions"><button onclick="openModal('modalEditOrder')">✏️</button><button onclick="showToast('Sipariş silindi', 'error')">🗑️</button></div></td>
+            </tr>
+            <tr>
+              <td><strong>#WP-2026-0040</strong></td>
+              <td>Peeters Ailesi</td>
+              <td>Yatak Odası Takımı</td>
+              <td>Kayın (A Kalite)</td>
+              <td>€9.600</td>
+              <td>05 Haziran 2026</td>
+              <td><span class="status-badge olcu">Ölçü Aşaması</span></td>
+              <td><div class="row-actions"><button onclick="openModal('modalEditOrder')">✏️</button><button onclick="showToast('Sipariş silindi', 'error')">🗑️</button></div></td>
+            </tr>
+            <tr>
+              <td><strong>#WP-2026-0039</strong></td>
+              <td>Vandenberghe Ltd</td>
+              <td>Giyinme Odası</td>
+              <td>Ceviz (Seçme)</td>
+              <td>€6.800</td>
+              <td>30 Mayıs 2026</td>
+              <td><span class="status-badge uretimde">Üretimde</span></td>
+              <td><div class="row-actions"><button onclick="openModal('modalEditOrder')">✏️</button><button onclick="showToast('Sipariş silindi', 'error')">🗑️</button></div></td>
+            </tr>
+            <tr>
+              <td><strong>#WP-2026-0038</strong></td>
+              <td>Claes Emlak</td>
+              <td>Resepsiyon Masası</td>
+              <td>Iroko</td>
+              <td>€4.200</td>
+              <td>08 Haziran 2026</td>
+              <td><span class="status-badge beklemede">Beklemede</span></td>
+              <td><div class="row-actions"><button onclick="openModal('modalEditOrder')">✏️</button><button onclick="showToast('Sipariş silindi', 'error')">🗑️</button></div></td>
+            </tr>
+            <tr>
+              <td><strong>#WP-2026-0037</strong></td>
+              <td>Wouters Mimarlık</td>
+              <td>Maket ve Model</td>
+              <td>Ladin (Konstrüksiyon)</td>
+              <td>€1.450</td>
+              <td>14 Mayıs 2026</td>
+              <td><span class="status-badge tamamlandi">Tamamlandı</span></td>
+              <td><div class="row-actions"><button onclick="openModal('modalEditOrder')">✏️</button><button onclick="showToast('Sipariş silindi', 'error')">🗑️</button></div></td>
+            </tr>
+            <tr>
+              <td><strong>#WP-2026-0036</strong></td>
+              <td>Verhoeven Ailesi</td>
+              <td>Portmanto ve Ayakkabılık</td>
+              <td>Meşe (AB Kalite)</td>
+              <td>€2.800</td>
+              <td>01 Haziran 2026</td>
+              <td><span class="status-badge uretimde">Üretimde</span></td>
+              <td><div class="row-actions"><button onclick="openModal('modalEditOrder')">✏️</button><button onclick="showToast('Sipariş silindi', 'error')">🗑️</button></div></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-top:16px;">
+        <p style="font-size:var(--text-sm);color:var(--text-muted);">12 / 47 sipariş gösteriliyor</p>
+        <div style="display:flex;gap:8px;">
+          <button class="btn btn-ghost btn-sm" disabled>← Önceki</button>
+          <button class="btn btn-secondary btn-sm">1</button>
+          <button class="btn btn-ghost btn-sm">2</button>
+          <button class="btn btn-ghost btn-sm">3</button>
+          <button class="btn btn-ghost btn-sm">Sonraki →</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <footer style="padding:24px 32px;border-top:1px solid var(--border-color);margin-top:auto;">
+    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;">
+      <p style="font-size:var(--text-xs);color:var(--text-muted);">© 2026 WoodPro by CleanFix. Tüm hakları saklıdır.</p>
+      <div style="display:flex;gap:12px;">
+        <a href="../buildpro/dashboard.html" style="font-size:var(--text-xs);color:var(--text-muted);text-decoration:none;">BuildPro</a>
+        <a href="../barberpro/dashboard.html" style="font-size:var(--text-xs);color:var(--text-muted);text-decoration:none;">BarberPro</a>
+        <a href="../../index.html" style="font-size:var(--text-xs);color:var(--text-muted);text-decoration:none;">CleanFix</a>
+      </div>
+    </div>
+  </footer>
+</main>
+
+</div>
+
+<!-- MODAL: New Order -->
+<div class="modal" id="modalNewOrder">
+  <div class="modal-overlay" onclick="closeModal('modalNewOrder')"></div>
+  <div class="modal-content">
+    <div class="modal-header"><h3>📋 Yeni Sipariş</h3><button class="modal-close" onclick="closeModal('modalNewOrder')">×</button></div>
+    <div class="form-group"><label>Müşteri / Firma</label><select><option>Müşteri Seçin</option><option>De Becker Ailesi</option><option>Van den Bossche NV</option><option>Maison Verte</option><option>Dupont Residence</option><option>Lemoine İnşaat</option></select></div>
+    <div class="form-group"><label>Mobilya Tipi</label><select><option>Tip Seçin</option><option>Mutfak Dolabı</option><option>Gardırop Sistemi</option><option>Kitaplık</option><option>TV Ünitesi</option><option>Ofis Masası</option><option>Yatak Odası Takımı</option></select></div>
+    <div class="form-group"><label>Ağaç Türü</label><select><option>Ağaç Seçin</option><option>Meşe (AB Kalite)</option><option>Ceviz (Seçme)</option><option>Kayın (A Kalite)</option><option>Ladin (Konstrüksiyon)</option></select></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+      <div class="form-group"><label>Tutar (€)</label><input type="number" placeholder="0.00"></div>
+      <div class="form-group"><label>Teslimat Tarihi</label><input type="date"></div>
+    </div>
+    <div class="form-group"><label>Notlar</label><textarea rows="3" placeholder="Özel ölçü veya tasarım notları..."></textarea></div>
+    <div class="modal-actions">
+      <button class="btn btn-secondary" onclick="closeModal('modalNewOrder')">İptal</button>
+      <button class="btn btn-primary" onclick="showToast('Sipariş oluşturuldu'); closeModal('modalNewOrder')">💾 Kaydet</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: Edit Order -->
+<div class="modal" id="modalEditOrder">
+  <div class="modal-overlay" onclick="closeModal('modalEditOrder')"></div>
+  <div class="modal-content">
+    <div class="modal-header"><h3>✏️ Sipariş Düzenle</h3><button class="modal-close" onclick="closeModal('modalEditOrder')">×</button></div>
+    <div class="form-group"><label>Durum</label><select><option>Ölçü Aşaması</option><option>Beklemede</option><option>Üretimde</option><option>Lake Aşaması</option><option>Tamamlandı</option><option>İptal Edildi</option></select></div>
+    <div class="form-group"><label>Teslimat Tarihi</label><input type="date"></div>
+    <div class="form-group"><label>Notlar</label><textarea rows="3"></textarea></div>
+    <div class="modal-actions">
+      <button class="btn btn-secondary" onclick="closeModal('modalEditOrder')">İptal</button>
+      <button class="btn btn-primary" onclick="showToast('Değişiklikler kaydedildi'); closeModal('modalEditOrder')">💾 Güncelle</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast-container" id="toastContainer"></div>
+
+<script>
+const sidebar = document.getElementById('sidebar');
+const main = document.getElementById('main');
+document.getElementById('menuToggle').addEventListener('click', () => {
+  sidebar.classList.toggle('sidebar-collapsed');
+  main.classList.toggle('main-expanded');
+});
+function openModal(id) { document.getElementById(id).classList.add('active'); }
+function closeModal(id) { document.getElementById(id).classList.remove('active'); }
+document.addEventListener('keydown', e => { if (e.key === 'Escape') document.querySelectorAll('.modal.active').forEach(m => m.classList.remove('active')); });
+function showToast(msg, type='success') {
+  const container = document.getElementById('toastContainer');
+  const toast = document.createElement('div');
+  toast.className = `toast ${type}`;
+  toast.innerHTML = `<span>${type === 'success' ? '✅' : '❌'}</span><span>${msg}</span>`;
+  container.appendChild(toast);
+  setTimeout(() => { toast.remove(); }, 3000);
+}
+</script>
+</body>
+</html>

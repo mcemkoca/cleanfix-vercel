@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RestoPro — Masa Planı ve Rezervasyon</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/main.css">
+<link rel="stylesheet" href="css/components.css">
+<link rel="stylesheet" href="css/dashboard.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<style>
+:root, [data-theme="dark"] {
+  --glass-bg: rgba(15, 23, 42, 0.60);
+  --glass-border: rgba(148, 163, 184, 0.08);
+  --glass-highlight: rgba(255, 255, 255, 0.03);
+  --teal-glow: rgba(20, 184, 166, 0.15);
+  --card-shadow: 0 1px 3px rgba(0,0,0,0.3), 0 8px 24px rgba(0,0,0,0.2);
+  --card-shadow-hover: 0 2px 6px rgba(0,0,0,0.4), 0 16px 48px rgba(0,0,0,0.3);
+}
+
+/* Floor plan */
+.floor-plan {
+  background: var(--bg-secondary);
+  border: 2px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  position: relative;
+  min-height: 380px;
+}
+.floor-label {
+  position: absolute; top: 12px; left: 16px;
+  font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em;
+  color: var(--text-muted); background: var(--bg-card); padding: 4px 10px; border-radius: var(--radius-sm);
+}
+.table-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 16px;
+  padding-top: 28px;
+}
+.table-item {
+  aspect-ratio: 1;
+  border-radius: var(--radius-md);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.2s;
+  border: 2px solid transparent; position: relative;
+}
+.table-item:hover { transform: scale(1.05); }
+.table-item .t-chairs { font-size: 10px; color: var(--text-muted); margin-top: 2px; }
+.table-item .t-status { position: absolute; top: -6px; right: -6px; width: 14px; height: 14px; border-radius: 50%; border: 2px solid var(--bg-card); }
+
+.table-item.free { background: rgba(16,185,129,0.1); border-color: rgba(16,185,129,0.3); color: var(--success-500); }
+.table-item.free .t-status { background: var(--success-500); }
+.table-item.occupied { background: rgba(20,184,166,0.1); border-color: rgba(20,184,166,0.3); color: var(--teal-500); }
+.table-item.occupied .t-status { background: var(--teal-500); animation: pulse-dot 2s ease-in-out infinite; }
+.table-item.reserved { background: rgba(245,158,11,0.1); border-color: rgba(245,158,11,0.3); color: var(--warning-500); }
+.table-item.reserved .t-status { background: var(--warning-500); }
+.table-item.cleaning { background: rgba(59,130,246,0.1); border-color: rgba(59,130,246,0.3); color: var(--info-500); }
+.table-item.cleaning .t-status { background: var(--info-500); }
+</style>
+</head>
+<body>
+
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+<div class="dashboard">
+
+<!-- Sidebar -->
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-header">
+    <div class="sidebar-logo">
+      <div class="logo-icon">🍽️</div>
+      <div><h2>RestoPro</h2><p>Restoran Yönetimi</p></div>
+    </div>
+  </div>
+  <div class="sidebar-nav">
+    <div class="nav-group">
+      <div class="nav-label">Ana Menü</div>
+      <a class="nav-item" href="dashboard.html">📊 Dashboard</a>
+      <a class="nav-item" href="restopro-menu.html">📋 Menü Yönetimi</a>
+      <a class="nav-item active" href="restopro-tables.html">🪑 Masa Planı</a>
+      <a class="nav-item" href="restopro-orders.html">📲 Sipariş Takibi</a>
+      <a class="nav-item" href="restopro-staff.html">👨‍🍳 Personel</a>
+    </div>
+    <div class="nav-group">
+      <div class="nav-label">Genel</div>
+      <a class="nav-item" href="index.html">🏠 Ana Sayfa</a>
+      <a class="nav-item" href="../../index.html">🧹 CleanFix</a>
+    </div>
+  </div>
+  <div class="sidebar-footer">
+    <div class="sidebar-user">
+      <div class="sidebar-user-info"><p>RestoPro Demo</p><span>Restoran Sektörü</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- Main -->
+<div class="main">
+
+  <!-- Header -->
+  <header class="header">
+    <div class="header-left">
+      <button class="menu-btn" id="menuBtn" title="Menü">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+      <h1 class="page-title">Masa Planı ve Rezervasyon</h1>
+    </div>
+    <div class="header-right">
+      <div class="search-input" style="max-width:240px;">
+        <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        <input type="text" class="form-input" placeholder="Rezervasyon, müşteri ara..." style="padding-left:36px;font-size:var(--text-sm);">
+      </div>
+      <button class="header-btn" id="themeToggle" title="Tema">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/></svg>
+      </button>
+      <div class="avatar avatar-sm" style="cursor:pointer;">MH</div>
+    </div>
+  </header>
+
+  <!-- Content -->
+  <main class="content">
+
+    <!-- Quick Actions -->
+    <div class="quick-actions-bar">
+      <div class="quick-action" onclick="openModal('addReservationModal')"><span class="icon">📅</span> Yeni Rezervasyon</div>
+      <div class="quick-action" onclick="openModal('walkInModal')"><span class="icon">🚶</span> Walk-in Müşteri</div>
+      <div class="quick-action" onclick="openModal('mergeTablesModal')"><span class="icon">🔗</span> Masa Birleştir</div>
+      <div class="quick-action" onclick="openModal('cleaningModal')"><span class="icon">🧹</span> Temizlik Durumu</div>
+    </div>
+
+    <!-- KPI Row -->
+    <div class="kpi-row">
+      <div class="kpi-card reveal">
+        <div class="kpi-top">
+          <div class="kpi-icon" style="background:rgba(16,185,129,0.1);color:var(--success-500);">🪑</div>
+          <div class="kpi-trend up"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/></svg> +2</div>
+        </div>
+        <div class="kpi-value" data-target="24" data-suffix="">0</div>
+        <div class="kpi-label">Toplam Masa</div>
+      </div>
+      <div class="kpi-card reveal reveal-delay-1">
+        <div class="kpi-top">
+          <div class="kpi-icon" style="background:rgba(20,184,166,0.1);color:var(--teal-500);">🍽️</div>
+          <div class="kpi-trend up"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/></svg> +4</div>
+        </div>
+        <div class="kpi-value" data-target="18" data-suffix="">0</div>
+        <div class="kpi-label">Dolu Masa</div>
+      </div>
+      <div class="kpi-card reveal reveal-delay-2">
+        <div class="kpi-top">
+          <div class="kpi-icon" style="background:rgba(245,158,11,0.1);color:var(--amber-500);">📅</div>
+          <div class="kpi-trend up"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/></svg> +3</div>
+        </div>
+        <div class="kpi-value" data-target="12" data-suffix="">0</div>
+        <div class="kpi-label">Bugün Rezervasyon</div>
+      </div>
+      <div class="kpi-card reveal reveal-delay-3">
+        <div class="kpi-top">
+          <div class="kpi-icon" style="background:rgba(59,130,246,0.1);color:var(--info-500);">⏱️</div>
+          <div class="kpi-trend down"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="23 18 13.5 8.5 8.5 13.5 1 6"/></svg> -5dk</div>
+        </div>
+        <div class="kpi-value" data-target="42" data-suffix=" dk">0</div>
+        <div class="kpi-label">Ort. Masa Süresi</div>
+      </div>
+    </div>
+
+    <!-- Floor Plan + Reservation Side by Side -->
+    <div class="dash-grid">
+
+      <!-- Floor Plan -->
+      <div class="glass-card span-2 reveal">
+        <div class="card-header">
+          <div class="card-title">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--teal-500)" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
+            Kat Planı — Brasserie Horta Bruxelles
+          </div>
+          <div style="display:flex;gap:8px;align-items:center;">
+            <span style="display:flex;align-items:center;gap:4px;font-size:11px;color:var(--success-500);"><span style="width:8px;height:8px;border-radius:50%;background:var(--success-500);"></span> Boş</span>
+            <span style="display:flex;align-items:center;gap:4px;font-size:11px;color:var(--teal-500);"><span style="width:8px;height:8px;border-radius:50%;background:var(--teal-500);"></span> Dolu</span>
+            <span style="display:flex;align-items:center;gap:4px;font-size:11px;color:var(--warning-500);"><span style="width:8px;height:8px;border-radius:50%;background:var(--warning-500);"></span> Rezerve</span>
+            <span style="display:flex;align-items:center;gap:4px;font-size:11px;color:var(--info-500);"><span style="width:8px;height:8px;border-radius:50%;background:var(--info-500);"></span> Temizlik</span>
+          </div>
+        </div>
+        <div class="floor-plan">
+          <div class="floor-label">Zemin Kat — 60 Kapasite</div>
+          <div class="table-grid">
+            <div class="table-item free" onclick="openModal('assignTableModal','M01')"><div>M01</div><div class="t-chairs">2 kişi</div><div class="t-status"></div></div>
+            <div class="table-item occupied" onclick="openModal('tableDetailModal','M02')"><div>M02</div><div class="t-chairs">4 kişi</div><div class="t-status"></div></div>
+            <div class="table-item occupied" onclick="openModal('tableDetailModal','M03')"><div>M03</div><div class="t-chairs">4 kişi</div><div class="t-status"></div></div>
+            <div class="table-item free" onclick="openModal('assignTableModal','M04')"><div>M04</div><div class="t-chairs">2 kişi</div><div class="t-status"></div></div>
+            <div class="table-item reserved" onclick="openModal('tableDetailModal','M05')"><div>M05</div><div class="t-chairs">6 kişi</div><div class="t-status"></div></div>
+            <div class="table-item occupied" onclick="openModal('tableDetailModal','M06')"><div>M06</div><div class="t-chairs">4 kişi</div><div class="t-status"></div></div>
+            <div class="table-item cleaning" onclick="openModal('cleaningDoneModal','M07')"><div>M07</div><div class="t-chairs">4 kişi</div><div class="t-status"></div></div>
+            <div class="table-item free" onclick="openModal('assignTableModal','M08')"><div>M08</div><div class="t-chairs">2 kişi</div><div class="t-status"></div></div>
+            <div class="table-item occupied" onclick="openModal('tableDetailModal','M09')"><div>M09</div><div class="t-chairs">8 kişi</div><div class="t-status"></div></div>
+            <div class="table-item free" onclick="openModal('assignTableModal','M10')"><div>M10</div><div class="t-chairs">2 kişi</div><div class="t-status"></div></div>
+            <div class="table-item reserved" onclick="openModal('tableDetailModal','M11')"><div>M11</div><div class="t-chairs">4 kişi</div><div class="t-status"></div></div>
+            <div class="table-item occupied" onclick="openModal('tableDetailModal','M12')"><div>M12</div><div class="t-chairs">4 kişi</div><div class="t-status"></div></div>
+            <div class="table-item free" onclick="openModal('assignTableModal','T01')"><div>T01</div><div class="t-chairs">4 kişi</div><div class="t-status"></div></div>
+            <div class="table-item occupied" onclick="openModal('tableDetailModal','T02')"><div>T02</div><div class="t-chairs">6 kişi</div><div class="t-status"></div></div>
+            <div class="table-item free" onclick="openModal('assignTableModal','T03')"><div>T03</div><div class="t-chairs">4 kişi</div><div class="t-status"></div></div>
+            <div class="table-item reserved" onclick="openModal('tableDetailModal','T04')"><div>T04</div><div class="t-chairs">2 kişi</div><div class="t-status"></div></div>
+            <div class="table-item occupied" onclick="openModal('tableDetailModal','T05')"><div>T05</div><div class="t-chairs">4 kişi</div><div class="t-status"></div></div>
+            <div class="table-item free" onclick="openModal('assignTableModal','T06')"><div>T06</div><div class="t-chairs">4 kişi</div><div class="t-status"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Upcoming Reservations -->
+      <div class="glass-card reveal reveal-delay-1">
+        <div class="card-header">
+          <div class="card-title">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--teal-500)" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            Gelecek Rezervasyonlar
+          </div>
+          <span class="badge badge-success" style="font-size:11px;">Bugün</span>
+        </div>
+        <div class="card-body" style="padding-top:var(--space-3);">
+          <div class="schedule-list">
+            <div class="schedule-item">
+              <div class="schedule-time">12:00</div>
+              <div class="schedule-dot pending"></div>
+              <div class="schedule-info">
+                <div class="schedule-customer">Jan Peeters</div>
+                <div class="schedule-service">M05 · 6 kişi · Doğum günü</div>
+              </div>
+              <span class="schedule-status pending">Bekliyor</span>
+            </div>
+            <div class="schedule-item">
+              <div class="schedule-time">12:30</div>
+              <div class="schedule-dot pending"></div>
+              <div class="schedule-info">
+                <div class="schedule-customer">Marie Dubois</div>
+                <div class="schedule-service">T04 · 2 kişi · Business lunch</div>
+              </div>
+              <span class="schedule-status pending">Bekliyor</span>
+            </div>
+            <div class="schedule-item">
+              <div class="schedule-time">13:00</div>
+              <div class="schedule-dot in-progress"></div>
+              <div class="schedule-info">
+                <div class="schedule-customer">Pieter Van den Berghe</div>
+                <div class="schedule-service">M02 · 4 kişi · Aile yemeği</div>
+              </div>
+              <span class="schedule-status in-progress">Oturmada</span>
+            </div>
+            <div class="schedule-item">
+              <div class="schedule-time">14:00</div>
+              <div class="schedule-dot pending"></div>
+              <div class="schedule-info">
+                <div class="schedule-customer">Sophie De Wilde</div>
+                <div class="schedule-service">M11 · 4 kişi · Kadınlar grubu</div>
+              </div>
+              <span class="schedule-status pending">Bekliyor</span>
+            </div>
+            <div class="schedule-item">
+              <div class="schedule-time">19:00</div>
+              <div class="schedule-dot pending"></div>
+              <div class="schedule-info">
+                <div class="schedule-customer">Lucas Vermeulen</div>
+                <div class="schedule-service">T02 · 6 kişi · Yıldönümü</div>
+              </div>
+              <span class="schedule-status pending">Bekliyor</span>
+            </div>
+            <div class="schedule-item">
+              <div class="schedule-time">19:30</div>
+              <div class="schedule-dot pending"></div>
+              <div class="schedule-info">
+                <div class="schedule-customer">Claire Janssens</div>
+                <div class="schedule-service">M05 · 6 kişi · Mezuniyet</div>
+              </div>
+              <span class="schedule-status pending">Bekliyor</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Reservations Table -->
+    <div class="glass-card span-3 reveal" style="margin-top:var(--space-6);">
+      <div class="card-header">
+        <div class="card-title">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--teal-500)" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+          Tüm Rezervasyonlar
+        </div>
+        <div style="display:flex;gap:8px;">
+          <button class="btn btn-sm btn-secondary" onclick="openModal('addReservationModal')">+ Yeni</button>
+        </div>
+      </div>
+      <div class="table-wrap">
+        <table class="table table-compact">
+          <thead>
+            <tr>
+              <th>Müşteri</th>
+              <th>Telefon</th>
+              <th>Tarih</th>
+              <th>Saat</th>
+              <th>Masa</th>
+              <th>Kişi</th>
+              <th>Durum</th>
+              <th>Not</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Jan Peeters</strong></td>
+              <td>+32 2 345 67 89</td>
+              <td>16 May 2026</td>
+              <td>12:00</td>
+              <td>M05</td>
+              <td>6</td>
+              <td><span class="badge badge-warning">Bekliyor</span></td>
+              <td>Doğum günü pastası hazırlanacak</td>
+              <td>
+                <div style="display:flex;gap:4px;">
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openModal('viewReservationModal','Jan Peeters')" title="Görüntüle">👁</button>
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openModal('editReservationModal','Jan Peeters')" title="Düzenle">✎</button>
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openDeleteModal('Jan Peeters')" title="Sil">🗑</button>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td><strong>Marie Dubois</strong></td>
+              <td>+32 2 456 78 90</td>
+              <td>16 May 2026</td>
+              <td>12:30</td>
+              <td>T04</td>
+              <td>2</td>
+              <td><span class="badge badge-warning">Bekliyor</span></td>
+              <td>Business lunch, pencere kenarı</td>
+              <td>
+                <div style="display:flex;gap:4px;">
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openModal('viewReservationModal','Marie Dubois')" title="Görüntüle">👁</button>
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openModal('editReservationModal','Marie Dubois')" title="Düzenle">✎</button>
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openDeleteModal('Marie Dubois')" title="Sil">🗑</button>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td><strong>Pieter Van den Berghe</strong></td>
+              <td>+32 3 123 45 67</td>
+              <td>16 May 2026</td>
+              <td>13:00</td>
+              <td>M02</td>
+              <td>4</td>
+              <td><span class="badge badge-success">Oturmada</span></td>
+              <td>Aile yemeği, çocuk koltuğu</td>
+              <td>
+                <div style="display:flex;gap:4px;">
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openModal('viewReservationModal','Pieter Van den Berghe')" title="Görüntüle">👁</button>
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openModal('editReservationModal','Pieter Van den Berghe')" title="Düzenle">✎</button>
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openDeleteModal('Pieter Van den Berghe')" title="Sil">🗑</button>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td><strong>Sophie De Wilde</strong></td>
+              <td>+32 9 234 56 78</td>
+              <td>16 May 2026</td>
+              <td>14:00</td>
+              <td>M11</td>
+              <td>4</td>
+              <td><span class="badge badge-warning">Bekliyor</span></td>
+              <td>Kadınlar kahvaltı grubu</td>
+              <td>
+                <div style="display:flex;gap:4px;">
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openModal('viewReservationModal','Sophie De Wilde')" title="Görüntüle">👁</button>
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openModal('editReservationModal','Sophie De Wilde')" title="Düzenle">✎</button>
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openDeleteModal('Sophie De Wilde')" title="Sil">🗑</button>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td><strong>Lucas Vermeulen</strong></td>
+              <td>+32 2 567 89 01</td>
+              <td>16 May 2026</td>
+              <td>19:00</td>
+              <td>T02</td>
+              <td>6</td>
+              <td><span class="badge badge-warning">Bekliyor</span></td>
+              <td>Yıldönümü, şampanya servisi</td>
+              <td>
+                <div style="display:flex;gap:4px;">
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openModal('viewReservationModal','Lucas Vermeulen')" title="Görüntüle">👁</button>
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openModal('editReservationModal','Lucas Vermeulen')" title="Düzenle">✎</button>
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openDeleteModal('Lucas Vermeulen')" title="Sil">🗑</button>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td><strong>Claire Janssens</strong></td>
+              <td>+32 2 678 90 12</td>
+              <td>16 May 2026</td>
+              <td>19:30</td>
+              <td>M05</td>
+              <td>6</td>
+              <td><span class="badge badge-warning">Bekliyor</span></td>
+              <td>Mezuniyet kutlaması</td>
+              <td>
+                <div style="display:flex;gap:4px;">
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openModal('viewReservationModal','Claire Janssens')" title="Görüntüle">👁</button>
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openModal('editReservationModal','Claire Janssens')" title="Düzenle">✎</button>
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openDeleteModal('Claire Janssens')" title="Sil">🗑</button>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td><strong>Thomas Maes</strong></td>
+              <td>+32 2 789 01 23</td>
+              <td>16 May 2026</td>
+              <td>20:00</td>
+              <td>M09</td>
+              <td>8</td>
+              <td><span class="badge badge-warning">Bekliyor</span></td>
+              <td>Şirket yemeği, fatura talebi</td>
+              <td>
+                <div style="display:flex;gap:4px;">
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openModal('viewReservationModal','Thomas Maes')" title="Görüntüle">👁</button>
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openModal('editReservationModal','Thomas Maes')" title="Düzenle">✎</button>
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openDeleteModal('Thomas Maes')" title="Sil">🗑</button>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td><strong>Anna De Smet</strong></td>
+              <td>+32 3 890 12 34</td>
+              <td>17 May 2026</td>
+              <td>12:00</td>
+              <td>M03</td>
+              <td>4</td>
+              <td><span class="badge badge-info">Onaylandı</span></td>
+              <td>Pazar brunch, çocuk menüsü</td>
+              <td>
+                <div style="display:flex;gap:4px;">
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openModal('viewReservationModal','Anna De Smet')" title="Görüntüle">👁</button>
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openModal('editReservationModal','Anna De Smet')" title="Düzenle">✎</button>
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openDeleteModal('Anna De Smet')" title="Sil">🗑</button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </main>
+</div>
+</div>
+
+<!-- ── MODALS ── -->
+
+<!-- Add Reservation Modal -->
+<div class="modal-overlay" id="addReservationModal">
+  <div class="modal modal-lg">
+    <div class="modal-header"><div class="modal-title">Yeni Rezervasyon</div><button class="modal-close" onclick="closeModal('addReservationModal')">✕</button></div>
+    <div class="modal-body">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-4);">
+        <div class="form-group"><label class="form-label">Ad Soyad</label><input type="text" class="form-input" placeholder="Örn: Jan Peeters"></div>
+        <div class="form-group"><label class="form-label">Telefon</label><input type="text" class="form-input" placeholder="+32 2 123 45 67"></div>
+        <div class="form-group"><label class="form-label">Tarih</label><input type="date" class="form-input"></div>
+        <div class="form-group"><label class="form-label">Saat</label><input type="time" class="form-input"></div>
+        <div class="form-group"><label class="form-label">Kişi Sayısı</label><input type="number" class="form-input" value="2" min="1" max="20"></div>
+        <div class="form-group"><label class="form-label">Masa</label><select class="form-select"><option>Otomatik ata</option><option>M01</option><option>M02</option><option>M03</option><option>M04</option><option>M05</option><option>M06</option></select></div>
+      </div>
+      <div class="form-group" style="margin-top:var(--space-4);"><label class="form-label">Özel Not</label><textarea class="form-textarea" rows="2" placeholder="Doğum günü, alerji, özel istek..."></textarea></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('addReservationModal')">İptal</button>
+      <button class="btn btn-primary" onclick="closeModal('addReservationModal');showToast('Rezervasyon oluşturuldu','success')">Kaydet</button>
+    </div>
+  </div>
+</div>
+
+<!-- Edit Reservation Modal -->
+<div class="modal-overlay" id="editReservationModal">
+  <div class="modal modal-lg">
+    <div class="modal-header"><div class="modal-title" id="editReservationTitle">Rezervasyon Düzenle</div><button class="modal-close" onclick="closeModal('editReservationModal')">✕</button></div>
+    <div class="modal-body">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-4);">
+        <div class="form-group"><label class="form-label">Ad Soyad</label><input type="text" class="form-input" value="Jan Peeters"></div>
+        <div class="form-group"><label class="form-label">Telefon</label><input type="text" class="form-input" value="+32 2 345 67 89"></div>
+        <div class="form-group"><label class="form-label">Tarih</label><input type="date" class="form-input" value="2026-05-16"></div>
+        <div class="form-group"><label class="form-label">Saat</label><input type="time" class="form-input" value="12:00"></div>
+        <div class="form-group"><label class="form-label">Kişi Sayısı</label><input type="number" class="form-input" value="6" min="1" max="20"></div>
+        <div class="form-group"><label class="form-label">Durum</label><select class="form-select"><option>Bekliyor</option><option selected>Oturmada</option><option>Tamamlandı</option><option>İptal</option></select></div>
+      </div>
+      <div class="form-group" style="margin-top:var(--space-4);"><label class="form-label">Özel Not</label><textarea class="form-textarea" rows="2">Doğum günü pastası hazırlanacak</textarea></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('editReservationModal')">İptal</button>
+      <button class="btn btn-primary" onclick="closeModal('editReservationModal');showToast('Rezervasyon güncellendi','success')">Güncelle</button>
+    </div>
+  </div>
+</div>
+
+<!-- View Reservation Modal -->
+<div class="modal-overlay" id="viewReservationModal">
+  <div class="modal modal-lg">
+    <div class="modal-header"><div class="modal-title" id="viewReservationTitle">Rezervasyon Detay</div><button class="modal-close" onclick="closeModal('viewReservationModal')">✕</button></div>
+    <div class="modal-body">
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-4);margin-bottom:var(--space-4);">
+        <div style="background:var(--bg-secondary);padding:var(--space-4);border-radius:var(--radius-md);"><div style="font-size:var(--text-xs);color:var(--text-muted);margin-bottom:4px;">Müşteri</div><div style="font-size:var(--text-lg);font-weight:700;">Jan Peeters</div></div>
+        <div style="background:var(--bg-secondary);padding:var(--space-4);border-radius:var(--radius-md);"><div style="font-size:var(--text-xs);color:var(--text-muted);margin-bottom:4px;">Kişi</div><div style="font-size:var(--text-lg);font-weight:700;color:var(--teal-500);">6</div></div>
+        <div style="background:var(--bg-secondary);padding:var(--space-4);border-radius:var(--radius-md);"><div style="font-size:var(--text-xs);color:var(--text-muted);margin-bottom:4px;">Masa</div><div style="font-size:var(--text-lg);font-weight:700;color:var(--amber-500);">M05</div></div>
+      </div>
+      <div style="margin-bottom:var(--space-4);"><div style="font-size:var(--text-sm);font-weight:600;margin-bottom:6px;">Özel Not</div><p style="font-size:var(--text-sm);color:var(--text-secondary);line-height:1.6;">Doğum günü pastası hazırlanacak. Çikolatalı waffle tercihi. 1 adet çocuk koltuğu.</p></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('viewReservationModal')">Kapat</button>
+      <button class="btn btn-primary" onclick="closeModal('viewReservationModal');openModal('editReservationModal')">Düzenle</button>
+    </div>
+  </div>
+</div>
+
+<!-- Assign Table Modal -->
+<div class="modal-overlay" id="assignTableModal">
+  <div class="modal">
+    <div class="modal-header"><div class="modal-title" id="assignTableTitle">Masaya Atama</div><button class="modal-close" onclick="closeModal('assignTableModal')">✕</button></div>
+    <div class="modal-body">
+      <div class="form-group"><label class="form-label">Müşteri Adı</label><input type="text" class="form-input" placeholder="Ad soyad"></div>
+      <div class="form-group"><label class="form-label">Kişi Sayısı</label><input type="number" class="form-input" value="2" min="1"></div>
+      <div class="form-group"><label class="form-label">Özel İstek</label><textarea class="form-textarea" rows="2" placeholder="Pencere kenarı, alerji vb."></textarea></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('assignTableModal')">İptal</button>
+      <button class="btn btn-primary" onclick="closeModal('assignTableModal');showToast('Masa atandı','success')">Ata</button>
+    </div>
+  </div>
+</div>
+
+<!-- Table Detail Modal -->
+<div class="modal-overlay" id="tableDetailModal">
+  <div class="modal">
+    <div class="modal-header"><div class="modal-title" id="tableDetailTitle">Masa Detayı</div><button class="modal-close" onclick="closeModal('tableDetailModal')">✕</button></div>
+    <div class="modal-body">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-4);margin-bottom:var(--space-4);">
+        <div style="background:var(--bg-secondary);padding:var(--space-4);border-radius:var(--radius-md);"><div style="font-size:var(--text-xs);color:var(--text-muted);margin-bottom:4px;">Durum</div><div style="font-size:var(--text-lg);font-weight:700;color:var(--teal-500);">Dolu</div></div>
+        <div style="background:var(--bg-secondary);padding:var(--space-4);border-radius:var(--radius-md);"><div style="font-size:var(--text-xs);color:var(--text-muted);margin-bottom:4px;">Süre</div><div style="font-size:var(--text-lg);font-weight:700;">35 dk</div></div>
+      </div>
+      <div class="form-group"><label class="form-label">Müşteri</label><input type="text" class="form-input" value="Pieter Van den Berghe" readonly></div>
+      <div class="form-group"><label class="form-label">Garson</label><input type="text" class="form-input" value="Lucas — Masa 02" readonly></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('tableDetailModal')">Kapat</button>
+      <button class="btn btn-primary" style="background:var(--error-500);" onclick="closeModal('tableDetailModal');showToast('Masa boşaltıldı','info')">Masa Boşalt</button>
+    </div>
+  </div>
+</div>
+
+<!-- Walk-in Modal -->
+<div class="modal-overlay" id="walkInModal">
+  <div class="modal">
+    <div class="modal-header"><div class="modal-title">Walk-in Müşteri</div><button class="modal-close" onclick="closeModal('walkInModal')">✕</button></div>
+    <div class="modal-body">
+      <div class="form-group"><label class="form-label">Kişi Sayısı</label><input type="number" class="form-input" value="2" min="1"></div>
+      <div class="form-group"><label class="form-label">Tercih</label><select class="form-select"><option>Fark etmez</option><option>Pencere kenarı</option><option>Teras</option><option>Sessiz köşe</option></select></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('walkInModal')">İptal</button>
+      <button class="btn btn-primary" onclick="closeModal('walkInModal');showToast('Walk-in kaydedildi, M01 atandı','success')">Ata</button>
+    </div>
+  </div>
+</div>
+
+<!-- Merge Tables Modal -->
+<div class="modal-overlay" id="mergeTablesModal">
+  <div class="modal">
+    <div class="modal-header"><div class="modal-title">Masa Birleştir</div><button class="modal-close" onclick="closeModal('mergeTablesModal')">✕</button></div>
+    <div class="modal-body">
+      <div class="form-group"><label class="form-label">Birinci Masa</label><select class="form-select"><option>M02</option><option>M03</option><option>M05</option></select></div>
+      <div class="form-group"><label class="form-label">İkinci Masa</label><select class="form-select"><option>M03</option><option>M04</option><option>M06</option></select></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('mergeTablesModal')">İptal</button>
+      <button class="btn btn-primary" onclick="closeModal('mergeTablesModal');showToast('Masalar birleştirildi','success')">Birleştir</button>
+    </div>
+  </div>
+</div>
+
+<!-- Cleaning Modal -->
+<div class="modal-overlay" id="cleaningModal">
+  <div class="modal">
+    <div class="modal-header"><div class="modal-title">Temizlik Durumu</div><button class="modal-close" onclick="closeModal('cleaningModal')">✕</button></div>
+    <div class="modal-body">
+      <p style="font-size:var(--text-sm);color:var(--text-secondary);">Temizlik bekleyen masalar: <strong>M07</strong></p>
+      <div style="margin-top:var(--space-4);"><label class="form-label">Personel</label><select class="form-select"><option>Ahmet — Temizlik</option><option>Sarah — Temizlik</option></select></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('cleaningModal')">Kapat</button>
+      <button class="btn btn-primary" onclick="closeModal('cleaningModal');showToast('M07 temizlik atandı','success')">Ata</button>
+    </div>
+  </div>
+</div>
+
+<!-- Delete Confirmation Modal -->
+<div class="modal-overlay" id="deleteReservationModal">
+  <div class="modal">
+    <div class="modal-header"><div class="modal-title" style="color:var(--error-500);">Rezervasyonu Sil</div><button class="modal-close" onclick="closeModal('deleteReservationModal')">✕</button></div>
+    <div class="modal-body">
+      <p style="font-size:var(--text-sm);color:var(--text-secondary);margin-bottom:var(--space-4);"><strong id="deleteReservationName"></strong> rezervasyonunu silmek üzeresiniz.</p>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('deleteReservationModal')">İptal</button>
+      <button class="btn btn-primary" style="background:var(--error-500);" onclick="closeModal('deleteReservationModal');showToast(document.getElementById('deleteReservationName').textContent + ' silindi','error')">Sil</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const sidebar=document.getElementById('sidebar');
+const menuBtn=document.getElementById('menuBtn');
+const overlay=document.getElementById('sidebarOverlay');
+menuBtn.addEventListener('click',()=>{sidebar.classList.toggle('open');overlay.classList.toggle('active');});
+overlay.addEventListener('click',()=>{sidebar.classList.remove('open');overlay.classList.remove('active');});
+
+const html=document.documentElement;
+let theme=localStorage.getItem('rp-theme')||'dark';
+html.setAttribute('data-theme',theme);
+document.getElementById('themeToggle').addEventListener('click',()=>{theme=theme==='dark'?'light':'dark';html.setAttribute('data-theme',theme);localStorage.setItem('rp-theme',theme);});
+
+function showToast(msg,type='success',dur=3000){
+  let c=document.querySelector('.toast-container');
+  if(!c){c=document.createElement('div');c.className='toast-container';c.style.cssText='position:fixed;top:80px;right:24px;z-index:2000;display:flex;flex-direction:column;gap:12px;pointer-events:none;max-width:360px;';document.body.appendChild(c);}
+  const t=document.createElement('div');
+  const colors={success:'var(--success-500)',error:'var(--error-500)',warning:'var(--warning-500)',info:'var(--info-500)'};
+  const icons={success:'✓',error:'✕',warning:'!',info:'ℹ'};
+  const titles={success:'Başarılı',error:'Hata',warning:'Uyarı',info:'Bilgi'};
+  t.style.cssText=`pointer-events:all;background:var(--bg-card);border:1px solid ${colors[type]};border-radius:12px;padding:14px 18px;display:flex;align-items:flex-start;gap:12px;box-shadow:var(--shadow-lg);animation:toastIn 0.3s ease-out;position:relative;overflow:hidden;`;
+  t.innerHTML=`<span style="flex-shrink:0;margin-top:2px;width:20px;height:20px;border-radius:50%;background:${colors[type]};color:white;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;">${icons[type]}</span><div style="flex:1;"><div style="font-weight:600;font-size:var(--text-sm);">${titles[type]}</div><div style="font-size:var(--text-sm);color:var(--text-muted);margin-top:2px;">${msg}</div></div><span style="flex-shrink:0;color:var(--text-muted);cursor:pointer;font-size:14px;" onclick="this.parentElement.remove()">✕</span><div style="position:absolute;bottom:0;left:0;height:2px;background:${colors[type]};animation:progressBar 4s linear forwards;width:100%;"></div>`;
+  c.appendChild(t);
+  setTimeout(()=>{t.style.animation='toastOut 0.3s ease-in forwards';setTimeout(()=>t.remove(),300);},dur);
+}
+
+const revealObserver=new IntersectionObserver((entries)=>{entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('visible');}});},{threshold:0.08});
+document.querySelectorAll('.reveal').forEach(el=>revealObserver.observe(el));
+
+function animateCounters(){
+  document.querySelectorAll('.kpi-value[data-target]').forEach(el=>{
+    const target=parseInt(el.dataset.target);
+    const prefix=el.dataset.prefix||'';
+    const suffix=el.dataset.suffix||'';
+    const duration=1500; const start=performance.now();
+    function tick(now){const progress=Math.min((now-start)/duration,1);const eased=1-Math.pow(1-progress,3);const current=Math.round(eased*target);el.textContent=prefix+current.toLocaleString('tr-TR')+suffix;if(progress<1)requestAnimationFrame(tick);}
+    requestAnimationFrame(tick);
+  });
+}
+
+function openModal(id, title){
+  const modal=document.getElementById(id);
+  if(modal){modal.classList.add('active');if(title){const t=modal.querySelector('.modal-title');if(t){if(t.id==='editReservationTitle')t.textContent='Düzenle — '+title;if(t.id==='viewReservationTitle')t.textContent='Detay — '+title;if(t.id==='assignTableTitle')t.textContent='Ata — '+title;if(t.id==='tableDetailTitle')t.textContent='Detay — '+title;}}}
+}
+function openDeleteModal(name){const n=document.getElementById('deleteReservationName');if(n)n.textContent=name;openModal('deleteReservationModal');}
+function closeModal(id){const modal=document.getElementById(id);if(modal)modal.classList.remove('active');}
+document.querySelectorAll('.modal-overlay').forEach(o=>{o.addEventListener('click',(e)=>{if(e.target===o)o.classList.remove('active');});});
+
+document.addEventListener('DOMContentLoaded',()=>{setTimeout(animateCounters,400);});
+</script>
+
+<style>
+@keyframes toastIn{from{opacity:0;transform:translateY(-20px) scale(0.95);}to{opacity:1;transform:translateY(0) scale(1);}}
+@keyframes toastOut{from{opacity:1;transform:translateY(0) scale(1);}to{opacity:0;transform:translateY(-20px) scale(0.95);}}
+@keyframes progressBar{from{width:100%;}to{width:0;}}
+@keyframes pulse-dot{0%,100%{opacity:1;transform:scale(1);}50%{opacity:0.5;transform:scale(1.3);}}
+</style>
+
+</body>
+</html>

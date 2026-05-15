@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RestoPro — Personel Vardiya</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/main.css">
+<link rel="stylesheet" href="css/components.css">
+<link rel="stylesheet" href="css/dashboard.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<style>
+:root, [data-theme="dark"] {
+  --glass-bg: rgba(15, 23, 42, 0.60);
+  --glass-border: rgba(148, 163, 184, 0.08);
+  --glass-highlight: rgba(255, 255, 255, 0.03);
+  --teal-glow: rgba(20, 184, 166, 0.15);
+  --card-shadow: 0 1px 3px rgba(0,0,0,0.3), 0 8px 24px rgba(0,0,0,0.2);
+  --card-shadow-hover: 0 2px 6px rgba(0,0,0,0.4), 0 16px 48px rgba(0,0,0,0.3);
+}
+
+/* Shift timeline */
+.shift-timeline {
+  display: flex; flex-direction: column; gap: var(--space-3);
+}
+.shift-row {
+  display: grid; grid-template-columns: 160px 1fr; gap: var(--space-4);
+  align-items: center; padding: var(--space-3) var(--space-4);
+  background: var(--bg-secondary); border-radius: var(--radius-md);
+  border: 1px solid var(--border-color);
+}
+.shift-row:hover { border-color: var(--teal-500); }
+.shift-person {
+  display: flex; align-items: center; gap: var(--space-3);
+}
+.shift-avatar {
+  width: 40px; height: 40px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px; font-weight: 700; color: white; flex-shrink: 0;
+}
+.shift-name { font-size: var(--text-sm); font-weight: 600; }
+.shift-role { font-size: 11px; color: var(--text-muted); }
+.shift-bar {
+  position: relative; height: 32px; background: var(--bg-tertiary);
+  border-radius: var(--radius-md); overflow: hidden;
+}
+.shift-bar-fill {
+  position: absolute; top: 0; bottom: 0;
+  background: linear-gradient(90deg, var(--teal-500), var(--teal-600));
+  border-radius: var(--radius-md); display: flex;
+  align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 700; color: white;
+  min-width: 60px;
+}
+.shift-bar-fill.break { background: linear-gradient(90deg, var(--warning-500), var(--amber-500)); }
+.shift-bar-fill.off { background: var(--bg-tertiary); border: 1px dashed var(--border-color); color: var(--text-muted); }
+</style>
+</head>
+<body>
+
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+<div class="dashboard">
+
+<!-- Sidebar -->
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-header">
+    <div class="sidebar-logo">
+      <div class="logo-icon">🍽️</div>
+      <div><h2>RestoPro</h2><p>Restoran Yönetimi</p></div>
+    </div>
+  </div>
+  <div class="sidebar-nav">
+    <div class="nav-group">
+      <div class="nav-label">Ana Menü</div>
+      <a class="nav-item" href="dashboard.html">📊 Dashboard</a>
+      <a class="nav-item" href="restopro-menu.html">📋 Menü Yönetimi</a>
+      <a class="nav-item" href="restopro-tables.html">🪑 Masa Planı</a>
+      <a class="nav-item" href="restopro-orders.html">📲 Sipariş Takibi</a>
+      <a class="nav-item active" href="restopro-staff.html">👨‍🍳 Personel</a>
+    </div>
+    <div class="nav-group">
+      <div class="nav-label">Genel</div>
+      <a class="nav-item" href="index.html">🏠 Ana Sayfa</a>
+      <a class="nav-item" href="../../index.html">🧹 CleanFix</a>
+    </div>
+  </div>
+  <div class="sidebar-footer">
+    <div class="sidebar-user">
+      <div class="sidebar-user-info"><p>RestoPro Demo</p><span>Restoran Sektörü</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- Main -->
+<div class="main">
+
+  <!-- Header -->
+  <header class="header">
+    <div class="header-left">
+      <button class="menu-btn" id="menuBtn" title="Menü">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+      <h1 class="page-title">Personel Vardiya</h1>
+    </div>
+    <div class="header-right">
+      <div class="search-input" style="max-width:240px;">
+        <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        <input type="text" class="form-input" placeholder="Personel, pozisyon ara..." style="padding-left:36px;font-size:var(--text-sm);">
+      </div>
+      <button class="header-btn" id="themeToggle" title="Tema">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/></svg>
+      </button>
+      <div class="avatar avatar-sm" style="cursor:pointer;">MH</div>
+    </div>
+  </header>
+
+  <!-- Content -->
+  <main class="content">
+
+    <!-- Quick Actions -->
+    <div class="quick-actions-bar">
+      <div class="quick-action" onclick="openModal('addShiftModal')"><span class="icon">📅</span> Vardiya Ekle</div>
+      <div class="quick-action" onclick="openModal('addStaffModal')"><span class="icon">👤</span> Personel Ekle</div>
+      <div class="quick-action" onclick="openModal('leaveRequestModal')"><span class="icon">🌴</span> İzin Talebi</div>
+      <div class="quick-action" onclick="openModal('payrollModal')"><span class="icon">💶</span> Bordro Önizleme</div>
+    </div>
+
+    <!-- KPI Row -->
+    <div class="kpi-row">
+      <div class="kpi-card reveal">
+        <div class="kpi-top">
+          <div class="kpi-icon" style="background:rgba(20,184,166,0.1);color:var(--teal-500);">👨‍🍳</div>
+          <div class="kpi-trend up"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/></svg> +1</div>
+        </div>
+        <div class="kpi-value" data-target="12" data-suffix="">0</div>
+        <div class="kpi-label">Toplam Personel</div>
+      </div>
+      <div class="kpi-card reveal reveal-delay-1">
+        <div class="kpi-top">
+          <div class="kpi-icon" style="background:rgba(16,185,129,0.1);color:var(--success-500);">✅</div>
+          <div class="kpi-trend up"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/></svg> +2</div>
+        </div>
+        <div class="kpi-value" data-target="8" data-suffix="">0</div>
+        <div class="kpi-label">Bugün Çalışan</div>
+      </div>
+      <div class="kpi-card reveal reveal-delay-2">
+        <div class="kpi-top">
+          <div class="kpi-icon" style="background:rgba(245,158,11,0.1);color:var(--warning-500);">🌴</div>
+          <div class="kpi-trend down"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="23 18 13.5 8.5 8.5 13.5 1 6"/></svg> -1</div>
+        </div>
+        <div class="kpi-value" data-target="3" data-suffix="">0</div>
+        <div class="kpi-label">İzinli</div>
+      </div>
+      <div class="kpi-card reveal reveal-delay-3">
+        <div class="kpi-top">
+          <div class="kpi-icon" style="background:rgba(59,130,246,0.1);color:var(--info-500);">⏱️</div>
+          <div class="kpi-trend up"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/></svg> +4h</div>
+        </div>
+        <div class="kpi-value" data-target="286" data-suffix=" saat">0</div>
+        <div class="kpi-label">Haftalık Saat</div>
+      </div>
+    </div>
+
+    <!-- Shift Timeline -->
+    <div class="glass-card span-3 reveal">
+      <div class="card-header">
+        <div class="card-title">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--teal-500)" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          Bugünkü Vardiyalar — 16 Mayıs 2026
+        </div>
+        <div style="display:flex;gap:8px;">
+          <button class="btn btn-sm btn-secondary" onclick="openModal('addShiftModal')">+ Vardiya</button>
+        </div>
+      </div>
+      <div class="card-body">
+        <div style="display:flex;justify-content:space-between;margin-bottom:var(--space-4);font-size:11px;color:var(--text-muted);font-weight:600;">
+          <span>06:00</span><span>08:00</span><span>10:00</span><span>12:00</span><span>14:00</span><span>16:00</span><span>18:00</span><span>20:00</span><span>22:00</span><span>00:00</span>
+        </div>
+        <div class="shift-timeline">
+          <div class="shift-row">
+            <div class="shift-person">
+              <div class="shift-avatar" style="background:linear-gradient(135deg,#14b8a6,#0d9488);">LC</div>
+              <div><div class="shift-name">Chef Lucas</div><div class="shift-role">Ana Şef</div></div>
+            </div>
+            <div class="shift-bar">
+              <div class="shift-bar-fill" style="left:0%;width:75%;">06:00 — 18:00</div>
+            </div>
+          </div>
+          <div class="shift-row">
+            <div class="shift-person">
+              <div class="shift-avatar" style="background:linear-gradient(135deg,#3b82f6,#2563eb);">SJ</div>
+              <div><div class="shift-name">Sarah De Jong</div><div class="shift-role">Yardımcı Şef</div></div>
+            </div>
+            <div class="shift-bar">
+              <div class="shift-bar-fill" style="left:8.3%;width:41.7%;">07:00 — 15:00</div>
+              <div class="shift-bar-fill break" style="left:50%;width:8.3%;">Mola</div>
+              <div class="shift-bar-fill" style="left:58.3%;width:25%;">15:30 — 18:00</div>
+            </div>
+          </div>
+          <div class="shift-row">
+            <div class="shift-person">
+              <div class="shift-avatar" style="background:linear-gradient(135deg,#f59e0b,#d97706);">MD</div>
+              <div><div class="shift-name">Marc Dubois</div><div class="shift-role">Garson Şefi</div></div>
+            </div>
+            <div class="shift-bar">
+              <div class="shift-bar-fill" style="left:16.7%;width:58.3%;">08:00 — 22:00</div>
+            </div>
+          </div>
+          <div class="shift-row">
+            <div class="shift-person">
+              <div class="shift-avatar" style="background:linear-gradient(135deg,#10b981,#059669);">EP</div>
+              <div><div class="shift-name">Emma Peeters</div><div class="shift-role">Garson</div></div>
+            </div>
+            <div class="shift-bar">
+              <div class="shift-bar-fill" style="left:33.3%;width:50%;">10:00 — 22:00</div>
+            </div>
+          </div>
+          <div class="shift-row">
+            <div class="shift-person">
+              <div class="shift-avatar" style="background:linear-gradient(135deg,#8b5cf6,#7c3aed);">LV</div>
+              <div><div class="shift-name">Lisa Vermeulen</div><div class="shift-role">Garson</div></div>
+            </div>
+            <div class="shift-bar">
+              <div class="shift-bar-fill" style="left:33.3%;width:50%;">10:00 — 22:00</div>
+            </div>
+          </div>
+          <div class="shift-row">
+            <div class="shift-person">
+              <div class="shift-avatar" style="background:linear-gradient(135deg,#f43f5e,#e11d48);">JD</div>
+              <div><div class="shift-name">Jan De Smet</div><div class="shift-role">Barmen</div></div>
+            </div>
+            <div class="shift-bar">
+              <div class="shift-bar-fill" style="left:50%;width:41.7%;">12:00 — 22:00</div>
+            </div>
+          </div>
+          <div class="shift-row">
+            <div class="shift-person">
+              <div class="shift-avatar" style="background:linear-gradient(135deg,#64748b,#475569);">AK</div>
+              <div><div class="shift-name">Ahmet Kaya</div><div class="shift-role">Temizlik</div></div>
+            </div>
+            <div class="shift-bar">
+              <div class="shift-bar-fill" style="left:8.3%;width:41.7%;">07:00 — 15:00</div>
+            </div>
+          </div>
+          <div class="shift-row">
+            <div class="shift-person">
+              <div class="shift-avatar" style="background:linear-gradient(135deg,#14b8a6,#0f766e);">CW</div>
+              <div><div class="shift-name">Claire Wouters</div><div class="shift-role">Resepsiyon</div></div>
+            </div>
+            <div class="shift-bar">
+              <div class="shift-bar-fill" style="left:25%;width:50%;">09:00 — 21:00</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Staff Table -->
+    <div class="glass-card span-3 reveal" style="margin-top:var(--space-6);">
+      <div class="card-header">
+        <div class="card-title">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--teal-500)" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          Personel Listesi
+        </div>
+        <div style="display:flex;gap:8px;">
+          <button class="btn btn-sm btn-secondary" onclick="openModal('addStaffModal')">+ Yeni</button>
+        </div>
+      </div>
+      <div class="table-wrap">
+        <table class="table table-compact">
+          <thead>
+            <tr>
+              <th>Personel</th>
+              <th>Pozisyon</th>
+              <th>Telefon</th>
+              <th>Saatlik Ücret</th>
+              <th>Haftalık Saat</th>
+              <th>Durum</th>
+              <th>İzin Günü</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><div style="display:flex;align-items:center;gap:8px;"><div class="shift-avatar" style="width:28px;height:28px;font-size:12px;background:linear-gradient(135deg,#14b8a6,#0d9488);">LC</div><strong>Chef Lucas</strong></div></td>
+              <td><span class="badge badge-info">Ana Şef</span></td>
+              <td>+32 2 345 67 89</td>
+              <td>€28.00</td>
+              <td>48 saat</td>
+              <td><span class="badge badge-success">Aktif</span></td>
+              <td>Pazar</td>
+              <td>
+                <div style="display:flex;gap:4px;">
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openModal('viewStaffModal','Chef Lucas')">👁</button>
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openModal('editStaffModal','Chef Lucas')">✎</button>
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openDeleteModal('Chef Lucas')">🗑</button>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td><div style="display:flex;align-items:center;gap:8px;"><div class="shift-avatar" style="width:28px;height:28px;font-size:12px;background:linear-gradient(135deg,#3b82f6,#2563eb);">SJ</div><strong>Sarah De Jong</strong></div></td>
+              <td><span class="badge badge-info">Yardımcı Şef</span></td>
+              <td>+32 2 456 78 90</td>
+              <td>€22.50</td>
+              <td>42 saat</td>
+              <td><span class="badge badge-success">Aktif</span></td>
+              <td>Çarşamba</td>
+              <td>
+                <div style="display:flex;gap:4px;">
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openModal('viewStaffModal','Sarah De Jong')">👁</button>
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openModal('editStaffModal','Sarah De Jong')">✎</button>
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openDeleteModal('Sarah De Jong')">🗑</button>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td><div style="display:flex;align-items:center;gap:8px;"><div class="shift-avatar" style="width:28px;height:28px;font-size:12px;background:linear-gradient(135deg,#f59e0b,#d97706);">MD</div><strong>Marc Dubois</strong></div></td>
+              <td><span class="badge badge-warning">Garson Şefi</span></td>
+              <td>+32 2 567 89 01</td>
+              <td>€18.00</td>
+              <td>45 saat</td>
+              <td><span class="badge badge-success">Aktif</span></td>
+              <td>Pazartesi</td>
+              <td>
+                <div style="display:flex;gap:4px;">
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openModal('viewStaffModal','Marc Dubois')">👁</button>
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openModal('editStaffModal','Marc Dubois')">✎</button>
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openDeleteModal('Marc Dubois')">🗑</button>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td><div style="display:flex;align-items:center;gap:8px;"><div class="shift-avatar" style="width:28px;height:28px;font-size:12px;background:linear-gradient(135deg,#10b981,#059669);">EP</div><strong>Emma Peeters</strong></div></td>
+              <td><span class="badge badge-neutral">Garson</span></td>
+              <td>+32 2 678 90 12</td>
+              <td>€15.50</td>
+              <td>38 saat</td>
+              <td><span class="badge badge-success">Aktif</span></td>
+              <td>Salı</td>
+              <td>
+                <div style="display:flex;gap:4px;">
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openModal('viewStaffModal','Emma Peeters')">👁</button>
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openModal('editStaffModal','Emma Peeters')">✎</button>
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openDeleteModal('Emma Peeters')">🗑</button>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td><div style="display:flex;align-items:center;gap:8px;"><div class="shift-avatar" style="width:28px;height:28px;font-size:12px;background:linear-gradient(135deg,#8b5cf6,#7c3aed);">LV</div><strong>Lisa Vermeulen</strong></div></td>
+              <td><span class="badge badge-neutral">Garson</span></td>
+              <td>+32 2 789 01 23</td>
+              <td>€15.50</td>
+              <td>36 saat</td>
+              <td><span class="badge badge-success">Aktif</span></td>
+              <td>Perşembe</td>
+              <td>
+                <div style="display:flex;gap:4px;">
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openModal('viewStaffModal','Lisa Vermeulen')">👁</button>
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openModal('editStaffModal','Lisa Vermeulen')">✎</button>
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openDeleteModal('Lisa Vermeulen')">🗑</button>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td><div style="display:flex;align-items:center;gap:8px;"><div class="shift-avatar" style="width:28px;height:28px;font-size:12px;background:linear-gradient(135deg,#f43f5e,#e11d48);">JD</div><strong>Jan De Smet</strong></div></td>
+              <td><span class="badge badge-error">Barmen</span></td>
+              <td>+32 2 890 12 34</td>
+              <td>€17.00</td>
+              <td>32 saat</td>
+              <td><span class="badge badge-success">Aktif</span></td>
+              <td>Pazar</td>
+              <td>
+                <div style="display:flex;gap:4px;">
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openModal('viewStaffModal','Jan De Smet')">👁</button>
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openModal('editStaffModal','Jan De Smet')">✎</button>
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openDeleteModal('Jan De Smet')">🗑</button>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td><div style="display:flex;align-items:center;gap:8px;"><div class="shift-avatar" style="width:28px;height:28px;font-size:12px;background:linear-gradient(135deg,#64748b,#475569);">AK</div><strong>Ahmet Kaya</strong></div></td>
+              <td><span class="badge badge-neutral">Temizlik</span></td>
+              <td>+32 2 901 23 45</td>
+              <td>€14.00</td>
+              <td>30 saat</td>
+              <td><span class="badge badge-success">Aktif</span></td>
+              <td>Cumartesi</td>
+              <td>
+                <div style="display:flex;gap:4px;">
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openModal('viewStaffModal','Ahmet Kaya')">👁</button>
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openModal('editStaffModal','Ahmet Kaya')">✎</button>
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openDeleteModal('Ahmet Kaya')">🗑</button>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td><div style="display:flex;align-items:center;gap:8px;"><div class="shift-avatar" style="width:28px;height:28px;font-size:12px;background:linear-gradient(135deg,#14b8a6,#0f766e);">CW</div><strong>Claire Wouters</strong></div></td>
+              <td><span class="badge badge-neutral">Resepsiyon</span></td>
+              <td>+32 2 012 34 56</td>
+              <td>€16.00</td>
+              <td>35 saat</td>
+              <td><span class="badge badge-success">Aktif</span></td>
+              <td>Pazartesi</td>
+              <td>
+                <div style="display:flex;gap:4px;">
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openModal('viewStaffModal','Claire Wouters')">👁</button>
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openModal('editStaffModal','Claire Wouters')">✎</button>
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openDeleteModal('Claire Wouters')">🗑</button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Leave Requests -->
+    <div class="glass-card span-3 reveal" style="margin-top:var(--space-6);">
+      <div class="card-header">
+        <div class="card-title">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--warning-500)" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          İzin Talepleri
+        </div>
+      </div>
+      <div class="table-wrap">
+        <table class="table table-compact">
+          <thead>
+            <tr>
+              <th>Personel</th>
+              <th>Tür</th>
+              <th>Başlangıç</th>
+              <th>Bitiş</th>
+              <th>Gün</th>
+              <th>Neden</th>
+              <th>Durum</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Sarah De Jong</strong></td>
+              <td>🌴 Yıllık İzin</td>
+              <td>20 May 2026</td>
+              <td>24 May 2026</td>
+              <td>5</td>
+              <td>Aile tatili</td>
+              <td><span class="badge badge-warning">Bekliyor</span></td>
+              <td>
+                <div style="display:flex;gap:4px;">
+                  <button class="btn btn-icon-sm btn-ghost" onclick="showToast('İzin onaylandı','success')">✓</button>
+                  <button class="btn btn-icon-sm btn-ghost" onclick="showToast('İzin reddedildi','error')">✕</button>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td><strong>Jan De Smet</strong></td>
+              <td>🏥 Hastalık</td>
+              <td>18 May 2026</td>
+              <td>19 May 2026</td>
+              <td>2</td>
+              <td>Grip</td>
+              <td><span class="badge badge-warning">Bekliyor</span></td>
+              <td>
+                <div style="display:flex;gap:4px;">
+                  <button class="btn btn-icon-sm btn-ghost" onclick="showToast('İzin onaylandı','success')">✓</button>
+                  <button class="btn btn-icon-sm btn-ghost" onclick="showToast('İzin reddedildi','error')">✕</button>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td><strong>Emma Peeters</strong></td>
+              <td>🌴 Yıllık İzin</td>
+              <td>01 Haz 2026</td>
+              <td>05 Haz 2026</td>
+              <td>5</td>
+              <td>Düğün</td>
+              <td><span class="badge badge-success">Onaylandı</span></td>
+              <td>
+                <div style="display:flex;gap:4px;">
+                  <button class="btn btn-icon-sm btn-ghost" onclick="openModal('editLeaveModal','Emma Peeters')">✎</button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </main>
+</div>
+</div>
+
+<!-- ── MODALS ── -->
+
+<!-- Add Shift Modal -->
+<div class="modal-overlay" id="addShiftModal">
+  <div class="modal modal-lg">
+    <div class="modal-header"><div class="modal-title">Vardiya Ekle</div><button class="modal-close" onclick="closeModal('addShiftModal')">✕</button></div>
+    <div class="modal-body">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-4);">
+        <div class="form-group"><label class="form-label">Personel</label><select class="form-select"><option>Chef Lucas</option><option>Sarah De Jong</option><option>Marc Dubois</option><option>Emma Peeters</option><option>Lisa Vermeulen</option><option>Jan De Smet</option></select></div>
+        <div class="form-group"><label class="form-label">Pozisyon</label><select class="form-select"><option>Ana Şef</option><option>Yardımcı Şef</option><option>Garson</option><option>Barmen</option><option>Temizlik</option></select></div>
+        <div class="form-group"><label class="form-label">Tarih</label><input type="date" class="form-input"></div>
+        <div class="form-group"><label class="form-label">Başlangıç</label><input type="time" class="form-input" value="08:00"></div>
+        <div class="form-group"><label class="form-label">Bitiş</label><input type="time" class="form-input" value="16:00"></div>
+        <div class="form-group"><label class="form-label">Mola (dk)</label><input type="number" class="form-input" value="30" min="0" step="15"></div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('addShiftModal')">İptal</button>
+      <button class="btn btn-primary" onclick="closeModal('addShiftModal');showToast('Vardiya eklendi','success')">Kaydet</button>
+    </div>
+  </div>
+</div>
+
+<!-- Add Staff Modal -->
+<div class="modal-overlay" id="addStaffModal">
+  <div class="modal modal-lg">
+    <div class="modal-header"><div class="modal-title">Yeni Personel Ekle</div><button class="modal-close" onclick="closeModal('addStaffModal')">✕</button></div>
+    <div class="modal-body">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-4);">
+        <div class="form-group"><label class="form-label">Ad Soyad</label><input type="text" class="form-input" placeholder="Örn: Thomas Maes"></div>
+        <div class="form-group"><label class="form-label">Pozisyon</label><select class="form-select"><option>Garson</option><option>Barmen</option><option>Şef</option><option>Yardımcı Şef</option><option>Temizlik</option><option>Resepsiyon</option></select></div>
+        <div class="form-group"><label class="form-label">Telefon</label><input type="text" class="form-input" placeholder="+32 2 123 45 67"></div>
+        <div class="form-group"><label class="form-label">E-posta</label><input type="email" class="form-input" placeholder="ornek@restopro.be"></div>
+        <div class="form-group"><label class="form-label">Saatlik Ücret (€)</label><input type="text" class="form-input" placeholder="0.00"></div>
+        <div class="form-group"><label class="form-label">İzin Günü</label><select class="form-select"><option>Pazartesi</option><option>Salı</option><option>Çarşamba</option><option>Perşembe</option><option>Cuma</option><option>Cumartesi</option><option>Pazar</option></select></div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('addStaffModal')">İptal</button>
+      <button class="btn btn-primary" onclick="closeModal('addStaffModal');showToast('Personel eklendi','success')">Kaydet</button>
+    </div>
+  </div>
+</div>
+
+<!-- View Staff Modal -->
+<div class="modal-overlay" id="viewStaffModal">
+  <div class="modal modal-lg">
+    <div class="modal-header"><div class="modal-title" id="viewStaffTitle">Personel Detayı</div><button class="modal-close" onclick="closeModal('viewStaffModal')">✕</button></div>
+    <div class="modal-body">
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-4);margin-bottom:var(--space-4);">
+        <div style="background:var(--bg-secondary);padding:var(--space-4);border-radius:var(--radius-md);"><div style="font-size:var(--text-xs);color:var(--text-muted);margin-bottom:4px;">Saatlik Ücret</div><div style="font-size:var(--text-lg);font-weight:700;">€28.00</div></div>
+        <div style="background:var(--bg-secondary);padding:var(--space-4);border-radius:var(--radius-md);"><div style="font-size:var(--text-xs);color:var(--text-muted);margin-bottom:4px;">Haftalık Saat</div><div style="font-size:var(--text-lg);font-weight:700;color:var(--teal-500);">48 saat</div></div>
+        <div style="background:var(--bg-secondary);padding:var(--space-4);border-radius:var(--radius-md);"><div style="font-size:var(--text-xs);color:var(--text-muted);margin-bottom:4px;">Aylık Tahmini</div><div style="font-size:var(--text-lg);font-weight:700;color:var(--success-500);">€5,376</div></div>
+      </div>
+      <div style="margin-bottom:var(--space-4);"><div style="font-size:var(--text-sm);font-weight:600;margin-bottom:6px;">İletişim</div><p style="font-size:var(--text-sm);color:var(--text-secondary);line-height:1.6;">Telefon: +32 2 345 67 89<br>E-posta: lucas@brasseriehorta.be<br>Adres: Rue des Bouchers 12, 1000 Bruxelles</p></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('viewStaffModal')">Kapat</button>
+      <button class="btn btn-primary" onclick="closeModal('viewStaffModal');openModal('editStaffModal')">Düzenle</button>
+    </div>
+  </div>
+</div>
+
+<!-- Edit Staff Modal -->
+<div class="modal-overlay" id="editStaffModal">
+  <div class="modal modal-lg">
+    <div class="modal-header"><div class="modal-title" id="editStaffTitle">Personel Düzenle</div><button class="modal-close" onclick="closeModal('editStaffModal')">✕</button></div>
+    <div class="modal-body">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-4);">
+        <div class="form-group"><label class="form-label">Ad Soyad</label><input type="text" class="form-input" value="Chef Lucas"></div>
+        <div class="form-group"><label class="form-label">Pozisyon</label><select class="form-select"><option selected>Ana Şef</option><option>Yardımcı Şef</option><option>Garson</option><option>Barmen</option></select></div>
+        <div class="form-group"><label class="form-label">Telefon</label><input type="text" class="form-input" value="+32 2 345 67 89"></div>
+        <div class="form-group"><label class="form-label">Saatlik Ücret (€)</label><input type="text" class="form-input" value="28.00"></div>
+        <div class="form-group"><label class="form-label">Durum</label><select class="form-select"><option selected>Aktif</option><option>İzinli</option><option>Pasif</option></select></div>
+        <div class="form-group"><label class="form-label">İzin Günü</label><select class="form-select"><option>Pazartesi</option><option>Salı</option><option>Çarşamba</option><option>Perşembe</option><option>Cuma</option><option>Cumartesi</option><option selected>Pazar</option></select></div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('editStaffModal')">İptal</button>
+      <button class="btn btn-primary" onclick="closeModal('editStaffModal');showToast('Personel güncellendi','success')">Güncelle</button>
+    </div>
+  </div>
+</div>
+
+<!-- Leave Request Modal -->
+<div class="modal-overlay" id="leaveRequestModal">
+  <div class="modal">
+    <div class="modal-header"><div class="modal-title">İzin Talebi</div><button class="modal-close" onclick="closeModal('leaveRequestModal')">✕</button></div>
+    <div class="modal-body">
+      <div class="form-group"><label class="form-label">Personel</label><select class="form-select"><option>Chef Lucas</option><option>Sarah De Jong</option><option>Marc Dubois</option><option>Emma Peeters</option></select></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-4);">
+        <div class="form-group"><label class="form-label">Başlangıç</label><input type="date" class="form-input"></div>
+        <div class="form-group"><label class="form-label">Bitiş</label><input type="date" class="form-input"></div>
+      </div>
+      <div class="form-group"><label class="form-label">Tür</label><select class="form-select"><option>Yıllık İzin</option><option>Hastalık</option><option>Mazeret</option><option>Ücretsiz İzin</option></select></div>
+      <div class="form-group"><label class="form-label">Açıklama</label><textarea class="form-textarea" rows="2" placeholder="İzin nedeni..."></textarea></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('leaveRequestModal')">İptal</button>
+      <button class="btn btn-primary" onclick="closeModal('leaveRequestModal');showToast('İzin talebi gönderildi','success')">Gönder</button>
+    </div>
+  </div>
+</div>
+
+<!-- Payroll Modal -->
+<div class="modal-overlay" id="payrollModal">
+  <div class="modal modal-lg">
+    <div class="modal-header"><div class="modal-title">Bordro Önizleme — Mayıs 2026</div><button class="modal-close" onclick="closeModal('payrollModal')">✕</button></div>
+    <div class="modal-body">
+      <div class="table-wrap">
+        <table class="table table-compact">
+          <thead><tr><th>Personel</th><th>Saat</th><th>Saatlik</th><th>Brüt</th><th>Kesintiler</th><th>Net</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Chef Lucas</strong></td><td>192</td><td>€28.00</td><td>€5,376</td><td>€1,612</td><td><strong>€3,764</strong></td></tr>
+            <tr><td><strong>Sarah De Jong</strong></td><td>168</td><td>€22.50</td><td>€3,780</td><td>€1,134</td><td><strong>€2,646</strong></td></tr>
+            <tr><td><strong>Marc Dubois</strong></td><td>180</td><td>€18.00</td><td>€3,240</td><td>€972</td><td><strong>€2,268</strong></td></tr>
+            <tr><td><strong>Emma Peeters</strong></td><td>152</td><td>€15.50</td><td>€2,356</td><td>€707</td><td><strong>€1,649</strong></td></tr>
+            <tr><td><strong>Lisa Vermeulen</strong></td><td>144</td><td>€15.50</td><td>€2,232</td><td>€670</td><td><strong>€1,562</strong></td></tr>
+            <tr><td><strong>Jan De Smet</strong></td><td>128</td><td>€17.00</td><td>€2,176</td><td>€653</td><td><strong>€1,523</strong></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div style="margin-top:var(--space-4);text-align:right;font-size:var(--text-lg);font-weight:700;">
+        Toplam Net: <span style="color:var(--teal-500);">€19,244</span>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('payrollModal')">Kapat</button>
+      <button class="btn btn-primary" onclick="closeModal('payrollModal');showToast('Bordro onaylandı','success')">Onayla</button>
+    </div>
+  </div>
+</div>
+
+<!-- Delete Staff Modal -->
+<div class="modal-overlay" id="deleteStaffModal">
+  <div class="modal">
+    <div class="modal-header"><div class="modal-title" style="color:var(--error-500);">Personeli Sil</div><button class="modal-close" onclick="closeModal('deleteStaffModal')">✕</button></div>
+    <div class="modal-body">
+      <p style="font-size:var(--text-sm);color:var(--text-secondary);margin-bottom:var(--space-4);"><strong id="deleteStaffName"></strong> personelini silmek üzeresiniz.</p>
+      <div style="background:rgba(244,63,94,0.08);border:1px solid rgba(244,63,94,0.2);border-radius:var(--radius-md);padding:var(--space-4);">
+        <div style="font-size:var(--text-xs);color:var(--error-500);font-weight:600;margin-bottom:4px;">⚠️ Dikkat</div>
+        <div style="font-size:var(--text-sm);color:var(--text-secondary);">Personel vardiya ve izin geçmişi arşivlenecektir.</div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('deleteStaffModal')">İptal</button>
+      <button class="btn btn-primary" style="background:var(--error-500);" onclick="closeModal('deleteStaffModal');showToast(document.getElementById('deleteStaffName').textContent + ' silindi','error')">Sil</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const sidebar=document.getElementById('sidebar');
+const menuBtn=document.getElementById('menuBtn');
+const overlay=document.getElementById('sidebarOverlay');
+menuBtn.addEventListener('click',()=>{sidebar.classList.toggle('open');overlay.classList.toggle('active');});
+overlay.addEventListener('click',()=>{sidebar.classList.remove('open');overlay.classList.remove('active');});
+
+const html=document.documentElement;
+let theme=localStorage.getItem('rp-theme')||'dark';
+html.setAttribute('data-theme',theme);
+document.getElementById('themeToggle').addEventListener('click',()=>{theme=theme==='dark'?'light':'dark';html.setAttribute('data-theme',theme);localStorage.setItem('rp-theme',theme);});
+
+function showToast(msg,type='success',dur=3000){
+  let c=document.querySelector('.toast-container');
+  if(!c){c=document.createElement('div');c.className='toast-container';c.style.cssText='position:fixed;top:80px;right:24px;z-index:2000;display:flex;flex-direction:column;gap:12px;pointer-events:none;max-width:360px;';document.body.appendChild(c);}
+  const t=document.createElement('div');
+  const colors={success:'var(--success-500)',error:'var(--error-500)',warning:'var(--warning-500)',info:'var(--info-500)'};
+  const icons={success:'✓',error:'✕',warning:'!',info:'ℹ'};
+  const titles={success:'Başarılı',error:'Hata',warning:'Uyarı',info:'Bilgi'};
+  t.style.cssText=`pointer-events:all;background:var(--bg-card);border:1px solid ${colors[type]};border-radius:12px;padding:14px 18px;display:flex;align-items:flex-start;gap:12px;box-shadow:var(--shadow-lg);animation:toastIn 0.3s ease-out;position:relative;overflow:hidden;`;
+  t.innerHTML=`<span style="flex-shrink:0;margin-top:2px;width:20px;height:20px;border-radius:50%;background:${colors[type]};color:white;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;">${icons[type]}</span><div style="flex:1;"><div style="font-weight:600;font-size:var(--text-sm);">${titles[type]}</div><div style="font-size:var(--text-sm);color:var(--text-muted);margin-top:2px;">${msg}</div></div><span style="flex-shrink:0;color:var(--text-muted);cursor:pointer;font-size:14px;" onclick="this.parentElement.remove()">✕</span><div style="position:absolute;bottom:0;left:0;height:2px;background:${colors[type]};animation:progressBar 4s linear forwards;width:100%;"></div>`;
+  c.appendChild(t);
+  setTimeout(()=>{t.style.animation='toastOut 0.3s ease-in forwards';setTimeout(()=>t.remove(),300);},dur);
+}
+
+const revealObserver=new IntersectionObserver((entries)=>{entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('visible');}});},{threshold:0.08});
+document.querySelectorAll('.reveal').forEach(el=>revealObserver.observe(el));
+
+function animateCounters(){
+  document.querySelectorAll('.kpi-value[data-target]').forEach(el=>{
+    const target=parseInt(el.dataset.target);
+    const prefix=el.dataset.prefix||'';
+    const suffix=el.dataset.suffix||'';
+    const duration=1500; const start=performance.now();
+    function tick(now){const progress=Math.min((now-start)/duration,1);const eased=1-Math.pow(1-progress,3);const current=Math.round(eased*target);el.textContent=prefix+current.toLocaleString('tr-TR')+suffix;if(progress<1)requestAnimationFrame(tick);}
+    requestAnimationFrame(tick);
+  });
+}
+
+function openModal(id, title){
+  const modal=document.getElementById(id);
+  if(modal){modal.classList.add('active');if(title){const t=modal.querySelector('.modal-title');if(t&&t.id){if(t.id==='viewStaffTitle')t.textContent='Detay — '+title;if(t.id==='editStaffTitle')t.textContent='Düzenle — '+title;}}}
+}
+function openDeleteModal(name){const n=document.getElementById('deleteStaffName');if(n)n.textContent=name;openModal('deleteStaffModal');}
+function closeModal(id){const modal=document.getElementById(id);if(modal)modal.classList.remove('active');}
+document.querySelectorAll('.modal-overlay').forEach(o=>{o.addEventListener('click',(e)=>{if(e.target===o)o.classList.remove('active');});});
+
+document.addEventListener('DOMContentLoaded',()=>{setTimeout(animateCounters,400);});
+</script>
+
+<style>
+@keyframes toastIn{from{opacity:0;transform:translateY(-20px) scale(0.95);}to{opacity:1;transform:translateY(0) scale(1);}}
+@keyframes toastOut{from{opacity:1;transform:translateY(0) scale(1);}to{opacity:0;transform:translateY(-20px) scale(0.95);}}
+@keyframes progressBar{from{width:100%;}to{width:0;}}
+</style>
+
+</body>
+</html>
