@@ -142,27 +142,68 @@ textarea.form-input{resize:vertical;}
       <div><div style="font-weight:700;font-size:var(--text-sm);" data-i18n="cleanfix">CleanFix</div><div style="font-size:var(--text-xs);color:var(--text-muted);" data-i18n="sidebar_company_panel">Firma Paneli</div></div>
     </div>
     <nav class="sidebar-nav">
-      <div class="nav-group">
-        <div class="nav-group-header" data-i18n="nav_main_menu">Ana Menü</div>
-        <a href="company.html" class="nav-item" data-i18n="nav_dashboard"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg data-i18n="nav_dashboard">Dashboard</a>
-        <a href="company-bookings.html" class="nav-item" data-i18n="nav_appointments"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg data-i18n="nav_appointments">Randevular</a>
-        <a href="company-staff.html" class="nav-item" data-i18n="nav_staff"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg data-i18n="nav_staff">Çalışanlar</a>
-        <a href="company-services.html" class="nav-item active" data-i18n="page_services"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg data-i18n="page_services">Hizmetler</a>
-        <a href="company-invoices.html" class="nav-item" data-i18n="nav_invoices"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg data-i18n="nav_invoices">Faturalar</a>
-      </div>
-      <div class="nav-group">
-        <div class="nav-group-header" data-i18n="card_settings">Ayarlar</div>
-        <a href="company-profile.html" class="nav-item" data-i18n="nav_company_profile"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg data-i18n="nav_company_profile">Firma Profili</a>
-        <a href="login.html" class="nav-item" data-i18n="nav_logout"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg data-i18n="nav_logout">Çıkış Yap</a>
-      
-  <div class="lang-switcher">
-    <button data-lang="tr" class="active" onclick="switchLang('tr')">TR</button>
-    <button data-lang="en" onclick="switchLang('en')">EN</button>
-    <button data-lang="nl" onclick="switchLang('nl')">NL</button>
-  </div>
-
-</div>
-    </nav>
+    <div class="nav-group">
+      <div class="nav-label">Ana Menü</div>
+      <a class="nav-item" href="dashboard.html">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg>
+        Dashboard
+      </a>
+      <a class="nav-item" href="company-bookings.html">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        Randevular
+      </a>
+      <a class="nav-item" href="company-customers.html">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        Müşteriler
+      </a>
+      <a class="nav-item active" href="company-services.html">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+        Hizmetler
+      </a>
+    </div>
+    <div class="nav-group">
+      <div class="nav-label">Operasyon</div>
+      <a class="nav-item" href="company-quotes.html">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><path d="M12 18v-6"/><path d="M8 15h8"/></svg>
+        Teklifler
+      </a>
+      <a class="nav-item" href="company-maintenance.html">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+        Bakım
+      </a>
+      <a class="nav-item" href="company-staff.html">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        Personel
+      </a>
+      <a class="nav-item" href="company-equipment.html">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M6 10h.01"/><path d="M10 10h.01"/></svg>
+        Ekipman
+      </a>
+      <a class="nav-item" href="company-stock.html">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+        Stok
+      </a>
+      <a class="nav-item" href="company-sectors.html">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M17 21v-4"/><path d="M7 21v-4"/><path d="M12 21v-4"/></svg>
+        Sektörler
+      </a>
+      <a class="nav-item" href="company-tools.html">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 17a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2"/><path d="M5 17h14"/><path d="M5 17v2a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-2"/><circle cx="7" cy="17" r="1"/><circle cx="17" cy="17" r="1"/></svg>
+        Araçlar
+      </a>
+    </div>
+    <div class="nav-group">
+      <div class="nav-label">Diğer</div>
+      <a class="nav-item" href="login.html">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+        Login
+      </a>
+      <a class="nav-item" href="customer-portal.html">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        Müşteri Portalı
+      </a>
+    </div>
+  </nav>
   </aside>
 
   <main class="main-content">
@@ -940,1675 +981,1013 @@ document.getElementById('catFilter').addEventListener('change',function(){
    CleanFix i18n — Trilingual System (TR/EN/NL)
    ═══════════════════════════════════════════ */
 const i18n = {
-  "nav_dashboard": {
-    "tr": "Dashboard",
-    "en": "Dashboard",
-    "nl": "Dashboard"
-  },
-  "nav_appointments": {
-    "tr": "Randevular",
-    "en": "Appointments",
-    "nl": "Afspraken"
-  },
-  "nav_staff": {
-    "tr": "Çalışanlar",
-    "en": "Staff",
-    "nl": "Personeel"
-  },
-  "nav_services": {
-    "tr": "Hizmetler",
-    "en": "Services",
-    "nl": "Diensten"
-  },
-  "nav_invoices": {
-    "tr": "Faturalar",
-    "en": "Invoices",
-    "nl": "Facturen"
-  },
-  "nav_customers": {
-    "tr": "Müşteriler",
-    "en": "Customers",
-    "nl": "Klanten"
-  },
-  "nav_stock": {
-    "tr": "Stok",
-    "en": "Stock",
-    "nl": "Voorraad"
-  },
-  "nav_reviews": {
-    "tr": "Değerlendirmeler",
-    "en": "Reviews",
-    "nl": "Beoordelingen"
-  },
-  "nav_equipment": {
-    "tr": "Ekipman",
-    "en": "Equipment",
-    "nl": "Apparatuur"
-  },
-  "nav_quality": {
-    "tr": "Kalite Kontrol",
-    "en": "Quality Control",
-    "nl": "Kwaliteitscontrole"
-  },
-  "nav_expenses": {
-    "tr": "Giderler",
-    "en": "Expenses",
-    "nl": "Kosten"
-  },
-  "nav_sectors": {
-    "tr": "Sektörler",
-    "en": "Sectors",
-    "nl": "Sectoren"
-  },
-  "nav_tools": {
-    "tr": "Araçlar",
-    "en": "Tools",
-    "nl": "Gereedschap"
-  },
-  "nav_vehicles": {
-    "tr": "Araçlar",
-    "en": "Vehicles",
-    "nl": "Voertuigen"
-  },
-  "nav_company_profile": {
-    "tr": "Firma Profili",
-    "en": "Company Profile",
-    "nl": "Bedrijfsprofiel"
-  },
-  "nav_logout": {
-    "tr": "Çıkış Yap",
-    "en": "Log Out",
-    "nl": "Uitloggen"
-  },
-  "nav_main_menu": {
-    "tr": "Ana Menü",
-    "en": "Main Menu",
-    "nl": "Hoofdmenu"
-  },
-  "nav_settings": {
-    "tr": "Ayarlar",
-    "en": "Settings",
-    "nl": "Instellingen"
-  },
-  "sidebar_company_panel": {
-    "tr": "Firma Paneli",
-    "en": "Company Panel",
-    "nl": "Bedrijfspaneel"
-  },
-  "sidebar_customer_portal": {
-    "tr": "Müşteri Portalı",
-    "en": "Customer Portal",
-    "nl": "Klantenportaal"
-  },
-  "title_services": {
-    "tr": "CleanFix — Hizmet Yönetimi",
-    "en": "CleanFix — Service Management",
-    "nl": "CleanFix — Dienstbeheer"
-  },
-  "title_stock": {
-    "tr": "CleanFix — Stok Yönetimi",
-    "en": "CleanFix — Stock Management",
-    "nl": "CleanFix — Voorraadbeheer"
-  },
-  "title_sectors": {
-    "tr": "CleanFix — Sektör Yönetimi",
-    "en": "CleanFix — Sector Management",
-    "nl": "CleanFix — Sectorbeheer"
-  },
-  "title_tools": {
-    "tr": "CleanFix — Araç Kutusu",
-    "en": "CleanFix — Toolkit",
-    "nl": "CleanFix — Gereedschapskist"
-  },
-  "title_portal": {
-    "tr": "CleanFix — Müşteri Portalı",
-    "en": "CleanFix — Customer Portal",
-    "nl": "CleanFix — Klantenportaal"
-  },
-  "page_services": {
-    "tr": "Hizmetler",
-    "en": "Services",
-    "nl": "Diensten"
-  },
-  "page_stock": {
-    "tr": "Stok Yönetimi",
-    "en": "Stock Management",
-    "nl": "Voorraadbeheer"
-  },
-  "page_sectors": {
-    "tr": "Sektör Yönetimi",
-    "en": "Sector Management",
-    "nl": "Sectorbeheer"
-  },
-  "page_tools": {
-    "tr": "Araç Kutusu",
-    "en": "Toolkit",
-    "nl": "Gereedschapskist"
-  },
-  "page_portal": {
-    "tr": "Müşteri Portalı",
-    "en": "Customer Portal",
-    "nl": "Klantenportaal"
-  },
-  "btn_new_service": {
-    "tr": "+ Yeni Hizmet",
-    "en": "+ New Service",
-    "nl": "+ Nieuwe Dienst"
-  },
-  "btn_new_product": {
-    "tr": "+ Yeni Ürün",
-    "en": "+ New Product",
-    "nl": "+ Nieuw Product"
-  },
-  "btn_new_sector": {
-    "tr": "+ Yeni Sektör",
-    "en": "+ New Sector",
-    "nl": "+ Nieuwe Sector"
-  },
-  "btn_save": {
-    "tr": "Kaydet",
-    "en": "Save",
-    "nl": "Opslaan"
-  },
-  "btn_close": {
-    "tr": "Kapat",
-    "en": "Close",
-    "nl": "Sluiten"
-  },
-  "btn_cancel": {
-    "tr": "İptal",
-    "en": "Cancel",
-    "nl": "Annuleren"
-  },
-  "btn_send": {
-    "tr": "Gönder",
-    "en": "Send",
-    "nl": "Verzenden"
-  },
-  "btn_login": {
-    "tr": "Giriş Yap",
-    "en": "Log In",
-    "nl": "Inloggen"
-  },
-  "btn_edit": {
-    "tr": "Düzenle",
-    "en": "Edit",
-    "nl": "Bewerken"
-  },
-  "btn_delete": {
-    "tr": "Sil",
-    "en": "Delete",
-    "nl": "Verwijderen"
-  },
-  "btn_stock_in": {
-    "tr": "Stok Girişi",
-    "en": "Stock In",
-    "nl": "Voorraadin"
-  },
-  "btn_stock_out": {
-    "tr": "Stok Çıkışı",
-    "en": "Stock Out",
-    "nl": "Voorraaduit"
-  },
-  "btn_sync": {
-    "tr": "Senkronize Et",
-    "en": "Synchronize",
-    "nl": "Synchroniseren"
-  },
-  "btn_export": {
-    "tr": "Dışa Aktar",
-    "en": "Export",
-    "nl": "Exporteren"
-  },
-  "btn_print": {
-    "tr": "Yazdır",
-    "en": "Print",
-    "nl": "Afdrukken"
-  },
-  "btn_create_ticket": {
-    "tr": "Talep Gönder",
-    "en": "Send Request",
-    "nl": "Verzoek verzenden"
-  },
-  "th_service_name": {
-    "tr": "Hizmet Adı",
-    "en": "Service Name",
-    "nl": "Dienstnaam"
-  },
-  "th_category": {
-    "tr": "Kategori",
-    "en": "Category",
-    "nl": "Categorie"
-  },
-  "th_subcategory": {
-    "tr": "Alt Kategori",
-    "en": "Subcategory",
-    "nl": "Subcategorie"
-  },
-  "th_duration": {
-    "tr": "Süre",
-    "en": "Duration",
-    "nl": "Duur"
-  },
-  "th_price": {
-    "tr": "Fiyat",
-    "en": "Price",
-    "nl": "Prijs"
-  },
-  "th_status": {
-    "tr": "Durum",
-    "en": "Status",
-    "nl": "Status"
-  },
-  "th_actions": {
-    "tr": "İşlemler",
-    "en": "Actions",
-    "nl": "Acties"
-  },
-  "th_product": {
-    "tr": "Ürün",
-    "en": "Product",
-    "nl": "Product"
-  },
-  "th_stock_level": {
-    "tr": "Stok Seviyesi",
-    "en": "Stock Level",
-    "nl": "Voorraadniveau"
-  },
-  "th_threshold": {
-    "tr": "Eşik (Min/Max)",
-    "en": "Threshold (Min/Max)",
-    "nl": "Drempel (Min/Max)"
-  },
-  "th_unit": {
-    "tr": "Birim",
-    "en": "Unit",
-    "nl": "Eenheid"
-  },
-  "th_company": {
-    "tr": "Firma",
-    "en": "Company",
-    "nl": "Bedrijf"
-  },
-  "th_contact": {
-    "tr": "İletişim",
-    "en": "Contact",
-    "nl": "Contact"
-  },
-  "th_date": {
-    "tr": "Tarih",
-    "en": "Date",
-    "nl": "Datum"
-  },
-  "th_amount": {
-    "tr": "Tutar",
-    "en": "Amount",
-    "nl": "Bedrag"
-  },
-  "th_invoice": {
-    "tr": "Fatura",
-    "en": "Invoice",
-    "nl": "Factuur"
-  },
-  "th_payment": {
-    "tr": "Ödeme",
-    "en": "Payment",
-    "nl": "Betaling"
-  },
-  "th_priority": {
-    "tr": "Öncelik",
-    "en": "Priority",
-    "nl": "Prioriteit"
-  },
-  "th_subject": {
-    "tr": "Konu",
-    "en": "Subject",
-    "nl": "Onderwerp"
-  },
-  "th_type": {
-    "tr": "Tür",
-    "en": "Type",
-    "nl": "Type"
-  },
-  "th_staff": {
-    "tr": "Personel",
-    "en": "Staff",
-    "nl": "Personeel"
-  },
-  "th_customer": {
-    "tr": "Müşteri",
-    "en": "Customer",
-    "nl": "Klant"
-  },
-  "th_booking": {
-    "tr": "Randevu",
-    "en": "Booking",
-    "nl": "Afspraak"
-  },
-  "th_service": {
-    "tr": "Hizmet",
-    "en": "Service",
-    "nl": "Dienst"
-  },
-  "th_notes": {
-    "tr": "Notlar",
-    "en": "Notes",
-    "nl": "Notities"
-  },
-  "th_rating": {
-    "tr": "Puan",
-    "en": "Rating",
-    "nl": "Beoordeling"
-  },
-  "th_review": {
-    "tr": "Yorum",
-    "en": "Review",
-    "nl": "Recensie"
-  },
-  "th_module": {
-    "tr": "Modül",
-    "en": "Module",
-    "nl": "Module"
-  },
-  "status_active": {
-    "tr": "Aktif",
-    "en": "Active",
-    "nl": "Actief"
-  },
-  "status_inactive": {
-    "tr": "Pasif",
-    "en": "Inactive",
-    "nl": "Inactief"
-  },
-  "status_sufficient": {
-    "tr": "Yeterli",
-    "en": "Sufficient",
-    "nl": "Voldoende"
-  },
-  "status_low": {
-    "tr": "Az",
-    "en": "Low",
-    "nl": "Laag"
-  },
-  "status_critical": {
-    "tr": "Kritik",
-    "en": "Critical",
-    "nl": "Kritiek"
-  },
-  "status_open": {
-    "tr": "Açık",
-    "en": "Open",
-    "nl": "Open"
-  },
-  "status_resolved": {
-    "tr": "Çözüldü",
-    "en": "Resolved",
-    "nl": "Opgelost"
-  },
-  "status_pending": {
-    "tr": "Beklemede",
-    "en": "Pending",
-    "nl": "In behandeling"
-  },
-  "status_paid": {
-    "tr": "Ödendi",
-    "en": "Paid",
-    "nl": "Betaald"
-  },
-  "status_unpaid": {
-    "tr": "Ödenmedi",
-    "en": "Unpaid",
-    "nl": "Onbetaald"
-  },
-  "status_urgent": {
-    "tr": "Acil",
-    "en": "Urgent",
-    "nl": "Dringend"
-  },
-  "status_high": {
-    "tr": "Yüksek",
-    "en": "High",
-    "nl": "Hoog"
-  },
-  "status_medium": {
-    "tr": "Orta",
-    "en": "Medium",
-    "nl": "Gemiddeld"
-  },
-  "status_low_prio": {
-    "tr": "Düşük",
-    "en": "Low",
-    "nl": "Laag"
-  },
-  "status_dev": {
-    "tr": "Geliştirme",
-    "en": "Development",
-    "nl": "Ontwikkeling"
-  },
-  "status_planning": {
-    "tr": "Planlama",
-    "en": "Planning",
-    "nl": "Planning"
-  },
-  "filter_all_categories": {
-    "tr": "Tüm Kategoriler",
-    "en": "All Categories",
-    "nl": "Alle categorieën"
-  },
-  "filter_all_levels": {
-    "tr": "Tüm Seviyeler",
-    "en": "All Levels",
-    "nl": "Alle niveaus"
-  },
-  "filter_all_statuses": {
-    "tr": "Tüm Durumlar",
-    "en": "All Statuses",
-    "nl": "Alle statussen"
-  },
-  "search_services": {
-    "tr": "Hizmet ara...",
-    "en": "Search services...",
-    "nl": "Zoek diensten..."
-  },
-  "search_products": {
-    "tr": "Ürün ara...",
-    "en": "Search products...",
-    "nl": "Zoek producten..."
-  },
-  "search_customers": {
-    "tr": "Müşteri ara...",
-    "en": "Search customers...",
-    "nl": "Zoek klanten..."
-  },
-  "search_requests": {
-    "tr": "Talep ara...",
-    "en": "Search requests...",
-    "nl": "Zoek verzoeken..."
-  },
-  "search_staff": {
-    "tr": "Personel ara...",
-    "en": "Search staff...",
-    "nl": "Zoek personeel..."
-  },
-  "modal_add_service": {
-    "tr": "Yeni Hizmet Ekle",
-    "en": "Add New Service",
-    "nl": "Nieuwe dienst toevoegen"
-  },
-  "modal_edit_service": {
-    "tr": "Hizmet Düzenle",
-    "en": "Edit Service",
-    "nl": "Dienst bewerken"
-  },
-  "modal_add_product": {
-    "tr": "Yeni Ürün Ekle",
-    "en": "Add New Product",
-    "nl": "Nieuw product toevoegen"
-  },
-  "modal_edit_product": {
-    "tr": "Ürün Düzenle",
-    "en": "Edit Product",
-    "nl": "Product bewerken"
-  },
-  "modal_stock_move": {
-    "tr": "Stok Hareketi",
-    "en": "Stock Movement",
-    "nl": "Voorraadbeweging"
-  },
-  "modal_add_sector": {
-    "tr": "Yeni Sektör Ekle",
-    "en": "Add New Sector",
-    "nl": "Nieuwe sector toevoegen"
-  },
-  "modal_edit_sector": {
-    "tr": "Sektör Düzenle",
-    "en": "Edit Sector",
-    "nl": "Sector bewerken"
-  },
-  "modal_add_staff": {
-    "tr": "Yeni Personel Ekle",
-    "en": "Add New Staff",
-    "nl": "Nieuw personeel toevoegen"
-  },
-  "modal_edit_staff": {
-    "tr": "Personel Düzenle",
-    "en": "Edit Staff",
-    "nl": "Personeel bewerken"
-  },
-  "modal_add_customer": {
-    "tr": "Yeni Müşteri Ekle",
-    "en": "Add New Customer",
-    "nl": "Nieuwe klant toevoegen"
-  },
-  "modal_edit_customer": {
-    "tr": "Müşteri Düzenle",
-    "en": "Edit Customer",
-    "nl": "Klant bewerken"
-  },
-  "modal_add_booking": {
-    "tr": "Yeni Randevu Ekle",
-    "en": "Add New Booking",
-    "nl": "Nieuwe afspraak toevoegen"
-  },
-  "modal_edit_booking": {
-    "tr": "Randevu Düzenle",
-    "en": "Edit Booking",
-    "nl": "Afspraak bewerken"
-  },
-  "modal_delete_confirm": {
-    "tr": "Silme Onayı",
-    "en": "Delete Confirmation",
-    "nl": "Verwijderingsbevestiging"
-  },
-  "modal_assign_company": {
-    "tr": "Firma Ata",
-    "en": "Assign Company",
-    "nl": "Bedrijf toewijzen"
-  },
-  "form_name": {
-    "tr": "Adı",
-    "en": "Name",
-    "nl": "Naam"
-  },
-  "form_email": {
-    "tr": "E-posta",
-    "en": "Email",
-    "nl": "E-mail"
-  },
-  "form_phone": {
-    "tr": "Telefon",
-    "en": "Phone",
-    "nl": "Telefoon"
-  },
-  "form_address": {
-    "tr": "Adres",
-    "en": "Address",
-    "nl": "Adres"
-  },
-  "form_password": {
-    "tr": "Şifre",
-    "en": "Password",
-    "nl": "Wachtwoord"
-  },
-  "form_category": {
-    "tr": "Kategori",
-    "en": "Category",
-    "nl": "Categorie"
-  },
-  "form_subcategory": {
-    "tr": "Alt Kategori",
-    "en": "Subcategory",
-    "nl": "Subcategorie"
-  },
-  "form_duration": {
-    "tr": "Süre",
-    "en": "Duration",
-    "nl": "Duur"
-  },
-  "form_price": {
-    "tr": "Fiyat",
-    "en": "Price",
-    "nl": "Prijs"
-  },
-  "form_description": {
-    "tr": "Açıklama",
-    "en": "Description",
-    "nl": "Beschrijving"
-  },
-  "form_notes": {
-    "tr": "Notlar",
-    "en": "Notes",
-    "nl": "Notities"
-  },
-  "form_status": {
-    "tr": "Durum",
-    "en": "Status",
-    "nl": "Status"
-  },
-  "form_priority": {
-    "tr": "Öncelik",
-    "en": "Priority",
-    "nl": "Prioriteit"
-  },
-  "form_subject": {
-    "tr": "Konu",
-    "en": "Subject",
-    "nl": "Onderwerp"
-  },
-  "form_service_type": {
-    "tr": "Hizmet Türü",
-    "en": "Service Type",
-    "nl": "Diensttype"
-  },
-  "form_requested_date": {
-    "tr": "İstenen Tarih",
-    "en": "Requested Date",
-    "nl": "Gewenste datum"
-  },
-  "form_add_photo": {
-    "tr": "Fotoğraf Ekle",
-    "en": "Add Photo",
-    "nl": "Foto toevoegen"
-  },
-  "form_quantity": {
-    "tr": "Miktar",
-    "en": "Quantity",
-    "nl": "Hoeveelheid"
-  },
-  "form_unit": {
-    "tr": "Birim",
-    "en": "Unit",
-    "nl": "Eenheid"
-  },
-  "form_min_stock": {
-    "tr": "Min. Stok",
-    "en": "Min. Stock",
-    "nl": "Min. voorraad"
-  },
-  "form_max_stock": {
-    "tr": "Max. Stok",
-    "en": "Max. Stock",
-    "nl": "Max. voorraad"
-  },
-  "form_emoji": {
-    "tr": "Emoji",
-    "en": "Emoji",
-    "nl": "Emoji"
-  },
-  "form_sector_name": {
-    "tr": "Sektör Adı",
-    "en": "Sector Name",
-    "nl": "Sectornaam"
-  },
-  "form_modules": {
-    "tr": "Modüller",
-    "en": "Modules",
-    "nl": "Modules"
-  },
-  "stat_total_sectors": {
-    "tr": "Toplam Sektör",
-    "en": "Total Sectors",
-    "nl": "Totaal sectoren"
-  },
-  "stat_active_companies": {
-    "tr": "Aktif Firmalar",
-    "en": "Active Companies",
-    "nl": "Actieve bedrijven"
-  },
-  "stat_pending_approval": {
-    "tr": "Bekleyen Onay",
-    "en": "Pending Approval",
-    "nl": "In afwachting"
-  },
-  "stat_monthly_revenue": {
-    "tr": "Aylık Gelir",
-    "en": "Monthly Revenue",
-    "nl": "Maandelijkse omzet"
-  },
-  "stat_total_templates": {
-    "tr": "Toplam Şablon",
-    "en": "Total Templates",
-    "nl": "Totaal sjablonen"
-  },
-  "stat_open_requests": {
-    "tr": "Açık Talepler",
-    "en": "Open Requests",
-    "nl": "Open verzoeken"
-  },
-  "stat_upcoming_appointments": {
-    "tr": "Gelecek Randevular",
-    "en": "Upcoming Appointments",
-    "nl": "Aankomende afspraken"
-  },
-  "stat_total_spending": {
-    "tr": "Toplam Harcama",
-    "en": "Total Spending",
-    "nl": "Totale uitgaven"
-  },
-  "stat_latest_invoice": {
-    "tr": "Son Fatura",
-    "en": "Latest Invoice",
-    "nl": "Laatste factuur"
-  },
-  "stat_total_services": {
-    "tr": "Toplam Hizmet",
-    "en": "Total Services",
-    "nl": "Totaal diensten"
-  },
-  "stat_active_services": {
-    "tr": "Aktif Hizmet",
-    "en": "Active Services",
-    "nl": "Actieve diensten"
-  },
-  "stat_total_products": {
-    "tr": "Toplam Ürün",
-    "en": "Total Products",
-    "nl": "Totaal producten"
-  },
-  "stat_low_stock": {
-    "tr": "Az Stok",
-    "en": "Low Stock",
-    "nl": "Lage voorraad"
-  },
-  "stat_critical_stock": {
-    "tr": "Kritik Stok",
-    "en": "Critical Stock",
-    "nl": "Kritieke voorraad"
-  },
-  "stat_total_staff": {
-    "tr": "Toplam Personel",
-    "en": "Total Staff",
-    "nl": "Totaal personeel"
-  },
-  "stat_total_customers": {
-    "tr": "Toplam Müşteri",
-    "en": "Total Customers",
-    "nl": "Totaal klanten"
-  },
-  "stat_total_bookings": {
-    "tr": "Toplam Randevu",
-    "en": "Total Bookings",
-    "nl": "Totaal afspraken"
-  },
-  "card_services_list": {
-    "tr": "Hizmet Listesi",
-    "en": "Service List",
-    "nl": "Dienstenlijst"
-  },
-  "card_stock_list": {
-    "tr": "Stok Listesi",
-    "en": "Stock List",
-    "nl": "Voorraadlijst"
-  },
-  "card_sector_list": {
-    "tr": "Sektör Listesi",
-    "en": "Sector List",
-    "nl": "Sectorlijst"
-  },
-  "card_company_list": {
-    "tr": "Firma Listesi",
-    "en": "Company List",
-    "nl": "Bedrijvenlijst"
-  },
-  "card_staff_list": {
-    "tr": "Personel Listesi",
-    "en": "Staff List",
-    "nl": "Personeelslijst"
-  },
-  "card_customer_list": {
-    "tr": "Müşteri Listesi",
-    "en": "Customer List",
-    "nl": "Klantenlijst"
-  },
-  "card_booking_list": {
-    "tr": "Randevu Listesi",
-    "en": "Booking List",
-    "nl": "Afsprakenlijst"
-  },
-  "card_invoice_list": {
-    "tr": "Fatura Listesi",
-    "en": "Invoice List",
-    "nl": "Facturenlijst"
-  },
-  "card_recent_activity": {
-    "tr": "Son Aktiviteler",
-    "en": "Recent Activity",
-    "nl": "Recente activiteit"
-  },
-  "card_upcoming_bookings": {
-    "tr": "Yaklaşan Randevular",
-    "en": "Upcoming Bookings",
-    "nl": "Aankomende afspraken"
-  },
-  "card_new_ticket": {
-    "tr": "Yeni Talep Oluştur",
-    "en": "Create New Ticket",
-    "nl": "Nieuw ticket aanmaken"
-  },
-  "card_my_tickets": {
-    "tr": "Taleplerim",
-    "en": "My Tickets",
-    "nl": "Mijn tickets"
-  },
-  "card_service_history": {
-    "tr": "Hizmet Geçmişi",
-    "en": "Service History",
-    "nl": "Dienstgeschiedenis"
-  },
-  "card_my_invoices": {
-    "tr": "Faturalarım",
-    "en": "My Invoices",
-    "nl": "Mijn facturen"
-  },
-  "card_calendar": {
-    "tr": "Takvim",
-    "en": "Calendar",
-    "nl": "Kalender"
-  },
-  "card_settings": {
-    "tr": "Ayarlar",
-    "en": "Settings",
-    "nl": "Instellingen"
-  },
-  "card_profile": {
-    "tr": "Profil",
-    "en": "Profile",
-    "nl": "Profiel"
-  },
-  "cat_home_cleaning": {
-    "tr": "Ev Temizliği",
-    "en": "Home Cleaning",
-    "nl": "Huisreiniging"
-  },
-  "cat_office_cleaning": {
-    "tr": "Ofis Temizliği",
-    "en": "Office Cleaning",
-    "nl": "Kantoorreiniging"
-  },
-  "cat_window_cleaning": {
-    "tr": "Cam Temizliği",
-    "en": "Window Cleaning",
-    "nl": "Ramenreiniging"
-  },
-  "cat_carpet_cleaning": {
-    "tr": "Halı Yıkama",
-    "en": "Carpet Cleaning",
-    "nl": "Tapijtreiniging"
-  },
-  "cat_industrial": {
-    "tr": "Endüstriyel",
-    "en": "Industrial",
-    "nl": "Industrieel"
-  },
-  "cat_special": {
-    "tr": "Özel",
-    "en": "Special",
-    "nl": "Speciaal"
-  },
-  "cat_cleaning_supplies": {
-    "tr": "Temizlik Malzemeleri",
-    "en": "Cleaning Supplies",
-    "nl": "Schoonmaakmiddelen"
-  },
-  "cat_equipment": {
-    "tr": "Ekipman",
-    "en": "Equipment",
-    "nl": "Apparatuur"
-  },
-  "cat_consumables": {
-    "tr": "Sarf Malzeme",
-    "en": "Consumables",
-    "nl": "Verbruiksgoederen"
-  },
-  "cat_chemical": {
-    "tr": "Kimyasal",
-    "en": "Chemical",
-    "nl": "Chemisch"
-  },
-  "cat_disinfection": {
-    "tr": "Dezenfeksiyon",
-    "en": "Disinfection",
-    "nl": "Desinfectie"
-  },
-  "cat_carpet_upholstery": {
-    "tr": "Halı/Koltuk Bakımı",
-    "en": "Carpet/Upholstery Care",
-    "nl": "Tapijt/Meubelverzorging"
-  },
-  "cat_building_exterior": {
-    "tr": "Bina Dış Cephe",
-    "en": "Building Exterior",
-    "nl": "Gebouwgevel"
-  },
-  "cat_waste_recycling": {
-    "tr": "Çöp/Geri Dönüşüm",
-    "en": "Waste/Recycling",
-    "nl": "Afval/Recycling"
-  },
-  "sub_standard": {
-    "tr": "Standart",
-    "en": "Standard",
-    "nl": "Standaard"
-  },
-  "sub_deep": {
-    "tr": "Derinlemesine",
-    "en": "Deep",
-    "nl": "Diep"
-  },
-  "sub_post_construction": {
-    "tr": "İnşaat Sonrası",
-    "en": "Post-Construction",
-    "nl": "Na de bouw"
-  },
-  "sub_daily": {
-    "tr": "Günlük",
-    "en": "Daily",
-    "nl": "Dagelijks"
-  },
-  "sub_weekly": {
-    "tr": "Haftalık",
-    "en": "Weekly",
-    "nl": "Wekelijks"
-  },
-  "sub_upholstery": {
-    "tr": "Koltuk",
-    "en": "Upholstery",
-    "nl": "Meubels"
-  },
-  "sub_inner_glass": {
-    "tr": "İç Cam",
-    "en": "Inner Glass",
-    "nl": "Binnenraam"
-  },
-  "sub_outer_glass": {
-    "tr": "Dış Cam",
-    "en": "Outer Glass",
-    "nl": "Buitenraam"
-  },
-  "sub_building_glass": {
-    "tr": "Bina Cam",
-    "en": "Building Glass",
-    "nl": "Gebouwenraam"
-  },
-  "sub_wash_dry": {
-    "tr": "Yıkama + Kurutma",
-    "en": "Wash + Dry",
-    "nl": "Wassen + Drogen"
-  },
-  "sub_stain": {
-    "tr": "Leke",
-    "en": "Stain",
-    "nl": "Vlek"
-  },
-  "sub_steam": {
-    "tr": "Buharlı",
-    "en": "Steam",
-    "nl": "Stoom"
-  },
-  "sub_factory": {
-    "tr": "Fabrika",
-    "en": "Factory",
-    "nl": "Fabriek"
-  },
-  "sub_interior": {
-    "tr": "İç Mekan",
-    "en": "Interior",
-    "nl": "Interieur"
-  },
-  "sub_exterior": {
-    "tr": "Dış Mekan",
-    "en": "Exterior",
-    "nl": "Exterieur"
-  },
-  "sub_basic": {
-    "tr": "Temel",
-    "en": "Basic",
-    "nl": "Basis"
-  },
-  "sub_detailed": {
-    "tr": "Detaylı",
-    "en": "Detailed",
-    "nl": "Gedetailleerd"
-  },
-  "sub_maintenance": {
-    "tr": "Bakım",
-    "en": "Maintenance",
-    "nl": "Onderhoud"
-  },
-  "sector_cleaning": {
-    "tr": "Temizlik",
-    "en": "Cleaning",
-    "nl": "Reiniging"
-  },
-  "sector_construction": {
-    "tr": "İnşaat",
-    "en": "Construction",
-    "nl": "Bouw"
-  },
-  "sector_barber": {
-    "tr": "Berber / Kuaför",
-    "en": "Barber / Hairdresser",
-    "nl": "Kapper / Kapster"
-  },
-  "sector_market": {
-    "tr": "Market / Bakkal",
-    "en": "Market / Grocery",
-    "nl": "Markt / Kruidenier"
-  },
-  "sector_restaurant": {
-    "tr": "Restoran",
-    "en": "Restaurant",
-    "nl": "Restaurant"
-  },
-  "sector_carpentry": {
-    "tr": "Marangoz & Mobilya",
-    "en": "Carpentry & Furniture",
-    "nl": "Timmerwerk & Meubels"
-  },
-  "tab_templates": {
-    "tr": "Şablonlar",
-    "en": "Templates",
-    "nl": "Sjablonen"
-  },
-  "tab_checklists": {
-    "tr": "Kontrol Listeleri",
-    "en": "Checklists",
-    "nl": "Controlelijsten"
-  },
-  "tab_chemical_guide": {
-    "tr": "Kimyasal Rehberi",
-    "en": "Chemical Guide",
-    "nl": "Chemische gids"
-  },
-  "tab_surveys": {
-    "tr": "Anketler",
-    "en": "Surveys",
-    "nl": "Enquêtes"
-  },
-  "tab_forms": {
-    "tr": "Formlar",
-    "en": "Forms",
-    "nl": "Formulieren"
-  },
-  "tab_complaints": {
-    "tr": "Şikayet Yönetimi",
-    "en": "Complaint Management",
-    "nl": "Klachtenbeheer"
-  },
-  "tab_quotes": {
-    "tr": "Teklif Şablonları",
-    "en": "Quote Templates",
-    "nl": "Offertesjablonen"
-  },
-  "tab_staff_schedule": {
-    "tr": "Personel Programı",
-    "en": "Staff Schedule",
-    "nl": "Personeelsrooster"
-  },
-  "tab_dosage_calc": {
-    "tr": "Dozaj Hesaplayıcı",
-    "en": "Dosage Calculator",
-    "nl": "Dosering calculator"
-  },
-  "tab_cost_calc": {
-    "tr": "Maliyet Hesaplayıcı",
-    "en": "Cost Calculator",
-    "nl": "Kostencalculator"
-  },
-  "portal_welcome": {
-    "tr": "Hoş geldiniz",
-    "en": "Welcome",
-    "nl": "Welkom"
-  },
-  "portal_login_title": {
-    "tr": "Müşteri Portalı",
-    "en": "Customer Portal",
-    "nl": "Klantenportaal"
-  },
-  "portal_login_subtitle": {
-    "tr": "CleanFix hizmetlerinizi yönetin",
-    "en": "Manage your CleanFix services",
-    "nl": "Beheer uw CleanFix-diensten"
-  },
-  "portal_footer": {
-    "tr": "CleanFix Demo BV © 2026",
-    "en": "CleanFix Demo BV © 2026",
-    "nl": "CleanFix Demo BV © 2026"
-  },
-  "label_email": {
-    "tr": "E-posta",
-    "en": "Email",
-    "nl": "E-mail"
-  },
-  "label_password": {
-    "tr": "Şifre",
-    "en": "Password",
-    "nl": "Wachtwoord"
-  },
-  "ph_email": {
-    "tr": "ornek@email.com",
-    "en": "example@email.com",
-    "nl": "voorbeeld@email.com"
-  },
-  "ph_password": {
-    "tr": "••••••••",
-    "en": "••••••••",
-    "nl": "••••••••"
-  },
-  "ph_subject": {
-    "tr": "Talep konusu...",
-    "en": "Request subject...",
-    "nl": "Verzoekonderwerp..."
-  },
-  "ph_description": {
-    "tr": "Detaylı açıklama girin...",
-    "en": "Enter detailed description...",
-    "nl": "Voer gedetailleerde beschrijving in..."
-  },
-  "ph_upload_photo": {
-    "tr": "Fotoğraf yüklemek için tıklayın",
-    "en": "Click to upload photos",
-    "nl": "Klik om foto's te uploaden"
-  },
-  "ph_max_size": {
-    "tr": "JPG, PNG — max 5MB",
-    "en": "JPG, PNG — max 5MB",
-    "nl": "JPG, PNG — max 5MB"
-  },
-  "unit_hours": {
-    "tr": "saat",
-    "en": "hours",
-    "nl": "uur"
-  },
-  "unit_pcs": {
-    "tr": "adet",
-    "en": "pcs",
-    "nl": "stuks"
-  },
-  "unit_sqm": {
-    "tr": "m²",
-    "en": "m²",
-    "nl": "m²"
-  },
-  "unit_liters": {
-    "tr": "L",
-    "en": "L",
-    "nl": "L"
-  },
-  "unit_ml": {
-    "tr": "ml",
-    "en": "ml",
-    "nl": "ml"
-  },
-  "ui_business_plan": {
-    "tr": "Business Plan",
-    "en": "Business Plan",
-    "nl": "Business Plan"
-  },
-  "ui_super_admin": {
-    "tr": "Super Admin",
-    "en": "Super Admin",
-    "nl": "Super Admin"
-  },
-  "ui_cleanfix_demo": {
-    "tr": "CleanFix Demo BV",
-    "en": "CleanFix Demo BV",
-    "nl": "CleanFix Demo BV"
-  },
-  "ui_cleanfix_admin": {
-    "tr": "CleanFix Admin",
-    "en": "CleanFix Admin",
-    "nl": "CleanFix Admin"
-  },
-  "ui_last_12_months": {
-    "tr": "Son 12 ay",
-    "en": "Last 12 months",
-    "nl": "Laatste 12 maanden"
-  },
-  "ui_next_appointment": {
-    "tr": "Sonraki: ",
-    "en": "Next: ",
-    "nl": "Volgende: "
-  },
-  "ui_urgent_count": {
-    "tr": " acil öncelikli",
-    "en": " urgent priority",
-    "nl": " dringende prioriteit"
-  },
-  "ui_per_month": {
-    "tr": "/ay",
-    "en": "/mo",
-    "nl": "/maand"
-  },
-  "ui_firm_count": {
-    "tr": " firma",
-    "en": " company",
-    "nl": " bedrijf"
-  },
-  "ui_firms_count": {
-    "tr": " firma",
-    "en": " companies",
-    "nl": " bedrijven"
-  },
-  "ui_module_count": {
-    "tr": " Modül",
-    "en": " Module",
-    "nl": " Module"
-  },
-  "ui_modules_count": {
-    "tr": " Modül",
-    "en": " Modules",
-    "nl": " Modules"
-  },
-  "toast_synced": {
-    "tr": "Şablonlar senkronize edildi",
-    "en": "Templates synchronized",
-    "nl": "Sjablonen gesynchroniseerd"
-  },
-  "toast_stock_updated": {
-    "tr": "Stok raporu güncellendi",
-    "en": "Stock report updated",
-    "nl": "Voorraadrapport bijgewerkt"
-  },
-  "toast_notifications": {
-    "tr": "Bildirimler",
-    "en": "Notifications",
-    "nl": "Meldingen"
-  },
-  "toast_saved": {
-    "tr": "Kaydedildi",
-    "en": "Saved",
-    "nl": "Opgeslagen"
-  },
-  "toast_deleted": {
-    "tr": "Silindi",
-    "en": "Deleted",
-    "nl": "Verwijderd"
-  },
-  "toast_error": {
-    "tr": "Hata oluştu",
-    "en": "An error occurred",
-    "nl": "Er is een fout opgetreden"
-  },
-  "toast_exported": {
-    "tr": "Dışa aktarıldı",
-    "en": "Exported",
-    "nl": "Geëxporteerd"
-  },
-  "mon_jan": {
-    "tr": "Oca",
-    "en": "Jan",
-    "nl": "Jan"
-  },
-  "mon_feb": {
-    "tr": "Şub",
-    "en": "Feb",
-    "nl": "Feb"
-  },
-  "mon_mar": {
-    "tr": "Mar",
-    "en": "Mar",
-    "nl": "Mrt"
-  },
-  "mon_apr": {
-    "tr": "Nis",
-    "en": "Apr",
-    "nl": "Apr"
-  },
-  "mon_may": {
-    "tr": "May",
-    "en": "May",
-    "nl": "Mei"
-  },
-  "mon_jun": {
-    "tr": "Haz",
-    "en": "Jun",
-    "nl": "Jun"
-  },
-  "mon_jul": {
-    "tr": "Tem",
-    "en": "Jul",
-    "nl": "Jul"
-  },
-  "mon_aug": {
-    "tr": "Ağu",
-    "en": "Aug",
-    "nl": "Aug"
-  },
-  "mon_sep": {
-    "tr": "Eyl",
-    "en": "Sep",
-    "nl": "Sep"
-  },
-  "mon_oct": {
-    "tr": "Eki",
-    "en": "Oct",
-    "nl": "Okt"
-  },
-  "mon_nov": {
-    "tr": "Kas",
-    "en": "Nov",
-    "nl": "Nov"
-  },
-  "mon_dec": {
-    "tr": "Ara",
-    "en": "Dec",
-    "nl": "Dec"
-  },
-  "currency_eur": {
-    "tr": "€",
-    "en": "€",
-    "nl": "€"
-  },
-  "currency_usd": {
-    "tr": "$",
-    "en": "$",
-    "nl": "$"
-  },
-  "cleanfix": {
-    "tr": "CleanFix",
-    "en": "CleanFix",
-    "nl": "CleanFix"
-  },
-  "standart_temizlik": {
-    "tr": "Standart Temizlik",
-    "en": "Standart Temizlik",
-    "nl": "Standart Temizlik"
-  },
-  "ev_temizliği_-_temel_paket": {
-    "tr": "Ev temizliği - temel paket",
-    "en": "Ev temizliği - temel paket",
-    "nl": "Ev temizliği - temel paket"
-  },
-  "derinlemesine_temizlik": {
-    "tr": "Derinlemesine Temizlik",
-    "en": "Derinlemesine Temizlik",
-    "nl": "Derinlemesine Temizlik"
-  },
-  "ev_temizliği_-_detaylı_paket": {
-    "tr": "Ev temizliği - detaylı paket",
-    "en": "Ev temizliği - detaylı paket",
-    "nl": "Ev temizliği - detaylı paket"
-  },
-  "inşaat_sonrası_temizlik": {
-    "tr": "İnşaat Sonrası Temizlik",
-    "en": "İnşaat Sonrası Temizlik",
-    "nl": "İnşaat Sonrası Temizlik"
-  },
-  "ev_temizliği_-_inşaat_sonrası": {
-    "tr": "Ev temizliği - inşaat sonrası",
-    "en": "Ev temizliği - inşaat sonrası",
-    "nl": "Ev temizliği - inşaat sonrası"
-  },
-  "günlük_ofis_temizliği": {
-    "tr": "Günlük Ofis Temizliği",
-    "en": "Günlük Ofis Temizliği",
-    "nl": "Günlük Ofis Temizliği"
-  },
-  "ofis_temizliği_-_günlük_bakım": {
-    "tr": "Ofis temizliği - günlük bakım",
-    "en": "Ofis temizliği - günlük bakım",
-    "nl": "Ofis temizliği - günlük bakım"
-  },
-  "haftalık_ofis_temizliği": {
-    "tr": "Haftalık Ofis Temizliği",
-    "en": "Haftalık Ofis Temizliği",
-    "nl": "Haftalık Ofis Temizliği"
-  },
-  "ofis_temizliği_-_haftalık_derinlemesine": {
-    "tr": "Ofis temizliği - haftalık derinlemesine",
-    "en": "Ofis temizliği - haftalık derinlemesine",
-    "nl": "Ofis temizliği - haftalık derinlemesine"
-  },
-  "koltuk_yıkama": {
-    "tr": "Koltuk Yıkama",
-    "en": "Koltuk Yıkama",
-    "nl": "Koltuk Yıkama"
-  },
-  "ofis_temizliği_-_koltuk_ve_sandalye": {
-    "tr": "Ofis temizliği - koltuk ve sandalye",
-    "en": "Ofis temizliği - koltuk ve sandalye",
-    "nl": "Ofis temizliği - koltuk ve sandalye"
-  },
-  "iç_cam_temizliği": {
-    "tr": "İç Cam Temizliği",
-    "en": "İç Cam Temizliği",
-    "nl": "İç Cam Temizliği"
-  },
-  "cam_temizliği_-_iç_mekan": {
-    "tr": "Cam temizliği - iç mekan",
-    "en": "Cam temizliği - iç mekan",
-    "nl": "Cam temizliği - iç mekan"
-  },
-  "dış_cam_temizliği": {
-    "tr": "Dış Cam Temizliği",
-    "en": "Dış Cam Temizliği",
-    "nl": "Dış Cam Temizliği"
-  },
-  "cam_temizliği_-_dış_mekan": {
-    "tr": "Cam temizliği - dış mekan",
-    "en": "Cam temizliği - dış mekan",
-    "nl": "Cam temizliği - dış mekan"
-  },
-  "bina_cam_temizliği": {
-    "tr": "Bina Cam Temizliği",
-    "en": "Bina Cam Temizliği",
-    "nl": "Bina Cam Temizliği"
-  },
-  "cam_temizliği_-_bina_geneli": {
-    "tr": "Cam temizliği - bina geneli",
-    "en": "Cam temizliği - bina geneli",
-    "nl": "Cam temizliği - bina geneli"
-  },
-  "halı_yıkama_-_temel_paket": {
-    "tr": "Halı yıkama - temel paket",
-    "en": "Halı yıkama - temel paket",
-    "nl": "Halı yıkama - temel paket"
-  },
-  "leke_çıkarma": {
-    "tr": "Leke Çıkarma",
-    "en": "Leke Çıkarma",
-    "nl": "Leke Çıkarma"
-  },
-  "halı_yıkama_-_leke_özel": {
-    "tr": "Halı yıkama - leke özel",
-    "en": "Halı yıkama - leke özel",
-    "nl": "Halı yıkama - leke özel"
-  },
-  "buharlı_temizlik": {
-    "tr": "Buharlı Temizlik",
-    "en": "Buharlı Temizlik",
-    "nl": "Buharlı Temizlik"
-  },
-  "halı_yıkama_-_buharlı_derinlemesine": {
-    "tr": "Halı yıkama - buharlı derinlemesine",
-    "en": "Halı yıkama - buharlı derinlemesine",
-    "nl": "Halı yıkama - buharlı derinlemesine"
-  },
-  "fabrika_temizliği": {
-    "tr": "Fabrika Temizliği",
-    "en": "Fabrika Temizliği",
-    "nl": "Fabrika Temizliği"
-  },
-  "endüstriyel_-_fabrika_geneli": {
-    "tr": "Endüstriyel - fabrika geneli",
-    "en": "Endüstriyel - fabrika geneli",
-    "nl": "Endüstriyel - fabrika geneli"
-  },
-  "depo_temizliği": {
-    "tr": "Depo Temizliği",
-    "en": "Depo Temizliği",
-    "nl": "Depo Temizliği"
-  },
-  "endüstriyel_-_depo_ve_antrepo": {
-    "tr": "Endüstriyel - depo ve antrepo",
-    "en": "Endüstriyel - depo ve antrepo",
-    "nl": "Endüstriyel - depo ve antrepo"
-  },
-  "hijyenik_temizlik": {
-    "tr": "Hijyenik Temizlik",
-    "en": "Hijyenik Temizlik",
-    "nl": "Hijyenik Temizlik"
-  },
-  "endüstriyel_-_hijyen_sertifikalı": {
-    "tr": "Endüstriyel - hijyen sertifikalı",
-    "en": "Endüstriyel - hijyen sertifikalı",
-    "nl": "Endüstriyel - hijyen sertifikalı"
-  },
-  "hijyenik": {
-    "tr": "Hijyenik",
-    "en": "Hijyenik",
-    "nl": "Hijyenik"
-  },
-  "airbnb_dönüşüm_temizliği": {
-    "tr": "Airbnb Dönüşüm Temizliği",
-    "en": "Airbnb Dönüşüm Temizliği",
-    "nl": "Airbnb Dönüşüm Temizliği"
-  },
-  "eşya_taşıma_sonrası_temizlik": {
-    "tr": "Eşya Taşıma Sonrası Temizlik",
-    "en": "Eşya Taşıma Sonrası Temizlik",
-    "nl": "Eşya Taşıma Sonrası Temizlik"
-  },
-  "taşınma": {
-    "tr": "Taşınma",
-    "en": "Taşınma",
-    "nl": "Taşınma"
-  },
-  "evcil_hayvan_temizliği": {
-    "tr": "Evcil Hayvan Temizliği",
-    "en": "Evcil Hayvan Temizliği",
-    "nl": "Evcil Hayvan Temizliği"
-  },
-  "hizmet_kategorileri": {
-    "tr": "Hizmet Kategorileri",
-    "en": "Hizmet Kategorileri",
-    "nl": "Hizmet Kategorileri"
-  },
-  "genişletmek_için_tıklayın": {
-    "tr": "Genişletmek için tıklayın",
-    "en": "Genişletmek için tıklayın",
-    "nl": "Genişletmek için tıklayın"
-  },
-  "günlük_bakım_ve_düzen": {
-    "tr": "Günlük bakım ve düzen",
-    "en": "Günlük bakım ve düzen",
-    "nl": "Günlük bakım ve düzen"
-  },
-  "haftalık_derinlemesine": {
-    "tr": "Haftalık derinlemesine",
-    "en": "Haftalık derinlemesine",
-    "nl": "Haftalık derinlemesine"
-  },
-  "ofis_koltuk_ve_sandalye": {
-    "tr": "Ofis koltuk ve sandalye",
-    "en": "Ofis koltuk ve sandalye",
-    "nl": "Ofis koltuk ve sandalye"
-  },
-  "iç_mekan_camları": {
-    "tr": "İç mekan camları",
-    "en": "İç mekan camları",
-    "nl": "İç mekan camları"
-  },
-  "dış_mekan_camları": {
-    "tr": "Dış mekan camları",
-    "en": "Dış mekan camları",
-    "nl": "Dış mekan camları"
-  },
-  "bina_geneli_cam_temizliği": {
-    "tr": "Bina geneli cam temizliği",
-    "en": "Bina geneli cam temizliği",
-    "nl": "Bina geneli cam temizliği"
-  },
-  "halı_yıkama_ve_kurutma": {
-    "tr": "Halı yıkama ve kurutma",
-    "en": "Halı yıkama ve kurutma",
-    "nl": "Halı yıkama ve kurutma"
-  },
-  "buharlı_derinlemesine_temizlik": {
-    "tr": "Buharlı derinlemesine temizlik",
-    "en": "Buharlı derinlemesine temizlik",
-    "nl": "Buharlı derinlemesine temizlik"
-  },
-  "endüstriyel_temizlik": {
-    "tr": "Endüstriyel Temizlik",
-    "en": "Endüstriyel Temizlik",
-    "nl": "Endüstriyel Temizlik"
-  },
-  "fabrika_geneli_temizlik": {
-    "tr": "Fabrika geneli temizlik",
-    "en": "Fabrika geneli temizlik",
-    "nl": "Fabrika geneli temizlik"
-  },
-  "depo_ve_antrepo_temizliği": {
-    "tr": "Depo ve antrepo temizliği",
-    "en": "Depo ve antrepo temizliği",
-    "nl": "Depo ve antrepo temizliği"
-  },
-  "hijyen_sertifikalı_temizlik": {
-    "tr": "Hijyen sertifikalı temizlik",
-    "en": "Hijyen sertifikalı temizlik",
-    "nl": "Hijyen sertifikalı temizlik"
-  },
-  "airbnb_misafir_değişimi": {
-    "tr": "Airbnb misafir değişimi",
-    "en": "Airbnb misafir değişimi",
-    "nl": "Airbnb misafir değişimi"
-  },
-  "taşınma_sonrası_temizlik": {
-    "tr": "Taşınma sonrası temizlik",
-    "en": "Taşınma sonrası temizlik",
-    "nl": "Taşınma sonrası temizlik"
-  },
-  "pet_dostu_temizlik": {
-    "tr": "Pet dostu temizlik",
-    "en": "Pet dostu temizlik",
-    "nl": "Pet dostu temizlik"
-  },
-  "seçin": {
-    "tr": "Seçin...",
-    "en": "Seçin...",
-    "nl": "Seçin..."
-  },
-  "fiyat": {
-    "tr": "Fiyat (€)",
-    "en": "Fiyat (€)",
-    "nl": "Fiyat (€)"
-  },
-  "hizmet_ekle": {
-    "tr": "Hizmet Ekle",
-    "en": "Hizmet Ekle",
-    "nl": "Hizmet Ekle"
-  },
-  "hizmet_sil": {
-    "tr": "Hizmet Sil",
-    "en": "Hizmet Sil",
-    "nl": "Hizmet Sil"
-  },
-  "evet_sil": {
-    "tr": "Evet, Sil",
-    "en": "Evet, Sil",
-    "nl": "Evet, Sil"
-  },
-  "kategori_ata": {
-    "tr": "Kategori Ata",
-    "en": "Kategori Ata",
-    "nl": "Kategori Ata"
-  },
-  "ana_firma_business_plan": {
-    "tr": "Ana Firma • Business Plan",
-    "en": "Ana Firma • Business Plan",
-    "nl": "Ana Firma • Business Plan"
-  },
-  "sparkle_offices_ltd": {
-    "tr": "Sparkle Offices Ltd",
-    "en": "Sparkle Offices Ltd",
-    "nl": "Sparkle Offices Ltd"
-  },
-  "partner_ofis_temizliği": {
-    "tr": "Partner • Ofis Temizliği",
-    "en": "Partner • Ofis Temizliği",
-    "nl": "Partner • Ofis Temizliği"
-  },
-  "homecare_pro": {
-    "tr": "HomeCare Pro",
-    "en": "HomeCare Pro",
-    "nl": "HomeCare Pro"
-  },
-  "partner_ev_temizliği": {
-    "tr": "Partner • Ev Temizliği",
-    "en": "Partner • Ev Temizliği",
-    "nl": "Partner • Ev Temizliği"
-  },
-  "industriclean_gmbh": {
-    "tr": "IndustriClean GmbH",
-    "en": "IndustriClean GmbH",
-    "nl": "IndustriClean GmbH"
-  },
-  "partner_endüstriyel": {
-    "tr": "Partner • Endüstriyel",
-    "en": "Partner • Endüstriyel",
-    "nl": "Partner • Endüstriyel"
+  tr: {
+    nav_dashboard: "Dashboard",
+    nav_appointments: "Randevular",
+    nav_staff: "Çalışanlar",
+    nav_services: "Hizmetler",
+    nav_invoices: "Faturalar",
+    nav_customers: "Müşteriler",
+    nav_stock: "Stok",
+    nav_reviews: "Değerlendirmeler",
+    nav_equipment: "Ekipman",
+    nav_quality: "Kalite Kontrol",
+    nav_expenses: "Giderler",
+    nav_sectors: "Sektörler",
+    nav_tools: "Araçlar",
+    nav_vehicles: "Araçlar",
+    nav_company_profile: "Firma Profili",
+    nav_logout: "Çıkış Yap",
+    nav_main_menu: "Ana Menü",
+    nav_settings: "Ayarlar",
+    sidebar_company_panel: "Firma Paneli",
+    sidebar_customer_portal: "Müşteri Portalı",
+    title_services: "CleanFix — Hizmet Yönetimi",
+    title_stock: "CleanFix — Stok Yönetimi",
+    title_sectors: "CleanFix — Sektör Yönetimi",
+    title_tools: "CleanFix — Araç Kutusu",
+    title_portal: "CleanFix — Müşteri Portalı",
+    page_services: "Hizmetler",
+    page_stock: "Stok Yönetimi",
+    page_sectors: "Sektör Yönetimi",
+    page_tools: "Araç Kutusu",
+    page_portal: "Müşteri Portalı",
+    btn_new_service: "+ Yeni Hizmet",
+    btn_new_product: "+ Yeni Ürün",
+    btn_new_sector: "+ Yeni Sektör",
+    btn_save: "Kaydet",
+    btn_close: "Kapat",
+    btn_cancel: "İptal",
+    btn_send: "Gönder",
+    btn_login: "Giriş Yap",
+    btn_edit: "Düzenle",
+    btn_delete: "Sil",
+    btn_stock_in: "Stok Girişi",
+    btn_stock_out: "Stok Çıkışı",
+    btn_sync: "Senkronize Et",
+    btn_export: "Dışa Aktar",
+    btn_print: "Yazdır",
+    btn_create_ticket: "Talep Gönder",
+    th_service_name: "Hizmet Adı",
+    th_category: "Kategori",
+    th_subcategory: "Alt Kategori",
+    th_duration: "Süre",
+    th_price: "Fiyat",
+    th_status: "Durum",
+    th_actions: "İşlemler",
+    th_product: "Ürün",
+    th_stock_level: "Stok Seviyesi",
+    th_threshold: "Eşik (Min/Max)",
+    th_unit: "Birim",
+    th_company: "Firma",
+    th_contact: "İletişim",
+    th_date: "Tarih",
+    th_amount: "Tutar",
+    th_invoice: "Fatura",
+    th_payment: "Ödeme",
+    th_priority: "Öncelik",
+    th_subject: "Konu",
+    th_type: "Tür",
+    th_staff: "Personel",
+    th_customer: "Müşteri",
+    th_booking: "Randevu",
+    th_service: "Hizmet",
+    th_notes: "Notlar",
+    th_rating: "Puan",
+    th_review: "Yorum",
+    th_module: "Modül",
+    status_active: "Aktif",
+    status_inactive: "Pasif",
+    status_sufficient: "Yeterli",
+    status_low: "Az",
+    status_critical: "Kritik",
+    status_open: "Açık",
+    status_resolved: "Çözüldü",
+    status_pending: "Beklemede",
+    status_paid: "Ödendi",
+    status_unpaid: "Ödenmedi",
+    status_urgent: "Acil",
+    status_high: "Yüksek",
+    status_medium: "Orta",
+    status_low_prio: "Düşük",
+    status_dev: "Geliştirme",
+    status_planning: "Planlama",
+    filter_all_categories: "Tüm Kategoriler",
+    filter_all_levels: "Tüm Seviyeler",
+    filter_all_statuses: "Tüm Durumlar",
+    search_services: "Hizmet ara...",
+    search_products: "Ürün ara...",
+    search_customers: "Müşteri ara...",
+    search_requests: "Talep ara...",
+    search_staff: "Personel ara...",
+    modal_add_service: "Yeni Hizmet Ekle",
+    modal_edit_service: "Hizmet Düzenle",
+    modal_add_product: "Yeni Ürün Ekle",
+    modal_edit_product: "Ürün Düzenle",
+    modal_stock_move: "Stok Hareketi",
+    modal_add_sector: "Yeni Sektör Ekle",
+    modal_edit_sector: "Sektör Düzenle",
+    modal_add_staff: "Yeni Personel Ekle",
+    modal_edit_staff: "Personel Düzenle",
+    modal_add_customer: "Yeni Müşteri Ekle",
+    modal_edit_customer: "Müşteri Düzenle",
+    modal_add_booking: "Yeni Randevu Ekle",
+    modal_edit_booking: "Randevu Düzenle",
+    modal_delete_confirm: "Silme Onayı",
+    modal_assign_company: "Firma Ata",
+    form_name: "Adı",
+    form_email: "E-posta",
+    form_phone: "Telefon",
+    form_address: "Adres",
+    form_password: "Şifre",
+    form_category: "Kategori",
+    form_subcategory: "Alt Kategori",
+    form_duration: "Süre",
+    form_price: "Fiyat",
+    form_description: "Açıklama",
+    form_notes: "Notlar",
+    form_status: "Durum",
+    form_priority: "Öncelik",
+    form_subject: "Konu",
+    form_service_type: "Hizmet Türü",
+    form_requested_date: "İstenen Tarih",
+    form_add_photo: "Fotoğraf Ekle",
+    form_quantity: "Miktar",
+    form_unit: "Birim",
+    form_min_stock: "Min. Stok",
+    form_max_stock: "Max. Stok",
+    form_emoji: "Emoji",
+    form_sector_name: "Sektör Adı",
+    form_modules: "Modüller",
+    stat_total_sectors: "Toplam Sektör",
+    stat_active_companies: "Aktif Firmalar",
+    stat_pending_approval: "Bekleyen Onay",
+    stat_monthly_revenue: "Aylık Gelir",
+    stat_total_templates: "Toplam Şablon",
+    stat_open_requests: "Açık Talepler",
+    stat_upcoming_appointments: "Gelecek Randevular",
+    stat_total_spending: "Toplam Harcama",
+    stat_latest_invoice: "Son Fatura",
+    stat_total_services: "Toplam Hizmet",
+    stat_active_services: "Aktif Hizmet",
+    stat_total_products: "Toplam Ürün",
+    stat_low_stock: "Az Stok",
+    stat_critical_stock: "Kritik Stok",
+    stat_total_staff: "Toplam Personel",
+    stat_total_customers: "Toplam Müşteri",
+    stat_total_bookings: "Toplam Randevu",
+    card_services_list: "Hizmet Listesi",
+    card_stock_list: "Stok Listesi",
+    card_sector_list: "Sektör Listesi",
+    card_company_list: "Firma Listesi",
+    card_staff_list: "Personel Listesi",
+    card_customer_list: "Müşteri Listesi",
+    card_booking_list: "Randevu Listesi",
+    card_invoice_list: "Fatura Listesi",
+    card_recent_activity: "Son Aktiviteler",
+    card_upcoming_bookings: "Yaklaşan Randevular",
+    card_new_ticket: "Yeni Talep Oluştur",
+    card_my_tickets: "Taleplerim",
+    card_service_history: "Hizmet Geçmişi",
+    card_my_invoices: "Faturalarım",
+    card_calendar: "Takvim",
+    card_settings: "Ayarlar",
+    card_profile: "Profil",
+    cat_home_cleaning: "Ev Temizliği",
+    cat_office_cleaning: "Ofis Temizliği",
+    cat_window_cleaning: "Cam Temizliği",
+    cat_carpet_cleaning: "Halı Yıkama",
+    cat_industrial: "Endüstriyel",
+    cat_special: "Özel",
+    cat_cleaning_supplies: "Temizlik Malzemeleri",
+    cat_equipment: "Ekipman",
+    cat_consumables: "Sarf Malzeme",
+    cat_chemical: "Kimyasal",
+    cat_disinfection: "Dezenfeksiyon",
+    cat_carpet_upholstery: "Halı/Koltuk Bakımı",
+    cat_building_exterior: "Bina Dış Cephe",
+    cat_waste_recycling: "Çöp/Geri Dönüşüm",
+    sub_standard: "Standart",
+    sub_deep: "Derinlemesine",
+    sub_post_construction: "İnşaat Sonrası",
+    sub_daily: "Günlük",
+    sub_weekly: "Haftalık",
+    sub_upholstery: "Koltuk",
+    sub_inner_glass: "İç Cam",
+    sub_outer_glass: "Dış Cam",
+    sub_building_glass: "Bina Cam",
+    sub_wash_dry: "Yıkama + Kurutma",
+    sub_stain: "Leke",
+    sub_steam: "Buharlı",
+    sub_factory: "Fabrika",
+    sub_interior: "İç Mekan",
+    sub_exterior: "Dış Mekan",
+    sub_basic: "Temel",
+    sub_detailed: "Detaylı",
+    sub_maintenance: "Bakım",
+    sector_cleaning: "Temizlik",
+    sector_construction: "İnşaat",
+    sector_barber: "Berber / Kuaför",
+    sector_market: "Market / Bakkal",
+    sector_restaurant: "Restoran",
+    sector_carpentry: "Marangoz & Mobilya",
+    tab_templates: "Şablonlar",
+    tab_checklists: "Kontrol Listeleri",
+    tab_chemical_guide: "Kimyasal Rehberi",
+    tab_surveys: "Anketler",
+    tab_forms: "Formlar",
+    tab_complaints: "Şikayet Yönetimi",
+    tab_quotes: "Teklif Şablonları",
+    tab_staff_schedule: "Personel Programı",
+    tab_dosage_calc: "Dozaj Hesaplayıcı",
+    tab_cost_calc: "Maliyet Hesaplayıcı",
+    portal_welcome: "Hoş geldiniz",
+    portal_login_title: "Müşteri Portalı",
+    portal_login_subtitle: "CleanFix hizmetlerinizi yönetin",
+    portal_footer: "CleanFix Demo BV © 2026",
+    label_email: "E-posta",
+    label_password: "Şifre",
+    ph_email: "ornek@email.com",
+    ph_password: "••••••••",
+    ph_subject: "Talep konusu...",
+    ph_description: "Detaylı açıklama girin...",
+    ph_upload_photo: "Fotoğraf yüklemek için tıklayın",
+    ph_max_size: "JPG, PNG — max 5MB",
+    unit_hours: "saat",
+    unit_pcs: "adet",
+    unit_sqm: "m²",
+    unit_liters: "L",
+    unit_ml: "ml",
+    ui_business_plan: "Business Plan",
+    ui_super_admin: "Super Admin",
+    ui_cleanfix_demo: "CleanFix Demo BV",
+    ui_cleanfix_admin: "CleanFix Admin",
+    ui_last_12_months: "Son 12 ay",
+    ui_next_appointment: "Sonraki: ",
+    ui_urgent_count: " acil öncelikli",
+    ui_per_month: "/ay",
+    ui_firm_count: " firma",
+    ui_firms_count: " firma",
+    ui_module_count: " Modül",
+    ui_modules_count: " Modül",
+    toast_synced: "Şablonlar senkronize edildi",
+    toast_stock_updated: "Stok raporu güncellendi",
+    toast_notifications: "Bildirimler",
+    toast_saved: "Kaydedildi",
+    toast_deleted: "Silindi",
+    toast_error: "Hata oluştu",
+    toast_exported: "Dışa aktarıldı",
+    mon_jan: "Oca",
+    mon_feb: "Şub",
+    mon_mar: "Mar",
+    mon_apr: "Nis",
+    mon_may: "May",
+    mon_jun: "Haz",
+    mon_jul: "Tem",
+    mon_aug: "Ağu",
+    mon_sep: "Eyl",
+    mon_oct: "Eki",
+    mon_nov: "Kas",
+    mon_dec: "Ara",
+    currency_eur: "€",
+    currency_usd: "$",
+    cleanfix: "CleanFix",
+    standart_temizlik: "Standart Temizlik",
+    ev_temizliği_-_temel_paket: "Ev temizliği - temel paket",
+    derinlemesine_temizlik: "Derinlemesine Temizlik",
+    ev_temizliği_-_detaylı_paket: "Ev temizliği - detaylı paket",
+    inşaat_sonrası_temizlik: "İnşaat Sonrası Temizlik",
+    ev_temizliği_-_inşaat_sonrası: "Ev temizliği - inşaat sonrası",
+    günlük_ofis_temizliği: "Günlük Ofis Temizliği",
+    ofis_temizliği_-_günlük_bakım: "Ofis temizliği - günlük bakım",
+    haftalık_ofis_temizliği: "Haftalık Ofis Temizliği",
+    ofis_temizliği_-_haftalık_derinlemesine: "Ofis temizliği - haftalık derinlemesine",
+    koltuk_yıkama: "Koltuk Yıkama",
+    ofis_temizliği_-_koltuk_ve_sandalye: "Ofis temizliği - koltuk ve sandalye",
+    iç_cam_temizliği: "İç Cam Temizliği",
+    cam_temizliği_-_iç_mekan: "Cam temizliği - iç mekan",
+    dış_cam_temizliği: "Dış Cam Temizliği",
+    cam_temizliği_-_dış_mekan: "Cam temizliği - dış mekan",
+    bina_cam_temizliği: "Bina Cam Temizliği",
+    cam_temizliği_-_bina_geneli: "Cam temizliği - bina geneli",
+    halı_yıkama_-_temel_paket: "Halı yıkama - temel paket",
+    leke_çıkarma: "Leke Çıkarma",
+    halı_yıkama_-_leke_özel: "Halı yıkama - leke özel",
+    buharlı_temizlik: "Buharlı Temizlik",
+    halı_yıkama_-_buharlı_derinlemesine: "Halı yıkama - buharlı derinlemesine",
+    fabrika_temizliği: "Fabrika Temizliği",
+    endüstriyel_-_fabrika_geneli: "Endüstriyel - fabrika geneli",
+    depo_temizliği: "Depo Temizliği",
+    endüstriyel_-_depo_ve_antrepo: "Endüstriyel - depo ve antrepo",
+    hijyenik_temizlik: "Hijyenik Temizlik",
+    endüstriyel_-_hijyen_sertifikalı: "Endüstriyel - hijyen sertifikalı",
+    hijyenik: "Hijyenik",
+    airbnb_dönüşüm_temizliği: "Airbnb Dönüşüm Temizliği",
+    eşya_taşıma_sonrası_temizlik: "Eşya Taşıma Sonrası Temizlik",
+    taşınma: "Taşınma",
+    evcil_hayvan_temizliği: "Evcil Hayvan Temizliği",
+    hizmet_kategorileri: "Hizmet Kategorileri",
+    genişletmek_için_tıklayın: "Genişletmek için tıklayın",
+    günlük_bakım_ve_düzen: "Günlük bakım ve düzen",
+    haftalık_derinlemesine: "Haftalık derinlemesine",
+    ofis_koltuk_ve_sandalye: "Ofis koltuk ve sandalye",
+    iç_mekan_camları: "İç mekan camları",
+    dış_mekan_camları: "Dış mekan camları",
+    bina_geneli_cam_temizliği: "Bina geneli cam temizliği",
+    halı_yıkama_ve_kurutma: "Halı yıkama ve kurutma",
+    buharlı_derinlemesine_temizlik: "Buharlı derinlemesine temizlik",
+    endüstriyel_temizlik: "Endüstriyel Temizlik",
+    fabrika_geneli_temizlik: "Fabrika geneli temizlik",
+    depo_ve_antrepo_temizliği: "Depo ve antrepo temizliği",
+    hijyen_sertifikalı_temizlik: "Hijyen sertifikalı temizlik",
+    airbnb_misafir_değişimi: "Airbnb misafir değişimi",
+    taşınma_sonrası_temizlik: "Taşınma sonrası temizlik",
+    pet_dostu_temizlik: "Pet dostu temizlik",
+    seçin: "Seçin...",
+    fiyat: "Fiyat (€)",
+    hizmet_ekle: "Hizmet Ekle",
+    hizmet_sil: "Hizmet Sil",
+    evet_sil: "Evet, Sil",
+    kategori_ata: "Kategori Ata",
+    ana_firma_business_plan: "Ana Firma • Business Plan",
+    sparkle_offices_ltd: "Sparkle Offices Ltd",
+    partner_ofis_temizliği: "Partner • Ofis Temizliği",
+    homecare_pro: "HomeCare Pro",
+    partner_ev_temizliği: "Partner • Ev Temizliği",
+    industriclean_gmbh: "IndustriClean GmbH",
+    partner_endüstriyel: "Partner • Endüstriyel",
+  },
+  en: {
+    nav_dashboard: "Dashboard",
+    nav_appointments: "Appointments",
+    nav_staff: "Staff",
+    nav_services: "Services",
+    nav_invoices: "Invoices",
+    nav_customers: "Customers",
+    nav_stock: "Stock",
+    nav_reviews: "Reviews",
+    nav_equipment: "Equipment",
+    nav_quality: "Quality Control",
+    nav_expenses: "Expenses",
+    nav_sectors: "Sectors",
+    nav_tools: "Tools",
+    nav_vehicles: "Vehicles",
+    nav_company_profile: "Company Profile",
+    nav_logout: "Log Out",
+    nav_main_menu: "Main Menu",
+    nav_settings: "Settings",
+    sidebar_company_panel: "Company Panel",
+    sidebar_customer_portal: "Customer Portal",
+    title_services: "CleanFix — Service Management",
+    title_stock: "CleanFix — Stock Management",
+    title_sectors: "CleanFix — Sector Management",
+    title_tools: "CleanFix — Toolkit",
+    title_portal: "CleanFix — Customer Portal",
+    page_services: "Services",
+    page_stock: "Stock Management",
+    page_sectors: "Sector Management",
+    page_tools: "Toolkit",
+    page_portal: "Customer Portal",
+    btn_new_service: "+ New Service",
+    btn_new_product: "+ New Product",
+    btn_new_sector: "+ New Sector",
+    btn_save: "Save",
+    btn_close: "Close",
+    btn_cancel: "Cancel",
+    btn_send: "Send",
+    btn_login: "Log In",
+    btn_edit: "Edit",
+    btn_delete: "Delete",
+    btn_stock_in: "Stock In",
+    btn_stock_out: "Stock Out",
+    btn_sync: "Synchronize",
+    btn_export: "Export",
+    btn_print: "Print",
+    btn_create_ticket: "Send Request",
+    th_service_name: "Service Name",
+    th_category: "Category",
+    th_subcategory: "Subcategory",
+    th_duration: "Duration",
+    th_price: "Price",
+    th_status: "Status",
+    th_actions: "Actions",
+    th_product: "Product",
+    th_stock_level: "Stock Level",
+    th_threshold: "Threshold (Min/Max)",
+    th_unit: "Unit",
+    th_company: "Company",
+    th_contact: "Contact",
+    th_date: "Date",
+    th_amount: "Amount",
+    th_invoice: "Invoice",
+    th_payment: "Payment",
+    th_priority: "Priority",
+    th_subject: "Subject",
+    th_type: "Type",
+    th_staff: "Staff",
+    th_customer: "Customer",
+    th_booking: "Booking",
+    th_service: "Service",
+    th_notes: "Notes",
+    th_rating: "Rating",
+    th_review: "Review",
+    th_module: "Module",
+    status_active: "Active",
+    status_inactive: "Inactive",
+    status_sufficient: "Sufficient",
+    status_low: "Low",
+    status_critical: "Critical",
+    status_open: "Open",
+    status_resolved: "Resolved",
+    status_pending: "Pending",
+    status_paid: "Paid",
+    status_unpaid: "Unpaid",
+    status_urgent: "Urgent",
+    status_high: "High",
+    status_medium: "Medium",
+    status_low_prio: "Low",
+    status_dev: "Development",
+    status_planning: "Planning",
+    filter_all_categories: "All Categories",
+    filter_all_levels: "All Levels",
+    filter_all_statuses: "All Statuses",
+    search_services: "Search services...",
+    search_products: "Search products...",
+    search_customers: "Search customers...",
+    search_requests: "Search requests...",
+    search_staff: "Search staff...",
+    modal_add_service: "Add New Service",
+    modal_edit_service: "Edit Service",
+    modal_add_product: "Add New Product",
+    modal_edit_product: "Edit Product",
+    modal_stock_move: "Stock Movement",
+    modal_add_sector: "Add New Sector",
+    modal_edit_sector: "Edit Sector",
+    modal_add_staff: "Add New Staff",
+    modal_edit_staff: "Edit Staff",
+    modal_add_customer: "Add New Customer",
+    modal_edit_customer: "Edit Customer",
+    modal_add_booking: "Add New Booking",
+    modal_edit_booking: "Edit Booking",
+    modal_delete_confirm: "Delete Confirmation",
+    modal_assign_company: "Assign Company",
+    form_name: "Name",
+    form_email: "Email",
+    form_phone: "Phone",
+    form_address: "Address",
+    form_password: "Password",
+    form_category: "Category",
+    form_subcategory: "Subcategory",
+    form_duration: "Duration",
+    form_price: "Price",
+    form_description: "Description",
+    form_notes: "Notes",
+    form_status: "Status",
+    form_priority: "Priority",
+    form_subject: "Subject",
+    form_service_type: "Service Type",
+    form_requested_date: "Requested Date",
+    form_add_photo: "Add Photo",
+    form_quantity: "Quantity",
+    form_unit: "Unit",
+    form_min_stock: "Min. Stock",
+    form_max_stock: "Max. Stock",
+    form_emoji: "Emoji",
+    form_sector_name: "Sector Name",
+    form_modules: "Modules",
+    stat_total_sectors: "Total Sectors",
+    stat_active_companies: "Active Companies",
+    stat_pending_approval: "Pending Approval",
+    stat_monthly_revenue: "Monthly Revenue",
+    stat_total_templates: "Total Templates",
+    stat_open_requests: "Open Requests",
+    stat_upcoming_appointments: "Upcoming Appointments",
+    stat_total_spending: "Total Spending",
+    stat_latest_invoice: "Latest Invoice",
+    stat_total_services: "Total Services",
+    stat_active_services: "Active Services",
+    stat_total_products: "Total Products",
+    stat_low_stock: "Low Stock",
+    stat_critical_stock: "Critical Stock",
+    stat_total_staff: "Total Staff",
+    stat_total_customers: "Total Customers",
+    stat_total_bookings: "Total Bookings",
+    card_services_list: "Service List",
+    card_stock_list: "Stock List",
+    card_sector_list: "Sector List",
+    card_company_list: "Company List",
+    card_staff_list: "Staff List",
+    card_customer_list: "Customer List",
+    card_booking_list: "Booking List",
+    card_invoice_list: "Invoice List",
+    card_recent_activity: "Recent Activity",
+    card_upcoming_bookings: "Upcoming Bookings",
+    card_new_ticket: "Create New Ticket",
+    card_my_tickets: "My Tickets",
+    card_service_history: "Service History",
+    card_my_invoices: "My Invoices",
+    card_calendar: "Calendar",
+    card_settings: "Settings",
+    card_profile: "Profile",
+    cat_home_cleaning: "Home Cleaning",
+    cat_office_cleaning: "Office Cleaning",
+    cat_window_cleaning: "Window Cleaning",
+    cat_carpet_cleaning: "Carpet Cleaning",
+    cat_industrial: "Industrial",
+    cat_special: "Special",
+    cat_cleaning_supplies: "Cleaning Supplies",
+    cat_equipment: "Equipment",
+    cat_consumables: "Consumables",
+    cat_chemical: "Chemical",
+    cat_disinfection: "Disinfection",
+    cat_carpet_upholstery: "Carpet/Upholstery Care",
+    cat_building_exterior: "Building Exterior",
+    cat_waste_recycling: "Waste/Recycling",
+    sub_standard: "Standard",
+    sub_deep: "Deep",
+    sub_post_construction: "Post-Construction",
+    sub_daily: "Daily",
+    sub_weekly: "Weekly",
+    sub_upholstery: "Upholstery",
+    sub_inner_glass: "Inner Glass",
+    sub_outer_glass: "Outer Glass",
+    sub_building_glass: "Building Glass",
+    sub_wash_dry: "Wash + Dry",
+    sub_stain: "Stain",
+    sub_steam: "Steam",
+    sub_factory: "Factory",
+    sub_interior: "Interior",
+    sub_exterior: "Exterior",
+    sub_basic: "Basic",
+    sub_detailed: "Detailed",
+    sub_maintenance: "Maintenance",
+    sector_cleaning: "Cleaning",
+    sector_construction: "Construction",
+    sector_barber: "Barber / Hairdresser",
+    sector_market: "Market / Grocery",
+    sector_restaurant: "Restaurant",
+    sector_carpentry: "Carpentry & Furniture",
+    tab_templates: "Templates",
+    tab_checklists: "Checklists",
+    tab_chemical_guide: "Chemical Guide",
+    tab_surveys: "Surveys",
+    tab_forms: "Forms",
+    tab_complaints: "Complaint Management",
+    tab_quotes: "Quote Templates",
+    tab_staff_schedule: "Staff Schedule",
+    tab_dosage_calc: "Dosage Calculator",
+    tab_cost_calc: "Cost Calculator",
+    portal_welcome: "Welcome",
+    portal_login_title: "Customer Portal",
+    portal_login_subtitle: "Manage your CleanFix services",
+    portal_footer: "CleanFix Demo BV © 2026",
+    label_email: "Email",
+    label_password: "Password",
+    ph_email: "example@email.com",
+    ph_password: "••••••••",
+    ph_subject: "Request subject...",
+    ph_description: "Enter detailed description...",
+    ph_upload_photo: "Click to upload photos",
+    ph_max_size: "JPG, PNG — max 5MB",
+    unit_hours: "hours",
+    unit_pcs: "pcs",
+    unit_sqm: "m²",
+    unit_liters: "L",
+    unit_ml: "ml",
+    ui_business_plan: "Business Plan",
+    ui_super_admin: "Super Admin",
+    ui_cleanfix_demo: "CleanFix Demo BV",
+    ui_cleanfix_admin: "CleanFix Admin",
+    ui_last_12_months: "Last 12 months",
+    ui_next_appointment: "Next: ",
+    ui_urgent_count: " urgent priority",
+    ui_per_month: "/mo",
+    ui_firm_count: " company",
+    ui_firms_count: " companies",
+    ui_module_count: " Module",
+    ui_modules_count: " Modules",
+    toast_synced: "Templates synchronized",
+    toast_stock_updated: "Stock report updated",
+    toast_notifications: "Notifications",
+    toast_saved: "Saved",
+    toast_deleted: "Deleted",
+    toast_error: "An error occurred",
+    toast_exported: "Exported",
+    mon_jan: "Jan",
+    mon_feb: "Feb",
+    mon_mar: "Mar",
+    mon_apr: "Apr",
+    mon_may: "May",
+    mon_jun: "Jun",
+    mon_jul: "Jul",
+    mon_aug: "Aug",
+    mon_sep: "Sep",
+    mon_oct: "Oct",
+    mon_nov: "Nov",
+    mon_dec: "Dec",
+    currency_eur: "€",
+    currency_usd: "$",
+    cleanfix: "CleanFix",
+    standart_temizlik: "Standart Temizlik",
+    ev_temizliği_-_temel_paket: "Ev temizliği - temel paket",
+    derinlemesine_temizlik: "Derinlemesine Temizlik",
+    ev_temizliği_-_detaylı_paket: "Ev temizliği - detaylı paket",
+    inşaat_sonrası_temizlik: "İnşaat Sonrası Temizlik",
+    ev_temizliği_-_inşaat_sonrası: "Ev temizliği - inşaat sonrası",
+    günlük_ofis_temizliği: "Günlük Ofis Temizliği",
+    ofis_temizliği_-_günlük_bakım: "Ofis temizliği - günlük bakım",
+    haftalık_ofis_temizliği: "Haftalık Ofis Temizliği",
+    ofis_temizliği_-_haftalık_derinlemesine: "Ofis temizliği - haftalık derinlemesine",
+    koltuk_yıkama: "Koltuk Yıkama",
+    ofis_temizliği_-_koltuk_ve_sandalye: "Ofis temizliği - koltuk ve sandalye",
+    iç_cam_temizliği: "İç Cam Temizliği",
+    cam_temizliği_-_iç_mekan: "Cam temizliği - iç mekan",
+    dış_cam_temizliği: "Dış Cam Temizliği",
+    cam_temizliği_-_dış_mekan: "Cam temizliği - dış mekan",
+    bina_cam_temizliği: "Bina Cam Temizliği",
+    cam_temizliği_-_bina_geneli: "Cam temizliği - bina geneli",
+    halı_yıkama_-_temel_paket: "Halı yıkama - temel paket",
+    leke_çıkarma: "Leke Çıkarma",
+    halı_yıkama_-_leke_özel: "Halı yıkama - leke özel",
+    buharlı_temizlik: "Buharlı Temizlik",
+    halı_yıkama_-_buharlı_derinlemesine: "Halı yıkama - buharlı derinlemesine",
+    fabrika_temizliği: "Fabrika Temizliği",
+    endüstriyel_-_fabrika_geneli: "Endüstriyel - fabrika geneli",
+    depo_temizliği: "Depo Temizliği",
+    endüstriyel_-_depo_ve_antrepo: "Endüstriyel - depo ve antrepo",
+    hijyenik_temizlik: "Hijyenik Temizlik",
+    endüstriyel_-_hijyen_sertifikalı: "Endüstriyel - hijyen sertifikalı",
+    hijyenik: "Hijyenik",
+    airbnb_dönüşüm_temizliği: "Airbnb Dönüşüm Temizliği",
+    eşya_taşıma_sonrası_temizlik: "Eşya Taşıma Sonrası Temizlik",
+    taşınma: "Taşınma",
+    evcil_hayvan_temizliği: "Evcil Hayvan Temizliği",
+    hizmet_kategorileri: "Hizmet Kategorileri",
+    genişletmek_için_tıklayın: "Genişletmek için tıklayın",
+    günlük_bakım_ve_düzen: "Günlük bakım ve düzen",
+    haftalık_derinlemesine: "Haftalık derinlemesine",
+    ofis_koltuk_ve_sandalye: "Ofis koltuk ve sandalye",
+    iç_mekan_camları: "İç mekan camları",
+    dış_mekan_camları: "Dış mekan camları",
+    bina_geneli_cam_temizliği: "Bina geneli cam temizliği",
+    halı_yıkama_ve_kurutma: "Halı yıkama ve kurutma",
+    buharlı_derinlemesine_temizlik: "Buharlı derinlemesine temizlik",
+    endüstriyel_temizlik: "Endüstriyel Temizlik",
+    fabrika_geneli_temizlik: "Fabrika geneli temizlik",
+    depo_ve_antrepo_temizliği: "Depo ve antrepo temizliği",
+    hijyen_sertifikalı_temizlik: "Hijyen sertifikalı temizlik",
+    airbnb_misafir_değişimi: "Airbnb misafir değişimi",
+    taşınma_sonrası_temizlik: "Taşınma sonrası temizlik",
+    pet_dostu_temizlik: "Pet dostu temizlik",
+    seçin: "Seçin...",
+    fiyat: "Fiyat (€)",
+    hizmet_ekle: "Hizmet Ekle",
+    hizmet_sil: "Hizmet Sil",
+    evet_sil: "Evet, Sil",
+    kategori_ata: "Kategori Ata",
+    ana_firma_business_plan: "Ana Firma • Business Plan",
+    sparkle_offices_ltd: "Sparkle Offices Ltd",
+    partner_ofis_temizliği: "Partner • Ofis Temizliği",
+    homecare_pro: "HomeCare Pro",
+    partner_ev_temizliği: "Partner • Ev Temizliği",
+    industriclean_gmbh: "IndustriClean GmbH",
+    partner_endüstriyel: "Partner • Endüstriyel",
+  },
+  nl: {
+    nav_dashboard: "Dashboard",
+    nav_appointments: "Afspraken",
+    nav_staff: "Personeel",
+    nav_services: "Diensten",
+    nav_invoices: "Facturen",
+    nav_customers: "Klanten",
+    nav_stock: "Voorraad",
+    nav_reviews: "Beoordelingen",
+    nav_equipment: "Apparatuur",
+    nav_quality: "Kwaliteitscontrole",
+    nav_expenses: "Kosten",
+    nav_sectors: "Sectoren",
+    nav_tools: "Gereedschap",
+    nav_vehicles: "Voertuigen",
+    nav_company_profile: "Bedrijfsprofiel",
+    nav_logout: "Uitloggen",
+    nav_main_menu: "Hoofdmenu",
+    nav_settings: "Instellingen",
+    sidebar_company_panel: "Bedrijfspaneel",
+    sidebar_customer_portal: "Klantenportaal",
+    title_services: "CleanFix — Dienstbeheer",
+    title_stock: "CleanFix — Voorraadbeheer",
+    title_sectors: "CleanFix — Sectorbeheer",
+    title_tools: "CleanFix — Gereedschapskist",
+    title_portal: "CleanFix — Klantenportaal",
+    page_services: "Diensten",
+    page_stock: "Voorraadbeheer",
+    page_sectors: "Sectorbeheer",
+    page_tools: "Gereedschapskist",
+    page_portal: "Klantenportaal",
+    btn_new_service: "+ Nieuwe Dienst",
+    btn_new_product: "+ Nieuw Product",
+    btn_new_sector: "+ Nieuwe Sector",
+    btn_save: "Opslaan",
+    btn_close: "Sluiten",
+    btn_cancel: "Annuleren",
+    btn_send: "Verzenden",
+    btn_login: "Inloggen",
+    btn_edit: "Bewerken",
+    btn_delete: "Verwijderen",
+    btn_stock_in: "Voorraadin",
+    btn_stock_out: "Voorraaduit",
+    btn_sync: "Synchroniseren",
+    btn_export: "Exporteren",
+    btn_print: "Afdrukken",
+    btn_create_ticket: "Verzoek verzenden",
+    th_service_name: "Dienstnaam",
+    th_category: "Categorie",
+    th_subcategory: "Subcategorie",
+    th_duration: "Duur",
+    th_price: "Prijs",
+    th_status: "Status",
+    th_actions: "Acties",
+    th_product: "Product",
+    th_stock_level: "Voorraadniveau",
+    th_threshold: "Drempel (Min/Max)",
+    th_unit: "Eenheid",
+    th_company: "Bedrijf",
+    th_contact: "Contact",
+    th_date: "Datum",
+    th_amount: "Bedrag",
+    th_invoice: "Factuur",
+    th_payment: "Betaling",
+    th_priority: "Prioriteit",
+    th_subject: "Onderwerp",
+    th_type: "Type",
+    th_staff: "Personeel",
+    th_customer: "Klant",
+    th_booking: "Afspraak",
+    th_service: "Dienst",
+    th_notes: "Notities",
+    th_rating: "Beoordeling",
+    th_review: "Recensie",
+    th_module: "Module",
+    status_active: "Actief",
+    status_inactive: "Inactief",
+    status_sufficient: "Voldoende",
+    status_low: "Laag",
+    status_critical: "Kritiek",
+    status_open: "Open",
+    status_resolved: "Opgelost",
+    status_pending: "In behandeling",
+    status_paid: "Betaald",
+    status_unpaid: "Onbetaald",
+    status_urgent: "Dringend",
+    status_high: "Hoog",
+    status_medium: "Gemiddeld",
+    status_low_prio: "Laag",
+    status_dev: "Ontwikkeling",
+    status_planning: "Planning",
+    filter_all_categories: "Alle categorieën",
+    filter_all_levels: "Alle niveaus",
+    filter_all_statuses: "Alle statussen",
+    search_services: "Zoek diensten...",
+    search_products: "Zoek producten...",
+    search_customers: "Zoek klanten...",
+    search_requests: "Zoek verzoeken...",
+    search_staff: "Zoek personeel...",
+    modal_add_service: "Nieuwe dienst toevoegen",
+    modal_edit_service: "Dienst bewerken",
+    modal_add_product: "Nieuw product toevoegen",
+    modal_edit_product: "Product bewerken",
+    modal_stock_move: "Voorraadbeweging",
+    modal_add_sector: "Nieuwe sector toevoegen",
+    modal_edit_sector: "Sector bewerken",
+    modal_add_staff: "Nieuw personeel toevoegen",
+    modal_edit_staff: "Personeel bewerken",
+    modal_add_customer: "Nieuwe klant toevoegen",
+    modal_edit_customer: "Klant bewerken",
+    modal_add_booking: "Nieuwe afspraak toevoegen",
+    modal_edit_booking: "Afspraak bewerken",
+    modal_delete_confirm: "Verwijderingsbevestiging",
+    modal_assign_company: "Bedrijf toewijzen",
+    form_name: "Naam",
+    form_email: "E-mail",
+    form_phone: "Telefoon",
+    form_address: "Adres",
+    form_password: "Wachtwoord",
+    form_category: "Categorie",
+    form_subcategory: "Subcategorie",
+    form_duration: "Duur",
+    form_price: "Prijs",
+    form_description: "Beschrijving",
+    form_notes: "Notities",
+    form_status: "Status",
+    form_priority: "Prioriteit",
+    form_subject: "Onderwerp",
+    form_service_type: "Diensttype",
+    form_requested_date: "Gewenste datum",
+    form_add_photo: "Foto toevoegen",
+    form_quantity: "Hoeveelheid",
+    form_unit: "Eenheid",
+    form_min_stock: "Min. voorraad",
+    form_max_stock: "Max. voorraad",
+    form_emoji: "Emoji",
+    form_sector_name: "Sectornaam",
+    form_modules: "Modules",
+    stat_total_sectors: "Totaal sectoren",
+    stat_active_companies: "Actieve bedrijven",
+    stat_pending_approval: "In afwachting",
+    stat_monthly_revenue: "Maandelijkse omzet",
+    stat_total_templates: "Totaal sjablonen",
+    stat_open_requests: "Open verzoeken",
+    stat_upcoming_appointments: "Aankomende afspraken",
+    stat_total_spending: "Totale uitgaven",
+    stat_latest_invoice: "Laatste factuur",
+    stat_total_services: "Totaal diensten",
+    stat_active_services: "Actieve diensten",
+    stat_total_products: "Totaal producten",
+    stat_low_stock: "Lage voorraad",
+    stat_critical_stock: "Kritieke voorraad",
+    stat_total_staff: "Totaal personeel",
+    stat_total_customers: "Totaal klanten",
+    stat_total_bookings: "Totaal afspraken",
+    card_services_list: "Dienstenlijst",
+    card_stock_list: "Voorraadlijst",
+    card_sector_list: "Sectorlijst",
+    card_company_list: "Bedrijvenlijst",
+    card_staff_list: "Personeelslijst",
+    card_customer_list: "Klantenlijst",
+    card_booking_list: "Afsprakenlijst",
+    card_invoice_list: "Facturenlijst",
+    card_recent_activity: "Recente activiteit",
+    card_upcoming_bookings: "Aankomende afspraken",
+    card_new_ticket: "Nieuw ticket aanmaken",
+    card_my_tickets: "Mijn tickets",
+    card_service_history: "Dienstgeschiedenis",
+    card_my_invoices: "Mijn facturen",
+    card_calendar: "Kalender",
+    card_settings: "Instellingen",
+    card_profile: "Profiel",
+    cat_home_cleaning: "Huisreiniging",
+    cat_office_cleaning: "Kantoorreiniging",
+    cat_window_cleaning: "Ramenreiniging",
+    cat_carpet_cleaning: "Tapijtreiniging",
+    cat_industrial: "Industrieel",
+    cat_special: "Speciaal",
+    cat_cleaning_supplies: "Schoonmaakmiddelen",
+    cat_equipment: "Apparatuur",
+    cat_consumables: "Verbruiksgoederen",
+    cat_chemical: "Chemisch",
+    cat_disinfection: "Desinfectie",
+    cat_carpet_upholstery: "Tapijt/Meubelverzorging",
+    cat_building_exterior: "Gebouwgevel",
+    cat_waste_recycling: "Afval/Recycling",
+    sub_standard: "Standaard",
+    sub_deep: "Diep",
+    sub_post_construction: "Na de bouw",
+    sub_daily: "Dagelijks",
+    sub_weekly: "Wekelijks",
+    sub_upholstery: "Meubels",
+    sub_inner_glass: "Binnenraam",
+    sub_outer_glass: "Buitenraam",
+    sub_building_glass: "Gebouwenraam",
+    sub_wash_dry: "Wassen + Drogen",
+    sub_stain: "Vlek",
+    sub_steam: "Stoom",
+    sub_factory: "Fabriek",
+    sub_interior: "Interieur",
+    sub_exterior: "Exterieur",
+    sub_basic: "Basis",
+    sub_detailed: "Gedetailleerd",
+    sub_maintenance: "Onderhoud",
+    sector_cleaning: "Reiniging",
+    sector_construction: "Bouw",
+    sector_barber: "Kapper / Kapster",
+    sector_market: "Markt / Kruidenier",
+    sector_restaurant: "Restaurant",
+    sector_carpentry: "Timmerwerk & Meubels",
+    tab_templates: "Sjablonen",
+    tab_checklists: "Controlelijsten",
+    tab_chemical_guide: "Chemische gids",
+    tab_surveys: "Enquêtes",
+    tab_forms: "Formulieren",
+    tab_complaints: "Klachtenbeheer",
+    tab_quotes: "Offertesjablonen",
+    tab_staff_schedule: "Personeelsrooster",
+    tab_dosage_calc: "Dosering calculator",
+    tab_cost_calc: "Kostencalculator",
+    portal_welcome: "Welkom",
+    portal_login_title: "Klantenportaal",
+    portal_login_subtitle: "Beheer uw CleanFix-diensten",
+    portal_footer: "CleanFix Demo BV © 2026",
+    label_email: "E-mail",
+    label_password: "Wachtwoord",
+    ph_email: "voorbeeld@email.com",
+    ph_password: "••••••••",
+    ph_subject: "Verzoekonderwerp...",
+    ph_description: "Voer gedetailleerde beschrijving in...",
+    ph_upload_photo: "Klik om foto's te uploaden",
+    ph_max_size: "JPG, PNG — max 5MB",
+    unit_hours: "uur",
+    unit_pcs: "stuks",
+    unit_sqm: "m²",
+    unit_liters: "L",
+    unit_ml: "ml",
+    ui_business_plan: "Business Plan",
+    ui_super_admin: "Super Admin",
+    ui_cleanfix_demo: "CleanFix Demo BV",
+    ui_cleanfix_admin: "CleanFix Admin",
+    ui_last_12_months: "Laatste 12 maanden",
+    ui_next_appointment: "Volgende: ",
+    ui_urgent_count: " dringende prioriteit",
+    ui_per_month: "/maand",
+    ui_firm_count: " bedrijf",
+    ui_firms_count: " bedrijven",
+    ui_module_count: " Module",
+    ui_modules_count: " Modules",
+    toast_synced: "Sjablonen gesynchroniseerd",
+    toast_stock_updated: "Voorraadrapport bijgewerkt",
+    toast_notifications: "Meldingen",
+    toast_saved: "Opgeslagen",
+    toast_deleted: "Verwijderd",
+    toast_error: "Er is een fout opgetreden",
+    toast_exported: "Geëxporteerd",
+    mon_jan: "Jan",
+    mon_feb: "Feb",
+    mon_mar: "Mrt",
+    mon_apr: "Apr",
+    mon_may: "Mei",
+    mon_jun: "Jun",
+    mon_jul: "Jul",
+    mon_aug: "Aug",
+    mon_sep: "Sep",
+    mon_oct: "Okt",
+    mon_nov: "Nov",
+    mon_dec: "Dec",
+    currency_eur: "€",
+    currency_usd: "$",
+    cleanfix: "CleanFix",
+    standart_temizlik: "Standart Temizlik",
+    ev_temizliği_-_temel_paket: "Ev temizliği - temel paket",
+    derinlemesine_temizlik: "Derinlemesine Temizlik",
+    ev_temizliği_-_detaylı_paket: "Ev temizliği - detaylı paket",
+    inşaat_sonrası_temizlik: "İnşaat Sonrası Temizlik",
+    ev_temizliği_-_inşaat_sonrası: "Ev temizliği - inşaat sonrası",
+    günlük_ofis_temizliği: "Günlük Ofis Temizliği",
+    ofis_temizliği_-_günlük_bakım: "Ofis temizliği - günlük bakım",
+    haftalık_ofis_temizliği: "Haftalık Ofis Temizliği",
+    ofis_temizliği_-_haftalık_derinlemesine: "Ofis temizliği - haftalık derinlemesine",
+    koltuk_yıkama: "Koltuk Yıkama",
+    ofis_temizliği_-_koltuk_ve_sandalye: "Ofis temizliği - koltuk ve sandalye",
+    iç_cam_temizliği: "İç Cam Temizliği",
+    cam_temizliği_-_iç_mekan: "Cam temizliği - iç mekan",
+    dış_cam_temizliği: "Dış Cam Temizliği",
+    cam_temizliği_-_dış_mekan: "Cam temizliği - dış mekan",
+    bina_cam_temizliği: "Bina Cam Temizliği",
+    cam_temizliği_-_bina_geneli: "Cam temizliği - bina geneli",
+    halı_yıkama_-_temel_paket: "Halı yıkama - temel paket",
+    leke_çıkarma: "Leke Çıkarma",
+    halı_yıkama_-_leke_özel: "Halı yıkama - leke özel",
+    buharlı_temizlik: "Buharlı Temizlik",
+    halı_yıkama_-_buharlı_derinlemesine: "Halı yıkama - buharlı derinlemesine",
+    fabrika_temizliği: "Fabrika Temizliği",
+    endüstriyel_-_fabrika_geneli: "Endüstriyel - fabrika geneli",
+    depo_temizliği: "Depo Temizliği",
+    endüstriyel_-_depo_ve_antrepo: "Endüstriyel - depo ve antrepo",
+    hijyenik_temizlik: "Hijyenik Temizlik",
+    endüstriyel_-_hijyen_sertifikalı: "Endüstriyel - hijyen sertifikalı",
+    hijyenik: "Hijyenik",
+    airbnb_dönüşüm_temizliği: "Airbnb Dönüşüm Temizliği",
+    eşya_taşıma_sonrası_temizlik: "Eşya Taşıma Sonrası Temizlik",
+    taşınma: "Taşınma",
+    evcil_hayvan_temizliği: "Evcil Hayvan Temizliği",
+    hizmet_kategorileri: "Hizmet Kategorileri",
+    genişletmek_için_tıklayın: "Genişletmek için tıklayın",
+    günlük_bakım_ve_düzen: "Günlük bakım ve düzen",
+    haftalık_derinlemesine: "Haftalık derinlemesine",
+    ofis_koltuk_ve_sandalye: "Ofis koltuk ve sandalye",
+    iç_mekan_camları: "İç mekan camları",
+    dış_mekan_camları: "Dış mekan camları",
+    bina_geneli_cam_temizliği: "Bina geneli cam temizliği",
+    halı_yıkama_ve_kurutma: "Halı yıkama ve kurutma",
+    buharlı_derinlemesine_temizlik: "Buharlı derinlemesine temizlik",
+    endüstriyel_temizlik: "Endüstriyel Temizlik",
+    fabrika_geneli_temizlik: "Fabrika geneli temizlik",
+    depo_ve_antrepo_temizliği: "Depo ve antrepo temizliği",
+    hijyen_sertifikalı_temizlik: "Hijyen sertifikalı temizlik",
+    airbnb_misafir_değişimi: "Airbnb misafir değişimi",
+    taşınma_sonrası_temizlik: "Taşınma sonrası temizlik",
+    pet_dostu_temizlik: "Pet dostu temizlik",
+    seçin: "Seçin...",
+    fiyat: "Fiyat (€)",
+    hizmet_ekle: "Hizmet Ekle",
+    hizmet_sil: "Hizmet Sil",
+    evet_sil: "Evet, Sil",
+    kategori_ata: "Kategori Ata",
+    ana_firma_business_plan: "Ana Firma • Business Plan",
+    sparkle_offices_ltd: "Sparkle Offices Ltd",
+    partner_ofis_temizliği: "Partner • Ofis Temizliği",
+    homecare_pro: "HomeCare Pro",
+    partner_ev_temizliği: "Partner • Ev Temizliği",
+    industriclean_gmbh: "IndustriClean GmbH",
+    partner_endüstriyel: "Partner • Endüstriyel",
   }
 };
 
@@ -2670,6 +2049,9 @@ function switchLang(lang) {
     setTimeout(() => switchLang(saved), 50);
   }
 })();
+
+/* Init */
+switchLang(currentLang);
 </script>
 </body>
 </html>

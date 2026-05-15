@@ -317,7 +317,7 @@ function switchLang(lang) {
 
   document.querySelectorAll('[data-i18n]').forEach(el => {
     const key = el.dataset.i18n;
-    const t = i18n[lang][key];
+    const t = i18n[lang] && i18n[lang][key];
     if (!t) return;
     const attr = el.dataset.i18nAttr;
     if (attr) {
@@ -342,12 +342,13 @@ function switchLang(lang) {
 
   document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
     const key = el.dataset.i18nPlaceholder;
-    if (i18n[lang][key]) el.placeholder = i18n[lang][key];
+    if (i18n[lang] && i18n[lang][key]) el.placeholder = i18n[lang][key];
   });
 
-  // Update dynamic role text via stored keys
-  const role = currentRole || 'admin';
-  updateRoleText(role);
+  const featuredCard = document.querySelector('.pricing-card.featured, .plan-card.featured');
+  if (featuredCard) {
+    featuredCard.dataset.popular = lang === 'tr' ? 'En Popüler' : lang === 'en' ? 'Most Popular' : 'Meest Populair';
+  }
 }
 
 const html=document.documentElement;
