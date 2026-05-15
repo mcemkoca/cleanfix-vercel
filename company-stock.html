@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CleanFix — Stok Yönetimi</title>
+<title data-i18n="title_stock">CleanFix — Stok Yönetimi</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/main.css">
 <link rel="stylesheet" href="css/components.css">
@@ -75,6 +75,21 @@
 .move-preview-bar{height:6px;background:var(--bg-card);border-radius:9999px;overflow:hidden;margin-top:8px;}
 @media (max-width:1024px){.form-row{grid-template-columns:1fr;}}
 @media (max-width:768px){.sidebar{transform:translateX(-100%);}.sidebar.open{transform:translateX(0);}.main-content{margin-left:0;}.hamburger{display:block;}}
+
+.lang-switcher {
+  display:flex; align-items:center; gap:4px;
+  background:var(--bg-card); border:1px solid var(--border-color);
+  border-radius:var(--radius-md); padding:3px; margin-left:12px;
+}
+.lang-switcher button {
+  background:transparent; border:none; color:var(--text-muted);
+  font-size:11px; font-weight:600; cursor:pointer;
+  padding:4px 8px; border-radius:4px; transition:all 0.2s;
+  text-transform:uppercase; font-family:inherit;
+}
+.lang-switcher button:hover { color:var(--text-primary); }
+.lang-switcher button.active { background:var(--teal-500); color:white; }
+
 </style>
 </head>
 <body>
@@ -82,25 +97,32 @@
   <aside class="sidebar" id="sidebar">
     <div class="sidebar-header">
       <div class="sidebar-logo">CF</div>
-      <div><div style="font-weight:700;font-size:var(--text-sm);">CleanFix</div><div style="font-size:var(--text-xs);color:var(--text-muted);">Firma Paneli</div></div>
+      <div><div style="font-weight:700;font-size:var(--text-sm);" data-i18n="cleanfix">CleanFix</div><div style="font-size:var(--text-xs);color:var(--text-muted);" data-i18n="sidebar_company_panel">Firma Paneli</div></div>
     </div>
     <nav class="sidebar-nav">
       <div class="nav-group">
-        <div class="nav-group-header">Ana Menü</div>
-        <a href="company.html" class="nav-item"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>Dashboard</a>
-        <a href="company-bookings.html" class="nav-item"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>Randevular</a>
-        <a href="company-staff.html" class="nav-item"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>Çalışanlar</a>
-        <a href="company-services.html" class="nav-item"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>Hizmetler</a>
-        <a href="company-invoices.html" class="nav-item"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>Faturalar</a>
-        <a href="company-customers.html" class="nav-item"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>Müşteriler</a>
-        <a href="company-stock.html" class="nav-item active"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>Stok</a>
-        <a href="company-reviews.html" class="nav-item"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>Değerlendirmeler</a>
+        <div class="nav-group-header" data-i18n="nav_main_menu">Ana Menü</div>
+        <a href="company.html" class="nav-item" data-i18n="nav_dashboard"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg data-i18n="nav_dashboard">Dashboard</a>
+        <a href="company-bookings.html" class="nav-item" data-i18n="nav_appointments"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg data-i18n="nav_appointments">Randevular</a>
+        <a href="company-staff.html" class="nav-item" data-i18n="nav_staff"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg data-i18n="nav_staff">Çalışanlar</a>
+        <a href="company-services.html" class="nav-item" data-i18n="page_services"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg data-i18n="page_services">Hizmetler</a>
+        <a href="company-invoices.html" class="nav-item" data-i18n="nav_invoices"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg data-i18n="nav_invoices">Faturalar</a>
+        <a href="company-customers.html" class="nav-item" data-i18n="nav_customers"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg data-i18n="nav_customers">Müşteriler</a>
+        <a href="company-stock.html" class="nav-item active" data-i18n="nav_stock"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>Stok</a>
+        <a href="company-reviews.html" class="nav-item" data-i18n="nav_reviews"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg data-i18n="nav_reviews">Değerlendirmeler</a>
       </div>
       <div class="nav-group">
-        <div class="nav-group-header">Ayarlar</div>
-        <a href="company-profile.html" class="nav-item"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Firma Profili</a>
-        <a href="login.html" class="nav-item"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>Çıkış Yap</a>
-      </div>
+        <div class="nav-group-header" data-i18n="card_settings">Ayarlar</div>
+        <a href="company-profile.html" class="nav-item" data-i18n="nav_company_profile"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg data-i18n="nav_company_profile">Firma Profili</a>
+        <a href="login.html" class="nav-item" data-i18n="nav_logout"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg data-i18n="nav_logout">Çıkış Yap</a>
+      
+  <div class="lang-switcher">
+    <button data-lang="tr" class="active" onclick="switchLang('tr')">TR</button>
+    <button data-lang="en" onclick="switchLang('en')">EN</button>
+    <button data-lang="nl" onclick="switchLang('nl')">NL</button>
+  </div>
+
+</div>
     </nav>
   </aside>
 
@@ -108,11 +130,17 @@
     <header class="header">
       <div class="header-left">
         <button class="hamburger" onclick="document.getElementById('sidebar').classList.toggle('open')"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
-        <h1 class="page-title">Stok Yönetimi</h1>
+        <h1 class="page-title" data-i18n="page_stock">Stok Yönetimi</h1>
       </div>
       <div class="header-right">
+        <div class="lang-switcher" style="display:flex;gap:4px;align-items:center;">
+          <button class="lang-btn" data-lang="tr" onclick="switchLang('tr')" style="padding:4px 10px;border-radius:6px;border:1px solid var(--border-color);background:var(--bg-tertiary);color:var(--text-secondary);font-size:var(--text-xs);font-weight:600;cursor:pointer;transition:all .2s;">TR</button>
+          <button class="lang-btn" data-lang="en" onclick="switchLang('en')" style="padding:4px 10px;border-radius:6px;border:1px solid var(--border-color);background:var(--bg-tertiary);color:var(--text-secondary);font-size:var(--text-xs);font-weight:600;cursor:pointer;transition:all .2s;">EN</button>
+          <button class="lang-btn" data-lang="nl" onclick="switchLang('nl')" style="padding:4px 10px;border-radius:6px;border:1px solid var(--border-color);background:var(--bg-tertiary);color:var(--text-secondary);font-size:var(--text-xs);font-weight:600;cursor:pointer;transition:all .2s;">NL</button>
+        </div>
+
         <button class="header-btn" onclick="showToast('Stok raporu güncellendi','success')"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></button>
-        <div style="display:flex;align-items:center;gap:10px;"><div class="avatar" style="width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:var(--text-xs);color:white;background:linear-gradient(135deg,#14b8a6,#0d9488);">CF</div><div><div style="font-weight:600;font-size:var(--text-sm);">CleanFix Demo BV</div><div style="font-size:var(--text-xs);color:var(--text-muted);">Business Plan</div></div></div>
+        <div style="display:flex;align-items:center;gap:10px;"><div class="avatar" style="width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:var(--text-xs);color:white;background:linear-gradient(135deg,#14b8a6,#0d9488);">CF</div><div><div style="font-weight:600;font-size:var(--text-sm);" data-i18n="ui_cleanfix_demo">CleanFix Demo BV</div><div style="font-size:var(--text-xs);color:var(--text-muted);" data-i18n="ui_business_plan">Business Plan</div></div></div>
       </div>
     </header>
 
@@ -120,237 +148,237 @@
       <div class="toolbar">
         <div class="search-box">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-          <input type="text" placeholder="Ürün ara..." id="searchInput">
+          <input type="text" data-i18n-placeholder="search_products" placeholder="Ürün ara..." data-i18n-placeholder="ph_0" id="searchInput">
         </div>
         <div style="display:flex;gap:10px;">
           <select id="catFilter" style="padding:10px 32px 10px 14px;background:var(--bg-card);border:1.5px solid var(--border-color);border-radius:var(--radius-md);color:var(--text-primary);font-size:var(--text-sm);appearance:none;cursor:pointer;">
-            <option value="">Tüm Kategoriler</option>
-            <option value="Temizlik Malzemeleri">Temizlik Malzemeleri</option>
-            <option value="Ekipman">Ekipman</option>
-            <option value="Sarf Malzeme">Sarf Malzeme</option>
-            <option value="Kimyasal">Kimyasal</option>
+            <option value="" data-i18n="filter_all_categories">Tüm Kategoriler</option>
+            <option value="Temizlik Malzemeleri" data-i18n="cat_cleaning_supplies">Temizlik Malzemeleri</option>
+            <option value="Ekipman" data-i18n="cat_equipment">Ekipman</option>
+            <option value="Sarf Malzeme" data-i18n="cat_consumables">Sarf Malzeme</option>
+            <option value="Kimyasal" data-i18n="cat_chemical">Kimyasal</option>
           </select>
           <select id="stockFilter" style="padding:10px 32px 10px 14px;background:var(--bg-card);border:1.5px solid var(--border-color);border-radius:var(--radius-md);color:var(--text-primary);font-size:var(--text-sm);appearance:none;cursor:pointer;">
-            <option value="">Tüm Seviyeler</option>
-            <option value="Yeterli">Yeterli</option>
-            <option value="Az">Az</option>
-            <option value="Kritik">Kritik</option>
+            <option value="" data-i18n="filter_all_levels">Tüm Seviyeler</option>
+            <option value="Yeterli" data-i18n="status_sufficient">Yeterli</option>
+            <option value="Az" data-i18n="status_low">Az</option>
+            <option value="Kritik" data-i18n="status_critical">Kritik</option>
           </select>
-          <button class="btn btn-primary" onclick="openModal('addModal')">+ Yeni Ürün</button>
+          <button class="btn btn-primary" onclick="openModal('addModal')" data-i18n="btn_new_product">+ Yeni Ürün</button>
         </div>
       </div>
 
       <div class="card">
         <div style="padding:0;">
           <table class="table" id="stockTable">
-            <thead><tr><th>Ürün</th><th>Kategori</th><th>Stok Seviyesi</th><th>Eşik (Min/Max)</th><th>Birim</th><th>Durum</th><th>İşlemler</th></tr></thead>
+            <thead><tr><th data-i18n="th_product">Ürün</th><th data-i18n="form_category">Kategori</th><th data-i18n="th_stock_level">Stok Seviyesi</th><th data-i18n="th_threshold">Eşik (Min/Max)</th><th data-i18n="form_unit">Birim</th><th data-i18n="form_status">Durum</th><th data-i18n="th_actions">İşlemler</th></tr></thead>
             <tbody>
               <tr data-id="1">
                 <td><div style="font-weight:600;">Çok Amaçlı Temizleyici</div></td>
-                <td><span class="tag tag-blue">Temizlik Malzemeleri</span></td>
+                <td><span class="tag tag-blue" data-i18n="cat_cleaning_supplies">Temizlik Malzemeleri</span></td>
                 <td>
                   <div style="font-weight:600;">15 adet</div>
                   <div class="stock-bar"><div class="stock-fill" style="width:30%;background:var(--success-500);"></div></div>
-                  <div class="stock-info"><span class="tag tag-green">Yeterli</span></div>
+                  <div class="stock-info"><span class="tag tag-green" data-i18n="status_sufficient">Yeterli</span></div>
                 </td>
                 <td>5 / 50</td>
                 <td style="font-size:var(--text-xs);color:var(--text-muted);">1L şişe</td>
-                <td><span class="tag tag-green">Aktif</span></td>
+                <td><span class="tag tag-green" data-i18n="status_active">Aktif</span></td>
                 <td><div class="actions"><button class="action-btn move" onclick="openMoveModal(1,'in')" title="Stok Girişi"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button><button class="action-btn move" onclick="openMoveModal(1,'out')" title="Stok Çıkışı"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/></svg></button><button class="action-btn edit" onclick="openEditModal(1)" title="Düzenle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(1)" title="Sil"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
               </tr>
               <tr data-id="2">
-                <td><div style="font-weight:600;">Cam Temizleyici</div></td>
-                <td><span class="tag tag-blue">Temizlik Malzemeleri</span></td>
+                <td><div style="font-weight:600;" data-i18n="cam_temizleyici">Cam Temizleyici</div></td>
+                <td><span class="tag tag-blue" data-i18n="cat_cleaning_supplies">Temizlik Malzemeleri</span></td>
                 <td>
                   <div style="font-weight:600;">8 adet</div>
                   <div class="stock-bar"><div class="stock-fill" style="width:20%;background:var(--amber-500);"></div></div>
-                  <div class="stock-info"><span class="tag tag-amber">Az</span></div>
+                  <div class="stock-info"><span class="tag tag-amber" data-i18n="status_low">Az</span></div>
                 </td>
                 <td>5 / 40</td>
                 <td style="font-size:var(--text-xs);color:var(--text-muted);">750ml sprey</td>
-                <td><span class="tag tag-green">Aktif</span></td>
+                <td><span class="tag tag-green" data-i18n="status_active">Aktif</span></td>
                 <td><div class="actions"><button class="action-btn move" onclick="openMoveModal(2,'in')" title="Stok Girişi"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button><button class="action-btn move" onclick="openMoveModal(2,'out')" title="Stok Çıkışı"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/></svg></button><button class="action-btn edit" onclick="openEditModal(2)" title="Düzenle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(2)" title="Sil"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
               </tr>
               <tr data-id="3">
-                <td><div style="font-weight:600;">Banyo Temizleyici</div></td>
-                <td><span class="tag tag-blue">Temizlik Malzemeleri</span></td>
+                <td><div style="font-weight:600;" data-i18n="banyo_temizleyici">Banyo Temizleyici</div></td>
+                <td><span class="tag tag-blue" data-i18n="cat_cleaning_supplies">Temizlik Malzemeleri</span></td>
                 <td>
                   <div style="font-weight:600;">22 adet</div>
                   <div class="stock-bar"><div class="stock-fill" style="width:37%;background:var(--success-500);"></div></div>
-                  <div class="stock-info"><span class="tag tag-green">Yeterli</span></div>
+                  <div class="stock-info"><span class="tag tag-green" data-i18n="status_sufficient">Yeterli</span></div>
                 </td>
                 <td>10 / 60</td>
                 <td style="font-size:var(--text-xs);color:var(--text-muted);">500ml şişe</td>
-                <td><span class="tag tag-green">Aktif</span></td>
+                <td><span class="tag tag-green" data-i18n="status_active">Aktif</span></td>
                 <td><div class="actions"><button class="action-btn move" onclick="openMoveModal(3,'in')" title="Stok Girişi"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button><button class="action-btn move" onclick="openMoveModal(3,'out')" title="Stok Çıkışı"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/></svg></button><button class="action-btn edit" onclick="openEditModal(3)" title="Düzenle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(3)" title="Sil"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
               </tr>
               <tr data-id="4">
-                <td><div style="font-weight:600;">Zemin Cilası</div></td>
-                <td><span class="tag tag-blue">Temizlik Malzemeleri</span></td>
+                <td><div style="font-weight:600;" data-i18n="zemin_cilası">Zemin Cilası</div></td>
+                <td><span class="tag tag-blue" data-i18n="cat_cleaning_supplies">Temizlik Malzemeleri</span></td>
                 <td>
                   <div style="font-weight:600;">3 adet</div>
                   <div class="stock-bar"><div class="stock-fill" style="width:15%;background:var(--success-500);"></div></div>
-                  <div class="stock-info"><span class="tag tag-green">Yeterli</span></div>
+                  <div class="stock-info"><span class="tag tag-green" data-i18n="status_sufficient">Yeterli</span></div>
                 </td>
                 <td>2 / 20</td>
                 <td style="font-size:var(--text-xs);color:var(--text-muted);">5L bidon</td>
-                <td><span class="tag tag-green">Aktif</span></td>
+                <td><span class="tag tag-green" data-i18n="status_active">Aktif</span></td>
                 <td><div class="actions"><button class="action-btn move" onclick="openMoveModal(4,'in')" title="Stok Girişi"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button><button class="action-btn move" onclick="openMoveModal(4,'out')" title="Stok Çıkışı"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/></svg></button><button class="action-btn edit" onclick="openEditModal(4)" title="Düzenle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(4)" title="Sil"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
               </tr>
               <tr data-id="5">
-                <td><div style="font-weight:600;">Vakum Süpürge</div></td>
-                <td><span class="tag tag-green">Ekipman</span></td>
+                <td><div style="font-weight:600;" data-i18n="vakum_süpürge">Vakum Süpürge</div></td>
+                <td><span class="tag tag-green" data-i18n="cat_equipment">Ekipman</span></td>
                 <td>
                   <div style="font-weight:600;">4 adet</div>
                   <div class="stock-bar"><div class="stock-fill" style="width:40%;background:var(--success-500);"></div></div>
-                  <div class="stock-info"><span class="tag tag-green">Yeterli</span></div>
+                  <div class="stock-info"><span class="tag tag-green" data-i18n="status_sufficient">Yeterli</span></div>
                 </td>
                 <td>2 / 10</td>
-                <td style="font-size:var(--text-xs);color:var(--text-muted);">Karcher WD 3</td>
-                <td><span class="tag tag-green">Aktif</span></td>
+                <td style="font-size:var(--text-xs);color:var(--text-muted);" data-i18n="karcher_wd_3">Karcher WD 3</td>
+                <td><span class="tag tag-green" data-i18n="status_active">Aktif</span></td>
                 <td><div class="actions"><button class="action-btn move" onclick="openMoveModal(5,'in')" title="Stok Girişi"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button><button class="action-btn move" onclick="openMoveModal(5,'out')" title="Stok Çıkışı"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/></svg></button><button class="action-btn edit" onclick="openEditModal(5)" title="Düzenle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(5)" title="Sil"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
               </tr>
               <tr data-id="6">
-                <td><div style="font-weight:600;">Buharlı Makine</div></td>
-                <td><span class="tag tag-green">Ekipman</span></td>
+                <td><div style="font-weight:600;" data-i18n="buharlı_makine">Buharlı Makine</div></td>
+                <td><span class="tag tag-green" data-i18n="cat_equipment">Ekipman</span></td>
                 <td>
                   <div style="font-weight:600;">2 adet</div>
                   <div class="stock-bar"><div class="stock-fill" style="width:40%;background:var(--success-500);"></div></div>
-                  <div class="stock-info"><span class="tag tag-green">Yeterli</span></div>
+                  <div class="stock-info"><span class="tag tag-green" data-i18n="status_sufficient">Yeterli</span></div>
                 </td>
                 <td>1 / 5</td>
-                <td style="font-size:var(--text-xs);color:var(--text-muted);">Karcher SC 3</td>
-                <td><span class="tag tag-green">Aktif</span></td>
+                <td style="font-size:var(--text-xs);color:var(--text-muted);" data-i18n="karcher_sc_3">Karcher SC 3</td>
+                <td><span class="tag tag-green" data-i18n="status_active">Aktif</span></td>
                 <td><div class="actions"><button class="action-btn move" onclick="openMoveModal(6,'in')" title="Stok Girişi"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button><button class="action-btn move" onclick="openMoveModal(6,'out')" title="Stok Çıkışı"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/></svg></button><button class="action-btn edit" onclick="openEditModal(6)" title="Düzenle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(6)" title="Sil"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
               </tr>
               <tr data-id="7">
-                <td><div style="font-weight:600;">Zemin Yıkama Makinesi</div></td>
-                <td><span class="tag tag-green">Ekipman</span></td>
+                <td><div style="font-weight:600;" data-i18n="zemin_yıkama_makinesi">Zemin Yıkama Makinesi</div></td>
+                <td><span class="tag tag-green" data-i18n="cat_equipment">Ekipman</span></td>
                 <td>
                   <div style="font-weight:600;">1 adet</div>
                   <div class="stock-bar"><div class="stock-fill" style="width:33%;background:var(--success-500);"></div></div>
-                  <div class="stock-info"><span class="tag tag-green">Yeterli</span></div>
+                  <div class="stock-info"><span class="tag tag-green" data-i18n="status_sufficient">Yeterli</span></div>
                 </td>
                 <td>1 / 3</td>
-                <td style="font-size:var(--text-xs);color:var(--text-muted);">Tennant T300</td>
-                <td><span class="tag tag-green">Aktif</span></td>
+                <td style="font-size:var(--text-xs);color:var(--text-muted);" data-i18n="tennant_t300">Tennant T300</td>
+                <td><span class="tag tag-green" data-i18n="status_active">Aktif</span></td>
                 <td><div class="actions"><button class="action-btn move" onclick="openMoveModal(7,'in')" title="Stok Girişi"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button><button class="action-btn move" onclick="openMoveModal(7,'out')" title="Stok Çıkışı"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/></svg></button><button class="action-btn edit" onclick="openEditModal(7)" title="Düzenle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(7)" title="Sil"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
               </tr>
               <tr data-id="8">
-                <td><div style="font-weight:600;">Mikrofiber Mop</div></td>
-                <td><span class="tag tag-green">Ekipman</span></td>
+                <td><div style="font-weight:600;" data-i18n="mikrofiber_mop">Mikrofiber Mop</div></td>
+                <td><span class="tag tag-green" data-i18n="cat_equipment">Ekipman</span></td>
                 <td>
                   <div style="font-weight:600;">12 adet</div>
                   <div class="stock-bar"><div class="stock-fill" style="width:40%;background:var(--success-500);"></div></div>
-                  <div class="stock-info"><span class="tag tag-green">Yeterli</span></div>
+                  <div class="stock-info"><span class="tag tag-green" data-i18n="status_sufficient">Yeterli</span></div>
                 </td>
                 <td>5 / 30</td>
-                <td style="font-size:var(--text-xs);color:var(--text-muted);">Profesyonel</td>
-                <td><span class="tag tag-green">Aktif</span></td>
+                <td style="font-size:var(--text-xs);color:var(--text-muted);" data-i18n="profesyonel">Profesyonel</td>
+                <td><span class="tag tag-green" data-i18n="status_active">Aktif</span></td>
                 <td><div class="actions"><button class="action-btn move" onclick="openMoveModal(8,'in')" title="Stok Girişi"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button><button class="action-btn move" onclick="openMoveModal(8,'out')" title="Stok Çıkışı"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/></svg></button><button class="action-btn edit" onclick="openEditModal(8)" title="Düzenle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(8)" title="Sil"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
               </tr>
               <tr data-id="9">
-                <td><div style="font-weight:600;">Mikrofiber Bez</div></td>
-                <td><span class="tag tag-amber">Sarf Malzeme</span></td>
+                <td><div style="font-weight:600;" data-i18n="mikrofiber_bez">Mikrofiber Bez</div></td>
+                <td><span class="tag tag-amber" data-i18n="cat_consumables">Sarf Malzeme</span></td>
                 <td>
                   <div style="font-weight:600;">45 adet</div>
                   <div class="stock-bar"><div class="stock-fill" style="width:45%;background:var(--success-500);"></div></div>
-                  <div class="stock-info"><span class="tag tag-green">Yeterli</span></div>
+                  <div class="stock-info"><span class="tag tag-green" data-i18n="status_sufficient">Yeterli</span></div>
                 </td>
                 <td>20 / 100</td>
-                <td style="font-size:var(--text-xs);color:var(--text-muted);">Paket (10 adet)</td>
-                <td><span class="tag tag-green">Aktif</span></td>
+                <td style="font-size:var(--text-xs);color:var(--text-muted);" data-i18n="paket_10_adet">Paket (10 adet)</td>
+                <td><span class="tag tag-green" data-i18n="status_active">Aktif</span></td>
                 <td><div class="actions"><button class="action-btn move" onclick="openMoveModal(9,'in')" title="Stok Girişi"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button><button class="action-btn move" onclick="openMoveModal(9,'out')" title="Stok Çıkışı"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/></svg></button><button class="action-btn edit" onclick="openEditModal(9)" title="Düzenle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(9)" title="Sil"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
               </tr>
               <tr data-id="10">
-                <td><div style="font-weight:600;">Mop Başlığı</div></td>
-                <td><span class="tag tag-amber">Sarf Malzeme</span></td>
+                <td><div style="font-weight:600;" data-i18n="mop_başlığı">Mop Başlığı</div></td>
+                <td><span class="tag tag-amber" data-i18n="cat_consumables">Sarf Malzeme</span></td>
                 <td>
                   <div style="font-weight:600;">18 adet</div>
                   <div class="stock-bar"><div class="stock-fill" style="width:36%;background:var(--success-500);"></div></div>
-                  <div class="stock-info"><span class="tag tag-green">Yeterli</span></div>
+                  <div class="stock-info"><span class="tag tag-green" data-i18n="status_sufficient">Yeterli</span></div>
                 </td>
                 <td>10 / 50</td>
                 <td style="font-size:var(--text-xs);color:var(--text-muted);">Yedek</td>
-                <td><span class="tag tag-green">Aktif</span></td>
+                <td><span class="tag tag-green" data-i18n="status_active">Aktif</span></td>
                 <td><div class="actions"><button class="action-btn move" onclick="openMoveModal(10,'in')" title="Stok Girişi"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button><button class="action-btn move" onclick="openMoveModal(10,'out')" title="Stok Çıkışı"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/></svg></button><button class="action-btn edit" onclick="openEditModal(10)" title="Düzenle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(10)" title="Sil"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
               </tr>
               <tr data-id="11">
-                <td><div style="font-weight:600;">Eldiven</div></td>
-                <td><span class="tag tag-amber">Sarf Malzeme</span></td>
+                <td><div style="font-weight:600;" data-i18n="eldiven">Eldiven</div></td>
+                <td><span class="tag tag-amber" data-i18n="cat_consumables">Sarf Malzeme</span></td>
                 <td>
                   <div style="font-weight:600;">8 adet</div>
                   <div class="stock-bar"><div class="stock-fill" style="width:27%;background:var(--amber-500);"></div></div>
-                  <div class="stock-info"><span class="tag tag-amber">Az</span></div>
+                  <div class="stock-info"><span class="tag tag-amber" data-i18n="status_low">Az</span></div>
                 </td>
                 <td>5 / 30</td>
-                <td style="font-size:var(--text-xs);color:var(--text-muted);">Nitril (100'lü)</td>
-                <td><span class="tag tag-green">Aktif</span></td>
+                <td style="font-size:var(--text-xs);color:var(--text-muted);" data-i18n="nitril_100lü">Nitril (100'lü)</td>
+                <td><span class="tag tag-green" data-i18n="status_active">Aktif</span></td>
                 <td><div class="actions"><button class="action-btn move" onclick="openMoveModal(11,'in')" title="Stok Girişi"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button><button class="action-btn move" onclick="openMoveModal(11,'out')" title="Stok Çıkışı"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/></svg></button><button class="action-btn edit" onclick="openEditModal(11)" title="Düzenle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(11)" title="Sil"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
               </tr>
               <tr data-id="12">
                 <td><div style="font-weight:600;">Çöp Torbası</div></td>
-                <td><span class="tag tag-amber">Sarf Malzeme</span></td>
+                <td><span class="tag tag-amber" data-i18n="cat_consumables">Sarf Malzeme</span></td>
                 <td>
                   <div style="font-weight:600;">6 adet</div>
                   <div class="stock-bar"><div class="stock-fill" style="width:12%;background:var(--error-500);"></div></div>
-                  <div class="stock-info"><span class="tag tag-red">Kritik</span></div>
+                  <div class="stock-info"><span class="tag tag-red" data-i18n="status_critical">Kritik</span></div>
                 </td>
                 <td>10 / 50</td>
                 <td style="font-size:var(--text-xs);color:var(--text-muted);">120L (25'li)</td>
-                <td><span class="tag tag-green">Aktif</span></td>
+                <td><span class="tag tag-green" data-i18n="status_active">Aktif</span></td>
                 <td><div class="actions"><button class="action-btn move" onclick="openMoveModal(12,'in')" title="Stok Girişi"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button><button class="action-btn move" onclick="openMoveModal(12,'out')" title="Stok Çıkışı"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/></svg></button><button class="action-btn edit" onclick="openEditModal(12)" title="Düzenle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(12)" title="Sil"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
               </tr>
               <tr data-id="13">
-                <td><div style="font-weight:600;">Dezenfektan</div></td>
-                <td><span class="tag tag-purple">Kimyasal</span></td>
+                <td><div style="font-weight:600;" data-i18n="dezenfektan">Dezenfektan</div></td>
+                <td><span class="tag tag-purple" data-i18n="cat_chemical">Kimyasal</span></td>
                 <td>
                   <div style="font-weight:600;">4 adet</div>
                   <div class="stock-bar"><div class="stock-fill" style="width:27%;background:var(--success-500);"></div></div>
-                  <div class="stock-info"><span class="tag tag-green">Yeterli</span></div>
+                  <div class="stock-info"><span class="tag tag-green" data-i18n="status_sufficient">Yeterli</span></div>
                 </td>
                 <td>3 / 15</td>
                 <td style="font-size:var(--text-xs);color:var(--text-muted);">5L bidon</td>
-                <td><span class="tag tag-green">Aktif</span></td>
+                <td><span class="tag tag-green" data-i18n="status_active">Aktif</span></td>
                 <td><div class="actions"><button class="action-btn move" onclick="openMoveModal(13,'in')" title="Stok Girişi"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button><button class="action-btn move" onclick="openMoveModal(13,'out')" title="Stok Çıkışı"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/></svg></button><button class="action-btn edit" onclick="openEditModal(13)" title="Düzenle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(13)" title="Sil"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
               </tr>
               <tr data-id="14">
-                <td><div style="font-weight:600;">Leke Çıkarıcı</div></td>
-                <td><span class="tag tag-purple">Kimyasal</span></td>
+                <td><div style="font-weight:600;" data-i18n="leke_çıkarıcı">Leke Çıkarıcı</div></td>
+                <td><span class="tag tag-purple" data-i18n="cat_chemical">Kimyasal</span></td>
                 <td>
                   <div style="font-weight:600;">9 adet</div>
                   <div class="stock-bar"><div class="stock-fill" style="width:36%;background:var(--success-500);"></div></div>
-                  <div class="stock-info"><span class="tag tag-green">Yeterli</span></div>
+                  <div class="stock-info"><span class="tag tag-green" data-i18n="status_sufficient">Yeterli</span></div>
                 </td>
                 <td>5 / 25</td>
                 <td style="font-size:var(--text-xs);color:var(--text-muted);">500ml şişe</td>
-                <td><span class="tag tag-green">Aktif</span></td>
+                <td><span class="tag tag-green" data-i18n="status_active">Aktif</span></td>
                 <td><div class="actions"><button class="action-btn move" onclick="openMoveModal(14,'in')" title="Stok Girişi"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button><button class="action-btn move" onclick="openMoveModal(14,'out')" title="Stok Çıkışı"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/></svg></button><button class="action-btn edit" onclick="openEditModal(14)" title="Düzenle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(14)" title="Sil"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
               </tr>
               <tr data-id="15">
-                <td><div style="font-weight:600;">Kireç Çözücü</div></td>
-                <td><span class="tag tag-purple">Kimyasal</span></td>
+                <td><div style="font-weight:600;" data-i18n="kireç_çözücü">Kireç Çözücü</div></td>
+                <td><span class="tag tag-purple" data-i18n="cat_chemical">Kimyasal</span></td>
                 <td>
                   <div style="font-weight:600;">14 adet</div>
                   <div class="stock-bar"><div class="stock-fill" style="width:47%;background:var(--success-500);"></div></div>
-                  <div class="stock-info"><span class="tag tag-green">Yeterli</span></div>
+                  <div class="stock-info"><span class="tag tag-green" data-i18n="status_sufficient">Yeterli</span></div>
                 </td>
                 <td>5 / 30</td>
                 <td style="font-size:var(--text-xs);color:var(--text-muted);">1L şişe</td>
-                <td><span class="tag tag-gray">Pasif</span></td>
+                <td><span class="tag tag-gray" data-i18n="status_inactive">Pasif</span></td>
                 <td><div class="actions"><button class="action-btn move" onclick="openMoveModal(15,'in')" title="Stok Girişi"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button><button class="action-btn move" onclick="openMoveModal(15,'out')" title="Stok Çıkışı"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/></svg></button><button class="action-btn edit" onclick="openEditModal(15)" title="Düzenle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(15)" title="Sil"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
               </tr>
               <tr data-id="16">
-                <td><div style="font-weight:600;">Parlatıcı</div></td>
-                <td><span class="tag tag-purple">Kimyasal</span></td>
+                <td><div style="font-weight:600;" data-i18n="parlatıcı">Parlatıcı</div></td>
+                <td><span class="tag tag-purple" data-i18n="cat_chemical">Kimyasal</span></td>
                 <td>
                   <div style="font-weight:600;">7 adet</div>
                   <div class="stock-bar"><div class="stock-fill" style="width:35%;background:var(--success-500);"></div></div>
-                  <div class="stock-info"><span class="tag tag-green">Yeterli</span></div>
+                  <div class="stock-info"><span class="tag tag-green" data-i18n="status_sufficient">Yeterli</span></div>
                 </td>
                 <td>5 / 20</td>
                 <td style="font-size:var(--text-xs);color:var(--text-muted);">750ml sprey</td>
-                <td><span class="tag tag-green">Aktif</span></td>
+                <td><span class="tag tag-green" data-i18n="status_active">Aktif</span></td>
                 <td><div class="actions"><button class="action-btn move" onclick="openMoveModal(16,'in')" title="Stok Girişi"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button><button class="action-btn move" onclick="openMoveModal(16,'out')" title="Stok Çıkışı"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/></svg></button><button class="action-btn edit" onclick="openEditModal(16)" title="Düzenle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(16)" title="Sil"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
               </tr>
             </tbody>
@@ -364,24 +392,24 @@
 <!-- Add Modal -->
 <div class="modal-overlay" id="addModal">
   <div class="modal">
-    <div class="modal-header"><span class="modal-title">Yeni Ürün Ekle</span><button class="modal-close" onclick="closeModal('addModal')">✕</button></div>
+    <div class="modal-header"><span class="modal-title" data-i18n="modal_add_product">Yeni Ürün Ekle</span><button class="modal-close" onclick="closeModal('addModal')">✕</button></div>
     <div class="modal-body">
-      <div class="form-group"><label class="form-label">Ürün Adı</label><input type="text" class="form-input" placeholder="Örn: Çok Amaçlı Temizleyici" id="addName"></div>
+      <div class="form-group"><label class="form-label">Ürün Adı</label><input type="text" class="form-input" data-i18n-placeholder="ph_1" placeholder="Örn: Çok Amaçlı Temizleyici" data-i18n-placeholder="ph_1" id="addName"></div>
       <div class="form-row">
-        <div class="form-group"><label class="form-label">Kategori</label><select class="form-input" id="addCat"><option value="">Seçin...</option><option>Temizlik Malzemeleri</option><option>Ekipman</option><option>Sarf Malzeme</option><option>Kimyasal</option></select></div>
-        <div class="form-group"><label class="form-label">Durum</label><select class="form-input" id="addStatus"><option value="active">Aktif</option><option value="passive">Pasif</option></select></div>
+        <div class="form-group"><label class="form-label" data-i18n="form_category">Kategori</label><select class="form-input" id="addCat"><option value="" data-i18n="seçin">Seçin...</option><option data-i18n="cat_cleaning_supplies">Temizlik Malzemeleri</option><option data-i18n="cat_equipment">Ekipman</option><option data-i18n="cat_consumables">Sarf Malzeme</option><option data-i18n="cat_chemical">Kimyasal</option></select></div>
+        <div class="form-group"><label class="form-label" data-i18n="form_status">Durum</label><select class="form-input" id="addStatus"><option value="active" data-i18n="status_active">Aktif</option><option value="passive" data-i18n="status_inactive">Pasif</option></select></div>
       </div>
-      <div class="form-group"><label class="form-label">Birim Açıklaması</label><input type="text" class="form-input" placeholder="Örn: 1L şişe, Paket (10 adet), Karcher WD 3" id="addUnit"></div>
+      <div class="form-group"><label class="form-label" data-i18n="birim_açıklaması">Birim Açıklaması</label><input type="text" class="form-input" data-i18n-placeholder="ph_2" placeholder="Örn: 1L şişe, Paket (10 adet), Karcher WD 3" data-i18n-placeholder="ph_2" id="addUnit"></div>
       <div class="form-row">
-        <div class="form-group"><label class="form-label">Mevcut Stok</label><input type="number" class="form-input" placeholder="0" id="addQty" min="0"></div>
-        <div class="form-group"><label class="form-label">Minimum Eşik</label><input type="number" class="form-input" placeholder="5" id="addMin" min="0"></div>
+        <div class="form-group"><label class="form-label" data-i18n="mevcut_stok">Mevcut Stok</label><input type="number" class="form-input" placeholder="0" id="addQty" min="0"></div>
+        <div class="form-group"><label class="form-label" data-i18n="minimum_eşik">Minimum Eşik</label><input type="number" class="form-input" placeholder="5" id="addMin" min="0"></div>
       </div>
       <div class="form-row">
-        <div class="form-group"><label class="form-label">Maksimum Eşik</label><input type="number" class="form-input" placeholder="50" id="addMax" min="1"></div>
+        <div class="form-group"><label class="form-label" data-i18n="maksimum_eşik">Maksimum Eşik</label><input type="number" class="form-input" placeholder="50" id="addMax" min="1"></div>
       </div>
     </div>
     <div class="modal-footer">
-      <button class="btn btn-secondary" onclick="closeModal('addModal')">İptal</button>
+      <button class="btn btn-secondary" onclick="closeModal('addModal')" data-i18n="btn_cancel">İptal</button>
       <button class="btn btn-primary" onclick="addProduct()">Ürün Ekle</button>
     </div>
   </div>
@@ -390,26 +418,26 @@
 <!-- Edit Modal -->
 <div class="modal-overlay" id="editModal">
   <div class="modal">
-    <div class="modal-header"><span class="modal-title">Ürün Düzenle</span><button class="modal-close" onclick="closeModal('editModal')">✕</button></div>
+    <div class="modal-header"><span class="modal-title" data-i18n="modal_edit_product">Ürün Düzenle</span><button class="modal-close" onclick="closeModal('editModal')">✕</button></div>
     <div class="modal-body">
       <input type="hidden" id="editId">
       <div class="form-group"><label class="form-label">Ürün Adı</label><input type="text" class="form-input" id="editName"></div>
       <div class="form-row">
-        <div class="form-group"><label class="form-label">Kategori</label><select class="form-input" id="editCat"><option>Temizlik Malzemeleri</option><option>Ekipman</option><option>Sarf Malzeme</option><option>Kimyasal</option></select></div>
-        <div class="form-group"><label class="form-label">Durum</label><select class="form-input" id="editStatus"><option value="active">Aktif</option><option value="passive">Pasif</option></select></div>
+        <div class="form-group"><label class="form-label" data-i18n="form_category">Kategori</label><select class="form-input" id="editCat"><option data-i18n="cat_cleaning_supplies">Temizlik Malzemeleri</option><option data-i18n="cat_equipment">Ekipman</option><option data-i18n="cat_consumables">Sarf Malzeme</option><option data-i18n="cat_chemical">Kimyasal</option></select></div>
+        <div class="form-group"><label class="form-label" data-i18n="form_status">Durum</label><select class="form-input" id="editStatus"><option value="active" data-i18n="status_active">Aktif</option><option value="passive" data-i18n="status_inactive">Pasif</option></select></div>
       </div>
-      <div class="form-group"><label class="form-label">Birim Açıklaması</label><input type="text" class="form-input" id="editUnit"></div>
+      <div class="form-group"><label class="form-label" data-i18n="birim_açıklaması">Birim Açıklaması</label><input type="text" class="form-input" id="editUnit"></div>
       <div class="form-row">
-        <div class="form-group"><label class="form-label">Mevcut Stok</label><input type="number" class="form-input" id="editQty" min="0"></div>
-        <div class="form-group"><label class="form-label">Minimum Eşik</label><input type="number" class="form-input" id="editMin" min="0"></div>
+        <div class="form-group"><label class="form-label" data-i18n="mevcut_stok">Mevcut Stok</label><input type="number" class="form-input" id="editQty" min="0"></div>
+        <div class="form-group"><label class="form-label" data-i18n="minimum_eşik">Minimum Eşik</label><input type="number" class="form-input" id="editMin" min="0"></div>
       </div>
       <div class="form-row">
-        <div class="form-group"><label class="form-label">Maksimum Eşik</label><input type="number" class="form-input" id="editMax" min="1"></div>
+        <div class="form-group"><label class="form-label" data-i18n="maksimum_eşik">Maksimum Eşik</label><input type="number" class="form-input" id="editMax" min="1"></div>
       </div>
     </div>
     <div class="modal-footer">
-      <button class="btn btn-secondary" onclick="closeModal('editModal')">İptal</button>
-      <button class="btn btn-primary" onclick="saveEdit()">Kaydet</button>
+      <button class="btn btn-secondary" onclick="closeModal('editModal')" data-i18n="btn_cancel">İptal</button>
+      <button class="btn btn-primary" onclick="saveEdit()" data-i18n="btn_save">Kaydet</button>
     </div>
   </div>
 </div>
@@ -417,24 +445,24 @@
 <!-- Move Modal -->
 <div class="modal-overlay" id="moveModal">
   <div class="modal" style="max-width:460px;">
-    <div class="modal-header"><span class="modal-title" id="moveTitle">Stok Girişi</span><button class="modal-close" onclick="closeModal('moveModal')">✕</button></div>
+    <div class="modal-header"><span class="modal-title" id="moveTitle" data-i18n="btn_stock_in">Stok Girişi</span><button class="modal-close" onclick="closeModal('moveModal')">✕</button></div>
     <div class="modal-body">
       <input type="hidden" id="moveId">
       <input type="hidden" id="moveType">
       <input type="hidden" id="moveCurrent">
       <input type="hidden" id="moveMin">
       <input type="hidden" id="moveMax">
-      <div class="form-group"><label class="form-label">Miktar</label><input type="number" class="form-input" placeholder="1" id="moveQty" min="1" oninput="updateMovePreview()"></div>
-      <div class="form-group"><label class="form-label">Açıklama</label><input type="text" class="form-input" placeholder="Tedarik / Kullanım nedeni..." id="moveDesc"></div>
+      <div class="form-group"><label class="form-label" data-i18n="form_quantity">Miktar</label><input type="number" class="form-input" placeholder="1" id="moveQty" min="1" oninput="updateMovePreview()"></div>
+      <div class="form-group"><label class="form-label" data-i18n="form_description">Açıklama</label><input type="text" class="form-input" data-i18n-placeholder="ph_3" placeholder="Tedarik / Kullanım nedeni..." data-i18n-placeholder="ph_3" id="moveDesc"></div>
       <div class="move-preview" id="movePreview" style="display:none;">
-        <div style="display:flex;justify-content:space-between;margin-bottom:4px;"><span style="color:var(--text-muted);">Mevcut:</span><span id="previewCurrent" style="font-weight:600;"></span></div>
-        <div style="display:flex;justify-content:space-between;margin-bottom:4px;"><span style="color:var(--text-muted);">Sonuç:</span><span id="previewResult" style="font-weight:600;"></span></div>
+        <div style="display:flex;justify-content:space-between;margin-bottom:4px;"><span style="color:var(--text-muted);" data-i18n="mevcut">Mevcut:</span><span id="previewCurrent" style="font-weight:600;"></span></div>
+        <div style="display:flex;justify-content:space-between;margin-bottom:4px;"><span style="color:var(--text-muted);" data-i18n="sonuç">Sonuç:</span><span id="previewResult" style="font-weight:600;"></span></div>
         <div class="move-preview-bar"><div id="previewBar" style="height:100%;border-radius:9999px;transition:width 0.3s ease;"></div></div>
         <div style="margin-top:6px;font-size:var(--text-xs);color:var(--text-muted);" id="previewStatus"></div>
       </div>
     </div>
     <div class="modal-footer">
-      <button class="btn btn-secondary" onclick="closeModal('moveModal')">İptal</button>
+      <button class="btn btn-secondary" onclick="closeModal('moveModal')" data-i18n="btn_cancel">İptal</button>
       <button class="btn btn-primary" onclick="submitMove()">Onayla</button>
     </div>
   </div>
@@ -446,8 +474,8 @@
     <div class="modal-header"><span class="modal-title" style="color:var(--error-500);">Ürün Sil</span><button class="modal-close" onclick="closeModal('deleteModal')">✕</button></div>
     <div class="modal-body"><p style="font-size:var(--text-sm);color:var(--text-secondary);line-height:1.6;"><strong id="deleteTarget"></strong> ürününü silmek üzeresiniz. Bu işlem geri alınamaz.</p></div>
     <div class="modal-footer">
-      <button class="btn btn-secondary" onclick="closeModal('deleteModal')">İptal</button>
-      <button class="btn btn-danger" onclick="confirmDelete()" style="background:var(--error-500);color:white;">Evet, Sil</button>
+      <button class="btn btn-secondary" onclick="closeModal('deleteModal')" data-i18n="btn_cancel">İptal</button>
+      <button class="btn btn-danger" onclick="confirmDelete()" style="background:var(--error-500);color:white;" data-i18n="evet_sil">Evet, Sil</button>
     </div>
   </div>
 </div>
@@ -667,6 +695,1565 @@ document.getElementById('stockFilter').addEventListener('change',function(){
     r.style.display=status===v?'':'none';
   });
 });
+</script>
+
+
+
+<script>
+/* ═══════════════════════════════════════════
+   CleanFix i18n — Trilingual System (TR/EN/NL)
+   ═══════════════════════════════════════════ */
+const i18n = {
+  "nav_dashboard": {
+    "tr": "Dashboard",
+    "en": "Dashboard",
+    "nl": "Dashboard"
+  },
+  "nav_appointments": {
+    "tr": "Randevular",
+    "en": "Appointments",
+    "nl": "Afspraken"
+  },
+  "nav_staff": {
+    "tr": "Çalışanlar",
+    "en": "Staff",
+    "nl": "Personeel"
+  },
+  "nav_services": {
+    "tr": "Hizmetler",
+    "en": "Services",
+    "nl": "Diensten"
+  },
+  "nav_invoices": {
+    "tr": "Faturalar",
+    "en": "Invoices",
+    "nl": "Facturen"
+  },
+  "nav_customers": {
+    "tr": "Müşteriler",
+    "en": "Customers",
+    "nl": "Klanten"
+  },
+  "nav_stock": {
+    "tr": "Stok",
+    "en": "Stock",
+    "nl": "Voorraad"
+  },
+  "nav_reviews": {
+    "tr": "Değerlendirmeler",
+    "en": "Reviews",
+    "nl": "Beoordelingen"
+  },
+  "nav_equipment": {
+    "tr": "Ekipman",
+    "en": "Equipment",
+    "nl": "Apparatuur"
+  },
+  "nav_quality": {
+    "tr": "Kalite Kontrol",
+    "en": "Quality Control",
+    "nl": "Kwaliteitscontrole"
+  },
+  "nav_expenses": {
+    "tr": "Giderler",
+    "en": "Expenses",
+    "nl": "Kosten"
+  },
+  "nav_sectors": {
+    "tr": "Sektörler",
+    "en": "Sectors",
+    "nl": "Sectoren"
+  },
+  "nav_tools": {
+    "tr": "Araçlar",
+    "en": "Tools",
+    "nl": "Gereedschap"
+  },
+  "nav_vehicles": {
+    "tr": "Araçlar",
+    "en": "Vehicles",
+    "nl": "Voertuigen"
+  },
+  "nav_company_profile": {
+    "tr": "Firma Profili",
+    "en": "Company Profile",
+    "nl": "Bedrijfsprofiel"
+  },
+  "nav_logout": {
+    "tr": "Çıkış Yap",
+    "en": "Log Out",
+    "nl": "Uitloggen"
+  },
+  "nav_main_menu": {
+    "tr": "Ana Menü",
+    "en": "Main Menu",
+    "nl": "Hoofdmenu"
+  },
+  "nav_settings": {
+    "tr": "Ayarlar",
+    "en": "Settings",
+    "nl": "Instellingen"
+  },
+  "sidebar_company_panel": {
+    "tr": "Firma Paneli",
+    "en": "Company Panel",
+    "nl": "Bedrijfspaneel"
+  },
+  "sidebar_customer_portal": {
+    "tr": "Müşteri Portalı",
+    "en": "Customer Portal",
+    "nl": "Klantenportaal"
+  },
+  "title_services": {
+    "tr": "CleanFix — Hizmet Yönetimi",
+    "en": "CleanFix — Service Management",
+    "nl": "CleanFix — Dienstbeheer"
+  },
+  "title_stock": {
+    "tr": "CleanFix — Stok Yönetimi",
+    "en": "CleanFix — Stock Management",
+    "nl": "CleanFix — Voorraadbeheer"
+  },
+  "title_sectors": {
+    "tr": "CleanFix — Sektör Yönetimi",
+    "en": "CleanFix — Sector Management",
+    "nl": "CleanFix — Sectorbeheer"
+  },
+  "title_tools": {
+    "tr": "CleanFix — Araç Kutusu",
+    "en": "CleanFix — Toolkit",
+    "nl": "CleanFix — Gereedschapskist"
+  },
+  "title_portal": {
+    "tr": "CleanFix — Müşteri Portalı",
+    "en": "CleanFix — Customer Portal",
+    "nl": "CleanFix — Klantenportaal"
+  },
+  "page_services": {
+    "tr": "Hizmetler",
+    "en": "Services",
+    "nl": "Diensten"
+  },
+  "page_stock": {
+    "tr": "Stok Yönetimi",
+    "en": "Stock Management",
+    "nl": "Voorraadbeheer"
+  },
+  "page_sectors": {
+    "tr": "Sektör Yönetimi",
+    "en": "Sector Management",
+    "nl": "Sectorbeheer"
+  },
+  "page_tools": {
+    "tr": "Araç Kutusu",
+    "en": "Toolkit",
+    "nl": "Gereedschapskist"
+  },
+  "page_portal": {
+    "tr": "Müşteri Portalı",
+    "en": "Customer Portal",
+    "nl": "Klantenportaal"
+  },
+  "btn_new_service": {
+    "tr": "+ Yeni Hizmet",
+    "en": "+ New Service",
+    "nl": "+ Nieuwe Dienst"
+  },
+  "btn_new_product": {
+    "tr": "+ Yeni Ürün",
+    "en": "+ New Product",
+    "nl": "+ Nieuw Product"
+  },
+  "btn_new_sector": {
+    "tr": "+ Yeni Sektör",
+    "en": "+ New Sector",
+    "nl": "+ Nieuwe Sector"
+  },
+  "btn_save": {
+    "tr": "Kaydet",
+    "en": "Save",
+    "nl": "Opslaan"
+  },
+  "btn_close": {
+    "tr": "Kapat",
+    "en": "Close",
+    "nl": "Sluiten"
+  },
+  "btn_cancel": {
+    "tr": "İptal",
+    "en": "Cancel",
+    "nl": "Annuleren"
+  },
+  "btn_send": {
+    "tr": "Gönder",
+    "en": "Send",
+    "nl": "Verzenden"
+  },
+  "btn_login": {
+    "tr": "Giriş Yap",
+    "en": "Log In",
+    "nl": "Inloggen"
+  },
+  "btn_edit": {
+    "tr": "Düzenle",
+    "en": "Edit",
+    "nl": "Bewerken"
+  },
+  "btn_delete": {
+    "tr": "Sil",
+    "en": "Delete",
+    "nl": "Verwijderen"
+  },
+  "btn_stock_in": {
+    "tr": "Stok Girişi",
+    "en": "Stock In",
+    "nl": "Voorraadin"
+  },
+  "btn_stock_out": {
+    "tr": "Stok Çıkışı",
+    "en": "Stock Out",
+    "nl": "Voorraaduit"
+  },
+  "btn_sync": {
+    "tr": "Senkronize Et",
+    "en": "Synchronize",
+    "nl": "Synchroniseren"
+  },
+  "btn_export": {
+    "tr": "Dışa Aktar",
+    "en": "Export",
+    "nl": "Exporteren"
+  },
+  "btn_print": {
+    "tr": "Yazdır",
+    "en": "Print",
+    "nl": "Afdrukken"
+  },
+  "btn_create_ticket": {
+    "tr": "Talep Gönder",
+    "en": "Send Request",
+    "nl": "Verzoek verzenden"
+  },
+  "th_service_name": {
+    "tr": "Hizmet Adı",
+    "en": "Service Name",
+    "nl": "Dienstnaam"
+  },
+  "th_category": {
+    "tr": "Kategori",
+    "en": "Category",
+    "nl": "Categorie"
+  },
+  "th_subcategory": {
+    "tr": "Alt Kategori",
+    "en": "Subcategory",
+    "nl": "Subcategorie"
+  },
+  "th_duration": {
+    "tr": "Süre",
+    "en": "Duration",
+    "nl": "Duur"
+  },
+  "th_price": {
+    "tr": "Fiyat",
+    "en": "Price",
+    "nl": "Prijs"
+  },
+  "th_status": {
+    "tr": "Durum",
+    "en": "Status",
+    "nl": "Status"
+  },
+  "th_actions": {
+    "tr": "İşlemler",
+    "en": "Actions",
+    "nl": "Acties"
+  },
+  "th_product": {
+    "tr": "Ürün",
+    "en": "Product",
+    "nl": "Product"
+  },
+  "th_stock_level": {
+    "tr": "Stok Seviyesi",
+    "en": "Stock Level",
+    "nl": "Voorraadniveau"
+  },
+  "th_threshold": {
+    "tr": "Eşik (Min/Max)",
+    "en": "Threshold (Min/Max)",
+    "nl": "Drempel (Min/Max)"
+  },
+  "th_unit": {
+    "tr": "Birim",
+    "en": "Unit",
+    "nl": "Eenheid"
+  },
+  "th_company": {
+    "tr": "Firma",
+    "en": "Company",
+    "nl": "Bedrijf"
+  },
+  "th_contact": {
+    "tr": "İletişim",
+    "en": "Contact",
+    "nl": "Contact"
+  },
+  "th_date": {
+    "tr": "Tarih",
+    "en": "Date",
+    "nl": "Datum"
+  },
+  "th_amount": {
+    "tr": "Tutar",
+    "en": "Amount",
+    "nl": "Bedrag"
+  },
+  "th_invoice": {
+    "tr": "Fatura",
+    "en": "Invoice",
+    "nl": "Factuur"
+  },
+  "th_payment": {
+    "tr": "Ödeme",
+    "en": "Payment",
+    "nl": "Betaling"
+  },
+  "th_priority": {
+    "tr": "Öncelik",
+    "en": "Priority",
+    "nl": "Prioriteit"
+  },
+  "th_subject": {
+    "tr": "Konu",
+    "en": "Subject",
+    "nl": "Onderwerp"
+  },
+  "th_type": {
+    "tr": "Tür",
+    "en": "Type",
+    "nl": "Type"
+  },
+  "th_staff": {
+    "tr": "Personel",
+    "en": "Staff",
+    "nl": "Personeel"
+  },
+  "th_customer": {
+    "tr": "Müşteri",
+    "en": "Customer",
+    "nl": "Klant"
+  },
+  "th_booking": {
+    "tr": "Randevu",
+    "en": "Booking",
+    "nl": "Afspraak"
+  },
+  "th_service": {
+    "tr": "Hizmet",
+    "en": "Service",
+    "nl": "Dienst"
+  },
+  "th_notes": {
+    "tr": "Notlar",
+    "en": "Notes",
+    "nl": "Notities"
+  },
+  "th_rating": {
+    "tr": "Puan",
+    "en": "Rating",
+    "nl": "Beoordeling"
+  },
+  "th_review": {
+    "tr": "Yorum",
+    "en": "Review",
+    "nl": "Recensie"
+  },
+  "th_module": {
+    "tr": "Modül",
+    "en": "Module",
+    "nl": "Module"
+  },
+  "status_active": {
+    "tr": "Aktif",
+    "en": "Active",
+    "nl": "Actief"
+  },
+  "status_inactive": {
+    "tr": "Pasif",
+    "en": "Inactive",
+    "nl": "Inactief"
+  },
+  "status_sufficient": {
+    "tr": "Yeterli",
+    "en": "Sufficient",
+    "nl": "Voldoende"
+  },
+  "status_low": {
+    "tr": "Az",
+    "en": "Low",
+    "nl": "Laag"
+  },
+  "status_critical": {
+    "tr": "Kritik",
+    "en": "Critical",
+    "nl": "Kritiek"
+  },
+  "status_open": {
+    "tr": "Açık",
+    "en": "Open",
+    "nl": "Open"
+  },
+  "status_resolved": {
+    "tr": "Çözüldü",
+    "en": "Resolved",
+    "nl": "Opgelost"
+  },
+  "status_pending": {
+    "tr": "Beklemede",
+    "en": "Pending",
+    "nl": "In behandeling"
+  },
+  "status_paid": {
+    "tr": "Ödendi",
+    "en": "Paid",
+    "nl": "Betaald"
+  },
+  "status_unpaid": {
+    "tr": "Ödenmedi",
+    "en": "Unpaid",
+    "nl": "Onbetaald"
+  },
+  "status_urgent": {
+    "tr": "Acil",
+    "en": "Urgent",
+    "nl": "Dringend"
+  },
+  "status_high": {
+    "tr": "Yüksek",
+    "en": "High",
+    "nl": "Hoog"
+  },
+  "status_medium": {
+    "tr": "Orta",
+    "en": "Medium",
+    "nl": "Gemiddeld"
+  },
+  "status_low_prio": {
+    "tr": "Düşük",
+    "en": "Low",
+    "nl": "Laag"
+  },
+  "status_dev": {
+    "tr": "Geliştirme",
+    "en": "Development",
+    "nl": "Ontwikkeling"
+  },
+  "status_planning": {
+    "tr": "Planlama",
+    "en": "Planning",
+    "nl": "Planning"
+  },
+  "filter_all_categories": {
+    "tr": "Tüm Kategoriler",
+    "en": "All Categories",
+    "nl": "Alle categorieën"
+  },
+  "filter_all_levels": {
+    "tr": "Tüm Seviyeler",
+    "en": "All Levels",
+    "nl": "Alle niveaus"
+  },
+  "filter_all_statuses": {
+    "tr": "Tüm Durumlar",
+    "en": "All Statuses",
+    "nl": "Alle statussen"
+  },
+  "search_services": {
+    "tr": "Hizmet ara...",
+    "en": "Search services...",
+    "nl": "Zoek diensten..."
+  },
+  "search_products": {
+    "tr": "Ürün ara...",
+    "en": "Search products...",
+    "nl": "Zoek producten..."
+  },
+  "search_customers": {
+    "tr": "Müşteri ara...",
+    "en": "Search customers...",
+    "nl": "Zoek klanten..."
+  },
+  "search_requests": {
+    "tr": "Talep ara...",
+    "en": "Search requests...",
+    "nl": "Zoek verzoeken..."
+  },
+  "search_staff": {
+    "tr": "Personel ara...",
+    "en": "Search staff...",
+    "nl": "Zoek personeel..."
+  },
+  "modal_add_service": {
+    "tr": "Yeni Hizmet Ekle",
+    "en": "Add New Service",
+    "nl": "Nieuwe dienst toevoegen"
+  },
+  "modal_edit_service": {
+    "tr": "Hizmet Düzenle",
+    "en": "Edit Service",
+    "nl": "Dienst bewerken"
+  },
+  "modal_add_product": {
+    "tr": "Yeni Ürün Ekle",
+    "en": "Add New Product",
+    "nl": "Nieuw product toevoegen"
+  },
+  "modal_edit_product": {
+    "tr": "Ürün Düzenle",
+    "en": "Edit Product",
+    "nl": "Product bewerken"
+  },
+  "modal_stock_move": {
+    "tr": "Stok Hareketi",
+    "en": "Stock Movement",
+    "nl": "Voorraadbeweging"
+  },
+  "modal_add_sector": {
+    "tr": "Yeni Sektör Ekle",
+    "en": "Add New Sector",
+    "nl": "Nieuwe sector toevoegen"
+  },
+  "modal_edit_sector": {
+    "tr": "Sektör Düzenle",
+    "en": "Edit Sector",
+    "nl": "Sector bewerken"
+  },
+  "modal_add_staff": {
+    "tr": "Yeni Personel Ekle",
+    "en": "Add New Staff",
+    "nl": "Nieuw personeel toevoegen"
+  },
+  "modal_edit_staff": {
+    "tr": "Personel Düzenle",
+    "en": "Edit Staff",
+    "nl": "Personeel bewerken"
+  },
+  "modal_add_customer": {
+    "tr": "Yeni Müşteri Ekle",
+    "en": "Add New Customer",
+    "nl": "Nieuwe klant toevoegen"
+  },
+  "modal_edit_customer": {
+    "tr": "Müşteri Düzenle",
+    "en": "Edit Customer",
+    "nl": "Klant bewerken"
+  },
+  "modal_add_booking": {
+    "tr": "Yeni Randevu Ekle",
+    "en": "Add New Booking",
+    "nl": "Nieuwe afspraak toevoegen"
+  },
+  "modal_edit_booking": {
+    "tr": "Randevu Düzenle",
+    "en": "Edit Booking",
+    "nl": "Afspraak bewerken"
+  },
+  "modal_delete_confirm": {
+    "tr": "Silme Onayı",
+    "en": "Delete Confirmation",
+    "nl": "Verwijderingsbevestiging"
+  },
+  "modal_assign_company": {
+    "tr": "Firma Ata",
+    "en": "Assign Company",
+    "nl": "Bedrijf toewijzen"
+  },
+  "form_name": {
+    "tr": "Adı",
+    "en": "Name",
+    "nl": "Naam"
+  },
+  "form_email": {
+    "tr": "E-posta",
+    "en": "Email",
+    "nl": "E-mail"
+  },
+  "form_phone": {
+    "tr": "Telefon",
+    "en": "Phone",
+    "nl": "Telefoon"
+  },
+  "form_address": {
+    "tr": "Adres",
+    "en": "Address",
+    "nl": "Adres"
+  },
+  "form_password": {
+    "tr": "Şifre",
+    "en": "Password",
+    "nl": "Wachtwoord"
+  },
+  "form_category": {
+    "tr": "Kategori",
+    "en": "Category",
+    "nl": "Categorie"
+  },
+  "form_subcategory": {
+    "tr": "Alt Kategori",
+    "en": "Subcategory",
+    "nl": "Subcategorie"
+  },
+  "form_duration": {
+    "tr": "Süre",
+    "en": "Duration",
+    "nl": "Duur"
+  },
+  "form_price": {
+    "tr": "Fiyat",
+    "en": "Price",
+    "nl": "Prijs"
+  },
+  "form_description": {
+    "tr": "Açıklama",
+    "en": "Description",
+    "nl": "Beschrijving"
+  },
+  "form_notes": {
+    "tr": "Notlar",
+    "en": "Notes",
+    "nl": "Notities"
+  },
+  "form_status": {
+    "tr": "Durum",
+    "en": "Status",
+    "nl": "Status"
+  },
+  "form_priority": {
+    "tr": "Öncelik",
+    "en": "Priority",
+    "nl": "Prioriteit"
+  },
+  "form_subject": {
+    "tr": "Konu",
+    "en": "Subject",
+    "nl": "Onderwerp"
+  },
+  "form_service_type": {
+    "tr": "Hizmet Türü",
+    "en": "Service Type",
+    "nl": "Diensttype"
+  },
+  "form_requested_date": {
+    "tr": "İstenen Tarih",
+    "en": "Requested Date",
+    "nl": "Gewenste datum"
+  },
+  "form_add_photo": {
+    "tr": "Fotoğraf Ekle",
+    "en": "Add Photo",
+    "nl": "Foto toevoegen"
+  },
+  "form_quantity": {
+    "tr": "Miktar",
+    "en": "Quantity",
+    "nl": "Hoeveelheid"
+  },
+  "form_unit": {
+    "tr": "Birim",
+    "en": "Unit",
+    "nl": "Eenheid"
+  },
+  "form_min_stock": {
+    "tr": "Min. Stok",
+    "en": "Min. Stock",
+    "nl": "Min. voorraad"
+  },
+  "form_max_stock": {
+    "tr": "Max. Stok",
+    "en": "Max. Stock",
+    "nl": "Max. voorraad"
+  },
+  "form_emoji": {
+    "tr": "Emoji",
+    "en": "Emoji",
+    "nl": "Emoji"
+  },
+  "form_sector_name": {
+    "tr": "Sektör Adı",
+    "en": "Sector Name",
+    "nl": "Sectornaam"
+  },
+  "form_modules": {
+    "tr": "Modüller",
+    "en": "Modules",
+    "nl": "Modules"
+  },
+  "stat_total_sectors": {
+    "tr": "Toplam Sektör",
+    "en": "Total Sectors",
+    "nl": "Totaal sectoren"
+  },
+  "stat_active_companies": {
+    "tr": "Aktif Firmalar",
+    "en": "Active Companies",
+    "nl": "Actieve bedrijven"
+  },
+  "stat_pending_approval": {
+    "tr": "Bekleyen Onay",
+    "en": "Pending Approval",
+    "nl": "In afwachting"
+  },
+  "stat_monthly_revenue": {
+    "tr": "Aylık Gelir",
+    "en": "Monthly Revenue",
+    "nl": "Maandelijkse omzet"
+  },
+  "stat_total_templates": {
+    "tr": "Toplam Şablon",
+    "en": "Total Templates",
+    "nl": "Totaal sjablonen"
+  },
+  "stat_open_requests": {
+    "tr": "Açık Talepler",
+    "en": "Open Requests",
+    "nl": "Open verzoeken"
+  },
+  "stat_upcoming_appointments": {
+    "tr": "Gelecek Randevular",
+    "en": "Upcoming Appointments",
+    "nl": "Aankomende afspraken"
+  },
+  "stat_total_spending": {
+    "tr": "Toplam Harcama",
+    "en": "Total Spending",
+    "nl": "Totale uitgaven"
+  },
+  "stat_latest_invoice": {
+    "tr": "Son Fatura",
+    "en": "Latest Invoice",
+    "nl": "Laatste factuur"
+  },
+  "stat_total_services": {
+    "tr": "Toplam Hizmet",
+    "en": "Total Services",
+    "nl": "Totaal diensten"
+  },
+  "stat_active_services": {
+    "tr": "Aktif Hizmet",
+    "en": "Active Services",
+    "nl": "Actieve diensten"
+  },
+  "stat_total_products": {
+    "tr": "Toplam Ürün",
+    "en": "Total Products",
+    "nl": "Totaal producten"
+  },
+  "stat_low_stock": {
+    "tr": "Az Stok",
+    "en": "Low Stock",
+    "nl": "Lage voorraad"
+  },
+  "stat_critical_stock": {
+    "tr": "Kritik Stok",
+    "en": "Critical Stock",
+    "nl": "Kritieke voorraad"
+  },
+  "stat_total_staff": {
+    "tr": "Toplam Personel",
+    "en": "Total Staff",
+    "nl": "Totaal personeel"
+  },
+  "stat_total_customers": {
+    "tr": "Toplam Müşteri",
+    "en": "Total Customers",
+    "nl": "Totaal klanten"
+  },
+  "stat_total_bookings": {
+    "tr": "Toplam Randevu",
+    "en": "Total Bookings",
+    "nl": "Totaal afspraken"
+  },
+  "card_services_list": {
+    "tr": "Hizmet Listesi",
+    "en": "Service List",
+    "nl": "Dienstenlijst"
+  },
+  "card_stock_list": {
+    "tr": "Stok Listesi",
+    "en": "Stock List",
+    "nl": "Voorraadlijst"
+  },
+  "card_sector_list": {
+    "tr": "Sektör Listesi",
+    "en": "Sector List",
+    "nl": "Sectorlijst"
+  },
+  "card_company_list": {
+    "tr": "Firma Listesi",
+    "en": "Company List",
+    "nl": "Bedrijvenlijst"
+  },
+  "card_staff_list": {
+    "tr": "Personel Listesi",
+    "en": "Staff List",
+    "nl": "Personeelslijst"
+  },
+  "card_customer_list": {
+    "tr": "Müşteri Listesi",
+    "en": "Customer List",
+    "nl": "Klantenlijst"
+  },
+  "card_booking_list": {
+    "tr": "Randevu Listesi",
+    "en": "Booking List",
+    "nl": "Afsprakenlijst"
+  },
+  "card_invoice_list": {
+    "tr": "Fatura Listesi",
+    "en": "Invoice List",
+    "nl": "Facturenlijst"
+  },
+  "card_recent_activity": {
+    "tr": "Son Aktiviteler",
+    "en": "Recent Activity",
+    "nl": "Recente activiteit"
+  },
+  "card_upcoming_bookings": {
+    "tr": "Yaklaşan Randevular",
+    "en": "Upcoming Bookings",
+    "nl": "Aankomende afspraken"
+  },
+  "card_new_ticket": {
+    "tr": "Yeni Talep Oluştur",
+    "en": "Create New Ticket",
+    "nl": "Nieuw ticket aanmaken"
+  },
+  "card_my_tickets": {
+    "tr": "Taleplerim",
+    "en": "My Tickets",
+    "nl": "Mijn tickets"
+  },
+  "card_service_history": {
+    "tr": "Hizmet Geçmişi",
+    "en": "Service History",
+    "nl": "Dienstgeschiedenis"
+  },
+  "card_my_invoices": {
+    "tr": "Faturalarım",
+    "en": "My Invoices",
+    "nl": "Mijn facturen"
+  },
+  "card_calendar": {
+    "tr": "Takvim",
+    "en": "Calendar",
+    "nl": "Kalender"
+  },
+  "card_settings": {
+    "tr": "Ayarlar",
+    "en": "Settings",
+    "nl": "Instellingen"
+  },
+  "card_profile": {
+    "tr": "Profil",
+    "en": "Profile",
+    "nl": "Profiel"
+  },
+  "cat_home_cleaning": {
+    "tr": "Ev Temizliği",
+    "en": "Home Cleaning",
+    "nl": "Huisreiniging"
+  },
+  "cat_office_cleaning": {
+    "tr": "Ofis Temizliği",
+    "en": "Office Cleaning",
+    "nl": "Kantoorreiniging"
+  },
+  "cat_window_cleaning": {
+    "tr": "Cam Temizliği",
+    "en": "Window Cleaning",
+    "nl": "Ramenreiniging"
+  },
+  "cat_carpet_cleaning": {
+    "tr": "Halı Yıkama",
+    "en": "Carpet Cleaning",
+    "nl": "Tapijtreiniging"
+  },
+  "cat_industrial": {
+    "tr": "Endüstriyel",
+    "en": "Industrial",
+    "nl": "Industrieel"
+  },
+  "cat_special": {
+    "tr": "Özel",
+    "en": "Special",
+    "nl": "Speciaal"
+  },
+  "cat_cleaning_supplies": {
+    "tr": "Temizlik Malzemeleri",
+    "en": "Cleaning Supplies",
+    "nl": "Schoonmaakmiddelen"
+  },
+  "cat_equipment": {
+    "tr": "Ekipman",
+    "en": "Equipment",
+    "nl": "Apparatuur"
+  },
+  "cat_consumables": {
+    "tr": "Sarf Malzeme",
+    "en": "Consumables",
+    "nl": "Verbruiksgoederen"
+  },
+  "cat_chemical": {
+    "tr": "Kimyasal",
+    "en": "Chemical",
+    "nl": "Chemisch"
+  },
+  "cat_disinfection": {
+    "tr": "Dezenfeksiyon",
+    "en": "Disinfection",
+    "nl": "Desinfectie"
+  },
+  "cat_carpet_upholstery": {
+    "tr": "Halı/Koltuk Bakımı",
+    "en": "Carpet/Upholstery Care",
+    "nl": "Tapijt/Meubelverzorging"
+  },
+  "cat_building_exterior": {
+    "tr": "Bina Dış Cephe",
+    "en": "Building Exterior",
+    "nl": "Gebouwgevel"
+  },
+  "cat_waste_recycling": {
+    "tr": "Çöp/Geri Dönüşüm",
+    "en": "Waste/Recycling",
+    "nl": "Afval/Recycling"
+  },
+  "sub_standard": {
+    "tr": "Standart",
+    "en": "Standard",
+    "nl": "Standaard"
+  },
+  "sub_deep": {
+    "tr": "Derinlemesine",
+    "en": "Deep",
+    "nl": "Diep"
+  },
+  "sub_post_construction": {
+    "tr": "İnşaat Sonrası",
+    "en": "Post-Construction",
+    "nl": "Na de bouw"
+  },
+  "sub_daily": {
+    "tr": "Günlük",
+    "en": "Daily",
+    "nl": "Dagelijks"
+  },
+  "sub_weekly": {
+    "tr": "Haftalık",
+    "en": "Weekly",
+    "nl": "Wekelijks"
+  },
+  "sub_upholstery": {
+    "tr": "Koltuk",
+    "en": "Upholstery",
+    "nl": "Meubels"
+  },
+  "sub_inner_glass": {
+    "tr": "İç Cam",
+    "en": "Inner Glass",
+    "nl": "Binnenraam"
+  },
+  "sub_outer_glass": {
+    "tr": "Dış Cam",
+    "en": "Outer Glass",
+    "nl": "Buitenraam"
+  },
+  "sub_building_glass": {
+    "tr": "Bina Cam",
+    "en": "Building Glass",
+    "nl": "Gebouwenraam"
+  },
+  "sub_wash_dry": {
+    "tr": "Yıkama + Kurutma",
+    "en": "Wash + Dry",
+    "nl": "Wassen + Drogen"
+  },
+  "sub_stain": {
+    "tr": "Leke",
+    "en": "Stain",
+    "nl": "Vlek"
+  },
+  "sub_steam": {
+    "tr": "Buharlı",
+    "en": "Steam",
+    "nl": "Stoom"
+  },
+  "sub_factory": {
+    "tr": "Fabrika",
+    "en": "Factory",
+    "nl": "Fabriek"
+  },
+  "sub_interior": {
+    "tr": "İç Mekan",
+    "en": "Interior",
+    "nl": "Interieur"
+  },
+  "sub_exterior": {
+    "tr": "Dış Mekan",
+    "en": "Exterior",
+    "nl": "Exterieur"
+  },
+  "sub_basic": {
+    "tr": "Temel",
+    "en": "Basic",
+    "nl": "Basis"
+  },
+  "sub_detailed": {
+    "tr": "Detaylı",
+    "en": "Detailed",
+    "nl": "Gedetailleerd"
+  },
+  "sub_maintenance": {
+    "tr": "Bakım",
+    "en": "Maintenance",
+    "nl": "Onderhoud"
+  },
+  "sector_cleaning": {
+    "tr": "Temizlik",
+    "en": "Cleaning",
+    "nl": "Reiniging"
+  },
+  "sector_construction": {
+    "tr": "İnşaat",
+    "en": "Construction",
+    "nl": "Bouw"
+  },
+  "sector_barber": {
+    "tr": "Berber / Kuaför",
+    "en": "Barber / Hairdresser",
+    "nl": "Kapper / Kapster"
+  },
+  "sector_market": {
+    "tr": "Market / Bakkal",
+    "en": "Market / Grocery",
+    "nl": "Markt / Kruidenier"
+  },
+  "sector_restaurant": {
+    "tr": "Restoran",
+    "en": "Restaurant",
+    "nl": "Restaurant"
+  },
+  "sector_carpentry": {
+    "tr": "Marangoz & Mobilya",
+    "en": "Carpentry & Furniture",
+    "nl": "Timmerwerk & Meubels"
+  },
+  "tab_templates": {
+    "tr": "Şablonlar",
+    "en": "Templates",
+    "nl": "Sjablonen"
+  },
+  "tab_checklists": {
+    "tr": "Kontrol Listeleri",
+    "en": "Checklists",
+    "nl": "Controlelijsten"
+  },
+  "tab_chemical_guide": {
+    "tr": "Kimyasal Rehberi",
+    "en": "Chemical Guide",
+    "nl": "Chemische gids"
+  },
+  "tab_surveys": {
+    "tr": "Anketler",
+    "en": "Surveys",
+    "nl": "Enquêtes"
+  },
+  "tab_forms": {
+    "tr": "Formlar",
+    "en": "Forms",
+    "nl": "Formulieren"
+  },
+  "tab_complaints": {
+    "tr": "Şikayet Yönetimi",
+    "en": "Complaint Management",
+    "nl": "Klachtenbeheer"
+  },
+  "tab_quotes": {
+    "tr": "Teklif Şablonları",
+    "en": "Quote Templates",
+    "nl": "Offertesjablonen"
+  },
+  "tab_staff_schedule": {
+    "tr": "Personel Programı",
+    "en": "Staff Schedule",
+    "nl": "Personeelsrooster"
+  },
+  "tab_dosage_calc": {
+    "tr": "Dozaj Hesaplayıcı",
+    "en": "Dosage Calculator",
+    "nl": "Dosering calculator"
+  },
+  "tab_cost_calc": {
+    "tr": "Maliyet Hesaplayıcı",
+    "en": "Cost Calculator",
+    "nl": "Kostencalculator"
+  },
+  "portal_welcome": {
+    "tr": "Hoş geldiniz",
+    "en": "Welcome",
+    "nl": "Welkom"
+  },
+  "portal_login_title": {
+    "tr": "Müşteri Portalı",
+    "en": "Customer Portal",
+    "nl": "Klantenportaal"
+  },
+  "portal_login_subtitle": {
+    "tr": "CleanFix hizmetlerinizi yönetin",
+    "en": "Manage your CleanFix services",
+    "nl": "Beheer uw CleanFix-diensten"
+  },
+  "portal_footer": {
+    "tr": "CleanFix Demo BV © 2026",
+    "en": "CleanFix Demo BV © 2026",
+    "nl": "CleanFix Demo BV © 2026"
+  },
+  "label_email": {
+    "tr": "E-posta",
+    "en": "Email",
+    "nl": "E-mail"
+  },
+  "label_password": {
+    "tr": "Şifre",
+    "en": "Password",
+    "nl": "Wachtwoord"
+  },
+  "ph_email": {
+    "tr": "ornek@email.com",
+    "en": "example@email.com",
+    "nl": "voorbeeld@email.com"
+  },
+  "ph_password": {
+    "tr": "••••••••",
+    "en": "••••••••",
+    "nl": "••••••••"
+  },
+  "ph_subject": {
+    "tr": "Talep konusu...",
+    "en": "Request subject...",
+    "nl": "Verzoekonderwerp..."
+  },
+  "ph_description": {
+    "tr": "Detaylı açıklama girin...",
+    "en": "Enter detailed description...",
+    "nl": "Voer gedetailleerde beschrijving in..."
+  },
+  "ph_upload_photo": {
+    "tr": "Fotoğraf yüklemek için tıklayın",
+    "en": "Click to upload photos",
+    "nl": "Klik om foto's te uploaden"
+  },
+  "ph_max_size": {
+    "tr": "JPG, PNG — max 5MB",
+    "en": "JPG, PNG — max 5MB",
+    "nl": "JPG, PNG — max 5MB"
+  },
+  "unit_hours": {
+    "tr": "saat",
+    "en": "hours",
+    "nl": "uur"
+  },
+  "unit_pcs": {
+    "tr": "adet",
+    "en": "pcs",
+    "nl": "stuks"
+  },
+  "unit_sqm": {
+    "tr": "m²",
+    "en": "m²",
+    "nl": "m²"
+  },
+  "unit_liters": {
+    "tr": "L",
+    "en": "L",
+    "nl": "L"
+  },
+  "unit_ml": {
+    "tr": "ml",
+    "en": "ml",
+    "nl": "ml"
+  },
+  "ui_business_plan": {
+    "tr": "Business Plan",
+    "en": "Business Plan",
+    "nl": "Business Plan"
+  },
+  "ui_super_admin": {
+    "tr": "Super Admin",
+    "en": "Super Admin",
+    "nl": "Super Admin"
+  },
+  "ui_cleanfix_demo": {
+    "tr": "CleanFix Demo BV",
+    "en": "CleanFix Demo BV",
+    "nl": "CleanFix Demo BV"
+  },
+  "ui_cleanfix_admin": {
+    "tr": "CleanFix Admin",
+    "en": "CleanFix Admin",
+    "nl": "CleanFix Admin"
+  },
+  "ui_last_12_months": {
+    "tr": "Son 12 ay",
+    "en": "Last 12 months",
+    "nl": "Laatste 12 maanden"
+  },
+  "ui_next_appointment": {
+    "tr": "Sonraki: ",
+    "en": "Next: ",
+    "nl": "Volgende: "
+  },
+  "ui_urgent_count": {
+    "tr": " acil öncelikli",
+    "en": " urgent priority",
+    "nl": " dringende prioriteit"
+  },
+  "ui_per_month": {
+    "tr": "/ay",
+    "en": "/mo",
+    "nl": "/maand"
+  },
+  "ui_firm_count": {
+    "tr": " firma",
+    "en": " company",
+    "nl": " bedrijf"
+  },
+  "ui_firms_count": {
+    "tr": " firma",
+    "en": " companies",
+    "nl": " bedrijven"
+  },
+  "ui_module_count": {
+    "tr": " Modül",
+    "en": " Module",
+    "nl": " Module"
+  },
+  "ui_modules_count": {
+    "tr": " Modül",
+    "en": " Modules",
+    "nl": " Modules"
+  },
+  "toast_synced": {
+    "tr": "Şablonlar senkronize edildi",
+    "en": "Templates synchronized",
+    "nl": "Sjablonen gesynchroniseerd"
+  },
+  "toast_stock_updated": {
+    "tr": "Stok raporu güncellendi",
+    "en": "Stock report updated",
+    "nl": "Voorraadrapport bijgewerkt"
+  },
+  "toast_notifications": {
+    "tr": "Bildirimler",
+    "en": "Notifications",
+    "nl": "Meldingen"
+  },
+  "toast_saved": {
+    "tr": "Kaydedildi",
+    "en": "Saved",
+    "nl": "Opgeslagen"
+  },
+  "toast_deleted": {
+    "tr": "Silindi",
+    "en": "Deleted",
+    "nl": "Verwijderd"
+  },
+  "toast_error": {
+    "tr": "Hata oluştu",
+    "en": "An error occurred",
+    "nl": "Er is een fout opgetreden"
+  },
+  "toast_exported": {
+    "tr": "Dışa aktarıldı",
+    "en": "Exported",
+    "nl": "Geëxporteerd"
+  },
+  "mon_jan": {
+    "tr": "Oca",
+    "en": "Jan",
+    "nl": "Jan"
+  },
+  "mon_feb": {
+    "tr": "Şub",
+    "en": "Feb",
+    "nl": "Feb"
+  },
+  "mon_mar": {
+    "tr": "Mar",
+    "en": "Mar",
+    "nl": "Mrt"
+  },
+  "mon_apr": {
+    "tr": "Nis",
+    "en": "Apr",
+    "nl": "Apr"
+  },
+  "mon_may": {
+    "tr": "May",
+    "en": "May",
+    "nl": "Mei"
+  },
+  "mon_jun": {
+    "tr": "Haz",
+    "en": "Jun",
+    "nl": "Jun"
+  },
+  "mon_jul": {
+    "tr": "Tem",
+    "en": "Jul",
+    "nl": "Jul"
+  },
+  "mon_aug": {
+    "tr": "Ağu",
+    "en": "Aug",
+    "nl": "Aug"
+  },
+  "mon_sep": {
+    "tr": "Eyl",
+    "en": "Sep",
+    "nl": "Sep"
+  },
+  "mon_oct": {
+    "tr": "Eki",
+    "en": "Oct",
+    "nl": "Okt"
+  },
+  "mon_nov": {
+    "tr": "Kas",
+    "en": "Nov",
+    "nl": "Nov"
+  },
+  "mon_dec": {
+    "tr": "Ara",
+    "en": "Dec",
+    "nl": "Dec"
+  },
+  "currency_eur": {
+    "tr": "€",
+    "en": "€",
+    "nl": "€"
+  },
+  "currency_usd": {
+    "tr": "$",
+    "en": "$",
+    "nl": "$"
+  },
+  "cleanfix": {
+    "tr": "CleanFix",
+    "en": "CleanFix",
+    "nl": "CleanFix"
+  },
+  "cam_temizleyici": {
+    "tr": "Cam Temizleyici",
+    "en": "Cam Temizleyici",
+    "nl": "Cam Temizleyici"
+  },
+  "banyo_temizleyici": {
+    "tr": "Banyo Temizleyici",
+    "en": "Banyo Temizleyici",
+    "nl": "Banyo Temizleyici"
+  },
+  "zemin_cilası": {
+    "tr": "Zemin Cilası",
+    "en": "Zemin Cilası",
+    "nl": "Zemin Cilası"
+  },
+  "vakum_süpürge": {
+    "tr": "Vakum Süpürge",
+    "en": "Vakum Süpürge",
+    "nl": "Vakum Süpürge"
+  },
+  "karcher_wd_3": {
+    "tr": "Karcher WD 3",
+    "en": "Karcher WD 3",
+    "nl": "Karcher WD 3"
+  },
+  "buharlı_makine": {
+    "tr": "Buharlı Makine",
+    "en": "Buharlı Makine",
+    "nl": "Buharlı Makine"
+  },
+  "karcher_sc_3": {
+    "tr": "Karcher SC 3",
+    "en": "Karcher SC 3",
+    "nl": "Karcher SC 3"
+  },
+  "zemin_yıkama_makinesi": {
+    "tr": "Zemin Yıkama Makinesi",
+    "en": "Zemin Yıkama Makinesi",
+    "nl": "Zemin Yıkama Makinesi"
+  },
+  "tennant_t300": {
+    "tr": "Tennant T300",
+    "en": "Tennant T300",
+    "nl": "Tennant T300"
+  },
+  "mikrofiber_mop": {
+    "tr": "Mikrofiber Mop",
+    "en": "Mikrofiber Mop",
+    "nl": "Mikrofiber Mop"
+  },
+  "profesyonel": {
+    "tr": "Profesyonel",
+    "en": "Profesyonel",
+    "nl": "Profesyonel"
+  },
+  "mikrofiber_bez": {
+    "tr": "Mikrofiber Bez",
+    "en": "Mikrofiber Bez",
+    "nl": "Mikrofiber Bez"
+  },
+  "paket_10_adet": {
+    "tr": "Paket (10 adet)",
+    "en": "Paket (10 adet)",
+    "nl": "Paket (10 adet)"
+  },
+  "mop_başlığı": {
+    "tr": "Mop Başlığı",
+    "en": "Mop Başlığı",
+    "nl": "Mop Başlığı"
+  },
+  "eldiven": {
+    "tr": "Eldiven",
+    "en": "Eldiven",
+    "nl": "Eldiven"
+  },
+  "nitril_100lü": {
+    "tr": "Nitril (100'lü)",
+    "en": "Nitril (100'lü)",
+    "nl": "Nitril (100'lü)"
+  },
+  "dezenfektan": {
+    "tr": "Dezenfektan",
+    "en": "Dezenfektan",
+    "nl": "Dezenfektan"
+  },
+  "leke_çıkarıcı": {
+    "tr": "Leke Çıkarıcı",
+    "en": "Leke Çıkarıcı",
+    "nl": "Leke Çıkarıcı"
+  },
+  "kireç_çözücü": {
+    "tr": "Kireç Çözücü",
+    "en": "Kireç Çözücü",
+    "nl": "Kireç Çözücü"
+  },
+  "parlatıcı": {
+    "tr": "Parlatıcı",
+    "en": "Parlatıcı",
+    "nl": "Parlatıcı"
+  },
+  "seçin": {
+    "tr": "Seçin...",
+    "en": "Seçin...",
+    "nl": "Seçin..."
+  },
+  "birim_açıklaması": {
+    "tr": "Birim Açıklaması",
+    "en": "Birim Açıklaması",
+    "nl": "Birim Açıklaması"
+  },
+  "mevcut_stok": {
+    "tr": "Mevcut Stok",
+    "en": "Mevcut Stok",
+    "nl": "Mevcut Stok"
+  },
+  "minimum_eşik": {
+    "tr": "Minimum Eşik",
+    "en": "Minimum Eşik",
+    "nl": "Minimum Eşik"
+  },
+  "maksimum_eşik": {
+    "tr": "Maksimum Eşik",
+    "en": "Maksimum Eşik",
+    "nl": "Maksimum Eşik"
+  },
+  "mevcut": {
+    "tr": "Mevcut:",
+    "en": "Mevcut:",
+    "nl": "Mevcut:"
+  },
+  "sonuç": {
+    "tr": "Sonuç:",
+    "en": "Sonuç:",
+    "nl": "Sonuç:"
+  },
+  "evet_sil": {
+    "tr": "Evet, Sil",
+    "en": "Evet, Sil",
+    "nl": "Evet, Sil"
+  }
+};
+
+function switchLang(lang) {
+  if (!lang || !i18n[lang]) lang = 'tr';
+  localStorage.setItem('cleanfix_lang', lang);
+  document.documentElement.lang = lang === 'tr' ? 'tr' : (lang === 'nl' ? 'nl' : 'en');
+
+  /* translate elements with data-i18n */
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (i18n[lang] && i18n[lang][key] !== undefined) {
+      if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+        if (el.type !== 'submit' && el.type !== 'button') el.value = i18n[lang][key];
+        else el.textContent = i18n[lang][key];
+      } else if (el.tagName === 'OPTION') {
+        el.textContent = i18n[lang][key];
+      } else {
+        el.textContent = i18n[lang][key];
+      }
+    }
+  });
+
+  /* translate placeholders */
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+    const key = el.getAttribute('data-i18n-placeholder');
+    if (i18n[lang] && i18n[lang][key] !== undefined) {
+      el.placeholder = i18n[lang][key];
+    }
+  });
+
+  /* update lang buttons */
+  document.querySelectorAll('.lang-btn').forEach(btn => {
+    if (btn.dataset.lang === lang) {
+      btn.style.background = 'var(--teal-500)';
+      btn.style.color = 'white';
+      btn.style.borderColor = 'var(--teal-500)';
+    } else {
+      btn.style.background = 'var(--bg-tertiary)';
+      btn.style.color = 'var(--text-secondary)';
+      btn.style.borderColor = 'var(--border-color)';
+    }
+  });
+
+  /* update title */
+  const t = document.querySelector('title[data-i18n]');
+  if (t) {
+    const k = t.getAttribute('data-i18n');
+    if (i18n[lang][k]) t.textContent = i18n[lang][k];
+  }
+}
+
+/* init */
+(function(){
+  const saved = localStorage.getItem('cleanfix_lang') || 'tr';
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => switchLang(saved));
+  } else {
+    setTimeout(() => switchLang(saved), 50);
+  }
+})();
 </script>
 </body>
 </html>

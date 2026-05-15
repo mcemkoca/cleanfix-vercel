@@ -2,8 +2,9 @@
 <html lang="tr" data-theme="dark">
 <head>
 <meta charset="UTF-8">
+<meta name="description" content="CleanFix Bakım Planlayıcı" data-i18n-attr="content" data-i18n="meta.description">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CleanFix — Akıllı Bakım Planlayıcı</title>
+<title data-i18n="page_title">CleanFix — Akıllı Bakım Planlayıcı</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/main.css">
 <link rel="stylesheet" href="css/components.css">
@@ -123,34 +124,40 @@
 @media(max-width:1024px){.stats-grid{grid-template-columns:repeat(2,1fr);}}
 @media(max-width:768px){.sidebar{transform:translateX(-100%);}.sidebar.open{transform:translateX(0);}.main-content{margin-left:0;}.hamburger{display:block;}.kanban{grid-template-columns:1fr;}.stats-grid{grid-template-columns:1fr;}.slide-panel{width:100%;}.toolbar{flex-direction:column;align-items:stretch;}}
 </style>
-</head>
+<style>
+/* ── Language Switcher ── */
+.lang-switcher { display:flex; align-items:center; gap:4px; background:var(--bg-card); border:1px solid var(--border-color); border-radius:var(--radius-md); padding:3px; }
+.lang-switcher button { background:transparent; border:none; color:var(--text-muted); font-size:11px; font-weight:600; cursor:pointer; padding:4px 8px; border-radius:4px; transition:all 0.2s; text-transform:uppercase; font-family:inherit; }
+.lang-switcher button:hover { color:var(--text-primary); }
+.lang-switcher button.active { background:var(--teal-500); color:white; }
+</style></head>
 <body>
 
 <div class="dashboard">
   <aside class="sidebar" id="sidebar">
     <div class="sidebar-header">
       <div class="sidebar-logo">CF</div>
-      <div><div style="font-weight:700;font-size:var(--text-sm);">CleanFix</div><div style="font-size:var(--text-xs);color:var(--text-muted);">Firma Paneli</div></div>
+      <div><div style="font-weight:700;font-size:var(--text-sm);" data-i18n="company_cleanfix">CleanFix</div><div style="font-size:var(--text-xs);color:var(--text-muted);" data-i18n="nav_company" data-i18n="sidebar.companyPanel">Firma Paneli</div></div>
     </div>
     <nav class="sidebar-nav">
       <div class="nav-group">
-        <div class="nav-group-header">Ana Menü</div>
-        <a href="company.html" class="nav-item"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>Dashboard</a>
-        <a href="company-bookings.html" class="nav-item"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>Randevular</a>
-        <a href="company-maintenance.html" class="nav-item active"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>Bakım Planlayıcı</a>
-        <a href="company-staff.html" class="nav-item"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>Çalışanlar</a>
-        <a href="company-services.html" class="nav-item"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>Hizmetler</a>
-        <a href="company-invoices.html" class="nav-item"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>Faturalar</a>
-        <a href="company-customers.html" class="nav-item"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>Müşteriler</a>
-        <a href="company-stock.html" class="nav-item"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>Stok</a>
-        <a href="company-reviews.html" class="nav-item"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>Değerlendirmeler</a>
-        <a href="company-quotes.html" class="nav-item"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><path d="M12 18v-6"/><path d="M8 15h8"/></svg>Teklifler</a>
-        <a href="company-analytics.html" class="nav-item"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 20V10"/><path d="M12 20V4"/><path d="M6 20v-6"/></svg>Analiz</a>
+        <div class="nav-group-header" data-i18n="nav.mainMenu">Ana Menü</div>
+        <a href="company.html" class="nav-item"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg data-i18n="nav.dashboard">Dashboard</a>
+        <a href="company-bookings.html" class="nav-item"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg data-i18n="nav.bookings">Randevular</a>
+        <a href="company-maintenance.html" class="nav-item active"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg data-i18n="nav.maintenance">Bakım Planlayıcı</a>
+        <a href="company-staff.html" class="nav-item"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg data-i18n="nav.staff">Çalışanlar</a>
+        <a href="company-services.html" class="nav-item"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg data-i18n="nav.services">Hizmetler</a>
+        <a href="company-invoices.html" class="nav-item"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg data-i18n="nav.invoices">Faturalar</a>
+        <a href="company-customers.html" class="nav-item"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg data-i18n="nav.customers">Müşteriler</a>
+        <a href="company-stock.html" class="nav-item"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg data-i18n="nav.stock">Stok</a>
+        <a href="company-reviews.html" class="nav-item"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg data-i18n="nav.reviews">Değerlendirmeler</a>
+        <a href="company-quotes.html" class="nav-item"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><path d="M12 18v-6"/><path d="M8 15h8"/></svg data-i18n="nav.quotes">Teklifler</a>
+        <a href="company-analytics.html" class="nav-item"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 20V10"/><path d="M12 20V4"/><path d="M6 20v-6"/></svg data-i18n="nav.analytics">Analiz</a>
       </div>
       <div class="nav-group">
-        <div class="nav-group-header">Ayarlar</div>
-        <a href="company-profile.html" class="nav-item"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Firma Profili</a>
-        <a href="login.html" class="nav-item"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>Çıkış Yap</a>
+        <div class="nav-group-header" data-i18n="settings_title">Ayarlar</div>
+        <a href="company-profile.html" class="nav-item"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg data-i18n="nav.companyProfile">Firma Profili</a>
+        <a href="login.html" class="nav-item"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg data-i18n="nav.logout">Çıkış Yap</a>
       </div>
     </nav>
   </aside>
@@ -159,11 +166,16 @@
     <header class="header">
       <div class="header-left">
         <button class="hamburger" onclick="document.getElementById('sidebar').classList.toggle('open')">☰</button>
-        <h1 class="page-title">Akıllı Bakım Planlayıcı</h1>
+        <h1 class="page-title" data-i18n="title_maintenance">Akıllı Bakım Planlayıcı</h1>
       </div>
       <div class="header-right">
-        <button class="header-btn" onclick="openSlidePanel('newTaskPanel')">+ Yeni Görev</button>
-        <div style="display:flex;align-items:center;gap:10px;"><div style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,#14b8a6,#0d9488);display:flex;align-items:center;justify-content:center;font-weight:600;font-size:var(--text-xs);color:white;">CF</div><div><div style="font-weight:600;font-size:var(--text-sm);">CleanFix Demo BV</div><div style="font-size:var(--text-xs);color:var(--text-muted);">Business Plan</div></div></div>
+  <div class="lang-switcher">
+    <button data-lang="tr" onclick="switchLang('tr')">TR</button>
+    <button data-lang="en" onclick="switchLang('en')">EN</button>
+    <button data-lang="nl" onclick="switchLang('nl')">NL</button>
+  </div>
+        <button class="header-btn" onclick="openSlidePanel('newTaskPanel')" data-i18n="btn_new_task" data-i18n="header.newTask">+ Yeni Görev</button>
+        <div style="display:flex;align-items:center;gap:10px;"><div style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,#14b8a6,#0d9488);display:flex;align-items:center;justify-content:center;font-weight:600;font-size:var(--text-xs);color:white;">CF</div><div><div style="font-weight:600;font-size:var(--text-sm);" data-i18n="company_name" data-i18n="header.company">CleanFix Demo BV</div><div style="font-size:var(--text-xs);color:var(--text-muted);" data-i18n="company_business_plan" data-i18n="header.plan">Business Plan</div></div></div>
       </div>
     </header>
 
@@ -171,24 +183,24 @@
       <!-- SLA Stats -->
       <div class="stats-grid">
         <div class="stat-card">
-          <div class="stat-label">Açık SLA</div>
+          <div class="stat-label" data-i18n="kpi_open_sla" data-i18n="stat.openSLA">Açık SLA</div>
           <div class="stat-value" style="color:var(--info-500);">7</div>
-          <div class="stat-sub">SLA kapsamında bekleyen</div>
+          <div class="stat-sub" data-i18n="stat.openSLADesc">SLA kapsamında bekleyen</div>
         </div>
         <div class="stat-card">
-          <div class="stat-label">Yaklaşan SLA (24s)</div>
+          <div class="stat-label" data-i18n="stat.upcomingSLA">Yaklaşan SLA (24s)</div>
           <div class="stat-value" style="color:var(--amber-500);">3</div>
-          <div class="stat-sub">24 saat içinde süresi dolacak</div>
+          <div class="stat-sub" data-i18n="sla_expires_24h" data-i18n="stat.upcomingSLADesc">24 saat içinde süresi dolacak</div>
         </div>
         <div class="stat-card">
-          <div class="stat-label">Gecikmiş SLA</div>
+          <div class="stat-label" data-i18n="kpi_overdue_sla" data-i18n="stat.overdueSLA">Gecikmiş SLA</div>
           <div class="stat-value" style="color:var(--error-500);">1</div>
-          <div class="stat-sub">Acil müdahale gerekiyor</div>
+          <div class="stat-sub" data-i18n="sla_need_action" data-i18n="stat.overdueSLADesc">Acil müdahale gerekiyor</div>
         </div>
         <div class="stat-card">
-          <div class="stat-label">Ort. Çözüm Süresi</div>
+          <div class="stat-label" data-i18n="kpi_avg_resolution" data-i18n="stat.avgResolution">Ort. Çözüm Süresi</div>
           <div class="stat-value" style="color:var(--success-500);">4.2s</div>
-          <div class="stat-sub">Son 30 gün ortalaması</div>
+          <div class="stat-sub" data-i18n="time_last_30_days" data-i18n="stat.avgResolutionDesc">Son 30 gün ortalaması</div>
         </div>
       </div>
 
@@ -196,29 +208,29 @@
       <div class="toolbar">
         <div class="search-box">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-          <input type="text" placeholder="Görev, müşteri veya lokasyon ara..." id="searchInput" onkeyup="filterKanban()">
+          <input type="text" placeholder="Görev, müşteri veya lokasyon ara..." data-i18n-placeholder="search.placeholder" id="searchInput" onkeyup="filterKanban()">
         </div>
         <div class="filters">
-          <select id="priorityFilter" onchange="filterKanban()"><option value="">Tüm Öncelikler</option><option value="Düşük">Düşük</option><option value="Orta">Orta</option><option value="Yüksek">Yüksek</option><option value="Acil">Acil</option></select>
-          <select id="staffFilter" onchange="filterKanban()"><option value="">Tüm Personel</option><option value="Ahmet Kaya">Ahmet Kaya</option><option value="Merve Demir">Merve Demir</option><option value="Ali Rıza">Ali Rıza</option><option value="Naz Yılmaz">Naz Yılmaz</option></select>
-          <select id="dateFilter" onchange="filterKanban()"><option value="">Tüm Tarihler</option><option value="today">Bugün</option><option value="week">Bu Hafta</option><option value="overdue">Gecikmiş</option></select>
+          <select id="priorityFilter" onchange="filterKanban()"><option value="" data-i18n="form_all_priorities" data-i18n="filter.allPriorities">Tüm Öncelikler</option><option value="Düşük" data-i18n="status_low" data-i18n="filter.low">Düşük</option><option value="Orta" data-i18n="status_medium" data-i18n="filter.medium">Orta</option><option value="Yüksek" data-i18n="status_high" data-i18n="filter.high">Yüksek</option><option value="Acil" data-i18n="status_urgent" data-i18n="filter.urgent">Acil</option></select>
+          <select id="staffFilter" onchange="filterKanban()"><option value="" data-i18n="form_all_staff" data-i18n="filter.allStaff">Tüm Personel</option><option value="Ahmet Kaya">Ahmet Kaya</option><option value="Merve Demir">Merve Demir</option><option value="Ali Rıza">Ali Rıza</option><option value="Naz Yılmaz">Naz Yılmaz</option></select>
+          <select id="dateFilter" onchange="filterKanban()"><option value="" data-i18n="form_all_dates" data-i18n="filter.allDates">Tüm Tarihler</option><option value="today" data-i18n="time_today" data-i18n="filter.today">Bugün</option><option value="week" data-i18n="time_this_week" data-i18n="filter.thisWeek">Bu Hafta</option><option value="overdue" data-i18n="status_overdue" data-i18n="filter.overdue">Gecikmiş</option></select>
         </div>
       </div>
 
       <!-- Recurring Tasks -->
       <div class="recurring-card">
         <div class="recurring-header">
-          <div class="recurring-title">🔄 Yinelenen Görevler</div>
-          <span style="font-size:var(--text-xs);color:var(--text-muted);">Otomatik oluşturulan</span>
+          <div class="recurring-title" data-i18n="section_recurring">🔄 Yinelenen Görevler</div>
+          <span style="font-size:var(--text-xs);color:var(--text-muted);" data-i18n="recurring.auto">Otomatik oluşturulan</span>
         </div>
         <div class="recurring-body">
           <table class="recurring-table">
-            <thead><tr><th>Görev</th><th>Sıklık</th><th>Sonraki</th><th>Atanan</th><th>Otomatik</th></tr></thead>
+            <thead><tr><th data-i18n="th_task">Görev</th><th data-i18n="form_frequency">Sıklık</th><th data-i18n="th_next_run">Sonraki</th><th data-i18n="th_assigned">Atanan</th><th data-i18n="settings_auto">Otomatik</th></tr></thead>
             <tbody>
               <tr><td><strong>Ofis Detaylı Temizlik</strong></td><td>Haftalık (Cuma)</td><td>16 Mayıs 2026</td><td>Ahmet Kaya</td><td><div class="toggle-switch on" onclick="this.classList.toggle('on')"></div></td></tr>
-              <tr><td><strong>HVAC Filtre Değişimi</strong></td><td>Aylık</td><td>1 Haziran 2026</td><td>Ali Rıza</td><td><div class="toggle-switch on" onclick="this.classList.toggle('on')"></div></td></tr>
+              <tr><td><strong>HVAC Filtre Değişimi</strong></td><td data-i18n="chart_monthly">Aylık</td><td>1 Haziran 2026</td><td>Ali Rıza</td><td><div class="toggle-switch on" onclick="this.classList.toggle('on')"></div></td></tr>
               <tr><td><strong>Cam Yıkama (Tüm Bina)</strong></td><td>Haftalık (Salı)</td><td>20 Mayıs 2026</td><td>Merve Demir</td><td><div class="toggle-switch on" onclick="this.classList.toggle('on')"></div></td></tr>
-              <tr><td><strong>Jeneratör Bakımı</strong></td><td>Aylık</td><td>28 Mayıs 2026</td><td>Ali Rıza</td><td><div class="toggle-switch" onclick="this.classList.toggle('on')"></div></td></tr>
+              <tr><td><strong>Jeneratör Bakımı</strong></td><td data-i18n="chart_monthly">Aylık</td><td>28 Mayıs 2026</td><td>Ali Rıza</td><td><div class="toggle-switch" onclick="this.classList.toggle('on')"></div></td></tr>
             </tbody>
           </table>
         </div>
@@ -229,7 +241,7 @@
         <!-- Column 1: Açık -->
         <div class="kanban-column">
           <div class="kanban-header">
-            <div class="kanban-title"><span style="width:10px;height:10px;border-radius:50%;background:var(--info-500);display:inline-block;"></span> Açık</div>
+            <div class="kanban-title"><span style="width:10px;height:10px;border-radius:50%;background:var(--info-500);display:inline-block;"></span data-i18n="kanban.open"> Açık</div>
             <div class="kanban-count" id="count-acik">4</div>
           </div>
           <div class="kanban-body" id="col-acik" ondrop="drop(event,'acik')" ondragover="allowDrop(event)" ondragenter="dragEnter(event)" ondragleave="dragLeave(event)">
@@ -240,8 +252,8 @@
               <div class="kanban-card-footer">
                 <div class="kanban-card-staff"><div class="staff-avatar" style="background:linear-gradient(135deg,#14b8a6,#0d9488);">AK</div> Ahmet Kaya</div>
                 <div style="display:flex;gap:6px;align-items:center;">
-                  <span class="priority-badge priority-yuksek">Yüksek</span>
-                  <span class="sla-timer sla-ok" data-sla="2026-05-16T09:00:00">Kalan: 2g 14s</span>
+                  <span class="priority-badge priority-yuksek" data-i18n="status_high" data-i18n="priority.high">Yüksek</span>
+                  <span class="sla-timer sla-ok" data-sla="2026-05-16T09:00:00" data-i18n-html="sla.remaining">Kalan: 2g 14s</span>
                 </div>
               </div>
             </div>
@@ -252,7 +264,7 @@
               <div class="kanban-card-footer">
                 <div class="kanban-card-staff"><div class="staff-avatar" style="background:linear-gradient(135deg,#8b5cf6,#6d28d9);">MD</div> Merve Demir</div>
                 <div style="display:flex;gap:6px;align-items:center;">
-                  <span class="priority-badge priority-orta">Orta</span>
+                  <span class="priority-badge priority-orta" data-i18n="status_medium" data-i18n="priority.medium">Orta</span>
                   <span class="sla-timer sla-ok" data-sla="2026-05-18T14:00:00">Kalan: 4g 2s</span>
                 </div>
               </div>
@@ -264,7 +276,7 @@
               <div class="kanban-card-footer">
                 <div class="kanban-card-staff"><div class="staff-avatar" style="background:linear-gradient(135deg,#f59e0b,#d97706);">AR</div> Ali Rıza</div>
                 <div style="display:flex;gap:6px;align-items:center;">
-                  <span class="priority-badge priority-dusuk">Düşük</span>
+                  <span class="priority-badge priority-dusuk" data-i18n="status_low" data-i18n="priority.low">Düşük</span>
                   <span class="sla-timer sla-ok" data-sla="2026-05-20T08:00:00">Kalan: 6g 18s</span>
                 </div>
               </div>
@@ -276,7 +288,7 @@
               <div class="kanban-card-footer">
                 <div class="kanban-card-staff"><div class="staff-avatar" style="background:linear-gradient(135deg,#f43f5e,#e11d48);">NY</div> Naz Yılmaz</div>
                 <div style="display:flex;gap:6px;align-items:center;">
-                  <span class="priority-badge priority-yuksek">Yüksek</span>
+                  <span class="priority-badge priority-yuksek" data-i18n="status_high">Yüksek</span>
                   <span class="sla-timer sla-warning" data-sla="2026-05-15T10:00:00">Kalan: 1g 4s</span>
                 </div>
               </div>
@@ -288,7 +300,7 @@
         <!-- Column 2: Atandı -->
         <div class="kanban-column">
           <div class="kanban-header">
-            <div class="kanban-title"><span style="width:10px;height:10px;border-radius:50%;background:var(--amber-500);display:inline-block;"></span> Atandı</div>
+            <div class="kanban-title"><span style="width:10px;height:10px;border-radius:50%;background:var(--amber-500);display:inline-block;"></span data-i18n="kanban.assigned"> Atandı</div>
             <div class="kanban-count" id="count-atandi">3</div>
           </div>
           <div class="kanban-body" id="col-atandi" ondrop="drop(event,'atandi')" ondragover="allowDrop(event)" ondragenter="dragEnter(event)" ondragleave="dragLeave(event)">
@@ -299,8 +311,8 @@
               <div class="kanban-card-footer">
                 <div class="kanban-card-staff"><div class="staff-avatar" style="background:linear-gradient(135deg,#14b8a6,#0d9488);">AK</div> Ahmet Kaya</div>
                 <div style="display:flex;gap:6px;align-items:center;">
-                  <span class="priority-badge priority-acil">Acil</span>
-                  <span class="sla-timer sla-overdue" data-sla="2026-05-13T08:00:00">GECİKMEDE: 1g 4s</span>
+                  <span class="priority-badge priority-acil" data-i18n="status_urgent" data-i18n="priority.urgent">Acil</span>
+                  <span class="sla-timer sla-overdue" data-sla="2026-05-13T08:00:00" data-i18n="sla.overdue">GECİKMEDE: 1g 4s</span>
                 </div>
               </div>
             </div>
@@ -311,7 +323,7 @@
               <div class="kanban-card-footer">
                 <div class="kanban-card-staff"><div class="staff-avatar" style="background:linear-gradient(135deg,#8b5cf6,#6d28d9);">MD</div> Merve Demir</div>
                 <div style="display:flex;gap:6px;align-items:center;">
-                  <span class="priority-badge priority-orta">Orta</span>
+                  <span class="priority-badge priority-orta" data-i18n="status_medium">Orta</span>
                   <span class="sla-timer sla-ok" data-sla="2026-05-19T09:00:00">Kalan: 5g 16s</span>
                 </div>
               </div>
@@ -323,7 +335,7 @@
               <div class="kanban-card-footer">
                 <div class="kanban-card-staff"><div class="staff-avatar" style="background:linear-gradient(135deg,#f59e0b,#d97706);">AR</div> Ali Rıza</div>
                 <div style="display:flex;gap:6px;align-items:center;">
-                  <span class="priority-badge priority-dusuk">Düşük</span>
+                  <span class="priority-badge priority-dusuk" data-i18n="status_low">Düşük</span>
                   <span class="sla-timer sla-ok" data-sla="2026-05-22T11:00:00">Kalan: 8g 2s</span>
                 </div>
               </div>
@@ -335,7 +347,7 @@
         <!-- Column 3: Yolda -->
         <div class="kanban-column">
           <div class="kanban-header">
-            <div class="kanban-title"><span style="width:10px;height:10px;border-radius:50%;background:var(--warning-500);display:inline-block;"></span> Yolda</div>
+            <div class="kanban-title"><span style="width:10px;height:10px;border-radius:50%;background:var(--warning-500);display:inline-block;"></span data-i18n="kanban.onTheWay"> Yolda</div>
             <div class="kanban-count" id="count-yolda">3</div>
           </div>
           <div class="kanban-body" id="col-yolda" ondrop="drop(event,'yolda')" ondragover="allowDrop(event)" ondragenter="dragEnter(event)" ondragleave="dragLeave(event)">
@@ -346,7 +358,7 @@
               <div class="kanban-card-footer">
                 <div class="kanban-card-staff"><div class="staff-avatar" style="background:linear-gradient(135deg,#f43f5e,#e11d48);">NY</div> Naz Yılmaz</div>
                 <div style="display:flex;gap:6px;align-items:center;">
-                  <span class="priority-badge priority-yuksek">Yüksek</span>
+                  <span class="priority-badge priority-yuksek" data-i18n="status_high">Yüksek</span>
                   <span class="sla-timer sla-warning" data-sla="2026-05-14T16:00:00">Kalan: 10s</span>
                 </div>
               </div>
@@ -358,7 +370,7 @@
               <div class="kanban-card-footer">
                 <div class="kanban-card-staff"><div class="staff-avatar" style="background:linear-gradient(135deg,#14b8a6,#0d9488);">AK</div> Ahmet Kaya</div>
                 <div style="display:flex;gap:6px;align-items:center;">
-                  <span class="priority-badge priority-orta">Orta</span>
+                  <span class="priority-badge priority-orta" data-i18n="status_medium">Orta</span>
                   <span class="sla-timer sla-ok" data-sla="2026-05-17T13:00:00">Kalan: 3g 22s</span>
                 </div>
               </div>
@@ -370,7 +382,7 @@
               <div class="kanban-card-footer">
                 <div class="kanban-card-staff"><div class="staff-avatar" style="background:linear-gradient(135deg,#8b5cf6,#6d28d9);">MD</div> Merve Demir</div>
                 <div style="display:flex;gap:6px;align-items:center;">
-                  <span class="priority-badge priority-dusuk">Düşük</span>
+                  <span class="priority-badge priority-dusuk" data-i18n="status_low">Düşük</span>
                   <span class="sla-timer sla-ok" data-sla="2026-05-21T10:00:00">Kalan: 7g 10s</span>
                 </div>
               </div>
@@ -382,7 +394,7 @@
         <!-- Column 4: Tamamlandı -->
         <div class="kanban-column">
           <div class="kanban-header">
-            <div class="kanban-title"><span style="width:10px;height:10px;border-radius:50%;background:var(--success-500);display:inline-block;"></span> Tamamlandı</div>
+            <div class="kanban-title"><span style="width:10px;height:10px;border-radius:50%;background:var(--success-500);display:inline-block;"></span data-i18n="kanban.completed"> Tamamlandı</div>
             <div class="kanban-count" id="count-tamamlandi">2</div>
           </div>
           <div class="kanban-body" id="col-tamamlandi" ondrop="drop(event,'tamamlandi')" ondragover="allowDrop(event)" ondragenter="dragEnter(event)" ondragleave="dragLeave(event)">
@@ -393,8 +405,8 @@
               <div class="kanban-card-footer">
                 <div class="kanban-card-staff"><div class="staff-avatar" style="background:linear-gradient(135deg,#f59e0b,#d97706);">AR</div> Ali Rıza</div>
                 <div style="display:flex;gap:6px;align-items:center;">
-                  <span class="priority-badge priority-orta">Orta</span>
-                  <span class="sla-timer sla-ok" style="color:var(--success-500);">✓ Tamamlandı</span>
+                  <span class="priority-badge priority-orta" data-i18n="status_medium">Orta</span>
+                  <span class="sla-timer sla-ok" style="color:var(--success-500);" data-i18n="status_done" data-i18n="sla.completed">✓ Tamamlandı</span>
                 </div>
               </div>
             </div>
@@ -405,8 +417,8 @@
               <div class="kanban-card-footer">
                 <div class="kanban-card-staff"><div class="staff-avatar" style="background:linear-gradient(135deg,#14b8a6,#0d9488);">AK</div> Ahmet Kaya</div>
                 <div style="display:flex;gap:6px;align-items:center;">
-                  <span class="priority-badge priority-yuksek">Yüksek</span>
-                  <span class="sla-timer sla-ok" style="color:var(--success-500);">✓ Tamamlandı</span>
+                  <span class="priority-badge priority-yuksek" data-i18n="status_high">Yüksek</span>
+                  <span class="sla-timer sla-ok" style="color:var(--success-500);" data-i18n="status_done">✓ Tamamlandı</span>
                 </div>
               </div>
             </div>
@@ -421,33 +433,33 @@
 <!-- New Task Slide-over -->
 <div class="slide-overlay" id="newTaskPanel" onclick="if(event.target===this)closeSlidePanel('newTaskPanel')">
   <div class="slide-panel">
-    <div class="slide-header"><div class="slide-title">Yeni Görev Oluştur</div><button class="slide-close" onclick="closeSlidePanel('newTaskPanel')">✕</button></div>
+    <div class="slide-header"><div class="slide-title" data-i18n="modal_new_task">Yeni Görev Oluştur</div><button class="slide-close" onclick="closeSlidePanel('newTaskPanel')">✕</button></div>
     <div class="slide-body">
       <div class="slide-section">
-        <div class="slide-section-title">Görev Bilgileri</div>
+        <div class="slide-section-title" data-i18n="form_task_info">Görev Bilgileri</div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
-          <div class="form-group"><label class="form-label">Görev Adı</label><input type="text" class="form-input" id="ntTitle" placeholder="Örn: Ofis Detaylı Temizlik"></div>
-          <div class="form-group"><label class="form-label">Lokasyon</label><input type="text" class="form-input" id="ntLocation" placeholder="Adres girin..."></div>
+          <div class="form-group"><label class="form-label" data-i18n="form_task_name">Görev Adı</label><input type="text" class="form-input" id="ntTitle" data-i18n-placeholder="ph_task_name" placeholder="Örn: Ofis Detaylı Temizlik" data-i18n-placeholder="panel.placeholder.taskName"></div>
+          <div class="form-group"><label class="form-label" data-i18n="form_location">Lokasyon</label><input type="text" class="form-input" id="ntLocation" data-i18n-placeholder="ph_address" placeholder="Adres girin..." data-i18n-placeholder="panel.placeholder.location"></div>
         </div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px;">
-          <div class="form-group"><label class="form-label">Müşteri</label><select class="form-select" id="ntCustomer"><option>Jan Peeters</option><option>Lisa Wouters</option><option>Pieter De Vos</option><option>Sarah Janssens</option><option>Marc Dubois</option><option>Eva Peeters</option><option>Lucas Vermeulen</option><option>Emma Jacobs</option></select></div>
-          <div class="form-group"><label class="form-label">Atanan Personel</label><select class="form-select" id="ntStaff"><option>Ahmet Kaya</option><option>Merve Demir</option><option>Ali Rıza</option><option>Naz Yılmaz</option></select></div>
+          <div class="form-group"><label class="form-label" data-i18n="th_customer">Müşteri</label><select class="form-select" id="ntCustomer"><option>Jan Peeters</option><option>Lisa Wouters</option><option>Pieter De Vos</option><option>Sarah Janssens</option><option>Marc Dubois</option><option>Eva Peeters</option><option>Lucas Vermeulen</option><option>Emma Jacobs</option></select></div>
+          <div class="form-group"><label class="form-label" data-i18n="form_assigned_staff">Atanan Personel</label><select class="form-select" id="ntStaff"><option>Ahmet Kaya</option><option>Merve Demir</option><option>Ali Rıza</option><option>Naz Yılmaz</option></select></div>
         </div>
         <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-top:16px;">
-          <div class="form-group"><label class="form-label">Öncelik</label><select class="form-select" id="ntPriority"><option>Düşük</option><option selected>Orta</option><option>Yüksek</option><option>Acil</option></select></div>
-          <div class="form-group"><label class="form-label">Hizmet Türü</label><select class="form-select" id="ntService"><option>Ofis Temizliği</option><option>Dezenfeksiyon</option><option>Cam Temizliği</option><option>HVAC Bakım</option><option>Halı/Koltuk</option><option>Dış Cephe</option></select></div>
-          <div class="form-group"><label class="form-label">Son Tarih</label><input type="datetime-local" class="form-input" id="ntDue"></div>
+          <div class="form-group"><label class="form-label" data-i18n="th_priority">Öncelik</label><select class="form-select" id="ntPriority"><option data-i18n="status_low">Düşük</option><option selected data-i18n="status_medium">Orta</option><option data-i18n="status_high">Yüksek</option><option data-i18n="status_urgent">Acil</option></select></div>
+          <div class="form-group"><label class="form-label" data-i18n="form_service_type">Hizmet Türü</label><select class="form-select" id="ntService"><option data-i18n="svc_office_cleaning" data-i18n="service.office">Ofis Temizliği</option><option data-i18n="svc_disinfection" data-i18n="service.disinfection">Dezenfeksiyon</option><option data-i18n="svc_window_cleaning" data-i18n="service.window">Cam Temizliği</option><option data-i18n="svc_hvac" data-i18n="service.hvac">HVAC Bakım</option><option data-i18n="svc_carpet" data-i18n="service.carpet">Halı/Koltuk</option><option data-i18n="svc_facade" data-i18n="service.exterior">Dış Cephe</option></select></div>
+          <div class="form-group"><label class="form-label" data-i18n="th_due">Son Tarih</label><input type="datetime-local" class="form-input" id="ntDue"></div>
         </div>
-        <div class="form-group" style="margin-top:16px;"><label class="form-label">Notlar</label><textarea class="form-textarea" id="ntNotes" placeholder="Ek detaylar..."></textarea></div>
+        <div class="form-group" style="margin-top:16px;"><label class="form-label" data-i18n="form_notes">Notlar</label><textarea class="form-textarea" id="ntNotes" data-i18n-placeholder="ph_notes" placeholder="Ek detaylar..." data-i18n-placeholder="panel.placeholder.notes"></textarea></div>
         <div style="display:flex;align-items:center;gap:12px;margin-top:16px;">
           <div class="toggle-switch" id="ntRecurring" onclick="this.classList.toggle('on')"></div>
-          <label style="font-size:var(--text-sm);">Yinelenen Görev</label>
+          <label style="font-size:var(--text-sm);" data-i18n="form_recurring" data-i18n="panel.recurring">Yinelenen Görev</label>
         </div>
-        <div class="form-group" id="ntFreqWrap" style="margin-top:12px;display:none;"><label class="form-label">Sıklık</label><select class="form-select" id="ntFreq"><option>Her Gün</option><option>Haftalık</option><option>Aylık</option></select></div>
+        <div class="form-group" id="ntFreqWrap" style="margin-top:12px;display:none;"><label class="form-label" data-i18n="form_frequency">Sıklık</label><select class="form-select" id="ntFreq"><option data-i18n="time_every_day" data-i18n="panel.daily">Her Gün</option><option data-i18n="time_weekly" data-i18n="panel.weekly">Haftalık</option><option data-i18n="chart_monthly" data-i18n="panel.monthly">Aylık</option></select></div>
       </div>
       <div style="border-top:1px solid var(--border-color);padding-top:20px;display:flex;gap:10px;justify-content:flex-end;">
-        <button class="btn btn-secondary" onclick="closeSlidePanel('newTaskPanel')">İptal</button>
-        <button class="btn btn-primary" onclick="saveNewTask()">Görev Oluştur</button>
+        <button class="btn btn-secondary" onclick="closeSlidePanel('newTaskPanel')" data-i18n="btn_cancel" data-i18n="panel.cancel">İptal</button>
+        <button class="btn btn-primary" onclick="saveNewTask()" data-i18n="btn_create_task" data-i18n="panel.createTask">Görev Oluştur</button>
       </div>
     </div>
   </div>
@@ -456,11 +468,11 @@
 <!-- Task Detail Slide-over -->
 <div class="slide-overlay" id="detailPanel" onclick="if(event.target===this)closeSlidePanel('detailPanel')">
   <div class="slide-panel">
-    <div class="slide-header"><div class="slide-title" id="detailTitle">Görev Detayı</div><button class="slide-close" onclick="closeSlidePanel('detailPanel')">✕</button></div>
+    <div class="slide-header"><div class="slide-title" id="detailTitle" data-i18n="modal_task_detail">Görev Detayı</div><button class="slide-close" onclick="closeSlidePanel('detailPanel')">✕</button></div>
     <div class="slide-body">
       <div class="slide-section">
         <div style="display:flex;gap:16px;margin-bottom:16px;flex-wrap:wrap;">
-          <span class="priority-badge priority-yuksek" id="detailPriority">Yüksek</span>
+          <span class="priority-badge priority-yuksek" id="detailPriority" data-i18n="status_high">Yüksek</span>
           <span style="font-size:var(--text-sm);color:var(--text-muted);">📍 <span id="detailLocation">Kantoorstraat 15</span></span>
           <span style="font-size:var(--text-sm);color:var(--text-muted);">🏢 <span id="detailCustomer">Jan Peeters</span></span>
         </div>
@@ -473,16 +485,16 @@
         </div>
       </div>
       <div class="slide-section">
-        <div class="slide-section-title">Durum Güncelle</div>
+        <div class="slide-section-title" data-i18n="btn_update_status">Durum Güncelle</div>
         <div style="display:flex;gap:10px;flex-wrap:wrap;">
-          <button class="btn btn-secondary btn-sm" onclick="changeTaskStatus('Açık')">Açık</button>
-          <button class="btn btn-secondary btn-sm" onclick="changeTaskStatus('Atandı')">Atandı</button>
-          <button class="btn btn-secondary btn-sm" onclick="changeTaskStatus('Yolda')">Yolda</button>
-          <button class="btn btn-primary btn-sm" onclick="changeTaskStatus('Tamamlandı')">✓ Tamamla</button>
+          <button class="btn btn-secondary btn-sm" onclick="changeTaskStatus('Açık')" data-i18n="settings_light">Açık</button>
+          <button class="btn btn-secondary btn-sm" onclick="changeTaskStatus('Atandı')" data-i18n="kanban_assigned">Atandı</button>
+          <button class="btn btn-secondary btn-sm" onclick="changeTaskStatus('Yolda')" data-i18n="status_on_the_way">Yolda</button>
+          <button class="btn btn-primary btn-sm" onclick="changeTaskStatus('Tamamlandı')" data-i18n="btn_complete">✓ Tamamla</button>
         </div>
       </div>
       <div class="slide-section">
-        <div class="slide-section-title">Aktivite Geçmişi</div>
+        <div class="slide-section-title" data-i18n="section_activity">Aktivite Geçmişi</div>
         <div class="activity-log">
           <div class="activity-item"><div class="activity-dot"></div><div><div class="activity-text">Görev oluşturuldu ve Ahmet Kaya atandı</div><div class="activity-time">13 Mayıs 2026 — 09:15</div></div></div>
           <div class="activity-item"><div class="activity-dot"></div><div><div class="activity-text">Müşteri Jan Peeters onayladı</div><div class="activity-time">13 Mayıs 2026 — 10:30</div></div></div>
@@ -531,6 +543,1382 @@ document.getElementById('ntRecurring').addEventListener('click',function(){const
 
 // Keyboard shortcuts
 document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeSlidePanel('newTaskPanel');closeSlidePanel('detailPanel');}});
+</script>
+
+
+<script>const i18n = {
+  tr: {
+    btn_add_line: "+ Satır Ekle",
+    btn_apply: "Uygula",
+    btn_approve: "Onayla",
+    btn_cancel: "İptal",
+    btn_clear: "Temizle",
+    btn_close: "Kapat",
+    btn_complete: "✓ Tamamla",
+    btn_convert_invoice: "🧾 Faturaya Dönüştür",
+    btn_create: "Oluştur",
+    btn_create_quote: "Teklif Oluştur",
+    btn_create_task: "Görev Oluştur",
+    btn_delete: "Sil",
+    btn_detail: "Detay",
+    btn_edit: "Düzenle",
+    btn_filter: "Filtrele",
+    btn_go_invoice: "🧾 Faturaya Git",
+    btn_mark_all_read: "Tümünü Okundu İşaretle",
+    btn_new_booking: "Yeni Randevu",
+    btn_new_customer: "Müşteri Ekle",
+    btn_new_invoice: "Fatura Oluştur",
+    btn_new_quote: "+ Yeni Teklif",
+    btn_new_task: "+ Yeni Görev",
+    btn_next: "›",
+    btn_pdf_download: "🖨 PDF İndir",
+    btn_pdf_preview: "🖨 PDF Önizle",
+    btn_pdf_view: "🖨 PDF Gör",
+    btn_previous: "‹",
+    btn_print: "🖨 Yazdır / PDF Kaydet",
+    btn_quick_actions: "Hızlı İşlemler",
+    btn_reject: "Reddet",
+    btn_renew: "Yenile",
+    btn_renew_version: "↻ Yeni Versiyon Oluştur",
+    btn_save: "Kaydet",
+    btn_search: "Ara",
+    btn_send_again: "📧 Tekrar Gönder",
+    btn_send_email: "📧 Müşteriye Gönder",
+    btn_update_status: "Durum Güncelle",
+    btn_view_all: "Tümünü Gör →",
+    btn_view_report: "Rapor Gör",
+    cal_fri: "Cu",
+    cal_may_2026: "Mayıs 2026",
+    cal_mon: "Pt",
+    cal_sat: "Ct",
+    cal_sun: "Pz",
+    cal_thu: "Pe",
+    cal_tue: "Sa",
+    cal_wed: "Ça",
+    chart_daily: "Günlük",
+    chart_monthly: "Aylık",
+    company_address: "9000 Gent, Belçika",
+    company_business_plan: "Business Plan",
+    company_cleanfix: "CleanFix",
+    company_cleanfix_prof: "CleanFix Profesyonel Temizlik",
+    company_email: "info@cleanfix.be",
+    company_name: "CleanFix Demo BV",
+    company_vat: "BTW: BE0123.456.789",
+    form_address: "Adres",
+    form_all_dates: "Tüm Tarihler",
+    form_all_priorities: "Tüm Öncelikler",
+    form_all_services: "Tüm Hizmetler",
+    form_all_staff: "Tüm Personel",
+    form_all_statuses: "Tüm Durumlar",
+    form_amount: "Tutar",
+    form_assigned_staff: "Atanan Personel",
+    form_company: "Firma",
+    form_customer: "Müşteri",
+    form_date: "Tarih",
+    form_description: "Açıklama",
+    form_due_date: "Son Tarih",
+    form_email: "E-posta",
+    form_expiry: "Geçerlilik Tarihi",
+    form_frequency: "Sıklık",
+    form_grand_total: "Genel Toplam",
+    form_location: "Lokasyon",
+    form_name: "İsim",
+    form_notes: "Notlar",
+    form_phone: "Telefon",
+    form_priority: "Öncelik",
+    form_quantity: "Adet",
+    form_quote_date: "Teklif Tarihi",
+    form_quote_no: "Teklif No",
+    form_recurring: "Yinelenen Görev",
+    form_service: "Hizmet",
+    form_service_type: "Hizmet Türü",
+    form_staff: "Personel",
+    form_status: "Durum",
+    form_subtotal: "Ara Toplam",
+    form_task_info: "Görev Bilgileri",
+    form_task_name: "Görev Adı",
+    form_total: "Toplam",
+    form_unit_price: "Birim Fiyat",
+    form_valid_until: "Geçerlilik",
+    form_vat: "KDV (%)",
+    form_vat_rate: "KDV Oranı (%)",
+    gen_all: "Tümü",
+    gen_back: "Geri",
+    gen_download: "İndir",
+    gen_export: "Dışa Aktar",
+    gen_filter: "Filtrele",
+    gen_help: "Yardım",
+    gen_import: "İçe Aktar",
+    gen_info: "Bilgi",
+    gen_less: "Daha Az",
+    gen_loading: "Yükleniyor...",
+    gen_more: "Daha Fazla",
+    gen_next: "İleri",
+    gen_no: "Hayır",
+    gen_no_data: "Veri bulunamadı",
+    gen_print: "Yazdır",
+    gen_refresh: "Yenile",
+    gen_search: "Ara...",
+    gen_support: "Destek",
+    gen_yes: "Evet",
+    header_menu: "Menü",
+    header_new_task: "+ Yeni Görev",
+    header_notifications: "Bildirimler",
+    header_search: "Ara",
+    header_theme: "Tema",
+    kanban_assigned: "Atandı",
+    kanban_completed: "Tamamlandı",
+    kanban_in_progress: "Devam Ediyor",
+    kanban_open: "Açık",
+    kpi_active_customers: "Aktif Müşteri",
+    kpi_approved: "Onaylanan (€)",
+    kpi_avg_resolution: "Ort. Çözüm Süresi",
+    kpi_conversion: "Dönüşüm Oranı",
+    kpi_monthly_appointments: "Aylık Randevular",
+    kpi_monthly_revenue: "Aylık Gelir",
+    kpi_open_sla: "Açık SLA",
+    kpi_open_tickets: "Açık Ticket",
+    kpi_overdue_sla: "Gecikmiş SLA",
+    kpi_pending: "Bekleyen (€)",
+    kpi_rejected: "Reddedilen (€)",
+    kpi_resolved_tickets: "Çözülmüş Ticket",
+    kpi_satisfaction: "Müşteri Memnuniyeti",
+    kpi_this_week: "Bu Hafta Randevu",
+    kpi_total_quotes: "Toplam Teklifler",
+    kpi_upcoming_sla: "Yaklaşan SLA",
+    modal_new_booking: "Yeni Randevu Oluştur",
+    modal_new_customer: "Yeni Müşteri Ekle",
+    modal_new_invoice: "Yeni Fatura Oluştur",
+    modal_new_quote: "Yeni Teklif Oluştur",
+    modal_new_task: "Yeni Görev Oluştur",
+    modal_pdf_preview: "PDF Önizleme",
+    modal_task_detail: "Görev Detayı",
+    msg_booking_created: "Randevu oluşturuldu",
+    msg_confirm_approve: "Teklif onaylansın mı?",
+    msg_confirm_delete: "Silmek istediğinize emin misiniz?",
+    msg_confirm_reject: "Teklif reddedilsin mi?",
+    msg_customer_added: "Müşteri eklendi",
+    msg_deleted: "Silindi",
+    msg_invoice_created: "Fatura oluşturuldu",
+    msg_quote_approved: "Teklif onaylandı",
+    msg_quote_rejected: "Teklif reddedildi",
+    msg_saved: "Kaydedildi",
+    msg_status_updated: "Durum güncellendi",
+    msg_task_created: "Görev oluşturuldu",
+    nav_analytics: "Analiz",
+    nav_bookings: "Randevular",
+    nav_company: "Firma Paneli",
+    nav_customers: "Müşteriler",
+    nav_dashboard: "Dashboard",
+    nav_invoices: "Faturalar",
+    nav_logout: "Çıkış Yap",
+    nav_maintenance: "Bakım Planlayıcı",
+    nav_profile: "Firma Profili",
+    nav_quotes: "Teklifler",
+    nav_reviews: "Değerlendirmeler",
+    nav_sectors: "Sektörler",
+    nav_services: "Hizmetler",
+    nav_staff: "Çalışanlar",
+    nav_stock: "Stok",
+    nav_tools: "Araçlar",
+    notif_ago: "önce",
+    notif_day_ago: "gün önce",
+    notif_hour_ago: "saat önce",
+    notif_hours_ago: "saat önce",
+    notif_left: "adet kaldı",
+    notif_min_ago: "dakika önce",
+    notif_new_booking: "Yeni randevu:",
+    notif_new_customer: "Yeni müşteri kaydı:",
+    notif_paid: "ödendi",
+    notif_stock_alert: "Stok alarmı:",
+    notif_ticket_resolved: "çözüldü",
+    pdf_cleanfix_auth: "CleanFix Yetkilisi",
+    pdf_customer_sign: "Müşteri İmza / Tarih",
+    pdf_date: "Tarih:",
+    pdf_grand_total: "Genel Toplam:",
+    pdf_payment_detail: "14 gün vade, banka havalesi.",
+    pdf_payment_terms: "Ödeme Koşulları:",
+    pdf_quote: "Teklif",
+    pdf_quote_no_label: "Teklif No:",
+    pdf_quote_valid_until: "Bu teklif 26 Mayıs 2026 tarihine kadar geçerlidir.",
+    pdf_quote_validity: "Teklif Geçerliliği:",
+    pdf_service_material_detail: "Hizmet ve Malzeme Detayı",
+    pdf_services_materials: "Hizmet ve Malzemeler",
+    pdf_sign_instructions: "Teklifi onaylamak için lütfen imzalayarak tarafımıza iletiniz.",
+    pdf_subtotal: "Ara Toplam:",
+    pdf_valid: "Geçerlilik: 26 Mayıs 2026",
+    pdf_vat: "KDV (%21):",
+    ph_address: "Adres girin...",
+    ph_customer: "Müşteri ara...",
+    ph_description: "Açıklama",
+    ph_email: "E-posta adresi",
+    ph_name: "İsim girin",
+    ph_notes: "Ek detaylar...",
+    ph_phone: "Telefon numarası",
+    ph_price: "€",
+    ph_quantity: "Adet",
+    ph_search: "Ara...",
+    ph_task_name: "Örn: Ofis Detaylı Temizlik",
+    qa_add_customer: "Müşteri Ekle",
+    qa_new_booking: "Yeni Randevu",
+    qa_new_invoice: "Fatura Oluştur",
+    qa_view_report: "Rapor Gör",
+    sched_completed: "Tamamlandı",
+    sched_in_progress: "Devam Ediyor",
+    sched_pending: "Bekliyor",
+    section_activity: "Aktivite Geçmişi",
+    section_next_7_days: "Sonraki 7 Gün",
+    section_popular: "Popüler Hizmetler",
+    section_recent_activity: "Ekip Aktivitesi",
+    section_recent_bookings: "Son Randevular",
+    section_recurring: "🔄 Yinelenen Görevler",
+    section_revenue: "Gelir Analizi",
+    section_service_dist: "Hizmet Dağılımı",
+    section_today_schedule: "Bugünkü Program",
+    section_weather: "Hava Durumu",
+    sector_active: "Aktif",
+    sector_barber: "Berber & Kuaför",
+    sector_carwash: "CarWash",
+    sector_cleaning: "Temizlik",
+    sector_construction: "İnşaat",
+    sector_doctor: "Doktor & Klinik",
+    sector_market: "Market & Bakkal",
+    sector_planned: "Planlanan",
+    sector_restaurant: "Restoran",
+    settings_auto: "Otomatik",
+    settings_dark: "Koyu",
+    settings_language: "Dil",
+    settings_light: "Açık",
+    settings_save: "Ayarları Kaydet",
+    settings_theme: "Tema",
+    settings_title: "Ayarlar",
+    sla_expires_24h: "24 saat içinde süresi dolacak",
+    sla_need_action: "Acil müdahale gerekiyor",
+    sla_overdue: "GECİKMEDE",
+    sla_remaining: "Kalan:",
+    status_active: "Aktif",
+    status_approved: "Onaylandı",
+    status_assigned: "Atandı",
+    status_completed: "Tamamlandı",
+    status_done: "✓ Tamamlandı",
+    status_draft: "Taslak",
+    status_high: "Yüksek",
+    status_in_progress: "Devam Ediyor",
+    status_invoiced: "Faturaya Dönüştürüldü",
+    status_low: "Düşük",
+    status_medium: "Orta",
+    status_new: "Yeni",
+    status_on_the_way: "Yolda",
+    status_open: "Açık",
+    status_overdue: "Gecikmiş",
+    status_pending: "Bekliyor",
+    status_planned: "Planlanan",
+    status_rejected: "Reddedildi",
+    status_sent: "Gönderildi",
+    status_urgent: "Acil",
+    svc_carpet: "Halı/Koltuk",
+    svc_deep_clean: "Detaylı Paket",
+    svc_disinfection: "Dezenfeksiyon",
+    svc_facade: "Dış Cephe",
+    svc_hvac: "HVAC Bakım",
+    svc_interior: "İç Temizlik",
+    svc_office_cleaning: "Ofis Temizliği",
+    svc_waste: "Çöp Yönetimi",
+    svc_window_cleaning: "Cam Temizliği",
+    th_actions: "İşlemler",
+    th_amount: "Tutar",
+    th_assigned: "Atanan",
+    th_booking: "Randevu",
+    th_category: "Kategori",
+    th_customer: "Müşteri",
+    th_date: "Tarih",
+    th_due: "Son Tarih",
+    th_next_run: "Sonraki",
+    th_price: "Fiyat",
+    th_priority: "Öncelik",
+    th_product: "Ürün",
+    th_quote_no: "Teklif No",
+    th_rating: "Puan",
+    th_recurring: "Yinelenen Görevler",
+    th_review: "Değerlendirme",
+    th_service: "Hizmet",
+    th_sla: "SLA",
+    th_staff: "Personel",
+    th_status: "Durum",
+    th_stock: "Stok",
+    th_task: "Görev",
+    th_time: "Saat",
+    time_daily: "Günlük",
+    time_every_day: "Her Gün",
+    time_last_30_days: "Son 30 gün ortalaması",
+    time_monthly: "Aylık",
+    time_this_month: "Bu Ay",
+    time_this_week: "Bu Hafta",
+    time_today: "Bugün",
+    time_weekly: "Haftalık",
+    title_dashboard: "Dashboard",
+    title_maintenance: "Akıllı Bakım Planlayıcı",
+    title_quotes: "Teklifler",
+    trend_increase: "↑ %24 artış",
+    trend_new_quotes: "yeni",
+    trend_pending_quotes: "teklif beklemede",
+    trend_rejected_quotes: "teklif reddedildi",
+    trend_this_month: "↑ Bu ay +3",
+    trend_up: "↑ %5 yukarı",
+    user_admin: "Admin",
+    user_name: "Jan Wouters",
+    weather_humidity: "Nem",
+    weather_location: "📍 Antwerp, BE",
+    weather_partly_cloudy: "Parçalı Bulutlu · Güzel bir gün",
+    weather_rain_chance: "Yağmur",
+    weather_wind: "Rüzgar",
+  },
+  en: {
+    btn_add_line: "+ Add Line",
+    btn_apply: "Apply",
+    btn_approve: "Approve",
+    btn_cancel: "Cancel",
+    btn_clear: "Clear",
+    btn_close: "Close",
+    btn_complete: "✓ Complete",
+    btn_convert_invoice: "🧾 Convert to Invoice",
+    btn_create: "Create",
+    btn_create_quote: "Create Quote",
+    btn_create_task: "Create Task",
+    btn_delete: "Delete",
+    btn_detail: "Detail",
+    btn_edit: "Edit",
+    btn_filter: "Filter",
+    btn_go_invoice: "🧾 Go to Invoice",
+    btn_mark_all_read: "Mark All as Read",
+    btn_new_booking: "New Appointment",
+    btn_new_customer: "Add Customer",
+    btn_new_invoice: "Create Invoice",
+    btn_new_quote: "+ New Quote",
+    btn_new_task: "+ New Task",
+    btn_next: "›",
+    btn_pdf_download: "🖨 Download PDF",
+    btn_pdf_preview: "🖨 PDF Preview",
+    btn_pdf_view: "🖨 View PDF",
+    btn_previous: "‹",
+    btn_print: "🖨 Print / Save PDF",
+    btn_quick_actions: "Quick Actions",
+    btn_reject: "Reject",
+    btn_renew: "Renew",
+    btn_renew_version: "↻ Create New Version",
+    btn_save: "Save",
+    btn_search: "Search",
+    btn_send_again: "📧 Send Again",
+    btn_send_email: "📧 Send to Customer",
+    btn_update_status: "Update Status",
+    btn_view_all: "View All →",
+    btn_view_report: "View Report",
+    cal_fri: "Fr",
+    cal_may_2026: "May 2026",
+    cal_mon: "Mo",
+    cal_sat: "Sa",
+    cal_sun: "Su",
+    cal_thu: "Th",
+    cal_tue: "Tu",
+    cal_wed: "We",
+    chart_daily: "Daily",
+    chart_monthly: "Monthly",
+    company_address: "9000 Ghent, Belgium",
+    company_business_plan: "Business Plan",
+    company_cleanfix: "CleanFix",
+    company_cleanfix_prof: "CleanFix Professional Cleaning",
+    company_email: "info@cleanfix.be",
+    company_name: "CleanFix Demo BV",
+    company_vat: "VAT: BE0123.456.789",
+    form_address: "Address",
+    form_all_dates: "All Dates",
+    form_all_priorities: "All Priorities",
+    form_all_services: "All Services",
+    form_all_staff: "All Staff",
+    form_all_statuses: "All Statuses",
+    form_amount: "Amount",
+    form_assigned_staff: "Assigned Staff",
+    form_company: "Company",
+    form_customer: "Customer",
+    form_date: "Date",
+    form_description: "Description",
+    form_due_date: "Due Date",
+    form_email: "Email",
+    form_expiry: "Expiry Date",
+    form_frequency: "Frequency",
+    form_grand_total: "Grand Total",
+    form_location: "Location",
+    form_name: "Name",
+    form_notes: "Notes",
+    form_phone: "Phone",
+    form_priority: "Priority",
+    form_quantity: "Quantity",
+    form_quote_date: "Quote Date",
+    form_quote_no: "Quote No",
+    form_recurring: "Recurring Task",
+    form_service: "Service",
+    form_service_type: "Service Type",
+    form_staff: "Staff",
+    form_status: "Status",
+    form_subtotal: "Subtotal",
+    form_task_info: "Task Information",
+    form_task_name: "Task Name",
+    form_total: "Total",
+    form_unit_price: "Unit Price",
+    form_valid_until: "Valid Until",
+    form_vat: "VAT (%)",
+    form_vat_rate: "VAT Rate (%)",
+    gen_all: "All",
+    gen_back: "Back",
+    gen_download: "Download",
+    gen_export: "Export",
+    gen_filter: "Filter",
+    gen_help: "Help",
+    gen_import: "Import",
+    gen_info: "Info",
+    gen_less: "Less",
+    gen_loading: "Loading...",
+    gen_more: "More",
+    gen_next: "Next",
+    gen_no: "No",
+    gen_no_data: "No data found",
+    gen_print: "Print",
+    gen_refresh: "Refresh",
+    gen_search: "Search...",
+    gen_support: "Support",
+    gen_yes: "Yes",
+    header_menu: "Menu",
+    header_new_task: "+ New Task",
+    header_notifications: "Notifications",
+    header_search: "Search",
+    header_theme: "Theme",
+    kanban_assigned: "Assigned",
+    kanban_completed: "Completed",
+    kanban_in_progress: "In Progress",
+    kanban_open: "Open",
+    kpi_active_customers: "Active Customers",
+    kpi_approved: "Approved (€)",
+    kpi_avg_resolution: "Avg. Resolution Time",
+    kpi_conversion: "Conversion Rate",
+    kpi_monthly_appointments: "Monthly Appointments",
+    kpi_monthly_revenue: "Monthly Revenue",
+    kpi_open_sla: "Open SLA",
+    kpi_open_tickets: "Open Tickets",
+    kpi_overdue_sla: "Overdue SLA",
+    kpi_pending: "Pending (€)",
+    kpi_rejected: "Rejected (€)",
+    kpi_resolved_tickets: "Resolved Tickets",
+    kpi_satisfaction: "Customer Satisfaction",
+    kpi_this_week: "This Week Appointments",
+    kpi_total_quotes: "Total Quotes",
+    kpi_upcoming_sla: "Upcoming SLA",
+    modal_new_booking: "Create New Appointment",
+    modal_new_customer: "Add New Customer",
+    modal_new_invoice: "Create New Invoice",
+    modal_new_quote: "Create New Quote",
+    modal_new_task: "Create New Task",
+    modal_pdf_preview: "PDF Preview",
+    modal_task_detail: "Task Detail",
+    msg_booking_created: "Appointment created",
+    msg_confirm_approve: "Approve quote?",
+    msg_confirm_delete: "Are you sure you want to delete?",
+    msg_confirm_reject: "Reject quote?",
+    msg_customer_added: "Customer added",
+    msg_deleted: "Deleted",
+    msg_invoice_created: "Invoice created",
+    msg_quote_approved: "Quote approved",
+    msg_quote_rejected: "Quote rejected",
+    msg_saved: "Saved",
+    msg_status_updated: "Status updated",
+    msg_task_created: "Task created",
+    nav_analytics: "Analytics",
+    nav_bookings: "Appointments",
+    nav_company: "Company Panel",
+    nav_customers: "Customers",
+    nav_dashboard: "Dashboard",
+    nav_invoices: "Invoices",
+    nav_logout: "Logout",
+    nav_maintenance: "Maintenance Planner",
+    nav_profile: "Company Profile",
+    nav_quotes: "Quotes",
+    nav_reviews: "Reviews",
+    nav_sectors: "Sectors",
+    nav_services: "Services",
+    nav_staff: "Staff",
+    nav_stock: "Stock",
+    nav_tools: "Tools",
+    notif_ago: "ago",
+    notif_day_ago: "day ago",
+    notif_hour_ago: "hour ago",
+    notif_hours_ago: "hours ago",
+    notif_left: "items left",
+    notif_min_ago: "minutes ago",
+    notif_new_booking: "New appointment:",
+    notif_new_customer: "New customer registration:",
+    notif_paid: "paid",
+    notif_stock_alert: "Stock alert:",
+    notif_ticket_resolved: "resolved",
+    pdf_cleanfix_auth: "CleanFix Authorized",
+    pdf_customer_sign: "Customer Sign / Date",
+    pdf_date: "Date:",
+    pdf_grand_total: "Grand Total:",
+    pdf_payment_detail: "14 days, bank transfer.",
+    pdf_payment_terms: "Payment Terms:",
+    pdf_quote: "Quote",
+    pdf_quote_no_label: "Quote No:",
+    pdf_quote_valid_until: "This quote is valid until 26 May 2026.",
+    pdf_quote_validity: "Quote Validity:",
+    pdf_service_material_detail: "Service & Material Detail",
+    pdf_services_materials: "Services & Materials",
+    pdf_sign_instructions: "Please sign and return to approve this quote.",
+    pdf_subtotal: "Subtotal:",
+    pdf_valid: "Valid: 26 May 2026",
+    pdf_vat: "VAT (21%):",
+    ph_address: "Enter address...",
+    ph_customer: "Search customers...",
+    ph_description: "Description",
+    ph_email: "Email address",
+    ph_name: "Enter name",
+    ph_notes: "Additional details...",
+    ph_phone: "Phone number",
+    ph_price: "€",
+    ph_quantity: "Qty",
+    ph_search: "Search...",
+    ph_task_name: "E.g.: Office Deep Cleaning",
+    qa_add_customer: "Add Customer",
+    qa_new_booking: "New Appointment",
+    qa_new_invoice: "Create Invoice",
+    qa_view_report: "View Report",
+    sched_completed: "Completed",
+    sched_in_progress: "In Progress",
+    sched_pending: "Pending",
+    section_activity: "Activity History",
+    section_next_7_days: "Next 7 Days",
+    section_popular: "Popular Services",
+    section_recent_activity: "Team Activity",
+    section_recent_bookings: "Recent Appointments",
+    section_recurring: "🔄 Recurring Tasks",
+    section_revenue: "Revenue Analysis",
+    section_service_dist: "Service Distribution",
+    section_today_schedule: "Today's Schedule",
+    section_weather: "Weather",
+    sector_active: "Active",
+    sector_barber: "Barber & Salon",
+    sector_carwash: "CarWash",
+    sector_cleaning: "Cleaning",
+    sector_construction: "Construction",
+    sector_doctor: "Doctor & Clinic",
+    sector_market: "Market & Grocery",
+    sector_planned: "Planned",
+    sector_restaurant: "Restaurant",
+    settings_auto: "Auto",
+    settings_dark: "Dark",
+    settings_language: "Language",
+    settings_light: "Light",
+    settings_save: "Save Settings",
+    settings_theme: "Theme",
+    settings_title: "Settings",
+    sla_expires_24h: "Expires within 24h",
+    sla_need_action: "Urgent action required",
+    sla_overdue: "OVERDUE",
+    sla_remaining: "Remaining:",
+    status_active: "Active",
+    status_approved: "Approved",
+    status_assigned: "Assigned",
+    status_completed: "Completed",
+    status_done: "✓ Completed",
+    status_draft: "Draft",
+    status_high: "High",
+    status_in_progress: "In Progress",
+    status_invoiced: "Converted to Invoice",
+    status_low: "Low",
+    status_medium: "Medium",
+    status_new: "New",
+    status_on_the_way: "On the Way",
+    status_open: "Open",
+    status_overdue: "Overdue",
+    status_pending: "Pending",
+    status_planned: "Planned",
+    status_rejected: "Rejected",
+    status_sent: "Sent",
+    status_urgent: "Urgent",
+    svc_carpet: "Carpet/Upholstery",
+    svc_deep_clean: "Deep Clean Package",
+    svc_disinfection: "Disinfection",
+    svc_facade: "Facade",
+    svc_hvac: "HVAC Maintenance",
+    svc_interior: "Interior Cleaning",
+    svc_office_cleaning: "Office Cleaning",
+    svc_waste: "Waste Management",
+    svc_window_cleaning: "Window Cleaning",
+    th_actions: "Actions",
+    th_amount: "Amount",
+    th_assigned: "Assigned",
+    th_booking: "Appointment",
+    th_category: "Category",
+    th_customer: "Customer",
+    th_date: "Date",
+    th_due: "Due",
+    th_next_run: "Next",
+    th_price: "Price",
+    th_priority: "Priority",
+    th_product: "Product",
+    th_quote_no: "Quote No",
+    th_rating: "Rating",
+    th_recurring: "Recurring Tasks",
+    th_review: "Review",
+    th_service: "Service",
+    th_sla: "SLA",
+    th_staff: "Staff",
+    th_status: "Status",
+    th_stock: "Stock",
+    th_task: "Task",
+    th_time: "Time",
+    time_daily: "Daily",
+    time_every_day: "Every Day",
+    time_last_30_days: "Last 30 days average",
+    time_monthly: "Monthly",
+    time_this_month: "This Month",
+    time_this_week: "This Week",
+    time_today: "Today",
+    time_weekly: "Weekly",
+    title_dashboard: "Dashboard",
+    title_maintenance: "Smart Maintenance Planner",
+    title_quotes: "Quotes",
+    trend_increase: "↑ 24% increase",
+    trend_new_quotes: "new",
+    trend_pending_quotes: "quotes pending",
+    trend_rejected_quotes: "quotes rejected",
+    trend_this_month: "↑ This month +3",
+    trend_up: "↑ 5% up",
+    user_admin: "Admin",
+    user_name: "Jan Wouters",
+    weather_humidity: "Humidity",
+    weather_location: "📍 Antwerp, BE",
+    weather_partly_cloudy: "Partly Cloudy · Nice day",
+    weather_rain_chance: "Rain",
+    weather_wind: "Wind",
+  },
+  nl: {
+    btn_add_line: "+ Regel Toevoegen",
+    btn_apply: "Toepassen",
+    btn_approve: "Goedkeuren",
+    btn_cancel: "Annuleren",
+    btn_clear: "Wissen",
+    btn_close: "Sluiten",
+    btn_complete: "✓ Afronden",
+    btn_convert_invoice: "🧾 Omzetten naar Factuur",
+    btn_create: "Aanmaken",
+    btn_create_quote: "Offerte Maken",
+    btn_create_task: "Taak Aanmaken",
+    btn_delete: "Verwijderen",
+    btn_detail: "Detail",
+    btn_edit: "Bewerken",
+    btn_filter: "Filteren",
+    btn_go_invoice: "🧾 Naar Factuur",
+    btn_mark_all_read: "Alles als Gelezen Markeren",
+    btn_new_booking: "Nieuwe Afspraak",
+    btn_new_customer: "Klant Toevoegen",
+    btn_new_invoice: "Factuur Maken",
+    btn_new_quote: "+ Nieuwe Offerte",
+    btn_new_task: "+ Nieuwe Taak",
+    btn_next: "›",
+    btn_pdf_download: "🖨 PDF Downloaden",
+    btn_pdf_preview: "🖨 PDF Voorbeeld",
+    btn_pdf_view: "🖨 PDF Bekijken",
+    btn_previous: "‹",
+    btn_print: "🖨 Printen / PDF Opslaan",
+    btn_quick_actions: "Snelle Acties",
+    btn_reject: "Afwijzen",
+    btn_renew: "Vernieuwen",
+    btn_renew_version: "↻ Nieuwe Versie Maken",
+    btn_save: "Opslaan",
+    btn_search: "Zoeken",
+    btn_send_again: "📧 Opnieuw Versturen",
+    btn_send_email: "📧 Versturen naar Klant",
+    btn_update_status: "Status Bijwerken",
+    btn_view_all: "Alles Bekijken →",
+    btn_view_report: "Rapport Bekijken",
+    cal_fri: "Vr",
+    cal_may_2026: "Mei 2026",
+    cal_mon: "Ma",
+    cal_sat: "Za",
+    cal_sun: "Zo",
+    cal_thu: "Do",
+    cal_tue: "Di",
+    cal_wed: "Wo",
+    chart_daily: "Dagelijks",
+    chart_monthly: "Maandelijks",
+    company_address: "9000 Gent, België",
+    company_business_plan: "Businessplan",
+    company_cleanfix: "CleanFix",
+    company_cleanfix_prof: "CleanFix Professionele Reiniging",
+    company_email: "info@cleanfix.be",
+    company_name: "CleanFix Demo BV",
+    company_vat: "BTW: BE0123.456.789",
+    form_address: "Adres",
+    form_all_dates: "Alle Datums",
+    form_all_priorities: "Alle Prioriteiten",
+    form_all_services: "Alle Diensten",
+    form_all_staff: "Alle Personeel",
+    form_all_statuses: "Alle Statussen",
+    form_amount: "Bedrag",
+    form_assigned_staff: "Toegewezen Personeel",
+    form_company: "Bedrijf",
+    form_customer: "Klant",
+    form_date: "Datum",
+    form_description: "Omschrijving",
+    form_due_date: "Deadline",
+    form_email: "E-mail",
+    form_expiry: "Vervaldatum",
+    form_frequency: "Frequentie",
+    form_grand_total: "Eindtotaal",
+    form_location: "Locatie",
+    form_name: "Naam",
+    form_notes: "Notities",
+    form_phone: "Telefoon",
+    form_priority: "Prioriteit",
+    form_quantity: "Aantal",
+    form_quote_date: "Offertedatum",
+    form_quote_no: "Offertenummer",
+    form_recurring: "Terugkerende Taak",
+    form_service: "Dienst",
+    form_service_type: "Diensttype",
+    form_staff: "Personeel",
+    form_status: "Status",
+    form_subtotal: "Subtotaal",
+    form_task_info: "Taakinformatie",
+    form_task_name: "Taaknaam",
+    form_total: "Totaal",
+    form_unit_price: "Eenheidsprijs",
+    form_valid_until: "Geldig Tot",
+    form_vat: "BTW (%)",
+    form_vat_rate: "BTW Tarief (%)",
+    gen_all: "Alles",
+    gen_back: "Terug",
+    gen_download: "Downloaden",
+    gen_export: "Exporteren",
+    gen_filter: "Filteren",
+    gen_help: "Help",
+    gen_import: "Importeren",
+    gen_info: "Info",
+    gen_less: "Minder",
+    gen_loading: "Laden...",
+    gen_more: "Meer",
+    gen_next: "Volgende",
+    gen_no: "Nee",
+    gen_no_data: "Geen gegevens gevonden",
+    gen_print: "Printen",
+    gen_refresh: "Vernieuwen",
+    gen_search: "Zoeken...",
+    gen_support: "Ondersteuning",
+    gen_yes: "Ja",
+    header_menu: "Menu",
+    header_new_task: "+ Nieuwe Taak",
+    header_notifications: "Meldingen",
+    header_search: "Zoeken",
+    header_theme: "Thema",
+    kanban_assigned: "Toegewezen",
+    kanban_completed: "Voltooid",
+    kanban_in_progress: "In Uitvoering",
+    kanban_open: "Open",
+    kpi_active_customers: "Actieve Klanten",
+    kpi_approved: "Goedgekeurd (€)",
+    kpi_avg_resolution: "Gem. Oplostijd",
+    kpi_conversion: "Conversiepercentage",
+    kpi_monthly_appointments: "Maandelijkse Afspraken",
+    kpi_monthly_revenue: "Maandelijkse Omzet",
+    kpi_open_sla: "Open SLA",
+    kpi_open_tickets: "Open Tickets",
+    kpi_overdue_sla: "Achterstallige SLA",
+    kpi_pending: "In Afwachting (€)",
+    kpi_rejected: "Afgewezen (€)",
+    kpi_resolved_tickets: "Opgeloste Tickets",
+    kpi_satisfaction: "Klanttevredenheid",
+    kpi_this_week: "Deze Week Afspraken",
+    kpi_total_quotes: "Totaal Offertes",
+    kpi_upcoming_sla: "Naderende SLA",
+    modal_new_booking: "Nieuwe Afspraak Maken",
+    modal_new_customer: "Nieuwe Klant Toevoegen",
+    modal_new_invoice: "Nieuwe Factuur Maken",
+    modal_new_quote: "Nieuwe Offerte Maken",
+    modal_new_task: "Nieuwe Taak Aanmaken",
+    modal_pdf_preview: "PDF Voorbeeld",
+    modal_task_detail: "Taak Detail",
+    msg_booking_created: "Afspraak gemaakt",
+    msg_confirm_approve: "Offerte goedkeuren?",
+    msg_confirm_delete: "Weet u zeker dat u wilt verwijderen?",
+    msg_confirm_reject: "Offerte afwijzen?",
+    msg_customer_added: "Klant toegevoegd",
+    msg_deleted: "Verwijderd",
+    msg_invoice_created: "Factuur aangemaakt",
+    msg_quote_approved: "Offerte goedgekeurd",
+    msg_quote_rejected: "Offerte afgewezen",
+    msg_saved: "Opgeslagen",
+    msg_status_updated: "Status bijgewerkt",
+    msg_task_created: "Taak aangemaakt",
+    nav_analytics: "Analyse",
+    nav_bookings: "Afspraken",
+    nav_company: "Bedrijfspaneel",
+    nav_customers: "Klanten",
+    nav_dashboard: "Dashboard",
+    nav_invoices: "Facturen",
+    nav_logout: "Uitloggen",
+    nav_maintenance: "Onderhouds planner",
+    nav_profile: "Bedrijfsprofiel",
+    nav_quotes: "Offertes",
+    nav_reviews: "Beoordelingen",
+    nav_sectors: "Sectoren",
+    nav_services: "Diensten",
+    nav_staff: "Personeel",
+    nav_stock: "Voorraad",
+    nav_tools: "Tools",
+    notif_ago: "geleden",
+    notif_day_ago: "dag geleden",
+    notif_hour_ago: "uur geleden",
+    notif_hours_ago: "uur geleden",
+    notif_left: "items resterend",
+    notif_min_ago: "minuten geleden",
+    notif_new_booking: "Nieuwe afspraak:",
+    notif_new_customer: "Nieuwe klantregistratie:",
+    notif_paid: "betaald",
+    notif_stock_alert: "Voorraadalarm:",
+    notif_ticket_resolved: "opgelost",
+    pdf_cleanfix_auth: "CleanFix Gemachtigde",
+    pdf_customer_sign: "Klant Handtekening / Datum",
+    pdf_date: "Datum:",
+    pdf_grand_total: "Eindtotaal:",
+    pdf_payment_detail: "14 dagen, bankoverschrijving.",
+    pdf_payment_terms: "Betalingsvoorwaarden:",
+    pdf_quote: "Offerte",
+    pdf_quote_no_label: "Offerte Nr:",
+    pdf_quote_valid_until: "Deze offerte is geldig tot 26 mei 2026.",
+    pdf_quote_validity: "Offertegeldigheid:",
+    pdf_service_material_detail: "Dienst & Materiaal Detail",
+    pdf_services_materials: "Diensten & Materialen",
+    pdf_sign_instructions: "Onderteken en stuur terug om deze offerte goed te keuren.",
+    pdf_subtotal: "Subtotaal:",
+    pdf_valid: "Geldig: 26 mei 2026",
+    pdf_vat: "BTW (21%):",
+    ph_address: "Adres invoeren...",
+    ph_customer: "Zoek klanten...",
+    ph_description: "Omschrijving",
+    ph_email: "E-mailadres",
+    ph_name: "Naam invoeren",
+    ph_notes: "Extra details...",
+    ph_phone: "Telefoonnummer",
+    ph_price: "€",
+    ph_quantity: "Aantal",
+    ph_search: "Zoeken...",
+    ph_task_name: "Bijv.: Kantoor Dieptereiniging",
+    qa_add_customer: "Klant Toevoegen",
+    qa_new_booking: "Nieuwe Afspraak",
+    qa_new_invoice: "Factuur Maken",
+    qa_view_report: "Rapport Bekijken",
+    sched_completed: "Voltooid",
+    sched_in_progress: "In Uitvoering",
+    sched_pending: "In Afwachting",
+    section_activity: "Activiteitengeschiedenis",
+    section_next_7_days: "Volgende 7 Dagen",
+    section_popular: "Populaire Diensten",
+    section_recent_activity: "Teamactiviteit",
+    section_recent_bookings: "Recente Afspraken",
+    section_recurring: "🔄 Terugkerende Taken",
+    section_revenue: "Omzetanalyse",
+    section_service_dist: "Dienstverdeling",
+    section_today_schedule: "Schema Vandaag",
+    section_weather: "Weer",
+    sector_active: "Actief",
+    sector_barber: "Kapper & Salon",
+    sector_carwash: "CarWash",
+    sector_cleaning: "Reiniging",
+    sector_construction: "Bouw",
+    sector_doctor: "Dokter & Kliniek",
+    sector_market: "Winkel & Kruidenier",
+    sector_planned: "Gepland",
+    sector_restaurant: "Restaurant",
+    settings_auto: "Automatisch",
+    settings_dark: "Donker",
+    settings_language: "Taal",
+    settings_light: "Licht",
+    settings_save: "Instellingen Opslaan",
+    settings_theme: "Thema",
+    settings_title: "Instellingen",
+    sla_expires_24h: "Verloopt binnen 24u",
+    sla_need_action: "Dringende actie vereist",
+    sla_overdue: "ACHTERSTALLIG",
+    sla_remaining: "Resterend:",
+    status_active: "Actief",
+    status_approved: "Goedgekeurd",
+    status_assigned: "Toegewezen",
+    status_completed: "Voltooid",
+    status_done: "✓ Voltooid",
+    status_draft: "Concept",
+    status_high: "Hoog",
+    status_in_progress: "In Uitvoering",
+    status_invoiced: "Omgezet naar Factuur",
+    status_low: "Laag",
+    status_medium: "Gemiddeld",
+    status_new: "Nieuw",
+    status_on_the_way: "Onderweg",
+    status_open: "Open",
+    status_overdue: "Achterstallig",
+    status_pending: "In Afwachting",
+    status_planned: "Gepland",
+    status_rejected: "Afgewezen",
+    status_sent: "Verzonden",
+    status_urgent: "Dringend",
+    svc_carpet: "Tapijt/Meubels",
+    svc_deep_clean: "Dieptereiniging Pakket",
+    svc_disinfection: "Desinfectie",
+    svc_facade: "Gevel",
+    svc_hvac: "HVAC Onderhoud",
+    svc_interior: "Interieur Reiniging",
+    svc_office_cleaning: "Kantoorreiniging",
+    svc_waste: "Afvalbeheer",
+    svc_window_cleaning: "Ramen Lappen",
+    th_actions: "Acties",
+    th_amount: "Bedrag",
+    th_assigned: "Toegewezen",
+    th_booking: "Afspraak",
+    th_category: "Categorie",
+    th_customer: "Klant",
+    th_date: "Datum",
+    th_due: "Deadline",
+    th_next_run: "Volgende",
+    th_price: "Prijs",
+    th_priority: "Prioriteit",
+    th_product: "Product",
+    th_quote_no: "Offerte Nr",
+    th_rating: "Beoordeling",
+    th_recurring: "Terugkerende Taken",
+    th_review: "Review",
+    th_service: "Dienst",
+    th_sla: "SLA",
+    th_staff: "Personeel",
+    th_status: "Status",
+    th_stock: "Voorraad",
+    th_task: "Taak",
+    th_time: "Tijd",
+    time_daily: "Dagelijks",
+    time_every_day: "Elke Dag",
+    time_last_30_days: "Gemiddelde laatste 30 dagen",
+    time_monthly: "Maandelijks",
+    time_this_month: "Deze Maand",
+    time_this_week: "Deze Week",
+    time_today: "Vandaag",
+    time_weekly: "Wekelijks",
+    title_dashboard: "Dashboard",
+    title_maintenance: "Slimme Onderhouds Planner",
+    title_quotes: "Offertes",
+    trend_increase: "↑ 24% stijging",
+    trend_new_quotes: "nieuw",
+    trend_pending_quotes: "offertes in afwachting",
+    trend_rejected_quotes: "offertes afgewezen",
+    trend_this_month: "↑ Deze maand +3",
+    trend_up: "↑ 5% omhoog",
+    user_admin: "Admin",
+    user_name: "Jan Wouters",
+    weather_humidity: "Vochtigheid",
+    weather_location: "📍 Antwerpen, BE",
+    weather_partly_cloudy: "Gedeeltelijk Bewolkt · Mooie dag",
+    weather_rain_chance: "Regen",
+    weather_wind: "Wind",
+  }
+};
+let currentLang = localStorage.getItem('cleanfix_lang') || 'tr';
+
+function switchLang(lang) {
+  currentLang = lang;
+  localStorage.setItem('cleanfix_lang', lang);
+  document.documentElement.lang = lang;
+
+  document.querySelectorAll('.lang-switcher button').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.lang === lang);
+  });
+
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.dataset.i18n;
+    const t = i18n[lang] && i18n[lang][key];
+    if (!t) return;
+    const attr = el.dataset.i18nAttr;
+    if (attr) {
+      el.setAttribute(attr, t);
+    } else if (el.tagName === 'TITLE') {
+      el.textContent = t;
+    } else if (el.tagName === 'A' || el.tagName === 'BUTTON') {
+      if (el.children.length === 0) {
+        el.textContent = t;
+      } else {
+        const textNodes = Array.from(el.childNodes).filter(n => n.nodeType === 3);
+        if (textNodes.length > 0) textNodes[0].textContent = t;
+      }
+    } else {
+      if (t.includes('<')) {
+        el.innerHTML = t;
+      } else {
+        el.textContent = t;
+      }
+    }
+  });
+
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+    const key = el.dataset.i18nPlaceholder;
+    if (i18n[lang] && i18n[lang][key]) el.placeholder = i18n[lang][key];
+  });
+
+  const featuredCard = document.querySelector('.pricing-card.featured, .plan-card.featured');
+  if (featuredCard) {
+    featuredCard.dataset.popular = lang === 'tr' ? 'En Popüler' : lang === 'en' ? 'Most Popular' : 'Meest Populair';
+  }
+}
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+    const key = el.dataset.i18nPlaceholder;
+    const text = t(key);
+    if (text && text !== key) el.placeholder = text;
+  });
+  document.documentElement.lang = currentLang === 'tr' ? 'tr' : currentLang === 'nl' ? 'nl' : 'en';
+}
+
+});
+
+/* Init */
+switchLang(currentLang);
+</script>
+<script>
+const i18n = {
+  tr: {
+    'meta.description': 'CleanFix Akıllı Bakım Planlayıcı - SLA yönetimi ve görev takibi',
+    'page.title': 'Akıllı Bakım Planlayıcı',
+    'sidebar.companyPanel': 'Firma Paneli',
+    'nav.dashboard': 'Dashboard',
+    'nav.bookings': 'Randevular',
+    'nav.maintenance': 'Bakım Planlayıcı',
+    'nav.staff': 'Çalışanlar',
+    'nav.services': 'Hizmetler',
+    'nav.invoices': 'Faturalar',
+    'nav.customers': 'Müşteriler',
+    'nav.stock': 'Stok',
+    'nav.reviews': 'Değerlendirmeler',
+    'nav.quotes': 'Teklifler',
+    'nav.analytics': 'Analiz',
+    'nav.settings': 'Ayarlar',
+    'nav.companyProfile': 'Firma Profili',
+    'nav.logout': 'Çıkış Yap',
+    'header.company': 'CleanFix Demo BV',
+    'header.plan': 'Business Plan',
+    'header.newTask': 'Yeni Görev',
+    // Stats
+    'stat.openSLA': 'Açık SLA',
+    'stat.openSLADesc': 'SLA kapsamında bekleyen',
+    'stat.upcomingSLA': 'Yaklaşan SLA (24s)',
+    'stat.upcomingSLADesc': '24 saat içinde süresi dolacak',
+    'stat.overdueSLA': 'Gecikmiş SLA',
+    'stat.overdueSLADesc': 'Acil müdahale gerekiyor',
+    'stat.avgResolution': 'Ort. Çözüm Süresi',
+    'stat.avgResolutionDesc': 'Son 30 gün ortalaması',
+    // Toolbar
+    'search.placeholder': 'Görev, müşteri veya lokasyon ara...',
+    'filter.allPriorities': 'Tüm Öncelikler',
+    'filter.low': 'Düşük',
+    'filter.medium': 'Orta',
+    'filter.high': 'Yüksek',
+    'filter.urgent': 'Acil',
+    'filter.allStaff': 'Tüm Personel',
+    'filter.allDates': 'Tüm Tarihler',
+    'filter.today': 'Bugün',
+    'filter.thisWeek': 'Bu Hafta',
+    'filter.overdue': 'Gecikmiş',
+    // Recurring
+    'recurring.title': 'Yinelenen Görevler',
+    'recurring.auto': 'Otomatik oluşturulan',
+    'recurring.table.task': 'Görev',
+    'recurring.table.freq': 'Sıklık',
+    'recurring.table.next': 'Sonraki',
+    'recurring.table.assigned': 'Atanan',
+    'recurring.table.auto': 'Otomatik',
+    'recurring.weeklyFri': 'Haftalık (Cuma)',
+    'recurring.monthly': 'Aylık',
+    'recurring.weeklyTue': 'Haftalık (Salı)',
+    // Kanban
+    'kanban.open': 'Açık',
+    'kanban.assigned': 'Atandı',
+    'kanban.onTheWay': 'Yolda',
+    'kanban.completed': 'Tamamlandı',
+    // Priority
+    'priority.low': 'Düşük',
+    'priority.medium': 'Orta',
+    'priority.high': 'Yüksek',
+    'priority.urgent': 'Acil',
+    // SLA
+    'sla.remaining': 'Kalan',
+    'sla.overdue': 'GECİKMEDE',
+    'sla.completed': 'Tamamlandı',
+    'sla.day': 'g',
+    'sla.hour': 's',
+    // Slide panel - New Task
+    'panel.newTask': 'Yeni Görev Oluştur',
+    'panel.taskDetail': 'Görev Detayı',
+    'panel.taskInfo': 'Görev Bilgileri',
+    'panel.taskName': 'Görev Adı',
+    'panel.location': 'Lokasyon',
+    'panel.customer': 'Müşteri',
+    'panel.assignedStaff': 'Atanan Personel',
+    'panel.priority': 'Öncelik',
+    'panel.serviceType': 'Hizmet Türü',
+    'panel.dueDate': 'Son Tarih',
+    'panel.notes': 'Notlar',
+    'panel.recurring': 'Yinelenen Görev',
+    'panel.frequency': 'Sıklık',
+    'panel.daily': 'Her Gün',
+    'panel.weekly': 'Haftalık',
+    'panel.monthly': 'Aylık',
+    'panel.cancel': 'İptal',
+    'panel.createTask': 'Görev Oluştur',
+    'panel.updateStatus': 'Durum Güncelle',
+    'panel.activityLog': 'Aktivite Geçmişi',
+    'panel.statusOpen': 'Açık',
+    'panel.statusAssigned': 'Atandı',
+    'panel.statusOnTheWay': 'Yolda',
+    'panel.statusComplete': 'Tamamla',
+    'panel.placeholder.taskName': 'Örn: Ofis Detaylı Temizlik',
+    'panel.placeholder.location': 'Adres girin...',
+    'panel.placeholder.notes': 'Ek detaylar...',
+    // Toast
+    'toast.taskUpdated': 'Görev durumu güncellendi',
+    'toast.newTask': 'Yeni görev oluşturuldu',
+    'toast.enterTaskName': 'Görev adı girin'
+  },
+  en: {
+    'meta.description': 'CleanFix Smart Maintenance Planner - SLA management and task tracking',
+    'page.title': 'Smart Maintenance Planner',
+    'sidebar.companyPanel': 'Company Panel',
+    'nav.dashboard': 'Dashboard',
+    'nav.bookings': 'Bookings',
+    'nav.maintenance': 'Maintenance Planner',
+    'nav.staff': 'Staff',
+    'nav.services': 'Services',
+    'nav.invoices': 'Invoices',
+    'nav.customers': 'Customers',
+    'nav.stock': 'Stock',
+    'nav.reviews': 'Reviews',
+    'nav.quotes': 'Quotes',
+    'nav.analytics': 'Analytics',
+    'nav.settings': 'Settings',
+    'nav.companyProfile': 'Company Profile',
+    'nav.logout': 'Log Out',
+    'header.company': 'CleanFix Demo BV',
+    'header.plan': 'Business Plan',
+    'header.newTask': 'New Task',
+    'stat.openSLA': 'Open SLA',
+    'stat.openSLADesc': 'Waiting under SLA',
+    'stat.upcomingSLA': 'Upcoming SLA (24h)',
+    'stat.upcomingSLADesc': 'Expiring within 24 hours',
+    'stat.overdueSLA': 'Overdue SLA',
+    'stat.overdueSLADesc': 'Urgent action required',
+    'stat.avgResolution': 'Avg. Resolution Time',
+    'stat.avgResolutionDesc': 'Last 30 days average',
+    'search.placeholder': 'Search task, customer or location...',
+    'filter.allPriorities': 'All Priorities',
+    'filter.low': 'Low',
+    'filter.medium': 'Medium',
+    'filter.high': 'High',
+    'filter.urgent': 'Urgent',
+    'filter.allStaff': 'All Staff',
+    'filter.allDates': 'All Dates',
+    'filter.today': 'Today',
+    'filter.thisWeek': 'This Week',
+    'filter.overdue': 'Overdue',
+    'recurring.title': 'Recurring Tasks',
+    'recurring.auto': 'Auto-generated',
+    'recurring.table.task': 'Task',
+    'recurring.table.freq': 'Frequency',
+    'recurring.table.next': 'Next',
+    'recurring.table.assigned': 'Assigned',
+    'recurring.table.auto': 'Auto',
+    'recurring.weeklyFri': 'Weekly (Fri)',
+    'recurring.monthly': 'Monthly',
+    'recurring.weeklyTue': 'Weekly (Tue)',
+    'kanban.open': 'Open',
+    'kanban.assigned': 'Assigned',
+    'kanban.onTheWay': 'On The Way',
+    'kanban.completed': 'Completed',
+    'priority.low': 'Low',
+    'priority.medium': 'Medium',
+    'priority.high': 'High',
+    'priority.urgent': 'Urgent',
+    'sla.remaining': 'Remaining',
+    'sla.overdue': 'OVERDUE',
+    'sla.completed': 'Completed',
+    'sla.day': 'd',
+    'sla.hour': 'h',
+    'panel.newTask': 'Create New Task',
+    'panel.taskDetail': 'Task Detail',
+    'panel.taskInfo': 'Task Information',
+    'panel.taskName': 'Task Name',
+    'panel.location': 'Location',
+    'panel.customer': 'Customer',
+    'panel.assignedStaff': 'Assigned Staff',
+    'panel.priority': 'Priority',
+    'panel.serviceType': 'Service Type',
+    'panel.dueDate': 'Due Date',
+    'panel.notes': 'Notes',
+    'panel.recurring': 'Recurring Task',
+    'panel.frequency': 'Frequency',
+    'panel.daily': 'Daily',
+    'panel.weekly': 'Weekly',
+    'panel.monthly': 'Monthly',
+    'panel.cancel': 'Cancel',
+    'panel.createTask': 'Create Task',
+    'panel.updateStatus': 'Update Status',
+    'panel.activityLog': 'Activity Log',
+    'panel.statusOpen': 'Open',
+    'panel.statusAssigned': 'Assigned',
+    'panel.statusOnTheWay': 'On The Way',
+    'panel.statusComplete': 'Complete',
+    'panel.placeholder.taskName': 'E.g.: Office Deep Cleaning',
+    'panel.placeholder.location': 'Enter address...',
+    'panel.placeholder.notes': 'Additional details...',
+    'toast.taskUpdated': 'Task status updated',
+    'toast.newTask': 'New task created',
+    'toast.enterTaskName': 'Please enter a task name'
+  },
+  nl: {
+    'meta.description': 'CleanFix Slimme Onderhouds Planner - SLA beheer en taak tracking',
+    'page.title': 'Slimme Onderhouds Planner',
+    'sidebar.companyPanel': 'Bedrijfspaneel',
+    'nav.dashboard': 'Dashboard',
+    'nav.bookings': 'Afspraken',
+    'nav.maintenance': 'Onderhouds Planner',
+    'nav.staff': 'Medewerkers',
+    'nav.services': 'Diensten',
+    'nav.invoices': 'Facturen',
+    'nav.customers': 'Klanten',
+    'nav.stock': 'Voorraad',
+    'nav.reviews': 'Beoordelingen',
+    'nav.quotes': 'Offertes',
+    'nav.analytics': 'Analyse',
+    'nav.settings': 'Instellingen',
+    'nav.companyProfile': 'Bedrijfsprofiel',
+    'nav.logout': 'Uitloggen',
+    'header.company': 'CleanFix Demo BV',
+    'header.plan': 'Business Plan',
+    'header.newTask': 'Nieuwe Taak',
+    'stat.openSLA': 'Open SLA',
+    'stat.openSLADesc': 'Wachtend onder SLA',
+    'stat.upcomingSLA': 'Aankomende SLA (24u)',
+    'stat.upcomingSLADesc': 'Verloopt binnen 24 uur',
+    'stat.overdueSLA': 'Achterstallige SLA',
+    'stat.overdueSLADesc': 'Dringende actie vereist',
+    'stat.avgResolution': 'Gem. Oplostijd',
+    'stat.avgResolutionDesc': 'Gemiddelde afgelopen 30 dagen',
+    'search.placeholder': 'Zoek taak, klant of locatie...',
+    'filter.allPriorities': 'Alle Prioriteiten',
+    'filter.low': 'Laag',
+    'filter.medium': 'Gemiddeld',
+    'filter.high': 'Hoog',
+    'filter.urgent': 'Dringend',
+    'filter.allStaff': 'Alle Personeel',
+    'filter.allDates': 'Alle Datums',
+    'filter.today': 'Vandaag',
+    'filter.thisWeek': 'Deze Week',
+    'filter.overdue': 'Achterstallig',
+    'recurring.title': 'Terugkerende Taken',
+    'recurring.auto': 'Automatisch gegenereerd',
+    'recurring.table.task': 'Taak',
+    'recurring.table.freq': 'Frequentie',
+    'recurring.table.next': 'Volgende',
+    'recurring.table.assigned': 'Toegewezen',
+    'recurring.table.auto': 'Auto',
+    'recurring.weeklyFri': 'Wekelijks (Vr)',
+    'recurring.monthly': 'Maandelijks',
+    'recurring.weeklyTue': 'Wekelijks (Di)',
+    'kanban.open': 'Open',
+    'kanban.assigned': 'Toegewezen',
+    'kanban.onTheWay': 'Onderweg',
+    'kanban.completed': 'Voltooid',
+    'priority.low': 'Laag',
+    'priority.medium': 'Gemiddeld',
+    'priority.high': 'Hoog',
+    'priority.urgent': 'Dringend',
+    'sla.remaining': 'Resterend',
+    'sla.overdue': 'ACHTERSTALLIG',
+    'sla.completed': 'Voltooid',
+    'sla.day': 'd',
+    'sla.hour': 'u',
+    'panel.newTask': 'Nieuwe Taak Maken',
+    'panel.taskDetail': 'Taak Detail',
+    'panel.taskInfo': 'Taak Informatie',
+    'panel.taskName': 'Taak Naam',
+    'panel.location': 'Locatie',
+    'panel.customer': 'Klant',
+    'panel.assignedStaff': 'Toegewezen Personeel',
+    'panel.priority': 'Prioriteit',
+    'panel.serviceType': 'Diensttype',
+    'panel.dueDate': 'Deadline',
+    'panel.notes': 'Notities',
+    'panel.recurring': 'Terugkerende Taak',
+    'panel.frequency': 'Frequentie',
+    'panel.daily': 'Dagelijks',
+    'panel.weekly': 'Wekelijks',
+    'panel.monthly': 'Maandelijks',
+    'panel.cancel': 'Annuleren',
+    'panel.createTask': 'Taak Maken',
+    'panel.updateStatus': 'Status Bijwerken',
+    'panel.activityLog': 'Activiteit Geschiedenis',
+    'panel.statusOpen': 'Open',
+    'panel.statusAssigned': 'Toegewezen',
+    'panel.statusOnTheWay': 'Onderweg',
+    'panel.statusComplete': 'Afronden',
+    'panel.placeholder.taskName': 'Bijv.: Kantoor Dieptereiniging',
+    'panel.placeholder.location': 'Adres invoeren...',
+    'panel.placeholder.notes': 'Extra details...',
+    'toast.taskUpdated': 'Taakstatus bijgewerkt',
+    'toast.newTask': 'Nieuwe taak aangemaakt',
+    'toast.enterTaskName': 'Voer een taaknaam in'
+  }
+};
+</script>
+
+<script>
+/* ── i18n System ── */
+let _currentLang = localStorage.getItem('cleanfix_lang') || 'tr';
+function switchLang(lang) {
+  _currentLang = lang;
+  localStorage.setItem('cleanfix_lang', lang);
+  document.documentElement.lang = lang;
+  document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active-lang', b.dataset.lang === lang));
+  applyLang();
+}
+function applyLang() {
+  const t = i18n[_currentLang] || i18n['tr'];
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.dataset.i18n;
+    if (t[key]) {
+      if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') el.value = t[key];
+      else el.textContent = t[key];
+    }
+  });
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+    const key = el.dataset.i18nPlaceholder;
+    if (t[key]) el.placeholder = t[key];
+  });
+  document.querySelectorAll('[data-i18n-html]').forEach(el => {
+    const key = el.dataset.i18nHtml;
+    if (t[key]) el.innerHTML = t[key];
+  });
+  document.querySelectorAll('[data-i18n-attr]').forEach(el => {
+    const attr = el.dataset.i18nAttr;
+    const key = el.dataset.i18n;
+    if (t[key] && attr) el.setAttribute(attr, t[key]);
+  });
+  // Update meta description
+  const metaDesc = document.querySelector('meta[name="description"]');
+  if (metaDesc && t['meta.description']) metaDesc.content = t['meta.description'];
+}
+document.addEventListener('DOMContentLoaded', () => {
+  switchLang(_currentLang);
+});
 </script>
 
 </body>

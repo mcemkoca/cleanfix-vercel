@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CleanFix — Müşteri Portalı</title>
+<title data-i18n="title_portal">CleanFix — Müşteri Portalı</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/main.css">
 <link rel="stylesheet" href="css/components.css">
@@ -124,6 +124,21 @@ body{margin:0;font-family:'Inter',sans-serif;background:var(--bg-primary);color:
 /* Responsive */
 @media(max-width:1024px){.portal-stats{grid-template-columns:repeat(2,1fr);}.portal-two-col{grid-template-columns:1fr;}}
 @media(max-width:768px){.portal-stats{grid-template-columns:1fr;}.ticket-form{grid-template-columns:1fr;}.portal-header{padding:0 16px;}.portal-content{padding:16px;}}
+
+.lang-switcher {
+  display:flex; align-items:center; gap:4px;
+  background:var(--bg-card); border:1px solid var(--border-color);
+  border-radius:var(--radius-md); padding:3px; margin-left:12px;
+}
+.lang-switcher button {
+  background:transparent; border:none; color:var(--text-muted);
+  font-size:11px; font-weight:600; cursor:pointer;
+  padding:4px 8px; border-radius:4px; transition:all 0.2s;
+  text-transform:uppercase; font-family:inherit;
+}
+.lang-switcher button:hover { color:var(--text-primary); }
+.lang-switcher button.active { background:var(--teal-500); color:white; }
+
 </style>
 </head>
 <body>
@@ -132,18 +147,18 @@ body{margin:0;font-family:'Inter',sans-serif;background:var(--bg-primary);color:
 <div class="login-wrap" id="loginView">
   <div class="login-card">
     <div class="login-logo">CF</div>
-    <div class="login-title">Müşteri Portalı</div>
-    <div class="login-subtitle">CleanFix hizmetlerinizi yönetin</div>
+    <div class="login-title" data-i18n="portal_login_title">Müşteri Portalı</div>
+    <div class="login-subtitle" data-i18n="portal_login_subtitle">CleanFix hizmetlerinizi yönetin</div>
     <div class="login-field">
-      <label>E-posta</label>
-      <input type="email" id="loginEmail" placeholder="ornek@email.com" value="jan.peeters@kantoor.be">
+      <label data-i18n="label_email">E-posta</label>
+      <input type="email" id="loginEmail" data-i18n-placeholder="ph_email" placeholder="ornek@email.com" data-i18n-placeholder="ph_0" value="jan.peeters@kantoor.be">
     </div>
     <div class="login-field">
-      <label>Şifre</label>
-      <input type="password" id="loginPass" placeholder="••••••••" value="password123">
+      <label data-i18n="label_password">Şifre</label>
+      <input type="password" id="loginPass" data-i18n-placeholder="ph_password" placeholder="••••••••" data-i18n-placeholder="ph_1" value="password123">
     </div>
-    <button class="login-btn" onclick="doLogin()">Giriş Yap</button>
-    <div class="login-footer">CleanFix Demo BV © 2026</div>
+    <button class="login-btn" onclick="doLogin()" data-i18n="btn_login">Giriş Yap</button>
+    <div class="login-footer" data-i18n="portal_footer">CleanFix Demo BV © 2026</div>
   </div>
 </div>
 
@@ -153,44 +168,57 @@ body{margin:0;font-family:'Inter',sans-serif;background:var(--bg-primary);color:
     <div class="portal-logo">
       <div class="portal-logo-icon">CF</div>
       <div>
-        <div style="font-weight:700;font-size:var(--text-sm);">CleanFix</div>
-        <div style="font-size:var(--text-xs);color:var(--text-muted);">Müşteri Portalı</div>
+        <div style="font-weight:700;font-size:var(--text-sm);" data-i18n="cleanfix">CleanFix</div>
+        <div style="font-size:var(--text-xs);color:var(--text-muted);" data-i18n="portal_login_title">Müşteri Portalı</div>
       </div>
     </div>
-    <div class="portal-user">
+    
+        <div class="lang-switcher" style="display:flex;gap:4px;align-items:center;">
+          <button class="lang-btn" data-lang="tr" onclick="switchLang('tr')" style="padding:4px 10px;border-radius:6px;border:1px solid var(--border-color);background:var(--bg-tertiary);color:var(--text-secondary);font-size:var(--text-xs);font-weight:600;cursor:pointer;transition:all .2s;">TR</button>
+          <button class="lang-btn" data-lang="en" onclick="switchLang('en')" style="padding:4px 10px;border-radius:6px;border:1px solid var(--border-color);background:var(--bg-tertiary);color:var(--text-secondary);font-size:var(--text-xs);font-weight:600;cursor:pointer;transition:all .2s;">EN</button>
+          <button class="lang-btn" data-lang="nl" onclick="switchLang('nl')" style="padding:4px 10px;border-radius:6px;border:1px solid var(--border-color);background:var(--bg-tertiary);color:var(--text-secondary);font-size:var(--text-xs);font-weight:600;cursor:pointer;transition:all .2s;">NL</button>
+        </div>
+<div class="portal-user">
       <div style="text-align:right;">
-        <div style="font-weight:600;font-size:var(--text-sm);">Jan Peeters</div>
-        <div style="font-size:var(--text-xs);color:var(--text-muted);">jan.peeters@kantoor.be</div>
+        <div style="font-weight:600;font-size:var(--text-sm);" data-i18n="jan_peeters">Jan Peeters</div>
+        <div style="font-size:var(--text-xs);color:var(--text-muted);" data-i18n="janpeeterskantoorbe">jan.peeters@kantoor.be</div>
       </div>
       <div class="portal-avatar">JP</div>
       <button class="action-btn" onclick="doLogout()" title="Çıkış" style="width:36px;height:36px;border-radius:var(--radius-md);background:var(--bg-tertiary);border:1px solid var(--border-color);display:flex;align-items:center;justify-content:center;color:var(--text-secondary);cursor:pointer;">↪</button>
     </div>
-  </header>
+  
+  <div class="lang-switcher">
+    <button data-lang="tr" class="active" onclick="switchLang('tr')">TR</button>
+    <button data-lang="en" onclick="switchLang('en')">EN</button>
+    <button data-lang="nl" onclick="switchLang('nl')">NL</button>
+  </div>
+
+</header>
 
   <div class="portal-content">
-    <div class="portal-welcome">Hoş geldiniz, <span>Jan Peeters</span> 👋</div>
+    <div class="portal-welcome">Hoş geldiniz, <span data-i18n="jan_peeters">Jan Peeters</span> 👋</div>
 
     <!-- Stats -->
     <div class="portal-stats">
       <div class="portal-stat">
-        <div class="portal-stat-label">Açık Talepler</div>
+        <div class="portal-stat-label" data-i18n="stat_open_requests">Açık Talepler</div>
         <div class="portal-stat-value" style="color:var(--info-500);">2</div>
         <div class="portal-stat-sub">1'i acil öncelikli</div>
       </div>
       <div class="portal-stat">
-        <div class="portal-stat-label">Gelecek Randevular</div>
+        <div class="portal-stat-label" data-i18n="stat_upcoming_appointments">Gelecek Randevular</div>
         <div class="portal-stat-value" style="color:var(--teal-500);">3</div>
-        <div class="portal-stat-sub">Sonraki: 18 Mayıs</div>
+        <div class="portal-stat-sub" data-i18n="sonraki_18_mayıs">Sonraki: 18 Mayıs</div>
       </div>
       <div class="portal-stat">
-        <div class="portal-stat-label">Toplam Harcama</div>
+        <div class="portal-stat-label" data-i18n="stat_total_spending">Toplam Harcama</div>
         <div class="portal-stat-value" style="color:var(--success-500);">€2.845</div>
-        <div class="portal-stat-sub">Son 12 ay</div>
+        <div class="portal-stat-sub" data-i18n="ui_last_12_months">Son 12 ay</div>
       </div>
       <div class="portal-stat">
-        <div class="portal-stat-label">Son Fatura</div>
+        <div class="portal-stat-label" data-i18n="stat_latest_invoice">Son Fatura</div>
         <div class="portal-stat-value" style="color:var(--amber-500);">€149</div>
-        <div class="portal-stat-sub">#F-2026-1020 — Ödendi</div>
+        <div class="portal-stat-sub" data-i18n="f-2026-1020_ödendi">#F-2026-1020 — Ödendi</div>
       </div>
     </div>
 
@@ -199,94 +227,94 @@ body{margin:0;font-family:'Inter',sans-serif;background:var(--bg-primary);color:
       <!-- New Ticket -->
       <div class="portal-card">
         <div class="portal-card-header">
-          <div class="portal-card-title">🎫 Yeni Talep Oluştur</div>
+          <div class="portal-card-title" data-i18n="yeni_talep_oluştur">🎫 Yeni Talep Oluştur</div>
         </div>
         <div class="portal-card-body">
           <div class="ticket-form">
             <div class="form-group">
-              <label class="form-label">Konu</label>
-              <input type="text" class="form-input" id="tSubject" placeholder="Talep konusu...">
+              <label class="form-label" data-i18n="form_subject">Konu</label>
+              <input type="text" class="form-input" id="tSubject" data-i18n-placeholder="ph_subject" placeholder="Talep konusu..." data-i18n-placeholder="ph_2">
             </div>
             <div class="form-group">
-              <label class="form-label">Öncelik</label>
+              <label class="form-label" data-i18n="form_priority">Öncelik</label>
               <select class="form-select" id="tPriority">
-                <option value="Düşük">Düşük</option>
-                <option value="Orta" selected>Orta</option>
-                <option value="Yüksek">Yüksek</option>
-                <option value="Acil">Acil</option>
+                <option value="Düşük" data-i18n="status_low_prio">Düşük</option>
+                <option value="Orta" selected data-i18n="status_medium">Orta</option>
+                <option value="Yüksek" data-i18n="status_high">Yüksek</option>
+                <option value="Acil" data-i18n="status_urgent">Acil</option>
               </select>
             </div>
             <div class="form-group">
-              <label class="form-label">Hizmet Türü</label>
+              <label class="form-label" data-i18n="form_service_type">Hizmet Türü</label>
               <select class="form-select" id="tService">
-                <option>Ofis Temizliği</option>
-                <option>Dezenfeksiyon</option>
-                <option>Cam Temizliği</option>
-                <option>Halı/Koltuk Bakımı</option>
-                <option>Bina Dış Cephe</option>
-                <option>Çöp/Geri Dönüşüm</option>
+                <option data-i18n="cat_office_cleaning">Ofis Temizliği</option>
+                <option data-i18n="cat_disinfection">Dezenfeksiyon</option>
+                <option data-i18n="cat_window_cleaning">Cam Temizliği</option>
+                <option data-i18n="cat_carpet_upholstery">Halı/Koltuk Bakımı</option>
+                <option data-i18n="cat_building_exterior">Bina Dış Cephe</option>
+                <option data-i18n="cat_waste_recycling">Çöp/Geri Dönüşüm</option>
               </select>
             </div>
             <div class="form-group">
-              <label class="form-label">İstenen Tarih</label>
+              <label class="form-label" data-i18n="form_requested_date">İstenen Tarih</label>
               <input type="date" class="form-input" id="tDate">
             </div>
             <div class="form-group full">
-              <label class="form-label">Açıklama</label>
-              <textarea class="form-textarea" id="tDesc" placeholder="Detaylı açıklama girin..."></textarea>
+              <label class="form-label" data-i18n="form_description">Açıklama</label>
+              <textarea class="form-textarea" id="tDesc" data-i18n-placeholder="ph_description" placeholder="Detaylı açıklama girin..." data-i18n-placeholder="ph_3"></textarea>
             </div>
             <div class="form-group full">
-              <label class="form-label">Fotoğraf Ekle</label>
+              <label class="form-label" data-i18n="form_add_photo">Fotoğraf Ekle</label>
               <div class="photo-upload" onclick="document.getElementById('tPhoto').click()">
                 <div style="font-size:24px;margin-bottom:8px;">📷</div>
-                <div style="font-size:var(--text-sm);color:var(--text-secondary);">Fotoğraf yüklemek için tıklayın</div>
-                <div style="font-size:var(--text-xs);color:var(--text-muted);margin-top:4px;">JPG, PNG — max 5MB</div>
+                <div style="font-size:var(--text-sm);color:var(--text-secondary);" data-i18n="ph_upload_photo">Fotoğraf yüklemek için tıklayın</div>
+                <div style="font-size:var(--text-xs);color:var(--text-muted);margin-top:4px;" data-i18n="ph_max_size">JPG, PNG — max 5MB</div>
                 <input type="file" id="tPhoto" accept="image/*" multiple onchange="previewPhotos(this)">
               </div>
               <div class="photo-preview" id="photoPreview"></div>
             </div>
           </div>
-          <button class="btn btn-primary" style="width:100%;margin-top:16px;" onclick="submitTicket()">Talep Gönder</button>
+          <button class="btn btn-primary" style="width:100%;margin-top:16px;" onclick="submitTicket()" data-i18n="btn_create_ticket">Talep Gönder</button>
         </div>
       </div>
 
       <!-- Upcoming Appointments -->
       <div class="portal-card">
         <div class="portal-card-header">
-          <div class="portal-card-title">📅 Gelecek Randevular</div>
+          <div class="portal-card-title" data-i18n="gelecek_randevular">📅 Gelecek Randevular</div>
         </div>
         <div class="portal-card-body" style="padding:16px 24px;">
           <div class="appt-card">
             <div class="appt-date">
               <div class="appt-day">18</div>
-              <div class="appt-month">May</div>
+              <div class="appt-month" data-i18n="mon_may">May</div>
             </div>
             <div class="appt-info">
-              <div class="appt-title">Komple Detaylı Temizlik</div>
+              <div class="appt-title" data-i18n="komple_detaylı_temizlik">Komple Detaylı Temizlik</div>
               <div class="appt-meta">09:00 — 12:00 | Ofis Kat 3</div>
-              <div class="appt-staff">👤 Ahmet Kaya</div>
+              <div class="appt-staff" data-i18n="ahmet_kaya">👤 Ahmet Kaya</div>
             </div>
           </div>
           <div class="appt-card">
             <div class="appt-date">
               <div class="appt-day">22</div>
-              <div class="appt-month">May</div>
+              <div class="appt-month" data-i18n="mon_may">May</div>
             </div>
             <div class="appt-info">
-              <div class="appt-title">Cam Temizliği (İç + Dış)</div>
+              <div class="appt-title" data-i18n="cam_temizliği_iç_dış">Cam Temizliği (İç + Dış)</div>
               <div class="appt-meta">10:00 — 11:30 | Tüm Bina</div>
-              <div class="appt-staff">👤 Merve Demir</div>
+              <div class="appt-staff" data-i18n="merve_demir">👤 Merve Demir</div>
             </div>
           </div>
           <div class="appt-card">
             <div class="appt-date">
               <div class="appt-day">25</div>
-              <div class="appt-month">May</div>
+              <div class="appt-month" data-i18n="mon_may">May</div>
             </div>
             <div class="appt-info">
-              <div class="appt-title">HVAC Filtre Değişimi</div>
+              <div class="appt-title" data-i18n="hvac_filtre_değişimi">HVAC Filtre Değişimi</div>
               <div class="appt-meta">14:00 — 15:00 | Teknik Kat</div>
-              <div class="appt-staff">👤 Ali Rıza</div>
+              <div class="appt-staff" data-i18n="ali_rıza">👤 Ali Rıza</div>
             </div>
           </div>
         </div>
@@ -298,18 +326,18 @@ body{margin:0;font-family:'Inter',sans-serif;background:var(--bg-primary);color:
       <!-- Tickets -->
       <div class="portal-card">
         <div class="portal-card-header">
-          <div class="portal-card-title">📋 Destek Taleplerim</div>
-          <span style="font-size:var(--text-xs);color:var(--text-muted);">Son 5 talep</span>
+          <div class="portal-card-title" data-i18n="destek_taleplerim">📋 Destek Taleplerim</div>
+          <span style="font-size:var(--text-xs);color:var(--text-muted);" data-i18n="son_5_talep">Son 5 talep</span>
         </div>
         <div class="portal-card-body" style="padding:0;">
           <table class="portal-table" id="ticketsTable">
-            <thead><tr><th>No</th><th>Konu</th><th>Durum</th><th>Öncelik</th><th>Tarih</th></tr></thead>
+            <thead><tr><th>No</th><th data-i18n="form_subject">Konu</th><th data-i18n="form_status">Durum</th><th data-i18n="form_priority">Öncelik</th><th data-i18n="th_date">Tarih</th></tr></thead>
             <tbody>
-              <tr><td><strong>#TK-2026-45</strong></td><td>Ofis mutfak dolabı temizliği</td><td><span class="badge badge-blue">Açık</span></td><td><span class="badge badge-amber">Yüksek</span></td><td>13 Mayıs</td></tr>
-              <tr><td><strong>#TK-2026-44</strong></td><td>Koridor halıları leke çıkarma</td><td><span class="badge badge-blue">Açık</span></td><td><span class="badge badge-green">Orta</span></td><td>12 Mayıs</td></tr>
-              <tr><td><strong>#TK-2026-38</strong></td><td>Pencere pervazları toz temizliği</td><td><span class="badge badge-green">Çözüldü</span></td><td><span class="badge badge-green">Düşük</span></td><td>5 Mayıs</td></tr>
-              <tr><td><strong>#TK-2026-35</strong></td><td>Tuvalet lavabo tıkanıklığı</td><td><span class="badge badge-green">Çözüldü</span></td><td><span class="badge badge-amber">Yüksek</span></td><td>28 Nis</td></tr>
-              <tr><td><strong>#TK-2026-31</strong></td><td>Toplantı odası koltuk lekesi</td><td><span class="badge badge-green">Çözüldü</span></td><td><span class="badge badge-green">Orta</span></td><td>22 Nis</td></tr>
+              <tr><td><strong data-i18n="tk-2026-45">#TK-2026-45</strong></td><td data-i18n="ofis_mutfak_dolabı_temizliği">Ofis mutfak dolabı temizliği</td><td><span class="badge badge-blue" data-i18n="status_open">Açık</span></td><td><span class="badge badge-amber" data-i18n="status_high">Yüksek</span></td><td>13 Mayıs</td></tr>
+              <tr><td><strong data-i18n="tk-2026-44">#TK-2026-44</strong></td><td data-i18n="koridor_halıları_leke_çıkarma">Koridor halıları leke çıkarma</td><td><span class="badge badge-blue" data-i18n="status_open">Açık</span></td><td><span class="badge badge-green" data-i18n="status_medium">Orta</span></td><td>12 Mayıs</td></tr>
+              <tr><td><strong data-i18n="tk-2026-38">#TK-2026-38</strong></td><td data-i18n="pencere_pervazları_toz_temizliği">Pencere pervazları toz temizliği</td><td><span class="badge badge-green" data-i18n="status_resolved">Çözüldü</span></td><td><span class="badge badge-green" data-i18n="status_low_prio">Düşük</span></td><td>5 Mayıs</td></tr>
+              <tr><td><strong data-i18n="tk-2026-35">#TK-2026-35</strong></td><td data-i18n="tuvalet_lavabo_tıkanıklığı">Tuvalet lavabo tıkanıklığı</td><td><span class="badge badge-green" data-i18n="status_resolved">Çözüldü</span></td><td><span class="badge badge-amber" data-i18n="status_high">Yüksek</span></td><td>28 Nis</td></tr>
+              <tr><td><strong data-i18n="tk-2026-31">#TK-2026-31</strong></td><td data-i18n="toplantı_odası_koltuk_lekesi">Toplantı odası koltuk lekesi</td><td><span class="badge badge-green" data-i18n="status_resolved">Çözüldü</span></td><td><span class="badge badge-green" data-i18n="status_medium">Orta</span></td><td>22 Nis</td></tr>
             </tbody>
           </table>
         </div>
@@ -318,50 +346,50 @@ body{margin:0;font-family:'Inter',sans-serif;background:var(--bg-primary);color:
       <!-- Service History Timeline -->
       <div class="portal-card">
         <div class="portal-card-header">
-          <div class="portal-card-title">🕐 Hizmet Geçmişi</div>
+          <div class="portal-card-title" data-i18n="hizmet_geçmişi">🕐 Hizmet Geçmişi</div>
         </div>
         <div class="portal-card-body">
           <div class="timeline">
             <div class="timeline-item">
               <div class="timeline-dot green"></div>
               <div class="timeline-date">14 Mayıs 2026 — Tamamlandı</div>
-              <div class="timeline-title">Komple Detaylı Temizlik</div>
-              <div class="timeline-desc">Ahmet Kaya | 3 saat | €149</div>
+              <div class="timeline-title" data-i18n="komple_detaylı_temizlik">Komple Detaylı Temizlik</div>
+              <div class="timeline-desc" data-i18n="ahmet_kaya_3_saat_149">Ahmet Kaya | 3 saat | €149</div>
               <div class="timeline-rating">★★★★★ "Çok profesyonel iş"</div>
             </div>
             <div class="timeline-item">
               <div class="timeline-dot green"></div>
               <div class="timeline-date">7 Mayıs 2026 — Tamamlandı</div>
-              <div class="timeline-title">Cam Temizliği + Dezenfeksiyon</div>
-              <div class="timeline-desc">Merve Demir | 2 saat | €89</div>
-              <div class="timeline-rating">★★★★★ "Mükemmel sonuç"</div>
+              <div class="timeline-title" data-i18n="cam_temizliği_dezenfeksiyon">Cam Temizliği + Dezenfeksiyon</div>
+              <div class="timeline-desc" data-i18n="merve_demir_2_saat_89">Merve Demir | 2 saat | €89</div>
+              <div class="timeline-rating" data-i18n="mükemmel_sonuç">★★★★★ "Mükemmel sonuç"</div>
             </div>
             <div class="timeline-item">
               <div class="timeline-dot green"></div>
               <div class="timeline-date">30 Nisan 2026 — Tamamlandı</div>
-              <div class="timeline-title">Halı Shampoo ve Koltuk Bakımı</div>
-              <div class="timeline-desc">Naz Yılmaz | 4 saat | €199</div>
-              <div class="timeline-rating">★★★★☆ "Halılar çok iyi oldu"</div>
+              <div class="timeline-title" data-i18n="halı_shampoo_ve_koltuk_bakımı">Halı Shampoo ve Koltuk Bakımı</div>
+              <div class="timeline-desc" data-i18n="naz_yılmaz_4_saat_199">Naz Yılmaz | 4 saat | €199</div>
+              <div class="timeline-rating" data-i18n="halılar_çok_iyi_oldu">★★★★☆ "Halılar çok iyi oldu"</div>
             </div>
             <div class="timeline-item">
               <div class="timeline-dot green"></div>
               <div class="timeline-date">23 Nisan 2026 — Tamamlandı</div>
-              <div class="timeline-title">HVAC Filtre Değişimi</div>
-              <div class="timeline-desc">Ali Rıza | 1 saat | €75</div>
-              <div class="timeline-rating">★★★★★ "Hızlı ve temiz iş"</div>
+              <div class="timeline-title" data-i18n="hvac_filtre_değişimi">HVAC Filtre Değişimi</div>
+              <div class="timeline-desc" data-i18n="ali_rıza_1_saat_75">Ali Rıza | 1 saat | €75</div>
+              <div class="timeline-rating" data-i18n="hızlı_ve_temiz_iş">★★★★★ "Hızlı ve temiz iş"</div>
             </div>
             <div class="timeline-item">
               <div class="timeline-dot amber"></div>
               <div class="timeline-date">15 Nisan 2026 — İptal Edildi</div>
-              <div class="timeline-title">Dış Cephe Yıkama</div>
-              <div class="timeline-desc">Planlanan tarihte hava muhalefeti nedeniyle iptal edildi</div>
+              <div class="timeline-title" data-i18n="dış_cephe_yıkama">Dış Cephe Yıkama</div>
+              <div class="timeline-desc" data-i18n="planlanan_tarihte_hava_muhalefeti_nedeni">Planlanan tarihte hava muhalefeti nedeniyle iptal edildi</div>
             </div>
             <div class="timeline-item">
               <div class="timeline-dot green"></div>
               <div class="timeline-date">10 Nisan 2026 — Tamamlandı</div>
               <div class="timeline-title">Çöp Yönetimi (Aylık)</div>
-              <div class="timeline-desc">Selim Çelik | €45</div>
-              <div class="timeline-rating">★★★★★ "Her zamanki gibi düzenli"</div>
+              <div class="timeline-desc" data-i18n="selim_çelik_45">Selim Çelik | €45</div>
+              <div class="timeline-rating" data-i18n="her_zamanki_gibi_düzenli">★★★★★ "Her zamanki gibi düzenli"</div>
             </div>
           </div>
         </div>
@@ -373,19 +401,19 @@ body{margin:0;font-family:'Inter',sans-serif;background:var(--bg-primary);color:
       <!-- Invoices -->
       <div class="portal-card">
         <div class="portal-card-header">
-          <div class="portal-card-title">🧾 Faturalar</div>
-          <span style="font-size:var(--text-xs);color:var(--text-muted);">Son 6 fatura</span>
+          <div class="portal-card-title" data-i18n="faturalar">🧾 Faturalar</div>
+          <span style="font-size:var(--text-xs);color:var(--text-muted);" data-i18n="son_6_fatura">Son 6 fatura</span>
         </div>
         <div class="portal-card-body" style="padding:0;">
           <table class="portal-table">
-            <thead><tr><th>Fatura No</th><th>Tarih</th><th>Tutar</th><th>Durum</th><th>İşlem</th></tr></thead>
+            <thead><tr><th data-i18n="fatura_no">Fatura No</th><th data-i18n="th_date">Tarih</th><th data-i18n="th_amount">Tutar</th><th data-i18n="form_status">Durum</th><th data-i18n="işlem">İşlem</th></tr></thead>
             <tbody>
-              <tr><td><strong>#F-2026-1020</strong></td><td>14 Mayıs 2026</td><td style="font-weight:600;">€149</td><td><span class="badge badge-green">Ödendi</span></td><td><button class="action-btn" onclick="downloadInvoice('F-2026-1020',149)" title="İndir" style="width:32px;height:32px;border-radius:var(--radius-md);background:var(--bg-tertiary);border:1px solid var(--border-color);display:flex;align-items:center;justify-content:center;color:var(--text-secondary);cursor:pointer;">⬇</button></td></tr>
-              <tr><td><strong>#F-2026-1015</strong></td><td>7 Mayıs 2026</td><td style="font-weight:600;">€89</td><td><span class="badge badge-green">Ödendi</span></td><td><button class="action-btn" onclick="downloadInvoice('F-2026-1015',89)" title="İndir" style="width:32px;height:32px;border-radius:var(--radius-md);background:var(--bg-tertiary);border:1px solid var(--border-color);display:flex;align-items:center;justify-content:center;color:var(--text-secondary);cursor:pointer;">⬇</button></td></tr>
-              <tr><td><strong>#F-2026-1008</strong></td><td>30 Nis 2026</td><td style="font-weight:600;">€199</td><td><span class="badge badge-green">Ödendi</span></td><td><button class="action-btn" onclick="downloadInvoice('F-2026-1008',199)" title="İndir" style="width:32px;height:32px;border-radius:var(--radius-md);background:var(--bg-tertiary);border:1px solid var(--border-color);display:flex;align-items:center;justify-content:center;color:var(--text-secondary);cursor:pointer;">⬇</button></td></tr>
-              <tr><td><strong>#F-2026-998</strong></td><td>23 Nis 2026</td><td style="font-weight:600;">€75</td><td><span class="badge badge-green">Ödendi</span></td><td><button class="action-btn" onclick="downloadInvoice('F-2026-998',75)" title="İndir" style="width:32px;height:32px;border-radius:var(--radius-md);background:var(--bg-tertiary);border:1px solid var(--border-color);display:flex;align-items:center;justify-content:center;color:var(--text-secondary);cursor:pointer;">⬇</button></td></tr>
-              <tr><td><strong>#F-2026-985</strong></td><td>10 Nis 2026</td><td style="font-weight:600;">€45</td><td><span class="badge badge-green">Ödendi</span></td><td><button class="action-btn" onclick="downloadInvoice('F-2026-985',45)" title="İndir" style="width:32px;height:32px;border-radius:var(--radius-md);background:var(--bg-tertiary);border:1px solid var(--border-color);display:flex;align-items:center;justify-content:center;color:var(--text-secondary);cursor:pointer;">⬇</button></td></tr>
-              <tr><td><strong>#F-2026-1024</strong></td><td>18 Mayıs 2026</td><td style="font-weight:600;">€449</td><td><span class="badge badge-amber">Bekliyor</span></td><td><button class="action-btn" onclick="downloadInvoice('F-2026-1024',449)" title="İndir" style="width:32px;height:32px;border-radius:var(--radius-md);background:var(--bg-tertiary);border:1px solid var(--border-color);display:flex;align-items:center;justify-content:center;color:var(--text-secondary);cursor:pointer;">⬇</button></td></tr>
+              <tr><td><strong data-i18n="f-2026-1020">#F-2026-1020</strong></td><td>14 Mayıs 2026</td><td style="font-weight:600;">€149</td><td><span class="badge badge-green" data-i18n="status_paid">Ödendi</span></td><td><button class="action-btn" onclick="downloadInvoice('F-2026-1020',149)" title="İndir" style="width:32px;height:32px;border-radius:var(--radius-md);background:var(--bg-tertiary);border:1px solid var(--border-color);display:flex;align-items:center;justify-content:center;color:var(--text-secondary);cursor:pointer;">⬇</button></td></tr>
+              <tr><td><strong data-i18n="f-2026-1015">#F-2026-1015</strong></td><td>7 Mayıs 2026</td><td style="font-weight:600;">€89</td><td><span class="badge badge-green" data-i18n="status_paid">Ödendi</span></td><td><button class="action-btn" onclick="downloadInvoice('F-2026-1015',89)" title="İndir" style="width:32px;height:32px;border-radius:var(--radius-md);background:var(--bg-tertiary);border:1px solid var(--border-color);display:flex;align-items:center;justify-content:center;color:var(--text-secondary);cursor:pointer;">⬇</button></td></tr>
+              <tr><td><strong data-i18n="f-2026-1008">#F-2026-1008</strong></td><td>30 Nis 2026</td><td style="font-weight:600;">€199</td><td><span class="badge badge-green" data-i18n="status_paid">Ödendi</span></td><td><button class="action-btn" onclick="downloadInvoice('F-2026-1008',199)" title="İndir" style="width:32px;height:32px;border-radius:var(--radius-md);background:var(--bg-tertiary);border:1px solid var(--border-color);display:flex;align-items:center;justify-content:center;color:var(--text-secondary);cursor:pointer;">⬇</button></td></tr>
+              <tr><td><strong data-i18n="f-2026-998">#F-2026-998</strong></td><td>23 Nis 2026</td><td style="font-weight:600;">€75</td><td><span class="badge badge-green" data-i18n="status_paid">Ödendi</span></td><td><button class="action-btn" onclick="downloadInvoice('F-2026-998',75)" title="İndir" style="width:32px;height:32px;border-radius:var(--radius-md);background:var(--bg-tertiary);border:1px solid var(--border-color);display:flex;align-items:center;justify-content:center;color:var(--text-secondary);cursor:pointer;">⬇</button></td></tr>
+              <tr><td><strong data-i18n="f-2026-985">#F-2026-985</strong></td><td>10 Nis 2026</td><td style="font-weight:600;">€45</td><td><span class="badge badge-green" data-i18n="status_paid">Ödendi</span></td><td><button class="action-btn" onclick="downloadInvoice('F-2026-985',45)" title="İndir" style="width:32px;height:32px;border-radius:var(--radius-md);background:var(--bg-tertiary);border:1px solid var(--border-color);display:flex;align-items:center;justify-content:center;color:var(--text-secondary);cursor:pointer;">⬇</button></td></tr>
+              <tr><td><strong data-i18n="f-2026-1024">#F-2026-1024</strong></td><td>18 Mayıs 2026</td><td style="font-weight:600;">€449</td><td><span class="badge badge-amber" data-i18n="bekliyor">Bekliyor</span></td><td><button class="action-btn" onclick="downloadInvoice('F-2026-1024',449)" title="İndir" style="width:32px;height:32px;border-radius:var(--radius-md);background:var(--bg-tertiary);border:1px solid var(--border-color);display:flex;align-items:center;justify-content:center;color:var(--text-secondary);cursor:pointer;">⬇</button></td></tr>
             </tbody>
           </table>
         </div>
@@ -395,7 +423,7 @@ body{margin:0;font-family:'Inter',sans-serif;background:var(--bg-primary);color:
       <div>
         <div class="portal-card">
           <div class="portal-card-header">
-            <div class="portal-card-title">📆 Mayıs 2026</div>
+            <div class="portal-card-title" data-i18n="mayıs_2026">📆 Mayıs 2026</div>
             <div style="display:flex;gap:8px;">
               <button style="background:none;border:none;color:var(--text-muted);cursor:pointer;font-size:16px;" onclick="changeMonth(-1)">◀</button>
               <button style="background:none;border:none;color:var(--text-muted);cursor:pointer;font-size:16px;" onclick="changeMonth(1)">▶</button>
@@ -411,20 +439,20 @@ body{margin:0;font-family:'Inter',sans-serif;background:var(--bg-primary);color:
               <div class="cal-day">26</div><div class="cal-day">27</div><div class="cal-day">28</div><div class="cal-day">29</div><div class="cal-day">30</div><div class="cal-day">31</div><div class="cal-day empty"></div>
             </div>
             <div style="margin-top:12px;display:flex;gap:12px;align-items:center;justify-content:center;font-size:var(--text-xs);color:var(--text-muted);">
-              <span>🔵 Bugün</span><span>🟡 Randevu</span>
+              <span data-i18n="bugün">🔵 Bugün</span><span data-i18n="randevu">🟡 Randevu</span>
             </div>
           </div>
         </div>
 
         <div class="portal-card" style="margin-top:24px;">
           <div class="portal-card-header">
-            <div class="portal-card-title">⚡ Hızlı İşlemler</div>
+            <div class="portal-card-title" data-i18n="hızlı_işlemler">⚡ Hızlı İşlemler</div>
           </div>
           <div class="portal-card-body">
             <div style="display:flex;flex-direction:column;gap:10px;">
-              <button class="btn btn-primary" style="justify-content:flex-start;" onclick="showToast('Yeni randevu talebi gönderildi')">📅 Yeni Randevu Talep Et</button>
-              <button class="btn btn-secondary" style="justify-content:flex-start;" onclick="showToast('Teklif talebiniz alındı')">📄 Teklif İste</button>
-              <button class="btn btn-secondary" style="justify-content:flex-start;" onclick="showToast('Canlı destek bağlantısı hazırlanıyor...')">💬 Canlı Destek</button>
+              <button class="btn btn-primary" style="justify-content:flex-start;" onclick="showToast('Yeni randevu talebi gönderildi')" data-i18n="yeni_randevu_talep_et">📅 Yeni Randevu Talep Et</button>
+              <button class="btn btn-secondary" style="justify-content:flex-start;" onclick="showToast('Teklif talebiniz alındı')" data-i18n="teklif_iste">📄 Teklif İste</button>
+              <button class="btn btn-secondary" style="justify-content:flex-start;" onclick="showToast('Canlı destek bağlantısı hazırlanıyor...')" data-i18n="canlı_destek">💬 Canlı Destek</button>
             </div>
           </div>
         </div>
@@ -447,5 +475,1704 @@ function changeMonth(dir){showToast(dir>0?'Sonraki ay':'Önceki ay');}
 window.onload=function(){if(localStorage.getItem('cf_portal_user')){document.getElementById('loginView').style.display='none';document.getElementById('portalView').style.display='block';}};
 </script>
 
+
+
+
+<script>
+/* ═══════════════════════════════════════════
+   CleanFix i18n — Trilingual System (TR/EN/NL)
+   ═══════════════════════════════════════════ */
+const i18n = {
+  "nav_dashboard": {
+    "tr": "Dashboard",
+    "en": "Dashboard",
+    "nl": "Dashboard"
+  },
+  "nav_appointments": {
+    "tr": "Randevular",
+    "en": "Appointments",
+    "nl": "Afspraken"
+  },
+  "nav_staff": {
+    "tr": "Çalışanlar",
+    "en": "Staff",
+    "nl": "Personeel"
+  },
+  "nav_services": {
+    "tr": "Hizmetler",
+    "en": "Services",
+    "nl": "Diensten"
+  },
+  "nav_invoices": {
+    "tr": "Faturalar",
+    "en": "Invoices",
+    "nl": "Facturen"
+  },
+  "nav_customers": {
+    "tr": "Müşteriler",
+    "en": "Customers",
+    "nl": "Klanten"
+  },
+  "nav_stock": {
+    "tr": "Stok",
+    "en": "Stock",
+    "nl": "Voorraad"
+  },
+  "nav_reviews": {
+    "tr": "Değerlendirmeler",
+    "en": "Reviews",
+    "nl": "Beoordelingen"
+  },
+  "nav_equipment": {
+    "tr": "Ekipman",
+    "en": "Equipment",
+    "nl": "Apparatuur"
+  },
+  "nav_quality": {
+    "tr": "Kalite Kontrol",
+    "en": "Quality Control",
+    "nl": "Kwaliteitscontrole"
+  },
+  "nav_expenses": {
+    "tr": "Giderler",
+    "en": "Expenses",
+    "nl": "Kosten"
+  },
+  "nav_sectors": {
+    "tr": "Sektörler",
+    "en": "Sectors",
+    "nl": "Sectoren"
+  },
+  "nav_tools": {
+    "tr": "Araçlar",
+    "en": "Tools",
+    "nl": "Gereedschap"
+  },
+  "nav_vehicles": {
+    "tr": "Araçlar",
+    "en": "Vehicles",
+    "nl": "Voertuigen"
+  },
+  "nav_company_profile": {
+    "tr": "Firma Profili",
+    "en": "Company Profile",
+    "nl": "Bedrijfsprofiel"
+  },
+  "nav_logout": {
+    "tr": "Çıkış Yap",
+    "en": "Log Out",
+    "nl": "Uitloggen"
+  },
+  "nav_main_menu": {
+    "tr": "Ana Menü",
+    "en": "Main Menu",
+    "nl": "Hoofdmenu"
+  },
+  "nav_settings": {
+    "tr": "Ayarlar",
+    "en": "Settings",
+    "nl": "Instellingen"
+  },
+  "sidebar_company_panel": {
+    "tr": "Firma Paneli",
+    "en": "Company Panel",
+    "nl": "Bedrijfspaneel"
+  },
+  "sidebar_customer_portal": {
+    "tr": "Müşteri Portalı",
+    "en": "Customer Portal",
+    "nl": "Klantenportaal"
+  },
+  "title_services": {
+    "tr": "CleanFix — Hizmet Yönetimi",
+    "en": "CleanFix — Service Management",
+    "nl": "CleanFix — Dienstbeheer"
+  },
+  "title_stock": {
+    "tr": "CleanFix — Stok Yönetimi",
+    "en": "CleanFix — Stock Management",
+    "nl": "CleanFix — Voorraadbeheer"
+  },
+  "title_sectors": {
+    "tr": "CleanFix — Sektör Yönetimi",
+    "en": "CleanFix — Sector Management",
+    "nl": "CleanFix — Sectorbeheer"
+  },
+  "title_tools": {
+    "tr": "CleanFix — Araç Kutusu",
+    "en": "CleanFix — Toolkit",
+    "nl": "CleanFix — Gereedschapskist"
+  },
+  "title_portal": {
+    "tr": "CleanFix — Müşteri Portalı",
+    "en": "CleanFix — Customer Portal",
+    "nl": "CleanFix — Klantenportaal"
+  },
+  "page_services": {
+    "tr": "Hizmetler",
+    "en": "Services",
+    "nl": "Diensten"
+  },
+  "page_stock": {
+    "tr": "Stok Yönetimi",
+    "en": "Stock Management",
+    "nl": "Voorraadbeheer"
+  },
+  "page_sectors": {
+    "tr": "Sektör Yönetimi",
+    "en": "Sector Management",
+    "nl": "Sectorbeheer"
+  },
+  "page_tools": {
+    "tr": "Araç Kutusu",
+    "en": "Toolkit",
+    "nl": "Gereedschapskist"
+  },
+  "page_portal": {
+    "tr": "Müşteri Portalı",
+    "en": "Customer Portal",
+    "nl": "Klantenportaal"
+  },
+  "btn_new_service": {
+    "tr": "+ Yeni Hizmet",
+    "en": "+ New Service",
+    "nl": "+ Nieuwe Dienst"
+  },
+  "btn_new_product": {
+    "tr": "+ Yeni Ürün",
+    "en": "+ New Product",
+    "nl": "+ Nieuw Product"
+  },
+  "btn_new_sector": {
+    "tr": "+ Yeni Sektör",
+    "en": "+ New Sector",
+    "nl": "+ Nieuwe Sector"
+  },
+  "btn_save": {
+    "tr": "Kaydet",
+    "en": "Save",
+    "nl": "Opslaan"
+  },
+  "btn_close": {
+    "tr": "Kapat",
+    "en": "Close",
+    "nl": "Sluiten"
+  },
+  "btn_cancel": {
+    "tr": "İptal",
+    "en": "Cancel",
+    "nl": "Annuleren"
+  },
+  "btn_send": {
+    "tr": "Gönder",
+    "en": "Send",
+    "nl": "Verzenden"
+  },
+  "btn_login": {
+    "tr": "Giriş Yap",
+    "en": "Log In",
+    "nl": "Inloggen"
+  },
+  "btn_edit": {
+    "tr": "Düzenle",
+    "en": "Edit",
+    "nl": "Bewerken"
+  },
+  "btn_delete": {
+    "tr": "Sil",
+    "en": "Delete",
+    "nl": "Verwijderen"
+  },
+  "btn_stock_in": {
+    "tr": "Stok Girişi",
+    "en": "Stock In",
+    "nl": "Voorraadin"
+  },
+  "btn_stock_out": {
+    "tr": "Stok Çıkışı",
+    "en": "Stock Out",
+    "nl": "Voorraaduit"
+  },
+  "btn_sync": {
+    "tr": "Senkronize Et",
+    "en": "Synchronize",
+    "nl": "Synchroniseren"
+  },
+  "btn_export": {
+    "tr": "Dışa Aktar",
+    "en": "Export",
+    "nl": "Exporteren"
+  },
+  "btn_print": {
+    "tr": "Yazdır",
+    "en": "Print",
+    "nl": "Afdrukken"
+  },
+  "btn_create_ticket": {
+    "tr": "Talep Gönder",
+    "en": "Send Request",
+    "nl": "Verzoek verzenden"
+  },
+  "th_service_name": {
+    "tr": "Hizmet Adı",
+    "en": "Service Name",
+    "nl": "Dienstnaam"
+  },
+  "th_category": {
+    "tr": "Kategori",
+    "en": "Category",
+    "nl": "Categorie"
+  },
+  "th_subcategory": {
+    "tr": "Alt Kategori",
+    "en": "Subcategory",
+    "nl": "Subcategorie"
+  },
+  "th_duration": {
+    "tr": "Süre",
+    "en": "Duration",
+    "nl": "Duur"
+  },
+  "th_price": {
+    "tr": "Fiyat",
+    "en": "Price",
+    "nl": "Prijs"
+  },
+  "th_status": {
+    "tr": "Durum",
+    "en": "Status",
+    "nl": "Status"
+  },
+  "th_actions": {
+    "tr": "İşlemler",
+    "en": "Actions",
+    "nl": "Acties"
+  },
+  "th_product": {
+    "tr": "Ürün",
+    "en": "Product",
+    "nl": "Product"
+  },
+  "th_stock_level": {
+    "tr": "Stok Seviyesi",
+    "en": "Stock Level",
+    "nl": "Voorraadniveau"
+  },
+  "th_threshold": {
+    "tr": "Eşik (Min/Max)",
+    "en": "Threshold (Min/Max)",
+    "nl": "Drempel (Min/Max)"
+  },
+  "th_unit": {
+    "tr": "Birim",
+    "en": "Unit",
+    "nl": "Eenheid"
+  },
+  "th_company": {
+    "tr": "Firma",
+    "en": "Company",
+    "nl": "Bedrijf"
+  },
+  "th_contact": {
+    "tr": "İletişim",
+    "en": "Contact",
+    "nl": "Contact"
+  },
+  "th_date": {
+    "tr": "Tarih",
+    "en": "Date",
+    "nl": "Datum"
+  },
+  "th_amount": {
+    "tr": "Tutar",
+    "en": "Amount",
+    "nl": "Bedrag"
+  },
+  "th_invoice": {
+    "tr": "Fatura",
+    "en": "Invoice",
+    "nl": "Factuur"
+  },
+  "th_payment": {
+    "tr": "Ödeme",
+    "en": "Payment",
+    "nl": "Betaling"
+  },
+  "th_priority": {
+    "tr": "Öncelik",
+    "en": "Priority",
+    "nl": "Prioriteit"
+  },
+  "th_subject": {
+    "tr": "Konu",
+    "en": "Subject",
+    "nl": "Onderwerp"
+  },
+  "th_type": {
+    "tr": "Tür",
+    "en": "Type",
+    "nl": "Type"
+  },
+  "th_staff": {
+    "tr": "Personel",
+    "en": "Staff",
+    "nl": "Personeel"
+  },
+  "th_customer": {
+    "tr": "Müşteri",
+    "en": "Customer",
+    "nl": "Klant"
+  },
+  "th_booking": {
+    "tr": "Randevu",
+    "en": "Booking",
+    "nl": "Afspraak"
+  },
+  "th_service": {
+    "tr": "Hizmet",
+    "en": "Service",
+    "nl": "Dienst"
+  },
+  "th_notes": {
+    "tr": "Notlar",
+    "en": "Notes",
+    "nl": "Notities"
+  },
+  "th_rating": {
+    "tr": "Puan",
+    "en": "Rating",
+    "nl": "Beoordeling"
+  },
+  "th_review": {
+    "tr": "Yorum",
+    "en": "Review",
+    "nl": "Recensie"
+  },
+  "th_module": {
+    "tr": "Modül",
+    "en": "Module",
+    "nl": "Module"
+  },
+  "status_active": {
+    "tr": "Aktif",
+    "en": "Active",
+    "nl": "Actief"
+  },
+  "status_inactive": {
+    "tr": "Pasif",
+    "en": "Inactive",
+    "nl": "Inactief"
+  },
+  "status_sufficient": {
+    "tr": "Yeterli",
+    "en": "Sufficient",
+    "nl": "Voldoende"
+  },
+  "status_low": {
+    "tr": "Az",
+    "en": "Low",
+    "nl": "Laag"
+  },
+  "status_critical": {
+    "tr": "Kritik",
+    "en": "Critical",
+    "nl": "Kritiek"
+  },
+  "status_open": {
+    "tr": "Açık",
+    "en": "Open",
+    "nl": "Open"
+  },
+  "status_resolved": {
+    "tr": "Çözüldü",
+    "en": "Resolved",
+    "nl": "Opgelost"
+  },
+  "status_pending": {
+    "tr": "Beklemede",
+    "en": "Pending",
+    "nl": "In behandeling"
+  },
+  "status_paid": {
+    "tr": "Ödendi",
+    "en": "Paid",
+    "nl": "Betaald"
+  },
+  "status_unpaid": {
+    "tr": "Ödenmedi",
+    "en": "Unpaid",
+    "nl": "Onbetaald"
+  },
+  "status_urgent": {
+    "tr": "Acil",
+    "en": "Urgent",
+    "nl": "Dringend"
+  },
+  "status_high": {
+    "tr": "Yüksek",
+    "en": "High",
+    "nl": "Hoog"
+  },
+  "status_medium": {
+    "tr": "Orta",
+    "en": "Medium",
+    "nl": "Gemiddeld"
+  },
+  "status_low_prio": {
+    "tr": "Düşük",
+    "en": "Low",
+    "nl": "Laag"
+  },
+  "status_dev": {
+    "tr": "Geliştirme",
+    "en": "Development",
+    "nl": "Ontwikkeling"
+  },
+  "status_planning": {
+    "tr": "Planlama",
+    "en": "Planning",
+    "nl": "Planning"
+  },
+  "filter_all_categories": {
+    "tr": "Tüm Kategoriler",
+    "en": "All Categories",
+    "nl": "Alle categorieën"
+  },
+  "filter_all_levels": {
+    "tr": "Tüm Seviyeler",
+    "en": "All Levels",
+    "nl": "Alle niveaus"
+  },
+  "filter_all_statuses": {
+    "tr": "Tüm Durumlar",
+    "en": "All Statuses",
+    "nl": "Alle statussen"
+  },
+  "search_services": {
+    "tr": "Hizmet ara...",
+    "en": "Search services...",
+    "nl": "Zoek diensten..."
+  },
+  "search_products": {
+    "tr": "Ürün ara...",
+    "en": "Search products...",
+    "nl": "Zoek producten..."
+  },
+  "search_customers": {
+    "tr": "Müşteri ara...",
+    "en": "Search customers...",
+    "nl": "Zoek klanten..."
+  },
+  "search_requests": {
+    "tr": "Talep ara...",
+    "en": "Search requests...",
+    "nl": "Zoek verzoeken..."
+  },
+  "search_staff": {
+    "tr": "Personel ara...",
+    "en": "Search staff...",
+    "nl": "Zoek personeel..."
+  },
+  "modal_add_service": {
+    "tr": "Yeni Hizmet Ekle",
+    "en": "Add New Service",
+    "nl": "Nieuwe dienst toevoegen"
+  },
+  "modal_edit_service": {
+    "tr": "Hizmet Düzenle",
+    "en": "Edit Service",
+    "nl": "Dienst bewerken"
+  },
+  "modal_add_product": {
+    "tr": "Yeni Ürün Ekle",
+    "en": "Add New Product",
+    "nl": "Nieuw product toevoegen"
+  },
+  "modal_edit_product": {
+    "tr": "Ürün Düzenle",
+    "en": "Edit Product",
+    "nl": "Product bewerken"
+  },
+  "modal_stock_move": {
+    "tr": "Stok Hareketi",
+    "en": "Stock Movement",
+    "nl": "Voorraadbeweging"
+  },
+  "modal_add_sector": {
+    "tr": "Yeni Sektör Ekle",
+    "en": "Add New Sector",
+    "nl": "Nieuwe sector toevoegen"
+  },
+  "modal_edit_sector": {
+    "tr": "Sektör Düzenle",
+    "en": "Edit Sector",
+    "nl": "Sector bewerken"
+  },
+  "modal_add_staff": {
+    "tr": "Yeni Personel Ekle",
+    "en": "Add New Staff",
+    "nl": "Nieuw personeel toevoegen"
+  },
+  "modal_edit_staff": {
+    "tr": "Personel Düzenle",
+    "en": "Edit Staff",
+    "nl": "Personeel bewerken"
+  },
+  "modal_add_customer": {
+    "tr": "Yeni Müşteri Ekle",
+    "en": "Add New Customer",
+    "nl": "Nieuwe klant toevoegen"
+  },
+  "modal_edit_customer": {
+    "tr": "Müşteri Düzenle",
+    "en": "Edit Customer",
+    "nl": "Klant bewerken"
+  },
+  "modal_add_booking": {
+    "tr": "Yeni Randevu Ekle",
+    "en": "Add New Booking",
+    "nl": "Nieuwe afspraak toevoegen"
+  },
+  "modal_edit_booking": {
+    "tr": "Randevu Düzenle",
+    "en": "Edit Booking",
+    "nl": "Afspraak bewerken"
+  },
+  "modal_delete_confirm": {
+    "tr": "Silme Onayı",
+    "en": "Delete Confirmation",
+    "nl": "Verwijderingsbevestiging"
+  },
+  "modal_assign_company": {
+    "tr": "Firma Ata",
+    "en": "Assign Company",
+    "nl": "Bedrijf toewijzen"
+  },
+  "form_name": {
+    "tr": "Adı",
+    "en": "Name",
+    "nl": "Naam"
+  },
+  "form_email": {
+    "tr": "E-posta",
+    "en": "Email",
+    "nl": "E-mail"
+  },
+  "form_phone": {
+    "tr": "Telefon",
+    "en": "Phone",
+    "nl": "Telefoon"
+  },
+  "form_address": {
+    "tr": "Adres",
+    "en": "Address",
+    "nl": "Adres"
+  },
+  "form_password": {
+    "tr": "Şifre",
+    "en": "Password",
+    "nl": "Wachtwoord"
+  },
+  "form_category": {
+    "tr": "Kategori",
+    "en": "Category",
+    "nl": "Categorie"
+  },
+  "form_subcategory": {
+    "tr": "Alt Kategori",
+    "en": "Subcategory",
+    "nl": "Subcategorie"
+  },
+  "form_duration": {
+    "tr": "Süre",
+    "en": "Duration",
+    "nl": "Duur"
+  },
+  "form_price": {
+    "tr": "Fiyat",
+    "en": "Price",
+    "nl": "Prijs"
+  },
+  "form_description": {
+    "tr": "Açıklama",
+    "en": "Description",
+    "nl": "Beschrijving"
+  },
+  "form_notes": {
+    "tr": "Notlar",
+    "en": "Notes",
+    "nl": "Notities"
+  },
+  "form_status": {
+    "tr": "Durum",
+    "en": "Status",
+    "nl": "Status"
+  },
+  "form_priority": {
+    "tr": "Öncelik",
+    "en": "Priority",
+    "nl": "Prioriteit"
+  },
+  "form_subject": {
+    "tr": "Konu",
+    "en": "Subject",
+    "nl": "Onderwerp"
+  },
+  "form_service_type": {
+    "tr": "Hizmet Türü",
+    "en": "Service Type",
+    "nl": "Diensttype"
+  },
+  "form_requested_date": {
+    "tr": "İstenen Tarih",
+    "en": "Requested Date",
+    "nl": "Gewenste datum"
+  },
+  "form_add_photo": {
+    "tr": "Fotoğraf Ekle",
+    "en": "Add Photo",
+    "nl": "Foto toevoegen"
+  },
+  "form_quantity": {
+    "tr": "Miktar",
+    "en": "Quantity",
+    "nl": "Hoeveelheid"
+  },
+  "form_unit": {
+    "tr": "Birim",
+    "en": "Unit",
+    "nl": "Eenheid"
+  },
+  "form_min_stock": {
+    "tr": "Min. Stok",
+    "en": "Min. Stock",
+    "nl": "Min. voorraad"
+  },
+  "form_max_stock": {
+    "tr": "Max. Stok",
+    "en": "Max. Stock",
+    "nl": "Max. voorraad"
+  },
+  "form_emoji": {
+    "tr": "Emoji",
+    "en": "Emoji",
+    "nl": "Emoji"
+  },
+  "form_sector_name": {
+    "tr": "Sektör Adı",
+    "en": "Sector Name",
+    "nl": "Sectornaam"
+  },
+  "form_modules": {
+    "tr": "Modüller",
+    "en": "Modules",
+    "nl": "Modules"
+  },
+  "stat_total_sectors": {
+    "tr": "Toplam Sektör",
+    "en": "Total Sectors",
+    "nl": "Totaal sectoren"
+  },
+  "stat_active_companies": {
+    "tr": "Aktif Firmalar",
+    "en": "Active Companies",
+    "nl": "Actieve bedrijven"
+  },
+  "stat_pending_approval": {
+    "tr": "Bekleyen Onay",
+    "en": "Pending Approval",
+    "nl": "In afwachting"
+  },
+  "stat_monthly_revenue": {
+    "tr": "Aylık Gelir",
+    "en": "Monthly Revenue",
+    "nl": "Maandelijkse omzet"
+  },
+  "stat_total_templates": {
+    "tr": "Toplam Şablon",
+    "en": "Total Templates",
+    "nl": "Totaal sjablonen"
+  },
+  "stat_open_requests": {
+    "tr": "Açık Talepler",
+    "en": "Open Requests",
+    "nl": "Open verzoeken"
+  },
+  "stat_upcoming_appointments": {
+    "tr": "Gelecek Randevular",
+    "en": "Upcoming Appointments",
+    "nl": "Aankomende afspraken"
+  },
+  "stat_total_spending": {
+    "tr": "Toplam Harcama",
+    "en": "Total Spending",
+    "nl": "Totale uitgaven"
+  },
+  "stat_latest_invoice": {
+    "tr": "Son Fatura",
+    "en": "Latest Invoice",
+    "nl": "Laatste factuur"
+  },
+  "stat_total_services": {
+    "tr": "Toplam Hizmet",
+    "en": "Total Services",
+    "nl": "Totaal diensten"
+  },
+  "stat_active_services": {
+    "tr": "Aktif Hizmet",
+    "en": "Active Services",
+    "nl": "Actieve diensten"
+  },
+  "stat_total_products": {
+    "tr": "Toplam Ürün",
+    "en": "Total Products",
+    "nl": "Totaal producten"
+  },
+  "stat_low_stock": {
+    "tr": "Az Stok",
+    "en": "Low Stock",
+    "nl": "Lage voorraad"
+  },
+  "stat_critical_stock": {
+    "tr": "Kritik Stok",
+    "en": "Critical Stock",
+    "nl": "Kritieke voorraad"
+  },
+  "stat_total_staff": {
+    "tr": "Toplam Personel",
+    "en": "Total Staff",
+    "nl": "Totaal personeel"
+  },
+  "stat_total_customers": {
+    "tr": "Toplam Müşteri",
+    "en": "Total Customers",
+    "nl": "Totaal klanten"
+  },
+  "stat_total_bookings": {
+    "tr": "Toplam Randevu",
+    "en": "Total Bookings",
+    "nl": "Totaal afspraken"
+  },
+  "card_services_list": {
+    "tr": "Hizmet Listesi",
+    "en": "Service List",
+    "nl": "Dienstenlijst"
+  },
+  "card_stock_list": {
+    "tr": "Stok Listesi",
+    "en": "Stock List",
+    "nl": "Voorraadlijst"
+  },
+  "card_sector_list": {
+    "tr": "Sektör Listesi",
+    "en": "Sector List",
+    "nl": "Sectorlijst"
+  },
+  "card_company_list": {
+    "tr": "Firma Listesi",
+    "en": "Company List",
+    "nl": "Bedrijvenlijst"
+  },
+  "card_staff_list": {
+    "tr": "Personel Listesi",
+    "en": "Staff List",
+    "nl": "Personeelslijst"
+  },
+  "card_customer_list": {
+    "tr": "Müşteri Listesi",
+    "en": "Customer List",
+    "nl": "Klantenlijst"
+  },
+  "card_booking_list": {
+    "tr": "Randevu Listesi",
+    "en": "Booking List",
+    "nl": "Afsprakenlijst"
+  },
+  "card_invoice_list": {
+    "tr": "Fatura Listesi",
+    "en": "Invoice List",
+    "nl": "Facturenlijst"
+  },
+  "card_recent_activity": {
+    "tr": "Son Aktiviteler",
+    "en": "Recent Activity",
+    "nl": "Recente activiteit"
+  },
+  "card_upcoming_bookings": {
+    "tr": "Yaklaşan Randevular",
+    "en": "Upcoming Bookings",
+    "nl": "Aankomende afspraken"
+  },
+  "card_new_ticket": {
+    "tr": "Yeni Talep Oluştur",
+    "en": "Create New Ticket",
+    "nl": "Nieuw ticket aanmaken"
+  },
+  "card_my_tickets": {
+    "tr": "Taleplerim",
+    "en": "My Tickets",
+    "nl": "Mijn tickets"
+  },
+  "card_service_history": {
+    "tr": "Hizmet Geçmişi",
+    "en": "Service History",
+    "nl": "Dienstgeschiedenis"
+  },
+  "card_my_invoices": {
+    "tr": "Faturalarım",
+    "en": "My Invoices",
+    "nl": "Mijn facturen"
+  },
+  "card_calendar": {
+    "tr": "Takvim",
+    "en": "Calendar",
+    "nl": "Kalender"
+  },
+  "card_settings": {
+    "tr": "Ayarlar",
+    "en": "Settings",
+    "nl": "Instellingen"
+  },
+  "card_profile": {
+    "tr": "Profil",
+    "en": "Profile",
+    "nl": "Profiel"
+  },
+  "cat_home_cleaning": {
+    "tr": "Ev Temizliği",
+    "en": "Home Cleaning",
+    "nl": "Huisreiniging"
+  },
+  "cat_office_cleaning": {
+    "tr": "Ofis Temizliği",
+    "en": "Office Cleaning",
+    "nl": "Kantoorreiniging"
+  },
+  "cat_window_cleaning": {
+    "tr": "Cam Temizliği",
+    "en": "Window Cleaning",
+    "nl": "Ramenreiniging"
+  },
+  "cat_carpet_cleaning": {
+    "tr": "Halı Yıkama",
+    "en": "Carpet Cleaning",
+    "nl": "Tapijtreiniging"
+  },
+  "cat_industrial": {
+    "tr": "Endüstriyel",
+    "en": "Industrial",
+    "nl": "Industrieel"
+  },
+  "cat_special": {
+    "tr": "Özel",
+    "en": "Special",
+    "nl": "Speciaal"
+  },
+  "cat_cleaning_supplies": {
+    "tr": "Temizlik Malzemeleri",
+    "en": "Cleaning Supplies",
+    "nl": "Schoonmaakmiddelen"
+  },
+  "cat_equipment": {
+    "tr": "Ekipman",
+    "en": "Equipment",
+    "nl": "Apparatuur"
+  },
+  "cat_consumables": {
+    "tr": "Sarf Malzeme",
+    "en": "Consumables",
+    "nl": "Verbruiksgoederen"
+  },
+  "cat_chemical": {
+    "tr": "Kimyasal",
+    "en": "Chemical",
+    "nl": "Chemisch"
+  },
+  "cat_disinfection": {
+    "tr": "Dezenfeksiyon",
+    "en": "Disinfection",
+    "nl": "Desinfectie"
+  },
+  "cat_carpet_upholstery": {
+    "tr": "Halı/Koltuk Bakımı",
+    "en": "Carpet/Upholstery Care",
+    "nl": "Tapijt/Meubelverzorging"
+  },
+  "cat_building_exterior": {
+    "tr": "Bina Dış Cephe",
+    "en": "Building Exterior",
+    "nl": "Gebouwgevel"
+  },
+  "cat_waste_recycling": {
+    "tr": "Çöp/Geri Dönüşüm",
+    "en": "Waste/Recycling",
+    "nl": "Afval/Recycling"
+  },
+  "sub_standard": {
+    "tr": "Standart",
+    "en": "Standard",
+    "nl": "Standaard"
+  },
+  "sub_deep": {
+    "tr": "Derinlemesine",
+    "en": "Deep",
+    "nl": "Diep"
+  },
+  "sub_post_construction": {
+    "tr": "İnşaat Sonrası",
+    "en": "Post-Construction",
+    "nl": "Na de bouw"
+  },
+  "sub_daily": {
+    "tr": "Günlük",
+    "en": "Daily",
+    "nl": "Dagelijks"
+  },
+  "sub_weekly": {
+    "tr": "Haftalık",
+    "en": "Weekly",
+    "nl": "Wekelijks"
+  },
+  "sub_upholstery": {
+    "tr": "Koltuk",
+    "en": "Upholstery",
+    "nl": "Meubels"
+  },
+  "sub_inner_glass": {
+    "tr": "İç Cam",
+    "en": "Inner Glass",
+    "nl": "Binnenraam"
+  },
+  "sub_outer_glass": {
+    "tr": "Dış Cam",
+    "en": "Outer Glass",
+    "nl": "Buitenraam"
+  },
+  "sub_building_glass": {
+    "tr": "Bina Cam",
+    "en": "Building Glass",
+    "nl": "Gebouwenraam"
+  },
+  "sub_wash_dry": {
+    "tr": "Yıkama + Kurutma",
+    "en": "Wash + Dry",
+    "nl": "Wassen + Drogen"
+  },
+  "sub_stain": {
+    "tr": "Leke",
+    "en": "Stain",
+    "nl": "Vlek"
+  },
+  "sub_steam": {
+    "tr": "Buharlı",
+    "en": "Steam",
+    "nl": "Stoom"
+  },
+  "sub_factory": {
+    "tr": "Fabrika",
+    "en": "Factory",
+    "nl": "Fabriek"
+  },
+  "sub_interior": {
+    "tr": "İç Mekan",
+    "en": "Interior",
+    "nl": "Interieur"
+  },
+  "sub_exterior": {
+    "tr": "Dış Mekan",
+    "en": "Exterior",
+    "nl": "Exterieur"
+  },
+  "sub_basic": {
+    "tr": "Temel",
+    "en": "Basic",
+    "nl": "Basis"
+  },
+  "sub_detailed": {
+    "tr": "Detaylı",
+    "en": "Detailed",
+    "nl": "Gedetailleerd"
+  },
+  "sub_maintenance": {
+    "tr": "Bakım",
+    "en": "Maintenance",
+    "nl": "Onderhoud"
+  },
+  "sector_cleaning": {
+    "tr": "Temizlik",
+    "en": "Cleaning",
+    "nl": "Reiniging"
+  },
+  "sector_construction": {
+    "tr": "İnşaat",
+    "en": "Construction",
+    "nl": "Bouw"
+  },
+  "sector_barber": {
+    "tr": "Berber / Kuaför",
+    "en": "Barber / Hairdresser",
+    "nl": "Kapper / Kapster"
+  },
+  "sector_market": {
+    "tr": "Market / Bakkal",
+    "en": "Market / Grocery",
+    "nl": "Markt / Kruidenier"
+  },
+  "sector_restaurant": {
+    "tr": "Restoran",
+    "en": "Restaurant",
+    "nl": "Restaurant"
+  },
+  "sector_carpentry": {
+    "tr": "Marangoz & Mobilya",
+    "en": "Carpentry & Furniture",
+    "nl": "Timmerwerk & Meubels"
+  },
+  "tab_templates": {
+    "tr": "Şablonlar",
+    "en": "Templates",
+    "nl": "Sjablonen"
+  },
+  "tab_checklists": {
+    "tr": "Kontrol Listeleri",
+    "en": "Checklists",
+    "nl": "Controlelijsten"
+  },
+  "tab_chemical_guide": {
+    "tr": "Kimyasal Rehberi",
+    "en": "Chemical Guide",
+    "nl": "Chemische gids"
+  },
+  "tab_surveys": {
+    "tr": "Anketler",
+    "en": "Surveys",
+    "nl": "Enquêtes"
+  },
+  "tab_forms": {
+    "tr": "Formlar",
+    "en": "Forms",
+    "nl": "Formulieren"
+  },
+  "tab_complaints": {
+    "tr": "Şikayet Yönetimi",
+    "en": "Complaint Management",
+    "nl": "Klachtenbeheer"
+  },
+  "tab_quotes": {
+    "tr": "Teklif Şablonları",
+    "en": "Quote Templates",
+    "nl": "Offertesjablonen"
+  },
+  "tab_staff_schedule": {
+    "tr": "Personel Programı",
+    "en": "Staff Schedule",
+    "nl": "Personeelsrooster"
+  },
+  "tab_dosage_calc": {
+    "tr": "Dozaj Hesaplayıcı",
+    "en": "Dosage Calculator",
+    "nl": "Dosering calculator"
+  },
+  "tab_cost_calc": {
+    "tr": "Maliyet Hesaplayıcı",
+    "en": "Cost Calculator",
+    "nl": "Kostencalculator"
+  },
+  "portal_welcome": {
+    "tr": "Hoş geldiniz",
+    "en": "Welcome",
+    "nl": "Welkom"
+  },
+  "portal_login_title": {
+    "tr": "Müşteri Portalı",
+    "en": "Customer Portal",
+    "nl": "Klantenportaal"
+  },
+  "portal_login_subtitle": {
+    "tr": "CleanFix hizmetlerinizi yönetin",
+    "en": "Manage your CleanFix services",
+    "nl": "Beheer uw CleanFix-diensten"
+  },
+  "portal_footer": {
+    "tr": "CleanFix Demo BV © 2026",
+    "en": "CleanFix Demo BV © 2026",
+    "nl": "CleanFix Demo BV © 2026"
+  },
+  "label_email": {
+    "tr": "E-posta",
+    "en": "Email",
+    "nl": "E-mail"
+  },
+  "label_password": {
+    "tr": "Şifre",
+    "en": "Password",
+    "nl": "Wachtwoord"
+  },
+  "ph_email": {
+    "tr": "ornek@email.com",
+    "en": "example@email.com",
+    "nl": "voorbeeld@email.com"
+  },
+  "ph_password": {
+    "tr": "••••••••",
+    "en": "••••••••",
+    "nl": "••••••••"
+  },
+  "ph_subject": {
+    "tr": "Talep konusu...",
+    "en": "Request subject...",
+    "nl": "Verzoekonderwerp..."
+  },
+  "ph_description": {
+    "tr": "Detaylı açıklama girin...",
+    "en": "Enter detailed description...",
+    "nl": "Voer gedetailleerde beschrijving in..."
+  },
+  "ph_upload_photo": {
+    "tr": "Fotoğraf yüklemek için tıklayın",
+    "en": "Click to upload photos",
+    "nl": "Klik om foto's te uploaden"
+  },
+  "ph_max_size": {
+    "tr": "JPG, PNG — max 5MB",
+    "en": "JPG, PNG — max 5MB",
+    "nl": "JPG, PNG — max 5MB"
+  },
+  "unit_hours": {
+    "tr": "saat",
+    "en": "hours",
+    "nl": "uur"
+  },
+  "unit_pcs": {
+    "tr": "adet",
+    "en": "pcs",
+    "nl": "stuks"
+  },
+  "unit_sqm": {
+    "tr": "m²",
+    "en": "m²",
+    "nl": "m²"
+  },
+  "unit_liters": {
+    "tr": "L",
+    "en": "L",
+    "nl": "L"
+  },
+  "unit_ml": {
+    "tr": "ml",
+    "en": "ml",
+    "nl": "ml"
+  },
+  "ui_business_plan": {
+    "tr": "Business Plan",
+    "en": "Business Plan",
+    "nl": "Business Plan"
+  },
+  "ui_super_admin": {
+    "tr": "Super Admin",
+    "en": "Super Admin",
+    "nl": "Super Admin"
+  },
+  "ui_cleanfix_demo": {
+    "tr": "CleanFix Demo BV",
+    "en": "CleanFix Demo BV",
+    "nl": "CleanFix Demo BV"
+  },
+  "ui_cleanfix_admin": {
+    "tr": "CleanFix Admin",
+    "en": "CleanFix Admin",
+    "nl": "CleanFix Admin"
+  },
+  "ui_last_12_months": {
+    "tr": "Son 12 ay",
+    "en": "Last 12 months",
+    "nl": "Laatste 12 maanden"
+  },
+  "ui_next_appointment": {
+    "tr": "Sonraki: ",
+    "en": "Next: ",
+    "nl": "Volgende: "
+  },
+  "ui_urgent_count": {
+    "tr": " acil öncelikli",
+    "en": " urgent priority",
+    "nl": " dringende prioriteit"
+  },
+  "ui_per_month": {
+    "tr": "/ay",
+    "en": "/mo",
+    "nl": "/maand"
+  },
+  "ui_firm_count": {
+    "tr": " firma",
+    "en": " company",
+    "nl": " bedrijf"
+  },
+  "ui_firms_count": {
+    "tr": " firma",
+    "en": " companies",
+    "nl": " bedrijven"
+  },
+  "ui_module_count": {
+    "tr": " Modül",
+    "en": " Module",
+    "nl": " Module"
+  },
+  "ui_modules_count": {
+    "tr": " Modül",
+    "en": " Modules",
+    "nl": " Modules"
+  },
+  "toast_synced": {
+    "tr": "Şablonlar senkronize edildi",
+    "en": "Templates synchronized",
+    "nl": "Sjablonen gesynchroniseerd"
+  },
+  "toast_stock_updated": {
+    "tr": "Stok raporu güncellendi",
+    "en": "Stock report updated",
+    "nl": "Voorraadrapport bijgewerkt"
+  },
+  "toast_notifications": {
+    "tr": "Bildirimler",
+    "en": "Notifications",
+    "nl": "Meldingen"
+  },
+  "toast_saved": {
+    "tr": "Kaydedildi",
+    "en": "Saved",
+    "nl": "Opgeslagen"
+  },
+  "toast_deleted": {
+    "tr": "Silindi",
+    "en": "Deleted",
+    "nl": "Verwijderd"
+  },
+  "toast_error": {
+    "tr": "Hata oluştu",
+    "en": "An error occurred",
+    "nl": "Er is een fout opgetreden"
+  },
+  "toast_exported": {
+    "tr": "Dışa aktarıldı",
+    "en": "Exported",
+    "nl": "Geëxporteerd"
+  },
+  "mon_jan": {
+    "tr": "Oca",
+    "en": "Jan",
+    "nl": "Jan"
+  },
+  "mon_feb": {
+    "tr": "Şub",
+    "en": "Feb",
+    "nl": "Feb"
+  },
+  "mon_mar": {
+    "tr": "Mar",
+    "en": "Mar",
+    "nl": "Mrt"
+  },
+  "mon_apr": {
+    "tr": "Nis",
+    "en": "Apr",
+    "nl": "Apr"
+  },
+  "mon_may": {
+    "tr": "May",
+    "en": "May",
+    "nl": "Mei"
+  },
+  "mon_jun": {
+    "tr": "Haz",
+    "en": "Jun",
+    "nl": "Jun"
+  },
+  "mon_jul": {
+    "tr": "Tem",
+    "en": "Jul",
+    "nl": "Jul"
+  },
+  "mon_aug": {
+    "tr": "Ağu",
+    "en": "Aug",
+    "nl": "Aug"
+  },
+  "mon_sep": {
+    "tr": "Eyl",
+    "en": "Sep",
+    "nl": "Sep"
+  },
+  "mon_oct": {
+    "tr": "Eki",
+    "en": "Oct",
+    "nl": "Okt"
+  },
+  "mon_nov": {
+    "tr": "Kas",
+    "en": "Nov",
+    "nl": "Nov"
+  },
+  "mon_dec": {
+    "tr": "Ara",
+    "en": "Dec",
+    "nl": "Dec"
+  },
+  "currency_eur": {
+    "tr": "€",
+    "en": "€",
+    "nl": "€"
+  },
+  "currency_usd": {
+    "tr": "$",
+    "en": "$",
+    "nl": "$"
+  },
+  "cleanfix": {
+    "tr": "CleanFix",
+    "en": "CleanFix",
+    "nl": "CleanFix"
+  },
+  "jan_peeters": {
+    "tr": "Jan Peeters",
+    "en": "Jan Peeters",
+    "nl": "Jan Peeters"
+  },
+  "janpeeterskantoorbe": {
+    "tr": "jan.peeters@kantoor.be",
+    "en": "jan.peeters@kantoor.be",
+    "nl": "jan.peeters@kantoor.be"
+  },
+  "sonraki_18_mayıs": {
+    "tr": "Sonraki: 18 Mayıs",
+    "en": "Sonraki: 18 Mayıs",
+    "nl": "Sonraki: 18 Mayıs"
+  },
+  "f-2026-1020_ödendi": {
+    "tr": "#F-2026-1020 — Ödendi",
+    "en": "#F-2026-1020 — Ödendi",
+    "nl": "#F-2026-1020 — Ödendi"
+  },
+  "yeni_talep_oluştur": {
+    "tr": "🎫 Yeni Talep Oluştur",
+    "en": "🎫 Yeni Talep Oluştur",
+    "nl": "🎫 Yeni Talep Oluştur"
+  },
+  "gelecek_randevular": {
+    "tr": "📅 Gelecek Randevular",
+    "en": "📅 Gelecek Randevular",
+    "nl": "📅 Gelecek Randevular"
+  },
+  "komple_detaylı_temizlik": {
+    "tr": "Komple Detaylı Temizlik",
+    "en": "Komple Detaylı Temizlik",
+    "nl": "Komple Detaylı Temizlik"
+  },
+  "ahmet_kaya": {
+    "tr": "👤 Ahmet Kaya",
+    "en": "👤 Ahmet Kaya",
+    "nl": "👤 Ahmet Kaya"
+  },
+  "cam_temizliği_iç_dış": {
+    "tr": "Cam Temizliği (İç + Dış)",
+    "en": "Cam Temizliği (İç + Dış)",
+    "nl": "Cam Temizliği (İç + Dış)"
+  },
+  "merve_demir": {
+    "tr": "👤 Merve Demir",
+    "en": "👤 Merve Demir",
+    "nl": "👤 Merve Demir"
+  },
+  "hvac_filtre_değişimi": {
+    "tr": "HVAC Filtre Değişimi",
+    "en": "HVAC Filtre Değişimi",
+    "nl": "HVAC Filtre Değişimi"
+  },
+  "ali_rıza": {
+    "tr": "👤 Ali Rıza",
+    "en": "👤 Ali Rıza",
+    "nl": "👤 Ali Rıza"
+  },
+  "destek_taleplerim": {
+    "tr": "📋 Destek Taleplerim",
+    "en": "📋 Destek Taleplerim",
+    "nl": "📋 Destek Taleplerim"
+  },
+  "son_5_talep": {
+    "tr": "Son 5 talep",
+    "en": "Son 5 talep",
+    "nl": "Son 5 talep"
+  },
+  "tk-2026-45": {
+    "tr": "#TK-2026-45",
+    "en": "#TK-2026-45",
+    "nl": "#TK-2026-45"
+  },
+  "ofis_mutfak_dolabı_temizliği": {
+    "tr": "Ofis mutfak dolabı temizliği",
+    "en": "Ofis mutfak dolabı temizliği",
+    "nl": "Ofis mutfak dolabı temizliği"
+  },
+  "tk-2026-44": {
+    "tr": "#TK-2026-44",
+    "en": "#TK-2026-44",
+    "nl": "#TK-2026-44"
+  },
+  "koridor_halıları_leke_çıkarma": {
+    "tr": "Koridor halıları leke çıkarma",
+    "en": "Koridor halıları leke çıkarma",
+    "nl": "Koridor halıları leke çıkarma"
+  },
+  "tk-2026-38": {
+    "tr": "#TK-2026-38",
+    "en": "#TK-2026-38",
+    "nl": "#TK-2026-38"
+  },
+  "pencere_pervazları_toz_temizliği": {
+    "tr": "Pencere pervazları toz temizliği",
+    "en": "Pencere pervazları toz temizliği",
+    "nl": "Pencere pervazları toz temizliği"
+  },
+  "tk-2026-35": {
+    "tr": "#TK-2026-35",
+    "en": "#TK-2026-35",
+    "nl": "#TK-2026-35"
+  },
+  "tuvalet_lavabo_tıkanıklığı": {
+    "tr": "Tuvalet lavabo tıkanıklığı",
+    "en": "Tuvalet lavabo tıkanıklığı",
+    "nl": "Tuvalet lavabo tıkanıklığı"
+  },
+  "tk-2026-31": {
+    "tr": "#TK-2026-31",
+    "en": "#TK-2026-31",
+    "nl": "#TK-2026-31"
+  },
+  "toplantı_odası_koltuk_lekesi": {
+    "tr": "Toplantı odası koltuk lekesi",
+    "en": "Toplantı odası koltuk lekesi",
+    "nl": "Toplantı odası koltuk lekesi"
+  },
+  "hizmet_geçmişi": {
+    "tr": "🕐 Hizmet Geçmişi",
+    "en": "🕐 Hizmet Geçmişi",
+    "nl": "🕐 Hizmet Geçmişi"
+  },
+  "ahmet_kaya_3_saat_149": {
+    "tr": "Ahmet Kaya | 3 saat | €149",
+    "en": "Ahmet Kaya | 3 saat | €149",
+    "nl": "Ahmet Kaya | 3 saat | €149"
+  },
+  "cam_temizliği_dezenfeksiyon": {
+    "tr": "Cam Temizliği + Dezenfeksiyon",
+    "en": "Cam Temizliği + Dezenfeksiyon",
+    "nl": "Cam Temizliği + Dezenfeksiyon"
+  },
+  "merve_demir_2_saat_89": {
+    "tr": "Merve Demir | 2 saat | €89",
+    "en": "Merve Demir | 2 saat | €89",
+    "nl": "Merve Demir | 2 saat | €89"
+  },
+  "mükemmel_sonuç": {
+    "tr": "★★★★★ \"Mükemmel sonuç\"",
+    "en": "★★★★★ \"Mükemmel sonuç\"",
+    "nl": "★★★★★ \"Mükemmel sonuç\""
+  },
+  "halı_shampoo_ve_koltuk_bakımı": {
+    "tr": "Halı Shampoo ve Koltuk Bakımı",
+    "en": "Halı Shampoo ve Koltuk Bakımı",
+    "nl": "Halı Shampoo ve Koltuk Bakımı"
+  },
+  "naz_yılmaz_4_saat_199": {
+    "tr": "Naz Yılmaz | 4 saat | €199",
+    "en": "Naz Yılmaz | 4 saat | €199",
+    "nl": "Naz Yılmaz | 4 saat | €199"
+  },
+  "halılar_çok_iyi_oldu": {
+    "tr": "★★★★☆ \"Halılar çok iyi oldu\"",
+    "en": "★★★★☆ \"Halılar çok iyi oldu\"",
+    "nl": "★★★★☆ \"Halılar çok iyi oldu\""
+  },
+  "ali_rıza_1_saat_75": {
+    "tr": "Ali Rıza | 1 saat | €75",
+    "en": "Ali Rıza | 1 saat | €75",
+    "nl": "Ali Rıza | 1 saat | €75"
+  },
+  "hızlı_ve_temiz_iş": {
+    "tr": "★★★★★ \"Hızlı ve temiz iş\"",
+    "en": "★★★★★ \"Hızlı ve temiz iş\"",
+    "nl": "★★★★★ \"Hızlı ve temiz iş\""
+  },
+  "dış_cephe_yıkama": {
+    "tr": "Dış Cephe Yıkama",
+    "en": "Dış Cephe Yıkama",
+    "nl": "Dış Cephe Yıkama"
+  },
+  "planlanan_tarihte_hava_muhalefeti_nedeni": {
+    "tr": "Planlanan tarihte hava muhalefeti nedeniyle iptal edildi",
+    "en": "Planlanan tarihte hava muhalefeti nedeniyle iptal edildi",
+    "nl": "Planlanan tarihte hava muhalefeti nedeniyle iptal edildi"
+  },
+  "selim_çelik_45": {
+    "tr": "Selim Çelik | €45",
+    "en": "Selim Çelik | €45",
+    "nl": "Selim Çelik | €45"
+  },
+  "her_zamanki_gibi_düzenli": {
+    "tr": "★★★★★ \"Her zamanki gibi düzenli\"",
+    "en": "★★★★★ \"Her zamanki gibi düzenli\"",
+    "nl": "★★★★★ \"Her zamanki gibi düzenli\""
+  },
+  "faturalar": {
+    "tr": "🧾 Faturalar",
+    "en": "🧾 Faturalar",
+    "nl": "🧾 Faturalar"
+  },
+  "son_6_fatura": {
+    "tr": "Son 6 fatura",
+    "en": "Son 6 fatura",
+    "nl": "Son 6 fatura"
+  },
+  "fatura_no": {
+    "tr": "Fatura No",
+    "en": "Fatura No",
+    "nl": "Fatura No"
+  },
+  "işlem": {
+    "tr": "İşlem",
+    "en": "İşlem",
+    "nl": "İşlem"
+  },
+  "f-2026-1020": {
+    "tr": "#F-2026-1020",
+    "en": "#F-2026-1020",
+    "nl": "#F-2026-1020"
+  },
+  "f-2026-1015": {
+    "tr": "#F-2026-1015",
+    "en": "#F-2026-1015",
+    "nl": "#F-2026-1015"
+  },
+  "f-2026-1008": {
+    "tr": "#F-2026-1008",
+    "en": "#F-2026-1008",
+    "nl": "#F-2026-1008"
+  },
+  "f-2026-998": {
+    "tr": "#F-2026-998",
+    "en": "#F-2026-998",
+    "nl": "#F-2026-998"
+  },
+  "f-2026-985": {
+    "tr": "#F-2026-985",
+    "en": "#F-2026-985",
+    "nl": "#F-2026-985"
+  },
+  "f-2026-1024": {
+    "tr": "#F-2026-1024",
+    "en": "#F-2026-1024",
+    "nl": "#F-2026-1024"
+  },
+  "bekliyor": {
+    "tr": "Bekliyor",
+    "en": "Bekliyor",
+    "nl": "Bekliyor"
+  },
+  "mayıs_2026": {
+    "tr": "📆 Mayıs 2026",
+    "en": "📆 Mayıs 2026",
+    "nl": "📆 Mayıs 2026"
+  },
+  "bugün": {
+    "tr": "🔵 Bugün",
+    "en": "🔵 Bugün",
+    "nl": "🔵 Bugün"
+  },
+  "randevu": {
+    "tr": "🟡 Randevu",
+    "en": "🟡 Randevu",
+    "nl": "🟡 Randevu"
+  },
+  "hızlı_işlemler": {
+    "tr": "⚡ Hızlı İşlemler",
+    "en": "⚡ Hızlı İşlemler",
+    "nl": "⚡ Hızlı İşlemler"
+  },
+  "yeni_randevu_talep_et": {
+    "tr": "📅 Yeni Randevu Talep Et",
+    "en": "📅 Yeni Randevu Talep Et",
+    "nl": "📅 Yeni Randevu Talep Et"
+  },
+  "teklif_iste": {
+    "tr": "📄 Teklif İste",
+    "en": "📄 Teklif İste",
+    "nl": "📄 Teklif İste"
+  },
+  "canlı_destek": {
+    "tr": "💬 Canlı Destek",
+    "en": "💬 Canlı Destek",
+    "nl": "💬 Canlı Destek"
+  }
+};
+
+function switchLang(lang) {
+  if (!lang || !i18n[lang]) lang = 'tr';
+  localStorage.setItem('cleanfix_lang', lang);
+  document.documentElement.lang = lang === 'tr' ? 'tr' : (lang === 'nl' ? 'nl' : 'en');
+
+  /* translate elements with data-i18n */
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (i18n[lang] && i18n[lang][key] !== undefined) {
+      if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+        if (el.type !== 'submit' && el.type !== 'button') el.value = i18n[lang][key];
+        else el.textContent = i18n[lang][key];
+      } else if (el.tagName === 'OPTION') {
+        el.textContent = i18n[lang][key];
+      } else {
+        el.textContent = i18n[lang][key];
+      }
+    }
+  });
+
+  /* translate placeholders */
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+    const key = el.getAttribute('data-i18n-placeholder');
+    if (i18n[lang] && i18n[lang][key] !== undefined) {
+      el.placeholder = i18n[lang][key];
+    }
+  });
+
+  /* update lang buttons */
+  document.querySelectorAll('.lang-btn').forEach(btn => {
+    if (btn.dataset.lang === lang) {
+      btn.style.background = 'var(--teal-500)';
+      btn.style.color = 'white';
+      btn.style.borderColor = 'var(--teal-500)';
+    } else {
+      btn.style.background = 'var(--bg-tertiary)';
+      btn.style.color = 'var(--text-secondary)';
+      btn.style.borderColor = 'var(--border-color)';
+    }
+  });
+
+  /* update title */
+  const t = document.querySelector('title[data-i18n]');
+  if (t) {
+    const k = t.getAttribute('data-i18n');
+    if (i18n[lang][k]) t.textContent = i18n[lang][k];
+  }
+}
+
+/* init */
+(function(){
+  const saved = localStorage.getItem('cleanfix_lang') || 'tr';
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => switchLang(saved));
+  } else {
+    setTimeout(() => switchLang(saved), 50);
+  }
+})();
+</script>
 </body>
 </html>

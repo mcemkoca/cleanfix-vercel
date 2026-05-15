@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CleanFix — Hizmet Yönetimi</title>
+<title data-i18n="title_services">CleanFix — Hizmet Yönetimi</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/main.css">
 <link rel="stylesheet" href="css/components.css">
@@ -117,6 +117,21 @@ textarea.form-input{resize:vertical;}
 
 @media (max-width:1024px){.form-row,.form-row-3{grid-template-columns:1fr;}}
 @media (max-width:768px){.sidebar{transform:translateX(-100%);}.sidebar.open{transform:translateX(0);}.main-content{margin-left:0;}.hamburger{display:block;}}
+
+.lang-switcher {
+  display:flex; align-items:center; gap:4px;
+  background:var(--bg-card); border:1px solid var(--border-color);
+  border-radius:var(--radius-md); padding:3px; margin-left:12px;
+}
+.lang-switcher button {
+  background:transparent; border:none; color:var(--text-muted);
+  font-size:11px; font-weight:600; cursor:pointer;
+  padding:4px 8px; border-radius:4px; transition:all 0.2s;
+  text-transform:uppercase; font-family:inherit;
+}
+.lang-switcher button:hover { color:var(--text-primary); }
+.lang-switcher button.active { background:var(--teal-500); color:white; }
+
 </style>
 </head>
 <body>
@@ -124,22 +139,29 @@ textarea.form-input{resize:vertical;}
   <aside class="sidebar" id="sidebar">
     <div class="sidebar-header">
       <div class="sidebar-logo">CF</div>
-      <div><div style="font-weight:700;font-size:var(--text-sm);">CleanFix</div><div style="font-size:var(--text-xs);color:var(--text-muted);">Firma Paneli</div></div>
+      <div><div style="font-weight:700;font-size:var(--text-sm);" data-i18n="cleanfix">CleanFix</div><div style="font-size:var(--text-xs);color:var(--text-muted);" data-i18n="sidebar_company_panel">Firma Paneli</div></div>
     </div>
     <nav class="sidebar-nav">
       <div class="nav-group">
-        <div class="nav-group-header">Ana Menü</div>
-        <a href="company.html" class="nav-item"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>Dashboard</a>
-        <a href="company-bookings.html" class="nav-item"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>Randevular</a>
-        <a href="company-staff.html" class="nav-item"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>Çalışanlar</a>
-        <a href="company-services.html" class="nav-item active"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>Hizmetler</a>
-        <a href="company-invoices.html" class="nav-item"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>Faturalar</a>
+        <div class="nav-group-header" data-i18n="nav_main_menu">Ana Menü</div>
+        <a href="company.html" class="nav-item" data-i18n="nav_dashboard"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg data-i18n="nav_dashboard">Dashboard</a>
+        <a href="company-bookings.html" class="nav-item" data-i18n="nav_appointments"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg data-i18n="nav_appointments">Randevular</a>
+        <a href="company-staff.html" class="nav-item" data-i18n="nav_staff"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg data-i18n="nav_staff">Çalışanlar</a>
+        <a href="company-services.html" class="nav-item active" data-i18n="page_services"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg data-i18n="page_services">Hizmetler</a>
+        <a href="company-invoices.html" class="nav-item" data-i18n="nav_invoices"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg data-i18n="nav_invoices">Faturalar</a>
       </div>
       <div class="nav-group">
-        <div class="nav-group-header">Ayarlar</div>
-        <a href="company-profile.html" class="nav-item"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Firma Profili</a>
-        <a href="login.html" class="nav-item"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>Çıkış Yap</a>
-      </div>
+        <div class="nav-group-header" data-i18n="card_settings">Ayarlar</div>
+        <a href="company-profile.html" class="nav-item" data-i18n="nav_company_profile"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg data-i18n="nav_company_profile">Firma Profili</a>
+        <a href="login.html" class="nav-item" data-i18n="nav_logout"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg data-i18n="nav_logout">Çıkış Yap</a>
+      
+  <div class="lang-switcher">
+    <button data-lang="tr" class="active" onclick="switchLang('tr')">TR</button>
+    <button data-lang="en" onclick="switchLang('en')">EN</button>
+    <button data-lang="nl" onclick="switchLang('nl')">NL</button>
+  </div>
+
+</div>
     </nav>
   </aside>
 
@@ -147,11 +169,17 @@ textarea.form-input{resize:vertical;}
     <header class="header">
       <div class="header-left">
         <button class="hamburger" onclick="document.getElementById('sidebar').classList.toggle('open')"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
-        <h1 class="page-title">Hizmetler</h1>
+        <h1 class="page-title" data-i18n="page_services">Hizmetler</h1>
       </div>
       <div class="header-right">
+        <div class="lang-switcher" style="display:flex;gap:4px;align-items:center;">
+          <button class="lang-btn" data-lang="tr" onclick="switchLang('tr')" style="padding:4px 10px;border-radius:6px;border:1px solid var(--border-color);background:var(--bg-tertiary);color:var(--text-secondary);font-size:var(--text-xs);font-weight:600;cursor:pointer;transition:all .2s;">TR</button>
+          <button class="lang-btn" data-lang="en" onclick="switchLang('en')" style="padding:4px 10px;border-radius:6px;border:1px solid var(--border-color);background:var(--bg-tertiary);color:var(--text-secondary);font-size:var(--text-xs);font-weight:600;cursor:pointer;transition:all .2s;">EN</button>
+          <button class="lang-btn" data-lang="nl" onclick="switchLang('nl')" style="padding:4px 10px;border-radius:6px;border:1px solid var(--border-color);background:var(--bg-tertiary);color:var(--text-secondary);font-size:var(--text-xs);font-weight:600;cursor:pointer;transition:all .2s;">NL</button>
+        </div>
+
         <button class="header-btn" onclick="showToast('Bildirimler','success')"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg></button>
-        <div style="display:flex;align-items:center;gap:10px;"><div class="avatar" style="width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:var(--text-xs);color:white;background:linear-gradient(135deg,#14b8a6,#0d9488);">CF</div><div><div style="font-weight:600;font-size:var(--text-sm);">CleanFix Demo BV</div><div style="font-size:var(--text-xs);color:var(--text-muted);">Business Plan</div></div></div>
+        <div style="display:flex;align-items:center;gap:10px;"><div class="avatar" style="width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:var(--text-xs);color:white;background:linear-gradient(135deg,#14b8a6,#0d9488);">CF</div><div><div style="font-weight:600;font-size:var(--text-sm);" data-i18n="ui_cleanfix_demo">CleanFix Demo BV</div><div style="font-size:var(--text-xs);color:var(--text-muted);" data-i18n="ui_business_plan">Business Plan</div></div></div>
       </div>
     </header>
 
@@ -160,187 +188,187 @@ textarea.form-input{resize:vertical;}
       <div class="toolbar">
         <div class="search-box">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-          <input type="text" placeholder="Hizmet ara..." id="searchInput">
+          <input type="text" data-i18n-placeholder="search_services" placeholder="Hizmet ara..." data-i18n-placeholder="ph_0" id="searchInput">
         </div>
         <div style="display:flex;gap:10px;">
           <select id="catFilter" style="padding:10px 32px 10px 14px;background:var(--bg-card);border:1.5px solid var(--border-color);border-radius:var(--radius-md);color:var(--text-primary);font-size:var(--text-sm);appearance:none;cursor:pointer;">
-            <option value="">Tüm Kategoriler</option>
-            <option value="Ev Temizliği">Ev Temizliği</option>
-            <option value="Ofis Temizliği">Ofis Temizliği</option>
-            <option value="Cam Temizliği">Cam Temizliği</option>
-            <option value="Halı Yıkama">Halı Yıkama</option>
-            <option value="Endüstriyel">Endüstriyel</option>
-            <option value="Özel">Özel</option>
+            <option value="" data-i18n="filter_all_categories">Tüm Kategoriler</option>
+            <option value="Ev Temizliği" data-i18n="cat_home_cleaning">Ev Temizliği</option>
+            <option value="Ofis Temizliği" data-i18n="cat_office_cleaning">Ofis Temizliği</option>
+            <option value="Cam Temizliği" data-i18n="cat_window_cleaning">Cam Temizliği</option>
+            <option value="Halı Yıkama" data-i18n="cat_carpet_cleaning">Halı Yıkama</option>
+            <option value="Endüstriyel" data-i18n="cat_industrial">Endüstriyel</option>
+            <option value="Özel" data-i18n="cat_special">Özel</option>
           </select>
-          <button class="btn btn-primary" onclick="openModal('addModal')">+ Yeni Hizmet</button>
+          <button class="btn btn-primary" onclick="openModal('addModal')" data-i18n="btn_new_service">+ Yeni Hizmet</button>
         </div>
       </div>
 
       <div class="card">
         <div style="padding:0;">
           <table class="table" id="servicesTable">
-            <thead><tr><th>Hizmet Adı</th><th>Kategori</th><th>Alt Kategori</th><th>Süre</th><th>Fiyat</th><th>Durum</th><th>İşlemler</th></tr></thead>
+            <thead><tr><th data-i18n="th_service_name">Hizmet Adı</th><th data-i18n="form_category">Kategori</th><th data-i18n="form_subcategory">Alt Kategori</th><th data-i18n="form_duration">Süre</th><th data-i18n="form_price">Fiyat</th><th data-i18n="form_status">Durum</th><th data-i18n="th_actions">İşlemler</th></tr></thead>
             <tbody id="servicesTableBody">
               <tr data-id="1">
-                <td><div style="font-weight:600;">Standart Temizlik</div><div style="font-size:var(--text-xs);color:var(--text-muted);">Ev temizliği - temel paket</div></td>
-                <td><span class="tag tag-teal">Ev Temizliği</span></td>
-                <td>Standart</td>
+                <td><div style="font-weight:600;" data-i18n="standart_temizlik">Standart Temizlik</div><div style="font-size:var(--text-xs);color:var(--text-muted);" data-i18n="ev_temizliği_-_temel_paket">Ev temizliği - temel paket</div></td>
+                <td><span class="tag tag-teal" data-i18n="cat_home_cleaning">Ev Temizliği</span></td>
+                <td data-i18n="sub_standard">Standart</td>
                 <td>2-3 saat</td>
                 <td style="font-weight:600;color:var(--teal-500);">€65</td>
-                <td><span class="tag tag-green">Aktif</span></td>
+                <td><span class="tag tag-green" data-i18n="status_active">Aktif</span></td>
                 <td><div class="actions"><button class="action-btn edit" onclick="openEditModal(1)" title="Düzenle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(1)" title="Sil"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
               </tr>
               <tr data-id="2">
-                <td><div style="font-weight:600;">Derinlemesine Temizlik</div><div style="font-size:var(--text-xs);color:var(--text-muted);">Ev temizliği - detaylı paket</div></td>
-                <td><span class="tag tag-teal">Ev Temizliği</span></td>
-                <td>Derinlemesine</td>
+                <td><div style="font-weight:600;" data-i18n="derinlemesine_temizlik">Derinlemesine Temizlik</div><div style="font-size:var(--text-xs);color:var(--text-muted);" data-i18n="ev_temizliği_-_detaylı_paket">Ev temizliği - detaylı paket</div></td>
+                <td><span class="tag tag-teal" data-i18n="cat_home_cleaning">Ev Temizliği</span></td>
+                <td data-i18n="sub_deep">Derinlemesine</td>
                 <td>4-5 saat</td>
                 <td style="font-weight:600;color:var(--teal-500);">€120</td>
-                <td><span class="tag tag-green">Aktif</span></td>
+                <td><span class="tag tag-green" data-i18n="status_active">Aktif</span></td>
                 <td><div class="actions"><button class="action-btn edit" onclick="openEditModal(2)" title="Düzenle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(2)" title="Sil"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
               </tr>
               <tr data-id="3">
-                <td><div style="font-weight:600;">İnşaat Sonrası Temizlik</div><div style="font-size:var(--text-xs);color:var(--text-muted);">Ev temizliği - inşaat sonrası</div></td>
-                <td><span class="tag tag-teal">Ev Temizliği</span></td>
-                <td>İnşaat Sonrası</td>
+                <td><div style="font-weight:600;" data-i18n="inşaat_sonrası_temizlik">İnşaat Sonrası Temizlik</div><div style="font-size:var(--text-xs);color:var(--text-muted);" data-i18n="ev_temizliği_-_inşaat_sonrası">Ev temizliği - inşaat sonrası</div></td>
+                <td><span class="tag tag-teal" data-i18n="cat_home_cleaning">Ev Temizliği</span></td>
+                <td data-i18n="sub_post_construction">İnşaat Sonrası</td>
                 <td>5-7 saat</td>
                 <td style="font-weight:600;color:var(--teal-500);">€180</td>
-                <td><span class="tag tag-green">Aktif</span></td>
+                <td><span class="tag tag-green" data-i18n="status_active">Aktif</span></td>
                 <td><div class="actions"><button class="action-btn edit" onclick="openEditModal(3)" title="Düzenle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(3)" title="Sil"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
               </tr>
               <tr data-id="4">
-                <td><div style="font-weight:600;">Günlük Ofis Temizliği</div><div style="font-size:var(--text-xs);color:var(--text-muted);">Ofis temizliği - günlük bakım</div></td>
-                <td><span class="tag tag-blue">Ofis Temizliği</span></td>
-                <td>Günlük</td>
+                <td><div style="font-weight:600;" data-i18n="günlük_ofis_temizliği">Günlük Ofis Temizliği</div><div style="font-size:var(--text-xs);color:var(--text-muted);" data-i18n="ofis_temizliği_-_günlük_bakım">Ofis temizliği - günlük bakım</div></td>
+                <td><span class="tag tag-blue" data-i18n="cat_office_cleaning">Ofis Temizliği</span></td>
+                <td data-i18n="sub_daily">Günlük</td>
                 <td>1-2 saat</td>
                 <td style="font-weight:600;color:var(--teal-500);">€85</td>
-                <td><span class="tag tag-green">Aktif</span></td>
+                <td><span class="tag tag-green" data-i18n="status_active">Aktif</span></td>
                 <td><div class="actions"><button class="action-btn edit" onclick="openEditModal(4)" title="Düzenle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(4)" title="Sil"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
               </tr>
               <tr data-id="5">
-                <td><div style="font-weight:600;">Haftalık Ofis Temizliği</div><div style="font-size:var(--text-xs);color:var(--text-muted);">Ofis temizliği - haftalık derinlemesine</div></td>
-                <td><span class="tag tag-blue">Ofis Temizliği</span></td>
-                <td>Haftalık</td>
+                <td><div style="font-weight:600;" data-i18n="haftalık_ofis_temizliği">Haftalık Ofis Temizliği</div><div style="font-size:var(--text-xs);color:var(--text-muted);" data-i18n="ofis_temizliği_-_haftalık_derinlemesine">Ofis temizliği - haftalık derinlemesine</div></td>
+                <td><span class="tag tag-blue" data-i18n="cat_office_cleaning">Ofis Temizliği</span></td>
+                <td data-i18n="sub_weekly">Haftalık</td>
                 <td>3-4 saat</td>
                 <td style="font-weight:600;color:var(--teal-500);">€150</td>
-                <td><span class="tag tag-green">Aktif</span></td>
+                <td><span class="tag tag-green" data-i18n="status_active">Aktif</span></td>
                 <td><div class="actions"><button class="action-btn edit" onclick="openEditModal(5)" title="Düzenle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(5)" title="Sil"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
               </tr>
               <tr data-id="6">
-                <td><div style="font-weight:600;">Koltuk Yıkama</div><div style="font-size:var(--text-xs);color:var(--text-muted);">Ofis temizliği - koltuk ve sandalye</div></td>
-                <td><span class="tag tag-blue">Ofis Temizliği</span></td>
-                <td>Koltuk</td>
+                <td><div style="font-weight:600;" data-i18n="koltuk_yıkama">Koltuk Yıkama</div><div style="font-size:var(--text-xs);color:var(--text-muted);" data-i18n="ofis_temizliği_-_koltuk_ve_sandalye">Ofis temizliği - koltuk ve sandalye</div></td>
+                <td><span class="tag tag-blue" data-i18n="cat_office_cleaning">Ofis Temizliği</span></td>
+                <td data-i18n="sub_upholstery">Koltuk</td>
                 <td>1-2 saat</td>
                 <td style="font-weight:600;color:var(--teal-500);">€45</td>
-                <td><span class="tag tag-green">Aktif</span></td>
+                <td><span class="tag tag-green" data-i18n="status_active">Aktif</span></td>
                 <td><div class="actions"><button class="action-btn edit" onclick="openEditModal(6)" title="Düzenle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(6)" title="Sil"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
               </tr>
               <tr data-id="7">
-                <td><div style="font-weight:600;">İç Cam Temizliği</div><div style="font-size:var(--text-xs);color:var(--text-muted);">Cam temizliği - iç mekan</div></td>
-                <td><span class="tag tag-orange">Cam Temizliği</span></td>
-                <td>İç Cam</td>
+                <td><div style="font-weight:600;" data-i18n="iç_cam_temizliği">İç Cam Temizliği</div><div style="font-size:var(--text-xs);color:var(--text-muted);" data-i18n="cam_temizliği_-_iç_mekan">Cam temizliği - iç mekan</div></td>
+                <td><span class="tag tag-orange" data-i18n="cat_window_cleaning">Cam Temizliği</span></td>
+                <td data-i18n="sub_inner_glass">İç Cam</td>
                 <td>1-2 saat</td>
                 <td style="font-weight:600;color:var(--teal-500);">€35</td>
-                <td><span class="tag tag-green">Aktif</span></td>
+                <td><span class="tag tag-green" data-i18n="status_active">Aktif</span></td>
                 <td><div class="actions"><button class="action-btn edit" onclick="openEditModal(7)" title="Düzenle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(7)" title="Sil"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
               </tr>
               <tr data-id="8">
-                <td><div style="font-weight:600;">Dış Cam Temizliği</div><div style="font-size:var(--text-xs);color:var(--text-muted);">Cam temizliği - dış mekan</div></td>
-                <td><span class="tag tag-orange">Cam Temizliği</span></td>
-                <td>Dış Cam</td>
+                <td><div style="font-weight:600;" data-i18n="dış_cam_temizliği">Dış Cam Temizliği</div><div style="font-size:var(--text-xs);color:var(--text-muted);" data-i18n="cam_temizliği_-_dış_mekan">Cam temizliği - dış mekan</div></td>
+                <td><span class="tag tag-orange" data-i18n="cat_window_cleaning">Cam Temizliği</span></td>
+                <td data-i18n="sub_outer_glass">Dış Cam</td>
                 <td>2-3 saat</td>
                 <td style="font-weight:600;color:var(--teal-500);">€55</td>
-                <td><span class="tag tag-green">Aktif</span></td>
+                <td><span class="tag tag-green" data-i18n="status_active">Aktif</span></td>
                 <td><div class="actions"><button class="action-btn edit" onclick="openEditModal(8)" title="Düzenle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(8)" title="Sil"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
               </tr>
               <tr data-id="9">
-                <td><div style="font-weight:600;">Bina Cam Temizliği</div><div style="font-size:var(--text-xs);color:var(--text-muted);">Cam temizliği - bina geneli</div></td>
-                <td><span class="tag tag-orange">Cam Temizliği</span></td>
-                <td>Bina Cam</td>
+                <td><div style="font-weight:600;" data-i18n="bina_cam_temizliği">Bina Cam Temizliği</div><div style="font-size:var(--text-xs);color:var(--text-muted);" data-i18n="cam_temizliği_-_bina_geneli">Cam temizliği - bina geneli</div></td>
+                <td><span class="tag tag-orange" data-i18n="cat_window_cleaning">Cam Temizliği</span></td>
+                <td data-i18n="sub_building_glass">Bina Cam</td>
                 <td>4-6 saat</td>
                 <td style="font-weight:600;color:var(--teal-500);">€120</td>
-                <td><span class="tag tag-green">Aktif</span></td>
+                <td><span class="tag tag-green" data-i18n="status_active">Aktif</span></td>
                 <td><div class="actions"><button class="action-btn edit" onclick="openEditModal(9)" title="Düzenle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(9)" title="Sil"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
               </tr>
               <tr data-id="10">
-                <td><div style="font-weight:600;">Yıkama + Kurutma</div><div style="font-size:var(--text-xs);color:var(--text-muted);">Halı yıkama - temel paket</div></td>
-                <td><span class="tag tag-purple">Halı Yıkama</span></td>
-                <td>Yıkama + Kurutma</td>
+                <td><div style="font-weight:600;" data-i18n="sub_wash_dry">Yıkama + Kurutma</div><div style="font-size:var(--text-xs);color:var(--text-muted);" data-i18n="halı_yıkama_-_temel_paket">Halı yıkama - temel paket</div></td>
+                <td><span class="tag tag-purple" data-i18n="cat_carpet_cleaning">Halı Yıkama</span></td>
+                <td data-i18n="sub_wash_dry">Yıkama + Kurutma</td>
                 <td>3-4 saat</td>
                 <td style="font-weight:600;color:var(--teal-500);">€25/m²</td>
-                <td><span class="tag tag-green">Aktif</span></td>
+                <td><span class="tag tag-green" data-i18n="status_active">Aktif</span></td>
                 <td><div class="actions"><button class="action-btn edit" onclick="openEditModal(10)" title="Düzenle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(10)" title="Sil"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
               </tr>
               <tr data-id="11">
-                <td><div style="font-weight:600;">Leke Çıkarma</div><div style="font-size:var(--text-xs);color:var(--text-muted);">Halı yıkama - leke özel</div></td>
-                <td><span class="tag tag-purple">Halı Yıkama</span></td>
-                <td>Leke</td>
+                <td><div style="font-weight:600;" data-i18n="leke_çıkarma">Leke Çıkarma</div><div style="font-size:var(--text-xs);color:var(--text-muted);" data-i18n="halı_yıkama_-_leke_özel">Halı yıkama - leke özel</div></td>
+                <td><span class="tag tag-purple" data-i18n="cat_carpet_cleaning">Halı Yıkama</span></td>
+                <td data-i18n="sub_stain">Leke</td>
                 <td>1-2 saat</td>
                 <td style="font-weight:600;color:var(--teal-500);">€15</td>
-                <td><span class="tag tag-green">Aktif</span></td>
+                <td><span class="tag tag-green" data-i18n="status_active">Aktif</span></td>
                 <td><div class="actions"><button class="action-btn edit" onclick="openEditModal(11)" title="Düzenle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(11)" title="Sil"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
               </tr>
               <tr data-id="12">
-                <td><div style="font-weight:600;">Buharlı Temizlik</div><div style="font-size:var(--text-xs);color:var(--text-muted);">Halı yıkama - buharlı derinlemesine</div></td>
-                <td><span class="tag tag-purple">Halı Yıkama</span></td>
-                <td>Buharlı</td>
+                <td><div style="font-weight:600;" data-i18n="buharlı_temizlik">Buharlı Temizlik</div><div style="font-size:var(--text-xs);color:var(--text-muted);" data-i18n="halı_yıkama_-_buharlı_derinlemesine">Halı yıkama - buharlı derinlemesine</div></td>
+                <td><span class="tag tag-purple" data-i18n="cat_carpet_cleaning">Halı Yıkama</span></td>
+                <td data-i18n="sub_steam">Buharlı</td>
                 <td>2-3 saat</td>
                 <td style="font-weight:600;color:var(--teal-500);">€30/m²</td>
-                <td><span class="tag tag-gray">Pasif</span></td>
+                <td><span class="tag tag-gray" data-i18n="status_inactive">Pasif</span></td>
                 <td><div class="actions"><button class="action-btn edit" onclick="openEditModal(12)" title="Düzenle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(12)" title="Sil"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
               </tr>
               <tr data-id="13">
-                <td><div style="font-weight:600;">Fabrika Temizliği</div><div style="font-size:var(--text-xs);color:var(--text-muted);">Endüstriyel - fabrika geneli</div></td>
-                <td><span class="tag tag-green">Endüstriyel</span></td>
-                <td>Fabrika</td>
+                <td><div style="font-weight:600;" data-i18n="fabrika_temizliği">Fabrika Temizliği</div><div style="font-size:var(--text-xs);color:var(--text-muted);" data-i18n="endüstriyel_-_fabrika_geneli">Endüstriyel - fabrika geneli</div></td>
+                <td><span class="tag tag-green" data-i18n="cat_industrial">Endüstriyel</span></td>
+                <td data-i18n="sub_factory">Fabrika</td>
                 <td>6-8 saat</td>
                 <td style="font-weight:600;color:var(--teal-500);">€250</td>
-                <td><span class="tag tag-green">Aktif</span></td>
+                <td><span class="tag tag-green" data-i18n="status_active">Aktif</span></td>
                 <td><div class="actions"><button class="action-btn edit" onclick="openEditModal(13)" title="Düzenle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(13)" title="Sil"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
               </tr>
               <tr data-id="14">
-                <td><div style="font-weight:600;">Depo Temizliği</div><div style="font-size:var(--text-xs);color:var(--text-muted);">Endüstriyel - depo ve antrepo</div></td>
-                <td><span class="tag tag-green">Endüstriyel</span></td>
+                <td><div style="font-weight:600;" data-i18n="depo_temizliği">Depo Temizliği</div><div style="font-size:var(--text-xs);color:var(--text-muted);" data-i18n="endüstriyel_-_depo_ve_antrepo">Endüstriyel - depo ve antrepo</div></td>
+                <td><span class="tag tag-green" data-i18n="cat_industrial">Endüstriyel</span></td>
                 <td>Depo</td>
                 <td>4-6 saat</td>
                 <td style="font-weight:600;color:var(--teal-500);">€180</td>
-                <td><span class="tag tag-green">Aktif</span></td>
+                <td><span class="tag tag-green" data-i18n="status_active">Aktif</span></td>
                 <td><div class="actions"><button class="action-btn edit" onclick="openEditModal(14)" title="Düzenle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(14)" title="Sil"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
               </tr>
               <tr data-id="15">
-                <td><div style="font-weight:600;">Hijyenik Temizlik</div><div style="font-size:var(--text-xs);color:var(--text-muted);">Endüstriyel - hijyen sertifikalı</div></td>
-                <td><span class="tag tag-green">Endüstriyel</span></td>
-                <td>Hijyenik</td>
+                <td><div style="font-weight:600;" data-i18n="hijyenik_temizlik">Hijyenik Temizlik</div><div style="font-size:var(--text-xs);color:var(--text-muted);" data-i18n="endüstriyel_-_hijyen_sertifikalı">Endüstriyel - hijyen sertifikalı</div></td>
+                <td><span class="tag tag-green" data-i18n="cat_industrial">Endüstriyel</span></td>
+                <td data-i18n="hijyenik">Hijyenik</td>
                 <td>5-7 saat</td>
                 <td style="font-weight:600;color:var(--teal-500);">€200</td>
-                <td><span class="tag tag-green">Aktif</span></td>
+                <td><span class="tag tag-green" data-i18n="status_active">Aktif</span></td>
                 <td><div class="actions"><button class="action-btn edit" onclick="openEditModal(15)" title="Düzenle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(15)" title="Sil"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
               </tr>
               <tr data-id="16">
-                <td><div style="font-weight:600;">Airbnb Dönüşüm Temizliği</div><div style="font-size:var(--text-xs);color:var(--text-muted);">Özel - Airbnb misafir değişimi</div></td>
-                <td><span class="tag tag-gray">Özel</span></td>
+                <td><div style="font-weight:600;" data-i18n="airbnb_dönüşüm_temizliği">Airbnb Dönüşüm Temizliği</div><div style="font-size:var(--text-xs);color:var(--text-muted);">Özel - Airbnb misafir değişimi</div></td>
+                <td><span class="tag tag-gray" data-i18n="cat_special">Özel</span></td>
                 <td>Airbnb</td>
                 <td>2-3 saat</td>
                 <td style="font-weight:600;color:var(--teal-500);">€95</td>
-                <td><span class="tag tag-green">Aktif</span></td>
+                <td><span class="tag tag-green" data-i18n="status_active">Aktif</span></td>
                 <td><div class="actions"><button class="action-btn edit" onclick="openEditModal(16)" title="Düzenle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(16)" title="Sil"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
               </tr>
               <tr data-id="17">
-                <td><div style="font-weight:600;">Eşya Taşıma Sonrası Temizlik</div><div style="font-size:var(--text-xs);color:var(--text-muted);">Özel - taşınma sonrası</div></td>
-                <td><span class="tag tag-gray">Özel</span></td>
-                <td>Taşınma</td>
+                <td><div style="font-weight:600;" data-i18n="eşya_taşıma_sonrası_temizlik">Eşya Taşıma Sonrası Temizlik</div><div style="font-size:var(--text-xs);color:var(--text-muted);">Özel - taşınma sonrası</div></td>
+                <td><span class="tag tag-gray" data-i18n="cat_special">Özel</span></td>
+                <td data-i18n="taşınma">Taşınma</td>
                 <td>3-4 saat</td>
                 <td style="font-weight:600;color:var(--teal-500);">€75</td>
-                <td><span class="tag tag-green">Aktif</span></td>
+                <td><span class="tag tag-green" data-i18n="status_active">Aktif</span></td>
                 <td><div class="actions"><button class="action-btn edit" onclick="openEditModal(17)" title="Düzenle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(17)" title="Sil"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
               </tr>
               <tr data-id="18">
-                <td><div style="font-weight:600;">Evcil Hayvan Temizliği</div><div style="font-size:var(--text-xs);color:var(--text-muted);">Özel - pet dostu temizlik</div></td>
-                <td><span class="tag tag-gray">Özel</span></td>
+                <td><div style="font-weight:600;" data-i18n="evcil_hayvan_temizliği">Evcil Hayvan Temizliği</div><div style="font-size:var(--text-xs);color:var(--text-muted);">Özel - pet dostu temizlik</div></td>
+                <td><span class="tag tag-gray" data-i18n="cat_special">Özel</span></td>
                 <td>Pet</td>
                 <td>2-3 saat</td>
                 <td style="font-weight:600;color:var(--teal-500);">€55</td>
-                <td><span class="tag tag-green">Aktif</span></td>
+                <td><span class="tag tag-green" data-i18n="status_active">Aktif</span></td>
                 <td><div class="actions"><button class="action-btn edit" onclick="openEditModal(18)" title="Düzenle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(18)" title="Sil"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
               </tr>
             </tbody>
@@ -351,8 +379,8 @@ textarea.form-input{resize:vertical;}
       <!-- Service Categories Section -->
       <div class="card" style="margin-top:24px;">
         <div class="card-header">
-          <span class="card-title">Hizmet Kategorileri</span>
-          <span style="font-size:var(--text-xs);color:var(--text-muted);">Genişletmek için tıklayın</span>
+          <span class="card-title" data-i18n="hizmet_kategorileri">Hizmet Kategorileri</span>
+          <span style="font-size:var(--text-xs);color:var(--text-muted);" data-i18n="genişletmek_için_tıklayın">Genişletmek için tıklayın</span>
         </div>
         <div style="padding:20px 24px;">
           <div class="category-list" id="categoryList">
@@ -362,7 +390,7 @@ textarea.form-input{resize:vertical;}
                 <div class="category-header-left">
                   <div class="category-icon" style="background:rgba(20,184,166,0.1);">🏠</div>
                   <div class="category-info">
-                    <span class="category-name">Ev Temizliği</span>
+                    <span class="category-name" data-i18n="cat_home_cleaning">Ev Temizliği</span>
                     <span class="category-count">3 alt hizmet</span>
                   </div>
                 </div>
@@ -374,21 +402,21 @@ textarea.form-input{resize:vertical;}
               <div class="subservice-list">
                 <div class="subservice-item">
                   <div class="subservice-left">
-                    <span class="subservice-name">Standart Temizlik</span>
+                    <span class="subservice-name" data-i18n="standart_temizlik">Standart Temizlik</span>
                     <span class="subservice-meta">2-3 saat • Temel ev temizliği</span>
                   </div>
                   <span class="subservice-price">€65</span>
                 </div>
                 <div class="subservice-item">
                   <div class="subservice-left">
-                    <span class="subservice-name">Derinlemesine Temizlik</span>
+                    <span class="subservice-name" data-i18n="derinlemesine_temizlik">Derinlemesine Temizlik</span>
                     <span class="subservice-meta">4-5 saat • Detaylı temizlik</span>
                   </div>
                   <span class="subservice-price">€120</span>
                 </div>
                 <div class="subservice-item">
                   <div class="subservice-left">
-                    <span class="subservice-name">İnşaat Sonrası Temizlik</span>
+                    <span class="subservice-name" data-i18n="inşaat_sonrası_temizlik">İnşaat Sonrası Temizlik</span>
                     <span class="subservice-meta">5-7 saat • İnşaat kalıntıları</span>
                   </div>
                   <span class="subservice-price">€180</span>
@@ -402,7 +430,7 @@ textarea.form-input{resize:vertical;}
                 <div class="category-header-left">
                   <div class="category-icon" style="background:rgba(59,130,246,0.1);">🏢</div>
                   <div class="category-info">
-                    <span class="category-name">Ofis Temizliği</span>
+                    <span class="category-name" data-i18n="cat_office_cleaning">Ofis Temizliği</span>
                     <span class="category-count">3 alt hizmet</span>
                   </div>
                 </div>
@@ -414,22 +442,22 @@ textarea.form-input{resize:vertical;}
               <div class="subservice-list">
                 <div class="subservice-item">
                   <div class="subservice-left">
-                    <span class="subservice-name">Günlük Ofis Temizliği</span>
-                    <span class="subservice-meta">Günlük bakım ve düzen</span>
+                    <span class="subservice-name" data-i18n="günlük_ofis_temizliği">Günlük Ofis Temizliği</span>
+                    <span class="subservice-meta" data-i18n="günlük_bakım_ve_düzen">Günlük bakım ve düzen</span>
                   </div>
                   <span class="subservice-price">€85</span>
                 </div>
                 <div class="subservice-item">
                   <div class="subservice-left">
-                    <span class="subservice-name">Haftalık Ofis Temizliği</span>
-                    <span class="subservice-meta">Haftalık derinlemesine</span>
+                    <span class="subservice-name" data-i18n="haftalık_ofis_temizliği">Haftalık Ofis Temizliği</span>
+                    <span class="subservice-meta" data-i18n="haftalık_derinlemesine">Haftalık derinlemesine</span>
                   </div>
                   <span class="subservice-price">€150</span>
                 </div>
                 <div class="subservice-item">
                   <div class="subservice-left">
-                    <span class="subservice-name">Koltuk Yıkama</span>
-                    <span class="subservice-meta">Ofis koltuk ve sandalye</span>
+                    <span class="subservice-name" data-i18n="koltuk_yıkama">Koltuk Yıkama</span>
+                    <span class="subservice-meta" data-i18n="ofis_koltuk_ve_sandalye">Ofis koltuk ve sandalye</span>
                   </div>
                   <span class="subservice-price">€45</span>
                 </div>
@@ -442,7 +470,7 @@ textarea.form-input{resize:vertical;}
                 <div class="category-header-left">
                   <div class="category-icon" style="background:rgba(245,158,11,0.1);">🪟</div>
                   <div class="category-info">
-                    <span class="category-name">Cam Temizliği</span>
+                    <span class="category-name" data-i18n="cat_window_cleaning">Cam Temizliği</span>
                     <span class="category-count">3 alt hizmet</span>
                   </div>
                 </div>
@@ -454,22 +482,22 @@ textarea.form-input{resize:vertical;}
               <div class="subservice-list">
                 <div class="subservice-item">
                   <div class="subservice-left">
-                    <span class="subservice-name">İç Cam Temizliği</span>
-                    <span class="subservice-meta">İç mekan camları</span>
+                    <span class="subservice-name" data-i18n="iç_cam_temizliği">İç Cam Temizliği</span>
+                    <span class="subservice-meta" data-i18n="iç_mekan_camları">İç mekan camları</span>
                   </div>
                   <span class="subservice-price">€35</span>
                 </div>
                 <div class="subservice-item">
                   <div class="subservice-left">
-                    <span class="subservice-name">Dış Cam Temizliği</span>
-                    <span class="subservice-meta">Dış mekan camları</span>
+                    <span class="subservice-name" data-i18n="dış_cam_temizliği">Dış Cam Temizliği</span>
+                    <span class="subservice-meta" data-i18n="dış_mekan_camları">Dış mekan camları</span>
                   </div>
                   <span class="subservice-price">€55</span>
                 </div>
                 <div class="subservice-item">
                   <div class="subservice-left">
-                    <span class="subservice-name">Bina Cam Temizliği</span>
-                    <span class="subservice-meta">Bina geneli cam temizliği</span>
+                    <span class="subservice-name" data-i18n="bina_cam_temizliği">Bina Cam Temizliği</span>
+                    <span class="subservice-meta" data-i18n="bina_geneli_cam_temizliği">Bina geneli cam temizliği</span>
                   </div>
                   <span class="subservice-price">€120</span>
                 </div>
@@ -482,7 +510,7 @@ textarea.form-input{resize:vertical;}
                 <div class="category-header-left">
                   <div class="category-icon" style="background:rgba(139,92,246,0.1);">🧶</div>
                   <div class="category-info">
-                    <span class="category-name">Halı Yıkama</span>
+                    <span class="category-name" data-i18n="cat_carpet_cleaning">Halı Yıkama</span>
                     <span class="category-count">3 alt hizmet</span>
                   </div>
                 </div>
@@ -494,22 +522,22 @@ textarea.form-input{resize:vertical;}
               <div class="subservice-list">
                 <div class="subservice-item">
                   <div class="subservice-left">
-                    <span class="subservice-name">Yıkama + Kurutma</span>
-                    <span class="subservice-meta">Halı yıkama ve kurutma</span>
+                    <span class="subservice-name" data-i18n="sub_wash_dry">Yıkama + Kurutma</span>
+                    <span class="subservice-meta" data-i18n="halı_yıkama_ve_kurutma">Halı yıkama ve kurutma</span>
                   </div>
                   <span class="subservice-price">€25/m²</span>
                 </div>
                 <div class="subservice-item">
                   <div class="subservice-left">
-                    <span class="subservice-name">Leke Çıkarma</span>
+                    <span class="subservice-name" data-i18n="leke_çıkarma">Leke Çıkarma</span>
                     <span class="subservice-meta">Özel leke tedavisi</span>
                   </div>
                   <span class="subservice-price">€15</span>
                 </div>
                 <div class="subservice-item">
                   <div class="subservice-left">
-                    <span class="subservice-name">Buharlı Temizlik</span>
-                    <span class="subservice-meta">Buharlı derinlemesine temizlik</span>
+                    <span class="subservice-name" data-i18n="buharlı_temizlik">Buharlı Temizlik</span>
+                    <span class="subservice-meta" data-i18n="buharlı_derinlemesine_temizlik">Buharlı derinlemesine temizlik</span>
                   </div>
                   <span class="subservice-price">€30/m²</span>
                 </div>
@@ -522,7 +550,7 @@ textarea.form-input{resize:vertical;}
                 <div class="category-header-left">
                   <div class="category-icon" style="background:rgba(16,185,129,0.1);">🏭</div>
                   <div class="category-info">
-                    <span class="category-name">Endüstriyel Temizlik</span>
+                    <span class="category-name" data-i18n="endüstriyel_temizlik">Endüstriyel Temizlik</span>
                     <span class="category-count">3 alt hizmet</span>
                   </div>
                 </div>
@@ -534,22 +562,22 @@ textarea.form-input{resize:vertical;}
               <div class="subservice-list">
                 <div class="subservice-item">
                   <div class="subservice-left">
-                    <span class="subservice-name">Fabrika Temizliği</span>
-                    <span class="subservice-meta">Fabrika geneli temizlik</span>
+                    <span class="subservice-name" data-i18n="fabrika_temizliği">Fabrika Temizliği</span>
+                    <span class="subservice-meta" data-i18n="fabrika_geneli_temizlik">Fabrika geneli temizlik</span>
                   </div>
                   <span class="subservice-price">€250</span>
                 </div>
                 <div class="subservice-item">
                   <div class="subservice-left">
-                    <span class="subservice-name">Depo Temizliği</span>
-                    <span class="subservice-meta">Depo ve antrepo temizliği</span>
+                    <span class="subservice-name" data-i18n="depo_temizliği">Depo Temizliği</span>
+                    <span class="subservice-meta" data-i18n="depo_ve_antrepo_temizliği">Depo ve antrepo temizliği</span>
                   </div>
                   <span class="subservice-price">€180</span>
                 </div>
                 <div class="subservice-item">
                   <div class="subservice-left">
-                    <span class="subservice-name">Hijyenik Temizlik</span>
-                    <span class="subservice-meta">Hijyen sertifikalı temizlik</span>
+                    <span class="subservice-name" data-i18n="hijyenik_temizlik">Hijyenik Temizlik</span>
+                    <span class="subservice-meta" data-i18n="hijyen_sertifikalı_temizlik">Hijyen sertifikalı temizlik</span>
                   </div>
                   <span class="subservice-price">€200</span>
                 </div>
@@ -574,22 +602,22 @@ textarea.form-input{resize:vertical;}
               <div class="subservice-list">
                 <div class="subservice-item">
                   <div class="subservice-left">
-                    <span class="subservice-name">Airbnb Dönüşüm Temizliği</span>
-                    <span class="subservice-meta">Airbnb misafir değişimi</span>
+                    <span class="subservice-name" data-i18n="airbnb_dönüşüm_temizliği">Airbnb Dönüşüm Temizliği</span>
+                    <span class="subservice-meta" data-i18n="airbnb_misafir_değişimi">Airbnb misafir değişimi</span>
                   </div>
                   <span class="subservice-price">€95</span>
                 </div>
                 <div class="subservice-item">
                   <div class="subservice-left">
-                    <span class="subservice-name">Eşya Taşıma Sonrası Temizlik</span>
-                    <span class="subservice-meta">Taşınma sonrası temizlik</span>
+                    <span class="subservice-name" data-i18n="eşya_taşıma_sonrası_temizlik">Eşya Taşıma Sonrası Temizlik</span>
+                    <span class="subservice-meta" data-i18n="taşınma_sonrası_temizlik">Taşınma sonrası temizlik</span>
                   </div>
                   <span class="subservice-price">€75</span>
                 </div>
                 <div class="subservice-item">
                   <div class="subservice-left">
-                    <span class="subservice-name">Evcil Hayvan Temizliği</span>
-                    <span class="subservice-meta">Pet dostu temizlik</span>
+                    <span class="subservice-name" data-i18n="evcil_hayvan_temizliği">Evcil Hayvan Temizliği</span>
+                    <span class="subservice-meta" data-i18n="pet_dostu_temizlik">Pet dostu temizlik</span>
                   </div>
                   <span class="subservice-price">€55</span>
                 </div>
@@ -605,25 +633,25 @@ textarea.form-input{resize:vertical;}
 <!-- Add Modal -->
 <div class="modal-overlay" id="addModal">
   <div class="modal">
-    <div class="modal-header"><span class="modal-title">Yeni Hizmet Ekle</span><button class="modal-close" onclick="closeModal('addModal')">✕</button></div>
+    <div class="modal-header"><span class="modal-title" data-i18n="modal_add_service">Yeni Hizmet Ekle</span><button class="modal-close" onclick="closeModal('addModal')">✕</button></div>
     <div class="modal-body">
-      <div class="form-group"><label class="form-label">Hizmet Adı</label><input type="text" class="form-input" placeholder="Örn: Standart Temizlik" id="addName"></div>
-      <div class="form-group"><label class="form-label">Açıklama</label><textarea class="form-input" rows="2" placeholder="Hizmet detayları..." id="addDesc" style="resize:vertical;"></textarea></div>
+      <div class="form-group"><label class="form-label" data-i18n="th_service_name">Hizmet Adı</label><input type="text" class="form-input" data-i18n-placeholder="ph_1" placeholder="Örn: Standart Temizlik" data-i18n-placeholder="ph_1" id="addName"></div>
+      <div class="form-group"><label class="form-label" data-i18n="form_description">Açıklama</label><textarea class="form-input" rows="2" data-i18n-placeholder="ph_2" placeholder="Hizmet detayları..." data-i18n-placeholder="ph_2" id="addDesc" style="resize:vertical;"></textarea></div>
       <div class="form-row">
-        <div class="form-group"><label class="form-label">Kategori</label><select class="form-select" id="addCat"><option value="">Seçin...</option><option>Ev Temizliği</option><option>Ofis Temizliği</option><option>Cam Temizliği</option><option>Halı Yıkama</option><option>Endüstriyel</option><option>Özel</option></select></div>
-        <div class="form-group"><label class="form-label">Alt Kategori</label><input type="text" class="form-input" placeholder="Örn: Standart" id="addSubCat"></div>
+        <div class="form-group"><label class="form-label" data-i18n="form_category">Kategori</label><select class="form-select" id="addCat"><option value="" data-i18n="seçin">Seçin...</option><option data-i18n="cat_home_cleaning">Ev Temizliği</option><option data-i18n="cat_office_cleaning">Ofis Temizliği</option><option data-i18n="cat_window_cleaning">Cam Temizliği</option><option data-i18n="cat_carpet_cleaning">Halı Yıkama</option><option data-i18n="cat_industrial">Endüstriyel</option><option data-i18n="cat_special">Özel</option></select></div>
+        <div class="form-group"><label class="form-label" data-i18n="form_subcategory">Alt Kategori</label><input type="text" class="form-input" data-i18n-placeholder="ph_3" placeholder="Örn: Standart" data-i18n-placeholder="ph_3" id="addSubCat"></div>
       </div>
       <div class="form-row">
-        <div class="form-group"><label class="form-label">Süre</label><input type="text" class="form-input" placeholder="Örn: 2-3 saat" id="addDuration"></div>
-        <div class="form-group"><label class="form-label">Fiyat (€)</label><input type="text" class="form-input" placeholder="Örn: 65 veya 25/m²" id="addPrice"></div>
+        <div class="form-group"><label class="form-label" data-i18n="form_duration">Süre</label><input type="text" class="form-input" data-i18n-placeholder="ph_4" placeholder="Örn: 2-3 saat" data-i18n-placeholder="ph_4" id="addDuration"></div>
+        <div class="form-group"><label class="form-label" data-i18n="fiyat">Fiyat (€)</label><input type="text" class="form-input" data-i18n-placeholder="ph_5" placeholder="Örn: 65 veya 25/m²" data-i18n-placeholder="ph_5" id="addPrice"></div>
       </div>
       <div class="form-row">
-        <div class="form-group"><label class="form-label">Durum</label><select class="form-select" id="addStatus"><option value="active">Aktif</option><option value="passive">Pasif</option></select></div>
+        <div class="form-group"><label class="form-label" data-i18n="form_status">Durum</label><select class="form-select" id="addStatus"><option value="active" data-i18n="status_active">Aktif</option><option value="passive" data-i18n="status_inactive">Pasif</option></select></div>
       </div>
     </div>
     <div class="modal-footer">
-      <button class="btn btn-secondary" onclick="closeModal('addModal')">İptal</button>
-      <button class="btn btn-primary" onclick="addService()">Hizmet Ekle</button>
+      <button class="btn btn-secondary" onclick="closeModal('addModal')" data-i18n="btn_cancel">İptal</button>
+      <button class="btn btn-primary" onclick="addService()" data-i18n="hizmet_ekle">Hizmet Ekle</button>
     </div>
   </div>
 </div>
@@ -631,26 +659,26 @@ textarea.form-input{resize:vertical;}
 <!-- Edit Modal -->
 <div class="modal-overlay" id="editModal">
   <div class="modal">
-    <div class="modal-header"><span class="modal-title">Hizmet Düzenle</span><button class="modal-close" onclick="closeModal('editModal')">✕</button></div>
+    <div class="modal-header"><span class="modal-title" data-i18n="modal_edit_service">Hizmet Düzenle</span><button class="modal-close" onclick="closeModal('editModal')">✕</button></div>
     <div class="modal-body">
       <input type="hidden" id="editId">
-      <div class="form-group"><label class="form-label">Hizmet Adı</label><input type="text" class="form-input" id="editName"></div>
-      <div class="form-group"><label class="form-label">Açıklama</label><textarea class="form-input" rows="2" id="editDesc" style="resize:vertical;"></textarea></div>
+      <div class="form-group"><label class="form-label" data-i18n="th_service_name">Hizmet Adı</label><input type="text" class="form-input" id="editName"></div>
+      <div class="form-group"><label class="form-label" data-i18n="form_description">Açıklama</label><textarea class="form-input" rows="2" id="editDesc" style="resize:vertical;"></textarea></div>
       <div class="form-row">
-        <div class="form-group"><label class="form-label">Kategori</label><select class="form-select" id="editCat"><option>Ev Temizliği</option><option>Ofis Temizliği</option><option>Cam Temizliği</option><option>Halı Yıkama</option><option>Endüstriyel</option><option>Özel</option></select></div>
-        <div class="form-group"><label class="form-label">Alt Kategori</label><input type="text" class="form-input" id="editSubCat"></div>
+        <div class="form-group"><label class="form-label" data-i18n="form_category">Kategori</label><select class="form-select" id="editCat"><option data-i18n="cat_home_cleaning">Ev Temizliği</option><option data-i18n="cat_office_cleaning">Ofis Temizliği</option><option data-i18n="cat_window_cleaning">Cam Temizliği</option><option data-i18n="cat_carpet_cleaning">Halı Yıkama</option><option data-i18n="cat_industrial">Endüstriyel</option><option data-i18n="cat_special">Özel</option></select></div>
+        <div class="form-group"><label class="form-label" data-i18n="form_subcategory">Alt Kategori</label><input type="text" class="form-input" id="editSubCat"></div>
       </div>
       <div class="form-row">
-        <div class="form-group"><label class="form-label">Süre</label><input type="text" class="form-input" id="editDuration"></div>
-        <div class="form-group"><label class="form-label">Fiyat (€)</label><input type="text" class="form-input" id="editPrice"></div>
+        <div class="form-group"><label class="form-label" data-i18n="form_duration">Süre</label><input type="text" class="form-input" id="editDuration"></div>
+        <div class="form-group"><label class="form-label" data-i18n="fiyat">Fiyat (€)</label><input type="text" class="form-input" id="editPrice"></div>
       </div>
       <div class="form-row">
-        <div class="form-group"><label class="form-label">Durum</label><select class="form-select" id="editStatus"><option value="active">Aktif</option><option value="passive">Pasif</option></select></div>
+        <div class="form-group"><label class="form-label" data-i18n="form_status">Durum</label><select class="form-select" id="editStatus"><option value="active" data-i18n="status_active">Aktif</option><option value="passive" data-i18n="status_inactive">Pasif</option></select></div>
       </div>
     </div>
     <div class="modal-footer">
-      <button class="btn btn-secondary" onclick="closeModal('editModal')">İptal</button>
-      <button class="btn btn-primary" onclick="saveEdit()">Kaydet</button>
+      <button class="btn btn-secondary" onclick="closeModal('editModal')" data-i18n="btn_cancel">İptal</button>
+      <button class="btn btn-primary" onclick="saveEdit()" data-i18n="btn_save">Kaydet</button>
     </div>
   </div>
 </div>
@@ -658,11 +686,11 @@ textarea.form-input{resize:vertical;}
 <!-- Delete Modal -->
 <div class="modal-overlay" id="deleteModal">
   <div class="modal" style="max-width:420px;">
-    <div class="modal-header"><span class="modal-title" style="color:var(--error-500);">Hizmet Sil</span><button class="modal-close" onclick="closeModal('deleteModal')">✕</button></div>
+    <div class="modal-header"><span class="modal-title" style="color:var(--error-500);" data-i18n="hizmet_sil">Hizmet Sil</span><button class="modal-close" onclick="closeModal('deleteModal')">✕</button></div>
     <div class="modal-body"><p style="font-size:var(--text-sm);color:var(--text-secondary);line-height:1.6;"><strong id="deleteTarget"></strong> hizmetini silmek üzeresiniz. Bu işlem geri alınamaz.</p></div>
     <div class="modal-footer">
-      <button class="btn btn-secondary" onclick="closeModal('deleteModal')">İptal</button>
-      <button class="btn btn-danger" onclick="confirmDelete()">Evet, Sil</button>
+      <button class="btn btn-secondary" onclick="closeModal('deleteModal')" data-i18n="btn_cancel">İptal</button>
+      <button class="btn btn-danger" onclick="confirmDelete()" data-i18n="evet_sil">Evet, Sil</button>
     </div>
   </div>
 </div>
@@ -670,43 +698,43 @@ textarea.form-input{resize:vertical;}
 <!-- Assign Modal -->
 <div class="modal-overlay" id="assignModal">
   <div class="modal" style="max-width:480px;">
-    <div class="modal-header"><span class="modal-title">Kategori Ata</span><button class="modal-close" onclick="closeModal('assignModal')">✕</button></div>
+    <div class="modal-header"><span class="modal-title" data-i18n="kategori_ata">Kategori Ata</span><button class="modal-close" onclick="closeModal('assignModal')">✕</button></div>
     <div class="modal-body">
       <p style="font-size:var(--text-sm);color:var(--text-secondary);margin-bottom:16px;"><strong id="assignCategoryName"></strong> kategorisini hangi firmalara atamak istiyorsunuz?</p>
       <div class="company-assign-list" id="companyAssignList">
         <div class="company-assign-item">
           <div class="company-assign-info">
-            <span class="company-assign-name">CleanFix Demo BV</span>
-            <span class="company-assign-type">Ana Firma • Business Plan</span>
+            <span class="company-assign-name" data-i18n="ui_cleanfix_demo">CleanFix Demo BV</span>
+            <span class="company-assign-type" data-i18n="ana_firma_business_plan">Ana Firma • Business Plan</span>
           </div>
           <input type="checkbox" class="assign-checkbox" checked data-company="CleanFix Demo BV">
         </div>
         <div class="company-assign-item">
           <div class="company-assign-info">
-            <span class="company-assign-name">Sparkle Offices Ltd</span>
-            <span class="company-assign-type">Partner • Ofis Temizliği</span>
+            <span class="company-assign-name" data-i18n="sparkle_offices_ltd">Sparkle Offices Ltd</span>
+            <span class="company-assign-type" data-i18n="partner_ofis_temizliği">Partner • Ofis Temizliği</span>
           </div>
           <input type="checkbox" class="assign-checkbox" data-company="Sparkle Offices Ltd">
         </div>
         <div class="company-assign-item">
           <div class="company-assign-info">
-            <span class="company-assign-name">HomeCare Pro</span>
-            <span class="company-assign-type">Partner • Ev Temizliği</span>
+            <span class="company-assign-name" data-i18n="homecare_pro">HomeCare Pro</span>
+            <span class="company-assign-type" data-i18n="partner_ev_temizliği">Partner • Ev Temizliği</span>
           </div>
           <input type="checkbox" class="assign-checkbox" data-company="HomeCare Pro">
         </div>
         <div class="company-assign-item">
           <div class="company-assign-info">
-            <span class="company-assign-name">IndustriClean GmbH</span>
-            <span class="company-assign-type">Partner • Endüstriyel</span>
+            <span class="company-assign-name" data-i18n="industriclean_gmbh">IndustriClean GmbH</span>
+            <span class="company-assign-type" data-i18n="partner_endüstriyel">Partner • Endüstriyel</span>
           </div>
           <input type="checkbox" class="assign-checkbox" data-company="IndustriClean GmbH">
         </div>
       </div>
     </div>
     <div class="modal-footer">
-      <button class="btn btn-secondary" onclick="closeModal('assignModal')">İptal</button>
-      <button class="btn btn-primary" onclick="saveAssign()">Kaydet</button>
+      <button class="btn btn-secondary" onclick="closeModal('assignModal')" data-i18n="btn_cancel">İptal</button>
+      <button class="btn btn-primary" onclick="saveAssign()" data-i18n="btn_save">Kaydet</button>
     </div>
   </div>
 </div>
@@ -903,6 +931,1745 @@ document.getElementById('catFilter').addEventListener('change',function(){
     r.style.display=cat===v?'':'none';
   });
 });
+</script>
+
+
+
+<script>
+/* ═══════════════════════════════════════════
+   CleanFix i18n — Trilingual System (TR/EN/NL)
+   ═══════════════════════════════════════════ */
+const i18n = {
+  "nav_dashboard": {
+    "tr": "Dashboard",
+    "en": "Dashboard",
+    "nl": "Dashboard"
+  },
+  "nav_appointments": {
+    "tr": "Randevular",
+    "en": "Appointments",
+    "nl": "Afspraken"
+  },
+  "nav_staff": {
+    "tr": "Çalışanlar",
+    "en": "Staff",
+    "nl": "Personeel"
+  },
+  "nav_services": {
+    "tr": "Hizmetler",
+    "en": "Services",
+    "nl": "Diensten"
+  },
+  "nav_invoices": {
+    "tr": "Faturalar",
+    "en": "Invoices",
+    "nl": "Facturen"
+  },
+  "nav_customers": {
+    "tr": "Müşteriler",
+    "en": "Customers",
+    "nl": "Klanten"
+  },
+  "nav_stock": {
+    "tr": "Stok",
+    "en": "Stock",
+    "nl": "Voorraad"
+  },
+  "nav_reviews": {
+    "tr": "Değerlendirmeler",
+    "en": "Reviews",
+    "nl": "Beoordelingen"
+  },
+  "nav_equipment": {
+    "tr": "Ekipman",
+    "en": "Equipment",
+    "nl": "Apparatuur"
+  },
+  "nav_quality": {
+    "tr": "Kalite Kontrol",
+    "en": "Quality Control",
+    "nl": "Kwaliteitscontrole"
+  },
+  "nav_expenses": {
+    "tr": "Giderler",
+    "en": "Expenses",
+    "nl": "Kosten"
+  },
+  "nav_sectors": {
+    "tr": "Sektörler",
+    "en": "Sectors",
+    "nl": "Sectoren"
+  },
+  "nav_tools": {
+    "tr": "Araçlar",
+    "en": "Tools",
+    "nl": "Gereedschap"
+  },
+  "nav_vehicles": {
+    "tr": "Araçlar",
+    "en": "Vehicles",
+    "nl": "Voertuigen"
+  },
+  "nav_company_profile": {
+    "tr": "Firma Profili",
+    "en": "Company Profile",
+    "nl": "Bedrijfsprofiel"
+  },
+  "nav_logout": {
+    "tr": "Çıkış Yap",
+    "en": "Log Out",
+    "nl": "Uitloggen"
+  },
+  "nav_main_menu": {
+    "tr": "Ana Menü",
+    "en": "Main Menu",
+    "nl": "Hoofdmenu"
+  },
+  "nav_settings": {
+    "tr": "Ayarlar",
+    "en": "Settings",
+    "nl": "Instellingen"
+  },
+  "sidebar_company_panel": {
+    "tr": "Firma Paneli",
+    "en": "Company Panel",
+    "nl": "Bedrijfspaneel"
+  },
+  "sidebar_customer_portal": {
+    "tr": "Müşteri Portalı",
+    "en": "Customer Portal",
+    "nl": "Klantenportaal"
+  },
+  "title_services": {
+    "tr": "CleanFix — Hizmet Yönetimi",
+    "en": "CleanFix — Service Management",
+    "nl": "CleanFix — Dienstbeheer"
+  },
+  "title_stock": {
+    "tr": "CleanFix — Stok Yönetimi",
+    "en": "CleanFix — Stock Management",
+    "nl": "CleanFix — Voorraadbeheer"
+  },
+  "title_sectors": {
+    "tr": "CleanFix — Sektör Yönetimi",
+    "en": "CleanFix — Sector Management",
+    "nl": "CleanFix — Sectorbeheer"
+  },
+  "title_tools": {
+    "tr": "CleanFix — Araç Kutusu",
+    "en": "CleanFix — Toolkit",
+    "nl": "CleanFix — Gereedschapskist"
+  },
+  "title_portal": {
+    "tr": "CleanFix — Müşteri Portalı",
+    "en": "CleanFix — Customer Portal",
+    "nl": "CleanFix — Klantenportaal"
+  },
+  "page_services": {
+    "tr": "Hizmetler",
+    "en": "Services",
+    "nl": "Diensten"
+  },
+  "page_stock": {
+    "tr": "Stok Yönetimi",
+    "en": "Stock Management",
+    "nl": "Voorraadbeheer"
+  },
+  "page_sectors": {
+    "tr": "Sektör Yönetimi",
+    "en": "Sector Management",
+    "nl": "Sectorbeheer"
+  },
+  "page_tools": {
+    "tr": "Araç Kutusu",
+    "en": "Toolkit",
+    "nl": "Gereedschapskist"
+  },
+  "page_portal": {
+    "tr": "Müşteri Portalı",
+    "en": "Customer Portal",
+    "nl": "Klantenportaal"
+  },
+  "btn_new_service": {
+    "tr": "+ Yeni Hizmet",
+    "en": "+ New Service",
+    "nl": "+ Nieuwe Dienst"
+  },
+  "btn_new_product": {
+    "tr": "+ Yeni Ürün",
+    "en": "+ New Product",
+    "nl": "+ Nieuw Product"
+  },
+  "btn_new_sector": {
+    "tr": "+ Yeni Sektör",
+    "en": "+ New Sector",
+    "nl": "+ Nieuwe Sector"
+  },
+  "btn_save": {
+    "tr": "Kaydet",
+    "en": "Save",
+    "nl": "Opslaan"
+  },
+  "btn_close": {
+    "tr": "Kapat",
+    "en": "Close",
+    "nl": "Sluiten"
+  },
+  "btn_cancel": {
+    "tr": "İptal",
+    "en": "Cancel",
+    "nl": "Annuleren"
+  },
+  "btn_send": {
+    "tr": "Gönder",
+    "en": "Send",
+    "nl": "Verzenden"
+  },
+  "btn_login": {
+    "tr": "Giriş Yap",
+    "en": "Log In",
+    "nl": "Inloggen"
+  },
+  "btn_edit": {
+    "tr": "Düzenle",
+    "en": "Edit",
+    "nl": "Bewerken"
+  },
+  "btn_delete": {
+    "tr": "Sil",
+    "en": "Delete",
+    "nl": "Verwijderen"
+  },
+  "btn_stock_in": {
+    "tr": "Stok Girişi",
+    "en": "Stock In",
+    "nl": "Voorraadin"
+  },
+  "btn_stock_out": {
+    "tr": "Stok Çıkışı",
+    "en": "Stock Out",
+    "nl": "Voorraaduit"
+  },
+  "btn_sync": {
+    "tr": "Senkronize Et",
+    "en": "Synchronize",
+    "nl": "Synchroniseren"
+  },
+  "btn_export": {
+    "tr": "Dışa Aktar",
+    "en": "Export",
+    "nl": "Exporteren"
+  },
+  "btn_print": {
+    "tr": "Yazdır",
+    "en": "Print",
+    "nl": "Afdrukken"
+  },
+  "btn_create_ticket": {
+    "tr": "Talep Gönder",
+    "en": "Send Request",
+    "nl": "Verzoek verzenden"
+  },
+  "th_service_name": {
+    "tr": "Hizmet Adı",
+    "en": "Service Name",
+    "nl": "Dienstnaam"
+  },
+  "th_category": {
+    "tr": "Kategori",
+    "en": "Category",
+    "nl": "Categorie"
+  },
+  "th_subcategory": {
+    "tr": "Alt Kategori",
+    "en": "Subcategory",
+    "nl": "Subcategorie"
+  },
+  "th_duration": {
+    "tr": "Süre",
+    "en": "Duration",
+    "nl": "Duur"
+  },
+  "th_price": {
+    "tr": "Fiyat",
+    "en": "Price",
+    "nl": "Prijs"
+  },
+  "th_status": {
+    "tr": "Durum",
+    "en": "Status",
+    "nl": "Status"
+  },
+  "th_actions": {
+    "tr": "İşlemler",
+    "en": "Actions",
+    "nl": "Acties"
+  },
+  "th_product": {
+    "tr": "Ürün",
+    "en": "Product",
+    "nl": "Product"
+  },
+  "th_stock_level": {
+    "tr": "Stok Seviyesi",
+    "en": "Stock Level",
+    "nl": "Voorraadniveau"
+  },
+  "th_threshold": {
+    "tr": "Eşik (Min/Max)",
+    "en": "Threshold (Min/Max)",
+    "nl": "Drempel (Min/Max)"
+  },
+  "th_unit": {
+    "tr": "Birim",
+    "en": "Unit",
+    "nl": "Eenheid"
+  },
+  "th_company": {
+    "tr": "Firma",
+    "en": "Company",
+    "nl": "Bedrijf"
+  },
+  "th_contact": {
+    "tr": "İletişim",
+    "en": "Contact",
+    "nl": "Contact"
+  },
+  "th_date": {
+    "tr": "Tarih",
+    "en": "Date",
+    "nl": "Datum"
+  },
+  "th_amount": {
+    "tr": "Tutar",
+    "en": "Amount",
+    "nl": "Bedrag"
+  },
+  "th_invoice": {
+    "tr": "Fatura",
+    "en": "Invoice",
+    "nl": "Factuur"
+  },
+  "th_payment": {
+    "tr": "Ödeme",
+    "en": "Payment",
+    "nl": "Betaling"
+  },
+  "th_priority": {
+    "tr": "Öncelik",
+    "en": "Priority",
+    "nl": "Prioriteit"
+  },
+  "th_subject": {
+    "tr": "Konu",
+    "en": "Subject",
+    "nl": "Onderwerp"
+  },
+  "th_type": {
+    "tr": "Tür",
+    "en": "Type",
+    "nl": "Type"
+  },
+  "th_staff": {
+    "tr": "Personel",
+    "en": "Staff",
+    "nl": "Personeel"
+  },
+  "th_customer": {
+    "tr": "Müşteri",
+    "en": "Customer",
+    "nl": "Klant"
+  },
+  "th_booking": {
+    "tr": "Randevu",
+    "en": "Booking",
+    "nl": "Afspraak"
+  },
+  "th_service": {
+    "tr": "Hizmet",
+    "en": "Service",
+    "nl": "Dienst"
+  },
+  "th_notes": {
+    "tr": "Notlar",
+    "en": "Notes",
+    "nl": "Notities"
+  },
+  "th_rating": {
+    "tr": "Puan",
+    "en": "Rating",
+    "nl": "Beoordeling"
+  },
+  "th_review": {
+    "tr": "Yorum",
+    "en": "Review",
+    "nl": "Recensie"
+  },
+  "th_module": {
+    "tr": "Modül",
+    "en": "Module",
+    "nl": "Module"
+  },
+  "status_active": {
+    "tr": "Aktif",
+    "en": "Active",
+    "nl": "Actief"
+  },
+  "status_inactive": {
+    "tr": "Pasif",
+    "en": "Inactive",
+    "nl": "Inactief"
+  },
+  "status_sufficient": {
+    "tr": "Yeterli",
+    "en": "Sufficient",
+    "nl": "Voldoende"
+  },
+  "status_low": {
+    "tr": "Az",
+    "en": "Low",
+    "nl": "Laag"
+  },
+  "status_critical": {
+    "tr": "Kritik",
+    "en": "Critical",
+    "nl": "Kritiek"
+  },
+  "status_open": {
+    "tr": "Açık",
+    "en": "Open",
+    "nl": "Open"
+  },
+  "status_resolved": {
+    "tr": "Çözüldü",
+    "en": "Resolved",
+    "nl": "Opgelost"
+  },
+  "status_pending": {
+    "tr": "Beklemede",
+    "en": "Pending",
+    "nl": "In behandeling"
+  },
+  "status_paid": {
+    "tr": "Ödendi",
+    "en": "Paid",
+    "nl": "Betaald"
+  },
+  "status_unpaid": {
+    "tr": "Ödenmedi",
+    "en": "Unpaid",
+    "nl": "Onbetaald"
+  },
+  "status_urgent": {
+    "tr": "Acil",
+    "en": "Urgent",
+    "nl": "Dringend"
+  },
+  "status_high": {
+    "tr": "Yüksek",
+    "en": "High",
+    "nl": "Hoog"
+  },
+  "status_medium": {
+    "tr": "Orta",
+    "en": "Medium",
+    "nl": "Gemiddeld"
+  },
+  "status_low_prio": {
+    "tr": "Düşük",
+    "en": "Low",
+    "nl": "Laag"
+  },
+  "status_dev": {
+    "tr": "Geliştirme",
+    "en": "Development",
+    "nl": "Ontwikkeling"
+  },
+  "status_planning": {
+    "tr": "Planlama",
+    "en": "Planning",
+    "nl": "Planning"
+  },
+  "filter_all_categories": {
+    "tr": "Tüm Kategoriler",
+    "en": "All Categories",
+    "nl": "Alle categorieën"
+  },
+  "filter_all_levels": {
+    "tr": "Tüm Seviyeler",
+    "en": "All Levels",
+    "nl": "Alle niveaus"
+  },
+  "filter_all_statuses": {
+    "tr": "Tüm Durumlar",
+    "en": "All Statuses",
+    "nl": "Alle statussen"
+  },
+  "search_services": {
+    "tr": "Hizmet ara...",
+    "en": "Search services...",
+    "nl": "Zoek diensten..."
+  },
+  "search_products": {
+    "tr": "Ürün ara...",
+    "en": "Search products...",
+    "nl": "Zoek producten..."
+  },
+  "search_customers": {
+    "tr": "Müşteri ara...",
+    "en": "Search customers...",
+    "nl": "Zoek klanten..."
+  },
+  "search_requests": {
+    "tr": "Talep ara...",
+    "en": "Search requests...",
+    "nl": "Zoek verzoeken..."
+  },
+  "search_staff": {
+    "tr": "Personel ara...",
+    "en": "Search staff...",
+    "nl": "Zoek personeel..."
+  },
+  "modal_add_service": {
+    "tr": "Yeni Hizmet Ekle",
+    "en": "Add New Service",
+    "nl": "Nieuwe dienst toevoegen"
+  },
+  "modal_edit_service": {
+    "tr": "Hizmet Düzenle",
+    "en": "Edit Service",
+    "nl": "Dienst bewerken"
+  },
+  "modal_add_product": {
+    "tr": "Yeni Ürün Ekle",
+    "en": "Add New Product",
+    "nl": "Nieuw product toevoegen"
+  },
+  "modal_edit_product": {
+    "tr": "Ürün Düzenle",
+    "en": "Edit Product",
+    "nl": "Product bewerken"
+  },
+  "modal_stock_move": {
+    "tr": "Stok Hareketi",
+    "en": "Stock Movement",
+    "nl": "Voorraadbeweging"
+  },
+  "modal_add_sector": {
+    "tr": "Yeni Sektör Ekle",
+    "en": "Add New Sector",
+    "nl": "Nieuwe sector toevoegen"
+  },
+  "modal_edit_sector": {
+    "tr": "Sektör Düzenle",
+    "en": "Edit Sector",
+    "nl": "Sector bewerken"
+  },
+  "modal_add_staff": {
+    "tr": "Yeni Personel Ekle",
+    "en": "Add New Staff",
+    "nl": "Nieuw personeel toevoegen"
+  },
+  "modal_edit_staff": {
+    "tr": "Personel Düzenle",
+    "en": "Edit Staff",
+    "nl": "Personeel bewerken"
+  },
+  "modal_add_customer": {
+    "tr": "Yeni Müşteri Ekle",
+    "en": "Add New Customer",
+    "nl": "Nieuwe klant toevoegen"
+  },
+  "modal_edit_customer": {
+    "tr": "Müşteri Düzenle",
+    "en": "Edit Customer",
+    "nl": "Klant bewerken"
+  },
+  "modal_add_booking": {
+    "tr": "Yeni Randevu Ekle",
+    "en": "Add New Booking",
+    "nl": "Nieuwe afspraak toevoegen"
+  },
+  "modal_edit_booking": {
+    "tr": "Randevu Düzenle",
+    "en": "Edit Booking",
+    "nl": "Afspraak bewerken"
+  },
+  "modal_delete_confirm": {
+    "tr": "Silme Onayı",
+    "en": "Delete Confirmation",
+    "nl": "Verwijderingsbevestiging"
+  },
+  "modal_assign_company": {
+    "tr": "Firma Ata",
+    "en": "Assign Company",
+    "nl": "Bedrijf toewijzen"
+  },
+  "form_name": {
+    "tr": "Adı",
+    "en": "Name",
+    "nl": "Naam"
+  },
+  "form_email": {
+    "tr": "E-posta",
+    "en": "Email",
+    "nl": "E-mail"
+  },
+  "form_phone": {
+    "tr": "Telefon",
+    "en": "Phone",
+    "nl": "Telefoon"
+  },
+  "form_address": {
+    "tr": "Adres",
+    "en": "Address",
+    "nl": "Adres"
+  },
+  "form_password": {
+    "tr": "Şifre",
+    "en": "Password",
+    "nl": "Wachtwoord"
+  },
+  "form_category": {
+    "tr": "Kategori",
+    "en": "Category",
+    "nl": "Categorie"
+  },
+  "form_subcategory": {
+    "tr": "Alt Kategori",
+    "en": "Subcategory",
+    "nl": "Subcategorie"
+  },
+  "form_duration": {
+    "tr": "Süre",
+    "en": "Duration",
+    "nl": "Duur"
+  },
+  "form_price": {
+    "tr": "Fiyat",
+    "en": "Price",
+    "nl": "Prijs"
+  },
+  "form_description": {
+    "tr": "Açıklama",
+    "en": "Description",
+    "nl": "Beschrijving"
+  },
+  "form_notes": {
+    "tr": "Notlar",
+    "en": "Notes",
+    "nl": "Notities"
+  },
+  "form_status": {
+    "tr": "Durum",
+    "en": "Status",
+    "nl": "Status"
+  },
+  "form_priority": {
+    "tr": "Öncelik",
+    "en": "Priority",
+    "nl": "Prioriteit"
+  },
+  "form_subject": {
+    "tr": "Konu",
+    "en": "Subject",
+    "nl": "Onderwerp"
+  },
+  "form_service_type": {
+    "tr": "Hizmet Türü",
+    "en": "Service Type",
+    "nl": "Diensttype"
+  },
+  "form_requested_date": {
+    "tr": "İstenen Tarih",
+    "en": "Requested Date",
+    "nl": "Gewenste datum"
+  },
+  "form_add_photo": {
+    "tr": "Fotoğraf Ekle",
+    "en": "Add Photo",
+    "nl": "Foto toevoegen"
+  },
+  "form_quantity": {
+    "tr": "Miktar",
+    "en": "Quantity",
+    "nl": "Hoeveelheid"
+  },
+  "form_unit": {
+    "tr": "Birim",
+    "en": "Unit",
+    "nl": "Eenheid"
+  },
+  "form_min_stock": {
+    "tr": "Min. Stok",
+    "en": "Min. Stock",
+    "nl": "Min. voorraad"
+  },
+  "form_max_stock": {
+    "tr": "Max. Stok",
+    "en": "Max. Stock",
+    "nl": "Max. voorraad"
+  },
+  "form_emoji": {
+    "tr": "Emoji",
+    "en": "Emoji",
+    "nl": "Emoji"
+  },
+  "form_sector_name": {
+    "tr": "Sektör Adı",
+    "en": "Sector Name",
+    "nl": "Sectornaam"
+  },
+  "form_modules": {
+    "tr": "Modüller",
+    "en": "Modules",
+    "nl": "Modules"
+  },
+  "stat_total_sectors": {
+    "tr": "Toplam Sektör",
+    "en": "Total Sectors",
+    "nl": "Totaal sectoren"
+  },
+  "stat_active_companies": {
+    "tr": "Aktif Firmalar",
+    "en": "Active Companies",
+    "nl": "Actieve bedrijven"
+  },
+  "stat_pending_approval": {
+    "tr": "Bekleyen Onay",
+    "en": "Pending Approval",
+    "nl": "In afwachting"
+  },
+  "stat_monthly_revenue": {
+    "tr": "Aylık Gelir",
+    "en": "Monthly Revenue",
+    "nl": "Maandelijkse omzet"
+  },
+  "stat_total_templates": {
+    "tr": "Toplam Şablon",
+    "en": "Total Templates",
+    "nl": "Totaal sjablonen"
+  },
+  "stat_open_requests": {
+    "tr": "Açık Talepler",
+    "en": "Open Requests",
+    "nl": "Open verzoeken"
+  },
+  "stat_upcoming_appointments": {
+    "tr": "Gelecek Randevular",
+    "en": "Upcoming Appointments",
+    "nl": "Aankomende afspraken"
+  },
+  "stat_total_spending": {
+    "tr": "Toplam Harcama",
+    "en": "Total Spending",
+    "nl": "Totale uitgaven"
+  },
+  "stat_latest_invoice": {
+    "tr": "Son Fatura",
+    "en": "Latest Invoice",
+    "nl": "Laatste factuur"
+  },
+  "stat_total_services": {
+    "tr": "Toplam Hizmet",
+    "en": "Total Services",
+    "nl": "Totaal diensten"
+  },
+  "stat_active_services": {
+    "tr": "Aktif Hizmet",
+    "en": "Active Services",
+    "nl": "Actieve diensten"
+  },
+  "stat_total_products": {
+    "tr": "Toplam Ürün",
+    "en": "Total Products",
+    "nl": "Totaal producten"
+  },
+  "stat_low_stock": {
+    "tr": "Az Stok",
+    "en": "Low Stock",
+    "nl": "Lage voorraad"
+  },
+  "stat_critical_stock": {
+    "tr": "Kritik Stok",
+    "en": "Critical Stock",
+    "nl": "Kritieke voorraad"
+  },
+  "stat_total_staff": {
+    "tr": "Toplam Personel",
+    "en": "Total Staff",
+    "nl": "Totaal personeel"
+  },
+  "stat_total_customers": {
+    "tr": "Toplam Müşteri",
+    "en": "Total Customers",
+    "nl": "Totaal klanten"
+  },
+  "stat_total_bookings": {
+    "tr": "Toplam Randevu",
+    "en": "Total Bookings",
+    "nl": "Totaal afspraken"
+  },
+  "card_services_list": {
+    "tr": "Hizmet Listesi",
+    "en": "Service List",
+    "nl": "Dienstenlijst"
+  },
+  "card_stock_list": {
+    "tr": "Stok Listesi",
+    "en": "Stock List",
+    "nl": "Voorraadlijst"
+  },
+  "card_sector_list": {
+    "tr": "Sektör Listesi",
+    "en": "Sector List",
+    "nl": "Sectorlijst"
+  },
+  "card_company_list": {
+    "tr": "Firma Listesi",
+    "en": "Company List",
+    "nl": "Bedrijvenlijst"
+  },
+  "card_staff_list": {
+    "tr": "Personel Listesi",
+    "en": "Staff List",
+    "nl": "Personeelslijst"
+  },
+  "card_customer_list": {
+    "tr": "Müşteri Listesi",
+    "en": "Customer List",
+    "nl": "Klantenlijst"
+  },
+  "card_booking_list": {
+    "tr": "Randevu Listesi",
+    "en": "Booking List",
+    "nl": "Afsprakenlijst"
+  },
+  "card_invoice_list": {
+    "tr": "Fatura Listesi",
+    "en": "Invoice List",
+    "nl": "Facturenlijst"
+  },
+  "card_recent_activity": {
+    "tr": "Son Aktiviteler",
+    "en": "Recent Activity",
+    "nl": "Recente activiteit"
+  },
+  "card_upcoming_bookings": {
+    "tr": "Yaklaşan Randevular",
+    "en": "Upcoming Bookings",
+    "nl": "Aankomende afspraken"
+  },
+  "card_new_ticket": {
+    "tr": "Yeni Talep Oluştur",
+    "en": "Create New Ticket",
+    "nl": "Nieuw ticket aanmaken"
+  },
+  "card_my_tickets": {
+    "tr": "Taleplerim",
+    "en": "My Tickets",
+    "nl": "Mijn tickets"
+  },
+  "card_service_history": {
+    "tr": "Hizmet Geçmişi",
+    "en": "Service History",
+    "nl": "Dienstgeschiedenis"
+  },
+  "card_my_invoices": {
+    "tr": "Faturalarım",
+    "en": "My Invoices",
+    "nl": "Mijn facturen"
+  },
+  "card_calendar": {
+    "tr": "Takvim",
+    "en": "Calendar",
+    "nl": "Kalender"
+  },
+  "card_settings": {
+    "tr": "Ayarlar",
+    "en": "Settings",
+    "nl": "Instellingen"
+  },
+  "card_profile": {
+    "tr": "Profil",
+    "en": "Profile",
+    "nl": "Profiel"
+  },
+  "cat_home_cleaning": {
+    "tr": "Ev Temizliği",
+    "en": "Home Cleaning",
+    "nl": "Huisreiniging"
+  },
+  "cat_office_cleaning": {
+    "tr": "Ofis Temizliği",
+    "en": "Office Cleaning",
+    "nl": "Kantoorreiniging"
+  },
+  "cat_window_cleaning": {
+    "tr": "Cam Temizliği",
+    "en": "Window Cleaning",
+    "nl": "Ramenreiniging"
+  },
+  "cat_carpet_cleaning": {
+    "tr": "Halı Yıkama",
+    "en": "Carpet Cleaning",
+    "nl": "Tapijtreiniging"
+  },
+  "cat_industrial": {
+    "tr": "Endüstriyel",
+    "en": "Industrial",
+    "nl": "Industrieel"
+  },
+  "cat_special": {
+    "tr": "Özel",
+    "en": "Special",
+    "nl": "Speciaal"
+  },
+  "cat_cleaning_supplies": {
+    "tr": "Temizlik Malzemeleri",
+    "en": "Cleaning Supplies",
+    "nl": "Schoonmaakmiddelen"
+  },
+  "cat_equipment": {
+    "tr": "Ekipman",
+    "en": "Equipment",
+    "nl": "Apparatuur"
+  },
+  "cat_consumables": {
+    "tr": "Sarf Malzeme",
+    "en": "Consumables",
+    "nl": "Verbruiksgoederen"
+  },
+  "cat_chemical": {
+    "tr": "Kimyasal",
+    "en": "Chemical",
+    "nl": "Chemisch"
+  },
+  "cat_disinfection": {
+    "tr": "Dezenfeksiyon",
+    "en": "Disinfection",
+    "nl": "Desinfectie"
+  },
+  "cat_carpet_upholstery": {
+    "tr": "Halı/Koltuk Bakımı",
+    "en": "Carpet/Upholstery Care",
+    "nl": "Tapijt/Meubelverzorging"
+  },
+  "cat_building_exterior": {
+    "tr": "Bina Dış Cephe",
+    "en": "Building Exterior",
+    "nl": "Gebouwgevel"
+  },
+  "cat_waste_recycling": {
+    "tr": "Çöp/Geri Dönüşüm",
+    "en": "Waste/Recycling",
+    "nl": "Afval/Recycling"
+  },
+  "sub_standard": {
+    "tr": "Standart",
+    "en": "Standard",
+    "nl": "Standaard"
+  },
+  "sub_deep": {
+    "tr": "Derinlemesine",
+    "en": "Deep",
+    "nl": "Diep"
+  },
+  "sub_post_construction": {
+    "tr": "İnşaat Sonrası",
+    "en": "Post-Construction",
+    "nl": "Na de bouw"
+  },
+  "sub_daily": {
+    "tr": "Günlük",
+    "en": "Daily",
+    "nl": "Dagelijks"
+  },
+  "sub_weekly": {
+    "tr": "Haftalık",
+    "en": "Weekly",
+    "nl": "Wekelijks"
+  },
+  "sub_upholstery": {
+    "tr": "Koltuk",
+    "en": "Upholstery",
+    "nl": "Meubels"
+  },
+  "sub_inner_glass": {
+    "tr": "İç Cam",
+    "en": "Inner Glass",
+    "nl": "Binnenraam"
+  },
+  "sub_outer_glass": {
+    "tr": "Dış Cam",
+    "en": "Outer Glass",
+    "nl": "Buitenraam"
+  },
+  "sub_building_glass": {
+    "tr": "Bina Cam",
+    "en": "Building Glass",
+    "nl": "Gebouwenraam"
+  },
+  "sub_wash_dry": {
+    "tr": "Yıkama + Kurutma",
+    "en": "Wash + Dry",
+    "nl": "Wassen + Drogen"
+  },
+  "sub_stain": {
+    "tr": "Leke",
+    "en": "Stain",
+    "nl": "Vlek"
+  },
+  "sub_steam": {
+    "tr": "Buharlı",
+    "en": "Steam",
+    "nl": "Stoom"
+  },
+  "sub_factory": {
+    "tr": "Fabrika",
+    "en": "Factory",
+    "nl": "Fabriek"
+  },
+  "sub_interior": {
+    "tr": "İç Mekan",
+    "en": "Interior",
+    "nl": "Interieur"
+  },
+  "sub_exterior": {
+    "tr": "Dış Mekan",
+    "en": "Exterior",
+    "nl": "Exterieur"
+  },
+  "sub_basic": {
+    "tr": "Temel",
+    "en": "Basic",
+    "nl": "Basis"
+  },
+  "sub_detailed": {
+    "tr": "Detaylı",
+    "en": "Detailed",
+    "nl": "Gedetailleerd"
+  },
+  "sub_maintenance": {
+    "tr": "Bakım",
+    "en": "Maintenance",
+    "nl": "Onderhoud"
+  },
+  "sector_cleaning": {
+    "tr": "Temizlik",
+    "en": "Cleaning",
+    "nl": "Reiniging"
+  },
+  "sector_construction": {
+    "tr": "İnşaat",
+    "en": "Construction",
+    "nl": "Bouw"
+  },
+  "sector_barber": {
+    "tr": "Berber / Kuaför",
+    "en": "Barber / Hairdresser",
+    "nl": "Kapper / Kapster"
+  },
+  "sector_market": {
+    "tr": "Market / Bakkal",
+    "en": "Market / Grocery",
+    "nl": "Markt / Kruidenier"
+  },
+  "sector_restaurant": {
+    "tr": "Restoran",
+    "en": "Restaurant",
+    "nl": "Restaurant"
+  },
+  "sector_carpentry": {
+    "tr": "Marangoz & Mobilya",
+    "en": "Carpentry & Furniture",
+    "nl": "Timmerwerk & Meubels"
+  },
+  "tab_templates": {
+    "tr": "Şablonlar",
+    "en": "Templates",
+    "nl": "Sjablonen"
+  },
+  "tab_checklists": {
+    "tr": "Kontrol Listeleri",
+    "en": "Checklists",
+    "nl": "Controlelijsten"
+  },
+  "tab_chemical_guide": {
+    "tr": "Kimyasal Rehberi",
+    "en": "Chemical Guide",
+    "nl": "Chemische gids"
+  },
+  "tab_surveys": {
+    "tr": "Anketler",
+    "en": "Surveys",
+    "nl": "Enquêtes"
+  },
+  "tab_forms": {
+    "tr": "Formlar",
+    "en": "Forms",
+    "nl": "Formulieren"
+  },
+  "tab_complaints": {
+    "tr": "Şikayet Yönetimi",
+    "en": "Complaint Management",
+    "nl": "Klachtenbeheer"
+  },
+  "tab_quotes": {
+    "tr": "Teklif Şablonları",
+    "en": "Quote Templates",
+    "nl": "Offertesjablonen"
+  },
+  "tab_staff_schedule": {
+    "tr": "Personel Programı",
+    "en": "Staff Schedule",
+    "nl": "Personeelsrooster"
+  },
+  "tab_dosage_calc": {
+    "tr": "Dozaj Hesaplayıcı",
+    "en": "Dosage Calculator",
+    "nl": "Dosering calculator"
+  },
+  "tab_cost_calc": {
+    "tr": "Maliyet Hesaplayıcı",
+    "en": "Cost Calculator",
+    "nl": "Kostencalculator"
+  },
+  "portal_welcome": {
+    "tr": "Hoş geldiniz",
+    "en": "Welcome",
+    "nl": "Welkom"
+  },
+  "portal_login_title": {
+    "tr": "Müşteri Portalı",
+    "en": "Customer Portal",
+    "nl": "Klantenportaal"
+  },
+  "portal_login_subtitle": {
+    "tr": "CleanFix hizmetlerinizi yönetin",
+    "en": "Manage your CleanFix services",
+    "nl": "Beheer uw CleanFix-diensten"
+  },
+  "portal_footer": {
+    "tr": "CleanFix Demo BV © 2026",
+    "en": "CleanFix Demo BV © 2026",
+    "nl": "CleanFix Demo BV © 2026"
+  },
+  "label_email": {
+    "tr": "E-posta",
+    "en": "Email",
+    "nl": "E-mail"
+  },
+  "label_password": {
+    "tr": "Şifre",
+    "en": "Password",
+    "nl": "Wachtwoord"
+  },
+  "ph_email": {
+    "tr": "ornek@email.com",
+    "en": "example@email.com",
+    "nl": "voorbeeld@email.com"
+  },
+  "ph_password": {
+    "tr": "••••••••",
+    "en": "••••••••",
+    "nl": "••••••••"
+  },
+  "ph_subject": {
+    "tr": "Talep konusu...",
+    "en": "Request subject...",
+    "nl": "Verzoekonderwerp..."
+  },
+  "ph_description": {
+    "tr": "Detaylı açıklama girin...",
+    "en": "Enter detailed description...",
+    "nl": "Voer gedetailleerde beschrijving in..."
+  },
+  "ph_upload_photo": {
+    "tr": "Fotoğraf yüklemek için tıklayın",
+    "en": "Click to upload photos",
+    "nl": "Klik om foto's te uploaden"
+  },
+  "ph_max_size": {
+    "tr": "JPG, PNG — max 5MB",
+    "en": "JPG, PNG — max 5MB",
+    "nl": "JPG, PNG — max 5MB"
+  },
+  "unit_hours": {
+    "tr": "saat",
+    "en": "hours",
+    "nl": "uur"
+  },
+  "unit_pcs": {
+    "tr": "adet",
+    "en": "pcs",
+    "nl": "stuks"
+  },
+  "unit_sqm": {
+    "tr": "m²",
+    "en": "m²",
+    "nl": "m²"
+  },
+  "unit_liters": {
+    "tr": "L",
+    "en": "L",
+    "nl": "L"
+  },
+  "unit_ml": {
+    "tr": "ml",
+    "en": "ml",
+    "nl": "ml"
+  },
+  "ui_business_plan": {
+    "tr": "Business Plan",
+    "en": "Business Plan",
+    "nl": "Business Plan"
+  },
+  "ui_super_admin": {
+    "tr": "Super Admin",
+    "en": "Super Admin",
+    "nl": "Super Admin"
+  },
+  "ui_cleanfix_demo": {
+    "tr": "CleanFix Demo BV",
+    "en": "CleanFix Demo BV",
+    "nl": "CleanFix Demo BV"
+  },
+  "ui_cleanfix_admin": {
+    "tr": "CleanFix Admin",
+    "en": "CleanFix Admin",
+    "nl": "CleanFix Admin"
+  },
+  "ui_last_12_months": {
+    "tr": "Son 12 ay",
+    "en": "Last 12 months",
+    "nl": "Laatste 12 maanden"
+  },
+  "ui_next_appointment": {
+    "tr": "Sonraki: ",
+    "en": "Next: ",
+    "nl": "Volgende: "
+  },
+  "ui_urgent_count": {
+    "tr": " acil öncelikli",
+    "en": " urgent priority",
+    "nl": " dringende prioriteit"
+  },
+  "ui_per_month": {
+    "tr": "/ay",
+    "en": "/mo",
+    "nl": "/maand"
+  },
+  "ui_firm_count": {
+    "tr": " firma",
+    "en": " company",
+    "nl": " bedrijf"
+  },
+  "ui_firms_count": {
+    "tr": " firma",
+    "en": " companies",
+    "nl": " bedrijven"
+  },
+  "ui_module_count": {
+    "tr": " Modül",
+    "en": " Module",
+    "nl": " Module"
+  },
+  "ui_modules_count": {
+    "tr": " Modül",
+    "en": " Modules",
+    "nl": " Modules"
+  },
+  "toast_synced": {
+    "tr": "Şablonlar senkronize edildi",
+    "en": "Templates synchronized",
+    "nl": "Sjablonen gesynchroniseerd"
+  },
+  "toast_stock_updated": {
+    "tr": "Stok raporu güncellendi",
+    "en": "Stock report updated",
+    "nl": "Voorraadrapport bijgewerkt"
+  },
+  "toast_notifications": {
+    "tr": "Bildirimler",
+    "en": "Notifications",
+    "nl": "Meldingen"
+  },
+  "toast_saved": {
+    "tr": "Kaydedildi",
+    "en": "Saved",
+    "nl": "Opgeslagen"
+  },
+  "toast_deleted": {
+    "tr": "Silindi",
+    "en": "Deleted",
+    "nl": "Verwijderd"
+  },
+  "toast_error": {
+    "tr": "Hata oluştu",
+    "en": "An error occurred",
+    "nl": "Er is een fout opgetreden"
+  },
+  "toast_exported": {
+    "tr": "Dışa aktarıldı",
+    "en": "Exported",
+    "nl": "Geëxporteerd"
+  },
+  "mon_jan": {
+    "tr": "Oca",
+    "en": "Jan",
+    "nl": "Jan"
+  },
+  "mon_feb": {
+    "tr": "Şub",
+    "en": "Feb",
+    "nl": "Feb"
+  },
+  "mon_mar": {
+    "tr": "Mar",
+    "en": "Mar",
+    "nl": "Mrt"
+  },
+  "mon_apr": {
+    "tr": "Nis",
+    "en": "Apr",
+    "nl": "Apr"
+  },
+  "mon_may": {
+    "tr": "May",
+    "en": "May",
+    "nl": "Mei"
+  },
+  "mon_jun": {
+    "tr": "Haz",
+    "en": "Jun",
+    "nl": "Jun"
+  },
+  "mon_jul": {
+    "tr": "Tem",
+    "en": "Jul",
+    "nl": "Jul"
+  },
+  "mon_aug": {
+    "tr": "Ağu",
+    "en": "Aug",
+    "nl": "Aug"
+  },
+  "mon_sep": {
+    "tr": "Eyl",
+    "en": "Sep",
+    "nl": "Sep"
+  },
+  "mon_oct": {
+    "tr": "Eki",
+    "en": "Oct",
+    "nl": "Okt"
+  },
+  "mon_nov": {
+    "tr": "Kas",
+    "en": "Nov",
+    "nl": "Nov"
+  },
+  "mon_dec": {
+    "tr": "Ara",
+    "en": "Dec",
+    "nl": "Dec"
+  },
+  "currency_eur": {
+    "tr": "€",
+    "en": "€",
+    "nl": "€"
+  },
+  "currency_usd": {
+    "tr": "$",
+    "en": "$",
+    "nl": "$"
+  },
+  "cleanfix": {
+    "tr": "CleanFix",
+    "en": "CleanFix",
+    "nl": "CleanFix"
+  },
+  "standart_temizlik": {
+    "tr": "Standart Temizlik",
+    "en": "Standart Temizlik",
+    "nl": "Standart Temizlik"
+  },
+  "ev_temizliği_-_temel_paket": {
+    "tr": "Ev temizliği - temel paket",
+    "en": "Ev temizliği - temel paket",
+    "nl": "Ev temizliği - temel paket"
+  },
+  "derinlemesine_temizlik": {
+    "tr": "Derinlemesine Temizlik",
+    "en": "Derinlemesine Temizlik",
+    "nl": "Derinlemesine Temizlik"
+  },
+  "ev_temizliği_-_detaylı_paket": {
+    "tr": "Ev temizliği - detaylı paket",
+    "en": "Ev temizliği - detaylı paket",
+    "nl": "Ev temizliği - detaylı paket"
+  },
+  "inşaat_sonrası_temizlik": {
+    "tr": "İnşaat Sonrası Temizlik",
+    "en": "İnşaat Sonrası Temizlik",
+    "nl": "İnşaat Sonrası Temizlik"
+  },
+  "ev_temizliği_-_inşaat_sonrası": {
+    "tr": "Ev temizliği - inşaat sonrası",
+    "en": "Ev temizliği - inşaat sonrası",
+    "nl": "Ev temizliği - inşaat sonrası"
+  },
+  "günlük_ofis_temizliği": {
+    "tr": "Günlük Ofis Temizliği",
+    "en": "Günlük Ofis Temizliği",
+    "nl": "Günlük Ofis Temizliği"
+  },
+  "ofis_temizliği_-_günlük_bakım": {
+    "tr": "Ofis temizliği - günlük bakım",
+    "en": "Ofis temizliği - günlük bakım",
+    "nl": "Ofis temizliği - günlük bakım"
+  },
+  "haftalık_ofis_temizliği": {
+    "tr": "Haftalık Ofis Temizliği",
+    "en": "Haftalık Ofis Temizliği",
+    "nl": "Haftalık Ofis Temizliği"
+  },
+  "ofis_temizliği_-_haftalık_derinlemesine": {
+    "tr": "Ofis temizliği - haftalık derinlemesine",
+    "en": "Ofis temizliği - haftalık derinlemesine",
+    "nl": "Ofis temizliği - haftalık derinlemesine"
+  },
+  "koltuk_yıkama": {
+    "tr": "Koltuk Yıkama",
+    "en": "Koltuk Yıkama",
+    "nl": "Koltuk Yıkama"
+  },
+  "ofis_temizliği_-_koltuk_ve_sandalye": {
+    "tr": "Ofis temizliği - koltuk ve sandalye",
+    "en": "Ofis temizliği - koltuk ve sandalye",
+    "nl": "Ofis temizliği - koltuk ve sandalye"
+  },
+  "iç_cam_temizliği": {
+    "tr": "İç Cam Temizliği",
+    "en": "İç Cam Temizliği",
+    "nl": "İç Cam Temizliği"
+  },
+  "cam_temizliği_-_iç_mekan": {
+    "tr": "Cam temizliği - iç mekan",
+    "en": "Cam temizliği - iç mekan",
+    "nl": "Cam temizliği - iç mekan"
+  },
+  "dış_cam_temizliği": {
+    "tr": "Dış Cam Temizliği",
+    "en": "Dış Cam Temizliği",
+    "nl": "Dış Cam Temizliği"
+  },
+  "cam_temizliği_-_dış_mekan": {
+    "tr": "Cam temizliği - dış mekan",
+    "en": "Cam temizliği - dış mekan",
+    "nl": "Cam temizliği - dış mekan"
+  },
+  "bina_cam_temizliği": {
+    "tr": "Bina Cam Temizliği",
+    "en": "Bina Cam Temizliği",
+    "nl": "Bina Cam Temizliği"
+  },
+  "cam_temizliği_-_bina_geneli": {
+    "tr": "Cam temizliği - bina geneli",
+    "en": "Cam temizliği - bina geneli",
+    "nl": "Cam temizliği - bina geneli"
+  },
+  "halı_yıkama_-_temel_paket": {
+    "tr": "Halı yıkama - temel paket",
+    "en": "Halı yıkama - temel paket",
+    "nl": "Halı yıkama - temel paket"
+  },
+  "leke_çıkarma": {
+    "tr": "Leke Çıkarma",
+    "en": "Leke Çıkarma",
+    "nl": "Leke Çıkarma"
+  },
+  "halı_yıkama_-_leke_özel": {
+    "tr": "Halı yıkama - leke özel",
+    "en": "Halı yıkama - leke özel",
+    "nl": "Halı yıkama - leke özel"
+  },
+  "buharlı_temizlik": {
+    "tr": "Buharlı Temizlik",
+    "en": "Buharlı Temizlik",
+    "nl": "Buharlı Temizlik"
+  },
+  "halı_yıkama_-_buharlı_derinlemesine": {
+    "tr": "Halı yıkama - buharlı derinlemesine",
+    "en": "Halı yıkama - buharlı derinlemesine",
+    "nl": "Halı yıkama - buharlı derinlemesine"
+  },
+  "fabrika_temizliği": {
+    "tr": "Fabrika Temizliği",
+    "en": "Fabrika Temizliği",
+    "nl": "Fabrika Temizliği"
+  },
+  "endüstriyel_-_fabrika_geneli": {
+    "tr": "Endüstriyel - fabrika geneli",
+    "en": "Endüstriyel - fabrika geneli",
+    "nl": "Endüstriyel - fabrika geneli"
+  },
+  "depo_temizliği": {
+    "tr": "Depo Temizliği",
+    "en": "Depo Temizliği",
+    "nl": "Depo Temizliği"
+  },
+  "endüstriyel_-_depo_ve_antrepo": {
+    "tr": "Endüstriyel - depo ve antrepo",
+    "en": "Endüstriyel - depo ve antrepo",
+    "nl": "Endüstriyel - depo ve antrepo"
+  },
+  "hijyenik_temizlik": {
+    "tr": "Hijyenik Temizlik",
+    "en": "Hijyenik Temizlik",
+    "nl": "Hijyenik Temizlik"
+  },
+  "endüstriyel_-_hijyen_sertifikalı": {
+    "tr": "Endüstriyel - hijyen sertifikalı",
+    "en": "Endüstriyel - hijyen sertifikalı",
+    "nl": "Endüstriyel - hijyen sertifikalı"
+  },
+  "hijyenik": {
+    "tr": "Hijyenik",
+    "en": "Hijyenik",
+    "nl": "Hijyenik"
+  },
+  "airbnb_dönüşüm_temizliği": {
+    "tr": "Airbnb Dönüşüm Temizliği",
+    "en": "Airbnb Dönüşüm Temizliği",
+    "nl": "Airbnb Dönüşüm Temizliği"
+  },
+  "eşya_taşıma_sonrası_temizlik": {
+    "tr": "Eşya Taşıma Sonrası Temizlik",
+    "en": "Eşya Taşıma Sonrası Temizlik",
+    "nl": "Eşya Taşıma Sonrası Temizlik"
+  },
+  "taşınma": {
+    "tr": "Taşınma",
+    "en": "Taşınma",
+    "nl": "Taşınma"
+  },
+  "evcil_hayvan_temizliği": {
+    "tr": "Evcil Hayvan Temizliği",
+    "en": "Evcil Hayvan Temizliği",
+    "nl": "Evcil Hayvan Temizliği"
+  },
+  "hizmet_kategorileri": {
+    "tr": "Hizmet Kategorileri",
+    "en": "Hizmet Kategorileri",
+    "nl": "Hizmet Kategorileri"
+  },
+  "genişletmek_için_tıklayın": {
+    "tr": "Genişletmek için tıklayın",
+    "en": "Genişletmek için tıklayın",
+    "nl": "Genişletmek için tıklayın"
+  },
+  "günlük_bakım_ve_düzen": {
+    "tr": "Günlük bakım ve düzen",
+    "en": "Günlük bakım ve düzen",
+    "nl": "Günlük bakım ve düzen"
+  },
+  "haftalık_derinlemesine": {
+    "tr": "Haftalık derinlemesine",
+    "en": "Haftalık derinlemesine",
+    "nl": "Haftalık derinlemesine"
+  },
+  "ofis_koltuk_ve_sandalye": {
+    "tr": "Ofis koltuk ve sandalye",
+    "en": "Ofis koltuk ve sandalye",
+    "nl": "Ofis koltuk ve sandalye"
+  },
+  "iç_mekan_camları": {
+    "tr": "İç mekan camları",
+    "en": "İç mekan camları",
+    "nl": "İç mekan camları"
+  },
+  "dış_mekan_camları": {
+    "tr": "Dış mekan camları",
+    "en": "Dış mekan camları",
+    "nl": "Dış mekan camları"
+  },
+  "bina_geneli_cam_temizliği": {
+    "tr": "Bina geneli cam temizliği",
+    "en": "Bina geneli cam temizliği",
+    "nl": "Bina geneli cam temizliği"
+  },
+  "halı_yıkama_ve_kurutma": {
+    "tr": "Halı yıkama ve kurutma",
+    "en": "Halı yıkama ve kurutma",
+    "nl": "Halı yıkama ve kurutma"
+  },
+  "buharlı_derinlemesine_temizlik": {
+    "tr": "Buharlı derinlemesine temizlik",
+    "en": "Buharlı derinlemesine temizlik",
+    "nl": "Buharlı derinlemesine temizlik"
+  },
+  "endüstriyel_temizlik": {
+    "tr": "Endüstriyel Temizlik",
+    "en": "Endüstriyel Temizlik",
+    "nl": "Endüstriyel Temizlik"
+  },
+  "fabrika_geneli_temizlik": {
+    "tr": "Fabrika geneli temizlik",
+    "en": "Fabrika geneli temizlik",
+    "nl": "Fabrika geneli temizlik"
+  },
+  "depo_ve_antrepo_temizliği": {
+    "tr": "Depo ve antrepo temizliği",
+    "en": "Depo ve antrepo temizliği",
+    "nl": "Depo ve antrepo temizliği"
+  },
+  "hijyen_sertifikalı_temizlik": {
+    "tr": "Hijyen sertifikalı temizlik",
+    "en": "Hijyen sertifikalı temizlik",
+    "nl": "Hijyen sertifikalı temizlik"
+  },
+  "airbnb_misafir_değişimi": {
+    "tr": "Airbnb misafir değişimi",
+    "en": "Airbnb misafir değişimi",
+    "nl": "Airbnb misafir değişimi"
+  },
+  "taşınma_sonrası_temizlik": {
+    "tr": "Taşınma sonrası temizlik",
+    "en": "Taşınma sonrası temizlik",
+    "nl": "Taşınma sonrası temizlik"
+  },
+  "pet_dostu_temizlik": {
+    "tr": "Pet dostu temizlik",
+    "en": "Pet dostu temizlik",
+    "nl": "Pet dostu temizlik"
+  },
+  "seçin": {
+    "tr": "Seçin...",
+    "en": "Seçin...",
+    "nl": "Seçin..."
+  },
+  "fiyat": {
+    "tr": "Fiyat (€)",
+    "en": "Fiyat (€)",
+    "nl": "Fiyat (€)"
+  },
+  "hizmet_ekle": {
+    "tr": "Hizmet Ekle",
+    "en": "Hizmet Ekle",
+    "nl": "Hizmet Ekle"
+  },
+  "hizmet_sil": {
+    "tr": "Hizmet Sil",
+    "en": "Hizmet Sil",
+    "nl": "Hizmet Sil"
+  },
+  "evet_sil": {
+    "tr": "Evet, Sil",
+    "en": "Evet, Sil",
+    "nl": "Evet, Sil"
+  },
+  "kategori_ata": {
+    "tr": "Kategori Ata",
+    "en": "Kategori Ata",
+    "nl": "Kategori Ata"
+  },
+  "ana_firma_business_plan": {
+    "tr": "Ana Firma • Business Plan",
+    "en": "Ana Firma • Business Plan",
+    "nl": "Ana Firma • Business Plan"
+  },
+  "sparkle_offices_ltd": {
+    "tr": "Sparkle Offices Ltd",
+    "en": "Sparkle Offices Ltd",
+    "nl": "Sparkle Offices Ltd"
+  },
+  "partner_ofis_temizliği": {
+    "tr": "Partner • Ofis Temizliği",
+    "en": "Partner • Ofis Temizliği",
+    "nl": "Partner • Ofis Temizliği"
+  },
+  "homecare_pro": {
+    "tr": "HomeCare Pro",
+    "en": "HomeCare Pro",
+    "nl": "HomeCare Pro"
+  },
+  "partner_ev_temizliği": {
+    "tr": "Partner • Ev Temizliği",
+    "en": "Partner • Ev Temizliği",
+    "nl": "Partner • Ev Temizliği"
+  },
+  "industriclean_gmbh": {
+    "tr": "IndustriClean GmbH",
+    "en": "IndustriClean GmbH",
+    "nl": "IndustriClean GmbH"
+  },
+  "partner_endüstriyel": {
+    "tr": "Partner • Endüstriyel",
+    "en": "Partner • Endüstriyel",
+    "nl": "Partner • Endüstriyel"
+  }
+};
+
+function switchLang(lang) {
+  if (!lang || !i18n[lang]) lang = 'tr';
+  localStorage.setItem('cleanfix_lang', lang);
+  document.documentElement.lang = lang === 'tr' ? 'tr' : (lang === 'nl' ? 'nl' : 'en');
+
+  /* translate elements with data-i18n */
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (i18n[lang] && i18n[lang][key] !== undefined) {
+      if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+        if (el.type !== 'submit' && el.type !== 'button') el.value = i18n[lang][key];
+        else el.textContent = i18n[lang][key];
+      } else if (el.tagName === 'OPTION') {
+        el.textContent = i18n[lang][key];
+      } else {
+        el.textContent = i18n[lang][key];
+      }
+    }
+  });
+
+  /* translate placeholders */
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+    const key = el.getAttribute('data-i18n-placeholder');
+    if (i18n[lang] && i18n[lang][key] !== undefined) {
+      el.placeholder = i18n[lang][key];
+    }
+  });
+
+  /* update lang buttons */
+  document.querySelectorAll('.lang-btn').forEach(btn => {
+    if (btn.dataset.lang === lang) {
+      btn.style.background = 'var(--teal-500)';
+      btn.style.color = 'white';
+      btn.style.borderColor = 'var(--teal-500)';
+    } else {
+      btn.style.background = 'var(--bg-tertiary)';
+      btn.style.color = 'var(--text-secondary)';
+      btn.style.borderColor = 'var(--border-color)';
+    }
+  });
+
+  /* update title */
+  const t = document.querySelector('title[data-i18n]');
+  if (t) {
+    const k = t.getAttribute('data-i18n');
+    if (i18n[lang][k]) t.textContent = i18n[lang][k];
+  }
+}
+
+/* init */
+(function(){
+  const saved = localStorage.getItem('cleanfix_lang') || 'tr';
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => switchLang(saved));
+  } else {
+    setTimeout(() => switchLang(saved), 50);
+  }
+})();
 </script>
 </body>
 </html>

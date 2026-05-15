@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CleanFix — Giriş</title>
+<meta name="description" data-i18n-attr="content" data-i18n="meta_desc">
+<title data-i18n="page_title">CleanFix — Giriş</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/main.css">
@@ -86,6 +87,21 @@
 .demo-hint code { background:rgba(20,184,166,0.12); color:var(--teal-500); padding:2px 8px; border-radius:4px; font-family:'JetBrains Mono',monospace; font-size:11px; }
 .theme-toggle { position:fixed; top:20px; right:20px; z-index:100; background:var(--bg-card); border:1px solid var(--border-color); border-radius:var(--radius-md); padding:10px; cursor:pointer; color:var(--text-secondary); transition:all var(--duration-fast); backdrop-filter:blur(10px); }
 .theme-toggle:hover { color:var(--teal-500); border-color:var(--teal-500); }
+/* Language Switcher */
+.lang-switcher {
+  display:flex; align-items:center; gap:4px;
+  background:var(--bg-card); border:1px solid var(--border-color);
+  border-radius:var(--radius-md); padding:3px;
+  position:fixed; top:20px; right:64px; z-index:100;
+}
+.lang-switcher button {
+  background:transparent; border:none; color:var(--text-muted);
+  font-size:11px; font-weight:600; cursor:pointer;
+  padding:4px 8px; border-radius:4px; transition:all var(--duration-fast);
+  text-transform:uppercase; font-family:inherit;
+}
+.lang-switcher button:hover { color:var(--text-primary); }
+.lang-switcher button.active { background:var(--teal-500); color:white; }
 .role-tabs { display:flex; gap:8px; margin-bottom:24px; }
 .role-tab {
   flex:1; padding:10px 8px; border-radius:var(--radius-md); background:var(--bg-tertiary);
@@ -109,7 +125,14 @@
 <div class="orb orb-3"></div>
 <div class="grid-overlay"></div>
 
-<button class="theme-toggle" id="themeToggle" title="Tema Değiştir">
+<!-- Language Switcher -->
+<div class="lang-switcher">
+  <button data-lang="tr" class="active" onclick="switchLang('tr')">TR</button>
+  <button data-lang="en" onclick="switchLang('en')">EN</button>
+  <button data-lang="nl" onclick="switchLang('nl')">NL</button>
+</div>
+
+<button class="theme-toggle" id="themeToggle" data-i18n="theme_title" title="Tema Değiştir">
   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
 </button>
 
@@ -120,51 +143,51 @@
     <div class="login-logo">
       <div class="login-logo-icon">CF</div>
       <h1>CleanFix</h1>
-      <p>Hesabınıza erişmek için bilgilerinizi girin</p>
+      <p data-i18n="login_subtitle">Hesabınıza erişmek için bilgilerinizi girin</p>
     </div>
 
     <!-- Role selector -->
     <div class="role-tabs" id="roleTabs">
-      <button type="button" class="role-tab active" data-role="admin" onclick="setRole('admin')">Admin</button>
-      <button type="button" class="role-tab" data-role="company" onclick="setRole('company')">Firma</button>
-      <button type="button" class="role-tab" data-role="employee" onclick="setRole('employee')">Çalışan</button>
+      <button type="button" class="role-tab active" data-role="admin" onclick="setRole('admin')" data-i18n="role_admin">Admin</button>
+      <button type="button" class="role-tab" data-role="company" onclick="setRole('company')" data-i18n="role_company">Firma</button>
+      <button type="button" class="role-tab" data-role="employee" onclick="setRole('employee')" data-i18n="role_employee">Çalışan</button>
     </div>
-    <p class="role-desc" id="roleDesc">E-posta ve şifrenizle giriş yapın</p>
+    <p class="role-desc" id="roleDesc" data-i18n="role_desc_admin">E-posta ve şifrenizle giriş yapın</p>
 
     <form id="loginForm" novalidate>
       <!-- Admin: email -->
       <div class="form-group" id="emailGroup">
-        <label class="form-label" id="emailLabel">E-posta</label>
+        <label class="form-label" id="emailLabel" data-i18n="label_email">E-posta</label>
         <div style="position:relative">
-          <input type="text" class="form-input" id="email" placeholder="admin@cleanfix.com" value="admin@cleanfix.com" autocomplete="username" required>
+          <input type="text" class="form-input" id="email" data-i18n-placeholder="ph_email" placeholder="admin@cleanfix.com" value="admin@cleanfix.com" autocomplete="username" required>
           <span style="position:absolute;right:14px;top:50%;transform:translateY(-50%);color:var(--text-muted);">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
           </span>
         </div>
-        <div class="form-error">Bu alan gereklidir</div>
+        <div class="form-error" data-i18n="err_required">Bu alan gereklidir</div>
       </div>
 
       <div class="form-group" id="passwordGroup">
-        <label class="form-label">Şifre</label>
+        <label class="form-label" data-i18n="label_password">Şifre</label>
         <div style="position:relative">
-          <input type="password" class="form-input" id="password" placeholder="••••••••" value="admin123" autocomplete="current-password" required>
+          <input type="password" class="form-input" id="password" data-i18n-placeholder="ph_password" placeholder="••••••••" value="admin123" autocomplete="current-password" required>
           <span style="position:absolute;right:14px;top:50%;transform:translateY(-50%);color:var(--text-muted);cursor:pointer;" id="togglePassword" role="button" tabindex="0">
             <svg id="eyeIcon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
           </span>
         </div>
-        <div class="form-error">Şifre en az 6 karakter olmalı</div>
+        <div class="form-error" data-i18n="err_password">Şifre en az 6 karakter olmalı</div>
       </div>
 
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;">
         <label class="toggle">
           <input type="checkbox" id="rememberMe">
           <span class="toggle-track"></span>
-          <span class="toggle-label">Bu cihazda hatırla</span>
+          <span class="toggle-label" data-i18n="remember_me">Bu cihazda hatırla</span>
         </label>
       </div>
 
       <button type="submit" class="btn btn-primary" style="width:100%;padding:14px;font-size:var(--text-base);position:relative;overflow:hidden;" id="submitBtn">
-        <span id="btnText">Giriş Yap</span>
+        <span id="btnText" data-i18n="btn_login">Giriş Yap</span>
         <span id="btnLoader" style="display:none;position:absolute;inset:0;align-items:center;justify-content:center;">
           <span style="width:20px;height:20px;border:2.5px solid rgba(255,255,255,0.3);border-top-color:white;border-radius:50%;animation:spin 0.8s linear infinite;display:inline-block;"></span>
         </span>
@@ -172,15 +195,161 @@
     </form>
 
     <div class="demo-hint" id="demoHint">
-      <span>Demo:</span> <code>admin@cleanfix.com</code> <span>/</span> <code>admin123</code>
+      <span data-i18n="demo_label">Demo:</span> <code>admin@cleanfix.com</code> <span>/</span> <code>admin123</code>
     </div>
     <div class="conn-status">
-      <span class="dot"></span> API bağlantısı hazır — Vercel Edge
+      <span class="dot"></span> <span data-i18n="conn_ready">API bağlantısı hazır — Vercel Edge</span>
     </div>
   </div>
 </div>
 
 <script>
+/* ============================
+   i18n — 3 Language Support
+   TR | EN | NL
+   ============================ */
+const i18n = {
+  tr: {
+    meta_desc: "CleanFix — Giriş sayfası. Hesabınıza erişmek için giriş yapın.",
+    page_title: "CleanFix — Giriş",
+    theme_title: "Tema Değiştir",
+    login_subtitle: "Hesabınıza erişmek için bilgilerinizi girin",
+    role_admin: "Admin",
+    role_company: "Firma",
+    role_employee: "Çalışan",
+    role_desc_admin: "E-posta ve şifrenizle giriş yapın",
+    role_desc_company: "Firma kodunuz ve şifrenizle giriş yapın",
+    role_desc_employee: "Çalışan kodunuz ve şifrenizle giriş yapın",
+    label_email: "E-posta",
+    label_company: "Firma Kodu",
+    label_employee: "Çalışan Kodu",
+    label_password: "Şifre",
+    ph_email: "admin@cleanfix.com",
+    ph_company: "CLEAN-001",
+    ph_employee: "EMP-001",
+    ph_password: "••••••••",
+    err_required: "Bu alan gereklidir",
+    err_password: "Şifre en az 6 karakter olmalı",
+    remember_me: "Bu cihazda hatırla",
+    btn_login: "Giriş Yap",
+    demo_label: "Demo:",
+    conn_ready: "API bağlantısı hazır — Vercel Edge",
+    toast_success: "Başarılı",
+    toast_error: "Hata",
+    toast_fill: "Lütfen tüm alanları doğru doldurun",
+    toast_success_msg: "Giriş başarılı! Yönlendiriliyorsunuz...",
+    back_link: "← Ana Sayfaya Dön"
+  },
+  en: {
+    meta_desc: "CleanFix — Login page. Sign in to access your account.",
+    page_title: "CleanFix — Sign In",
+    theme_title: "Toggle Theme",
+    login_subtitle: "Enter your details to access your account",
+    role_admin: "Admin",
+    role_company: "Company",
+    role_employee: "Employee",
+    role_desc_admin: "Sign in with your email and password",
+    role_desc_company: "Sign in with your company code and password",
+    role_desc_employee: "Sign in with your employee code and password",
+    label_email: "Email",
+    label_company: "Company Code",
+    label_employee: "Employee Code",
+    label_password: "Password",
+    ph_email: "admin@cleanfix.com",
+    ph_company: "CLEAN-001",
+    ph_employee: "EMP-001",
+    ph_password: "••••••••",
+    err_required: "This field is required",
+    err_password: "Password must be at least 6 characters",
+    remember_me: "Remember this device",
+    btn_login: "Sign In",
+    demo_label: "Demo:",
+    conn_ready: "API connection ready — Vercel Edge",
+    toast_success: "Success",
+    toast_error: "Error",
+    toast_fill: "Please fill in all fields correctly",
+    toast_success_msg: "Login successful! Redirecting...",
+    back_link: "← Back to Home"
+  },
+  nl: {
+    meta_desc: "CleanFix — Inlogpagina. Log in om toegang te krijgen tot uw account.",
+    page_title: "CleanFix — Inloggen",
+    theme_title: "Thema Wisselen",
+    login_subtitle: "Voer uw gegevens in om toegang te krijgen tot uw account",
+    role_admin: "Admin",
+    role_company: "Bedrijf",
+    role_employee: "Werknemer",
+    role_desc_admin: "Log in met uw e-mail en wachtwoord",
+    role_desc_company: "Log in met uw bedrijfscode en wachtwoord",
+    role_desc_employee: "Log in met uw werknemerscode en wachtwoord",
+    label_email: "E-mail",
+    label_company: "Bedrijfscode",
+    label_employee: "Werknemerscode",
+    label_password: "Wachtwoord",
+    ph_email: "admin@cleanfix.com",
+    ph_company: "CLEAN-001",
+    ph_employee: "EMP-001",
+    ph_password: "••••••••",
+    err_required: "Dit veld is verplicht",
+    err_password: "Wachtwoord moet minimaal 6 tekens bevatten",
+    remember_me: "Onthoud dit apparaat",
+    btn_login: "Inloggen",
+    demo_label: "Demo:",
+    conn_ready: "API-verbinding gereed — Vercel Edge",
+    toast_success: "Succes",
+    toast_error: "Fout",
+    toast_fill: "Vul alle velden correct in",
+    toast_success_msg: "Inloggen geslaagd! Doorverwijzen...",
+    back_link: "← Terug naar Home"
+  }
+};
+
+let currentLang = localStorage.getItem('cleanfix_lang') || 'tr';
+
+function switchLang(lang) {
+  currentLang = lang;
+  localStorage.setItem('cleanfix_lang', lang);
+  document.documentElement.lang = lang;
+
+  document.querySelectorAll('.lang-switcher button').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.lang === lang);
+  });
+
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.dataset.i18n;
+    const t = i18n[lang][key];
+    if (!t) return;
+    const attr = el.dataset.i18nAttr;
+    if (attr) {
+      el.setAttribute(attr, t);
+    } else if (el.tagName === 'TITLE') {
+      el.textContent = t;
+    } else if (el.tagName === 'A' || el.tagName === 'BUTTON') {
+      if (el.children.length === 0) {
+        el.textContent = t;
+      } else {
+        const textNodes = Array.from(el.childNodes).filter(n => n.nodeType === 3);
+        if (textNodes.length > 0) textNodes[0].textContent = t;
+      }
+    } else {
+      if (t.includes('<')) {
+        el.innerHTML = t;
+      } else {
+        el.textContent = t;
+      }
+    }
+  });
+
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+    const key = el.dataset.i18nPlaceholder;
+    if (i18n[lang][key]) el.placeholder = i18n[lang][key];
+  });
+
+  // Update dynamic role text via stored keys
+  const role = currentRole || 'admin';
+  updateRoleText(role);
+}
+
 const html=document.documentElement;
 let theme=localStorage.getItem('cf-theme')||'dark';
 html.setAttribute('data-theme',theme);
@@ -212,8 +381,9 @@ function showToast(msg,type='success',dur=3000){
   const c=document.getElementById('toastContainer');
   const t=document.createElement('div');
   const icon=type==='success'?'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>':'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>';
+  const titleText = type==='success' ? (i18n[currentLang].toast_success||'Başarılı') : (i18n[currentLang].toast_error||'Hata');
   t.className=`toast toast-${type}`;
-  t.innerHTML=`<span class="toast-icon">${icon}</span><div class="toast-content"><div class="toast-title">${type==='success'?'Başarılı':'Hata'}</div><div class="toast-message">${msg}</div></div><span class="toast-close" onclick="this.parentElement.remove()">✕</span><div class="toast-progress"></div>`;
+  t.innerHTML=`<span class="toast-icon">${icon}</span><div class="toast-content"><div class="toast-title">${titleText}</div><div class="toast-message">${msg}</div></div><span class="toast-close" onclick="this.parentElement.remove()">✕</span><div class="toast-progress"></div>`;
   c.appendChild(t);
   setTimeout(()=>{t.classList.add('exit');setTimeout(()=>t.remove(),300);},dur);
 }
@@ -226,32 +396,42 @@ const emailInput = document.getElementById('email');
 const roleDesc = document.getElementById('roleDesc');
 const demoHint = document.getElementById('demoHint');
 
+function updateRoleText(role) {
+  const L = i18n[currentLang];
+  if (role === 'admin') {
+    emailLabel.textContent = L.label_email;
+    emailInput.placeholder = L.ph_email;
+    roleDesc.textContent = L.role_desc_admin;
+  } else if (role === 'company') {
+    emailLabel.textContent = L.label_company;
+    emailInput.placeholder = L.ph_company;
+    roleDesc.textContent = L.role_desc_company;
+  } else if (role === 'employee') {
+    emailLabel.textContent = L.label_employee;
+    emailInput.placeholder = L.ph_employee;
+    roleDesc.textContent = L.role_desc_employee;
+  }
+}
+
 function setRole(role) {
   currentRole = role;
   document.querySelectorAll('.role-tab').forEach(t => t.classList.remove('active'));
   document.querySelector(`[data-role="${role}"]`).classList.add('active');
 
+  updateRoleText(role);
+
   if (role === 'admin') {
-    emailLabel.textContent = 'E-posta';
-    emailInput.placeholder = 'admin@cleanfix.com';
     emailInput.value = 'admin@cleanfix.com';
     emailInput.type = 'email';
-    roleDesc.textContent = 'E-posta ve şifrenizle giriş yapın';
-    demoHint.innerHTML = '<span>Demo:</span> <code>admin@cleanfix.com</code> <span>/</span> <code>admin123</code>';
+    demoHint.innerHTML = '<span data-i18n="demo_label">Demo:</span> <code>admin@cleanfix.com</code> <span>/</span> <code>admin123</code>';
   } else if (role === 'company') {
-    emailLabel.textContent = 'Firma Kodu';
-    emailInput.placeholder = 'CLEAN-001';
     emailInput.value = 'CLEAN-001';
     emailInput.type = 'text';
-    roleDesc.textContent = 'Firma kodunuz ve şifrenizle giriş yapın';
-    demoHint.innerHTML = '<span>Demo:</span> <code>CLEAN-001</code> <span>/</span> <code>admin123</code>';
+    demoHint.innerHTML = '<span data-i18n="demo_label">Demo:</span> <code>CLEAN-001</code> <span>/</span> <code>admin123</code>';
   } else if (role === 'employee') {
-    emailLabel.textContent = 'Çalışan Kodu';
-    emailInput.placeholder = 'EMP-001';
     emailInput.value = 'EMP-001';
     emailInput.type = 'text';
-    roleDesc.textContent = 'Çalışan kodunuz ve şifrenizle giriş yapın';
-    demoHint.innerHTML = '<span>Demo:</span> <code>EMP-001</code> <span>/</span> <code>admin123</code>';
+    demoHint.innerHTML = '<span data-i18n="demo_label">Demo:</span> <code>EMP-001</code> <span>/</span> <code>admin123</code>';
   }
 }
 
@@ -272,21 +452,23 @@ form.addEventListener('submit',async(e)=>{
 
   if (!userVal) { document.getElementById('emailGroup').classList.add('has-error'); err=true; }
   if (!password || password.length<6) { document.getElementById('passwordGroup').classList.add('has-error'); err=true; }
-  if (err) { showToast('Lütfen tüm alanları doğru doldurun','error'); return; }
+  if (err) { showToast(i18n[currentLang].toast_fill || 'Lütfen tüm alanları doğru doldurun','error'); return; }
 
   btnText.style.display='none'; btnLoader.style.display='flex'; submitBtn.disabled=true;
   await new Promise(r=>setTimeout(r,1500));
 
-  // Simulate login redirect based on role
   let target = 'dashboard.html';
   if (currentRole === 'company') target = 'company.html';
   if (currentRole === 'employee') target = 'employee.html';
 
-  showToast('Giriş başarılı! Yönlendiriliyorsunuz...','success');
+  showToast(i18n[currentLang].toast_success_msg || 'Giriş başarılı! Yönlendiriliyorsunuz...','success');
   setTimeout(()=>{ window.location.href = target; }, 1200);
 });
 
 ['email','password'].forEach(id=>document.getElementById(id).addEventListener('input',()=>document.getElementById(id+'Group').classList.remove('has-error')));
+
+/* Init i18n */
+switchLang(currentLang);
 </script>
 </body>
 </html>

@@ -2,8 +2,9 @@
 <html lang="tr" data-theme="dark">
 <head>
 <meta charset="UTF-8">
+<meta name="description" content="CleanFix Admin Dashboard" data-i18n-attr="content" data-i18n="meta.description">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CleanFix — Admin Dashboard</title>
+<title data-i18n="page_title">CleanFix — Admin Dashboard</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/main.css">
@@ -441,7 +442,13 @@
 .sidebar-overlay { position:fixed; inset:0; background:rgba(0,0,0,0.4); z-index:99; opacity:0; visibility:hidden; transition:all var(--duration-normal); }
 .sidebar-overlay.active { opacity:1; visibility:visible; }
 </style>
-</head>
+<style>
+/* ── Language Switcher ── */
+.lang-switcher { display:flex; align-items:center; gap:4px; background:var(--bg-card); border:1px solid var(--border-color); border-radius:var(--radius-md); padding:3px; }
+.lang-switcher button { background:transparent; border:none; color:var(--text-muted); font-size:11px; font-weight:600; cursor:pointer; padding:4px 8px; border-radius:4px; transition:all 0.2s; text-transform:uppercase; font-family:inherit; }
+.lang-switcher button:hover { color:var(--text-primary); }
+.lang-switcher button.active { background:var(--teal-500); color:white; }
+</style></head>
 <body>
 
 <!-- Sidebar Overlay (mobile) -->
@@ -455,58 +462,58 @@
     <div class="sidebar-logo">
       <div class="logo-icon">CF</div>
       <div>
-        <h2>CleanFix</h2>
-        <p>CleanFix Demo BV</p>
+        <h2 data-i18n="company_cleanfix">CleanFix</h2>
+        <p data-i18n="company_name">CleanFix Demo BV</p>
       </div>
     </div>
     <div class="sector-dropdown" id="sectorDropdown">
       <button class="sector-dropdown-toggle" onclick="toggleSectorDropdown()">
         <span class="sector-icon">🧹</span>
-        <span class="sector-name">Temizlik</span>
+        <span class="sector-name" data-i18n="sector_cleaning" data-i18n="sector.cleaning">Temizlik</span>
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
       </button>
       <div class="sector-dropdown-menu">
         <a class="sector-dropdown-item current" href="sectors/cleaning/index.html">
           <span class="sector-item-icon">🧹</span>
-          <span class="sector-item-name">Temizlik</span>
-          <span class="sector-item-status active">Aktif</span>
+          <span class="sector-item-name" data-i18n="sector_cleaning">Temizlik</span>
+          <span class="sector-item-status active" data-i18n="sector_active" data-i18n="sector.active">Aktif</span>
         </a>
         <a class="sector-dropdown-item" href="sectors/carwash/index.html">
           <span class="sector-item-icon">🚗</span>
-          <span class="sector-item-name">CarWash</span>
-          <span class="sector-item-status active">Aktif</span>
+          <span class="sector-item-name" data-i18n="sector_carwash" data-i18n="sector.carwash">CarWash</span>
+          <span class="sector-item-status active" data-i18n="sector_active" data-i18n="sector.active">Aktif</span>
         </a>
         <a class="sector-dropdown-item" href="sectors/construction/index.html">
           <span class="sector-item-icon">🏗️</span>
-          <span class="sector-item-name">İnşaat</span>
-          <span class="sector-item-status planned">Planlanan</span>
+          <span class="sector-item-name" data-i18n="sector_construction" data-i18n="sector.construction">İnşaat</span>
+          <span class="sector-item-status planned" data-i18n="sector_planned" data-i18n="sector.planned">Planlanan</span>
         </a>
         <a class="sector-dropdown-item" href="sectors/barber/index.html">
           <span class="sector-item-icon">✂️</span>
-          <span class="sector-item-name">Berber & Kuaför</span>
-          <span class="sector-item-status planned">Planlanan</span>
+          <span class="sector-item-name" data-i18n="sector_barber" data-i18n="sector.barber">Berber & Kuaför</span>
+          <span class="sector-item-status planned" data-i18n="sector_planned" data-i18n="sector.planned">Planlanan</span>
         </a>
         <a class="sector-dropdown-item" href="sectors/market/index.html">
           <span class="sector-item-icon">🛒</span>
-          <span class="sector-item-name">Market & Bakkal</span>
-          <span class="sector-item-status planned">Planlanan</span>
+          <span class="sector-item-name" data-i18n="sector_market" data-i18n="sector.market">Market & Bakkal</span>
+          <span class="sector-item-status planned" data-i18n="sector_planned" data-i18n="sector.planned">Planlanan</span>
         </a>
         <a class="sector-dropdown-item" href="sectors/doctor/index.html">
           <span class="sector-item-icon">🏥</span>
-          <span class="sector-item-name">Doktor & Klinik</span>
-          <span class="sector-item-status planned">Planlanan</span>
+          <span class="sector-item-name" data-i18n="sector_doctor" data-i18n="sector.doctor">Doktor & Klinik</span>
+          <span class="sector-item-status planned" data-i18n="sector_planned" data-i18n="sector.planned">Planlanan</span>
         </a>
         <a class="sector-dropdown-item" href="sectors/restaurant/index.html">
           <span class="sector-item-icon">🍽️</span>
-          <span class="sector-item-name">Restoran</span>
-          <span class="sector-item-status planned">Planlanan</span>
+          <span class="sector-item-name" data-i18n="sector_restaurant" data-i18n="sector.restaurant">Restoran</span>
+          <span class="sector-item-status planned" data-i18n="sector_planned" data-i18n="sector.planned">Planlanan</span>
         </a>
       </div>
     </div>
   </div>
   <nav class="sidebar-nav">
     <div class="nav-group">
-      <div class="nav-label">Ana Menü</div>
+      <div class="nav-label" data-i18n="nav.mainMenu">Ana Menü</div>
       <a class="nav-item active" href="dashboard.html">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg>
         Dashboard
@@ -538,7 +545,7 @@
       </a>
     </div>
     <div class="nav-group">
-      <div class="nav-label">Yönetim</div>
+      <div class="nav-label" data-i18n="nav.management">Yönetim</div>
       <a class="nav-item" href="company-analytics.html">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 20V10"/><path d="M12 20V4"/><path d="M6 20v-6"/></svg>
         Raporlar
@@ -571,8 +578,8 @@
     <div class="sidebar-user">
       <div class="avatar avatar-sm">JW</div>
       <div class="sidebar-user-info">
-        <p>Jan Wouters</p>
-        <span>Admin</span>
+        <p data-i18n="user_name">Jan Wouters</p>
+        <span data-i18n="user_admin">Admin</span>
       </div>
     </div>
   </div>
@@ -584,54 +591,59 @@
   <!-- Header -->
   <header class="header">
     <div class="header-left">
-      <button class="menu-btn" id="menuBtn" title="Menü">
+      <button class="menu-btn" id="menuBtn" title="Menü" data-i18n-attr="title" data-i18n="header.menu">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
       </button>
-      <h1 class="page-title">Dashboard</h1>
+      <h1 class="page-title" data-i18n="title_dashboard">Dashboard</h1>
     </div>
     <div class="header-right">
+  <div class="lang-switcher">
+    <button data-lang="tr" onclick="switchLang('tr')">TR</button>
+    <button data-lang="en" onclick="switchLang('en')">EN</button>
+    <button data-lang="nl" onclick="switchLang('nl')">NL</button>
+  </div>
       <div class="search-input" style="max-width:240px;display:none;" id="headerSearch">
         <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-        <input type="text" class="form-input" placeholder="Ara..." style="padding-left:36px;font-size:var(--text-sm);">
+        <input type="text" class="form-input" data-i18n-placeholder="ph_search" placeholder="Ara..." data-i18n-placeholder="search.placeholder" style="padding-left:36px;font-size:var(--text-sm);">
       </div>
-      <button class="header-btn" id="searchToggle" title="Ara">
+      <button class="header-btn" id="searchToggle" title="Ara" data-i18n-attr="title" data-i18n="header.search">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
       </button>
       <div style="position:relative;">
-        <button class="header-btn" id="notifBtn" title="Bildirimler">
+        <button class="header-btn" id="notifBtn" title="Bildirimler" data-i18n-attr="title" data-i18n="header.notifications">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
           <span class="badge-count" id="notifBadge">3</span>
         </button>
         <div class="notif-dropdown" id="notifDropdown">
           <div class="notif-dropdown-header">
-            <h4>Bildirimler</h4>
-            <a href="#" onclick="markAllRead();return false;">Tümünü Okundu İşaretle</a>
+            <h4 data-i18n="header_notifications">Bildirimler</h4>
+            <a href="#" onclick="markAllRead();return false;" data-i18n="btn_mark_all_read" data-i18n="header.markRead">Tümünü Okundu İşaretle</a>
           </div>
           <div class="notif-dropdown-body" id="notifDropdownBody">
             <div class="notif-dropdown-item unread">
               <div class="notif-dot"></div>
-              <div class="notif-content"><p>Yeni randevu: <strong>Luc Vermeulen</strong> yarın 14:00</p><span>5 dakika önce</span></div>
+              <div class="notif-content"><p data-i18n="notif_new_booking">Yeni randevu: <strong>Luc Vermeulen</strong> yarın 14:00</p><span>5 dakika önce</span></div>
             </div>
             <div class="notif-dropdown-item unread">
               <div class="notif-dot"></div>
-              <div class="notif-content"><p>Fatura <strong>#INV-2024-089</strong> ödendi</p><span>32 dakika önce</span></div>
+              <div class="notif-content"><p><span data-i18n="notif.invoicePaid">Fatura </span><strong>#INV-2024-089</strong> ödendi</p><span>32 dakika önce</span></div>
             </div>
             <div class="notif-dropdown-item unread">
               <div class="notif-dot"></div>
-              <div class="notif-content"><p>Stok alarmı: <strong>Nano Wax</strong> 3 adet kaldı</p><span>1 saat önce</span></div>
+              <div class="notif-content"><p data-i18n="notif_stock_alert">Stok alarmı: <strong>Nano Wax</strong> 3 adet kaldı</p><span>1 saat önce</span></div>
             </div>
             <div class="notif-dropdown-item">
               <div class="notif-dot read"></div>
-              <div class="notif-content"><p>Ticket <strong>#TK-042</strong> çözüldü — Jan W.</p><span>2 saat önce</span></div>
+              <div class="notif-content"><p><span data-i18n="notif.ticketResolved">Ticket </span><strong>#TK-042</strong> çözüldü — Jan W.</p><span>2 saat önce</span></div>
             </div>
             <div class="notif-dropdown-item">
               <div class="notif-dot read"></div>
-              <div class="notif-content"><p>Yeni müşteri kaydı: <strong>Sophie Laurent</strong></p><span>3 saat önce</span></div>
+              <div class="notif-content"><p data-i18n="notif_new_customer">Yeni müşteri kaydı: <strong>Sophie Laurent</strong></p><span>3 saat önce</span></div>
             </div>
           </div>
         </div>
       </div>
-      <button class="header-btn" id="themeToggle" title="Tema">
+      <button class="header-btn" id="themeToggle" title="Tema" data-i18n-attr="title" data-i18n="header.theme">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/></svg>
       </button>
       <div class="avatar avatar-sm" style="cursor:pointer;">JW</div>
@@ -645,14 +657,14 @@
     <div class="kpi-row">
       <div class="kpi-card reveal">
         <div class="kpi-top">
-          <div class="kpi-icon" style="background:rgba(20,184,166,0.1);color:var(--teal-500);">€</div>
+          <div class="kpi-icon" style="background:rgba(20,184,166,0.1);color:var(--teal-500);" data-i18n="ph_price">€</div>
           <div class="kpi-trend up">
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/></svg>
             +12%
           </div>
         </div>
         <div class="kpi-value" data-target="12847" data-prefix="€">€0</div>
-        <div class="kpi-label">Aylık Gelir</div>
+        <div class="kpi-label" data-i18n="kpi_monthly_revenue" data-i18n="kpi.monthlyRevenue">Aylık Gelir</div>
         <div class="kpi-sparkline">
           <svg viewBox="0 0 200 50" preserveAspectRatio="none">
             <polyline fill="none" stroke="var(--teal-500)" stroke-width="2" points="0,45 28,38 56,42 84,28 112,22 140,18 168,12 196,8"/>
@@ -669,7 +681,7 @@
           </div>
         </div>
         <div class="kpi-value" data-target="156" data-suffix="">0</div>
-        <div class="kpi-label">Aktif Müşteri</div>
+        <div class="kpi-label" data-i18n="kpi_active_customers" data-i18n="kpi.activeCustomers">Aktif Müşteri</div>
         <div class="kpi-sparkline">
           <svg viewBox="0 0 200 50" preserveAspectRatio="none">
             <polyline fill="none" stroke="var(--amber-500)" stroke-width="2" points="0,40 28,35 56,38 84,30 112,28 140,24 168,20 196,15"/>
@@ -686,7 +698,7 @@
           </div>
         </div>
         <div class="kpi-value" data-target="42" data-suffix="">0</div>
-        <div class="kpi-label">Bu Hafta Randevu</div>
+        <div class="kpi-label" data-i18n="kpi_this_week" data-i18n="kpi.weeklyBookings">Bu Hafta Randevu</div>
         <div class="kpi-sparkline">
           <svg viewBox="0 0 200 50" preserveAspectRatio="none">
             <polyline fill="none" stroke="var(--info-500)" stroke-width="2" points="0,42 28,36 56,40 84,30 112,26 140,28 168,18 196,14"/>
@@ -703,7 +715,7 @@
           </div>
         </div>
         <div class="kpi-value" data-target="38" data-suffix="">0</div>
-        <div class="kpi-label">Çözülmüş Ticket</div>
+        <div class="kpi-label" data-i18n="kpi_resolved_tickets" data-i18n="kpi.resolvedTickets">Çözülmüş Ticket</div>
         <div class="kpi-sparkline">
           <svg viewBox="0 0 200 50" preserveAspectRatio="none">
             <polyline fill="none" stroke="var(--error-500)" stroke-width="2" points="0,45 28,42 56,40 84,35 112,30 140,25 168,20 196,15"/>
@@ -724,8 +736,8 @@
             Gelir Analizi
           </div>
           <div style="display:flex;gap:4px;background:var(--bg-secondary);padding:3px;border-radius:var(--radius-md);">
-            <button class="chart-toggle-btn active" data-period="monthly" style="padding:5px 14px;border-radius:var(--radius-sm);border:none;background:var(--bg-card);font-size:11px;font-weight:700;color:var(--teal-500);cursor:pointer;box-shadow:var(--shadow-sm);">Aylık</button>
-            <button class="chart-toggle-btn" data-period="daily" style="padding:5px 14px;border-radius:var(--radius-sm);border:none;background:none;font-size:11px;font-weight:700;color:var(--text-muted);cursor:pointer;">Günlük</button>
+            <button class="chart-toggle-btn active" data-period="monthly" style="padding:5px 14px;border-radius:var(--radius-sm);border:none;background:var(--bg-card);font-size:11px;font-weight:700;color:var(--teal-500);cursor:pointer;box-shadow:var(--shadow-sm);" data-i18n="chart_monthly" data-i18n="chart.monthly">Aylık</button>
+            <button class="chart-toggle-btn" data-period="daily" style="padding:5px 14px;border-radius:var(--radius-sm);border:none;background:none;font-size:11px;font-weight:700;color:var(--text-muted);cursor:pointer;" data-i18n="chart_daily" data-i18n="chart.daily">Günlük</button>
           </div>
         </div>
         <div class="chart-container">
@@ -740,7 +752,7 @@
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--amber-500)" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/></svg>
             Hava Durumu
           </div>
-          <span class="weather-location">📍 Antwerp, BE</span>
+          <span class="weather-location" data-i18n="weather_location">📍 Antwerp, BE</span>
         </div>
         <div class="card-body">
           <div class="weather-widget">
@@ -748,14 +760,14 @@
               <div class="weather-icon">🌤️</div>
               <div>
                 <div class="weather-temp">18°</div>
-                <div class="weather-desc">Parçalı Bulutlu · Güzel bir gün</div>
+                <div class="weather-desc" data-i18n="weather_partly_cloudy">Parçalı Bulutlu · Güzel bir gün</div>
               </div>
             </div>
             <div class="weather-details">
-              <div class="weather-detail"><div class="wd-value">62%</div><div class="wd-label">Nem</div></div>
-              <div class="weather-detail"><div class="wd-value">14 km/s</div><div class="wd-label">Rüzgar</div></div>
-              <div class="weather-detail"><div class="wd-value">21°</div><div class="wd-label">Yüksek</div></div>
-              <div class="weather-detail"><div class="wd-value">12°</div><div class="wd-label">Düşük</div></div>
+              <div class="weather-detail"><div class="wd-value">62%</div><div class="wd-label" data-i18n="weather_humidity" data-i18n="weather.humidity">Nem</div></div>
+              <div class="weather-detail"><div class="wd-value">14 km/s</div><div class="wd-label" data-i18n="weather_wind" data-i18n="weather.wind">Rüzgar</div></div>
+              <div class="weather-detail"><div class="wd-value">21°</div><div class="wd-label" data-i18n="status_high" data-i18n="weather.high">Yüksek</div></div>
+              <div class="weather-detail"><div class="wd-value">12°</div><div class="wd-label" data-i18n="status_low" data-i18n="weather.low">Düşük</div></div>
             </div>
           </div>
         </div>
@@ -802,10 +814,10 @@
               <div class="schedule-time">09:00</div>
               <div class="schedule-dot completed"></div>
               <div class="schedule-info">
-                <div class="schedule-customer">Jan Wouters</div>
+                <div class="schedule-customer" data-i18n="user_name">Jan Wouters</div>
                 <div class="schedule-service">Premium Yıkama · VW Golf</div>
               </div>
-              <span class="schedule-status completed">Tamamlandı</span>
+              <span class="schedule-status completed" data-i18n="sched_completed" data-i18n="schedule.completed">Tamamlandı</span>
             </div>
             <div class="schedule-item">
               <div class="schedule-time">10:30</div>
@@ -814,7 +826,7 @@
                 <div class="schedule-customer">Luc Vermeulen</div>
                 <div class="schedule-service">Seramik Kaplama · BMW X5</div>
               </div>
-              <span class="schedule-status completed">Tamamlandı</span>
+              <span class="schedule-status completed" data-i18n="sched_completed">Tamamlandı</span>
             </div>
             <div class="schedule-item">
               <div class="schedule-time">13:00</div>
@@ -823,7 +835,7 @@
                 <div class="schedule-customer">Marie Dubois</div>
                 <div class="schedule-service">İç Temizlik · Mercedes C-Class</div>
               </div>
-              <span class="schedule-status in-progress">Devam Ediyor</span>
+              <span class="schedule-status in-progress" data-i18n="sched_in_progress" data-i18n="schedule.inProgress">Devam Ediyor</span>
             </div>
             <div class="schedule-item">
               <div class="schedule-time">15:00</div>
@@ -832,7 +844,7 @@
                 <div class="schedule-customer">Sophie Laurent</div>
                 <div class="schedule-service">Cilalama · Audi A4</div>
               </div>
-              <span class="schedule-status pending">Bekliyor</span>
+              <span class="schedule-status pending" data-i18n="sched_pending" data-i18n="schedule.pending">Bekliyor</span>
             </div>
             <div class="schedule-item">
               <div class="schedule-time">16:30</div>
@@ -841,7 +853,7 @@
                 <div class="schedule-customer">Thomas Janssens</div>
                 <div class="schedule-service">Motor Temizlik · Ford Focus</div>
               </div>
-              <span class="schedule-status pending">Bekliyor</span>
+              <span class="schedule-status pending" data-i18n="sched_pending">Bekliyor</span>
             </div>
             <div class="schedule-item">
               <div class="schedule-time">18:00</div>
@@ -850,7 +862,7 @@
                 <div class="schedule-customer">Emma Maes</div>
                 <div class="schedule-service">Detaylı Paket · Tesla Model 3</div>
               </div>
-              <span class="schedule-status pending">Bekliyor</span>
+              <span class="schedule-status pending" data-i18n="sched_pending">Bekliyor</span>
             </div>
           </div>
         </div>
@@ -863,20 +875,20 @@
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--teal-500)" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
             Son Randevular
           </div>
-          <a href="bookings.html" style="font-size:var(--text-sm);color:var(--teal-500);font-weight:500;">Tümünü Gör →</a>
+          <a href="bookings.html" style="font-size:var(--text-sm);color:var(--teal-500);font-weight:500;" data-i18n="btn_view_all" data-i18n="bookings.seeAll">Tümünü Gör →</a>
         </div>
         <div class="table-wrap">
           <table class="table table-compact">
-            <thead><tr><th>Müşteri</th><th>Hizmet</th><th>Tarih</th><th>Personel</th><th>Durum</th><th>Tutar</th></tr></thead>
+            <thead><tr><th data-i18n="th_customer">Müşteri</th><th data-i18n="th_service">Hizmet</th><th data-i18n="th_date">Tarih</th><th data-i18n="th_staff">Personel</th><th data-i18n="th_status">Durum</th><th data-i18n="th_amount">Tutar</th></tr></thead>
             <tbody>
-              <tr><td><strong>Jan Wouters</strong></td><td>Premium Yıkama</td><td>12 May</td><td>Lisa M.</td><td><span class="badge badge-success">Tamamlandı</span></td><td>€45</td></tr>
-              <tr><td><strong>Marie Dubois</strong></td><td>İç Temizlik</td><td>12 May</td><td>Piet V.</td><td><span class="badge badge-warning">Devam Ediyor</span></td><td>€85</td></tr>
-              <tr><td><strong>Luc Vermeulen</strong></td><td>Seramik Kaplama</td><td>11 May</td><td>Jan W.</td><td><span class="badge badge-success">Tamamlandı</span></td><td>€250</td></tr>
-              <tr><td><strong>Sophie Laurent</strong></td><td>Cilalama</td><td>11 May</td><td>Anna P.</td><td><span class="badge badge-success">Tamamlandı</span></td><td>€120</td></tr>
-              <tr><td><strong>Thomas Janssens</strong></td><td>Motor Temizlik</td><td>10 May</td><td>Piet V.</td><td><span class="badge badge-success">Tamamlandı</span></td><td>€65</td></tr>
-              <tr><td><strong>Emma Maes</strong></td><td>Premium Yıkama</td><td>10 May</td><td>Lisa M.</td><td><span class="badge badge-neutral">İptal</span></td><td>€45</td></tr>
-              <tr><td><strong>Lars Declercq</strong></td><td>Far Parlatma</td><td>10 May</td><td>Jan W.</td><td><span class="badge badge-success">Tamamlandı</span></td><td>€35</td></tr>
-              <tr><td><strong>Clara Smets</strong></td><td>Detaylı Paket</td><td>09 May</td><td>Anna P.</td><td><span class="badge badge-success">Tamamlandı</span></td><td>€299</td></tr>
+              <tr><td><strong data-i18n="user_name">Jan Wouters</strong></td><td>Premium Yıkama</td><td>12 May</td><td>Lisa M.</td><td><span class="badge badge-success" data-i18n="sched_completed" data-i18n="badge.completed">Tamamlandı</span></td><td>€45</td></tr>
+              <tr><td><strong>Marie Dubois</strong></td><td data-i18n="svc_interior">İç Temizlik</td><td>12 May</td><td>Piet V.</td><td><span class="badge badge-warning" data-i18n="sched_in_progress" data-i18n="badge.inProgress">Devam Ediyor</span></td><td>€85</td></tr>
+              <tr><td><strong>Luc Vermeulen</strong></td><td>Seramik Kaplama</td><td>11 May</td><td>Jan W.</td><td><span class="badge badge-success" data-i18n="sched_completed" data-i18n="badge.completed">Tamamlandı</span></td><td>€250</td></tr>
+              <tr><td><strong>Sophie Laurent</strong></td><td>Cilalama</td><td>11 May</td><td>Anna P.</td><td><span class="badge badge-success" data-i18n="sched_completed" data-i18n="badge.completed">Tamamlandı</span></td><td>€120</td></tr>
+              <tr><td><strong>Thomas Janssens</strong></td><td>Motor Temizlik</td><td>10 May</td><td>Piet V.</td><td><span class="badge badge-success" data-i18n="sched_completed" data-i18n="badge.completed">Tamamlandı</span></td><td>€65</td></tr>
+              <tr><td><strong>Emma Maes</strong></td><td>Premium Yıkama</td><td>10 May</td><td>Lisa M.</td><td><span class="badge badge-neutral" data-i18n="btn_cancel" data-i18n="badge.cancelled">İptal</span></td><td>€45</td></tr>
+              <tr><td><strong>Lars Declercq</strong></td><td>Far Parlatma</td><td>10 May</td><td>Jan W.</td><td><span class="badge badge-success" data-i18n="sched_completed" data-i18n="badge.completed">Tamamlandı</span></td><td>€35</td></tr>
+              <tr><td><strong>Clara Smets</strong></td><td data-i18n="svc_deep_clean">Detaylı Paket</td><td>09 May</td><td>Anna P.</td><td><span class="badge badge-success" data-i18n="sched_completed" data-i18n="badge.completed">Tamamlandı</span></td><td>€299</td></tr>
             </tbody>
           </table>
         </div>
@@ -893,7 +905,7 @@
         <div class="card-body" style="display:flex;flex-direction:column;gap:var(--space-3);">
           <div><div style="display:flex;justify-content:space-between;margin-bottom:6px;"><span style="font-size:13px;font-weight:600;">Premium Yıkama</span><span style="font-size:13px;color:var(--teal-500);font-weight:700;">€3,240</span></div><div class="progress-bar"><div class="progress-bar-fill" style="width:92%;"></div></div></div>
           <div><div style="display:flex;justify-content:space-between;margin-bottom:6px;"><span style="font-size:13px;font-weight:600;">Seramik Kaplama</span><span style="font-size:13px;color:var(--teal-500);font-weight:700;">€2,800</span></div><div class="progress-bar"><div class="progress-bar-fill" style="width:80%;"></div></div></div>
-          <div><div style="display:flex;justify-content:space-between;margin-bottom:6px;"><span style="font-size:13px;font-weight:600;">İç Temizlik</span><span style="font-size:13px;color:var(--teal-500);font-weight:700;">€2,400</span></div><div class="progress-bar"><div class="progress-bar-fill" style="width:68%;"></div></div></div>
+          <div><div style="display:flex;justify-content:space-between;margin-bottom:6px;"><span style="font-size:13px;font-weight:600;" data-i18n="svc_interior">İç Temizlik</span><span style="font-size:13px;color:var(--teal-500);font-weight:700;">€2,400</span></div><div class="progress-bar"><div class="progress-bar-fill" style="width:68%;"></div></div></div>
           <div><div style="display:flex;justify-content:space-between;margin-bottom:6px;"><span style="font-size:13px;font-weight:600;">Cilalama</span><span style="font-size:13px;color:var(--teal-500);font-weight:700;">€1,950</span></div><div class="progress-bar"><div class="progress-bar-fill" style="width:55%;"></div></div></div>
           <div><div style="display:flex;justify-content:space-between;margin-bottom:6px;"><span style="font-size:13px;font-weight:600;">Motor Temizlik</span><span style="font-size:13px;color:var(--teal-500);font-weight:700;">€1,200</span></div><div class="progress-bar"><div class="progress-bar-fill" style="width:34%;"></div></div></div>
         </div>
@@ -902,15 +914,15 @@
       <!-- Calendar -->
       <div class="glass-card calendar-widget reveal reveal-delay-1">
         <div class="cal-header">
-          <span class="cal-month">Mayıs 2026</span>
+          <span class="cal-month" data-i18n="cal_may_2026">Mayıs 2026</span>
           <div class="cal-nav">
-            <button class="cal-nav-btn">‹</button>
-            <button class="cal-nav-btn">›</button>
+            <button class="cal-nav-btn" data-i18n="btn_previous">‹</button>
+            <button class="cal-nav-btn" data-i18n="btn_next">›</button>
           </div>
         </div>
         <div class="cal-grid">
-          <div class="cal-weekday">Pt</div><div class="cal-weekday">Sa</div><div class="cal-weekday">Ça</div>
-          <div class="cal-weekday">Pe</div><div class="cal-weekday">Cu</div><div class="cal-weekday">Ct</div><div class="cal-weekday">Pa</div>
+          <div class="cal-weekday" data-i18n="cal_mon">Pt</div><div class="cal-weekday" data-i18n="cal_tue">Sa</div><div class="cal-weekday" data-i18n="cal_wed">Ça</div>
+          <div class="cal-weekday" data-i18n="cal_thu">Pe</div><div class="cal-weekday" data-i18n="cal_fri">Cu</div><div class="cal-weekday" data-i18n="cal_sat">Ct</div><div class="cal-weekday">Pa</div>
           <div class="cal-day empty"></div><div class="cal-day empty"></div><div class="cal-day empty"></div>
           <div class="cal-day">1</div><div class="cal-day has-event">2</div><div class="cal-day has-event">3</div><div class="cal-day">4</div>
           <div class="cal-day has-event">5</div><div class="cal-day">6</div><div class="cal-day has-event">7</div><div class="cal-day">8</div>
@@ -937,14 +949,14 @@
             <div class="activity-item">
               <div class="activity-avatar" style="background:linear-gradient(135deg,#14b8a6,#0d9488);">LM</div>
               <div class="activity-content">
-                <div class="activity-text"><strong>Lisa M.</strong> randevuyu <strong>Tamamlandı</strong> olarak işaretledi — Jan Wouters</div>
+                <div class="activity-text"><strong>Lisa M.</strong> randevuyu <strong data-i18n="sched_completed">Tamamlandı</strong> olarak işaretledi — Jan Wouters</div>
                 <div class="activity-time">12 dakika önce</div>
               </div>
             </div>
             <div class="activity-item">
               <div class="activity-avatar" style="background:linear-gradient(135deg,#f59e0b,#d97706);">PV</div>
               <div class="activity-content">
-                <div class="activity-text"><strong>Piet V.</strong> <strong>Devam Ediyor</strong> durumuna geçti — Marie Dubois</div>
+                <div class="activity-text"><strong>Piet V.</strong> <strong data-i18n="sched_in_progress">Devam Ediyor</strong> durumuna geçti — Marie Dubois</div>
                 <div class="activity-time">28 dakika önce</div>
               </div>
             </div>
@@ -972,7 +984,7 @@
             <div class="activity-item">
               <div class="activity-avatar" style="background:linear-gradient(135deg,#10b981,#059669);">PV</div>
               <div class="activity-content">
-                <div class="activity-text"><strong>Piet V.</strong> randevuyu <strong>Tamamlandı</strong> olarak işaretledi — Thomas Janssens</div>
+                <div class="activity-text"><strong>Piet V.</strong> randevuyu <strong data-i18n="sched_completed">Tamamlandı</strong> olarak işaretledi — Thomas Janssens</div>
                 <div class="activity-time">3 saat önce</div>
               </div>
             </div>
@@ -987,28 +999,28 @@
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--info-500)" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
             Bildirimler
           </div>
-          <span class="badge badge-error">3 yeni</span>
+          <span class="badge badge-error" data-i18n-html="notif.new">3 yeni</span>
         </div>
         <div class="card-body" style="padding-top:var(--space-3);">
           <div class="notif-item">
             <div class="notif-icon" style="background:rgba(20,184,166,0.1);color:var(--teal-500);">📅</div>
-            <div class="notif-content"><p>Yeni randevu: <strong>Luc Vermeulen</strong> yarın 14:00</p><span>5 dakika önce</span></div>
+            <div class="notif-content"><p data-i18n="notif_new_booking">Yeni randevu: <strong>Luc Vermeulen</strong> yarın 14:00</p><span>5 dakika önce</span></div>
           </div>
           <div class="notif-item">
             <div class="notif-icon" style="background:rgba(16,185,129,0.1);color:var(--success-500);">💶</div>
-            <div class="notif-content"><p>Fatura <strong>#INV-2024-089</strong> ödendi</p><span>32 dakika önce</span></div>
+            <div class="notif-content"><p><span data-i18n="notif.invoicePaid">Fatura </span><strong>#INV-2024-089</strong> ödendi</p><span>32 dakika önce</span></div>
           </div>
           <div class="notif-item">
             <div class="notif-icon" style="background:rgba(249,115,22,0.1);color:var(--warning-500);">⚠️</div>
-            <div class="notif-content"><p>Stok alarmı: <strong>Nano Wax</strong> 3 adet kaldı</p><span>1 saat önce</span></div>
+            <div class="notif-content"><p data-i18n="notif_stock_alert">Stok alarmı: <strong>Nano Wax</strong> 3 adet kaldı</p><span>1 saat önce</span></div>
           </div>
           <div class="notif-item">
             <div class="notif-icon" style="background:rgba(59,130,246,0.1);color:var(--info-500);">✓</div>
-            <div class="notif-content"><p>Ticket <strong>#TK-042</strong> çözüldü — Jan W.</p><span>2 saat önce</span></div>
+            <div class="notif-content"><p><span data-i18n="notif.ticketResolved">Ticket </span><strong>#TK-042</strong> çözüldü — Jan W.</p><span>2 saat önce</span></div>
           </div>
           <div class="notif-item">
             <div class="notif-icon" style="background:rgba(139,92,246,0.1);color:#8b5cf6;">👤</div>
-            <div class="notif-content"><p>Yeni müşteri kaydı: <strong>Sophie Laurent</strong></p><span>3 saat önce</span></div>
+            <div class="notif-content"><p data-i18n="notif_new_customer">Yeni müşteri kaydı: <strong>Sophie Laurent</strong></p><span>3 saat önce</span></div>
           </div>
         </div>
       </div>
@@ -1025,19 +1037,19 @@
           <div class="quick-actions">
             <div class="quick-btn" onclick="window.location.href='company-bookings.html'">
               <div class="quick-btn-icon" style="background:rgba(20,184,166,0.1);color:var(--teal-500);">📅</div>
-              <span>Yeni Randevu</span>
+              <span data-i18n="qa_new_booking" data-i18n="quick.newBooking">Yeni Randevu</span>
             </div>
             <div class="quick-btn" onclick="window.location.href='company-invoices.html'">
               <div class="quick-btn-icon" style="background:rgba(16,185,129,0.1);color:var(--success-500);">🧾</div>
-              <span>Fatura Oluştur</span>
+              <span data-i18n="qa_new_invoice" data-i18n="quick.newInvoice">Fatura Oluştur</span>
             </div>
             <div class="quick-btn" onclick="window.location.href='company-customers.html'">
               <div class="quick-btn-icon" style="background:rgba(59,130,246,0.1);color:var(--info-500);">➕</div>
-              <span>Müşteri Ekle</span>
+              <span data-i18n="qa_add_customer" data-i18n="quick.addCustomer">Müşteri Ekle</span>
             </div>
             <div class="quick-btn" onclick="window.location.href='company-analytics.html'">
               <div class="quick-btn-icon" style="background:rgba(139,92,246,0.1);color:#8b5cf6;">📊</div>
-              <span>Rapor Gör</span>
+              <span data-i18n="qa_view_report" data-i18n="quick.viewReport">Rapor Gör</span>
             </div>
           </div>
         </div>
@@ -1060,7 +1072,7 @@
             <div class="sat-value">4.7</div>
           </div>
           <div style="margin-top:var(--space-3);">
-            <div style="font-size:var(--text-sm);color:var(--text-muted);">128 değerlendirme</div>
+            <div style="font-size:var(--text-sm);color:var(--text-muted);" data-i18n="satisfaction.reviews">128 değerlendirme</div>
             <div style="margin-top:4px;font-size:var(--text-lg);">⭐⭐⭐⭐⭐</div>
           </div>
         </div>
@@ -1293,10 +1305,7 @@ document.querySelectorAll('.chart-toggle-btn').forEach(btn=>{
 });
 
 /* ── Init ── */
-document.addEventListener('DOMContentLoaded',()=>{
-  setTimeout(animateCounters,400);
-  setTimeout(animateRing,800);
-});
+
 </script>
 
 <style>
@@ -1304,6 +1313,1409 @@ document.addEventListener('DOMContentLoaded',()=>{
 @keyframes toastOut{from{opacity:1;transform:translateY(0) scale(1);}to{opacity:0;transform:translateY(-20px) scale(0.95);}}
 @keyframes progressBar{from{width:100%;}to{width:0;}}
 </style>
+
+
+<script>const i18n = {
+  tr: {
+    btn_add_line: "+ Satır Ekle",
+    btn_apply: "Uygula",
+    btn_approve: "Onayla",
+    btn_cancel: "İptal",
+    btn_clear: "Temizle",
+    btn_close: "Kapat",
+    btn_complete: "✓ Tamamla",
+    btn_convert_invoice: "🧾 Faturaya Dönüştür",
+    btn_create: "Oluştur",
+    btn_create_quote: "Teklif Oluştur",
+    btn_create_task: "Görev Oluştur",
+    btn_delete: "Sil",
+    btn_detail: "Detay",
+    btn_edit: "Düzenle",
+    btn_filter: "Filtrele",
+    btn_go_invoice: "🧾 Faturaya Git",
+    btn_mark_all_read: "Tümünü Okundu İşaretle",
+    btn_new_booking: "Yeni Randevu",
+    btn_new_customer: "Müşteri Ekle",
+    btn_new_invoice: "Fatura Oluştur",
+    btn_new_quote: "+ Yeni Teklif",
+    btn_new_task: "+ Yeni Görev",
+    btn_next: "›",
+    btn_pdf_download: "🖨 PDF İndir",
+    btn_pdf_preview: "🖨 PDF Önizle",
+    btn_pdf_view: "🖨 PDF Gör",
+    btn_previous: "‹",
+    btn_print: "🖨 Yazdır / PDF Kaydet",
+    btn_quick_actions: "Hızlı İşlemler",
+    btn_reject: "Reddet",
+    btn_renew: "Yenile",
+    btn_renew_version: "↻ Yeni Versiyon Oluştur",
+    btn_save: "Kaydet",
+    btn_search: "Ara",
+    btn_send_again: "📧 Tekrar Gönder",
+    btn_send_email: "📧 Müşteriye Gönder",
+    btn_update_status: "Durum Güncelle",
+    btn_view_all: "Tümünü Gör →",
+    btn_view_report: "Rapor Gör",
+    cal_fri: "Cu",
+    cal_may_2026: "Mayıs 2026",
+    cal_mon: "Pt",
+    cal_sat: "Ct",
+    cal_sun: "Pz",
+    cal_thu: "Pe",
+    cal_tue: "Sa",
+    cal_wed: "Ça",
+    chart_daily: "Günlük",
+    chart_monthly: "Aylık",
+    company_address: "9000 Gent, Belçika",
+    company_business_plan: "Business Plan",
+    company_cleanfix: "CleanFix",
+    company_cleanfix_prof: "CleanFix Profesyonel Temizlik",
+    company_email: "info@cleanfix.be",
+    company_name: "CleanFix Demo BV",
+    company_vat: "BTW: BE0123.456.789",
+    form_address: "Adres",
+    form_all_dates: "Tüm Tarihler",
+    form_all_priorities: "Tüm Öncelikler",
+    form_all_services: "Tüm Hizmetler",
+    form_all_staff: "Tüm Personel",
+    form_all_statuses: "Tüm Durumlar",
+    form_amount: "Tutar",
+    form_assigned_staff: "Atanan Personel",
+    form_company: "Firma",
+    form_customer: "Müşteri",
+    form_date: "Tarih",
+    form_description: "Açıklama",
+    form_due_date: "Son Tarih",
+    form_email: "E-posta",
+    form_expiry: "Geçerlilik Tarihi",
+    form_frequency: "Sıklık",
+    form_grand_total: "Genel Toplam",
+    form_location: "Lokasyon",
+    form_name: "İsim",
+    form_notes: "Notlar",
+    form_phone: "Telefon",
+    form_priority: "Öncelik",
+    form_quantity: "Adet",
+    form_quote_date: "Teklif Tarihi",
+    form_quote_no: "Teklif No",
+    form_recurring: "Yinelenen Görev",
+    form_service: "Hizmet",
+    form_service_type: "Hizmet Türü",
+    form_staff: "Personel",
+    form_status: "Durum",
+    form_subtotal: "Ara Toplam",
+    form_task_info: "Görev Bilgileri",
+    form_task_name: "Görev Adı",
+    form_total: "Toplam",
+    form_unit_price: "Birim Fiyat",
+    form_valid_until: "Geçerlilik",
+    form_vat: "KDV (%)",
+    form_vat_rate: "KDV Oranı (%)",
+    gen_all: "Tümü",
+    gen_back: "Geri",
+    gen_download: "İndir",
+    gen_export: "Dışa Aktar",
+    gen_filter: "Filtrele",
+    gen_help: "Yardım",
+    gen_import: "İçe Aktar",
+    gen_info: "Bilgi",
+    gen_less: "Daha Az",
+    gen_loading: "Yükleniyor...",
+    gen_more: "Daha Fazla",
+    gen_next: "İleri",
+    gen_no: "Hayır",
+    gen_no_data: "Veri bulunamadı",
+    gen_print: "Yazdır",
+    gen_refresh: "Yenile",
+    gen_search: "Ara...",
+    gen_support: "Destek",
+    gen_yes: "Evet",
+    header_menu: "Menü",
+    header_new_task: "+ Yeni Görev",
+    header_notifications: "Bildirimler",
+    header_search: "Ara",
+    header_theme: "Tema",
+    kanban_assigned: "Atandı",
+    kanban_completed: "Tamamlandı",
+    kanban_in_progress: "Devam Ediyor",
+    kanban_open: "Açık",
+    kpi_active_customers: "Aktif Müşteri",
+    kpi_approved: "Onaylanan (€)",
+    kpi_avg_resolution: "Ort. Çözüm Süresi",
+    kpi_conversion: "Dönüşüm Oranı",
+    kpi_monthly_appointments: "Aylık Randevular",
+    kpi_monthly_revenue: "Aylık Gelir",
+    kpi_open_sla: "Açık SLA",
+    kpi_open_tickets: "Açık Ticket",
+    kpi_overdue_sla: "Gecikmiş SLA",
+    kpi_pending: "Bekleyen (€)",
+    kpi_rejected: "Reddedilen (€)",
+    kpi_resolved_tickets: "Çözülmüş Ticket",
+    kpi_satisfaction: "Müşteri Memnuniyeti",
+    kpi_this_week: "Bu Hafta Randevu",
+    kpi_total_quotes: "Toplam Teklifler",
+    kpi_upcoming_sla: "Yaklaşan SLA",
+    modal_new_booking: "Yeni Randevu Oluştur",
+    modal_new_customer: "Yeni Müşteri Ekle",
+    modal_new_invoice: "Yeni Fatura Oluştur",
+    modal_new_quote: "Yeni Teklif Oluştur",
+    modal_new_task: "Yeni Görev Oluştur",
+    modal_pdf_preview: "PDF Önizleme",
+    modal_task_detail: "Görev Detayı",
+    msg_booking_created: "Randevu oluşturuldu",
+    msg_confirm_approve: "Teklif onaylansın mı?",
+    msg_confirm_delete: "Silmek istediğinize emin misiniz?",
+    msg_confirm_reject: "Teklif reddedilsin mi?",
+    msg_customer_added: "Müşteri eklendi",
+    msg_deleted: "Silindi",
+    msg_invoice_created: "Fatura oluşturuldu",
+    msg_quote_approved: "Teklif onaylandı",
+    msg_quote_rejected: "Teklif reddedildi",
+    msg_saved: "Kaydedildi",
+    msg_status_updated: "Durum güncellendi",
+    msg_task_created: "Görev oluşturuldu",
+    nav_analytics: "Analiz",
+    nav_bookings: "Randevular",
+    nav_company: "Firma Paneli",
+    nav_customers: "Müşteriler",
+    nav_dashboard: "Dashboard",
+    nav_invoices: "Faturalar",
+    nav_logout: "Çıkış Yap",
+    nav_maintenance: "Bakım Planlayıcı",
+    nav_profile: "Firma Profili",
+    nav_quotes: "Teklifler",
+    nav_reviews: "Değerlendirmeler",
+    nav_sectors: "Sektörler",
+    nav_services: "Hizmetler",
+    nav_staff: "Çalışanlar",
+    nav_stock: "Stok",
+    nav_tools: "Araçlar",
+    notif_ago: "önce",
+    notif_day_ago: "gün önce",
+    notif_hour_ago: "saat önce",
+    notif_hours_ago: "saat önce",
+    notif_left: "adet kaldı",
+    notif_min_ago: "dakika önce",
+    notif_new_booking: "Yeni randevu:",
+    notif_new_customer: "Yeni müşteri kaydı:",
+    notif_paid: "ödendi",
+    notif_stock_alert: "Stok alarmı:",
+    notif_ticket_resolved: "çözüldü",
+    pdf_cleanfix_auth: "CleanFix Yetkilisi",
+    pdf_customer_sign: "Müşteri İmza / Tarih",
+    pdf_date: "Tarih:",
+    pdf_grand_total: "Genel Toplam:",
+    pdf_payment_detail: "14 gün vade, banka havalesi.",
+    pdf_payment_terms: "Ödeme Koşulları:",
+    pdf_quote: "Teklif",
+    pdf_quote_no_label: "Teklif No:",
+    pdf_quote_valid_until: "Bu teklif 26 Mayıs 2026 tarihine kadar geçerlidir.",
+    pdf_quote_validity: "Teklif Geçerliliği:",
+    pdf_service_material_detail: "Hizmet ve Malzeme Detayı",
+    pdf_services_materials: "Hizmet ve Malzemeler",
+    pdf_sign_instructions: "Teklifi onaylamak için lütfen imzalayarak tarafımıza iletiniz.",
+    pdf_subtotal: "Ara Toplam:",
+    pdf_valid: "Geçerlilik: 26 Mayıs 2026",
+    pdf_vat: "KDV (%21):",
+    ph_address: "Adres girin...",
+    ph_customer: "Müşteri ara...",
+    ph_description: "Açıklama",
+    ph_email: "E-posta adresi",
+    ph_name: "İsim girin",
+    ph_notes: "Ek detaylar...",
+    ph_phone: "Telefon numarası",
+    ph_price: "€",
+    ph_quantity: "Adet",
+    ph_search: "Ara...",
+    ph_task_name: "Örn: Ofis Detaylı Temizlik",
+    qa_add_customer: "Müşteri Ekle",
+    qa_new_booking: "Yeni Randevu",
+    qa_new_invoice: "Fatura Oluştur",
+    qa_view_report: "Rapor Gör",
+    sched_completed: "Tamamlandı",
+    sched_in_progress: "Devam Ediyor",
+    sched_pending: "Bekliyor",
+    section_activity: "Aktivite Geçmişi",
+    section_next_7_days: "Sonraki 7 Gün",
+    section_popular: "Popüler Hizmetler",
+    section_recent_activity: "Ekip Aktivitesi",
+    section_recent_bookings: "Son Randevular",
+    section_recurring: "🔄 Yinelenen Görevler",
+    section_revenue: "Gelir Analizi",
+    section_service_dist: "Hizmet Dağılımı",
+    section_today_schedule: "Bugünkü Program",
+    section_weather: "Hava Durumu",
+    sector_active: "Aktif",
+    sector_barber: "Berber & Kuaför",
+    sector_carwash: "CarWash",
+    sector_cleaning: "Temizlik",
+    sector_construction: "İnşaat",
+    sector_doctor: "Doktor & Klinik",
+    sector_market: "Market & Bakkal",
+    sector_planned: "Planlanan",
+    sector_restaurant: "Restoran",
+    settings_auto: "Otomatik",
+    settings_dark: "Koyu",
+    settings_language: "Dil",
+    settings_light: "Açık",
+    settings_save: "Ayarları Kaydet",
+    settings_theme: "Tema",
+    settings_title: "Ayarlar",
+    sla_expires_24h: "24 saat içinde süresi dolacak",
+    sla_need_action: "Acil müdahale gerekiyor",
+    sla_overdue: "GECİKMEDE",
+    sla_remaining: "Kalan:",
+    status_active: "Aktif",
+    status_approved: "Onaylandı",
+    status_assigned: "Atandı",
+    status_completed: "Tamamlandı",
+    status_done: "✓ Tamamlandı",
+    status_draft: "Taslak",
+    status_high: "Yüksek",
+    status_in_progress: "Devam Ediyor",
+    status_invoiced: "Faturaya Dönüştürüldü",
+    status_low: "Düşük",
+    status_medium: "Orta",
+    status_new: "Yeni",
+    status_on_the_way: "Yolda",
+    status_open: "Açık",
+    status_overdue: "Gecikmiş",
+    status_pending: "Bekliyor",
+    status_planned: "Planlanan",
+    status_rejected: "Reddedildi",
+    status_sent: "Gönderildi",
+    status_urgent: "Acil",
+    svc_carpet: "Halı/Koltuk",
+    svc_deep_clean: "Detaylı Paket",
+    svc_disinfection: "Dezenfeksiyon",
+    svc_facade: "Dış Cephe",
+    svc_hvac: "HVAC Bakım",
+    svc_interior: "İç Temizlik",
+    svc_office_cleaning: "Ofis Temizliği",
+    svc_waste: "Çöp Yönetimi",
+    svc_window_cleaning: "Cam Temizliği",
+    th_actions: "İşlemler",
+    th_amount: "Tutar",
+    th_assigned: "Atanan",
+    th_booking: "Randevu",
+    th_category: "Kategori",
+    th_customer: "Müşteri",
+    th_date: "Tarih",
+    th_due: "Son Tarih",
+    th_next_run: "Sonraki",
+    th_price: "Fiyat",
+    th_priority: "Öncelik",
+    th_product: "Ürün",
+    th_quote_no: "Teklif No",
+    th_rating: "Puan",
+    th_recurring: "Yinelenen Görevler",
+    th_review: "Değerlendirme",
+    th_service: "Hizmet",
+    th_sla: "SLA",
+    th_staff: "Personel",
+    th_status: "Durum",
+    th_stock: "Stok",
+    th_task: "Görev",
+    th_time: "Saat",
+    time_daily: "Günlük",
+    time_every_day: "Her Gün",
+    time_last_30_days: "Son 30 gün ortalaması",
+    time_monthly: "Aylık",
+    time_this_month: "Bu Ay",
+    time_this_week: "Bu Hafta",
+    time_today: "Bugün",
+    time_weekly: "Haftalık",
+    title_dashboard: "Dashboard",
+    title_maintenance: "Akıllı Bakım Planlayıcı",
+    title_quotes: "Teklifler",
+    trend_increase: "↑ %24 artış",
+    trend_new_quotes: "yeni",
+    trend_pending_quotes: "teklif beklemede",
+    trend_rejected_quotes: "teklif reddedildi",
+    trend_this_month: "↑ Bu ay +3",
+    trend_up: "↑ %5 yukarı",
+    user_admin: "Admin",
+    user_name: "Jan Wouters",
+    weather_humidity: "Nem",
+    weather_location: "📍 Antwerp, BE",
+    weather_partly_cloudy: "Parçalı Bulutlu · Güzel bir gün",
+    weather_rain_chance: "Yağmur",
+    weather_wind: "Rüzgar",
+  },
+  en: {
+    btn_add_line: "+ Add Line",
+    btn_apply: "Apply",
+    btn_approve: "Approve",
+    btn_cancel: "Cancel",
+    btn_clear: "Clear",
+    btn_close: "Close",
+    btn_complete: "✓ Complete",
+    btn_convert_invoice: "🧾 Convert to Invoice",
+    btn_create: "Create",
+    btn_create_quote: "Create Quote",
+    btn_create_task: "Create Task",
+    btn_delete: "Delete",
+    btn_detail: "Detail",
+    btn_edit: "Edit",
+    btn_filter: "Filter",
+    btn_go_invoice: "🧾 Go to Invoice",
+    btn_mark_all_read: "Mark All as Read",
+    btn_new_booking: "New Appointment",
+    btn_new_customer: "Add Customer",
+    btn_new_invoice: "Create Invoice",
+    btn_new_quote: "+ New Quote",
+    btn_new_task: "+ New Task",
+    btn_next: "›",
+    btn_pdf_download: "🖨 Download PDF",
+    btn_pdf_preview: "🖨 PDF Preview",
+    btn_pdf_view: "🖨 View PDF",
+    btn_previous: "‹",
+    btn_print: "🖨 Print / Save PDF",
+    btn_quick_actions: "Quick Actions",
+    btn_reject: "Reject",
+    btn_renew: "Renew",
+    btn_renew_version: "↻ Create New Version",
+    btn_save: "Save",
+    btn_search: "Search",
+    btn_send_again: "📧 Send Again",
+    btn_send_email: "📧 Send to Customer",
+    btn_update_status: "Update Status",
+    btn_view_all: "View All →",
+    btn_view_report: "View Report",
+    cal_fri: "Fr",
+    cal_may_2026: "May 2026",
+    cal_mon: "Mo",
+    cal_sat: "Sa",
+    cal_sun: "Su",
+    cal_thu: "Th",
+    cal_tue: "Tu",
+    cal_wed: "We",
+    chart_daily: "Daily",
+    chart_monthly: "Monthly",
+    company_address: "9000 Ghent, Belgium",
+    company_business_plan: "Business Plan",
+    company_cleanfix: "CleanFix",
+    company_cleanfix_prof: "CleanFix Professional Cleaning",
+    company_email: "info@cleanfix.be",
+    company_name: "CleanFix Demo BV",
+    company_vat: "VAT: BE0123.456.789",
+    form_address: "Address",
+    form_all_dates: "All Dates",
+    form_all_priorities: "All Priorities",
+    form_all_services: "All Services",
+    form_all_staff: "All Staff",
+    form_all_statuses: "All Statuses",
+    form_amount: "Amount",
+    form_assigned_staff: "Assigned Staff",
+    form_company: "Company",
+    form_customer: "Customer",
+    form_date: "Date",
+    form_description: "Description",
+    form_due_date: "Due Date",
+    form_email: "Email",
+    form_expiry: "Expiry Date",
+    form_frequency: "Frequency",
+    form_grand_total: "Grand Total",
+    form_location: "Location",
+    form_name: "Name",
+    form_notes: "Notes",
+    form_phone: "Phone",
+    form_priority: "Priority",
+    form_quantity: "Quantity",
+    form_quote_date: "Quote Date",
+    form_quote_no: "Quote No",
+    form_recurring: "Recurring Task",
+    form_service: "Service",
+    form_service_type: "Service Type",
+    form_staff: "Staff",
+    form_status: "Status",
+    form_subtotal: "Subtotal",
+    form_task_info: "Task Information",
+    form_task_name: "Task Name",
+    form_total: "Total",
+    form_unit_price: "Unit Price",
+    form_valid_until: "Valid Until",
+    form_vat: "VAT (%)",
+    form_vat_rate: "VAT Rate (%)",
+    gen_all: "All",
+    gen_back: "Back",
+    gen_download: "Download",
+    gen_export: "Export",
+    gen_filter: "Filter",
+    gen_help: "Help",
+    gen_import: "Import",
+    gen_info: "Info",
+    gen_less: "Less",
+    gen_loading: "Loading...",
+    gen_more: "More",
+    gen_next: "Next",
+    gen_no: "No",
+    gen_no_data: "No data found",
+    gen_print: "Print",
+    gen_refresh: "Refresh",
+    gen_search: "Search...",
+    gen_support: "Support",
+    gen_yes: "Yes",
+    header_menu: "Menu",
+    header_new_task: "+ New Task",
+    header_notifications: "Notifications",
+    header_search: "Search",
+    header_theme: "Theme",
+    kanban_assigned: "Assigned",
+    kanban_completed: "Completed",
+    kanban_in_progress: "In Progress",
+    kanban_open: "Open",
+    kpi_active_customers: "Active Customers",
+    kpi_approved: "Approved (€)",
+    kpi_avg_resolution: "Avg. Resolution Time",
+    kpi_conversion: "Conversion Rate",
+    kpi_monthly_appointments: "Monthly Appointments",
+    kpi_monthly_revenue: "Monthly Revenue",
+    kpi_open_sla: "Open SLA",
+    kpi_open_tickets: "Open Tickets",
+    kpi_overdue_sla: "Overdue SLA",
+    kpi_pending: "Pending (€)",
+    kpi_rejected: "Rejected (€)",
+    kpi_resolved_tickets: "Resolved Tickets",
+    kpi_satisfaction: "Customer Satisfaction",
+    kpi_this_week: "This Week Appointments",
+    kpi_total_quotes: "Total Quotes",
+    kpi_upcoming_sla: "Upcoming SLA",
+    modal_new_booking: "Create New Appointment",
+    modal_new_customer: "Add New Customer",
+    modal_new_invoice: "Create New Invoice",
+    modal_new_quote: "Create New Quote",
+    modal_new_task: "Create New Task",
+    modal_pdf_preview: "PDF Preview",
+    modal_task_detail: "Task Detail",
+    msg_booking_created: "Appointment created",
+    msg_confirm_approve: "Approve quote?",
+    msg_confirm_delete: "Are you sure you want to delete?",
+    msg_confirm_reject: "Reject quote?",
+    msg_customer_added: "Customer added",
+    msg_deleted: "Deleted",
+    msg_invoice_created: "Invoice created",
+    msg_quote_approved: "Quote approved",
+    msg_quote_rejected: "Quote rejected",
+    msg_saved: "Saved",
+    msg_status_updated: "Status updated",
+    msg_task_created: "Task created",
+    nav_analytics: "Analytics",
+    nav_bookings: "Appointments",
+    nav_company: "Company Panel",
+    nav_customers: "Customers",
+    nav_dashboard: "Dashboard",
+    nav_invoices: "Invoices",
+    nav_logout: "Logout",
+    nav_maintenance: "Maintenance Planner",
+    nav_profile: "Company Profile",
+    nav_quotes: "Quotes",
+    nav_reviews: "Reviews",
+    nav_sectors: "Sectors",
+    nav_services: "Services",
+    nav_staff: "Staff",
+    nav_stock: "Stock",
+    nav_tools: "Tools",
+    notif_ago: "ago",
+    notif_day_ago: "day ago",
+    notif_hour_ago: "hour ago",
+    notif_hours_ago: "hours ago",
+    notif_left: "items left",
+    notif_min_ago: "minutes ago",
+    notif_new_booking: "New appointment:",
+    notif_new_customer: "New customer registration:",
+    notif_paid: "paid",
+    notif_stock_alert: "Stock alert:",
+    notif_ticket_resolved: "resolved",
+    pdf_cleanfix_auth: "CleanFix Authorized",
+    pdf_customer_sign: "Customer Sign / Date",
+    pdf_date: "Date:",
+    pdf_grand_total: "Grand Total:",
+    pdf_payment_detail: "14 days, bank transfer.",
+    pdf_payment_terms: "Payment Terms:",
+    pdf_quote: "Quote",
+    pdf_quote_no_label: "Quote No:",
+    pdf_quote_valid_until: "This quote is valid until 26 May 2026.",
+    pdf_quote_validity: "Quote Validity:",
+    pdf_service_material_detail: "Service & Material Detail",
+    pdf_services_materials: "Services & Materials",
+    pdf_sign_instructions: "Please sign and return to approve this quote.",
+    pdf_subtotal: "Subtotal:",
+    pdf_valid: "Valid: 26 May 2026",
+    pdf_vat: "VAT (21%):",
+    ph_address: "Enter address...",
+    ph_customer: "Search customers...",
+    ph_description: "Description",
+    ph_email: "Email address",
+    ph_name: "Enter name",
+    ph_notes: "Additional details...",
+    ph_phone: "Phone number",
+    ph_price: "€",
+    ph_quantity: "Qty",
+    ph_search: "Search...",
+    ph_task_name: "E.g.: Office Deep Cleaning",
+    qa_add_customer: "Add Customer",
+    qa_new_booking: "New Appointment",
+    qa_new_invoice: "Create Invoice",
+    qa_view_report: "View Report",
+    sched_completed: "Completed",
+    sched_in_progress: "In Progress",
+    sched_pending: "Pending",
+    section_activity: "Activity History",
+    section_next_7_days: "Next 7 Days",
+    section_popular: "Popular Services",
+    section_recent_activity: "Team Activity",
+    section_recent_bookings: "Recent Appointments",
+    section_recurring: "🔄 Recurring Tasks",
+    section_revenue: "Revenue Analysis",
+    section_service_dist: "Service Distribution",
+    section_today_schedule: "Today's Schedule",
+    section_weather: "Weather",
+    sector_active: "Active",
+    sector_barber: "Barber & Salon",
+    sector_carwash: "CarWash",
+    sector_cleaning: "Cleaning",
+    sector_construction: "Construction",
+    sector_doctor: "Doctor & Clinic",
+    sector_market: "Market & Grocery",
+    sector_planned: "Planned",
+    sector_restaurant: "Restaurant",
+    settings_auto: "Auto",
+    settings_dark: "Dark",
+    settings_language: "Language",
+    settings_light: "Light",
+    settings_save: "Save Settings",
+    settings_theme: "Theme",
+    settings_title: "Settings",
+    sla_expires_24h: "Expires within 24h",
+    sla_need_action: "Urgent action required",
+    sla_overdue: "OVERDUE",
+    sla_remaining: "Remaining:",
+    status_active: "Active",
+    status_approved: "Approved",
+    status_assigned: "Assigned",
+    status_completed: "Completed",
+    status_done: "✓ Completed",
+    status_draft: "Draft",
+    status_high: "High",
+    status_in_progress: "In Progress",
+    status_invoiced: "Converted to Invoice",
+    status_low: "Low",
+    status_medium: "Medium",
+    status_new: "New",
+    status_on_the_way: "On the Way",
+    status_open: "Open",
+    status_overdue: "Overdue",
+    status_pending: "Pending",
+    status_planned: "Planned",
+    status_rejected: "Rejected",
+    status_sent: "Sent",
+    status_urgent: "Urgent",
+    svc_carpet: "Carpet/Upholstery",
+    svc_deep_clean: "Deep Clean Package",
+    svc_disinfection: "Disinfection",
+    svc_facade: "Facade",
+    svc_hvac: "HVAC Maintenance",
+    svc_interior: "Interior Cleaning",
+    svc_office_cleaning: "Office Cleaning",
+    svc_waste: "Waste Management",
+    svc_window_cleaning: "Window Cleaning",
+    th_actions: "Actions",
+    th_amount: "Amount",
+    th_assigned: "Assigned",
+    th_booking: "Appointment",
+    th_category: "Category",
+    th_customer: "Customer",
+    th_date: "Date",
+    th_due: "Due",
+    th_next_run: "Next",
+    th_price: "Price",
+    th_priority: "Priority",
+    th_product: "Product",
+    th_quote_no: "Quote No",
+    th_rating: "Rating",
+    th_recurring: "Recurring Tasks",
+    th_review: "Review",
+    th_service: "Service",
+    th_sla: "SLA",
+    th_staff: "Staff",
+    th_status: "Status",
+    th_stock: "Stock",
+    th_task: "Task",
+    th_time: "Time",
+    time_daily: "Daily",
+    time_every_day: "Every Day",
+    time_last_30_days: "Last 30 days average",
+    time_monthly: "Monthly",
+    time_this_month: "This Month",
+    time_this_week: "This Week",
+    time_today: "Today",
+    time_weekly: "Weekly",
+    title_dashboard: "Dashboard",
+    title_maintenance: "Smart Maintenance Planner",
+    title_quotes: "Quotes",
+    trend_increase: "↑ 24% increase",
+    trend_new_quotes: "new",
+    trend_pending_quotes: "quotes pending",
+    trend_rejected_quotes: "quotes rejected",
+    trend_this_month: "↑ This month +3",
+    trend_up: "↑ 5% up",
+    user_admin: "Admin",
+    user_name: "Jan Wouters",
+    weather_humidity: "Humidity",
+    weather_location: "📍 Antwerp, BE",
+    weather_partly_cloudy: "Partly Cloudy · Nice day",
+    weather_rain_chance: "Rain",
+    weather_wind: "Wind",
+  },
+  nl: {
+    btn_add_line: "+ Regel Toevoegen",
+    btn_apply: "Toepassen",
+    btn_approve: "Goedkeuren",
+    btn_cancel: "Annuleren",
+    btn_clear: "Wissen",
+    btn_close: "Sluiten",
+    btn_complete: "✓ Afronden",
+    btn_convert_invoice: "🧾 Omzetten naar Factuur",
+    btn_create: "Aanmaken",
+    btn_create_quote: "Offerte Maken",
+    btn_create_task: "Taak Aanmaken",
+    btn_delete: "Verwijderen",
+    btn_detail: "Detail",
+    btn_edit: "Bewerken",
+    btn_filter: "Filteren",
+    btn_go_invoice: "🧾 Naar Factuur",
+    btn_mark_all_read: "Alles als Gelezen Markeren",
+    btn_new_booking: "Nieuwe Afspraak",
+    btn_new_customer: "Klant Toevoegen",
+    btn_new_invoice: "Factuur Maken",
+    btn_new_quote: "+ Nieuwe Offerte",
+    btn_new_task: "+ Nieuwe Taak",
+    btn_next: "›",
+    btn_pdf_download: "🖨 PDF Downloaden",
+    btn_pdf_preview: "🖨 PDF Voorbeeld",
+    btn_pdf_view: "🖨 PDF Bekijken",
+    btn_previous: "‹",
+    btn_print: "🖨 Printen / PDF Opslaan",
+    btn_quick_actions: "Snelle Acties",
+    btn_reject: "Afwijzen",
+    btn_renew: "Vernieuwen",
+    btn_renew_version: "↻ Nieuwe Versie Maken",
+    btn_save: "Opslaan",
+    btn_search: "Zoeken",
+    btn_send_again: "📧 Opnieuw Versturen",
+    btn_send_email: "📧 Versturen naar Klant",
+    btn_update_status: "Status Bijwerken",
+    btn_view_all: "Alles Bekijken →",
+    btn_view_report: "Rapport Bekijken",
+    cal_fri: "Vr",
+    cal_may_2026: "Mei 2026",
+    cal_mon: "Ma",
+    cal_sat: "Za",
+    cal_sun: "Zo",
+    cal_thu: "Do",
+    cal_tue: "Di",
+    cal_wed: "Wo",
+    chart_daily: "Dagelijks",
+    chart_monthly: "Maandelijks",
+    company_address: "9000 Gent, België",
+    company_business_plan: "Businessplan",
+    company_cleanfix: "CleanFix",
+    company_cleanfix_prof: "CleanFix Professionele Reiniging",
+    company_email: "info@cleanfix.be",
+    company_name: "CleanFix Demo BV",
+    company_vat: "BTW: BE0123.456.789",
+    form_address: "Adres",
+    form_all_dates: "Alle Datums",
+    form_all_priorities: "Alle Prioriteiten",
+    form_all_services: "Alle Diensten",
+    form_all_staff: "Alle Personeel",
+    form_all_statuses: "Alle Statussen",
+    form_amount: "Bedrag",
+    form_assigned_staff: "Toegewezen Personeel",
+    form_company: "Bedrijf",
+    form_customer: "Klant",
+    form_date: "Datum",
+    form_description: "Omschrijving",
+    form_due_date: "Deadline",
+    form_email: "E-mail",
+    form_expiry: "Vervaldatum",
+    form_frequency: "Frequentie",
+    form_grand_total: "Eindtotaal",
+    form_location: "Locatie",
+    form_name: "Naam",
+    form_notes: "Notities",
+    form_phone: "Telefoon",
+    form_priority: "Prioriteit",
+    form_quantity: "Aantal",
+    form_quote_date: "Offertedatum",
+    form_quote_no: "Offertenummer",
+    form_recurring: "Terugkerende Taak",
+    form_service: "Dienst",
+    form_service_type: "Diensttype",
+    form_staff: "Personeel",
+    form_status: "Status",
+    form_subtotal: "Subtotaal",
+    form_task_info: "Taakinformatie",
+    form_task_name: "Taaknaam",
+    form_total: "Totaal",
+    form_unit_price: "Eenheidsprijs",
+    form_valid_until: "Geldig Tot",
+    form_vat: "BTW (%)",
+    form_vat_rate: "BTW Tarief (%)",
+    gen_all: "Alles",
+    gen_back: "Terug",
+    gen_download: "Downloaden",
+    gen_export: "Exporteren",
+    gen_filter: "Filteren",
+    gen_help: "Help",
+    gen_import: "Importeren",
+    gen_info: "Info",
+    gen_less: "Minder",
+    gen_loading: "Laden...",
+    gen_more: "Meer",
+    gen_next: "Volgende",
+    gen_no: "Nee",
+    gen_no_data: "Geen gegevens gevonden",
+    gen_print: "Printen",
+    gen_refresh: "Vernieuwen",
+    gen_search: "Zoeken...",
+    gen_support: "Ondersteuning",
+    gen_yes: "Ja",
+    header_menu: "Menu",
+    header_new_task: "+ Nieuwe Taak",
+    header_notifications: "Meldingen",
+    header_search: "Zoeken",
+    header_theme: "Thema",
+    kanban_assigned: "Toegewezen",
+    kanban_completed: "Voltooid",
+    kanban_in_progress: "In Uitvoering",
+    kanban_open: "Open",
+    kpi_active_customers: "Actieve Klanten",
+    kpi_approved: "Goedgekeurd (€)",
+    kpi_avg_resolution: "Gem. Oplostijd",
+    kpi_conversion: "Conversiepercentage",
+    kpi_monthly_appointments: "Maandelijkse Afspraken",
+    kpi_monthly_revenue: "Maandelijkse Omzet",
+    kpi_open_sla: "Open SLA",
+    kpi_open_tickets: "Open Tickets",
+    kpi_overdue_sla: "Achterstallige SLA",
+    kpi_pending: "In Afwachting (€)",
+    kpi_rejected: "Afgewezen (€)",
+    kpi_resolved_tickets: "Opgeloste Tickets",
+    kpi_satisfaction: "Klanttevredenheid",
+    kpi_this_week: "Deze Week Afspraken",
+    kpi_total_quotes: "Totaal Offertes",
+    kpi_upcoming_sla: "Naderende SLA",
+    modal_new_booking: "Nieuwe Afspraak Maken",
+    modal_new_customer: "Nieuwe Klant Toevoegen",
+    modal_new_invoice: "Nieuwe Factuur Maken",
+    modal_new_quote: "Nieuwe Offerte Maken",
+    modal_new_task: "Nieuwe Taak Aanmaken",
+    modal_pdf_preview: "PDF Voorbeeld",
+    modal_task_detail: "Taak Detail",
+    msg_booking_created: "Afspraak gemaakt",
+    msg_confirm_approve: "Offerte goedkeuren?",
+    msg_confirm_delete: "Weet u zeker dat u wilt verwijderen?",
+    msg_confirm_reject: "Offerte afwijzen?",
+    msg_customer_added: "Klant toegevoegd",
+    msg_deleted: "Verwijderd",
+    msg_invoice_created: "Factuur aangemaakt",
+    msg_quote_approved: "Offerte goedgekeurd",
+    msg_quote_rejected: "Offerte afgewezen",
+    msg_saved: "Opgeslagen",
+    msg_status_updated: "Status bijgewerkt",
+    msg_task_created: "Taak aangemaakt",
+    nav_analytics: "Analyse",
+    nav_bookings: "Afspraken",
+    nav_company: "Bedrijfspaneel",
+    nav_customers: "Klanten",
+    nav_dashboard: "Dashboard",
+    nav_invoices: "Facturen",
+    nav_logout: "Uitloggen",
+    nav_maintenance: "Onderhouds planner",
+    nav_profile: "Bedrijfsprofiel",
+    nav_quotes: "Offertes",
+    nav_reviews: "Beoordelingen",
+    nav_sectors: "Sectoren",
+    nav_services: "Diensten",
+    nav_staff: "Personeel",
+    nav_stock: "Voorraad",
+    nav_tools: "Tools",
+    notif_ago: "geleden",
+    notif_day_ago: "dag geleden",
+    notif_hour_ago: "uur geleden",
+    notif_hours_ago: "uur geleden",
+    notif_left: "items resterend",
+    notif_min_ago: "minuten geleden",
+    notif_new_booking: "Nieuwe afspraak:",
+    notif_new_customer: "Nieuwe klantregistratie:",
+    notif_paid: "betaald",
+    notif_stock_alert: "Voorraadalarm:",
+    notif_ticket_resolved: "opgelost",
+    pdf_cleanfix_auth: "CleanFix Gemachtigde",
+    pdf_customer_sign: "Klant Handtekening / Datum",
+    pdf_date: "Datum:",
+    pdf_grand_total: "Eindtotaal:",
+    pdf_payment_detail: "14 dagen, bankoverschrijving.",
+    pdf_payment_terms: "Betalingsvoorwaarden:",
+    pdf_quote: "Offerte",
+    pdf_quote_no_label: "Offerte Nr:",
+    pdf_quote_valid_until: "Deze offerte is geldig tot 26 mei 2026.",
+    pdf_quote_validity: "Offertegeldigheid:",
+    pdf_service_material_detail: "Dienst & Materiaal Detail",
+    pdf_services_materials: "Diensten & Materialen",
+    pdf_sign_instructions: "Onderteken en stuur terug om deze offerte goed te keuren.",
+    pdf_subtotal: "Subtotaal:",
+    pdf_valid: "Geldig: 26 mei 2026",
+    pdf_vat: "BTW (21%):",
+    ph_address: "Adres invoeren...",
+    ph_customer: "Zoek klanten...",
+    ph_description: "Omschrijving",
+    ph_email: "E-mailadres",
+    ph_name: "Naam invoeren",
+    ph_notes: "Extra details...",
+    ph_phone: "Telefoonnummer",
+    ph_price: "€",
+    ph_quantity: "Aantal",
+    ph_search: "Zoeken...",
+    ph_task_name: "Bijv.: Kantoor Dieptereiniging",
+    qa_add_customer: "Klant Toevoegen",
+    qa_new_booking: "Nieuwe Afspraak",
+    qa_new_invoice: "Factuur Maken",
+    qa_view_report: "Rapport Bekijken",
+    sched_completed: "Voltooid",
+    sched_in_progress: "In Uitvoering",
+    sched_pending: "In Afwachting",
+    section_activity: "Activiteitengeschiedenis",
+    section_next_7_days: "Volgende 7 Dagen",
+    section_popular: "Populaire Diensten",
+    section_recent_activity: "Teamactiviteit",
+    section_recent_bookings: "Recente Afspraken",
+    section_recurring: "🔄 Terugkerende Taken",
+    section_revenue: "Omzetanalyse",
+    section_service_dist: "Dienstverdeling",
+    section_today_schedule: "Schema Vandaag",
+    section_weather: "Weer",
+    sector_active: "Actief",
+    sector_barber: "Kapper & Salon",
+    sector_carwash: "CarWash",
+    sector_cleaning: "Reiniging",
+    sector_construction: "Bouw",
+    sector_doctor: "Dokter & Kliniek",
+    sector_market: "Winkel & Kruidenier",
+    sector_planned: "Gepland",
+    sector_restaurant: "Restaurant",
+    settings_auto: "Automatisch",
+    settings_dark: "Donker",
+    settings_language: "Taal",
+    settings_light: "Licht",
+    settings_save: "Instellingen Opslaan",
+    settings_theme: "Thema",
+    settings_title: "Instellingen",
+    sla_expires_24h: "Verloopt binnen 24u",
+    sla_need_action: "Dringende actie vereist",
+    sla_overdue: "ACHTERSTALLIG",
+    sla_remaining: "Resterend:",
+    status_active: "Actief",
+    status_approved: "Goedgekeurd",
+    status_assigned: "Toegewezen",
+    status_completed: "Voltooid",
+    status_done: "✓ Voltooid",
+    status_draft: "Concept",
+    status_high: "Hoog",
+    status_in_progress: "In Uitvoering",
+    status_invoiced: "Omgezet naar Factuur",
+    status_low: "Laag",
+    status_medium: "Gemiddeld",
+    status_new: "Nieuw",
+    status_on_the_way: "Onderweg",
+    status_open: "Open",
+    status_overdue: "Achterstallig",
+    status_pending: "In Afwachting",
+    status_planned: "Gepland",
+    status_rejected: "Afgewezen",
+    status_sent: "Verzonden",
+    status_urgent: "Dringend",
+    svc_carpet: "Tapijt/Meubels",
+    svc_deep_clean: "Dieptereiniging Pakket",
+    svc_disinfection: "Desinfectie",
+    svc_facade: "Gevel",
+    svc_hvac: "HVAC Onderhoud",
+    svc_interior: "Interieur Reiniging",
+    svc_office_cleaning: "Kantoorreiniging",
+    svc_waste: "Afvalbeheer",
+    svc_window_cleaning: "Ramen Lappen",
+    th_actions: "Acties",
+    th_amount: "Bedrag",
+    th_assigned: "Toegewezen",
+    th_booking: "Afspraak",
+    th_category: "Categorie",
+    th_customer: "Klant",
+    th_date: "Datum",
+    th_due: "Deadline",
+    th_next_run: "Volgende",
+    th_price: "Prijs",
+    th_priority: "Prioriteit",
+    th_product: "Product",
+    th_quote_no: "Offerte Nr",
+    th_rating: "Beoordeling",
+    th_recurring: "Terugkerende Taken",
+    th_review: "Review",
+    th_service: "Dienst",
+    th_sla: "SLA",
+    th_staff: "Personeel",
+    th_status: "Status",
+    th_stock: "Voorraad",
+    th_task: "Taak",
+    th_time: "Tijd",
+    time_daily: "Dagelijks",
+    time_every_day: "Elke Dag",
+    time_last_30_days: "Gemiddelde laatste 30 dagen",
+    time_monthly: "Maandelijks",
+    time_this_month: "Deze Maand",
+    time_this_week: "Deze Week",
+    time_today: "Vandaag",
+    time_weekly: "Wekelijks",
+    title_dashboard: "Dashboard",
+    title_maintenance: "Slimme Onderhouds Planner",
+    title_quotes: "Offertes",
+    trend_increase: "↑ 24% stijging",
+    trend_new_quotes: "nieuw",
+    trend_pending_quotes: "offertes in afwachting",
+    trend_rejected_quotes: "offertes afgewezen",
+    trend_this_month: "↑ Deze maand +3",
+    trend_up: "↑ 5% omhoog",
+    user_admin: "Admin",
+    user_name: "Jan Wouters",
+    weather_humidity: "Vochtigheid",
+    weather_location: "📍 Antwerpen, BE",
+    weather_partly_cloudy: "Gedeeltelijk Bewolkt · Mooie dag",
+    weather_rain_chance: "Regen",
+    weather_wind: "Wind",
+  }
+};
+let currentLang = localStorage.getItem('cleanfix_lang') || 'tr';
+
+function switchLang(lang) {
+  currentLang = lang;
+  localStorage.setItem('cleanfix_lang', lang);
+  document.documentElement.lang = lang;
+
+  document.querySelectorAll('.lang-switcher button').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.lang === lang);
+  });
+
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.dataset.i18n;
+    const t = i18n[lang] && i18n[lang][key];
+    if (!t) return;
+    const attr = el.dataset.i18nAttr;
+    if (attr) {
+      el.setAttribute(attr, t);
+    } else if (el.tagName === 'TITLE') {
+      el.textContent = t;
+    } else if (el.tagName === 'A' || el.tagName === 'BUTTON') {
+      if (el.children.length === 0) {
+        el.textContent = t;
+      } else {
+        const textNodes = Array.from(el.childNodes).filter(n => n.nodeType === 3);
+        if (textNodes.length > 0) textNodes[0].textContent = t;
+      }
+    } else {
+      if (t.includes('<')) {
+        el.innerHTML = t;
+      } else {
+        el.textContent = t;
+      }
+    }
+  });
+
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+    const key = el.dataset.i18nPlaceholder;
+    if (i18n[lang] && i18n[lang][key]) el.placeholder = i18n[lang][key];
+  });
+
+  const featuredCard = document.querySelector('.pricing-card.featured, .plan-card.featured');
+  if (featuredCard) {
+    featuredCard.dataset.popular = lang === 'tr' ? 'En Popüler' : lang === 'en' ? 'Most Popular' : 'Meest Populair';
+  }
+}
+
+/* Init */
+switchLang(currentLang);
+</script>
+<script>
+const i18n = {
+  tr: {
+    // Meta
+    'meta.description': 'CleanFix Admin Dashboard - Firma yönetim paneli',
+    // Sidebar
+    'nav.mainMenu': 'Ana Menü',
+    'nav.dashboard': 'Dashboard',
+    'nav.bookings': 'Randevular',
+    'nav.customers': 'Müşteriler',
+    'nav.services': 'Hizmetler',
+    'nav.products': 'Ürünler',
+    'nav.invoices': 'Faturalar',
+    'nav.management': 'Yönetim',
+    'nav.reports': 'Raporlar',
+    'nav.staff': 'Personel',
+    'nav.sectors': 'Sektörler',
+    'nav.tools': 'Araçlar',
+    'nav.support': 'Destek',
+    'nav.settings': 'Ayarlar',
+    'nav.logout': 'Çıkış Yap',
+    'sidebar.company': 'CleanFix Demo BV',
+    'sidebar.admin': 'Admin',
+    // Sector
+    'sector.cleaning': 'Temizlik',
+    'sector.carwash': 'CarWash',
+    'sector.construction': 'İnşaat',
+    'sector.barber': 'Berber & Kuaför',
+    'sector.market': 'Market & Bakkal',
+    'sector.doctor': 'Doktor & Klinik',
+    'sector.restaurant': 'Restoran',
+    'sector.active': 'Aktif',
+    'sector.planned': 'Planlanan',
+    // Header
+    'header.search': 'Ara',
+    'header.menu': 'Menü',
+    'header.notifications': 'Bildirimler',
+    'header.theme': 'Tema',
+    'header.markRead': 'Tümünü Okundu İşaretle',
+    // KPI
+    'kpi.monthlyRevenue': 'Aylık Gelir',
+    'kpi.activeCustomers': 'Aktif Müşteri',
+    'kpi.weeklyBookings': 'Bu Hafta Randevu',
+    'kpi.resolvedTickets': 'Çözülmüş Ticket',
+    // Charts
+    'chart.revenueAnalysis': 'Gelir Analizi',
+    'chart.monthly': 'Aylık',
+    'chart.daily': 'Günlük',
+    'chart.weather': 'Hava Durumu',
+    'chart.monthlyBookings': 'Aylık Randevular',
+    'chart.serviceDistribution': 'Hizmet Dağılımı',
+    // Weather
+    'weather.humidity': 'Nem',
+    'weather.wind': 'Rüzgar',
+    'weather.high': 'Yüksek',
+    'weather.low': 'Düşük',
+    'weather.location': 'Antwerp, BE',
+    'weather.desc': 'Parçalı Bulutlu · Güzel bir gün',
+    // Schedule
+    'schedule.today': 'Bugünkü Program',
+    'schedule.completed': 'Tamamlandı',
+    'schedule.inProgress': 'Devam Ediyor',
+    'schedule.pending': 'Bekliyor',
+    'schedule.date': '12 May 2026',
+    // Recent bookings
+    'bookings.recent': 'Son Randevular',
+    'bookings.seeAll': 'Tümünü Gör →',
+    'table.customer': 'Müşteri',
+    'table.service': 'Hizmet',
+    'table.date': 'Tarih',
+    'table.staff': 'Personel',
+    'table.status': 'Durum',
+    'table.amount': 'Tutar',
+    'badge.completed': 'Tamamlandı',
+    'badge.inProgress': 'Devam Ediyor',
+    'badge.cancelled': 'İptal',
+    // Popular services
+    'services.popular': 'Popüler Hizmetler',
+    'services.premiumWash': 'Premium Yıkama',
+    'services.ceramic': 'Seramik Kaplama',
+    'services.interior': 'İç Temizlik',
+    'services.polishing': 'Cilalama',
+    'services.engine': 'Motor Temizlik',
+    // Calendar
+    'calendar.month': 'Mayıs 2026',
+    'calendar.mon': 'Pt',
+    'calendar.tue': 'Sa',
+    'calendar.wed': 'Ça',
+    'calendar.thu': 'Pe',
+    'calendar.fri': 'Cu',
+    'calendar.sat': 'Ct',
+    'calendar.sun': 'Pa',
+    // Team Activity
+    'activity.title': 'Ekip Aktivitesi',
+    'activity.minAgo': 'dakika önce',
+    'activity.hourAgo': 'saat önce',
+    'activity.hoursAgo': 'saat önce',
+    // Notifications
+    'notif.title': 'Bildirimler',
+    'notif.new': 'yeni',
+    'notif.appointment': 'Yeni randevu',
+    'notif.invoicePaid': 'ödendi',
+    'notif.stockAlert': 'Stok alarmı',
+    'notif.ticketResolved': 'çözüldü',
+    'notif.newCustomer': 'Yeni müşteri kaydı',
+    // Quick Actions
+    'quick.title': 'Hızlı İşlemler',
+    'quick.newBooking': 'Yeni Randevu',
+    'quick.newInvoice': 'Fatura Oluştur',
+    'quick.addCustomer': 'Müşteri Ekle',
+    'quick.viewReport': 'Rapor Gör',
+    // Satisfaction
+    'satisfaction.title': 'Müşteri Memnuniyeti',
+    'satisfaction.reviews': 'değerlendirme',
+    // Toast
+    'toast.success': 'Başarılı',
+    'toast.error': 'Hata',
+    'toast.info': 'Bilgi',
+    'toast.allRead': 'Tüm bildirimler okundu olarak işaretlendi',
+    // Search placeholder
+    'search.placeholder': 'Ara...'
+  },
+  en: {
+    'meta.description': 'CleanFix Admin Dashboard - Company management panel',
+    'nav.mainMenu': 'Main Menu',
+    'nav.dashboard': 'Dashboard',
+    'nav.bookings': 'Bookings',
+    'nav.customers': 'Customers',
+    'nav.services': 'Services',
+    'nav.products': 'Products',
+    'nav.invoices': 'Invoices',
+    'nav.management': 'Management',
+    'nav.reports': 'Reports',
+    'nav.staff': 'Staff',
+    'nav.sectors': 'Sectors',
+    'nav.tools': 'Tools',
+    'nav.support': 'Support',
+    'nav.settings': 'Settings',
+    'nav.logout': 'Log Out',
+    'sidebar.company': 'CleanFix Demo BV',
+    'sidebar.admin': 'Admin',
+    'sector.cleaning': 'Cleaning',
+    'sector.carwash': 'CarWash',
+    'sector.construction': 'Construction',
+    'sector.barber': 'Barber & Salon',
+    'sector.market': 'Market & Grocery',
+    'sector.doctor': 'Doctor & Clinic',
+    'sector.restaurant': 'Restaurant',
+    'sector.active': 'Active',
+    'sector.planned': 'Planned',
+    'header.search': 'Search',
+    'header.menu': 'Menu',
+    'header.notifications': 'Notifications',
+    'header.theme': 'Theme',
+    'header.markRead': 'Mark All as Read',
+    'kpi.monthlyRevenue': 'Monthly Revenue',
+    'kpi.activeCustomers': 'Active Customers',
+    'kpi.weeklyBookings': 'This Week Bookings',
+    'kpi.resolvedTickets': 'Resolved Tickets',
+    'chart.revenueAnalysis': 'Revenue Analysis',
+    'chart.monthly': 'Monthly',
+    'chart.daily': 'Daily',
+    'chart.weather': 'Weather',
+    'chart.monthlyBookings': 'Monthly Bookings',
+    'chart.serviceDistribution': 'Service Distribution',
+    'weather.humidity': 'Humidity',
+    'weather.wind': 'Wind',
+    'weather.high': 'High',
+    'weather.low': 'Low',
+    'weather.location': 'Antwerp, BE',
+    'weather.desc': 'Partly Cloudy · Nice day',
+    'schedule.today': "Today's Schedule",
+    'schedule.completed': 'Completed',
+    'schedule.inProgress': 'In Progress',
+    'schedule.pending': 'Pending',
+    'schedule.date': '12 May 2026',
+    'bookings.recent': 'Recent Bookings',
+    'bookings.seeAll': 'See All →',
+    'table.customer': 'Customer',
+    'table.service': 'Service',
+    'table.date': 'Date',
+    'table.staff': 'Staff',
+    'table.status': 'Status',
+    'table.amount': 'Amount',
+    'badge.completed': 'Completed',
+    'badge.inProgress': 'In Progress',
+    'badge.cancelled': 'Cancelled',
+    'services.popular': 'Popular Services',
+    'services.premiumWash': 'Premium Wash',
+    'services.ceramic': 'Ceramic Coating',
+    'services.interior': 'Interior Cleaning',
+    'services.polishing': 'Polishing',
+    'services.engine': 'Engine Cleaning',
+    'calendar.month': 'May 2026',
+    'calendar.mon': 'Mo',
+    'calendar.tue': 'Tu',
+    'calendar.wed': 'We',
+    'calendar.thu': 'Th',
+    'calendar.fri': 'Fr',
+    'calendar.sat': 'Sa',
+    'calendar.sun': 'Su',
+    'activity.title': 'Team Activity',
+    'activity.minAgo': 'min ago',
+    'activity.hourAgo': 'hour ago',
+    'activity.hoursAgo': 'hours ago',
+    'notif.title': 'Notifications',
+    'notif.new': 'new',
+    'notif.appointment': 'New appointment',
+    'notif.invoicePaid': 'paid',
+    'notif.stockAlert': 'Stock alert',
+    'notif.ticketResolved': 'resolved',
+    'notif.newCustomer': 'New customer registered',
+    'quick.title': 'Quick Actions',
+    'quick.newBooking': 'New Booking',
+    'quick.newInvoice': 'Create Invoice',
+    'quick.addCustomer': 'Add Customer',
+    'quick.viewReport': 'View Report',
+    'satisfaction.title': 'Customer Satisfaction',
+    'satisfaction.reviews': 'reviews',
+    'toast.success': 'Success',
+    'toast.error': 'Error',
+    'toast.info': 'Info',
+    'toast.allRead': 'All notifications marked as read',
+    'search.placeholder': 'Search...'
+  },
+  nl: {
+    'meta.description': 'CleanFix Admin Dashboard - Bedrijfsbeheerpaneel',
+    'nav.mainMenu': 'Hoofdmenu',
+    'nav.dashboard': 'Dashboard',
+    'nav.bookings': 'Afspraken',
+    'nav.customers': 'Klanten',
+    'nav.services': 'Diensten',
+    'nav.products': 'Producten',
+    'nav.invoices': 'Facturen',
+    'nav.management': 'Beheer',
+    'nav.reports': 'Rapporten',
+    'nav.staff': 'Personeel',
+    'nav.sectors': 'Sectoren',
+    'nav.tools': 'Gereedschap',
+    'nav.support': 'Ondersteuning',
+    'nav.settings': 'Instellingen',
+    'nav.logout': 'Uitloggen',
+    'sidebar.company': 'CleanFix Demo BV',
+    'sidebar.admin': 'Admin',
+    'sector.cleaning': 'Schoonmaak',
+    'sector.carwash': 'CarWash',
+    'sector.construction': 'Bouw',
+    'sector.barber': 'Kapper & Salon',
+    'sector.market': 'Markt & Kruidenier',
+    'sector.doctor': 'Dokter & Kliniek',
+    'sector.restaurant': 'Restaurant',
+    'sector.active': 'Actief',
+    'sector.planned': 'Gepland',
+    'header.search': 'Zoeken',
+    'header.menu': 'Menu',
+    'header.notifications': 'Meldingen',
+    'header.theme': 'Thema',
+    'header.markRead': 'Alles als gelezen markeren',
+    'kpi.monthlyRevenue': 'Maandelijkse Omzet',
+    'kpi.activeCustomers': 'Actieve Klanten',
+    'kpi.weeklyBookings': 'Afspraken Deze Week',
+    'kpi.resolvedTickets': 'Opgeloste Tickets',
+    'chart.revenueAnalysis': 'Omzet Analyse',
+    'chart.monthly': 'Maandelijks',
+    'chart.daily': 'Dagelijks',
+    'chart.weather': 'Weer',
+    'chart.monthlyBookings': 'Maandelijkse Afspraken',
+    'chart.serviceDistribution': 'Dienstverdeling',
+    'weather.humidity': 'Vochtigheid',
+    'weather.wind': 'Wind',
+    'weather.high': 'Hoog',
+    'weather.low': 'Laag',
+    'weather.location': 'Antwerpen, BE',
+    'weather.desc': 'Gedeeltelijk Bewolkt · Mooie dag',
+    'schedule.today': 'Schema Vandaag',
+    'schedule.completed': 'Voltooid',
+    'schedule.inProgress': 'Bezig',
+    'schedule.pending': 'In Afwachting',
+    'schedule.date': '12 mei 2026',
+    'bookings.recent': 'Recente Afspraken',
+    'bookings.seeAll': 'Alles Bekijken →',
+    'table.customer': 'Klant',
+    'table.service': 'Dienst',
+    'table.date': 'Datum',
+    'table.staff': 'Personeel',
+    'table.status': 'Status',
+    'table.amount': 'Bedrag',
+    'badge.completed': 'Voltooid',
+    'badge.inProgress': 'Bezig',
+    'badge.cancelled': 'Geannuleerd',
+    'services.popular': 'Populaire Diensten',
+    'services.premiumWash': 'Premium Was',
+    'services.ceramic': 'Keramische Coating',
+    'services.interior': 'Interieur Reiniging',
+    'services.polishing': 'Polijsten',
+    'services.engine': 'Motor Reiniging',
+    'calendar.month': 'Mei 2026',
+    'calendar.mon': 'Ma',
+    'calendar.tue': 'Di',
+    'calendar.wed': 'Wo',
+    'calendar.thu': 'Do',
+    'calendar.fri': 'Vr',
+    'calendar.sat': 'Za',
+    'calendar.sun': 'Zo',
+    'activity.title': 'Team Activiteit',
+    'activity.minAgo': 'min geleden',
+    'activity.hourAgo': 'uur geleden',
+    'activity.hoursAgo': 'uur geleden',
+    'notif.title': 'Meldingen',
+    'notif.new': 'nieuw',
+    'notif.appointment': 'Nieuwe afspraak',
+    'notif.invoicePaid': 'betaald',
+    'notif.stockAlert': 'Voorraad alarm',
+    'notif.ticketResolved': 'opgelost',
+    'notif.newCustomer': 'Nieuwe klant geregistreerd',
+    'quick.title': 'Snelle Acties',
+    'quick.newBooking': 'Nieuwe Afspraak',
+    'quick.newInvoice': 'Factuur Maken',
+    'quick.addCustomer': 'Klant Toevoegen',
+    'quick.viewReport': 'Rapport Bekijken',
+    'satisfaction.title': 'Klanttevredenheid',
+    'satisfaction.reviews': 'beoordelingen',
+    'toast.success': 'Succes',
+    'toast.error': 'Fout',
+    'toast.info': 'Info',
+    'toast.allRead': 'Alle meldingen als gelezen gemarkeerd',
+    'search.placeholder': 'Zoeken...'
+  }
+};
+</script>
+
+<script>
+/* ── i18n System ── */
+let _currentLang = localStorage.getItem('cleanfix_lang') || 'tr';
+function switchLang(lang) {
+  _currentLang = lang;
+  localStorage.setItem('cleanfix_lang', lang);
+  document.documentElement.lang = lang;
+  document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active-lang', b.dataset.lang === lang));
+  applyLang();
+}
+function applyLang() {
+  const t = i18n[_currentLang] || i18n['tr'];
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.dataset.i18n;
+    if (t[key]) {
+      if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') el.value = t[key];
+      else el.textContent = t[key];
+    }
+  });
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+    const key = el.dataset.i18nPlaceholder;
+    if (t[key]) el.placeholder = t[key];
+  });
+  document.querySelectorAll('[data-i18n-html]').forEach(el => {
+    const key = el.dataset.i18nHtml;
+    if (t[key]) el.innerHTML = t[key];
+  });
+  document.querySelectorAll('[data-i18n-attr]').forEach(el => {
+    const attr = el.dataset.i18nAttr;
+    const key = el.dataset.i18n;
+    if (t[key] && attr) el.setAttribute(attr, t[key]);
+  });
+  // Update meta description
+  const metaDesc = document.querySelector('meta[name="description"]');
+  if (metaDesc && t['meta.description']) metaDesc.content = t['meta.description'];
+}
+document.addEventListener('DOMContentLoaded', () => {
+  switchLang(_currentLang);
+});
+</script>
 
 </body>
 </html>

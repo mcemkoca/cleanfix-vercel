@@ -2,8 +2,9 @@
 <html lang="tr" data-theme="dark">
 <head>
 <meta charset="UTF-8">
+<meta name="description" content="CleanFix Teklif Sistemi" data-i18n-attr="content" data-i18n="meta.description">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CleanFix — Teklif Sistemi</title>
+<title data-i18n="page_title">CleanFix — Teklif Sistemi</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/main.css">
 <link rel="stylesheet" href="css/components.css">
@@ -117,32 +118,38 @@
 @media(max-width:1024px){.stats-grid{grid-template-columns:repeat(3,1fr);}}
 @media(max-width:768px){.sidebar{transform:translateX(-100%);}.sidebar.open{transform:translateX(0);}.main-content{margin-left:0;}.hamburger{display:block;}.stats-grid{grid-template-columns:1fr;}.toolbar{flex-direction:column;align-items:stretch;}.line-item-row{grid-template-columns:1fr;}}
 </style>
-</head>
+<style>
+/* ── Language Switcher ── */
+.lang-switcher { display:flex; align-items:center; gap:4px; background:var(--bg-card); border:1px solid var(--border-color); border-radius:var(--radius-md); padding:3px; }
+.lang-switcher button { background:transparent; border:none; color:var(--text-muted); font-size:11px; font-weight:600; cursor:pointer; padding:4px 8px; border-radius:4px; transition:all 0.2s; text-transform:uppercase; font-family:inherit; }
+.lang-switcher button:hover { color:var(--text-primary); }
+.lang-switcher button.active { background:var(--teal-500); color:white; }
+</style></head>
 <body>
 <div class="dashboard">
   <aside class="sidebar" id="sidebar">
     <div class="sidebar-header">
       <div class="sidebar-logo">CF</div>
-      <div><div style="font-weight:700;font-size:var(--text-sm);">CleanFix</div><div style="font-size:var(--text-xs);color:var(--text-muted);">Firma Paneli</div></div>
+      <div><div style="font-weight:700;font-size:var(--text-sm);" data-i18n="company_cleanfix">CleanFix</div><div style="font-size:var(--text-xs);color:var(--text-muted);" data-i18n="nav_company" data-i18n="sidebar.companyPanel">Firma Paneli</div></div>
     </div>
     <nav class="sidebar-nav">
       <div class="nav-group">
-        <div class="nav-group-header">Ana Menü</div>
-        <a href="company.html" class="nav-item"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>Dashboard</a>
-        <a href="company-bookings.html" class="nav-item"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>Randevular</a>
-        <a href="company-staff.html" class="nav-item"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>Çalışanlar</a>
-        <a href="company-services.html" class="nav-item"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>Hizmetler</a>
-        <a href="company-invoices.html" class="nav-item"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>Faturalar</a>
-        <a href="company-customers.html" class="nav-item"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>Müşteriler</a>
-        <a href="company-stock.html" class="nav-item"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>Stok</a>
-        <a href="company-reviews.html" class="nav-item"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>Değerlendirmeler</a>
-        <a href="company-quotes.html" class="nav-item active"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><path d="M12 18v-6"/><path d="M8 15h8"/></svg>Teklifler</a>
-        <a href="company-analytics.html" class="nav-item"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 20V10"/><path d="M12 20V4"/><path d="M6 20v-6"/></svg>Analiz</a>
+        <div class="nav-group-header" data-i18n="nav.mainMenu">Ana Menü</div>
+        <a href="company.html" class="nav-item"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg data-i18n="nav.dashboard">Dashboard</a>
+        <a href="company-bookings.html" class="nav-item"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg data-i18n="nav.bookings">Randevular</a>
+        <a href="company-staff.html" class="nav-item"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg data-i18n="nav.staff">Çalışanlar</a>
+        <a href="company-services.html" class="nav-item"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg data-i18n="nav.services">Hizmetler</a>
+        <a href="company-invoices.html" class="nav-item"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg data-i18n="nav.invoices">Faturalar</a>
+        <a href="company-customers.html" class="nav-item"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg data-i18n="nav.customers">Müşteriler</a>
+        <a href="company-stock.html" class="nav-item"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg data-i18n="nav.stock">Stok</a>
+        <a href="company-reviews.html" class="nav-item"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg data-i18n="nav.reviews">Değerlendirmeler</a>
+        <a href="company-quotes.html" class="nav-item active"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><path d="M12 18v-6"/><path d="M8 15h8"/></svg data-i18n="nav.quotes">Teklifler</a>
+        <a href="company-analytics.html" class="nav-item"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 20V10"/><path d="M12 20V4"/><path d="M6 20v-6"/></svg data-i18n="nav.analytics">Analiz</a>
       </div>
       <div class="nav-group">
-        <div class="nav-group-header">Ayarlar</div>
-        <a href="company-profile.html" class="nav-item"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Firma Profili</a>
-        <a href="login.html" class="nav-item"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>Çıkış Yap</a>
+        <div class="nav-group-header" data-i18n="settings_title">Ayarlar</div>
+        <a href="company-profile.html" class="nav-item"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg data-i18n="nav.companyProfile">Firma Profili</a>
+        <a href="login.html" class="nav-item"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg data-i18n="nav.logout">Çıkış Yap</a>
       </div>
     </nav>
   </aside>
@@ -151,10 +158,15 @@
     <header class="header">
       <div class="header-left">
         <button class="hamburger" onclick="document.getElementById('sidebar').classList.toggle('open')">☰</button>
-        <h1 class="page-title">Teklifler</h1>
+        <h1 class="page-title" data-i18n="title_quotes">Teklifler</h1>
       </div>
       <div class="header-right">
-        <div style="display:flex;align-items:center;gap:10px;"><div class="avatar" style="background:linear-gradient(135deg,#14b8a6,#0d9488);width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:var(--text-xs);color:white;">CF</div><div><div style="font-weight:600;font-size:var(--text-sm);">CleanFix Demo BV</div><div style="font-size:var(--text-xs);color:var(--text-muted);">Business Plan</div></div></div>
+  <div class="lang-switcher">
+    <button data-lang="tr" onclick="switchLang('tr')">TR</button>
+    <button data-lang="en" onclick="switchLang('en')">EN</button>
+    <button data-lang="nl" onclick="switchLang('nl')">NL</button>
+  </div>
+        <div style="display:flex;align-items:center;gap:10px;"><div class="avatar" style="background:linear-gradient(135deg,#14b8a6,#0d9488);width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:var(--text-xs);color:white;">CF</div><div><div style="font-weight:600;font-size:var(--text-sm);" data-i18n="company_name" data-i18n="header.company">CleanFix Demo BV</div><div style="font-size:var(--text-xs);color:var(--text-muted);" data-i18n="company_business_plan" data-i18n="header.plan">Business Plan</div></div></div>
       </div>
     </header>
 
@@ -162,29 +174,29 @@
       <!-- Stat Cards -->
       <div class="stats-grid">
         <div class="stat-card">
-          <div class="stat-label">Toplam Teklifler</div>
+          <div class="stat-label" data-i18n="kpi_total_quotes" data-i18n="stat.totalQuotes">Toplam Teklifler</div>
           <div class="stat-value" style="color:var(--teal-500);">12</div>
-          <div class="stat-change up">↑ Bu ay +3</div>
+          <div class="stat-change up" data-i18n="trend_this_month">↑ Bu ay +3</div>
         </div>
         <div class="stat-card">
-          <div class="stat-label">Onaylanan (€)</div>
+          <div class="stat-label" data-i18n="kpi_approved" data-i18n="stat.approved">Onaylanan (€)</div>
           <div class="stat-value" style="color:var(--success-500);">€4.218</div>
-          <div class="stat-change up">↑ %24 artış</div>
+          <div class="stat-change up" data-i18n="trend_increase">↑ %24 artış</div>
         </div>
         <div class="stat-card">
-          <div class="stat-label">Bekleyen (€)</div>
+          <div class="stat-label" data-i18n="kpi_pending" data-i18n="stat.pending">Bekleyen (€)</div>
           <div class="stat-value" style="color:var(--amber-500);">€2.645</div>
           <div class="stat-change down">5 teklif beklemede</div>
         </div>
         <div class="stat-card">
-          <div class="stat-label">Reddedilen (€)</div>
+          <div class="stat-label" data-i18n="kpi_rejected" data-i18n="stat.rejected">Reddedilen (€)</div>
           <div class="stat-value" style="color:var(--error-500);">€890</div>
           <div class="stat-change">2 teklif reddedildi</div>
         </div>
         <div class="stat-card">
-          <div class="stat-label">Dönüşüm Oranı</div>
+          <div class="stat-label" data-i18n="kpi_conversion" data-i18n="stat.conversion">Dönüşüm Oranı</div>
           <div class="stat-value" style="color:var(--info-500);">%68</div>
-          <div class="stat-change up">↑ %5 yukarı</div>
+          <div class="stat-change up" data-i18n="trend_up">↑ %5 yukarı</div>
         </div>
       </div>
 
@@ -192,24 +204,24 @@
       <div class="toolbar">
         <div class="search-box">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-          <input type="text" placeholder="Teklif ara..." id="searchInput" onkeyup="filterQuotes()">
+          <input type="text" placeholder="Teklif ara..." data-i18n-placeholder="search.placeholder" id="searchInput" onkeyup="filterQuotes()">
         </div>
         <div class="filters">
           <select id="statusFilter" onchange="filterQuotes()">
-            <option value="">Tümü</option>
-            <option value="Taslak">Taslak</option>
-            <option value="Gönderildi">Gönderildi</option>
-            <option value="Onaylandı">Onaylandı</option>
-            <option value="Reddedildi">Reddedildi</option>
-            <option value="Faturaya Dönüştürüldü">Faturaya Dönüştürüldü</option>
+            <option value="" data-i18n="gen_all" data-i18n="filter.all">Tümü</option>
+            <option value="Taslak" data-i18n="status_draft" data-i18n="filter.draft">Taslak</option>
+            <option value="Gönderildi" data-i18n="status_sent" data-i18n="filter.sent">Gönderildi</option>
+            <option value="Onaylandı" data-i18n="status_approved" data-i18n="filter.approved">Onaylandı</option>
+            <option value="Reddedildi" data-i18n="status_rejected" data-i18n="filter.rejected">Reddedildi</option>
+            <option value="Faturaya Dönüştürüldü" data-i18n="status_invoiced" data-i18n="filter.converted">Faturaya Dönüştürüldü</option>
           </select>
           <select id="dateFilter" onchange="filterQuotes()">
-            <option value="">Tüm Tarihler</option>
-            <option value="today">Bugün</option>
-            <option value="week">Bu Hafta</option>
-            <option value="month">Bu Ay</option>
+            <option value="" data-i18n="form_all_dates" data-i18n="filter.allDates">Tüm Tarihler</option>
+            <option value="today" data-i18n="time_today" data-i18n="filter.today">Bugün</option>
+            <option value="week" data-i18n="time_this_week" data-i18n="filter.thisWeek">Bu Hafta</option>
+            <option value="month" data-i18n="time_this_month" data-i18n="filter.thisMonth">Bu Ay</option>
           </select>
-          <button class="btn btn-primary" onclick="openModal('addModal')">+ Yeni Teklif</button>
+          <button class="btn btn-primary" onclick="openModal('addModal')" data-i18n="btn_new_quote">+ Yeni Teklif</button>
         </div>
       </div>
 
@@ -219,15 +231,15 @@
           <table class="table" id="quotesTable">
             <thead>
               <tr>
-                <th>Teklif No</th>
-                <th>Müşteri</th>
-                <th>Tarih</th>
-                <th>Geçerlilik</th>
-                <th>Tutar</th>
-                <th>KDV</th>
-                <th>Genel Toplam</th>
-                <th>Durum</th>
-                <th>İşlemler</th>
+                <th data-i18n="th_quote_no">Teklif No</th>
+                <th data-i18n="th_customer">Müşteri</th>
+                <th data-i18n="th_date">Tarih</th>
+                <th data-i18n="form_valid_until">Geçerlilik</th>
+                <th data-i18n="th_amount">Tutar</th>
+                <th data-i18n="table.vat">KDV</th>
+                <th data-i18n="form_grand_total">Genel Toplam</th>
+                <th data-i18n="th_status">Durum</th>
+                <th data-i18n="th_actions">İşlemler</th>
               </tr>
             </thead>
             <tbody>
@@ -243,11 +255,11 @@
                 <td style="font-weight:600;">€371</td>
                 <td style="font-size:var(--text-xs);color:var(--text-muted);">€78</td>
                 <td style="font-weight:700;color:var(--teal-500);">€449</td>
-                <td><span class="tag tag-green">Onaylandı</span></td>
+                <td><span class="tag tag-green" data-i18n="status_approved" data-i18n="status.approved">Onaylandı</span></td>
                 <td>
                   <div class="actions">
-                    <button class="action-btn" onclick="toggleExpand(1)" title="Detay">📋</button>
-                    <button class="action-btn" onclick="openPdfPreview(1)" title="PDF Gör">🖨</button>
+                    <button class="action-btn" onclick="toggleExpand(1)" title="Detay" data-i18n-attr="title" data-i18n="action.detail">📋</button>
+                    <button class="action-btn" onclick="openPdfPreview(1)" title="PDF Gör" data-i18n-attr="title" data-i18n="action.pdfView">🖨</button>
                   </div>
                 </td>
               </tr>
@@ -255,11 +267,11 @@
                 <td colspan="9" style="padding:0;">
                   <div class="quote-expand active" style="margin:0 16px 16px;">
                     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
-                      <strong style="color:var(--text-primary);">Hizmet ve Malzeme Detayı</strong>
-                      <span style="font-size:var(--text-xs);color:var(--text-muted);">Teklif #T-2026-56</span>
+                      <strong style="color:var(--text-primary);" data-i18n="pdf_service_material_detail" data-i18n="detail.title">Hizmet ve Malzeme Detayı</strong>
+                      <span style="font-size:var(--text-xs);color:var(--text-muted);" data-i18n="detail.quote">Teklif #T-2026-56</span>
                     </div>
                     <table class="line-items-table">
-                      <thead><tr><th>Açıklama</th><th>Adet</th><th>Birim Fiyat</th><th>Tutar</th></tr></thead>
+                      <thead><tr><th data-i18n="ph_description">Açıklama</th><th data-i18n="ph_quantity">Adet</th><th data-i18n="form_unit_price">Birim Fiyat</th><th data-i18n="th_amount">Tutar</th></tr></thead>
                       <tbody>
                         <tr><td>Komple Detaylı Temizlik (Ofis)</td><td>1</td><td>€149,00</td><td style="font-weight:600;">€149,00</td></tr>
                         <tr><td>Cam Temizliği (İç + Dış)</td><td>8</td><td>€12,50</td><td style="font-weight:600;">€100,00</td></tr>
@@ -269,13 +281,13 @@
                       </tbody>
                     </table>
                     <div class="quote-totals">
-                      <div class="quote-total-row">Ara Toplam: <strong>€371,00</strong></div>
-                      <div class="quote-total-row">KDV (%21): <strong>€77,91</strong></div>
-                      <div class="quote-total-row grand">Genel Toplam: <strong>€448,91</strong></div>
+                      <div class="quote-total-row" data-i18n="pdf_subtotal" data-i18n="total.subtotal">Ara Toplam: <strong>€371,00</strong></div>
+                      <div class="quote-total-row" data-i18n="pdf_vat" data-i18n="total.vat">KDV (%21): <strong>€77,91</strong></div>
+                      <div class="quote-total-row grand" data-i18n="pdf_grand_total" data-i18n="total.grand">Genel Toplam: <strong>€448,91</strong></div>
                     </div>
                     <div style="margin-top:16px;display:flex;gap:10px;">
-                      <button class="btn btn-primary btn-sm" onclick="printQuote(1)">🖨 PDF İndir</button>
-                      <button class="btn btn-secondary btn-sm" onclick="convertToInvoice(1)">🧾 Faturaya Dönüştür</button>
+                      <button class="btn btn-primary btn-sm" onclick="printQuote(1)" data-i18n="btn_pdf_download">🖨 PDF İndir</button>
+                      <button class="btn btn-secondary btn-sm" onclick="convertToInvoice(1)" data-i18n="btn_convert_invoice">🧾 Faturaya Dönüştür</button>
                     </div>
                   </div>
                 </td>
@@ -293,14 +305,14 @@
                 <td style="font-weight:600;">€256</td>
                 <td style="font-size:var(--text-xs);color:var(--text-muted);">€54</td>
                 <td style="font-weight:700;color:var(--teal-500);">€310</td>
-                <td><span class="tag tag-blue">Gönderildi</span></td>
+                <td><span class="tag tag-blue" data-i18n="status_sent" data-i18n="status.sent">Gönderildi</span></td>
                 <td>
                   <div class="actions">
-                    <button class="action-btn" onclick="toggleExpand(2)" title="Detay">📋</button>
-                    <button class="action-btn" onclick="openPdfPreview(2)" title="PDF Gör">🖨</button>
-                    <button class="action-btn" onclick="sendEmail(2)" title="Gönder">📧</button>
-                    <button class="action-btn" onclick="approveQuote(2)" title="Onayla">✓</button>
-                    <button class="action-btn" onclick="rejectQuote(2)" title="Reddet">✕</button>
+                    <button class="action-btn" onclick="toggleExpand(2)" title="Detay" data-i18n-attr="title" data-i18n="action.detail">📋</button>
+                    <button class="action-btn" onclick="openPdfPreview(2)" title="PDF Gör" data-i18n-attr="title" data-i18n="action.pdfView">🖨</button>
+                    <button class="action-btn" onclick="sendEmail(2)" title="Gönder" data-i18n-attr="title" data-i18n="action.send">📧</button>
+                    <button class="action-btn" onclick="approveQuote(2)" title="Onayla" data-i18n-attr="title" data-i18n="action.approve">✓</button>
+                    <button class="action-btn" onclick="rejectQuote(2)" title="Reddet" data-i18n-attr="title" data-i18n="action.reject">✕</button>
                   </div>
                 </td>
               </tr>
@@ -308,11 +320,11 @@
                 <td colspan="9" style="padding:0;">
                   <div class="quote-expand" style="margin:0 16px 16px;">
                     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
-                      <strong style="color:var(--text-primary);">Hizmet ve Malzeme Detayı</strong>
-                      <span style="font-size:var(--text-xs);color:var(--text-muted);">Teklif #T-2026-57</span>
+                      <strong style="color:var(--text-primary);" data-i18n="pdf_service_material_detail" data-i18n="detail.title">Hizmet ve Malzeme Detayı</strong>
+                      <span style="font-size:var(--text-xs);color:var(--text-muted);" data-i18n="detail.quote">Teklif #T-2026-57</span>
                     </div>
                     <table class="line-items-table">
-                      <thead><tr><th>Açıklama</th><th>Adet</th><th>Birim Fiyat</th><th>Tutar</th></tr></thead>
+                      <thead><tr><th data-i18n="ph_description">Açıklama</th><th data-i18n="ph_quantity">Adet</th><th data-i18n="form_unit_price">Birim Fiyat</th><th data-i18n="th_amount">Tutar</th></tr></thead>
                       <tbody>
                         <tr><td>İç Mekan Temizliği (Haftalık)</td><td>4</td><td>€45,00</td><td style="font-weight:600;">€180,00</td></tr>
                         <tr><td>Halı ve Koltuk Shampuanı</td><td>2</td><td>€28,00</td><td style="font-weight:600;">€56,00</td></tr>
@@ -320,13 +332,13 @@
                       </tbody>
                     </table>
                     <div class="quote-totals">
-                      <div class="quote-total-row">Ara Toplam: <strong>€256,00</strong></div>
-                      <div class="quote-total-row">KDV (%21): <strong>€53,76</strong></div>
-                      <div class="quote-total-row grand">Genel Toplam: <strong>€309,76</strong></div>
+                      <div class="quote-total-row" data-i18n="pdf_subtotal" data-i18n="total.subtotal">Ara Toplam: <strong>€256,00</strong></div>
+                      <div class="quote-total-row" data-i18n="pdf_vat" data-i18n="total.vat">KDV (%21): <strong>€53,76</strong></div>
+                      <div class="quote-total-row grand" data-i18n="pdf_grand_total" data-i18n="total.grand">Genel Toplam: <strong>€309,76</strong></div>
                     </div>
                     <div style="margin-top:16px;display:flex;gap:10px;">
-                      <button class="btn btn-primary btn-sm" onclick="printQuote(2)">🖨 PDF İndir</button>
-                      <button class="btn btn-secondary btn-sm" onclick="sendEmail(2)">📧 Müşteriye Gönder</button>
+                      <button class="btn btn-primary btn-sm" onclick="printQuote(2)" data-i18n="btn_pdf_download">🖨 PDF İndir</button>
+                      <button class="btn btn-secondary btn-sm" onclick="sendEmail(2)" data-i18n="btn_send_email">📧 Müşteriye Gönder</button>
                     </div>
                   </div>
                 </td>
@@ -344,12 +356,12 @@
                 <td style="font-weight:600;">€1.850</td>
                 <td style="font-size:var(--text-xs);color:var(--text-muted);">€389</td>
                 <td style="font-weight:700;color:var(--teal-500);">€2.239</td>
-                <td><span class="tag tag-purple">Taslak</span></td>
+                <td><span class="tag tag-purple" data-i18n="status_draft" data-i18n="status.draft">Taslak</span></td>
                 <td>
                   <div class="actions">
-                    <button class="action-btn" onclick="toggleExpand(3)" title="Detay">📋</button>
-                    <button class="action-btn" onclick="openPdfPreview(3)" title="PDF Gör">🖨</button>
-                    <button class="action-btn" onclick="sendEmail(3)" title="Gönder">📧</button>
+                    <button class="action-btn" onclick="toggleExpand(3)" title="Detay" data-i18n-attr="title" data-i18n="action.detail">📋</button>
+                    <button class="action-btn" onclick="openPdfPreview(3)" title="PDF Gör" data-i18n-attr="title" data-i18n="action.pdfView">🖨</button>
+                    <button class="action-btn" onclick="sendEmail(3)" title="Gönder" data-i18n-attr="title" data-i18n="action.send">📧</button>
                   </div>
                 </td>
               </tr>
@@ -357,11 +369,11 @@
                 <td colspan="9" style="padding:0;">
                   <div class="quote-expand" style="margin:0 16px 16px;">
                     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
-                      <strong style="color:var(--text-primary);">Hizmet ve Malzeme Detayı</strong>
-                      <span style="font-size:var(--text-xs);color:var(--text-muted);">Teklif #T-2026-58</span>
+                      <strong style="color:var(--text-primary);" data-i18n="pdf_service_material_detail" data-i18n="detail.title">Hizmet ve Malzeme Detayı</strong>
+                      <span style="font-size:var(--text-xs);color:var(--text-muted);" data-i18n="detail.quote">Teklif #T-2026-58</span>
                     </div>
                     <table class="line-items-table">
-                      <thead><tr><th>Açıklama</th><th>Adet</th><th>Birim Fiyat</th><th>Tutar</th></tr></thead>
+                      <thead><tr><th data-i18n="ph_description">Açıklama</th><th data-i18n="ph_quantity">Adet</th><th data-i18n="form_unit_price">Birim Fiyat</th><th data-i18n="th_amount">Tutar</th></tr></thead>
                       <tbody>
                         <tr><td>Oto Galeri Komple Temizlik</td><td>1</td><td>€650,00</td><td style="font-weight:600;">€650,00</td></tr>
                         <tr><td>Showroom Parlatma ve Cila</td><td>1</td><td>€425,00</td><td style="font-weight:600;">€425,00</td></tr>
@@ -371,13 +383,13 @@
                       </tbody>
                     </table>
                     <div class="quote-totals">
-                      <div class="quote-total-row">Ara Toplam: <strong>€1.850,00</strong></div>
-                      <div class="quote-total-row">KDV (%21): <strong>€388,50</strong></div>
-                      <div class="quote-total-row grand">Genel Toplam: <strong>€2.238,50</strong></div>
+                      <div class="quote-total-row" data-i18n="pdf_subtotal" data-i18n="total.subtotal">Ara Toplam: <strong>€1.850,00</strong></div>
+                      <div class="quote-total-row" data-i18n="pdf_vat" data-i18n="total.vat">KDV (%21): <strong>€388,50</strong></div>
+                      <div class="quote-total-row grand" data-i18n="pdf_grand_total" data-i18n="total.grand">Genel Toplam: <strong>€2.238,50</strong></div>
                     </div>
                     <div style="margin-top:16px;display:flex;gap:10px;">
-                      <button class="btn btn-primary btn-sm" onclick="sendEmail(3)">📧 Müşteriye Gönder</button>
-                      <button class="btn btn-secondary btn-sm" onclick="printQuote(3)">🖨 PDF Önizle</button>
+                      <button class="btn btn-primary btn-sm" onclick="sendEmail(3)" data-i18n="btn_send_email">📧 Müşteriye Gönder</button>
+                      <button class="btn btn-secondary btn-sm" onclick="printQuote(3)" data-i18n="btn_pdf_preview">🖨 PDF Önizle</button>
                     </div>
                   </div>
                 </td>
@@ -395,14 +407,14 @@
                 <td style="font-weight:600;">€890</td>
                 <td style="font-size:var(--var(--text-xs));color:var(--text-muted);">€187</td>
                 <td style="font-weight:700;color:var(--teal-500);">€1.077</td>
-                <td><span class="tag tag-blue">Gönderildi</span></td>
+                <td><span class="tag tag-blue" data-i18n="status_sent">Gönderildi</span></td>
                 <td>
                   <div class="actions">
-                    <button class="action-btn" onclick="toggleExpand(4)" title="Detay">📋</button>
-                    <button class="action-btn" onclick="openPdfPreview(4)" title="PDF Gör">🖨</button>
-                    <button class="action-btn" onclick="sendEmail(4)" title="Gönder">📧</button>
-                    <button class="action-btn" onclick="approveQuote(4)" title="Onayla">✓</button>
-                    <button class="action-btn" onclick="rejectQuote(4)" title="Reddet">✕</button>
+                    <button class="action-btn" onclick="toggleExpand(4)" title="Detay" data-i18n-attr="title" data-i18n="action.detail">📋</button>
+                    <button class="action-btn" onclick="openPdfPreview(4)" title="PDF Gör" data-i18n-attr="title" data-i18n="action.pdfView">🖨</button>
+                    <button class="action-btn" onclick="sendEmail(4)" title="Gönder" data-i18n-attr="title" data-i18n="action.send">📧</button>
+                    <button class="action-btn" onclick="approveQuote(4)" title="Onayla" data-i18n-attr="title" data-i18n="action.approve">✓</button>
+                    <button class="action-btn" onclick="rejectQuote(4)" title="Reddet" data-i18n-attr="title" data-i18n="action.reject">✕</button>
                   </div>
                 </td>
               </tr>
@@ -410,11 +422,11 @@
                 <td colspan="9" style="padding:0;">
                   <div class="quote-expand" style="margin:0 16px 16px;">
                     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
-                      <strong style="color:var(--text-primary);">Hizmet ve Malzeme Detayı</strong>
-                      <span style="font-size:var(--text-xs);color:var(--text-muted);">Teklif #T-2026-59</span>
+                      <strong style="color:var(--text-primary);" data-i18n="pdf_service_material_detail" data-i18n="detail.title">Hizmet ve Malzeme Detayı</strong>
+                      <span style="font-size:var(--text-xs);color:var(--text-muted);" data-i18n="detail.quote">Teklif #T-2026-59</span>
                     </div>
                     <table class="line-items-table">
-                      <thead><tr><th>Açıklama</th><th>Adet</th><th>Birim Fiyat</th><th>Tutar</th></tr></thead>
+                      <thead><tr><th data-i18n="ph_description">Açıklama</th><th data-i18n="ph_quantity">Adet</th><th data-i18n="form_unit_price">Birim Fiyat</th><th data-i18n="th_amount">Tutar</th></tr></thead>
                       <tbody>
                         <tr><td>Medikal Alan Dezenfeksiyonu (Haftalık)</td><td>4</td><td>€150,00</td><td style="font-weight:600;">€600,00</td></tr>
                         <tr><td>HVAC Filtre Değişimi ve Temizlik</td><td>2</td><td>€95,00</td><td style="font-weight:600;">€190,00</td></tr>
@@ -422,13 +434,13 @@
                       </tbody>
                     </table>
                     <div class="quote-totals">
-                      <div class="quote-total-row">Ara Toplam: <strong>€890,00</strong></div>
-                      <div class="quote-total-row">KDV (%21): <strong>€186,90</strong></div>
-                      <div class="quote-total-row grand">Genel Toplam: <strong>€1.076,90</strong></div>
+                      <div class="quote-total-row" data-i18n="pdf_subtotal" data-i18n="total.subtotal">Ara Toplam: <strong>€890,00</strong></div>
+                      <div class="quote-total-row" data-i18n="pdf_vat" data-i18n="total.vat">KDV (%21): <strong>€186,90</strong></div>
+                      <div class="quote-total-row grand" data-i18n="pdf_grand_total" data-i18n="total.grand">Genel Toplam: <strong>€1.076,90</strong></div>
                     </div>
                     <div style="margin-top:16px;display:flex;gap:10px;">
-                      <button class="btn btn-primary btn-sm" onclick="printQuote(4)">🖨 PDF İndir</button>
-                      <button class="btn btn-secondary btn-sm" onclick="sendEmail(4)">📧 Tekrar Gönder</button>
+                      <button class="btn btn-primary btn-sm" onclick="printQuote(4)" data-i18n="btn_pdf_download">🖨 PDF İndir</button>
+                      <button class="btn btn-secondary btn-sm" onclick="sendEmail(4)" data-i18n="btn_send_again">📧 Tekrar Gönder</button>
                     </div>
                   </div>
                 </td>
@@ -446,12 +458,12 @@
                 <td style="font-weight:600;">€420</td>
                 <td style="font-size:var(--text-xs);color:var(--text-muted);">€88</td>
                 <td style="font-weight:700;color:var(--teal-500);">€508</td>
-                <td><span class="tag tag-green">Faturaya Dönüştürüldü</span></td>
+                <td><span class="tag tag-green" data-i18n="status_invoiced" data-i18n="status.converted">Faturaya Dönüştürüldü</span></td>
                 <td>
                   <div class="actions">
-                    <button class="action-btn" onclick="toggleExpand(5)" title="Detay">📋</button>
-                    <button class="action-btn" onclick="openPdfPreview(5)" title="PDF Gör">🖨</button>
-                    <a href="company-invoices.html" class="action-btn" title="Faturaya Git" style="text-decoration:none;">🧾</a>
+                    <button class="action-btn" onclick="toggleExpand(5)" title="Detay" data-i18n-attr="title" data-i18n="action.detail">📋</button>
+                    <button class="action-btn" onclick="openPdfPreview(5)" title="PDF Gör" data-i18n-attr="title" data-i18n="action.pdfView">🖨</button>
+                    <a href="company-invoices.html" class="action-btn" title="Faturaya Git" data-i18n-attr="title" data-i18n="action.goInvoice" style="text-decoration:none;">🧾</a>
                   </div>
                 </td>
               </tr>
@@ -459,11 +471,11 @@
                 <td colspan="9" style="padding:0;">
                   <div class="quote-expand" style="margin:0 16px 16px;">
                     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
-                      <strong style="color:var(--text-primary);">Hizmet ve Malzeme Detayı</strong>
+                      <strong style="color:var(--text-primary);" data-i18n="pdf_service_material_detail" data-i18n="detail.title">Hizmet ve Malzeme Detayı</strong>
                       <span style="font-size:var(--text-xs);color:var(--text-muted);">Teklif #T-2026-55 — Faturaya Dönüştürüldü</span>
                     </div>
                     <table class="line-items-table">
-                      <thead><tr><th>Açıklama</th><th>Adet</th><th>Birim Fiyat</th><th>Tutar</th></tr></thead>
+                      <thead><tr><th data-i18n="ph_description">Açıklama</th><th data-i18n="ph_quantity">Adet</th><th data-i18n="form_unit_price">Birim Fiyat</th><th data-i18n="th_amount">Tutar</th></tr></thead>
                       <tbody>
                         <tr><td>Restoran Mutfak Derin Temizlik</td><td>2</td><td>€125,00</td><td style="font-weight:600;">€250,00</td></tr>
                         <tr><td>Yağ Çözücü ve Sanitasyon</td><td>3</td><td>€35,00</td><td style="font-weight:600;">€105,00</td></tr>
@@ -471,12 +483,12 @@
                       </tbody>
                     </table>
                     <div class="quote-totals">
-                      <div class="quote-total-row">Ara Toplam: <strong>€420,00</strong></div>
-                      <div class="quote-total-row">KDV (%21): <strong>€88,20</strong></div>
-                      <div class="quote-total-row grand">Genel Toplam: <strong>€508,20</strong></div>
+                      <div class="quote-total-row" data-i18n="pdf_subtotal" data-i18n="total.subtotal">Ara Toplam: <strong>€420,00</strong></div>
+                      <div class="quote-total-row" data-i18n="pdf_vat" data-i18n="total.vat">KDV (%21): <strong>€88,20</strong></div>
+                      <div class="quote-total-row grand" data-i18n="pdf_grand_total" data-i18n="total.grand">Genel Toplam: <strong>€508,20</strong></div>
                     </div>
                     <div style="margin-top:16px;">
-                      <a href="company-invoices.html" class="btn btn-primary btn-sm">🧾 Faturaya Git</a>
+                      <a href="company-invoices.html" class="btn btn-primary btn-sm" data-i18n="btn_go_invoice">🧾 Faturaya Git</a>
                     </div>
                   </div>
                 </td>
@@ -494,12 +506,12 @@
                 <td style="font-weight:600;">€180</td>
                 <td style="font-size:var(--text-xs);color:var(--text-muted);">€38</td>
                 <td style="font-weight:700;color:var(--teal-500);">€218</td>
-                <td><span class="tag tag-red">Reddedildi</span></td>
+                <td><span class="tag tag-red" data-i18n="status_rejected" data-i18n="status.rejected">Reddedildi</span></td>
                 <td>
                   <div class="actions">
-                    <button class="action-btn" onclick="toggleExpand(6)" title="Detay">📋</button>
-                    <button class="action-btn" onclick="openPdfPreview(6)" title="PDF Gör">🖨</button>
-                    <button class="action-btn" onclick="renewQuote(6)" title="Yenile">↻</button>
+                    <button class="action-btn" onclick="toggleExpand(6)" title="Detay" data-i18n-attr="title" data-i18n="action.detail">📋</button>
+                    <button class="action-btn" onclick="openPdfPreview(6)" title="PDF Gör" data-i18n-attr="title" data-i18n="action.pdfView">🖨</button>
+                    <button class="action-btn" onclick="renewQuote(6)" title="Yenile" data-i18n-attr="title" data-i18n="action.newVersion">↻</button>
                   </div>
                 </td>
               </tr>
@@ -507,24 +519,24 @@
                 <td colspan="9" style="padding:0;">
                   <div class="quote-expand" style="margin:0 16px 16px;">
                     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
-                      <strong style="color:var(--text-primary);">Hizmet ve Malzeme Detayı</strong>
+                      <strong style="color:var(--text-primary);" data-i18n="pdf_service_material_detail" data-i18n="detail.title">Hizmet ve Malzeme Detayı</strong>
                       <span style="font-size:var(--text-xs);color:var(--text-muted);">Teklif #T-2026-54 — Reddedildi</span>
                     </div>
                     <table class="line-items-table">
-                      <thead><tr><th>Açıklama</th><th>Adet</th><th>Birim Fiyat</th><th>Tutar</th></tr></thead>
+                      <thead><tr><th data-i18n="ph_description">Açıklama</th><th data-i18n="ph_quantity">Adet</th><th data-i18n="form_unit_price">Birim Fiyat</th><th data-i18n="th_amount">Tutar</th></tr></thead>
                       <tbody>
                         <tr><td>Apartman Giriş ve Merdiven Temizliği</td><td>1</td><td>€120,00</td><td style="font-weight:600;">€120,00</td></tr>
                         <tr><td>Çöp Konteyner Dezenfeksiyonu</td><td>4</td><td>€15,00</td><td style="font-weight:600;">€60,00</td></tr>
                       </tbody>
                     </table>
                     <div class="quote-totals">
-                      <div class="quote-total-row">Ara Toplam: <strong>€180,00</strong></div>
-                      <div class="quote-total-row">KDV (%21): <strong>€37,80</strong></div>
-                      <div class="quote-total-row grand">Genel Toplam: <strong>€217,80</strong></div>
+                      <div class="quote-total-row" data-i18n="pdf_subtotal" data-i18n="total.subtotal">Ara Toplam: <strong>€180,00</strong></div>
+                      <div class="quote-total-row" data-i18n="pdf_vat" data-i18n="total.vat">KDV (%21): <strong>€37,80</strong></div>
+                      <div class="quote-total-row grand" data-i18n="pdf_grand_total" data-i18n="total.grand">Genel Toplam: <strong>€217,80</strong></div>
                     </div>
                     <div style="margin-top:16px;display:flex;gap:10px;">
-                      <button class="btn btn-primary btn-sm" onclick="renewQuote(6)">↻ Yeni Versiyon Oluştur</button>
-                      <button class="btn btn-secondary btn-sm" onclick="printQuote(6)">🖨 PDF Gör</button>
+                      <button class="btn btn-primary btn-sm" onclick="renewQuote(6)" data-i18n="btn_renew_version">↻ Yeni Versiyon Oluştur</button>
+                      <button class="btn btn-secondary btn-sm" onclick="printQuote(6)" data-i18n="btn_pdf_view">🖨 PDF Gör</button>
                     </div>
                   </div>
                 </td>
@@ -542,12 +554,12 @@
                 <td style="font-weight:600;">€650</td>
                 <td style="font-size:var(--text-xs);color:var(--text-muted);">€137</td>
                 <td style="font-weight:700;color:var(--teal-500);">€787</td>
-                <td><span class="tag tag-green">Onaylandı</span></td>
+                <td><span class="tag tag-green" data-i18n="status_approved">Onaylandı</span></td>
                 <td>
                   <div class="actions">
-                    <button class="action-btn" onclick="toggleExpand(7)" title="Detay">📋</button>
-                    <button class="action-btn" onclick="openPdfPreview(7)" title="PDF Gör">🖨</button>
-                    <button class="action-btn" onclick="convertToInvoice(7)" title="Faturaya Dönüştür">🧾</button>
+                    <button class="action-btn" onclick="toggleExpand(7)" title="Detay" data-i18n-attr="title" data-i18n="action.detail">📋</button>
+                    <button class="action-btn" onclick="openPdfPreview(7)" title="PDF Gör" data-i18n-attr="title" data-i18n="action.pdfView">🖨</button>
+                    <button class="action-btn" onclick="convertToInvoice(7)" title="Faturaya Dönüştür" data-i18n-attr="title" data-i18n="action.convertInvoice">🧾</button>
                   </div>
                 </td>
               </tr>
@@ -555,11 +567,11 @@
                 <td colspan="9" style="padding:0;">
                   <div class="quote-expand" style="margin:0 16px 16px;">
                     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
-                      <strong style="color:var(--text-primary);">Hizmet ve Malzeme Detayı</strong>
-                      <span style="font-size:var(--text-xs);color:var(--text-muted);">Teklif #T-2026-53</span>
+                      <strong style="color:var(--text-primary);" data-i18n="pdf_service_material_detail" data-i18n="detail.title">Hizmet ve Malzeme Detayı</strong>
+                      <span style="font-size:var(--text-xs);color:var(--text-muted);" data-i18n="detail.quote">Teklif #T-2026-53</span>
                     </div>
                     <table class="line-items-table">
-                      <thead><tr><th>Açıklama</th><th>Adet</th><th>Birim Fiyat</th><th>Tutar</th></tr></thead>
+                      <thead><tr><th data-i18n="ph_description">Açıklama</th><th data-i18n="ph_quantity">Adet</th><th data-i18n="form_unit_price">Birim Fiyat</th><th data-i18n="th_amount">Tutar</th></tr></thead>
                       <tbody>
                         <tr><td>Spor Salonu Ekipman Dezenfeksiyonu</td><td>8</td><td>€45,00</td><td style="font-weight:600;">€360,00</td></tr>
                         <tr><td>Duş ve Soyunma Odası Derin Temizlik</td><td>2</td><td>€85,00</td><td style="font-weight:600;">€170,00</td></tr>
@@ -567,13 +579,13 @@
                       </tbody>
                     </table>
                     <div class="quote-totals">
-                      <div class="quote-total-row">Ara Toplam: <strong>€650,00</strong></div>
-                      <div class="quote-total-row">KDV (%21): <strong>€136,50</strong></div>
-                      <div class="quote-total-row grand">Genel Toplam: <strong>€786,50</strong></div>
+                      <div class="quote-total-row" data-i18n="pdf_subtotal" data-i18n="total.subtotal">Ara Toplam: <strong>€650,00</strong></div>
+                      <div class="quote-total-row" data-i18n="pdf_vat" data-i18n="total.vat">KDV (%21): <strong>€136,50</strong></div>
+                      <div class="quote-total-row grand" data-i18n="pdf_grand_total" data-i18n="total.grand">Genel Toplam: <strong>€786,50</strong></div>
                     </div>
                     <div style="margin-top:16px;display:flex;gap:10px;">
-                      <button class="btn btn-primary btn-sm" onclick="printQuote(7)">🖨 PDF İndir</button>
-                      <button class="btn btn-secondary btn-sm" onclick="convertToInvoice(7)">🧾 Faturaya Dönüştür</button>
+                      <button class="btn btn-primary btn-sm" onclick="printQuote(7)" data-i18n="btn_pdf_download">🖨 PDF İndir</button>
+                      <button class="btn btn-secondary btn-sm" onclick="convertToInvoice(7)" data-i18n="btn_convert_invoice">🧾 Faturaya Dönüştür</button>
                     </div>
                   </div>
                 </td>
@@ -591,14 +603,14 @@
                 <td style="font-weight:600;">€1.200</td>
                 <td style="font-size:var(--text-xs);color:var(--text-muted);">€252</td>
                 <td style="font-weight:700;color:var(--teal-500);">€1.452</td>
-                <td><span class="tag tag-blue">Gönderildi</span></td>
+                <td><span class="tag tag-blue" data-i18n="status_sent">Gönderildi</span></td>
                 <td>
                   <div class="actions">
-                    <button class="action-btn" onclick="toggleExpand(8)" title="Detay">📋</button>
-                    <button class="action-btn" onclick="openPdfPreview(8)" title="PDF Gör">🖨</button>
-                    <button class="action-btn" onclick="sendEmail(8)" title="Gönder">📧</button>
-                    <button class="action-btn" onclick="approveQuote(8)" title="Onayla">✓</button>
-                    <button class="action-btn" onclick="rejectQuote(8)" title="Reddet">✕</button>
+                    <button class="action-btn" onclick="toggleExpand(8)" title="Detay" data-i18n-attr="title" data-i18n="action.detail">📋</button>
+                    <button class="action-btn" onclick="openPdfPreview(8)" title="PDF Gör" data-i18n-attr="title" data-i18n="action.pdfView">🖨</button>
+                    <button class="action-btn" onclick="sendEmail(8)" title="Gönder" data-i18n-attr="title" data-i18n="action.send">📧</button>
+                    <button class="action-btn" onclick="approveQuote(8)" title="Onayla" data-i18n-attr="title" data-i18n="action.approve">✓</button>
+                    <button class="action-btn" onclick="rejectQuote(8)" title="Reddet" data-i18n-attr="title" data-i18n="action.reject">✕</button>
                   </div>
                 </td>
               </tr>
@@ -606,11 +618,11 @@
                 <td colspan="9" style="padding:0;">
                   <div class="quote-expand" style="margin:0 16px 16px;">
                     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
-                      <strong style="color:var(--text-primary);">Hizmet ve Malzeme Detayı</strong>
-                      <span style="font-size:var(--text-xs);color:var(--text-muted);">Teklif #T-2026-60</span>
+                      <strong style="color:var(--text-primary);" data-i18n="pdf_service_material_detail" data-i18n="detail.title">Hizmet ve Malzeme Detayı</strong>
+                      <span style="font-size:var(--text-xs);color:var(--text-muted);" data-i18n="detail.quote">Teklif #T-2026-60</span>
                     </div>
                     <table class="line-items-table">
-                      <thead><tr><th>Açıklama</th><th>Adet</th><th>Birim Fiyat</th><th>Tutar</th></tr></thead>
+                      <thead><tr><th data-i18n="ph_description">Açıklama</th><th data-i18n="ph_quantity">Adet</th><th data-i18n="form_unit_price">Birim Fiyat</th><th data-i18n="th_amount">Tutar</th></tr></thead>
                       <tbody>
                         <tr><td>Okul Sınıf ve Koridor Temizliği (Aylık)</td><td>1</td><td>€850,00</td><td style="font-weight:600;">€850,00</td></tr>
                         <tr><td>Spor Salonu ve Kantin Dezenfeksiyonu</td><td>2</td><td>€125,00</td><td style="font-weight:600;">€250,00</td></tr>
@@ -618,13 +630,13 @@
                       </tbody>
                     </table>
                     <div class="quote-totals">
-                      <div class="quote-total-row">Ara Toplam: <strong>€1.200,00</strong></div>
-                      <div class="quote-total-row">KDV (%21): <strong>€252,00</strong></div>
-                      <div class="quote-total-row grand">Genel Toplam: <strong>€1.452,00</strong></div>
+                      <div class="quote-total-row" data-i18n="pdf_subtotal" data-i18n="total.subtotal">Ara Toplam: <strong>€1.200,00</strong></div>
+                      <div class="quote-total-row" data-i18n="pdf_vat" data-i18n="total.vat">KDV (%21): <strong>€252,00</strong></div>
+                      <div class="quote-total-row grand" data-i18n="pdf_grand_total" data-i18n="total.grand">Genel Toplam: <strong>€1.452,00</strong></div>
                     </div>
                     <div style="margin-top:16px;display:flex;gap:10px;">
-                      <button class="btn btn-primary btn-sm" onclick="printQuote(8)">🖨 PDF İndir</button>
-                      <button class="btn btn-secondary btn-sm" onclick="sendEmail(8)">📧 Tekrar Gönder</button>
+                      <button class="btn btn-primary btn-sm" onclick="printQuote(8)" data-i18n="btn_pdf_download">🖨 PDF İndir</button>
+                      <button class="btn btn-secondary btn-sm" onclick="sendEmail(8)" data-i18n="btn_send_again">📧 Tekrar Gönder</button>
                     </div>
                   </div>
                 </td>
@@ -640,65 +652,65 @@
 <!-- New Quote Modal -->
 <div class="modal-overlay" id="addModal">
   <div class="modal">
-    <div class="modal-header"><span class="modal-title">Yeni Teklif Oluştur</span><button class="modal-close" onclick="closeModal('addModal')">✕</button></div>
+    <div class="modal-header"><span class="modal-title" data-i18n="modal_new_quote">Yeni Teklif Oluştur</span><button class="modal-close" onclick="closeModal('addModal')">✕</button></div>
     <div class="modal-body">
-      <div class="form-group"><label class="form-label">Müşteri</label><select class="form-select" id="qCustomer"><option>Jan Peeters</option><option>Lisa Wouters</option><option>Pieter De Vos</option><option>Sarah Janssens</option><option>Marc Dubois</option><option>Eva Peeters</option><option>Lucas Vermeulen</option><option>Emma Jacobs</option></select></div>
+      <div class="form-group"><label class="form-label" data-i18n="th_customer">Müşteri</label><select class="form-select" id="qCustomer"><option>Jan Peeters</option><option>Lisa Wouters</option><option>Pieter De Vos</option><option>Sarah Janssens</option><option>Marc Dubois</option><option>Eva Peeters</option><option>Lucas Vermeulen</option><option>Emma Jacobs</option></select></div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
-        <div class="form-group"><label class="form-label">Geçerlilik Tarihi</label><input type="date" class="form-input" id="qExpiry"></div>
-        <div class="form-group"><label class="form-label">KDV Oranı (%)</label><input type="number" class="form-input" id="qVat" value="21" readonly></div>
+        <div class="form-group"><label class="form-label" data-i18n="form_expiry">Geçerlilik Tarihi</label><input type="date" class="form-input" id="qExpiry"></div>
+        <div class="form-group"><label class="form-label" data-i18n="form_vat_rate">KDV Oranı (%)</label><input type="number" class="form-input" id="qVat" value="21" readonly></div>
       </div>
-      <div style="margin-bottom:8px;font-size:var(--text-xs);font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.05em;">Hizmet ve Malzemeler</div>
+      <div style="margin-bottom:8px;font-size:var(--text-xs);font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.05em;" data-i18n="pdf_services_materials" data-i18n="modal.lineItems">Hizmet ve Malzemeler</div>
       <div id="lineItems">
         <div class="line-item-row">
-          <input type="text" class="form-input" placeholder="Açıklama" value="">
-          <input type="number" class="form-input" placeholder="Adet" value="1" min="1" onchange="calcModalTotal()">
-          <input type="number" class="form-input" placeholder="€" value="0" step="0.01" onchange="calcModalTotal()">
+          <input type="text" class="form-input" data-i18n-placeholder="ph_description" placeholder="Açıklama" data-i18n-placeholder="modal.descPlaceholder" value="">
+          <input type="number" class="form-input" data-i18n-placeholder="ph_quantity" placeholder="Adet" data-i18n-placeholder="modal.qtyPlaceholder" value="1" min="1" onchange="calcModalTotal()">
+          <input type="number" class="form-input" placeholder="€" data-i18n-placeholder="modal.pricePlaceholder" value="0" step="0.01" onchange="calcModalTotal()">
           <div class="line-total">€0</div>
         </div>
       </div>
-      <button class="btn btn-secondary btn-sm" onclick="addModalLineItem()">+ Satır Ekle</button>
-      <div class="quote-total-bar"><span class="quote-total-label" id="modalSubtotal">Ara Toplam: €0</span><span id="modalVat">KDV: €0</span><span id="modalTotal" style="color:var(--teal-500);">Toplam: €0</span></div>
+      <button class="btn btn-secondary btn-sm" onclick="addModalLineItem()" data-i18n="btn_add_line">+ Satır Ekle</button>
+      <div class="quote-total-bar"><span class="quote-total-label" id="modalSubtotal" data-i18n="total.subtotal">Ara Toplam: €0</span><span id="modalVat" data-i18n="modal.vat">KDV: €0</span><span id="modalTotal" style="color:var(--teal-500);">Toplam: €0</span></div>
     </div>
-    <div class="modal-footer"><button class="btn btn-secondary" onclick="closeModal('addModal')">İptal</button><button class="btn btn-primary" onclick="saveQuote()">Teklif Oluştur</button></div>
+    <div class="modal-footer"><button class="btn btn-secondary" onclick="closeModal('addModal')" data-i18n="btn_cancel" data-i18n="modal.cancel">İptal</button><button class="btn btn-primary" onclick="saveQuote()" data-i18n="btn_create_quote" data-i18n="modal.create">Teklif Oluştur</button></div>
   </div>
 </div>
 
 <!-- PDF Preview Modal -->
 <div class="modal-overlay" id="pdfModal">
   <div class="modal" style="max-width:90%;width:900px;">
-    <div class="modal-header"><span class="modal-title">PDF Önizleme</span><button class="modal-close" onclick="closeModal('pdfModal')">✕</button></div>
+    <div class="modal-header"><span class="modal-title" data-i18n="modal_pdf_preview">PDF Önizleme</span><button class="modal-close" onclick="closeModal('pdfModal')">✕</button></div>
     <div class="modal-body" style="padding:0;background:#f8fafc;">
       <div id="pdfPreview" class="pdf-preview active">
         <div class="pdf-header">
-          <div class="pdf-logo">CleanFix Profesyonel Temizlik</div>
+          <div class="pdf-logo" data-i18n="company_cleanfix_prof">CleanFix Profesyonel Temizlik</div>
           <div class="pdf-meta">
-            <div><strong>Teklif No:</strong> #T-2026-56</div>
-            <div>Tarih: 12 Mayıs 2026</div>
-            <div>Geçerlilik: 26 Mayıs 2026</div>
+            <div><strong data-i18n="pdf_quote_no_label">Teklif No:</strong> #T-2026-56</div>
+            <div data-i18n="pdf.date">Tarih: 12 Mayıs 2026</div>
+            <div data-i18n="pdf_valid">Geçerlilik: 26 Mayıs 2026</div>
           </div>
         </div>
         <div style="display:flex;gap:40px;margin-bottom:24px;">
           <div class="pdf-section" style="flex:1;">
-            <div class="pdf-section-title">Teklif Veren</div>
-            <div><strong>CleanFix Demo BV</strong></div>
+            <div class="pdf-section-title" data-i18n="pdf.quoter">Teklif Veren</div>
+            <div><strong data-i18n="company_name">CleanFix Demo BV</strong></div>
             <div>Brusselsesteenweg 432</div>
             <div>9090 Melle, Belçika</div>
             <div>+32 9 123 45 67</div>
-            <div>info@cleanfix.be</div>
-            <div>BTW: BE0123.456.789</div>
+            <div data-i18n="company_email">info@cleanfix.be</div>
+            <div data-i18n="company_vat">BTW: BE0123.456.789</div>
           </div>
           <div class="pdf-section" style="flex:1;">
-            <div class="pdf-section-title">Müşteri</div>
+            <div class="pdf-section-title" data-i18n="th_customer" data-i18n="pdf.customer">Müşteri</div>
             <div><strong>Jan Peeters</strong></div>
             <div>Kantoorstraat 15</div>
-            <div>9000 Gent, Belçika</div>
+            <div data-i18n="company_address">9000 Gent, Belçika</div>
             <div>jan.peeters@kantoor.be</div>
             <div>+32 470 11 22 33</div>
           </div>
         </div>
         <div class="pdf-title">Teklif #T-2026-56</div>
         <table class="pdf-table">
-          <thead><tr><th>Açıklama</th><th>Adet</th><th>Birim Fiyat</th><th>Tutar</th></tr></thead>
+          <thead><tr><th data-i18n="ph_description">Açıklama</th><th data-i18n="ph_quantity">Adet</th><th data-i18n="form_unit_price">Birim Fiyat</th><th data-i18n="th_amount">Tutar</th></tr></thead>
           <tbody>
             <tr><td>Komple Detaylı Temizlik (Ofis)</td><td>1</td><td>€149,00</td><td>€149,00</td></tr>
             <tr><td>Cam Temizliği (İç + Dış)</td><td>8</td><td>€12,50</td><td>€100,00</td></tr>
@@ -708,28 +720,28 @@
           </tbody>
         </table>
         <div class="pdf-totals">
-          <div>Ara Toplam: €371,00</div>
-          <div>KDV (%21): €77,91</div>
-          <div class="grand">Genel Toplam: €448,91</div>
+          <div data-i18n="total.subtotal">Ara Toplam: €371,00</div>
+          <div data-i18n="total.vat">KDV (%21): €77,91</div>
+          <div class="grand" data-i18n="total.grand">Genel Toplam: €448,91</div>
         </div>
         <div class="pdf-footer">
-          <p><strong>Ödeme Koşulları:</strong> 14 gün vade, banka havalesi.</p>
-          <p><strong>Teklif Geçerliliği:</strong> Bu teklif 26 Mayıs 2026 tarihine kadar geçerlidir.</p>
-          <p>Teklifi onaylamak için lütfen imzalayarak tarafımıza iletiniz.</p>
+          <p><strong data-i18n="pdf_payment_terms">Ödeme Koşulları:</strong> 14 gün vade, banka havalesi.</p>
+          <p><strong data-i18n="pdf_quote_validity">Teklif Geçerliliği:</strong> Bu teklif 26 Mayıs 2026 tarihine kadar geçerlidir.</p>
+          <p data-i18n="pdf_sign_instructions">Teklifi onaylamak için lütfen imzalayarak tarafımıza iletiniz.</p>
           <div style="margin-top:30px;display:flex;justify-content:space-between;">
             <div style="border-top:1px solid #cbd5e1;padding-top:8px;width:200px;">
-              <div style="font-size:10px;color:#94a3b8;">Müşteri İmza / Tarih</div>
+              <div style="font-size:10px;color:#94a3b8;" data-i18n="pdf_customer_sign" data-i18n="pdf.customerSign">Müşteri İmza / Tarih</div>
             </div>
             <div style="border-top:1px solid #cbd5e1;padding-top:8px;width:200px;text-align:right;">
-              <div style="font-size:10px;color:#94a3b8;">CleanFix Yetkilisi</div>
+              <div style="font-size:10px;color:#94a3b8;" data-i18n="pdf_cleanfix_auth" data-i18n="pdf.official">CleanFix Yetkilisi</div>
             </div>
           </div>
         </div>
       </div>
     </div>
     <div class="modal-footer no-print">
-      <button class="btn btn-secondary" onclick="closeModal('pdfModal')">Kapat</button>
-      <button class="btn btn-primary" onclick="window.print()">🖨 Yazdır / PDF Kaydet</button>
+      <button class="btn btn-secondary" onclick="closeModal('pdfModal')" data-i18n="btn_close" data-i18n="modal.cancel">Kapat</button>
+      <button class="btn btn-primary" onclick="window.print()" data-i18n="btn_print">🖨 Yazdır / PDF Kaydet</button>
     </div>
   </div>
 </div>
@@ -744,16 +756,1429 @@ function showToast(msg){const t=document.getElementById('toast');document.getEle
 function toggleExpand(id){const el=document.getElementById('expand-'+id);el.style.display=el.style.display==='none'?'table-row':'none';const panel=el.querySelector('.quote-expand');if(panel)panel.classList.toggle('active');}
 function filterQuotes(){const s=document.getElementById('searchInput').value.toLowerCase();const st=document.getElementById('statusFilter').value;const rows=document.querySelectorAll('#quotesTable > tbody > tr[data-id]');rows.forEach(row=>{const txt=row.textContent.toLowerCase();const status=row.getAttribute('data-status');const matchText=txt.includes(s);const matchStatus=!st||status===st;row.style.display=(matchText&&matchStatus)?'':'none';const expand=document.getElementById('expand-'+row.getAttribute('data-id'));if(expand)expand.style.display='none';});}
 function sendEmail(id){showToast('Teklif gönderildi — jan.peeters@kantoor.be');const row=document.querySelector('tr[data-id="'+id+'"]');if(row){const badge=row.querySelector('.tag');if(badge){badge.className='tag tag-blue';badge.textContent='Gönderildi';}row.setAttribute('data-status','Gönderildi');}}
-function approveQuote(id){if(!confirm('Teklif onaylansın mı?'))return;showToast('Teklif onaylandı');const row=document.querySelector('tr[data-id="'+id+'"]');if(row){const badge=row.querySelector('.tag');if(badge){badge.className='tag tag-green';badge.textContent='Onaylandı';}row.setAttribute('data-status','Onaylandı');const actions=row.querySelector('.actions');actions.innerHTML='<button class="action-btn" onclick="toggleExpand('+id+')" title="Detay">📋</button><button class="action-btn" onclick="openPdfPreview('+id+')" title="PDF Gör">🖨</button><button class="action-btn" onclick="convertToInvoice('+id+')" title="Faturaya Dönüştür">🧾</button>';}}
-function rejectQuote(id){if(!confirm('Teklif reddedilsin mi?'))return;showToast('Teklif reddedildi');const row=document.querySelector('tr[data-id="'+id+'"]');if(row){const badge=row.querySelector('.tag');if(badge){badge.className='tag tag-red';badge.textContent='Reddedildi';}row.setAttribute('data-status','Reddedildi');const actions=row.querySelector('.actions');actions.innerHTML='<button class="action-btn" onclick="toggleExpand('+id+')" title="Detay">📋</button><button class="action-btn" onclick="openPdfPreview('+id+')" title="PDF Gör">🖨</button><button class="action-btn" onclick="renewQuote('+id+')" title="Yenile">↻</button>';}}
+function approveQuote(id){if(!confirm('Teklif onaylansın mı?'))return;showToast('Teklif onaylandı');const row=document.querySelector('tr[data-id="'+id+'"]');if(row){const badge=row.querySelector('.tag');if(badge){badge.className='tag tag-green';badge.textContent='Onaylandı';}row.setAttribute('data-status','Onaylandı');const actions=row.querySelector('.actions');actions.innerHTML='<button class="action-btn" onclick="toggleExpand('+id+')" title="Detay" data-i18n-attr="title" data-i18n="action.detail">📋</button><button class="action-btn" onclick="openPdfPreview('+id+')" title="PDF Gör" data-i18n-attr="title" data-i18n="action.pdfView">🖨</button><button class="action-btn" onclick="convertToInvoice('+id+')" title="Faturaya Dönüştür" data-i18n-attr="title" data-i18n="action.convertInvoice">🧾</button>';}}
+function rejectQuote(id){if(!confirm('Teklif reddedilsin mi?'))return;showToast('Teklif reddedildi');const row=document.querySelector('tr[data-id="'+id+'"]');if(row){const badge=row.querySelector('.tag');if(badge){badge.className='tag tag-red';badge.textContent='Reddedildi';}row.setAttribute('data-status','Reddedildi');const actions=row.querySelector('.actions');actions.innerHTML='<button class="action-btn" onclick="toggleExpand('+id+')" title="Detay" data-i18n-attr="title" data-i18n="action.detail">📋</button><button class="action-btn" onclick="openPdfPreview('+id+')" title="PDF Gör" data-i18n-attr="title" data-i18n="action.pdfView">🖨</button><button class="action-btn" onclick="renewQuote('+id+')" title="Yenile" data-i18n-attr="title" data-i18n="action.newVersion">↻</button>';}}
 function convertToInvoice(id){showToast('Teklif faturaya dönüştürüldü — Fatura #F-2026-1024');const row=document.querySelector('tr[data-id="'+id+'"]');if(row){const badge=row.querySelector('.tag');if(badge){badge.className='tag tag-green';badge.textContent='Faturaya Dönüştürüldü';}row.setAttribute('data-status','Faturaya Dönüştürüldü');}}
 function renewQuote(id){showToast('Yeni teklif versiyonu oluşturuldu — #T-2026-61');}
 function openPdfPreview(id){document.getElementById('pdfModal').classList.add('active');}
 function printQuote(id){document.getElementById('pdfModal').classList.add('active');setTimeout(()=>window.print(),300);}
-function addModalLineItem(){const div=document.createElement('div');div.className='line-item-row';div.innerHTML='<input type="text" class="form-input" placeholder="Açıklama" value=""><input type="number" class="form-input" placeholder="Adet" value="1" min="1" onchange="calcModalTotal()"><input type="number" class="form-input" placeholder="€" value="0" step="0.01" onchange="calcModalTotal()"><button class="action-btn" onclick="this.parentElement.remove();calcModalTotal()" style="margin-left:4px;">🗑</button>';document.getElementById('lineItems').appendChild(div);}
+function addModalLineItem(){const div=document.createElement('div');div.className='line-item-row';div.innerHTML='<input type="text" class="form-input" placeholder="Açıklama" data-i18n-placeholder="modal.descPlaceholder" value=""><input type="number" class="form-input" placeholder="Adet" data-i18n-placeholder="modal.qtyPlaceholder" value="1" min="1" onchange="calcModalTotal()"><input type="number" class="form-input" placeholder="€" data-i18n-placeholder="modal.pricePlaceholder" value="0" step="0.01" onchange="calcModalTotal()"><button class="action-btn" onclick="this.parentElement.remove();calcModalTotal()" style="margin-left:4px;">🗑</button>';document.getElementById('lineItems').appendChild(div);}
 function calcModalTotal(){let sub=0;document.querySelectorAll('#lineItems .line-item-row').forEach(row=>{const q=parseFloat(row.children[1].value)||0;const p=parseFloat(row.children[2].value)||0;const t=q*p;sub+=t;row.querySelector('.line-total').textContent='€'+t.toFixed(2);});const vat=sub*0.21;const total=sub+vat;document.getElementById('modalSubtotal').textContent='Ara Toplam: €'+sub.toFixed(2);document.getElementById('modalVat').textContent='KDV (%21): €'+vat.toFixed(2);document.getElementById('modalTotal').textContent='Toplam: €'+total.toFixed(2);}
 function saveQuote(){showToast('Yeni teklif oluşturuldu — #T-2026-61');closeModal('addModal');}
 document.addEventListener('keydown',e=>{if(e.key==='Escape'){['addModal','pdfModal'].forEach(id=>closeModal(id));}});
 </script>
+
+<script>const i18n = {
+  tr: {
+    btn_add_line: "+ Satır Ekle",
+    btn_apply: "Uygula",
+    btn_approve: "Onayla",
+    btn_cancel: "İptal",
+    btn_clear: "Temizle",
+    btn_close: "Kapat",
+    btn_complete: "✓ Tamamla",
+    btn_convert_invoice: "🧾 Faturaya Dönüştür",
+    btn_create: "Oluştur",
+    btn_create_quote: "Teklif Oluştur",
+    btn_create_task: "Görev Oluştur",
+    btn_delete: "Sil",
+    btn_detail: "Detay",
+    btn_edit: "Düzenle",
+    btn_filter: "Filtrele",
+    btn_go_invoice: "🧾 Faturaya Git",
+    btn_mark_all_read: "Tümünü Okundu İşaretle",
+    btn_new_booking: "Yeni Randevu",
+    btn_new_customer: "Müşteri Ekle",
+    btn_new_invoice: "Fatura Oluştur",
+    btn_new_quote: "+ Yeni Teklif",
+    btn_new_task: "+ Yeni Görev",
+    btn_next: "›",
+    btn_pdf_download: "🖨 PDF İndir",
+    btn_pdf_preview: "🖨 PDF Önizle",
+    btn_pdf_view: "🖨 PDF Gör",
+    btn_previous: "‹",
+    btn_print: "🖨 Yazdır / PDF Kaydet",
+    btn_quick_actions: "Hızlı İşlemler",
+    btn_reject: "Reddet",
+    btn_renew: "Yenile",
+    btn_renew_version: "↻ Yeni Versiyon Oluştur",
+    btn_save: "Kaydet",
+    btn_search: "Ara",
+    btn_send_again: "📧 Tekrar Gönder",
+    btn_send_email: "📧 Müşteriye Gönder",
+    btn_update_status: "Durum Güncelle",
+    btn_view_all: "Tümünü Gör →",
+    btn_view_report: "Rapor Gör",
+    cal_fri: "Cu",
+    cal_may_2026: "Mayıs 2026",
+    cal_mon: "Pt",
+    cal_sat: "Ct",
+    cal_sun: "Pz",
+    cal_thu: "Pe",
+    cal_tue: "Sa",
+    cal_wed: "Ça",
+    chart_daily: "Günlük",
+    chart_monthly: "Aylık",
+    company_address: "9000 Gent, Belçika",
+    company_business_plan: "Business Plan",
+    company_cleanfix: "CleanFix",
+    company_cleanfix_prof: "CleanFix Profesyonel Temizlik",
+    company_email: "info@cleanfix.be",
+    company_name: "CleanFix Demo BV",
+    company_vat: "BTW: BE0123.456.789",
+    form_address: "Adres",
+    form_all_dates: "Tüm Tarihler",
+    form_all_priorities: "Tüm Öncelikler",
+    form_all_services: "Tüm Hizmetler",
+    form_all_staff: "Tüm Personel",
+    form_all_statuses: "Tüm Durumlar",
+    form_amount: "Tutar",
+    form_assigned_staff: "Atanan Personel",
+    form_company: "Firma",
+    form_customer: "Müşteri",
+    form_date: "Tarih",
+    form_description: "Açıklama",
+    form_due_date: "Son Tarih",
+    form_email: "E-posta",
+    form_expiry: "Geçerlilik Tarihi",
+    form_frequency: "Sıklık",
+    form_grand_total: "Genel Toplam",
+    form_location: "Lokasyon",
+    form_name: "İsim",
+    form_notes: "Notlar",
+    form_phone: "Telefon",
+    form_priority: "Öncelik",
+    form_quantity: "Adet",
+    form_quote_date: "Teklif Tarihi",
+    form_quote_no: "Teklif No",
+    form_recurring: "Yinelenen Görev",
+    form_service: "Hizmet",
+    form_service_type: "Hizmet Türü",
+    form_staff: "Personel",
+    form_status: "Durum",
+    form_subtotal: "Ara Toplam",
+    form_task_info: "Görev Bilgileri",
+    form_task_name: "Görev Adı",
+    form_total: "Toplam",
+    form_unit_price: "Birim Fiyat",
+    form_valid_until: "Geçerlilik",
+    form_vat: "KDV (%)",
+    form_vat_rate: "KDV Oranı (%)",
+    gen_all: "Tümü",
+    gen_back: "Geri",
+    gen_download: "İndir",
+    gen_export: "Dışa Aktar",
+    gen_filter: "Filtrele",
+    gen_help: "Yardım",
+    gen_import: "İçe Aktar",
+    gen_info: "Bilgi",
+    gen_less: "Daha Az",
+    gen_loading: "Yükleniyor...",
+    gen_more: "Daha Fazla",
+    gen_next: "İleri",
+    gen_no: "Hayır",
+    gen_no_data: "Veri bulunamadı",
+    gen_print: "Yazdır",
+    gen_refresh: "Yenile",
+    gen_search: "Ara...",
+    gen_support: "Destek",
+    gen_yes: "Evet",
+    header_menu: "Menü",
+    header_new_task: "+ Yeni Görev",
+    header_notifications: "Bildirimler",
+    header_search: "Ara",
+    header_theme: "Tema",
+    kanban_assigned: "Atandı",
+    kanban_completed: "Tamamlandı",
+    kanban_in_progress: "Devam Ediyor",
+    kanban_open: "Açık",
+    kpi_active_customers: "Aktif Müşteri",
+    kpi_approved: "Onaylanan (€)",
+    kpi_avg_resolution: "Ort. Çözüm Süresi",
+    kpi_conversion: "Dönüşüm Oranı",
+    kpi_monthly_appointments: "Aylık Randevular",
+    kpi_monthly_revenue: "Aylık Gelir",
+    kpi_open_sla: "Açık SLA",
+    kpi_open_tickets: "Açık Ticket",
+    kpi_overdue_sla: "Gecikmiş SLA",
+    kpi_pending: "Bekleyen (€)",
+    kpi_rejected: "Reddedilen (€)",
+    kpi_resolved_tickets: "Çözülmüş Ticket",
+    kpi_satisfaction: "Müşteri Memnuniyeti",
+    kpi_this_week: "Bu Hafta Randevu",
+    kpi_total_quotes: "Toplam Teklifler",
+    kpi_upcoming_sla: "Yaklaşan SLA",
+    modal_new_booking: "Yeni Randevu Oluştur",
+    modal_new_customer: "Yeni Müşteri Ekle",
+    modal_new_invoice: "Yeni Fatura Oluştur",
+    modal_new_quote: "Yeni Teklif Oluştur",
+    modal_new_task: "Yeni Görev Oluştur",
+    modal_pdf_preview: "PDF Önizleme",
+    modal_task_detail: "Görev Detayı",
+    msg_booking_created: "Randevu oluşturuldu",
+    msg_confirm_approve: "Teklif onaylansın mı?",
+    msg_confirm_delete: "Silmek istediğinize emin misiniz?",
+    msg_confirm_reject: "Teklif reddedilsin mi?",
+    msg_customer_added: "Müşteri eklendi",
+    msg_deleted: "Silindi",
+    msg_invoice_created: "Fatura oluşturuldu",
+    msg_quote_approved: "Teklif onaylandı",
+    msg_quote_rejected: "Teklif reddedildi",
+    msg_saved: "Kaydedildi",
+    msg_status_updated: "Durum güncellendi",
+    msg_task_created: "Görev oluşturuldu",
+    nav_analytics: "Analiz",
+    nav_bookings: "Randevular",
+    nav_company: "Firma Paneli",
+    nav_customers: "Müşteriler",
+    nav_dashboard: "Dashboard",
+    nav_invoices: "Faturalar",
+    nav_logout: "Çıkış Yap",
+    nav_maintenance: "Bakım Planlayıcı",
+    nav_profile: "Firma Profili",
+    nav_quotes: "Teklifler",
+    nav_reviews: "Değerlendirmeler",
+    nav_sectors: "Sektörler",
+    nav_services: "Hizmetler",
+    nav_staff: "Çalışanlar",
+    nav_stock: "Stok",
+    nav_tools: "Araçlar",
+    notif_ago: "önce",
+    notif_day_ago: "gün önce",
+    notif_hour_ago: "saat önce",
+    notif_hours_ago: "saat önce",
+    notif_left: "adet kaldı",
+    notif_min_ago: "dakika önce",
+    notif_new_booking: "Yeni randevu:",
+    notif_new_customer: "Yeni müşteri kaydı:",
+    notif_paid: "ödendi",
+    notif_stock_alert: "Stok alarmı:",
+    notif_ticket_resolved: "çözüldü",
+    pdf_cleanfix_auth: "CleanFix Yetkilisi",
+    pdf_customer_sign: "Müşteri İmza / Tarih",
+    pdf_date: "Tarih:",
+    pdf_grand_total: "Genel Toplam:",
+    pdf_payment_detail: "14 gün vade, banka havalesi.",
+    pdf_payment_terms: "Ödeme Koşulları:",
+    pdf_quote: "Teklif",
+    pdf_quote_no_label: "Teklif No:",
+    pdf_quote_valid_until: "Bu teklif 26 Mayıs 2026 tarihine kadar geçerlidir.",
+    pdf_quote_validity: "Teklif Geçerliliği:",
+    pdf_service_material_detail: "Hizmet ve Malzeme Detayı",
+    pdf_services_materials: "Hizmet ve Malzemeler",
+    pdf_sign_instructions: "Teklifi onaylamak için lütfen imzalayarak tarafımıza iletiniz.",
+    pdf_subtotal: "Ara Toplam:",
+    pdf_valid: "Geçerlilik: 26 Mayıs 2026",
+    pdf_vat: "KDV (%21):",
+    ph_address: "Adres girin...",
+    ph_customer: "Müşteri ara...",
+    ph_description: "Açıklama",
+    ph_email: "E-posta adresi",
+    ph_name: "İsim girin",
+    ph_notes: "Ek detaylar...",
+    ph_phone: "Telefon numarası",
+    ph_price: "€",
+    ph_quantity: "Adet",
+    ph_search: "Ara...",
+    ph_task_name: "Örn: Ofis Detaylı Temizlik",
+    qa_add_customer: "Müşteri Ekle",
+    qa_new_booking: "Yeni Randevu",
+    qa_new_invoice: "Fatura Oluştur",
+    qa_view_report: "Rapor Gör",
+    sched_completed: "Tamamlandı",
+    sched_in_progress: "Devam Ediyor",
+    sched_pending: "Bekliyor",
+    section_activity: "Aktivite Geçmişi",
+    section_next_7_days: "Sonraki 7 Gün",
+    section_popular: "Popüler Hizmetler",
+    section_recent_activity: "Ekip Aktivitesi",
+    section_recent_bookings: "Son Randevular",
+    section_recurring: "🔄 Yinelenen Görevler",
+    section_revenue: "Gelir Analizi",
+    section_service_dist: "Hizmet Dağılımı",
+    section_today_schedule: "Bugünkü Program",
+    section_weather: "Hava Durumu",
+    sector_active: "Aktif",
+    sector_barber: "Berber & Kuaför",
+    sector_carwash: "CarWash",
+    sector_cleaning: "Temizlik",
+    sector_construction: "İnşaat",
+    sector_doctor: "Doktor & Klinik",
+    sector_market: "Market & Bakkal",
+    sector_planned: "Planlanan",
+    sector_restaurant: "Restoran",
+    settings_auto: "Otomatik",
+    settings_dark: "Koyu",
+    settings_language: "Dil",
+    settings_light: "Açık",
+    settings_save: "Ayarları Kaydet",
+    settings_theme: "Tema",
+    settings_title: "Ayarlar",
+    sla_expires_24h: "24 saat içinde süresi dolacak",
+    sla_need_action: "Acil müdahale gerekiyor",
+    sla_overdue: "GECİKMEDE",
+    sla_remaining: "Kalan:",
+    status_active: "Aktif",
+    status_approved: "Onaylandı",
+    status_assigned: "Atandı",
+    status_completed: "Tamamlandı",
+    status_done: "✓ Tamamlandı",
+    status_draft: "Taslak",
+    status_high: "Yüksek",
+    status_in_progress: "Devam Ediyor",
+    status_invoiced: "Faturaya Dönüştürüldü",
+    status_low: "Düşük",
+    status_medium: "Orta",
+    status_new: "Yeni",
+    status_on_the_way: "Yolda",
+    status_open: "Açık",
+    status_overdue: "Gecikmiş",
+    status_pending: "Bekliyor",
+    status_planned: "Planlanan",
+    status_rejected: "Reddedildi",
+    status_sent: "Gönderildi",
+    status_urgent: "Acil",
+    svc_carpet: "Halı/Koltuk",
+    svc_deep_clean: "Detaylı Paket",
+    svc_disinfection: "Dezenfeksiyon",
+    svc_facade: "Dış Cephe",
+    svc_hvac: "HVAC Bakım",
+    svc_interior: "İç Temizlik",
+    svc_office_cleaning: "Ofis Temizliği",
+    svc_waste: "Çöp Yönetimi",
+    svc_window_cleaning: "Cam Temizliği",
+    th_actions: "İşlemler",
+    th_amount: "Tutar",
+    th_assigned: "Atanan",
+    th_booking: "Randevu",
+    th_category: "Kategori",
+    th_customer: "Müşteri",
+    th_date: "Tarih",
+    th_due: "Son Tarih",
+    th_next_run: "Sonraki",
+    th_price: "Fiyat",
+    th_priority: "Öncelik",
+    th_product: "Ürün",
+    th_quote_no: "Teklif No",
+    th_rating: "Puan",
+    th_recurring: "Yinelenen Görevler",
+    th_review: "Değerlendirme",
+    th_service: "Hizmet",
+    th_sla: "SLA",
+    th_staff: "Personel",
+    th_status: "Durum",
+    th_stock: "Stok",
+    th_task: "Görev",
+    th_time: "Saat",
+    time_daily: "Günlük",
+    time_every_day: "Her Gün",
+    time_last_30_days: "Son 30 gün ortalaması",
+    time_monthly: "Aylık",
+    time_this_month: "Bu Ay",
+    time_this_week: "Bu Hafta",
+    time_today: "Bugün",
+    time_weekly: "Haftalık",
+    title_dashboard: "Dashboard",
+    title_maintenance: "Akıllı Bakım Planlayıcı",
+    title_quotes: "Teklifler",
+    trend_increase: "↑ %24 artış",
+    trend_new_quotes: "yeni",
+    trend_pending_quotes: "teklif beklemede",
+    trend_rejected_quotes: "teklif reddedildi",
+    trend_this_month: "↑ Bu ay +3",
+    trend_up: "↑ %5 yukarı",
+    user_admin: "Admin",
+    user_name: "Jan Wouters",
+    weather_humidity: "Nem",
+    weather_location: "📍 Antwerp, BE",
+    weather_partly_cloudy: "Parçalı Bulutlu · Güzel bir gün",
+    weather_rain_chance: "Yağmur",
+    weather_wind: "Rüzgar",
+  },
+  en: {
+    btn_add_line: "+ Add Line",
+    btn_apply: "Apply",
+    btn_approve: "Approve",
+    btn_cancel: "Cancel",
+    btn_clear: "Clear",
+    btn_close: "Close",
+    btn_complete: "✓ Complete",
+    btn_convert_invoice: "🧾 Convert to Invoice",
+    btn_create: "Create",
+    btn_create_quote: "Create Quote",
+    btn_create_task: "Create Task",
+    btn_delete: "Delete",
+    btn_detail: "Detail",
+    btn_edit: "Edit",
+    btn_filter: "Filter",
+    btn_go_invoice: "🧾 Go to Invoice",
+    btn_mark_all_read: "Mark All as Read",
+    btn_new_booking: "New Appointment",
+    btn_new_customer: "Add Customer",
+    btn_new_invoice: "Create Invoice",
+    btn_new_quote: "+ New Quote",
+    btn_new_task: "+ New Task",
+    btn_next: "›",
+    btn_pdf_download: "🖨 Download PDF",
+    btn_pdf_preview: "🖨 PDF Preview",
+    btn_pdf_view: "🖨 View PDF",
+    btn_previous: "‹",
+    btn_print: "🖨 Print / Save PDF",
+    btn_quick_actions: "Quick Actions",
+    btn_reject: "Reject",
+    btn_renew: "Renew",
+    btn_renew_version: "↻ Create New Version",
+    btn_save: "Save",
+    btn_search: "Search",
+    btn_send_again: "📧 Send Again",
+    btn_send_email: "📧 Send to Customer",
+    btn_update_status: "Update Status",
+    btn_view_all: "View All →",
+    btn_view_report: "View Report",
+    cal_fri: "Fr",
+    cal_may_2026: "May 2026",
+    cal_mon: "Mo",
+    cal_sat: "Sa",
+    cal_sun: "Su",
+    cal_thu: "Th",
+    cal_tue: "Tu",
+    cal_wed: "We",
+    chart_daily: "Daily",
+    chart_monthly: "Monthly",
+    company_address: "9000 Ghent, Belgium",
+    company_business_plan: "Business Plan",
+    company_cleanfix: "CleanFix",
+    company_cleanfix_prof: "CleanFix Professional Cleaning",
+    company_email: "info@cleanfix.be",
+    company_name: "CleanFix Demo BV",
+    company_vat: "VAT: BE0123.456.789",
+    form_address: "Address",
+    form_all_dates: "All Dates",
+    form_all_priorities: "All Priorities",
+    form_all_services: "All Services",
+    form_all_staff: "All Staff",
+    form_all_statuses: "All Statuses",
+    form_amount: "Amount",
+    form_assigned_staff: "Assigned Staff",
+    form_company: "Company",
+    form_customer: "Customer",
+    form_date: "Date",
+    form_description: "Description",
+    form_due_date: "Due Date",
+    form_email: "Email",
+    form_expiry: "Expiry Date",
+    form_frequency: "Frequency",
+    form_grand_total: "Grand Total",
+    form_location: "Location",
+    form_name: "Name",
+    form_notes: "Notes",
+    form_phone: "Phone",
+    form_priority: "Priority",
+    form_quantity: "Quantity",
+    form_quote_date: "Quote Date",
+    form_quote_no: "Quote No",
+    form_recurring: "Recurring Task",
+    form_service: "Service",
+    form_service_type: "Service Type",
+    form_staff: "Staff",
+    form_status: "Status",
+    form_subtotal: "Subtotal",
+    form_task_info: "Task Information",
+    form_task_name: "Task Name",
+    form_total: "Total",
+    form_unit_price: "Unit Price",
+    form_valid_until: "Valid Until",
+    form_vat: "VAT (%)",
+    form_vat_rate: "VAT Rate (%)",
+    gen_all: "All",
+    gen_back: "Back",
+    gen_download: "Download",
+    gen_export: "Export",
+    gen_filter: "Filter",
+    gen_help: "Help",
+    gen_import: "Import",
+    gen_info: "Info",
+    gen_less: "Less",
+    gen_loading: "Loading...",
+    gen_more: "More",
+    gen_next: "Next",
+    gen_no: "No",
+    gen_no_data: "No data found",
+    gen_print: "Print",
+    gen_refresh: "Refresh",
+    gen_search: "Search...",
+    gen_support: "Support",
+    gen_yes: "Yes",
+    header_menu: "Menu",
+    header_new_task: "+ New Task",
+    header_notifications: "Notifications",
+    header_search: "Search",
+    header_theme: "Theme",
+    kanban_assigned: "Assigned",
+    kanban_completed: "Completed",
+    kanban_in_progress: "In Progress",
+    kanban_open: "Open",
+    kpi_active_customers: "Active Customers",
+    kpi_approved: "Approved (€)",
+    kpi_avg_resolution: "Avg. Resolution Time",
+    kpi_conversion: "Conversion Rate",
+    kpi_monthly_appointments: "Monthly Appointments",
+    kpi_monthly_revenue: "Monthly Revenue",
+    kpi_open_sla: "Open SLA",
+    kpi_open_tickets: "Open Tickets",
+    kpi_overdue_sla: "Overdue SLA",
+    kpi_pending: "Pending (€)",
+    kpi_rejected: "Rejected (€)",
+    kpi_resolved_tickets: "Resolved Tickets",
+    kpi_satisfaction: "Customer Satisfaction",
+    kpi_this_week: "This Week Appointments",
+    kpi_total_quotes: "Total Quotes",
+    kpi_upcoming_sla: "Upcoming SLA",
+    modal_new_booking: "Create New Appointment",
+    modal_new_customer: "Add New Customer",
+    modal_new_invoice: "Create New Invoice",
+    modal_new_quote: "Create New Quote",
+    modal_new_task: "Create New Task",
+    modal_pdf_preview: "PDF Preview",
+    modal_task_detail: "Task Detail",
+    msg_booking_created: "Appointment created",
+    msg_confirm_approve: "Approve quote?",
+    msg_confirm_delete: "Are you sure you want to delete?",
+    msg_confirm_reject: "Reject quote?",
+    msg_customer_added: "Customer added",
+    msg_deleted: "Deleted",
+    msg_invoice_created: "Invoice created",
+    msg_quote_approved: "Quote approved",
+    msg_quote_rejected: "Quote rejected",
+    msg_saved: "Saved",
+    msg_status_updated: "Status updated",
+    msg_task_created: "Task created",
+    nav_analytics: "Analytics",
+    nav_bookings: "Appointments",
+    nav_company: "Company Panel",
+    nav_customers: "Customers",
+    nav_dashboard: "Dashboard",
+    nav_invoices: "Invoices",
+    nav_logout: "Logout",
+    nav_maintenance: "Maintenance Planner",
+    nav_profile: "Company Profile",
+    nav_quotes: "Quotes",
+    nav_reviews: "Reviews",
+    nav_sectors: "Sectors",
+    nav_services: "Services",
+    nav_staff: "Staff",
+    nav_stock: "Stock",
+    nav_tools: "Tools",
+    notif_ago: "ago",
+    notif_day_ago: "day ago",
+    notif_hour_ago: "hour ago",
+    notif_hours_ago: "hours ago",
+    notif_left: "items left",
+    notif_min_ago: "minutes ago",
+    notif_new_booking: "New appointment:",
+    notif_new_customer: "New customer registration:",
+    notif_paid: "paid",
+    notif_stock_alert: "Stock alert:",
+    notif_ticket_resolved: "resolved",
+    pdf_cleanfix_auth: "CleanFix Authorized",
+    pdf_customer_sign: "Customer Sign / Date",
+    pdf_date: "Date:",
+    pdf_grand_total: "Grand Total:",
+    pdf_payment_detail: "14 days, bank transfer.",
+    pdf_payment_terms: "Payment Terms:",
+    pdf_quote: "Quote",
+    pdf_quote_no_label: "Quote No:",
+    pdf_quote_valid_until: "This quote is valid until 26 May 2026.",
+    pdf_quote_validity: "Quote Validity:",
+    pdf_service_material_detail: "Service & Material Detail",
+    pdf_services_materials: "Services & Materials",
+    pdf_sign_instructions: "Please sign and return to approve this quote.",
+    pdf_subtotal: "Subtotal:",
+    pdf_valid: "Valid: 26 May 2026",
+    pdf_vat: "VAT (21%):",
+    ph_address: "Enter address...",
+    ph_customer: "Search customers...",
+    ph_description: "Description",
+    ph_email: "Email address",
+    ph_name: "Enter name",
+    ph_notes: "Additional details...",
+    ph_phone: "Phone number",
+    ph_price: "€",
+    ph_quantity: "Qty",
+    ph_search: "Search...",
+    ph_task_name: "E.g.: Office Deep Cleaning",
+    qa_add_customer: "Add Customer",
+    qa_new_booking: "New Appointment",
+    qa_new_invoice: "Create Invoice",
+    qa_view_report: "View Report",
+    sched_completed: "Completed",
+    sched_in_progress: "In Progress",
+    sched_pending: "Pending",
+    section_activity: "Activity History",
+    section_next_7_days: "Next 7 Days",
+    section_popular: "Popular Services",
+    section_recent_activity: "Team Activity",
+    section_recent_bookings: "Recent Appointments",
+    section_recurring: "🔄 Recurring Tasks",
+    section_revenue: "Revenue Analysis",
+    section_service_dist: "Service Distribution",
+    section_today_schedule: "Today's Schedule",
+    section_weather: "Weather",
+    sector_active: "Active",
+    sector_barber: "Barber & Salon",
+    sector_carwash: "CarWash",
+    sector_cleaning: "Cleaning",
+    sector_construction: "Construction",
+    sector_doctor: "Doctor & Clinic",
+    sector_market: "Market & Grocery",
+    sector_planned: "Planned",
+    sector_restaurant: "Restaurant",
+    settings_auto: "Auto",
+    settings_dark: "Dark",
+    settings_language: "Language",
+    settings_light: "Light",
+    settings_save: "Save Settings",
+    settings_theme: "Theme",
+    settings_title: "Settings",
+    sla_expires_24h: "Expires within 24h",
+    sla_need_action: "Urgent action required",
+    sla_overdue: "OVERDUE",
+    sla_remaining: "Remaining:",
+    status_active: "Active",
+    status_approved: "Approved",
+    status_assigned: "Assigned",
+    status_completed: "Completed",
+    status_done: "✓ Completed",
+    status_draft: "Draft",
+    status_high: "High",
+    status_in_progress: "In Progress",
+    status_invoiced: "Converted to Invoice",
+    status_low: "Low",
+    status_medium: "Medium",
+    status_new: "New",
+    status_on_the_way: "On the Way",
+    status_open: "Open",
+    status_overdue: "Overdue",
+    status_pending: "Pending",
+    status_planned: "Planned",
+    status_rejected: "Rejected",
+    status_sent: "Sent",
+    status_urgent: "Urgent",
+    svc_carpet: "Carpet/Upholstery",
+    svc_deep_clean: "Deep Clean Package",
+    svc_disinfection: "Disinfection",
+    svc_facade: "Facade",
+    svc_hvac: "HVAC Maintenance",
+    svc_interior: "Interior Cleaning",
+    svc_office_cleaning: "Office Cleaning",
+    svc_waste: "Waste Management",
+    svc_window_cleaning: "Window Cleaning",
+    th_actions: "Actions",
+    th_amount: "Amount",
+    th_assigned: "Assigned",
+    th_booking: "Appointment",
+    th_category: "Category",
+    th_customer: "Customer",
+    th_date: "Date",
+    th_due: "Due",
+    th_next_run: "Next",
+    th_price: "Price",
+    th_priority: "Priority",
+    th_product: "Product",
+    th_quote_no: "Quote No",
+    th_rating: "Rating",
+    th_recurring: "Recurring Tasks",
+    th_review: "Review",
+    th_service: "Service",
+    th_sla: "SLA",
+    th_staff: "Staff",
+    th_status: "Status",
+    th_stock: "Stock",
+    th_task: "Task",
+    th_time: "Time",
+    time_daily: "Daily",
+    time_every_day: "Every Day",
+    time_last_30_days: "Last 30 days average",
+    time_monthly: "Monthly",
+    time_this_month: "This Month",
+    time_this_week: "This Week",
+    time_today: "Today",
+    time_weekly: "Weekly",
+    title_dashboard: "Dashboard",
+    title_maintenance: "Smart Maintenance Planner",
+    title_quotes: "Quotes",
+    trend_increase: "↑ 24% increase",
+    trend_new_quotes: "new",
+    trend_pending_quotes: "quotes pending",
+    trend_rejected_quotes: "quotes rejected",
+    trend_this_month: "↑ This month +3",
+    trend_up: "↑ 5% up",
+    user_admin: "Admin",
+    user_name: "Jan Wouters",
+    weather_humidity: "Humidity",
+    weather_location: "📍 Antwerp, BE",
+    weather_partly_cloudy: "Partly Cloudy · Nice day",
+    weather_rain_chance: "Rain",
+    weather_wind: "Wind",
+  },
+  nl: {
+    btn_add_line: "+ Regel Toevoegen",
+    btn_apply: "Toepassen",
+    btn_approve: "Goedkeuren",
+    btn_cancel: "Annuleren",
+    btn_clear: "Wissen",
+    btn_close: "Sluiten",
+    btn_complete: "✓ Afronden",
+    btn_convert_invoice: "🧾 Omzetten naar Factuur",
+    btn_create: "Aanmaken",
+    btn_create_quote: "Offerte Maken",
+    btn_create_task: "Taak Aanmaken",
+    btn_delete: "Verwijderen",
+    btn_detail: "Detail",
+    btn_edit: "Bewerken",
+    btn_filter: "Filteren",
+    btn_go_invoice: "🧾 Naar Factuur",
+    btn_mark_all_read: "Alles als Gelezen Markeren",
+    btn_new_booking: "Nieuwe Afspraak",
+    btn_new_customer: "Klant Toevoegen",
+    btn_new_invoice: "Factuur Maken",
+    btn_new_quote: "+ Nieuwe Offerte",
+    btn_new_task: "+ Nieuwe Taak",
+    btn_next: "›",
+    btn_pdf_download: "🖨 PDF Downloaden",
+    btn_pdf_preview: "🖨 PDF Voorbeeld",
+    btn_pdf_view: "🖨 PDF Bekijken",
+    btn_previous: "‹",
+    btn_print: "🖨 Printen / PDF Opslaan",
+    btn_quick_actions: "Snelle Acties",
+    btn_reject: "Afwijzen",
+    btn_renew: "Vernieuwen",
+    btn_renew_version: "↻ Nieuwe Versie Maken",
+    btn_save: "Opslaan",
+    btn_search: "Zoeken",
+    btn_send_again: "📧 Opnieuw Versturen",
+    btn_send_email: "📧 Versturen naar Klant",
+    btn_update_status: "Status Bijwerken",
+    btn_view_all: "Alles Bekijken →",
+    btn_view_report: "Rapport Bekijken",
+    cal_fri: "Vr",
+    cal_may_2026: "Mei 2026",
+    cal_mon: "Ma",
+    cal_sat: "Za",
+    cal_sun: "Zo",
+    cal_thu: "Do",
+    cal_tue: "Di",
+    cal_wed: "Wo",
+    chart_daily: "Dagelijks",
+    chart_monthly: "Maandelijks",
+    company_address: "9000 Gent, België",
+    company_business_plan: "Businessplan",
+    company_cleanfix: "CleanFix",
+    company_cleanfix_prof: "CleanFix Professionele Reiniging",
+    company_email: "info@cleanfix.be",
+    company_name: "CleanFix Demo BV",
+    company_vat: "BTW: BE0123.456.789",
+    form_address: "Adres",
+    form_all_dates: "Alle Datums",
+    form_all_priorities: "Alle Prioriteiten",
+    form_all_services: "Alle Diensten",
+    form_all_staff: "Alle Personeel",
+    form_all_statuses: "Alle Statussen",
+    form_amount: "Bedrag",
+    form_assigned_staff: "Toegewezen Personeel",
+    form_company: "Bedrijf",
+    form_customer: "Klant",
+    form_date: "Datum",
+    form_description: "Omschrijving",
+    form_due_date: "Deadline",
+    form_email: "E-mail",
+    form_expiry: "Vervaldatum",
+    form_frequency: "Frequentie",
+    form_grand_total: "Eindtotaal",
+    form_location: "Locatie",
+    form_name: "Naam",
+    form_notes: "Notities",
+    form_phone: "Telefoon",
+    form_priority: "Prioriteit",
+    form_quantity: "Aantal",
+    form_quote_date: "Offertedatum",
+    form_quote_no: "Offertenummer",
+    form_recurring: "Terugkerende Taak",
+    form_service: "Dienst",
+    form_service_type: "Diensttype",
+    form_staff: "Personeel",
+    form_status: "Status",
+    form_subtotal: "Subtotaal",
+    form_task_info: "Taakinformatie",
+    form_task_name: "Taaknaam",
+    form_total: "Totaal",
+    form_unit_price: "Eenheidsprijs",
+    form_valid_until: "Geldig Tot",
+    form_vat: "BTW (%)",
+    form_vat_rate: "BTW Tarief (%)",
+    gen_all: "Alles",
+    gen_back: "Terug",
+    gen_download: "Downloaden",
+    gen_export: "Exporteren",
+    gen_filter: "Filteren",
+    gen_help: "Help",
+    gen_import: "Importeren",
+    gen_info: "Info",
+    gen_less: "Minder",
+    gen_loading: "Laden...",
+    gen_more: "Meer",
+    gen_next: "Volgende",
+    gen_no: "Nee",
+    gen_no_data: "Geen gegevens gevonden",
+    gen_print: "Printen",
+    gen_refresh: "Vernieuwen",
+    gen_search: "Zoeken...",
+    gen_support: "Ondersteuning",
+    gen_yes: "Ja",
+    header_menu: "Menu",
+    header_new_task: "+ Nieuwe Taak",
+    header_notifications: "Meldingen",
+    header_search: "Zoeken",
+    header_theme: "Thema",
+    kanban_assigned: "Toegewezen",
+    kanban_completed: "Voltooid",
+    kanban_in_progress: "In Uitvoering",
+    kanban_open: "Open",
+    kpi_active_customers: "Actieve Klanten",
+    kpi_approved: "Goedgekeurd (€)",
+    kpi_avg_resolution: "Gem. Oplostijd",
+    kpi_conversion: "Conversiepercentage",
+    kpi_monthly_appointments: "Maandelijkse Afspraken",
+    kpi_monthly_revenue: "Maandelijkse Omzet",
+    kpi_open_sla: "Open SLA",
+    kpi_open_tickets: "Open Tickets",
+    kpi_overdue_sla: "Achterstallige SLA",
+    kpi_pending: "In Afwachting (€)",
+    kpi_rejected: "Afgewezen (€)",
+    kpi_resolved_tickets: "Opgeloste Tickets",
+    kpi_satisfaction: "Klanttevredenheid",
+    kpi_this_week: "Deze Week Afspraken",
+    kpi_total_quotes: "Totaal Offertes",
+    kpi_upcoming_sla: "Naderende SLA",
+    modal_new_booking: "Nieuwe Afspraak Maken",
+    modal_new_customer: "Nieuwe Klant Toevoegen",
+    modal_new_invoice: "Nieuwe Factuur Maken",
+    modal_new_quote: "Nieuwe Offerte Maken",
+    modal_new_task: "Nieuwe Taak Aanmaken",
+    modal_pdf_preview: "PDF Voorbeeld",
+    modal_task_detail: "Taak Detail",
+    msg_booking_created: "Afspraak gemaakt",
+    msg_confirm_approve: "Offerte goedkeuren?",
+    msg_confirm_delete: "Weet u zeker dat u wilt verwijderen?",
+    msg_confirm_reject: "Offerte afwijzen?",
+    msg_customer_added: "Klant toegevoegd",
+    msg_deleted: "Verwijderd",
+    msg_invoice_created: "Factuur aangemaakt",
+    msg_quote_approved: "Offerte goedgekeurd",
+    msg_quote_rejected: "Offerte afgewezen",
+    msg_saved: "Opgeslagen",
+    msg_status_updated: "Status bijgewerkt",
+    msg_task_created: "Taak aangemaakt",
+    nav_analytics: "Analyse",
+    nav_bookings: "Afspraken",
+    nav_company: "Bedrijfspaneel",
+    nav_customers: "Klanten",
+    nav_dashboard: "Dashboard",
+    nav_invoices: "Facturen",
+    nav_logout: "Uitloggen",
+    nav_maintenance: "Onderhouds planner",
+    nav_profile: "Bedrijfsprofiel",
+    nav_quotes: "Offertes",
+    nav_reviews: "Beoordelingen",
+    nav_sectors: "Sectoren",
+    nav_services: "Diensten",
+    nav_staff: "Personeel",
+    nav_stock: "Voorraad",
+    nav_tools: "Tools",
+    notif_ago: "geleden",
+    notif_day_ago: "dag geleden",
+    notif_hour_ago: "uur geleden",
+    notif_hours_ago: "uur geleden",
+    notif_left: "items resterend",
+    notif_min_ago: "minuten geleden",
+    notif_new_booking: "Nieuwe afspraak:",
+    notif_new_customer: "Nieuwe klantregistratie:",
+    notif_paid: "betaald",
+    notif_stock_alert: "Voorraadalarm:",
+    notif_ticket_resolved: "opgelost",
+    pdf_cleanfix_auth: "CleanFix Gemachtigde",
+    pdf_customer_sign: "Klant Handtekening / Datum",
+    pdf_date: "Datum:",
+    pdf_grand_total: "Eindtotaal:",
+    pdf_payment_detail: "14 dagen, bankoverschrijving.",
+    pdf_payment_terms: "Betalingsvoorwaarden:",
+    pdf_quote: "Offerte",
+    pdf_quote_no_label: "Offerte Nr:",
+    pdf_quote_valid_until: "Deze offerte is geldig tot 26 mei 2026.",
+    pdf_quote_validity: "Offertegeldigheid:",
+    pdf_service_material_detail: "Dienst & Materiaal Detail",
+    pdf_services_materials: "Diensten & Materialen",
+    pdf_sign_instructions: "Onderteken en stuur terug om deze offerte goed te keuren.",
+    pdf_subtotal: "Subtotaal:",
+    pdf_valid: "Geldig: 26 mei 2026",
+    pdf_vat: "BTW (21%):",
+    ph_address: "Adres invoeren...",
+    ph_customer: "Zoek klanten...",
+    ph_description: "Omschrijving",
+    ph_email: "E-mailadres",
+    ph_name: "Naam invoeren",
+    ph_notes: "Extra details...",
+    ph_phone: "Telefoonnummer",
+    ph_price: "€",
+    ph_quantity: "Aantal",
+    ph_search: "Zoeken...",
+    ph_task_name: "Bijv.: Kantoor Dieptereiniging",
+    qa_add_customer: "Klant Toevoegen",
+    qa_new_booking: "Nieuwe Afspraak",
+    qa_new_invoice: "Factuur Maken",
+    qa_view_report: "Rapport Bekijken",
+    sched_completed: "Voltooid",
+    sched_in_progress: "In Uitvoering",
+    sched_pending: "In Afwachting",
+    section_activity: "Activiteitengeschiedenis",
+    section_next_7_days: "Volgende 7 Dagen",
+    section_popular: "Populaire Diensten",
+    section_recent_activity: "Teamactiviteit",
+    section_recent_bookings: "Recente Afspraken",
+    section_recurring: "🔄 Terugkerende Taken",
+    section_revenue: "Omzetanalyse",
+    section_service_dist: "Dienstverdeling",
+    section_today_schedule: "Schema Vandaag",
+    section_weather: "Weer",
+    sector_active: "Actief",
+    sector_barber: "Kapper & Salon",
+    sector_carwash: "CarWash",
+    sector_cleaning: "Reiniging",
+    sector_construction: "Bouw",
+    sector_doctor: "Dokter & Kliniek",
+    sector_market: "Winkel & Kruidenier",
+    sector_planned: "Gepland",
+    sector_restaurant: "Restaurant",
+    settings_auto: "Automatisch",
+    settings_dark: "Donker",
+    settings_language: "Taal",
+    settings_light: "Licht",
+    settings_save: "Instellingen Opslaan",
+    settings_theme: "Thema",
+    settings_title: "Instellingen",
+    sla_expires_24h: "Verloopt binnen 24u",
+    sla_need_action: "Dringende actie vereist",
+    sla_overdue: "ACHTERSTALLIG",
+    sla_remaining: "Resterend:",
+    status_active: "Actief",
+    status_approved: "Goedgekeurd",
+    status_assigned: "Toegewezen",
+    status_completed: "Voltooid",
+    status_done: "✓ Voltooid",
+    status_draft: "Concept",
+    status_high: "Hoog",
+    status_in_progress: "In Uitvoering",
+    status_invoiced: "Omgezet naar Factuur",
+    status_low: "Laag",
+    status_medium: "Gemiddeld",
+    status_new: "Nieuw",
+    status_on_the_way: "Onderweg",
+    status_open: "Open",
+    status_overdue: "Achterstallig",
+    status_pending: "In Afwachting",
+    status_planned: "Gepland",
+    status_rejected: "Afgewezen",
+    status_sent: "Verzonden",
+    status_urgent: "Dringend",
+    svc_carpet: "Tapijt/Meubels",
+    svc_deep_clean: "Dieptereiniging Pakket",
+    svc_disinfection: "Desinfectie",
+    svc_facade: "Gevel",
+    svc_hvac: "HVAC Onderhoud",
+    svc_interior: "Interieur Reiniging",
+    svc_office_cleaning: "Kantoorreiniging",
+    svc_waste: "Afvalbeheer",
+    svc_window_cleaning: "Ramen Lappen",
+    th_actions: "Acties",
+    th_amount: "Bedrag",
+    th_assigned: "Toegewezen",
+    th_booking: "Afspraak",
+    th_category: "Categorie",
+    th_customer: "Klant",
+    th_date: "Datum",
+    th_due: "Deadline",
+    th_next_run: "Volgende",
+    th_price: "Prijs",
+    th_priority: "Prioriteit",
+    th_product: "Product",
+    th_quote_no: "Offerte Nr",
+    th_rating: "Beoordeling",
+    th_recurring: "Terugkerende Taken",
+    th_review: "Review",
+    th_service: "Dienst",
+    th_sla: "SLA",
+    th_staff: "Personeel",
+    th_status: "Status",
+    th_stock: "Voorraad",
+    th_task: "Taak",
+    th_time: "Tijd",
+    time_daily: "Dagelijks",
+    time_every_day: "Elke Dag",
+    time_last_30_days: "Gemiddelde laatste 30 dagen",
+    time_monthly: "Maandelijks",
+    time_this_month: "Deze Maand",
+    time_this_week: "Deze Week",
+    time_today: "Vandaag",
+    time_weekly: "Wekelijks",
+    title_dashboard: "Dashboard",
+    title_maintenance: "Slimme Onderhouds Planner",
+    title_quotes: "Offertes",
+    trend_increase: "↑ 24% stijging",
+    trend_new_quotes: "nieuw",
+    trend_pending_quotes: "offertes in afwachting",
+    trend_rejected_quotes: "offertes afgewezen",
+    trend_this_month: "↑ Deze maand +3",
+    trend_up: "↑ 5% omhoog",
+    user_admin: "Admin",
+    user_name: "Jan Wouters",
+    weather_humidity: "Vochtigheid",
+    weather_location: "📍 Antwerpen, BE",
+    weather_partly_cloudy: "Gedeeltelijk Bewolkt · Mooie dag",
+    weather_rain_chance: "Regen",
+    weather_wind: "Wind",
+  }
+};
+let currentLang = localStorage.getItem('cleanfix_lang') || 'tr';
+
+function switchLang(lang) {
+  currentLang = lang;
+  localStorage.setItem('cleanfix_lang', lang);
+  document.documentElement.lang = lang;
+
+  document.querySelectorAll('.lang-switcher button').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.lang === lang);
+  });
+
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.dataset.i18n;
+    const t = i18n[lang] && i18n[lang][key];
+    if (!t) return;
+    const attr = el.dataset.i18nAttr;
+    if (attr) {
+      el.setAttribute(attr, t);
+    } else if (el.tagName === 'TITLE') {
+      el.textContent = t;
+    } else if (el.tagName === 'A' || el.tagName === 'BUTTON') {
+      if (el.children.length === 0) {
+        el.textContent = t;
+      } else {
+        const textNodes = Array.from(el.childNodes).filter(n => n.nodeType === 3);
+        if (textNodes.length > 0) textNodes[0].textContent = t;
+      }
+    } else {
+      if (t.includes('<')) {
+        el.innerHTML = t;
+      } else {
+        el.textContent = t;
+      }
+    }
+  });
+
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+    const key = el.dataset.i18nPlaceholder;
+    if (i18n[lang] && i18n[lang][key]) el.placeholder = i18n[lang][key];
+  });
+
+  const featuredCard = document.querySelector('.pricing-card.featured, .plan-card.featured');
+  if (featuredCard) {
+    featuredCard.dataset.popular = lang === 'tr' ? 'En Popüler' : lang === 'en' ? 'Most Popular' : 'Meest Populair';
+  }
+}
+
+/* Init */
+switchLang(currentLang);
+</script>
+<script>
+const i18n = {
+  tr: {
+    'meta.description': 'CleanFix Teklif Sistemi - Teklif oluşturma ve yönetim',
+    'page.title': 'Teklifler',
+    'sidebar.companyPanel': 'Firma Paneli',
+    'nav.dashboard': 'Dashboard',
+    'nav.bookings': 'Randevular',
+    'nav.staff': 'Çalışanlar',
+    'nav.services': 'Hizmetler',
+    'nav.invoices': 'Faturalar',
+    'nav.customers': 'Müşteriler',
+    'nav.stock': 'Stok',
+    'nav.reviews': 'Değerlendirmeler',
+    'nav.quotes': 'Teklifler',
+    'nav.analytics': 'Analiz',
+    'nav.settings': 'Ayarlar',
+    'nav.companyProfile': 'Firma Profili',
+    'nav.logout': 'Çıkış Yap',
+    'header.company': 'CleanFix Demo BV',
+    'header.plan': 'Business Plan',
+    // Stats
+    'stat.totalQuotes': 'Toplam Teklifler',
+    'stat.approved': 'Onaylanan (€)',
+    'stat.pending': 'Bekleyen (€)',
+    'stat.rejected': 'Reddedilen (€)',
+    'stat.conversion': 'Dönüşüm Oranı',
+    'stat.thisMonth': 'Bu ay',
+    'stat.increase': 'artış',
+    'stat.quotesWaiting': 'teklif beklemede',
+    'stat.quotesRejected': 'teklif reddedildi',
+    'stat.up': 'yukarı',
+    // Toolbar
+    'search.placeholder': 'Teklif ara...',
+    'filter.all': 'Tümü',
+    'filter.draft': 'Taslak',
+    'filter.sent': 'Gönderildi',
+    'filter.approved': 'Onaylandı',
+    'filter.rejected': 'Reddedildi',
+    'filter.converted': 'Faturaya Dönüştürüldü',
+    'filter.allDates': 'Tüm Tarihler',
+    'filter.today': 'Bugün',
+    'filter.thisWeek': 'Bu Hafta',
+    'filter.thisMonth': 'Bu Ay',
+    'btn.newQuote': 'Yeni Teklif',
+    // Table
+    'table.quoteNo': 'Teklif No',
+    'table.customer': 'Müşteri',
+    'table.date': 'Tarih',
+    'table.validity': 'Geçerlilik',
+    'table.amount': 'Tutar',
+    'table.vat': 'KDV',
+    'table.total': 'Genel Toplam',
+    'table.status': 'Durum',
+    'table.actions': 'İşlemler',
+    // Status tags
+    'status.draft': 'Taslak',
+    'status.sent': 'Gönderildi',
+    'status.approved': 'Onaylandı',
+    'status.rejected': 'Reddedildi',
+    'status.converted': 'Faturaya Dönüştürüldü',
+    // Quote detail
+    'detail.title': 'Hizmet ve Malzeme Detayı',
+    'detail.quote': 'Teklif',
+    'table.description': 'Açıklama',
+    'table.qty': 'Adet',
+    'table.unitPrice': 'Birim Fiyat',
+    'table.lineTotal': 'Tutar',
+    'total.subtotal': 'Ara Toplam',
+    'total.vat': 'KDV (%21)',
+    'total.grand': 'Genel Toplam',
+    // Actions
+    'action.detail': 'Detay',
+    'action.pdfView': 'PDF Gör',
+    'action.send': 'Gönder',
+    'action.approve': 'Onayla',
+    'action.reject': 'Reddet',
+    'action.pdfDownload': 'PDF İndir',
+    'action.convertInvoice': 'Faturaya Dönüştür',
+    'action.sendCustomer': 'Müşteriye Gönder',
+    'action.resend': 'Tekrar Gönder',
+    'action.newVersion': 'Yeni Versiyon Oluştur',
+    'action.goInvoice': 'Faturaya Git',
+    // Modal
+    'modal.newQuote': 'Yeni Teklif Oluştur',
+    'modal.customer': 'Müşteri',
+    'modal.expiry': 'Geçerlilik Tarihi',
+    'modal.vatRate': 'KDV Oranı (%)',
+    'modal.lineItems': 'Hizmet ve Malzemeler',
+    'modal.addRow': 'Satır Ekle',
+    'modal.subtotal': 'Ara Toplam',
+    'modal.vat': 'KDV',
+    'modal.total': 'Toplam',
+    'modal.cancel': 'İptal',
+    'modal.create': 'Teklif Oluştur',
+    'modal.descPlaceholder': 'Açıklama',
+    'modal.qtyPlaceholder': 'Adet',
+    'modal.pricePlaceholder': '€',
+    // PDF
+    'pdf.preview': 'PDF Önizleme',
+    'pdf.quoter': 'Teklif Veren',
+    'pdf.customer': 'Müşteri',
+    'pdf.quoteNo': 'Teklif No',
+    'pdf.date': 'Tarih',
+    'pdf.validity': 'Geçerlilik',
+    'pdf.payment': 'Ödeme Koşulları',
+    'pdf.paymentTerms': '14 gün vade, banka havalesi.',
+    'pdf.validityText': 'Bu teklif tarihine kadar geçerlidir.',
+    'pdf.customerSign': 'Müşteri İmza / Tarih',
+    'pdf.official': 'CleanFix Yetkilisi',
+    'pdf.close': 'Kapat',
+    'pdf.print': 'Yazdır / PDF Kaydet',
+    // Toast
+    'toast.quoteSent': 'Teklif gönderildi',
+    'toast.quoteApproved': 'Teklif onaylandı',
+    'toast.quoteRejected': 'Teklif reddedildi',
+    'toast.converted': 'Teklif faturaya dönüştürüldü',
+    'toast.newVersion': 'Yeni teklif versiyonu oluşturuldu',
+    'toast.created': 'Yeni teklif oluşturuldu'
+  },
+  en: {
+    'meta.description': 'CleanFix Quote System - Quote creation and management',
+    'page.title': 'Quotes',
+    'sidebar.companyPanel': 'Company Panel',
+    'nav.dashboard': 'Dashboard',
+    'nav.bookings': 'Bookings',
+    'nav.staff': 'Staff',
+    'nav.services': 'Services',
+    'nav.invoices': 'Invoices',
+    'nav.customers': 'Customers',
+    'nav.stock': 'Stock',
+    'nav.reviews': 'Reviews',
+    'nav.quotes': 'Quotes',
+    'nav.analytics': 'Analytics',
+    'nav.settings': 'Settings',
+    'nav.companyProfile': 'Company Profile',
+    'nav.logout': 'Log Out',
+    'header.company': 'CleanFix Demo BV',
+    'header.plan': 'Business Plan',
+    'stat.totalQuotes': 'Total Quotes',
+    'stat.approved': 'Approved (€)',
+    'stat.pending': 'Pending (€)',
+    'stat.rejected': 'Rejected (€)',
+    'stat.conversion': 'Conversion Rate',
+    'stat.thisMonth': 'This month',
+    'stat.increase': 'increase',
+    'stat.quotesWaiting': 'quotes waiting',
+    'stat.quotesRejected': 'quotes rejected',
+    'stat.up': 'up',
+    'search.placeholder': 'Search quotes...',
+    'filter.all': 'All',
+    'filter.draft': 'Draft',
+    'filter.sent': 'Sent',
+    'filter.approved': 'Approved',
+    'filter.rejected': 'Rejected',
+    'filter.converted': 'Converted to Invoice',
+    'filter.allDates': 'All Dates',
+    'filter.today': 'Today',
+    'filter.thisWeek': 'This Week',
+    'filter.thisMonth': 'This Month',
+    'btn.newQuote': 'New Quote',
+    'table.quoteNo': 'Quote No',
+    'table.customer': 'Customer',
+    'table.date': 'Date',
+    'table.validity': 'Validity',
+    'table.amount': 'Amount',
+    'table.vat': 'VAT',
+    'table.total': 'Grand Total',
+    'table.status': 'Status',
+    'table.actions': 'Actions',
+    'status.draft': 'Draft',
+    'status.sent': 'Sent',
+    'status.approved': 'Approved',
+    'status.rejected': 'Rejected',
+    'status.converted': 'Converted',
+    'detail.title': 'Service & Material Details',
+    'detail.quote': 'Quote',
+    'table.description': 'Description',
+    'table.qty': 'Qty',
+    'table.unitPrice': 'Unit Price',
+    'table.lineTotal': 'Total',
+    'total.subtotal': 'Subtotal',
+    'total.vat': 'VAT (21%)',
+    'total.grand': 'Grand Total',
+    'action.detail': 'Detail',
+    'action.pdfView': 'PDF View',
+    'action.send': 'Send',
+    'action.approve': 'Approve',
+    'action.reject': 'Reject',
+    'action.pdfDownload': 'Download PDF',
+    'action.convertInvoice': 'Convert to Invoice',
+    'action.sendCustomer': 'Send to Customer',
+    'action.resend': 'Resend',
+    'action.newVersion': 'Create New Version',
+    'action.goInvoice': 'Go to Invoice',
+    'modal.newQuote': 'Create New Quote',
+    'modal.customer': 'Customer',
+    'modal.expiry': 'Expiry Date',
+    'modal.vatRate': 'VAT Rate (%)',
+    'modal.lineItems': 'Services & Materials',
+    'modal.addRow': 'Add Row',
+    'modal.subtotal': 'Subtotal',
+    'modal.vat': 'VAT',
+    'modal.total': 'Total',
+    'modal.cancel': 'Cancel',
+    'modal.create': 'Create Quote',
+    'modal.descPlaceholder': 'Description',
+    'modal.qtyPlaceholder': 'Qty',
+    'modal.pricePlaceholder': '€',
+    'pdf.preview': 'PDF Preview',
+    'pdf.quoter': 'Quoter',
+    'pdf.customer': 'Customer',
+    'pdf.quoteNo': 'Quote No',
+    'pdf.date': 'Date',
+    'pdf.validity': 'Validity',
+    'pdf.payment': 'Payment Terms',
+    'pdf.paymentTerms': '14 days, bank transfer.',
+    'pdf.validityText': 'This quote is valid until',
+    'pdf.customerSign': 'Customer Signature / Date',
+    'pdf.official': 'CleanFix Official',
+    'pdf.close': 'Close',
+    'pdf.print': 'Print / Save PDF',
+    'toast.quoteSent': 'Quote sent',
+    'toast.quoteApproved': 'Quote approved',
+    'toast.quoteRejected': 'Quote rejected',
+    'toast.converted': 'Quote converted to invoice',
+    'toast.newVersion': 'New quote version created',
+    'toast.created': 'New quote created'
+  },
+  nl: {
+    'meta.description': 'CleanFix Offerte Systeem - Offerte aanmaken en beheren',
+    'page.title': 'Offertes',
+    'sidebar.companyPanel': 'Bedrijfspaneel',
+    'nav.dashboard': 'Dashboard',
+    'nav.bookings': 'Afspraken',
+    'nav.staff': 'Medewerkers',
+    'nav.services': 'Diensten',
+    'nav.invoices': 'Facturen',
+    'nav.customers': 'Klanten',
+    'nav.stock': 'Voorraad',
+    'nav.reviews': 'Beoordelingen',
+    'nav.quotes': 'Offertes',
+    'nav.analytics': 'Analyse',
+    'nav.settings': 'Instellingen',
+    'nav.companyProfile': 'Bedrijfsprofiel',
+    'nav.logout': 'Uitloggen',
+    'header.company': 'CleanFix Demo BV',
+    'header.plan': 'Business Plan',
+    'stat.totalQuotes': 'Totaal Offertes',
+    'stat.approved': 'Goedgekeurd (€)',
+    'stat.pending': 'In Afwachting (€)',
+    'stat.rejected': 'Afgewezen (€)',
+    'stat.conversion': 'Conversie Ratio',
+    'stat.thisMonth': 'Deze maand',
+    'stat.increase': 'stijging',
+    'stat.quotesWaiting': 'offertes in afwachting',
+    'stat.quotesRejected': 'offertes afgewezen',
+    'stat.up': 'omhoog',
+    'search.placeholder': 'Offerte zoeken...',
+    'filter.all': 'Alles',
+    'filter.draft': 'Concept',
+    'filter.sent': 'Verzonden',
+    'filter.approved': 'Goedgekeurd',
+    'filter.rejected': 'Afgewezen',
+    'filter.converted': 'Naar Factuur Omgezet',
+    'filter.allDates': 'Alle Datums',
+    'filter.today': 'Vandaag',
+    'filter.thisWeek': 'Deze Week',
+    'filter.thisMonth': 'Deze Maand',
+    'btn.newQuote': 'Nieuwe Offerte',
+    'table.quoteNo': 'Offerte Nr',
+    'table.customer': 'Klant',
+    'table.date': 'Datum',
+    'table.validity': 'Geldigheid',
+    'table.amount': 'Bedrag',
+    'table.vat': 'BTW',
+    'table.total': 'Totaalbedrag',
+    'table.status': 'Status',
+    'table.actions': 'Acties',
+    'status.draft': 'Concept',
+    'status.sent': 'Verzonden',
+    'status.approved': 'Goedgekeurd',
+    'status.rejected': 'Afgewezen',
+    'status.converted': 'Omgezet',
+    'detail.title': 'Dienst & Materiaal Details',
+    'detail.quote': 'Offerte',
+    'table.description': 'Omschrijving',
+    'table.qty': 'Aantal',
+    'table.unitPrice': 'Eenheidsprijs',
+    'table.lineTotal': 'Totaal',
+    'total.subtotal': 'Subtotaal',
+    'total.vat': 'BTW (21%)',
+    'total.grand': 'Totaalbedrag',
+    'action.detail': 'Detail',
+    'action.pdfView': 'PDF Bekijken',
+    'action.send': 'Verzenden',
+    'action.approve': 'Goedkeuren',
+    'action.reject': 'Afwijzen',
+    'action.pdfDownload': 'PDF Downloaden',
+    'action.convertInvoice': 'Naar Factuur Omzetten',
+    'action.sendCustomer': 'Naar Klant Verzenden',
+    'action.resend': 'Opnieuw Verzenden',
+    'action.newVersion': 'Nieuwe Versie Maken',
+    'action.goInvoice': 'Naar Factuur Gaan',
+    'modal.newQuote': 'Nieuwe Offerte Maken',
+    'modal.customer': 'Klant',
+    'modal.expiry': 'Vervaldatum',
+    'modal.vatRate': 'BTW Percentage (%)',
+    'modal.lineItems': 'Diensten & Materialen',
+    'modal.addRow': 'Rij Toevoegen',
+    'modal.subtotal': 'Subtotaal',
+    'modal.vat': 'BTW',
+    'modal.total': 'Totaal',
+    'modal.cancel': 'Annuleren',
+    'modal.create': 'Offerte Maken',
+    'modal.descPlaceholder': 'Omschrijving',
+    'modal.qtyPlaceholder': 'Aantal',
+    'modal.pricePlaceholder': '€',
+    'pdf.preview': 'PDF Voorbeeld',
+    'pdf.quoter': 'Offerteur',
+    'pdf.customer': 'Klant',
+    'pdf.quoteNo': 'Offerte Nr',
+    'pdf.date': 'Datum',
+    'pdf.validity': 'Geldigheid',
+    'pdf.payment': 'Betalingsvoorwaarden',
+    'pdf.paymentTerms': '14 dagen, bankoverschrijving.',
+    'pdf.validityText': 'Deze offerte is geldig tot',
+    'pdf.customerSign': 'Klant Handtekening / Datum',
+    'pdf.official': 'CleanFix Functionaris',
+    'pdf.close': 'Sluiten',
+    'pdf.print': 'Afdrukken / PDF Opslaan',
+    'toast.quoteSent': 'Offerte verzonden',
+    'toast.quoteApproved': 'Offerte goedgekeurd',
+    'toast.quoteRejected': 'Offerte afgewezen',
+    'toast.converted': 'Offerte omgezet naar factuur',
+    'toast.newVersion': 'Nieuwe offerte versie aangemaakt',
+    'toast.created': 'Nieuwe offerte aangemaakt'
+  }
+};
+</script>
+
+<script>
+/* ── i18n System ── */
+let _currentLang = localStorage.getItem('cleanfix_lang') || 'tr';
+function switchLang(lang) {
+  _currentLang = lang;
+  localStorage.setItem('cleanfix_lang', lang);
+  document.documentElement.lang = lang;
+  document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active-lang', b.dataset.lang === lang));
+  applyLang();
+}
+function applyLang() {
+  const t = i18n[_currentLang] || i18n['tr'];
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.dataset.i18n;
+    if (t[key]) {
+      if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') el.value = t[key];
+      else el.textContent = t[key];
+    }
+  });
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+    const key = el.dataset.i18nPlaceholder;
+    if (t[key]) el.placeholder = t[key];
+  });
+  document.querySelectorAll('[data-i18n-html]').forEach(el => {
+    const key = el.dataset.i18nHtml;
+    if (t[key]) el.innerHTML = t[key];
+  });
+  document.querySelectorAll('[data-i18n-attr]').forEach(el => {
+    const attr = el.dataset.i18nAttr;
+    const key = el.dataset.i18n;
+    if (t[key] && attr) el.setAttribute(attr, t[key]);
+  });
+  // Update meta description
+  const metaDesc = document.querySelector('meta[name="description"]');
+  if (metaDesc && t['meta.description']) metaDesc.content = t['meta.description'];
+}
+document.addEventListener('DOMContentLoaded', () => {
+  switchLang(_currentLang);
+});
+</script>
+
 </body>
 </html>
