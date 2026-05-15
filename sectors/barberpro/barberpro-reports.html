@@ -9,7 +9,7 @@
 <link rel="stylesheet" href="css/dashboard.css">
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <style>
-  :root{ --primary-500:#8b5cf6; --primary-600:#7c3aed; --primary-400:#a78bfa; --shadow-glow:rgba(139,92,246,0.15); }
+  :root{ --primary-500:#14b8a6; --primary-600:#0d9488; --primary-400:#2dd4bf; --shadow-glow:rgba(139,92,246,0.15); }
   .report-tabs { display:flex; gap:8px; margin-bottom:24px; flex-wrap:wrap; }
   .report-tab { padding:10px 20px; border-radius:8px; background:var(--bg-tertiary); border:1px solid var(--border-color); color:var(--text-secondary); cursor:pointer; font-size:var(--text-sm); font-weight:500; transition:all 0.2s; }
   .report-tab.active { background:linear-gradient(135deg,var(--primary-500),var(--primary-600)); color:white; border-color:transparent; }
@@ -196,26 +196,26 @@ function switchTab(tab){
 const chartDefaults={responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{color:'#94a3b8',font:{size:11}}}},scales:{x:{ticks:{color:'#94a3b8',font:{size:11}},grid:{color:'rgba(148,163,184,0.1)'}},y:{ticks:{color:'#94a3b8',font:{size:11}},grid:{color:'rgba(148,163,184,0.1)'}}}};
 
 function initRevenueCharts(){
-  new Chart(document.getElementById('revenueChart'),{type:'line',data:{labels:['1 May','5 May','10 May','15 May','20 May','25 May','30 May'],datasets:[{label:'Gelir (€)',data:[820,950,780,1120,980,1250,1080],borderColor:'#8b5cf6',backgroundColor:'rgba(139,92,246,0.1)',fill:true,tension:0.4}]},options:chartDefaults});
-  new Chart(document.getElementById('serviceRevenueChart'),{type:'doughnut',data:{labels:['Saç Kesimi','Boyama','Manikür','Pedikür','Keratin','Diğer'],datasets:[{data:[5200,3800,2100,1800,3500,1020],backgroundColor:['#8b5cf6','#a78bfa','#ec4899','#f59e0b','#0ea5e9','#6b7280']}]},options:{...chartDefaults,scales:{}}});
-  new Chart(document.getElementById('weeklyChart'),{type:'bar',data:{labels:['Hafta 1','Hafta 2','Hafta 3','Hafta 4'],datasets:[{label:'Bu Ay',data:[5800,6200,5900,7100],backgroundColor:'#8b5cf6'},{label:'Geçen Ay',data:[5200,5400,5100,5800],backgroundColor:'rgba(139,92,246,0.3)'}]},options:chartDefaults});
-  new Chart(document.getElementById('paymentChart'),{type:'pie',data:{labels:['Nakit','Kredi Kartı','Online','Havale'],datasets:[{data:[35,42,18,5],backgroundColor:['#10b981','#8b5cf6','#0ea5e9','#f59e0b']}]},options:{...chartDefaults,scales:{}}});
+  new Chart(document.getElementById('revenueChart'),{type:'line',data:{labels:['1 May','5 May','10 May','15 May','20 May','25 May','30 May'],datasets:[{label:'Gelir (€)',data:[820,950,780,1120,980,1250,1080],borderColor:'#14b8a6',backgroundColor:'rgba(139,92,246,0.1)',fill:true,tension:0.4}]},options:chartDefaults});
+  new Chart(document.getElementById('serviceRevenueChart'),{type:'doughnut',data:{labels:['Saç Kesimi','Boyama','Manikür','Pedikür','Keratin','Diğer'],datasets:[{data:[5200,3800,2100,1800,3500,1020],backgroundColor:['#14b8a6','#2dd4bf','#ec4899','#f59e0b','#0ea5e9','#6b7280']}]},options:{...chartDefaults,scales:{}}});
+  new Chart(document.getElementById('weeklyChart'),{type:'bar',data:{labels:['Hafta 1','Hafta 2','Hafta 3','Hafta 4'],datasets:[{label:'Bu Ay',data:[5800,6200,5900,7100],backgroundColor:'#14b8a6'},{label:'Geçen Ay',data:[5200,5400,5100,5800],backgroundColor:'rgba(139,92,246,0.3)'}]},options:chartDefaults});
+  new Chart(document.getElementById('paymentChart'),{type:'pie',data:{labels:['Nakit','Kredi Kartı','Online','Havale'],datasets:[{data:[35,42,18,5],backgroundColor:['#10b981','#14b8a6','#0ea5e9','#f59e0b']}]},options:{...chartDefaults,scales:{}}});
 }
 function initAppointmentCharts(){
-  new Chart(document.getElementById('hourlyChart'),{type:'bar',data:{labels:['09','10','11','12','13','14','15','16','17','18','19','20'],datasets:[{label:'Randevu',data:[8,15,22,18,12,25,28,24,20,16,10,5],backgroundColor:'#8b5cf6'}]},options:chartDefaults});
-  new Chart(document.getElementById('dailyApptChart'),{type:'line',data:{labels:['Pzt','Sal','Çar','Per','Cum','Cmt','Paz'],datasets:[{label:'Randevu',data:[72,68,75,82,95,55,40],borderColor:'#8b5cf6',backgroundColor:'rgba(139,92,246,0.1)',fill:true}]},options:chartDefaults});
-  new Chart(document.getElementById('bookingTypeChart'),{type:'bar',data:{labels:['Online','Walk-in','Telefon','WhatsApp'],datasets:[{label:'Miktar',data:[210,168,78,31],backgroundColor:['#0ea5e9','#8b5cf6','#10b981','#25d366']}]},options:chartDefaults});
+  new Chart(document.getElementById('hourlyChart'),{type:'bar',data:{labels:['09','10','11','12','13','14','15','16','17','18','19','20'],datasets:[{label:'Randevu',data:[8,15,22,18,12,25,28,24,20,16,10,5],backgroundColor:'#14b8a6'}]},options:chartDefaults});
+  new Chart(document.getElementById('dailyApptChart'),{type:'line',data:{labels:['Pzt','Sal','Çar','Per','Cum','Cmt','Paz'],datasets:[{label:'Randevu',data:[72,68,75,82,95,55,40],borderColor:'#14b8a6',backgroundColor:'rgba(139,92,246,0.1)',fill:true}]},options:chartDefaults});
+  new Chart(document.getElementById('bookingTypeChart'),{type:'bar',data:{labels:['Online','Walk-in','Telefon','WhatsApp'],datasets:[{label:'Miktar',data:[210,168,78,31],backgroundColor:['#0ea5e9','#14b8a6','#10b981','#25d366']}]},options:chartDefaults});
 }
 function initStaffCharts(){
-  new Chart(document.getElementById('staffRevenueChart'),{type:'bar',data:{labels:['Marc','Laura','JP','Sophie','Marie','Emma','Nadia','Thomas'],datasets:[{label:'Gelir (€)',data:[3420,3150,3180,2890,2780,2560,2100,1450],backgroundColor:'#8b5cf6'}]},options:chartDefaults});
-  new Chart(document.getElementById('staffApptChart'),{type:'doughnut',data:{labels:['Marc','Sophie','JP','Marie','Laura','Emma','Thomas','Nadia'],datasets:[{data:[98,142,91,118,76,104,67,0],backgroundColor:['#8b5cf6','#ec4899','#a78bfa','#f472b6','#f59e0b','#0ea5e9','#10b981','#6b7280']}]},options:{...chartDefaults,scales:{}}});
+  new Chart(document.getElementById('staffRevenueChart'),{type:'bar',data:{labels:['Marc','Laura','JP','Sophie','Marie','Emma','Nadia','Thomas'],datasets:[{label:'Gelir (€)',data:[3420,3150,3180,2890,2780,2560,2100,1450],backgroundColor:'#14b8a6'}]},options:chartDefaults});
+  new Chart(document.getElementById('staffApptChart'),{type:'doughnut',data:{labels:['Marc','Sophie','JP','Marie','Laura','Emma','Thomas','Nadia'],datasets:[{data:[98,142,91,118,76,104,67,0],backgroundColor:['#14b8a6','#ec4899','#2dd4bf','#f472b6','#f59e0b','#0ea5e9','#10b981','#6b7280']}]},options:{...chartDefaults,scales:{}}});
 }
 function initStockCharts(){
-  new Chart(document.getElementById('stockCategoryChart'),{type:'doughnut',data:{labels:['Şampuan','Boya','Jöle/Wax','Bakım','Aksesuar','Diğer'],datasets:[{data:[42,28,35,25,14,12],backgroundColor:['#8b5cf6','#ec4899','#f59e0b','#0ea5e9','#10b981','#6b7280']}]},options:{...chartDefaults,scales:{}}});
-  new Chart(document.getElementById('stockValueChart'),{type:'line',data:{labels:['Oca','Şub','Mar','Nis','May'],datasets:[{label:'Stok Değeri (€)',data:[3200,3450,3100,3760,4280],borderColor:'#8b5cf6',backgroundColor:'rgba(139,92,246,0.1)',fill:true}]},options:chartDefaults});
+  new Chart(document.getElementById('stockCategoryChart'),{type:'doughnut',data:{labels:['Şampuan','Boya','Jöle/Wax','Bakım','Aksesuar','Diğer'],datasets:[{data:[42,28,35,25,14,12],backgroundColor:['#14b8a6','#ec4899','#f59e0b','#0ea5e9','#10b981','#6b7280']}]},options:{...chartDefaults,scales:{}}});
+  new Chart(document.getElementById('stockValueChart'),{type:'line',data:{labels:['Oca','Şub','Mar','Nis','May'],datasets:[{label:'Stok Değeri (€)',data:[3200,3450,3100,3760,4280],borderColor:'#14b8a6',backgroundColor:'rgba(139,92,246,0.1)',fill:true}]},options:chartDefaults});
 }
 function initLoyaltyCharts(){
-  new Chart(document.getElementById('tierChart'),{type:'bar',data:{labels:['Bronze','Silver','Gold','Platinum'],datasets:[{label:'Üye Sayısı',data:[142,98,67,35],backgroundColor:['#b45309','#9ca3af','#fbbf24','#8b5cf6']}]},options:chartDefaults});
+  new Chart(document.getElementById('tierChart'),{type:'bar',data:{labels:['Bronze','Silver','Gold','Platinum'],datasets:[{label:'Üye Sayısı',data:[142,98,67,35],backgroundColor:['#b45309','#9ca3af','#fbbf24','#14b8a6']}]},options:chartDefaults});
   new Chart(document.getElementById('pointsChart'),{type:'line',data:{labels:['Oca','Şub','Mar','Nis','May'],datasets:[{label:'Kazanılan',data:[15200,16800,14500,18200,21000],borderColor:'#10b981',backgroundColor:'rgba(16,185,129,0.1)',fill:true},{label:'Kullanılan',data:[5200,6800,6100,7900,10200],borderColor:'#ef4444',backgroundColor:'rgba(239,68,68,0.1)',fill:true}]},options:chartDefaults});
 }
 

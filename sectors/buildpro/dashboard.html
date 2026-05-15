@@ -41,7 +41,7 @@
 
 /* ── Sidebar ── */
 .sidebar {
-  width:280px; background:var(--bg-card); border-right:1px solid var(--border-color);
+  width:260px; background:var(--bg-card); border-right:1px solid var(--border-color);
   display:flex; flex-direction:column; position:fixed; inset:0 auto 0 0; z-index:100;
   transition:transform var(--duration-slow) var(--ease-out);
 }
@@ -126,7 +126,7 @@
 .sidebar-user-info span { font-size:var(--text-xs); color:var(--text-muted); }
 
 /* ── Main ── */
-.main { flex:1; margin-left:280px; display:flex; flex-direction:column; min-height:100vh; transition:margin-left var(--duration-slow); }
+.main { flex:1; margin-left:260px; display:flex; flex-direction:column; min-height:100vh; transition:margin-left var(--duration-slow); }
 .sidebar.collapsed ~ .main { margin-left:0; }
 
 /* ── Header ── */
@@ -194,7 +194,7 @@
 .content { flex:1; padding:var(--space-6); }
 
 /* ── KPI Row ── */
-.kpi-row { display:grid; grid-template-columns:repeat(6,1fr); gap:var(--space-4); margin-bottom:var(--space-6); }
+.kpi-row { display:grid; grid-template-columns:repeat(4,1fr); gap:var(--space-4); margin-bottom:var(--space-6); }
 .kpi-card {
   background:var(--glass-bg); backdrop-filter:blur(16px) saturate(1.4);
   -webkit-backdrop-filter:blur(16px) saturate(1.4);
@@ -760,7 +760,7 @@
       </div>
       <div class="kpi-card reveal reveal-delay-4">
         <div class="kpi-top">
-          <div class="kpi-icon" style="background:rgba(139,92,246,0.1);color:#8b5cf6;">✓</div>
+          <div class="kpi-icon" style="background:rgba(139,92,246,0.1);color:#14b8a6;">✓</div>
           <div class="kpi-trend up">
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/></svg>
             +6
@@ -770,8 +770,8 @@
         <div class="kpi-label">Tamamlanan İşler</div>
         <div class="kpi-sparkline">
           <svg viewBox="0 0 200 50" preserveAspectRatio="none">
-            <polyline fill="none" stroke="#8b5cf6" stroke-width="2" points="0,45 28,42 56,40 84,35 112,30 140,25 168,20 196,15"/>
-            <polygon fill="#8b5cf6" opacity="0.15" points="0,45 28,42 56,40 84,35 112,30 140,25 168,20 196,15 196,50 0,50"/>
+            <polyline fill="none" stroke="#14b8a6" stroke-width="2" points="0,45 28,42 56,40 84,35 112,30 140,25 168,20 196,15"/>
+            <polygon fill="#14b8a6" opacity="0.15" points="0,45 28,42 56,40 84,35 112,30 140,25 168,20 196,15 196,50 0,50"/>
           </svg>
         </div>
       </div>
@@ -1260,7 +1260,7 @@
               </div>
             </div>
             <div class="activity-item">
-              <div class="activity-avatar" style="background:linear-gradient(135deg,#f59e0b,#d97706);">JD</div>
+              <div class="activity-avatar" style="background:linear-gradient(135deg,#14b8a6,#0f766e);">JD</div>
               <div class="activity-content">
                 <div class="activity-text"><strong>Jan D.</strong> yeni teklif oluşturdu — <strong>#QT-2026-112</strong> €450,000</div>
                 <div class="activity-time">25 dakika önce</div>
@@ -1274,7 +1274,7 @@
               </div>
             </div>
             <div class="activity-item">
-              <div class="activity-avatar" style="background:linear-gradient(135deg,#8b5cf6,#6d28d9);">MK</div>
+              <div class="activity-avatar" style="background:linear-gradient(135deg,#14b8a6,#0f766e);">MK</div>
               <div class="activity-content">
                 <div class="activity-text"><strong>Marc K.</strong> şantiye raporu gönderdi — <strong>Merkez Ofis Kulesi</strong></div>
                 <div class="activity-time">1 saat önce</div>
@@ -1604,10 +1604,10 @@ function toggleSector(checkbox, name){
 /* ── Chart.js Config ── */
 const chartColors={
   teal:'#14b8a6',tealLight:'rgba(20,184,166,0.15)',
-  amber:'#f59e0b',amberLight:'rgba(245,158,11,0.15)',
+  amber:'#14b8a6',amberLight:'rgba(245,158,11,0.15)',
   blue:'#3b82f6',blueLight:'rgba(59,130,246,0.15)',
   rose:'#f43f5e',roseLight:'rgba(244,63,94,0.15)',
-  purple:'#8b5cf6',purpleLight:'rgba(139,92,246,0.15)',
+  purple:'#14b8a6',purpleLight:'rgba(139,92,246,0.15)',
   emerald:'#10b981',emeraldLight:'rgba(16,185,129,0.15)',
   slate:'#64748b'
 };
