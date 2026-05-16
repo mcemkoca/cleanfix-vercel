@@ -136,8 +136,8 @@ textarea.form-input{resize:vertical;min-height:80px;}
 /* Toast */
 .toast-container{position:fixed;top:20px;right:20px;z-index:300;}
 
-@media(max-width:1024px){.stats-grid{grid-template-columns:repeat(2,1fr);}.sector-grid{grid-template-columns:repeat(2,1fr);}}
-@media(max-width:768px){.sidebar{transform:translateX(-100%);}.sidebar.open{transform:translateX(0);}.main-content{margin-left:0;}.hamburger{display:block;}.stats-grid{grid-template-columns:1fr;}.sector-grid{grid-template-columns:1fr;}.form-row{grid-template-columns:1fr;}.module-grid{grid-template-columns:repeat(2,1fr);}.check-grid{grid-template-columns:1fr;}}
+.sector-grid{grid-template-columns:repeat(2,1fr);}}
+.sidebar.open{transform:translateX(0);}.main-content{margin-left:0;}.hamburger{display:block;}.stats-grid{grid-template-columns:1fr;}.sector-grid{grid-template-columns:1fr;}.form-row{grid-template-columns:1fr;}.module-grid{grid-template-columns:repeat(2,1fr);}.check-grid{grid-template-columns:1fr;}}
 
 .lang-switcher {
   display:flex; align-items:center; gap:4px;
@@ -153,6 +153,65 @@ textarea.form-input{resize:vertical;min-height:80px;}
 .lang-switcher button:hover { color:var(--text-primary); }
 .lang-switcher button.active { background:var(--teal-500); color:white; }
 
+
+/* ── Mobile Responsive ── */
+@media (max-width: 768px) {
+  .sidebar { transform: translateX(-100%); }
+  .sidebar.open { transform: translateX(0); }
+  .main-content { margin-left: 0 !important; }
+  .hamburger { display: flex !important; }
+  .content { padding: 16px !important; }
+  .stats-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 12px !important; }
+  .header { padding: 0 16px !important; }
+  .header-left { gap: 8px !important; }
+  .page-title { font-size: var(--text-base) !important; }
+  .toolbar { flex-direction: column !important; align-items: stretch !important; gap: 12px !important; }
+  .search-box { max-width: 100% !important; }
+  .filters { flex-wrap: wrap !important; }
+  .table-wrap { overflow-x: auto !important; -webkit-overflow-scrolling: touch; }
+  .table-wrap .table { min-width: 600px; }
+  .action-btn, .category-toggle, .mc-nav button {
+    width: 44px !important; height: 44px !important;
+  }
+  .modal { max-width: calc(100vw - 32px) !important; margin: 0 16px; }
+  .portal-stats { grid-template-columns: repeat(2, 1fr) !important; }
+  .portal-two-col { grid-template-columns: 1fr !important; }
+  .ticket-form { grid-template-columns: 1fr !important; }
+  .kanban { grid-template-columns: 1fr !important; }
+  .equip-grid { grid-template-columns: 1fr !important; }
+  .sector-grid { grid-template-columns: 1fr !important; }
+  .tool-grid { grid-template-columns: 1fr !important; }
+  .module-grid { grid-template-columns: repeat(2, 1fr) !important; }
+  .lang-switcher { margin-left: 0 !important; }
+  .login-card { padding: 32px 20px !important; }
+  .login-card-wrap { padding: 0 16px !important; }
+}
+@media (max-width: 480px) {
+  .stats-grid { grid-template-columns: 1fr !important; }
+  .content { padding: 12px !important; }
+  .card-header { padding: 14px 16px !important; }
+  .card-body { padding: 14px 16px !important; }
+  .table th, .table td, .card-table th, .card-table td,
+  .customer-table th, .customer-table td,
+  .recurring-table th, .recurring-table td,
+  .line-items-table th, .line-items-table td {
+    padding: 10px 12px !important; font-size: 13px !important;
+  }
+  .page-title { font-size: var(--text-sm) !important; }
+  .modal { max-width: calc(100vw - 24px) !important; margin: 0 12px; }
+  .btn { padding: 10px 14px !important; font-size: 13px !important; }
+  .portal-stats { grid-template-columns: 1fr !important; }
+  .stat-value { font-size: var(--text-xl) !important; }
+  .header-btn { width: 40px !important; height: 40px !important; }
+}
+::selection { background: rgba(20,184,166,0.3); color: inherit; }
+
+@media (max-width: 768px) {
+  .card-body:has(> .table),
+  .card-body:has(> table) { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .card-body:has(> .table) .table,
+  .card-body:has(> table) table { min-width: 640px; }
+}
 </style>
 </head>
 <body>
@@ -896,7 +955,6 @@ function filterSectors(){
   });
 }
 </script>
-
 
 
 <script>
@@ -1946,6 +2004,12 @@ window.addEventListener('unhandledrejection', function(e) {
     };
   });
 })();
+
+function toggleSidebar(){
+  const sb=document.querySelector('.sidebar');
+  if(sb){sb.classList.toggle('open');sb.classList.toggle('collapsed');}
+}
+
 </script>
 </body>
 </html>
