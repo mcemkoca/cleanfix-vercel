@@ -586,6 +586,16 @@
 .lang-switcher button.active { background:var(--teal-500); color:white; }
 </style></head>
 <body>
+<script>
+(function(){
+  var token = localStorage.getItem('kobipro_auth_token');
+  var path = window.location.pathname;
+  var isLoginPage = path.includes('login') || path.includes('index');
+  if(!token && !isLoginPage){
+    window.location.href = 'login.html';
+  }
+})();
+</script>
 
 <!-- Sidebar Overlay (mobile) -->
 <div class="sidebar-overlay" id="sidebarOverlay"></div>
@@ -727,6 +737,7 @@
         <span data-i18n="user_admin">Admin</span>
       </div>
     </div>
+    <button onclick="localStorage.removeItem('kobipro_auth_token');localStorage.removeItem('kobipro_user');window.location.href='login.html';" style="margin-top:10px;width:100%;padding:8px;border:1px solid var(--border-color);border-radius:6px;background:transparent;color:var(--text-muted);font-size:0.75rem;cursor:pointer;">Çıkış Yap</button>
   </div>
 </aside>
 
@@ -2733,6 +2744,24 @@ const i18n = {
     'toast.error': 'Hata',
     'toast.info': 'Bilgi',
     'toast.allRead': 'Tüm bildirimler okundu olarak işaretlendi',
+    // Modules
+    'modules_title': 'Modüller',
+    'modules_count': 'modül',
+    'module_cleanfix': 'CleanFix',
+    'module_buildpro': 'BuildPro',
+    'module_barberpro': 'BarberPro',
+    'module_carwash': 'CarWash',
+    'module_resto': 'RestoPro',
+    'module_electro': 'ElectroPro',
+    'module_cleanfix_desc': 'Profesyonel temizlik yönetimi',
+    'module_buildpro_desc': 'İnşaat & renovasyon yönetimi',
+    'module_barberpro_desc': 'Berber & kuaför yönetimi',
+    'module_carwash_desc': 'Araç yıkama yönetimi',
+    'module_resto_desc': 'Restoran yönetimi',
+    'module_electro_desc': 'Elektrikçi yönetimi',
+    'module_active': 'Aktif',
+    'module_click_launch': 'Başlatmak için tıklayın',
+    'module_planned': 'Planlanan',
     // Search placeholder
     'search.placeholder': 'Ara...'
   },
@@ -2837,6 +2866,25 @@ const i18n = {
     'toast.error': 'Error',
     'toast.info': 'Info',
     'toast.allRead': 'All notifications marked as read',
+    // Modules
+    'modules_title': 'Modules',
+    'modules_count': 'modules',
+    'module_cleanfix': 'CleanFix',
+    'module_buildpro': 'BuildPro',
+    'module_barberpro': 'BarberPro',
+    'module_carwash': 'CarWash',
+    'module_resto': 'RestoPro',
+    'module_electro': 'ElectroPro',
+    'module_cleanfix_desc': 'Professional cleaning management',
+    'module_buildpro_desc': 'Construction & renovation management',
+    'module_barberpro_desc': 'Barber & salon management',
+    'module_carwash_desc': 'Car wash management',
+    'module_resto_desc': 'Restaurant management',
+    'module_electro_desc': 'Electrician management',
+    'module_active': 'Active',
+    'module_click_launch': 'Click to launch',
+    'module_planned': 'Planned',
+    // Search placeholder
     'search.placeholder': 'Search...'
   },
   nl: {
@@ -2940,6 +2988,25 @@ const i18n = {
     'toast.error': 'Fout',
     'toast.info': 'Info',
     'toast.allRead': 'Alle meldingen als gelezen gemarkeerd',
+    // Modules
+    'modules_title': 'Modules',
+    'modules_count': 'modules',
+    'module_cleanfix': 'CleanFix',
+    'module_buildpro': 'BuildPro',
+    'module_barberpro': 'BarberPro',
+    'module_carwash': 'CarWash',
+    'module_resto': 'RestoPro',
+    'module_electro': 'ElectroPro',
+    'module_cleanfix_desc': 'Professioneel schoonmaakbeheer',
+    'module_buildpro_desc': 'Bouw & renovatiebeheer',
+    'module_barberpro_desc': 'Kapper & salonbeheer',
+    'module_carwash_desc': 'Autowasbeheer',
+    'module_resto_desc': 'Restaurantbeheer',
+    'module_electro_desc': 'Elektricienbeheer',
+    'module_active': 'Actief',
+    'module_click_launch': 'Klik om te starten',
+    'module_planned': 'Gepland',
+    // Search placeholder
     'search.placeholder': 'Zoeken...'
   }
 };
