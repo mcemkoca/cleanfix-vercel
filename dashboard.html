@@ -11,6 +11,17 @@
 <link rel="stylesheet" href="css/components.css">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 <style>
+
+.toast-container{position:fixed;top:24px;right:24px;z-index:9999;display:flex;flex-direction:column;gap:8px;}
+.toast{padding:12px 20px;border-radius:var(--radius-md);font-size:var(--text-sm);font-weight:500;color:white;box-shadow:var(--shadow-lg);animation:toastIn 0.3s ease;max-width:320px;}
+.toast.error{background:var(--error-500);}
+.toast.success{background:var(--success-500);}
+.toast.info{background:var(--info-500);}
+@keyframes toastIn{from{transform:translateX(120%);opacity:0;}to{transform:translateX(0);opacity:1;}}
+@keyframes toastOut{from{transform:translateX(0);opacity:1;}to{transform:translateX(120%);opacity:0;}}
+.toast.out{animation:toastOut 0.3s ease forwards;}
+
+
 /* ── Variables Override ── */
 :root, [data-theme="dark"] {
   --glass-bg: rgba(15, 23, 42, 0.60);
@@ -472,10 +483,10 @@
         <span class="sector-name" data-i18n="sector_cleaning" data-i18n="sector.cleaning">Temizlik</span>
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
       </button>
-      <div class="sector-dropdown-menu">
+            <div class="sector-dropdown-menu">
         <a class="sector-dropdown-item current" href="sectors/cleaning/index.html">
           <span class="sector-item-icon">🧹</span>
-          <span class="sector-item-name" data-i18n="sector_cleaning">Temizlik</span>
+          <span class="sector-item-name" data-i18n="sector_cleaning" data-i18n="sector.cleaning">Temizlik</span>
           <span class="sector-item-status active" data-i18n="sector_active" data-i18n="sector.active">Aktif</span>
         </a>
         <a class="sector-dropdown-item" href="sectors/carwash/index.html">
@@ -488,24 +499,29 @@
           <span class="sector-item-name" data-i18n="sector_construction" data-i18n="sector.construction">İnşaat</span>
           <span class="sector-item-status planned" data-i18n="sector_planned" data-i18n="sector.planned">Planlanan</span>
         </a>
-        <a class="sector-dropdown-item" href="sectors/barber/index.html">
-          <span class="sector-item-icon">✂️</span>
-          <span class="sector-item-name" data-i18n="sector_barber" data-i18n="sector.barber">Berber & Kuaför</span>
+        <a class="sector-dropdown-item" href="https://mcemkoca.github.io/buildpro-vercel/">
+          <span class="sector-item-icon">🔨</span>
+          <span class="sector-item-name" data-i18n="sector_buildpro" data-i18n="sector.buildpro">BuildPro</span>
+          <span class="sector-item-status active" data-i18n="sector_active" data-i18n="sector.active">Aktif</span>
+        </a>
+        <a class="sector-dropdown-item" href="sectors/elektropro/index.html">
+          <span class="sector-item-icon">⚡</span>
+          <span class="sector-item-name" data-i18n="sector_elektropro" data-i18n="sector.elektropro">ElektroPro</span>
           <span class="sector-item-status planned" data-i18n="sector_planned" data-i18n="sector.planned">Planlanan</span>
         </a>
-        <a class="sector-dropdown-item" href="sectors/market/index.html">
+        <a class="sector-dropdown-item" href="sectors/marketpro/index.html">
           <span class="sector-item-icon">🛒</span>
-          <span class="sector-item-name" data-i18n="sector_market" data-i18n="sector.market">Market & Bakkal</span>
+          <span class="sector-item-name" data-i18n="sector_marketpro" data-i18n="sector.marketpro">MarketPro</span>
           <span class="sector-item-status planned" data-i18n="sector_planned" data-i18n="sector.planned">Planlanan</span>
         </a>
-        <a class="sector-dropdown-item" href="sectors/doctor/index.html">
-          <span class="sector-item-icon">🏥</span>
-          <span class="sector-item-name" data-i18n="sector_doctor" data-i18n="sector.doctor">Doktor & Klinik</span>
-          <span class="sector-item-status planned" data-i18n="sector_planned" data-i18n="sector.planned">Planlanan</span>
-        </a>
-        <a class="sector-dropdown-item" href="sectors/restaurant/index.html">
+        <a class="sector-dropdown-item" href="sectors/restopro/index.html">
           <span class="sector-item-icon">🍽️</span>
-          <span class="sector-item-name" data-i18n="sector_restaurant" data-i18n="sector.restaurant">Restoran</span>
+          <span class="sector-item-name" data-i18n="sector_restopro" data-i18n="sector.restopro">RestoPro</span>
+          <span class="sector-item-status planned" data-i18n="sector_planned" data-i18n="sector.planned">Planlanan</span>
+        </a>
+        <a class="sector-dropdown-item" href="sectors/woodpro/index.html">
+          <span class="sector-item-icon">🪵</span>
+          <span class="sector-item-name" data-i18n="sector_woodpro" data-i18n="sector.woodpro">WoodPro</span>
           <span class="sector-item-status planned" data-i18n="sector_planned" data-i18n="sector.planned">Planlanan</span>
         </a>
       </div>
@@ -667,7 +683,7 @@
             +12%
           </div>
         </div>
-        <div class="kpi-value" data-target="12847" data-prefix="€">€0</div>
+        <div class="kpi-value" data-target="12847" data-prefix="€">€21798</div>
         <div class="kpi-label" data-i18n="kpi_monthly_revenue" data-i18n="kpi.monthlyRevenue">Aylık Gelir</div>
         <div class="kpi-sparkline">
           <svg viewBox="0 0 200 50" preserveAspectRatio="none">
@@ -684,7 +700,7 @@
             +8
           </div>
         </div>
-        <div class="kpi-value" data-target="156" data-suffix="">0</div>
+        <div class="kpi-value" data-target="156" data-suffix="">17</div>
         <div class="kpi-label" data-i18n="kpi_active_customers" data-i18n="kpi.activeCustomers">Aktif Müşteri</div>
         <div class="kpi-sparkline">
           <svg viewBox="0 0 200 50" preserveAspectRatio="none">
@@ -701,7 +717,7 @@
             +5%
           </div>
         </div>
-        <div class="kpi-value" data-target="42" data-suffix="">0</div>
+        <div class="kpi-value" data-target="42" data-suffix="">17</div>
         <div class="kpi-label" data-i18n="kpi_this_week" data-i18n="kpi.weeklyBookings">Bu Hafta Randevu</div>
         <div class="kpi-sparkline">
           <svg viewBox="0 0 200 50" preserveAspectRatio="none">
@@ -718,7 +734,7 @@
             96%
           </div>
         </div>
-        <div class="kpi-value" data-target="38" data-suffix="">0</div>
+        <div class="kpi-value" data-target="38" data-suffix="">17</div>
         <div class="kpi-label" data-i18n="kpi_resolved_tickets" data-i18n="kpi.resolvedTickets">Çözülmüş Ticket</div>
         <div class="kpi-sparkline">
           <svg viewBox="0 0 200 50" preserveAspectRatio="none">
@@ -1754,7 +1770,7 @@ document.querySelectorAll('.chart-toggle-btn').forEach(btn=>{
     gen_more: "More",
     gen_next: "Next",
     gen_no: "No",
-    gen_no_data: "No data found",
+    gen_no_data: "— found",
     gen_print: "Print",
     gen_refresh: "Refresh",
     gen_search: "Search...",
@@ -2721,5 +2737,48 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 </script>
 
+<script>
+window.onerror = function(msg, url, line) {
+  console.error('CleanFix Error:', msg, 'at', url, ':' , line);
+  return false;
+};
+window.addEventListener('unhandledrejection', function(e) {
+  console.error('Unhandled Promise:', e.reason);
+});
+</script>
+
+<script>
+(function(){
+  function showToast(msg,type='error'){
+    let c=document.querySelector('.toast-container');
+    if(!c){c=document.createElement('div');c.className='toast-container';document.body.appendChild(c);}
+    let t=document.createElement('div');t.className='toast '+type;t.textContent=msg;c.appendChild(t);
+    setTimeout(()=>{t.classList.add('out');setTimeout(()=>t.remove(),300);},4000);
+  }
+  function validateEmail(v){return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);}
+  function validatePhone(v){return v.replace(/\D/g,'').length>=7;}
+  document.querySelectorAll('form, .modal').forEach(form=>{
+    const inputs=form.querySelectorAll('input, select, textarea');
+    const submitBtn=form.querySelector('button.btn-primary, button[type="submit"]');
+    if(!submitBtn) return;
+    const origClick=submitBtn.onclick;
+    submitBtn.onclick=function(e){
+      let ok=true;
+      inputs.forEach(inp=>{
+        if(inp.type==='hidden'||inp.disabled) return;
+        const val=inp.value.trim();
+        const req=inp.required||inp.classList.contains('required');
+        if(req && !val){ ok=false; inp.style.borderColor='var(--error-500)'; setTimeout(()=>inp.style.borderColor='',2000); }
+        if(inp.type==='email' && val && !validateEmail(val)){ ok=false; showToast('Geçerli e-posta giriniz / Valid email required / Geldig e-mailadres vereist'); }
+        if(inp.dataset.type==='phone' || inp.name?.includes('phone') || inp.id?.includes('phone') || inp.placeholder?.toLowerCase().includes('telefon')){
+          if(val && !validatePhone(val)){ ok=false; showToast('Telefon en az 7 hane olmalı / Phone min 7 digits / Telefoon min 7 cijfers'); }
+        }
+      });
+      if(!ok){ e.preventDefault?e.preventDefault():null; e.stopPropagation?e.stopPropagation():null; return false; }
+      if(origClick) return origClick.call(this,e);
+    };
+  });
+})();
+</script>
 </body>
 </html>

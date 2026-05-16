@@ -8,6 +8,17 @@
 <link rel="stylesheet" href="css/main.css">
 <link rel="stylesheet" href="css/components.css">
 <style>
+
+.toast-container{position:fixed;top:24px;right:24px;z-index:9999;display:flex;flex-direction:column;gap:8px;}
+.toast{padding:12px 20px;border-radius:var(--radius-md);font-size:var(--text-sm);font-weight:500;color:white;box-shadow:var(--shadow-lg);animation:toastIn 0.3s ease;max-width:320px;}
+.toast.error{background:var(--error-500);}
+.toast.success{background:var(--success-500);}
+.toast.info{background:var(--info-500);}
+@keyframes toastIn{from{transform:translateX(120%);opacity:0;}to{transform:translateX(0);opacity:1;}}
+@keyframes toastOut{from{transform:translateX(0);opacity:1;}to{transform:translateX(120%);opacity:0;}}
+.toast.out{animation:toastOut 0.3s ease forwards;}
+
+
 .dashboard{display:flex;min-height:100vh;background:var(--bg-primary);}
 .sidebar{width:280px;height:100vh;background:var(--bg-card);border-right:1px solid var(--border-color);display:flex;flex-direction:column;position:fixed;left:0;top:0;z-index:100;transition:transform var(--duration-slow) var(--ease-out);}
 .sidebar-header{padding:20px 24px;border-bottom:1px solid var(--border-color);display:flex;align-items:center;gap:12px;}
@@ -419,6 +430,18 @@
                 <td><span class="tag tag-green" data-i18n="status_active">Aktif</span></td>
                 <td><div class="actions"><button class="action-btn move" onclick="openMoveModal(16,'in')" title="Stok Girişi"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button><button class="action-btn move" onclick="openMoveModal(16,'out')" title="Stok Çıkışı"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/></svg></button><button class="action-btn edit" onclick="openEditModal(16)" title="Düzenle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(16)" title="Sil"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
               </tr>
+                          <tr data-id="17"><td><div style="font-weight:600;">Torpido Temizleyici</div><div style="font-size:var(--text-xs);color:var(--text-muted);">SKU-1093</div></td><td>Kutu</td><td style="font-weight:600;">188</td><td>15</td><td><span class="tag tag-green">Yeterli</span></td><td><div class="actions"><button class="action-btn edit" onclick="openEditModal(17)" data-i18n-title="actions.edit"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(17)" data-i18n-title="actions.delete"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td></tr>
+              <tr data-id="18"><td><div style="font-weight:600;">Lastik Parlatıcı</div><div style="font-size:var(--text-xs);color:var(--text-muted);">SKU-4325</div></td><td>Kilo</td><td style="font-weight:600;">79</td><td>7</td><td><span class="tag tag-green">Yeterli</span></td><td><div class="actions"><button class="action-btn edit" onclick="openEditModal(18)" data-i18n-title="actions.edit"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(18)" data-i18n-title="actions.delete"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td></tr>
+              <tr data-id="19"><td><div style="font-weight:600;">Motor Temizleyici</div><div style="font-size:var(--text-xs);color:var(--text-muted);">SKU-9082</div></td><td>Litre</td><td style="font-weight:600;">176</td><td>18</td><td><span class="tag tag-green">Yeterli</span></td><td><div class="actions"><button class="action-btn edit" onclick="openEditModal(19)" data-i18n-title="actions.edit"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(19)" data-i18n-title="actions.delete"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td></tr>
+              <tr data-id="20"><td><div style="font-weight:600;">Tavan Temizleyici</div><div style="font-size:var(--text-xs);color:var(--text-muted);">SKU-6221</div></td><td>Adet</td><td style="font-weight:600;">156</td><td>13</td><td><span class="tag tag-green">Yeterli</span></td><td><div class="actions"><button class="action-btn edit" onclick="openEditModal(20)" data-i18n-title="actions.edit"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(20)" data-i18n-title="actions.delete"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td></tr>
+              <tr data-id="21"><td><div style="font-weight:600;">Çok Amaçlı Temizlik</div><div style="font-size:var(--text-xs);color:var(--text-muted);">SKU-3547</div></td><td>Kutu</td><td style="font-weight:600;">177</td><td>14</td><td><span class="tag tag-green">Yeterli</span></td><td><div class="actions"><button class="action-btn edit" onclick="openEditModal(21)" data-i18n-title="actions.edit"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(21)" data-i18n-title="actions.delete"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td></tr>
+              <tr data-id="22"><td><div style="font-weight:600;">Cam Temizleyici</div><div style="font-size:var(--text-xs);color:var(--text-muted);">SKU-6838</div></td><td>Şişe</td><td style="font-weight:600;">158</td><td>18</td><td><span class="tag tag-green">Yeterli</span></td><td><div class="actions"><button class="action-btn edit" onclick="openEditModal(22)" data-i18n-title="actions.edit"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(22)" data-i18n-title="actions.delete"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td></tr>
+              <tr data-id="23"><td><div style="font-weight:600;">Dezenfektan</div><div style="font-size:var(--text-xs);color:var(--text-muted);">SKU-9128</div></td><td>Şişe</td><td style="font-weight:600;">178</td><td>15</td><td><span class="tag tag-green">Yeterli</span></td><td><div class="actions"><button class="action-btn edit" onclick="openEditModal(23)" data-i18n-title="actions.edit"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(23)" data-i18n-title="actions.delete"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td></tr>
+              <tr data-id="24"><td><div style="font-weight:600;">Halı Şampuanı</div><div style="font-size:var(--text-xs);color:var(--text-muted);">SKU-2242</div></td><td>Adet</td><td style="font-weight:600;">107</td><td>11</td><td><span class="tag tag-green">Yeterli</span></td><td><div class="actions"><button class="action-btn edit" onclick="openEditModal(24)" data-i18n-title="actions.edit"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(24)" data-i18n-title="actions.delete"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td></tr>
+              <tr data-id="25"><td><div style="font-weight:600;">Zemin Cilası</div><div style="font-size:var(--text-xs);color:var(--text-muted);">SKU-3762</div></td><td>Kilo</td><td style="font-weight:600;">179</td><td>17</td><td><span class="tag tag-green">Yeterli</span></td><td><div class="actions"><button class="action-btn edit" onclick="openEditModal(25)" data-i18n-title="actions.edit"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(25)" data-i18n-title="actions.delete"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td></tr>
+              <tr data-id="26"><td><div style="font-weight:600;">Toz Alıcı Sprey</div><div style="font-size:var(--text-xs);color:var(--text-muted);">SKU-7425</div></td><td>Adet</td><td style="font-weight:600;">140</td><td>3</td><td><span class="tag tag-green">Yeterli</span></td><td><div class="actions"><button class="action-btn edit" onclick="openEditModal(26)" data-i18n-title="actions.edit"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(26)" data-i18n-title="actions.delete"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td></tr>
+              <tr data-id="27"><td><div style="font-weight:600;">Banyo Temizleyici</div><div style="font-size:var(--text-xs);color:var(--text-muted);">SKU-1555</div></td><td>Kilo</td><td style="font-weight:600;">14</td><td>10</td><td><span class="tag tag-green">Yeterli</span></td><td><div class="actions"><button class="action-btn edit" onclick="openEditModal(27)" data-i18n-title="actions.edit"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(27)" data-i18n-title="actions.delete"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td></tr>
+              <tr data-id="28"><td><div style="font-weight:600;">Mutfak Yağ Çözücü</div><div style="font-size:var(--text-xs);color:var(--text-muted);">SKU-9590</div></td><td>Kutu</td><td style="font-weight:600;">48</td><td>7</td><td><span class="tag tag-green">Yeterli</span></td><td><div class="actions"><button class="action-btn edit" onclick="openEditModal(28)" data-i18n-title="actions.edit"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(28)" data-i18n-title="actions.delete"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td></tr>
             </tbody>
           </table>
         </div>
@@ -1705,6 +1728,49 @@ function switchLang(lang) {
 
 /* Init */
 switchLang(currentLang);
+</script>
+<script>
+window.onerror = function(msg, url, line) {
+  console.error('CleanFix Error:', msg, 'at', url, ':' , line);
+  return false;
+};
+window.addEventListener('unhandledrejection', function(e) {
+  console.error('Unhandled Promise:', e.reason);
+});
+</script>
+
+<script>
+(function(){
+  function showToast(msg,type='error'){
+    let c=document.querySelector('.toast-container');
+    if(!c){c=document.createElement('div');c.className='toast-container';document.body.appendChild(c);}
+    let t=document.createElement('div');t.className='toast '+type;t.textContent=msg;c.appendChild(t);
+    setTimeout(()=>{t.classList.add('out');setTimeout(()=>t.remove(),300);},4000);
+  }
+  function validateEmail(v){return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);}
+  function validatePhone(v){return v.replace(/\D/g,'').length>=7;}
+  document.querySelectorAll('form, .modal').forEach(form=>{
+    const inputs=form.querySelectorAll('input, select, textarea');
+    const submitBtn=form.querySelector('button.btn-primary, button[type="submit"]');
+    if(!submitBtn) return;
+    const origClick=submitBtn.onclick;
+    submitBtn.onclick=function(e){
+      let ok=true;
+      inputs.forEach(inp=>{
+        if(inp.type==='hidden'||inp.disabled) return;
+        const val=inp.value.trim();
+        const req=inp.required||inp.classList.contains('required');
+        if(req && !val){ ok=false; inp.style.borderColor='var(--error-500)'; setTimeout(()=>inp.style.borderColor='',2000); }
+        if(inp.type==='email' && val && !validateEmail(val)){ ok=false; showToast('Geçerli e-posta giriniz / Valid email required / Geldig e-mailadres vereist'); }
+        if(inp.dataset.type==='phone' || inp.name?.includes('phone') || inp.id?.includes('phone') || inp.placeholder?.toLowerCase().includes('telefon')){
+          if(val && !validatePhone(val)){ ok=false; showToast('Telefon en az 7 hane olmalı / Phone min 7 digits / Telefoon min 7 cijfers'); }
+        }
+      });
+      if(!ok){ e.preventDefault?e.preventDefault():null; e.stopPropagation?e.stopPropagation():null; return false; }
+      if(origClick) return origClick.call(this,e);
+    };
+  });
+})();
 </script>
 </body>
 </html>

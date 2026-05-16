@@ -8,6 +8,17 @@
 <link rel="stylesheet" href="css/main.css">
 <link rel="stylesheet" href="css/components.css">
 <style>
+
+.toast-container{position:fixed;top:24px;right:24px;z-index:9999;display:flex;flex-direction:column;gap:8px;}
+.toast{padding:12px 20px;border-radius:var(--radius-md);font-size:var(--text-sm);font-weight:500;color:white;box-shadow:var(--shadow-lg);animation:toastIn 0.3s ease;max-width:320px;}
+.toast.error{background:var(--error-500);}
+.toast.success{background:var(--success-500);}
+.toast.info{background:var(--info-500);}
+@keyframes toastIn{from{transform:translateX(120%);opacity:0;}to{transform:translateX(0);opacity:1;}}
+@keyframes toastOut{from{transform:translateX(0);opacity:1;}to{transform:translateX(120%);opacity:0;}}
+.toast.out{animation:toastOut 0.3s ease forwards;}
+
+
 .dashboard{display:flex;min-height:100vh;background:var(--bg-primary);}
 .sidebar{width:280px;height:100vh;background:var(--bg-card);border-right:1px solid var(--border-color);display:flex;flex-direction:column;position:fixed;left:0;top:0;z-index:100;transition:transform var(--duration-slow) var(--ease-out);}
 .sidebar-header{padding:20px 24px;border-bottom:1px solid var(--border-color);display:flex;align-items:center;gap:12px;}
@@ -328,11 +339,171 @@
                 <td><span class="tag tag-green" data-i18n="customers.status_active">Aktif</span></td>
                 <td><div class="actions"><button class="action-btn" onclick="event.stopPropagation();openCustomerDetail(8)" data-i18n-title="actions.view"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button><button class="action-btn edit" onclick="event.stopPropagation();openEditModal(8)" data-i18n-title="actions.edit"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="event.stopPropagation();openDeleteModal(8)" data-i18n-title="actions.delete"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
               </tr>
+                          <tr data-id="9" onclick="openCustomerDetail(9)" style="cursor:pointer;">
+                <td><div style="display:flex;align-items:center;gap:10px;"><div class="avatar" style="background:linear-gradient(135deg,#8b5cf6,#6d28d9);">DY</div><div><div style="font-weight:600;">Deniz Yavuz</div><div style="font-size:var(--text-xs);color:var(--text-muted);">deniz.yavuz@email.com</div></div></div></td>
+                <td><div style="font-weight:600;">Yılmaz İnşaat</div><div style="font-size:var(--text-xs);color:var(--text-muted);">TR 996.574.785</div></td>
+                <td><span class="tag tag-blue" data-i18n="customers.type_b2b">Kurumsal</span></td>
+                <td>+90 538 33 55 77</td>
+                <td>12 May 2026</td>
+                <td style="font-weight:600;">11</td>
+                <td><span class="tag tag-green" data-i18n="customers.status_active">Aktif</span></td>
+                <td><div class="actions"><button class="action-btn" onclick="event.stopPropagation();openCustomerDetail(9)" data-i18n-title="actions.view"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button><button class="action-btn edit" onclick="event.stopPropagation();openEditModal(9)" data-i18n-title="actions.edit"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="event.stopPropagation();openDeleteModal(9)" data-i18n-title="actions.delete"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
+              </tr>
+              <tr data-id="10" onclick="openCustomerDetail(10)" style="cursor:pointer;">
+                <td><div style="display:flex;align-items:center;gap:10px;"><div class="avatar" style="background:linear-gradient(135deg,#f59e0b,#d97706);">EA</div><div><div style="font-weight:600;">Ece Aksoy</div><div style="font-size:var(--text-xs);color:var(--text-muted);">ece.aksoy@email.com</div></div></div></td>
+                <td><div style="font-weight:600;">Kaya Grup</div><div style="font-size:var(--text-xs);color:var(--text-muted);">TR 747.595.483</div></td>
+                <td><span class="tag tag-blue" data-i18n="customers.type_b2b">Kurumsal</span></td>
+                <td>+90 534 77 88 99</td>
+                <td>6 May 2026</td>
+                <td style="font-weight:600;">20</td>
+                <td><span class="tag tag-green" data-i18n="customers.status_active">Aktif</span></td>
+                <td><div class="actions"><button class="action-btn" onclick="event.stopPropagation();openCustomerDetail(10)" data-i18n-title="actions.view"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button><button class="action-btn edit" onclick="event.stopPropagation();openEditModal(10)" data-i18n-title="actions.edit"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="event.stopPropagation();openDeleteModal(10)" data-i18n-title="actions.delete"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
+              </tr>
+              <tr data-id="11" onclick="openCustomerDetail(11)" style="cursor:pointer;">
+                <td><div style="display:flex;align-items:center;gap:10px;"><div class="avatar" style="background:linear-gradient(135deg,#10b981,#059669);">CÖ</div><div><div style="font-weight:600;">Cem Özdemir</div><div style="font-size:var(--text-xs);color:var(--text-muted);">cem.özdemir@email.com</div></div></div></td>
+                <td>—</td>
+                <td><span class="tag tag-gray" data-i18n="customers.type_b2c">Bireysel</span></td>
+                <td>+90 537 11 22 44</td>
+                <td>11 May 2026</td>
+                <td style="font-weight:600;">16</td>
+                <td><span class="tag tag-green" data-i18n="customers.status_active">Aktif</span></td>
+                <td><div class="actions"><button class="action-btn" onclick="event.stopPropagation();openCustomerDetail(11)" data-i18n-title="actions.view"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button><button class="action-btn edit" onclick="event.stopPropagation();openEditModal(11)" data-i18n-title="actions.edit"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="event.stopPropagation();openDeleteModal(11)" data-i18n-title="actions.delete"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
+              </tr>
+              <tr data-id="12" onclick="openCustomerDetail(12)" style="cursor:pointer;">
+                <td><div style="display:flex;align-items:center;gap:10px;"><div class="avatar" style="background:linear-gradient(135deg,#ef4444,#dc2626);">NG</div><div><div style="font-weight:600;">Nazlı Güneş</div><div style="font-size:var(--text-xs);color:var(--text-muted);">nazlı.güneş@email.com</div></div></div></td>
+                <td>—</td>
+                <td><span class="tag tag-gray" data-i18n="customers.type_b2c">Bireysel</span></td>
+                <td>+90 538 33 55 77</td>
+                <td>4 May 2026</td>
+                <td style="font-weight:600;">23</td>
+                <td><span class="tag tag-green" data-i18n="customers.status_active">Aktif</span></td>
+                <td><div class="actions"><button class="action-btn" onclick="event.stopPropagation();openCustomerDetail(12)" data-i18n-title="actions.view"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button><button class="action-btn edit" onclick="event.stopPropagation();openEditModal(12)" data-i18n-title="actions.edit"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="event.stopPropagation();openDeleteModal(12)" data-i18n-title="actions.delete"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
+              </tr>
+              <tr data-id="13" onclick="openCustomerDetail(13)" style="cursor:pointer;">
+                <td><div style="display:flex;align-items:center;gap:10px;"><div class="avatar" style="background:linear-gradient(135deg,#ec4899,#db2777);">KY</div><div><div style="font-weight:600;">Kaan Yıldırım</div><div style="font-size:var(--text-xs);color:var(--text-muted);">kaan.yıldırım@email.com</div></div></div></td>
+                <td><div style="font-weight:600;">Şahin Turizm</div><div style="font-size:var(--text-xs);color:var(--text-muted);">TR 880.417.957</div></td>
+                <td><span class="tag tag-blue" data-i18n="customers.type_b2b">Kurumsal</span></td>
+                <td>+90 533 44 55 66</td>
+                <td>5 May 2026</td>
+                <td style="font-weight:600;">32</td>
+                <td><span class="tag tag-green" data-i18n="customers.status_active">Aktif</span></td>
+                <td><div class="actions"><button class="action-btn" onclick="event.stopPropagation();openCustomerDetail(13)" data-i18n-title="actions.view"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button><button class="action-btn edit" onclick="event.stopPropagation();openEditModal(13)" data-i18n-title="actions.edit"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="event.stopPropagation();openDeleteModal(13)" data-i18n-title="actions.delete"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
+              </tr>
+              <tr data-id="14" onclick="openCustomerDetail(14)" style="cursor:pointer;">
+                <td><div style="display:flex;align-items:center;gap:10px;"><div class="avatar" style="background:linear-gradient(135deg,#06b6d4,#0891b2);">LK</div><div><div style="font-weight:600;">Leyla Korkmaz</div><div style="font-size:var(--text-xs);color:var(--text-muted);">leyla.korkmaz@email.com</div></div></div></td>
+                <td><div style="font-weight:600;">Aydın Gıda</div><div style="font-size:var(--text-xs);color:var(--text-muted);">TR 408.746.530</div></td>
+                <td><span class="tag tag-blue" data-i18n="customers.type_b2b">Kurumsal</span></td>
+                <td>+90 536 98 76 54</td>
+                <td>6 May 2026</td>
+                <td style="font-weight:600;">9</td>
+                <td><span class="tag tag-green" data-i18n="customers.status_active">Aktif</span></td>
+                <td><div class="actions"><button class="action-btn" onclick="event.stopPropagation();openCustomerDetail(14)" data-i18n-title="actions.view"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button><button class="action-btn edit" onclick="event.stopPropagation();openEditModal(14)" data-i18n-title="actions.edit"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="event.stopPropagation();openDeleteModal(14)" data-i18n-title="actions.delete"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
+              </tr>
+              <tr data-id="15" onclick="openCustomerDetail(15)" style="cursor:pointer;">
+                <td><div style="display:flex;align-items:center;gap:10px;"><div class="avatar" style="background:linear-gradient(135deg,#6366f1,#4f46e5);">OÇ</div><div><div style="font-weight:600;">Oğuz Çetin</div><div style="font-size:var(--text-xs);color:var(--text-muted);">oğuz.çetin@email.com</div></div></div></td>
+                <td><div style="font-weight:600;">Şahin Turizm</div><div style="font-size:var(--text-xs);color:var(--text-muted);">TR 259.810.344</div></td>
+                <td><span class="tag tag-blue" data-i18n="customers.type_b2b">Kurumsal</span></td>
+                <td>+90 538 33 55 77</td>
+                <td>8 May 2026</td>
+                <td style="font-weight:600;">8</td>
+                <td><span class="tag tag-green" data-i18n="customers.status_active">Aktif</span></td>
+                <td><div class="actions"><button class="action-btn" onclick="event.stopPropagation();openCustomerDetail(15)" data-i18n-title="actions.view"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button><button class="action-btn edit" onclick="event.stopPropagation();openEditModal(15)" data-i18n-title="actions.edit"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="event.stopPropagation();openDeleteModal(15)" data-i18n-title="actions.delete"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
+              </tr>
+              <tr data-id="16" onclick="openCustomerDetail(16)" style="cursor:pointer;">
+                <td><div style="display:flex;align-items:center;gap:10px;"><div class="avatar" style="background:linear-gradient(135deg,#3b82f6,#1d4ed8);">PD</div><div><div style="font-weight:600;">Pelin Doğan</div><div style="font-size:var(--text-xs);color:var(--text-muted);">pelin.doğan@email.com</div></div></div></td>
+                <td><div style="font-weight:600;">Öztürk Lojistik</div><div style="font-size:var(--text-xs);color:var(--text-muted);">TR 344.356.943</div></td>
+                <td><span class="tag tag-blue" data-i18n="customers.type_b2b">Kurumsal</span></td>
+                <td>+90 534 77 88 99</td>
+                <td>16 May 2026</td>
+                <td style="font-weight:600;">15</td>
+                <td><span class="tag tag-green" data-i18n="customers.status_active">Aktif</span></td>
+                <td><div class="actions"><button class="action-btn" onclick="event.stopPropagation();openCustomerDetail(16)" data-i18n-title="actions.view"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button><button class="action-btn edit" onclick="event.stopPropagation();openEditModal(16)" data-i18n-title="actions.edit"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="event.stopPropagation();openDeleteModal(16)" data-i18n-title="actions.delete"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
+              </tr>
+              <tr data-id="17" onclick="openCustomerDetail(17)" style="cursor:pointer;">
+                <td><div style="display:flex;align-items:center;gap:10px;"><div class="avatar" style="background:linear-gradient(135deg,#8b5cf6,#6d28d9);">SA</div><div><div style="font-weight:600;">Serkan Ateş</div><div style="font-size:var(--text-xs);color:var(--text-muted);">serkan.ateş@email.com</div></div></div></td>
+                <td>—</td>
+                <td><span class="tag tag-gray" data-i18n="customers.type_b2c">Bireysel</span></td>
+                <td>+90 532 11 22 33</td>
+                <td>7 May 2026</td>
+                <td style="font-weight:600;">6</td>
+                <td><span class="tag tag-green" data-i18n="customers.status_active">Aktif</span></td>
+                <td><div class="actions"><button class="action-btn" onclick="event.stopPropagation();openCustomerDetail(17)" data-i18n-title="actions.view"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button><button class="action-btn edit" onclick="event.stopPropagation();openEditModal(17)" data-i18n-title="actions.edit"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="event.stopPropagation();openDeleteModal(17)" data-i18n-title="actions.delete"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
+              </tr>
+              <tr data-id="18" onclick="openCustomerDetail(18)" style="cursor:pointer;">
+                <td><div style="display:flex;align-items:center;gap:10px;"><div class="avatar" style="background:linear-gradient(135deg,#f59e0b,#d97706);">BK</div><div><div style="font-weight:600;">Buse Kaplan</div><div style="font-size:var(--text-xs);color:var(--text-muted);">buse.kaplan@email.com</div></div></div></td>
+                <td><div style="font-weight:600;">Şahin Turizm</div><div style="font-size:var(--text-xs);color:var(--text-muted);">TR 383.937.788</div></td>
+                <td><span class="tag tag-blue" data-i18n="customers.type_b2b">Kurumsal</span></td>
+                <td>+90 538 33 55 77</td>
+                <td>7 May 2026</td>
+                <td style="font-weight:600;">18</td>
+                <td><span class="tag tag-green" data-i18n="customers.status_active">Aktif</span></td>
+                <td><div class="actions"><button class="action-btn" onclick="event.stopPropagation();openCustomerDetail(18)" data-i18n-title="actions.view"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button><button class="action-btn edit" onclick="event.stopPropagation();openEditModal(18)" data-i18n-title="actions.edit"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="event.stopPropagation();openDeleteModal(18)" data-i18n-title="actions.delete"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
+              </tr>
+              <tr data-id="19" onclick="openCustomerDetail(19)" style="cursor:pointer;">
+                <td><div style="display:flex;align-items:center;gap:10px;"><div class="avatar" style="background:linear-gradient(135deg,#10b981,#059669);">MP</div><div><div style="font-weight:600;">Murat Polat</div><div style="font-size:var(--text-xs);color:var(--text-muted);">murat.polat@email.com</div></div></div></td>
+                <td>—</td>
+                <td><span class="tag tag-gray" data-i18n="customers.type_b2c">Bireysel</span></td>
+                <td>+90 532 11 22 33</td>
+                <td>3 May 2026</td>
+                <td style="font-weight:600;">1</td>
+                <td><span class="tag tag-green" data-i18n="customers.status_active">Aktif</span></td>
+                <td><div class="actions"><button class="action-btn" onclick="event.stopPropagation();openCustomerDetail(19)" data-i18n-title="actions.view"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button><button class="action-btn edit" onclick="event.stopPropagation();openEditModal(19)" data-i18n-title="actions.edit"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="event.stopPropagation();openDeleteModal(19)" data-i18n-title="actions.delete"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
+              </tr>
+              <tr data-id="20" onclick="openCustomerDetail(20)" style="cursor:pointer;">
+                <td><div style="display:flex;align-items:center;gap:10px;"><div class="avatar" style="background:linear-gradient(135deg,#ef4444,#dc2626);">AE</div><div><div style="font-weight:600;">Aslı Erdoğan</div><div style="font-size:var(--text-xs);color:var(--text-muted);">aslı.erdoğan@email.com</div></div></div></td>
+                <td><div style="font-weight:600;">Kaya Grup</div><div style="font-size:var(--text-xs);color:var(--text-muted);">TR 994.789.406</div></td>
+                <td><span class="tag tag-blue" data-i18n="customers.type_b2b">Kurumsal</span></td>
+                <td>+90 536 98 76 54</td>
+                <td>11 May 2026</td>
+                <td style="font-weight:600;">10</td>
+                <td><span class="tag tag-gray" data-i18n="customers.status_active">Pasif</span></td>
+                <td><div class="actions"><button class="action-btn" onclick="event.stopPropagation();openCustomerDetail(20)" data-i18n-title="actions.view"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button><button class="action-btn edit" onclick="event.stopPropagation();openEditModal(20)" data-i18n-title="actions.edit"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="event.stopPropagation();openDeleteModal(20)" data-i18n-title="actions.delete"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
+              </tr>
+              <tr data-id="21" onclick="openCustomerDetail(21)" style="cursor:pointer;">
+                <td><div style="display:flex;align-items:center;gap:10px;"><div class="avatar" style="background:linear-gradient(135deg,#ec4899,#db2777);">RA</div><div><div style="font-weight:600;">Rıza Akın</div><div style="font-size:var(--text-xs);color:var(--text-muted);">rıza.akın@email.com</div></div></div></td>
+                <td><div style="font-weight:600;">Çelik Teknoloji</div><div style="font-size:var(--text-xs);color:var(--text-muted);">TR 374.224.799</div></td>
+                <td><span class="tag tag-blue" data-i18n="customers.type_b2b">Kurumsal</span></td>
+                <td>+90 533 44 55 66</td>
+                <td>12 May 2026</td>
+                <td style="font-weight:600;">6</td>
+                <td><span class="tag tag-gray" data-i18n="customers.status_active">Pasif</span></td>
+                <td><div class="actions"><button class="action-btn" onclick="event.stopPropagation();openCustomerDetail(21)" data-i18n-title="actions.view"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button><button class="action-btn edit" onclick="event.stopPropagation();openEditModal(21)" data-i18n-title="actions.edit"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="event.stopPropagation();openDeleteModal(21)" data-i18n-title="actions.delete"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
+              </tr>
+              <tr data-id="22" onclick="openCustomerDetail(22)" style="cursor:pointer;">
+                <td><div style="display:flex;align-items:center;gap:10px;"><div class="avatar" style="background:linear-gradient(135deg,#06b6d4,#0891b2);">GT</div><div><div style="font-weight:600;">Gizem Taş</div><div style="font-size:var(--text-xs);color:var(--text-muted);">gizem.taş@email.com</div></div></div></td>
+                <td>—</td>
+                <td><span class="tag tag-gray" data-i18n="customers.type_b2c">Bireysel</span></td>
+                <td>+90 539 66 88 00</td>
+                <td>4 May 2026</td>
+                <td style="font-weight:600;">29</td>
+                <td><span class="tag tag-green" data-i18n="customers.status_active">Aktif</span></td>
+                <td><div class="actions"><button class="action-btn" onclick="event.stopPropagation();openCustomerDetail(22)" data-i18n-title="actions.view"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button><button class="action-btn edit" onclick="event.stopPropagation();openEditModal(22)" data-i18n-title="actions.edit"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="event.stopPropagation();openDeleteModal(22)" data-i18n-title="actions.delete"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
+              </tr>
+              <tr data-id="23" onclick="openCustomerDetail(23)" style="cursor:pointer;">
+                <td><div style="display:flex;align-items:center;gap:10px;"><div class="avatar" style="background:linear-gradient(135deg,#6366f1,#4f46e5);">BY</div><div><div style="font-weight:600;">Barış Yüksel</div><div style="font-size:var(--text-xs);color:var(--text-muted);">barış.yüksel@email.com</div></div></div></td>
+                <td><div style="font-weight:600;">Öztürk Lojistik</div><div style="font-size:var(--text-xs);color:var(--text-muted);">TR 480.595.338</div></td>
+                <td><span class="tag tag-blue" data-i18n="customers.type_b2b">Kurumsal</span></td>
+                <td>+90 535 12 34 56</td>
+                <td>10 May 2026</td>
+                <td style="font-weight:600;">1</td>
+                <td><span class="tag tag-green" data-i18n="customers.status_active">Aktif</span></td>
+                <td><div class="actions"><button class="action-btn" onclick="event.stopPropagation();openCustomerDetail(23)" data-i18n-title="actions.view"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button><button class="action-btn edit" onclick="event.stopPropagation();openEditModal(23)" data-i18n-title="actions.edit"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="event.stopPropagation();openDeleteModal(23)" data-i18n-title="actions.delete"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
+              </tr>
+              <tr data-id="24" onclick="openCustomerDetail(24)" style="cursor:pointer;">
+                <td><div style="display:flex;align-items:center;gap:10px;"><div class="avatar" style="background:linear-gradient(135deg,#3b82f6,#1d4ed8);">ES</div><div><div style="font-weight:600;">Elif Sarı</div><div style="font-size:var(--text-xs);color:var(--text-muted);">elif.sarı@email.com</div></div></div></td>
+                <td><div style="font-weight:600;">Çelik Teknoloji</div><div style="font-size:var(--text-xs);color:var(--text-muted);">TR 932.946.290</div></td>
+                <td><span class="tag tag-blue" data-i18n="customers.type_b2b">Kurumsal</span></td>
+                <td>+90 534 77 88 99</td>
+                <td>4 May 2026</td>
+                <td style="font-weight:600;">17</td>
+                <td><span class="tag tag-green" data-i18n="customers.status_active">Aktif</span></td>
+                <td><div class="actions"><button class="action-btn" onclick="event.stopPropagation();openCustomerDetail(24)" data-i18n-title="actions.view"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button><button class="action-btn edit" onclick="event.stopPropagation();openEditModal(24)" data-i18n-title="actions.edit"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="event.stopPropagation();openDeleteModal(24)" data-i18n-title="actions.delete"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
+              </tr>
             </tbody>
           </table>
         </div>
         <div class="pagination">
-          <span class="page-info" id="pageInfo">8 müşteriden 1-8 gösteriliyor</span>
+          <span class="page-info" id="pageInfo">24 müşteriden 1-24 gösteriliyor</span>
           <div class="page-btns">
             <button class="page-btn" disabled data-i18n="customers.prev">← Önceki</button>
             <button class="page-btn" disabled data-i18n="customers.next">Sonraki →</button>
@@ -733,5 +904,48 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeSlidePanel('de
 switchLang(currentLang);
 </script>
 
+<script>
+window.onerror = function(msg, url, line) {
+  console.error('CleanFix Error:', msg, 'at', url, ':' , line);
+  return false;
+};
+window.addEventListener('unhandledrejection', function(e) {
+  console.error('Unhandled Promise:', e.reason);
+});
+</script>
+
+<script>
+(function(){
+  function showToast(msg,type='error'){
+    let c=document.querySelector('.toast-container');
+    if(!c){c=document.createElement('div');c.className='toast-container';document.body.appendChild(c);}
+    let t=document.createElement('div');t.className='toast '+type;t.textContent=msg;c.appendChild(t);
+    setTimeout(()=>{t.classList.add('out');setTimeout(()=>t.remove(),300);},4000);
+  }
+  function validateEmail(v){return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);}
+  function validatePhone(v){return v.replace(/\D/g,'').length>=7;}
+  document.querySelectorAll('form, .modal').forEach(form=>{
+    const inputs=form.querySelectorAll('input, select, textarea');
+    const submitBtn=form.querySelector('button.btn-primary, button[type="submit"]');
+    if(!submitBtn) return;
+    const origClick=submitBtn.onclick;
+    submitBtn.onclick=function(e){
+      let ok=true;
+      inputs.forEach(inp=>{
+        if(inp.type==='hidden'||inp.disabled) return;
+        const val=inp.value.trim();
+        const req=inp.required||inp.classList.contains('required');
+        if(req && !val){ ok=false; inp.style.borderColor='var(--error-500)'; setTimeout(()=>inp.style.borderColor='',2000); }
+        if(inp.type==='email' && val && !validateEmail(val)){ ok=false; showToast('Geçerli e-posta giriniz / Valid email required / Geldig e-mailadres vereist'); }
+        if(inp.dataset.type==='phone' || inp.name?.includes('phone') || inp.id?.includes('phone') || inp.placeholder?.toLowerCase().includes('telefon')){
+          if(val && !validatePhone(val)){ ok=false; showToast('Telefon en az 7 hane olmalı / Phone min 7 digits / Telefoon min 7 cijfers'); }
+        }
+      });
+      if(!ok){ e.preventDefault?e.preventDefault():null; e.stopPropagation?e.stopPropagation():null; return false; }
+      if(origClick) return origClick.call(this,e);
+    };
+  });
+})();
+</script>
 </body>
 </html>

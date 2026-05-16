@@ -8,6 +8,17 @@
 <link rel="stylesheet" href="css/main.css">
 <link rel="stylesheet" href="css/components.css">
 <style>
+
+.toast-container{position:fixed;top:24px;right:24px;z-index:9999;display:flex;flex-direction:column;gap:8px;}
+.toast{padding:12px 20px;border-radius:var(--radius-md);font-size:var(--text-sm);font-weight:500;color:white;box-shadow:var(--shadow-lg);animation:toastIn 0.3s ease;max-width:320px;}
+.toast.error{background:var(--error-500);}
+.toast.success{background:var(--success-500);}
+.toast.info{background:var(--info-500);}
+@keyframes toastIn{from{transform:translateX(120%);opacity:0;}to{transform:translateX(0);opacity:1;}}
+@keyframes toastOut{from{transform:translateX(0);opacity:1;}to{transform:translateX(120%);opacity:0;}}
+.toast.out{animation:toastOut 0.3s ease forwards;}
+
+
 .dashboard{display:flex;min-height:100vh;background:var(--bg-primary);}
 .sidebar{width:280px;height:100vh;background:var(--bg-card);border-right:1px solid var(--border-color);display:flex;flex-direction:column;position:fixed;left:0;top:0;z-index:100;transition:transform var(--duration-slow) var(--ease-out);}
 .sidebar-header{padding:20px 24px;border-bottom:1px solid var(--border-color);display:flex;align-items:center;gap:12px;}
@@ -411,6 +422,69 @@ textarea.form-input{resize:vertical;}
                 <td style="font-weight:600;color:var(--teal-500);">€55</td>
                 <td><span class="tag tag-green" data-i18n="status_active">Aktif</span></td>
                 <td><div class="actions"><button class="action-btn edit" onclick="openEditModal(18)" title="Düzenle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(18)" title="Sil"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
+              </tr>
+              <tr data-id="19">
+                <td><div style="font-weight:600;">Boya Badana - İç Mekan</div><div style="font-size:var(--text-xs);color:var(--text-muted);">Boya ve badana hizmetleri - iç mekan</div></td>
+                <td><span class="tag tag-amber">Boya & Badana</span></td>
+                <td>İç Mekan</td>
+                <td>3-5 saat</td>
+                <td style="font-weight:600;color:var(--teal-500);">€120</td>
+                <td><span class="tag tag-green" data-i18n="status_active">Aktif</span></td>
+                <td><div class="actions"><button class="action-btn edit" onclick="openEditModal(19)" title="Düzenle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(19)" title="Sil"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
+              </tr>
+              <tr data-id="20">
+                <td><div style="font-weight:600;">Dış Cephe Boya</div><div style="font-size:var(--text-xs);color:var(--text-muted);">Bina dış cephe boya ve tadilat</div></td>
+                <td><span class="tag tag-amber">Boya & Badana</span></td>
+                <td>Dış Mekan</td>
+                <td>2-4 gün</td>
+                <td style="font-weight:600;color:var(--teal-500);">€450</td>
+                <td><span class="tag tag-green" data-i18n="status_active">Aktif</span></td>
+                <td><div class="actions"><button class="action-btn edit" onclick="openEditModal(20)" title="Düzenle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(20)" title="Sil"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
+              </tr>
+              <tr data-id="21">
+                <td><div style="font-weight:600;">Mobilya Montajı</div><div style="font-size:var(--text-xs);color:var(--text-muted);">Profesyonel mobilya kurulum ve montaj</div></td>
+                <td><span class="tag tag-purple">Marangozluk</span></td>
+                <td>Montaj</td>
+                <td>1-3 saat</td>
+                <td style="font-weight:600;color:var(--teal-500);">€75</td>
+                <td><span class="tag tag-green" data-i18n="status_active">Aktif</span></td>
+                <td><div class="actions"><button class="action-btn edit" onclick="openEditModal(21)" title="Düzenle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(21)" title="Sil"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
+              </tr>
+              <tr data-id="22">
+                <td><div style="font-weight:600;">Seramik Döşeme</div><div style="font-size:var(--text-xs);color:var(--text-muted);">Zemin ve duvar seramik döşeme</div></td>
+                <td><span class="tag tag-red">Seramik</span></td>
+                <td>Döşeme</td>
+                <td>1-3 gün</td>
+                <td style="font-weight:600;color:var(--teal-500);">€320</td>
+                <td><span class="tag tag-green" data-i18n="status_active">Aktif</span></td>
+                <td><div class="actions"><button class="action-btn edit" onclick="openEditModal(22)" title="Düzenle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(22)" title="Sil"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
+              </tr>
+              <tr data-id="23">
+                <td><div style="font-weight:600;">Elektrik Tesisatı</div><div style="font-size:var(--text-xs);color:var(--text-muted);">İç mekan elektrik tesisatı ve arıza</div></td>
+                <td><span class="tag tag-yellow">Elektrik</span></td>
+                <td>Tesisat</td>
+                <td>2-5 saat</td>
+                <td style="font-weight:600;color:var(--teal-500);">€150</td>
+                <td><span class="tag tag-green" data-i18n="status_active">Aktif</span></td>
+                <td><div class="actions"><button class="action-btn edit" onclick="openEditModal(23)" title="Düzenle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(23)" title="Sil"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
+              </tr>
+              <tr data-id="24">
+                <td><div style="font-weight:600;">Sıhhi Tesisat</div><div style="font-size:var(--text-xs);color:var(--text-muted);">Su, kanalizasyon ve doğalgaz tesisatı</div></td>
+                <td><span class="tag tag-cyan">Tesisat</span></td>
+                <td>Sıhhi</td>
+                <td>1-4 saat</td>
+                <td style="font-weight:600;color:var(--teal-500);">€130</td>
+                <td><span class="tag tag-green" data-i18n="status_active">Aktif</span></td>
+                <td><div class="actions"><button class="action-btn edit" onclick="openEditModal(24)" title="Düzenle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(24)" title="Sil"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
+              </tr>
+              <tr data-id="25">
+                <td><div style="font-weight:600;">Çatı Tamiratı</div><div style="font-size:var(--text-xs);color:var(--text-muted);">Çatı onarımı, izolasyon ve yenileme</div></td>
+                <td><span class="tag tag-gray">Çatı</span></td>
+                <td>Tamirat</td>
+                <td>1-2 gün</td>
+                <td style="font-weight:600;color:var(--teal-500);">€550</td>
+                <td><span class="tag tag-amber" data-i18n="status_inactive">Pasif</span></td>
+                <td><div class="actions"><button class="action-btn edit" onclick="openEditModal(25)" title="Düzenle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(25)" title="Sil"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
               </tr>
             </tbody>
           </table>
@@ -2052,6 +2126,49 @@ function switchLang(lang) {
 
 /* Init */
 switchLang(currentLang);
+</script>
+<script>
+window.onerror = function(msg, url, line) {
+  console.error('CleanFix Error:', msg, 'at', url, ':' , line);
+  return false;
+};
+window.addEventListener('unhandledrejection', function(e) {
+  console.error('Unhandled Promise:', e.reason);
+});
+</script>
+
+<script>
+(function(){
+  function showToast(msg,type='error'){
+    let c=document.querySelector('.toast-container');
+    if(!c){c=document.createElement('div');c.className='toast-container';document.body.appendChild(c);}
+    let t=document.createElement('div');t.className='toast '+type;t.textContent=msg;c.appendChild(t);
+    setTimeout(()=>{t.classList.add('out');setTimeout(()=>t.remove(),300);},4000);
+  }
+  function validateEmail(v){return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);}
+  function validatePhone(v){return v.replace(/\D/g,'').length>=7;}
+  document.querySelectorAll('form, .modal').forEach(form=>{
+    const inputs=form.querySelectorAll('input, select, textarea');
+    const submitBtn=form.querySelector('button.btn-primary, button[type="submit"]');
+    if(!submitBtn) return;
+    const origClick=submitBtn.onclick;
+    submitBtn.onclick=function(e){
+      let ok=true;
+      inputs.forEach(inp=>{
+        if(inp.type==='hidden'||inp.disabled) return;
+        const val=inp.value.trim();
+        const req=inp.required||inp.classList.contains('required');
+        if(req && !val){ ok=false; inp.style.borderColor='var(--error-500)'; setTimeout(()=>inp.style.borderColor='',2000); }
+        if(inp.type==='email' && val && !validateEmail(val)){ ok=false; showToast('Geçerli e-posta giriniz / Valid email required / Geldig e-mailadres vereist'); }
+        if(inp.dataset.type==='phone' || inp.name?.includes('phone') || inp.id?.includes('phone') || inp.placeholder?.toLowerCase().includes('telefon')){
+          if(val && !validatePhone(val)){ ok=false; showToast('Telefon en az 7 hane olmalı / Phone min 7 digits / Telefoon min 7 cijfers'); }
+        }
+      });
+      if(!ok){ e.preventDefault?e.preventDefault():null; e.stopPropagation?e.stopPropagation():null; return false; }
+      if(origClick) return origClick.call(this,e);
+    };
+  });
+})();
 </script>
 </body>
 </html>

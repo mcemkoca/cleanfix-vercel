@@ -8,6 +8,17 @@
 <link rel="stylesheet" href="css/main.css">
 <link rel="stylesheet" href="css/components.css">
 <style>
+
+.toast-container{position:fixed;top:24px;right:24px;z-index:9999;display:flex;flex-direction:column;gap:8px;}
+.toast{padding:12px 20px;border-radius:var(--radius-md);font-size:var(--text-sm);font-weight:500;color:white;box-shadow:var(--shadow-lg);animation:toastIn 0.3s ease;max-width:320px;}
+.toast.error{background:var(--error-500);}
+.toast.success{background:var(--success-500);}
+.toast.info{background:var(--info-500);}
+@keyframes toastIn{from{transform:translateX(120%);opacity:0;}to{transform:translateX(0);opacity:1;}}
+@keyframes toastOut{from{transform:translateX(0);opacity:1;}to{transform:translateX(120%);opacity:0;}}
+.toast.out{animation:toastOut 0.3s ease forwards;}
+
+
 .dashboard{display:flex;min-height:100vh;background:var(--bg-primary);}
 .sidebar{width:280px;height:100vh;background:var(--bg-card);border-right:1px solid var(--border-color);display:flex;flex-direction:column;position:fixed;left:0;top:0;z-index:100;transition:transform var(--duration-slow) var(--ease-out);}
 .sidebar-header{padding:20px 24px;border-bottom:1px solid var(--border-color);display:flex;align-items:center;gap:12px;}
@@ -244,6 +255,150 @@
                 <td>30 <span data-i18n="common.hours">saat</span></td>
                 <td><span class="tag tag-green" data-i18n="status.active">Aktif</span></td>
                 <td><div class="actions"><button class="action-btn edit" onclick="openEditModal(6)" data-i18n-title="actions.edit"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(6)" data-i18n-title="actions.delete"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
+              </tr>
+                          <tr data-id="7">
+                <td><div style="display:flex;align-items:center;gap:12px;"><div class="avatar" style="background:linear-gradient(135deg,#6366f1,#4f46e5);">EA</div><div><div style="font-weight:600;">Emine Aydın</div><div style="font-size:var(--text-xs);color:var(--text-muted);">emine.aydın@cleanfix.demo</div></div></div></td>
+                <td><code style="background:var(--bg-tertiary);padding:4px 8px;border-radius:4px;font-size:var(--text-xs);">EMP-007</code></td>
+                <td><span class="tag tag-amber" data-i18n="staff.role_helper">Yardımcı</span></td>
+                <td>+90 532 11 22 33</td>
+                <td>43 <span data-i18n="common.hours">saat</span></td>
+                <td><span class="tag tag-green" data-i18n="status.active">Aktif</span></td>
+                <td><div class="actions"><button class="action-btn edit" onclick="openEditModal(7)" data-i18n-title="actions.edit"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(7)" data-i18n-title="actions.delete"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
+              </tr>
+              <tr data-id="8">
+                <td><div style="display:flex;align-items:center;gap:12px;"><div class="avatar" style="background:linear-gradient(135deg,#3b82f6,#1d4ed8);">HA</div><div><div style="font-weight:600;">Hüseyin Arslan</div><div style="font-size:var(--text-xs);color:var(--text-muted);">hüseyin.arslan@cleanfix.demo</div></div></div></td>
+                <td><code style="background:var(--bg-tertiary);padding:4px 8px;border-radius:4px;font-size:var(--text-xs);">EMP-008</code></td>
+                <td><span class="tag tag-purple" data-i18n="staff.role_reception">Resepsiyon</span></td>
+                <td>+90 536 98 76 54</td>
+                <td>0 <span data-i18n="common.hours">saat</span></td>
+                <td><span class="tag tag-red" data-i18n="status.on_leave">İzinli</span></td>
+                <td><div class="actions"><button class="action-btn edit" onclick="openEditModal(8)" data-i18n-title="actions.edit"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(8)" data-i18n-title="actions.delete"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
+              </tr>
+              <tr data-id="9">
+                <td><div style="display:flex;align-items:center;gap:12px;"><div class="avatar" style="background:linear-gradient(135deg,#8b5cf6,#6d28d9);">ZK</div><div><div style="font-weight:600;">Zeynep Kılıç</div><div style="font-size:var(--text-xs);color:var(--text-muted);">zeynep.kılıç@cleanfix.demo</div></div></div></td>
+                <td><code style="background:var(--bg-tertiary);padding:4px 8px;border-radius:4px;font-size:var(--text-xs);">EMP-009</code></td>
+                <td><span class="tag tag-blue" data-i18n="staff.role_master">Usta</span></td>
+                <td>+90 532 11 22 33</td>
+                <td>40 <span data-i18n="common.hours">saat</span></td>
+                <td><span class="tag tag-green" data-i18n="status.active">Aktif</span></td>
+                <td><div class="actions"><button class="action-btn edit" onclick="openEditModal(9)" data-i18n-title="actions.edit"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(9)" data-i18n-title="actions.delete"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
+              </tr>
+              <tr data-id="10">
+                <td><div style="display:flex;align-items:center;gap:12px;"><div class="avatar" style="background:linear-gradient(135deg,#f59e0b,#d97706);">İY</div><div><div style="font-weight:600;">İbrahim Yıldız</div><div style="font-size:var(--text-xs);color:var(--text-muted);">i̇brahim.yıldız@cleanfix.demo</div></div></div></td>
+                <td><code style="background:var(--bg-tertiary);padding:4px 8px;border-radius:4px;font-size:var(--text-xs);">EMP-010</code></td>
+                <td><span class="tag tag-amber" data-i18n="staff.role_helper">Yardımcı</span></td>
+                <td>+90 537 11 22 44</td>
+                <td>0 <span data-i18n="common.hours">saat</span></td>
+                <td><span class="tag tag-red" data-i18n="status.on_leave">İzinli</span></td>
+                <td><div class="actions"><button class="action-btn edit" onclick="openEditModal(10)" data-i18n-title="actions.edit"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(10)" data-i18n-title="actions.delete"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
+              </tr>
+              <tr data-id="11">
+                <td><div style="display:flex;align-items:center;gap:12px;"><div class="avatar" style="background:linear-gradient(135deg,#10b981,#059669);">HK</div><div><div style="font-weight:600;">Hatice Koç</div><div style="font-size:var(--text-xs);color:var(--text-muted);">hatice.koç@cleanfix.demo</div></div></div></td>
+                <td><code style="background:var(--bg-tertiary);padding:4px 8px;border-radius:4px;font-size:var(--text-xs);">EMP-011</code></td>
+                <td><span class="tag tag-blue" data-i18n="staff.role_master">Usta</span></td>
+                <td>+90 535 12 34 56</td>
+                <td>36 <span data-i18n="common.hours">saat</span></td>
+                <td><span class="tag tag-green" data-i18n="status.active">Aktif</span></td>
+                <td><div class="actions"><button class="action-btn edit" onclick="openEditModal(11)" data-i18n-title="actions.edit"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(11)" data-i18n-title="actions.delete"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
+              </tr>
+              <tr data-id="12">
+                <td><div style="display:flex;align-items:center;gap:12px;"><div class="avatar" style="background:linear-gradient(135deg,#ef4444,#dc2626);">OK</div><div><div style="font-weight:600;">Osman Kara</div><div style="font-size:var(--text-xs);color:var(--text-muted);">osman.kara@cleanfix.demo</div></div></div></td>
+                <td><code style="background:var(--bg-tertiary);padding:4px 8px;border-radius:4px;font-size:var(--text-xs);">EMP-012</code></td>
+                <td><span class="tag tag-amber" data-i18n="staff.role_helper">Yardımcı</span></td>
+                <td>+90 532 11 22 33</td>
+                <td>0 <span data-i18n="common.hours">saat</span></td>
+                <td><span class="tag tag-red" data-i18n="status.on_leave">İzinli</span></td>
+                <td><div class="actions"><button class="action-btn edit" onclick="openEditModal(12)" data-i18n-title="actions.edit"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(12)" data-i18n-title="actions.delete"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
+              </tr>
+              <tr data-id="13">
+                <td><div style="display:flex;align-items:center;gap:12px;"><div class="avatar" style="background:linear-gradient(135deg,#ec4899,#db2777);">SC</div><div><div style="font-weight:600;">Selen Can</div><div style="font-size:var(--text-xs);color:var(--text-muted);">selen.can@cleanfix.demo</div></div></div></td>
+                <td><code style="background:var(--bg-tertiary);padding:4px 8px;border-radius:4px;font-size:var(--text-xs);">EMP-013</code></td>
+                <td><span class="tag tag-purple" data-i18n="staff.role_reception">Resepsiyon</span></td>
+                <td>+90 537 11 22 44</td>
+                <td>34 <span data-i18n="common.hours">saat</span></td>
+                <td><span class="tag tag-green" data-i18n="status.active">Aktif</span></td>
+                <td><div class="actions"><button class="action-btn edit" onclick="openEditModal(13)" data-i18n-title="actions.edit"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(13)" data-i18n-title="actions.delete"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
+              </tr>
+              <tr data-id="14">
+                <td><div style="display:flex;align-items:center;gap:12px;"><div class="avatar" style="background:linear-gradient(135deg,#06b6d4,#0891b2);">BŞ</div><div><div style="font-weight:600;">Burak Şimşek</div><div style="font-size:var(--text-xs);color:var(--text-muted);">burak.şimşek@cleanfix.demo</div></div></div></td>
+                <td><code style="background:var(--bg-tertiary);padding:4px 8px;border-radius:4px;font-size:var(--text-xs);">EMP-014</code></td>
+                <td><span class="tag tag-blue" data-i18n="staff.role_master">Usta</span></td>
+                <td>+90 533 44 55 66</td>
+                <td>40 <span data-i18n="common.hours">saat</span></td>
+                <td><span class="tag tag-green" data-i18n="status.active">Aktif</span></td>
+                <td><div class="actions"><button class="action-btn edit" onclick="openEditModal(14)" data-i18n-title="actions.edit"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(14)" data-i18n-title="actions.delete"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
+              </tr>
+              <tr data-id="15">
+                <td><div style="display:flex;align-items:center;gap:12px;"><div class="avatar" style="background:linear-gradient(135deg,#6366f1,#4f46e5);">DY</div><div><div style="font-weight:600;">Deniz Yavuz</div><div style="font-size:var(--text-xs);color:var(--text-muted);">deniz.yavuz@cleanfix.demo</div></div></div></td>
+                <td><code style="background:var(--bg-tertiary);padding:4px 8px;border-radius:4px;font-size:var(--text-xs);">EMP-015</code></td>
+                <td><span class="tag tag-amber" data-i18n="staff.role_helper">Yardımcı</span></td>
+                <td>+90 535 12 34 56</td>
+                <td>36 <span data-i18n="common.hours">saat</span></td>
+                <td><span class="tag tag-green" data-i18n="status.active">Aktif</span></td>
+                <td><div class="actions"><button class="action-btn edit" onclick="openEditModal(15)" data-i18n-title="actions.edit"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(15)" data-i18n-title="actions.delete"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
+              </tr>
+              <tr data-id="16">
+                <td><div style="display:flex;align-items:center;gap:12px;"><div class="avatar" style="background:linear-gradient(135deg,#3b82f6,#1d4ed8);">EA</div><div><div style="font-weight:600;">Ece Aksoy</div><div style="font-size:var(--text-xs);color:var(--text-muted);">ece.aksoy@cleanfix.demo</div></div></div></td>
+                <td><code style="background:var(--bg-tertiary);padding:4px 8px;border-radius:4px;font-size:var(--text-xs);">EMP-016</code></td>
+                <td><span class="tag tag-purple" data-i18n="staff.role_reception">Resepsiyon</span></td>
+                <td>+90 534 77 88 99</td>
+                <td>39 <span data-i18n="common.hours">saat</span></td>
+                <td><span class="tag tag-green" data-i18n="status.active">Aktif</span></td>
+                <td><div class="actions"><button class="action-btn edit" onclick="openEditModal(16)" data-i18n-title="actions.edit"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(16)" data-i18n-title="actions.delete"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
+              </tr>
+              <tr data-id="17">
+                <td><div style="display:flex;align-items:center;gap:12px;"><div class="avatar" style="background:linear-gradient(135deg,#8b5cf6,#6d28d9);">CÖ</div><div><div style="font-weight:600;">Cem Özdemir</div><div style="font-size:var(--text-xs);color:var(--text-muted);">cem.özdemir@cleanfix.demo</div></div></div></td>
+                <td><code style="background:var(--bg-tertiary);padding:4px 8px;border-radius:4px;font-size:var(--text-xs);">EMP-017</code></td>
+                <td><span class="tag tag-amber" data-i18n="staff.role_helper">Yardımcı</span></td>
+                <td>+90 535 12 34 56</td>
+                <td>37 <span data-i18n="common.hours">saat</span></td>
+                <td><span class="tag tag-green" data-i18n="status.active">Aktif</span></td>
+                <td><div class="actions"><button class="action-btn edit" onclick="openEditModal(17)" data-i18n-title="actions.edit"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(17)" data-i18n-title="actions.delete"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
+              </tr>
+              <tr data-id="18">
+                <td><div style="display:flex;align-items:center;gap:12px;"><div class="avatar" style="background:linear-gradient(135deg,#f59e0b,#d97706);">NG</div><div><div style="font-weight:600;">Nazlı Güneş</div><div style="font-size:var(--text-xs);color:var(--text-muted);">nazlı.güneş@cleanfix.demo</div></div></div></td>
+                <td><code style="background:var(--bg-tertiary);padding:4px 8px;border-radius:4px;font-size:var(--text-xs);">EMP-018</code></td>
+                <td><span class="tag tag-blue" data-i18n="staff.role_master">Usta</span></td>
+                <td>+90 533 44 55 66</td>
+                <td>45 <span data-i18n="common.hours">saat</span></td>
+                <td><span class="tag tag-green" data-i18n="status.active">Aktif</span></td>
+                <td><div class="actions"><button class="action-btn edit" onclick="openEditModal(18)" data-i18n-title="actions.edit"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(18)" data-i18n-title="actions.delete"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
+              </tr>
+              <tr data-id="19">
+                <td><div style="display:flex;align-items:center;gap:12px;"><div class="avatar" style="background:linear-gradient(135deg,#10b981,#059669);">KY</div><div><div style="font-weight:600;">Kaan Yıldırım</div><div style="font-size:var(--text-xs);color:var(--text-muted);">kaan.yıldırım@cleanfix.demo</div></div></div></td>
+                <td><code style="background:var(--bg-tertiary);padding:4px 8px;border-radius:4px;font-size:var(--text-xs);">EMP-019</code></td>
+                <td><span class="tag tag-purple" data-i18n="staff.role_reception">Resepsiyon</span></td>
+                <td>+90 539 66 88 00</td>
+                <td>39 <span data-i18n="common.hours">saat</span></td>
+                <td><span class="tag tag-green" data-i18n="status.active">Aktif</span></td>
+                <td><div class="actions"><button class="action-btn edit" onclick="openEditModal(19)" data-i18n-title="actions.edit"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(19)" data-i18n-title="actions.delete"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
+              </tr>
+              <tr data-id="20">
+                <td><div style="display:flex;align-items:center;gap:12px;"><div class="avatar" style="background:linear-gradient(135deg,#ef4444,#dc2626);">LK</div><div><div style="font-weight:600;">Leyla Korkmaz</div><div style="font-size:var(--text-xs);color:var(--text-muted);">leyla.korkmaz@cleanfix.demo</div></div></div></td>
+                <td><code style="background:var(--bg-tertiary);padding:4px 8px;border-radius:4px;font-size:var(--text-xs);">EMP-020</code></td>
+                <td><span class="tag tag-amber" data-i18n="staff.role_helper">Yardımcı</span></td>
+                <td>+90 532 11 22 33</td>
+                <td>0 <span data-i18n="common.hours">saat</span></td>
+                <td><span class="tag tag-red" data-i18n="status.on_leave">İzinli</span></td>
+                <td><div class="actions"><button class="action-btn edit" onclick="openEditModal(20)" data-i18n-title="actions.edit"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(20)" data-i18n-title="actions.delete"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
+              </tr>
+              <tr data-id="21">
+                <td><div style="display:flex;align-items:center;gap:12px;"><div class="avatar" style="background:linear-gradient(135deg,#ec4899,#db2777);">OÇ</div><div><div style="font-weight:600;">Oğuz Çetin</div><div style="font-size:var(--text-xs);color:var(--text-muted);">oğuz.çetin@cleanfix.demo</div></div></div></td>
+                <td><code style="background:var(--bg-tertiary);padding:4px 8px;border-radius:4px;font-size:var(--text-xs);">EMP-021</code></td>
+                <td><span class="tag tag-amber" data-i18n="staff.role_helper">Yardımcı</span></td>
+                <td>+90 535 12 34 56</td>
+                <td>41 <span data-i18n="common.hours">saat</span></td>
+                <td><span class="tag tag-green" data-i18n="status.active">Aktif</span></td>
+                <td><div class="actions"><button class="action-btn edit" onclick="openEditModal(21)" data-i18n-title="actions.edit"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(21)" data-i18n-title="actions.delete"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
+              </tr>
+              <tr data-id="22">
+                <td><div style="display:flex;align-items:center;gap:12px;"><div class="avatar" style="background:linear-gradient(135deg,#06b6d4,#0891b2);">PD</div><div><div style="font-weight:600;">Pelin Doğan</div><div style="font-size:var(--text-xs);color:var(--text-muted);">pelin.doğan@cleanfix.demo</div></div></div></td>
+                <td><code style="background:var(--bg-tertiary);padding:4px 8px;border-radius:4px;font-size:var(--text-xs);">EMP-022</code></td>
+                <td><span class="tag tag-amber" data-i18n="staff.role_helper">Yardımcı</span></td>
+                <td>+90 538 33 55 77</td>
+                <td>42 <span data-i18n="common.hours">saat</span></td>
+                <td><span class="tag tag-green" data-i18n="status.active">Aktif</span></td>
+                <td><div class="actions"><button class="action-btn edit" onclick="openEditModal(22)" data-i18n-title="actions.edit"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(22)" data-i18n-title="actions.delete"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
               </tr>
             </tbody>
           </table>
@@ -549,6 +704,49 @@ document.getElementById('roleFilter').addEventListener('change',function(){
 });
 
 switchLang(currentLang);
+</script>
+<script>
+window.onerror = function(msg, url, line) {
+  console.error('CleanFix Error:', msg, 'at', url, ':' , line);
+  return false;
+};
+window.addEventListener('unhandledrejection', function(e) {
+  console.error('Unhandled Promise:', e.reason);
+});
+</script>
+
+<script>
+(function(){
+  function showToast(msg,type='error'){
+    let c=document.querySelector('.toast-container');
+    if(!c){c=document.createElement('div');c.className='toast-container';document.body.appendChild(c);}
+    let t=document.createElement('div');t.className='toast '+type;t.textContent=msg;c.appendChild(t);
+    setTimeout(()=>{t.classList.add('out');setTimeout(()=>t.remove(),300);},4000);
+  }
+  function validateEmail(v){return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);}
+  function validatePhone(v){return v.replace(/\D/g,'').length>=7;}
+  document.querySelectorAll('form, .modal').forEach(form=>{
+    const inputs=form.querySelectorAll('input, select, textarea');
+    const submitBtn=form.querySelector('button.btn-primary, button[type="submit"]');
+    if(!submitBtn) return;
+    const origClick=submitBtn.onclick;
+    submitBtn.onclick=function(e){
+      let ok=true;
+      inputs.forEach(inp=>{
+        if(inp.type==='hidden'||inp.disabled) return;
+        const val=inp.value.trim();
+        const req=inp.required||inp.classList.contains('required');
+        if(req && !val){ ok=false; inp.style.borderColor='var(--error-500)'; setTimeout(()=>inp.style.borderColor='',2000); }
+        if(inp.type==='email' && val && !validateEmail(val)){ ok=false; showToast('Geçerli e-posta giriniz / Valid email required / Geldig e-mailadres vereist'); }
+        if(inp.dataset.type==='phone' || inp.name?.includes('phone') || inp.id?.includes('phone') || inp.placeholder?.toLowerCase().includes('telefon')){
+          if(val && !validatePhone(val)){ ok=false; showToast('Telefon en az 7 hane olmalı / Phone min 7 digits / Telefoon min 7 cijfers'); }
+        }
+      });
+      if(!ok){ e.preventDefault?e.preventDefault():null; e.stopPropagation?e.stopPropagation():null; return false; }
+      if(origClick) return origClick.call(this,e);
+    };
+  });
+})();
 </script>
 </body>
 </html>

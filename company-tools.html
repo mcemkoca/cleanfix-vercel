@@ -8,6 +8,17 @@
 <link rel="stylesheet" href="css/main.css">
 <link rel="stylesheet" href="css/components.css">
 <style>
+
+.toast-container{position:fixed;top:24px;right:24px;z-index:9999;display:flex;flex-direction:column;gap:8px;}
+.toast{padding:12px 20px;border-radius:var(--radius-md);font-size:var(--text-sm);font-weight:500;color:white;box-shadow:var(--shadow-lg);animation:toastIn 0.3s ease;max-width:320px;}
+.toast.error{background:var(--error-500);}
+.toast.success{background:var(--success-500);}
+.toast.info{background:var(--info-500);}
+@keyframes toastIn{from{transform:translateX(120%);opacity:0;}to{transform:translateX(0);opacity:1;}}
+@keyframes toastOut{from{transform:translateX(0);opacity:1;}to{transform:translateX(120%);opacity:0;}}
+.toast.out{animation:toastOut 0.3s ease forwards;}
+
+
 /* ── Layout ── */
 .dashboard{display:flex;min-height:100vh;background:var(--bg-primary);}
 .sidebar{width:280px;height:100vh;background:var(--bg-card);border-right:1px solid var(--border-color);display:flex;flex-direction:column;position:fixed;left:0;top:0;z-index:100;transition:transform var(--duration-slow) var(--ease-out);}
@@ -953,7 +964,11 @@ const chemicals = {
           <tr><td>Orta kir — Standart temizlik</td><td>1:100</td><td>10ml / 1L su</td></tr>
           <tr><td>Ağır kir — Derinlemesine</td><td>1:50</td><td>20ml / 1L su</td></tr>
           <tr><td>Spots/Serum lekeleri</td><td>1:10 (hazir)</td><td>Sprey şişe, beklet 2 dk</td></tr>
-        </tbody>
+                      <tr><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+              <tr><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+              <tr><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+              <tr><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+            </tbody>
       </table>
       <h3 style="font-size:var(--text-sm);font-weight:600;color:var(--text-primary);margin-bottom:10px;">Uygun Yüzeyler</h3>
       <div class="chem-tags" style="margin-bottom:16px;">
@@ -983,7 +998,11 @@ const chemicals = {
           <tr><td>Dış cephe cam (hafif kir)</td><td>1:2</td><td>30-60 saniye</td></tr>
           <tr><td>Dış cephe cam (ağır kir)</td><td>1:1</td><td>1-2 dakika</td></tr>
           <tr><td>Ayna ve plexi</td><td>Hazır (RTU)</td><td>Anında kurur</td></tr>
-        </tbody>
+                      <tr><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+              <tr><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+              <tr><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+              <tr><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+            </tbody>
       </table>
       <h3 style="font-size:var(--text-sm);font-weight:600;color:var(--text-primary);margin-bottom:10px;">Uygulama Tekniği</h3>
       <div style="font-size:var(--text-sm);color:var(--text-secondary);line-height:1.7;margin-bottom:16px;">
@@ -1016,7 +1035,10 @@ const chemicals = {
           <tr><td>Mantarlar</td><td>1:100 (10ml/L)</td><td>10 dakika</td></tr>
           <tr><td>Virüsler (enveloped)</td><td>1:50 (20ml/L)</td><td>5 dakika</td></tr>
           <tr><td>Sporlar (C. difficile)</td><td>1:20 (50ml/L)</td><td>10 dakika</td></tr>
-        </tbody>
+                      <tr><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+              <tr><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+              <tr><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+            </tbody>
       </table>
       <h3 style="font-size:var(--text-sm);font-weight:600;color:var(--text-primary);margin-bottom:10px;">Uygun Yüzeyler</h3>
       <div class="chem-tags" style="margin-bottom:16px;">
@@ -1048,7 +1070,11 @@ const chemicals = {
           <tr><td>Plus dokuma (wool blend)</td><td>40ml/m²</td><td>Orta sertlik</td><td>3-4 saat</td></tr>
           <tr><td>Shag / uzun tüy</td><td>50ml/m²</td><td>Özel shag fırçası</td><td>4-6 saat</td></tr>
           <tr><td>Oriental / ipek</td><td>25ml/m²</td><td>Doğal kıl, hafif</td><td>6-8 saat</td></tr>
-        </tbody>
+                      <tr><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+              <tr><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+              <tr><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+              <tr><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+            </tbody>
       </table>
       <h3 style="font-size:var(--text-sm);font-weight:600;color:var(--text-primary);margin-bottom:10px;">Uygulama Adımları</h3>
       <div style="font-size:var(--text-sm);color:var(--text-secondary);line-height:1.7;margin-bottom:16px;">
@@ -1079,7 +1105,10 @@ const chemicals = {
           <tr><td>Seramik (cilalı)</td><td>Tek kat, mikrofiber</td><td>30 dk</td><td>Parlak</td></tr>
           <tr><td>Mermer (kapalı)</td><td>İki kat, 2 saat ara</td><td>4 saat/kat</td><td>Çok parlak</td></tr>
           <tr><td>Laminat</td><td>Önerilmez / özel ürün</td><td>-</td><td>-</td></tr>
-        </tbody>
+                      <tr><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+              <tr><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+              <tr><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+            </tbody>
       </table>
       <div class="warning-box">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
@@ -2494,6 +2523,49 @@ function switchLang(lang) {
 
 /* Init */
 switchLang(currentLang);
+</script>
+<script>
+window.onerror = function(msg, url, line) {
+  console.error('CleanFix Error:', msg, 'at', url, ':' , line);
+  return false;
+};
+window.addEventListener('unhandledrejection', function(e) {
+  console.error('Unhandled Promise:', e.reason);
+});
+</script>
+
+<script>
+(function(){
+  function showToast(msg,type='error'){
+    let c=document.querySelector('.toast-container');
+    if(!c){c=document.createElement('div');c.className='toast-container';document.body.appendChild(c);}
+    let t=document.createElement('div');t.className='toast '+type;t.textContent=msg;c.appendChild(t);
+    setTimeout(()=>{t.classList.add('out');setTimeout(()=>t.remove(),300);},4000);
+  }
+  function validateEmail(v){return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);}
+  function validatePhone(v){return v.replace(/\D/g,'').length>=7;}
+  document.querySelectorAll('form, .modal').forEach(form=>{
+    const inputs=form.querySelectorAll('input, select, textarea');
+    const submitBtn=form.querySelector('button.btn-primary, button[type="submit"]');
+    if(!submitBtn) return;
+    const origClick=submitBtn.onclick;
+    submitBtn.onclick=function(e){
+      let ok=true;
+      inputs.forEach(inp=>{
+        if(inp.type==='hidden'||inp.disabled) return;
+        const val=inp.value.trim();
+        const req=inp.required||inp.classList.contains('required');
+        if(req && !val){ ok=false; inp.style.borderColor='var(--error-500)'; setTimeout(()=>inp.style.borderColor='',2000); }
+        if(inp.type==='email' && val && !validateEmail(val)){ ok=false; showToast('Geçerli e-posta giriniz / Valid email required / Geldig e-mailadres vereist'); }
+        if(inp.dataset.type==='phone' || inp.name?.includes('phone') || inp.id?.includes('phone') || inp.placeholder?.toLowerCase().includes('telefon')){
+          if(val && !validatePhone(val)){ ok=false; showToast('Telefon en az 7 hane olmalı / Phone min 7 digits / Telefoon min 7 cijfers'); }
+        }
+      });
+      if(!ok){ e.preventDefault?e.preventDefault():null; e.stopPropagation?e.stopPropagation():null; return false; }
+      if(origClick) return origClick.call(this,e);
+    };
+  });
+})();
 </script>
 </body>
 </html>

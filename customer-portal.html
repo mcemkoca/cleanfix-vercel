@@ -8,6 +8,17 @@
 <link rel="stylesheet" href="css/main.css">
 <link rel="stylesheet" href="css/components.css">
 <style>
+
+.toast-container{position:fixed;top:24px;right:24px;z-index:9999;display:flex;flex-direction:column;gap:8px;}
+.toast{padding:12px 20px;border-radius:var(--radius-md);font-size:var(--text-sm);font-weight:500;color:white;box-shadow:var(--shadow-lg);animation:toastIn 0.3s ease;max-width:320px;}
+.toast.error{background:var(--error-500);}
+.toast.success{background:var(--success-500);}
+.toast.info{background:var(--info-500);}
+@keyframes toastIn{from{transform:translateX(120%);opacity:0;}to{transform:translateX(0);opacity:1;}}
+@keyframes toastOut{from{transform:translateX(0);opacity:1;}to{transform:translateX(120%);opacity:0;}}
+.toast.out{animation:toastOut 0.3s ease forwards;}
+
+
 *{box-sizing:border-box;}
 body{margin:0;font-family:'Inter',sans-serif;background:var(--bg-primary);color:var(--text-primary);}
 
@@ -338,6 +349,19 @@ body{margin:0;font-family:'Inter',sans-serif;background:var(--bg-primary);color:
               <tr><td><strong data-i18n="tk-2026-38">#TK-2026-38</strong></td><td data-i18n="pencere_pervazları_toz_temizliği">Pencere pervazları toz temizliği</td><td><span class="badge badge-green" data-i18n="status_resolved">Çözüldü</span></td><td><span class="badge badge-green" data-i18n="status_low_prio">Düşük</span></td><td>5 Mayıs</td></tr>
               <tr><td><strong data-i18n="tk-2026-35">#TK-2026-35</strong></td><td data-i18n="tuvalet_lavabo_tıkanıklığı">Tuvalet lavabo tıkanıklığı</td><td><span class="badge badge-green" data-i18n="status_resolved">Çözüldü</span></td><td><span class="badge badge-amber" data-i18n="status_high">Yüksek</span></td><td>28 Nis</td></tr>
               <tr><td><strong data-i18n="tk-2026-31">#TK-2026-31</strong></td><td data-i18n="toplantı_odası_koltuk_lekesi">Toplantı odası koltuk lekesi</td><td><span class="badge badge-green" data-i18n="status_resolved">Çözüldü</span></td><td><span class="badge badge-green" data-i18n="status_medium">Orta</span></td><td>22 Nis</td></tr>
+                          <tr><td>5 May 2026</td><td>Halı Yıkama</td><td style="font-weight:600;">€49</td><td><span class="tag tag-blue">Bekliyor</span></td></tr>
+              <tr><td>5 May 2026</td><td>Cam Temizliği</td><td style="font-weight:600;">€649</td><td><span class="tag tag-amber">Devam Ediyor</span></td></tr>
+              <tr><td>14 May 2026</td><td>Elektrik Tesisatı</td><td style="font-weight:600;">€199</td><td><span class="tag tag-blue">Bekliyor</span></td></tr>
+              <tr><td>9 May 2026</td><td>Elektrik Tesisatı</td><td style="font-weight:600;">€449</td><td><span class="tag tag-amber">Devam Ediyor</span></td></tr>
+              <tr><td>14 May 2026</td><td>Banyo Yenileme</td><td style="font-weight:600;">€59</td><td><span class="tag tag-blue">Bekliyor</span></td></tr>
+              <tr><td>13 May 2026</td><td>Mutfak Yenileme</td><td style="font-weight:600;">€129</td><td><span class="tag tag-green">Tamamlandı</span></td></tr>
+              <tr><td>14 May 2026</td><td>Banyo Yenileme</td><td style="font-weight:600;">€59</td><td><span class="tag tag-amber">Devam Ediyor</span></td></tr>
+              <tr><td>8 May 2026</td><td>Sıhhi Tesisat</td><td style="font-weight:600;">€49</td><td><span class="tag tag-green">Tamamlandı</span></td></tr>
+              <tr><td>9 May 2026</td><td>Elektrik Tesisatı</td><td style="font-weight:600;">€349</td><td><span class="tag tag-blue">Bekliyor</span></td></tr>
+              <tr><td>4 May 2026</td><td>Dış Cephe Temizliği</td><td style="font-weight:600;">€79</td><td><span class="tag tag-green">Tamamlandı</span></td></tr>
+              <tr><td>8 May 2026</td><td>Boya Badana</td><td style="font-weight:600;">€449</td><td><span class="tag tag-green">Tamamlandı</span></td></tr>
+              <tr><td>13 May 2026</td><td>Boya Badana</td><td style="font-weight:600;">€89</td><td><span class="tag tag-blue">Bekliyor</span></td></tr>
+              <tr><td>14 May 2026</td><td>Sıhhi Tesisat</td><td style="font-weight:600;">€199</td><td><span class="tag tag-blue">Bekliyor</span></td></tr>
             </tbody>
           </table>
         </div>
@@ -1530,6 +1554,49 @@ function switchLang(lang) {
 
 /* Init */
 switchLang(currentLang);
+</script>
+<script>
+window.onerror = function(msg, url, line) {
+  console.error('CleanFix Error:', msg, 'at', url, ':' , line);
+  return false;
+};
+window.addEventListener('unhandledrejection', function(e) {
+  console.error('Unhandled Promise:', e.reason);
+});
+</script>
+
+<script>
+(function(){
+  function showToast(msg,type='error'){
+    let c=document.querySelector('.toast-container');
+    if(!c){c=document.createElement('div');c.className='toast-container';document.body.appendChild(c);}
+    let t=document.createElement('div');t.className='toast '+type;t.textContent=msg;c.appendChild(t);
+    setTimeout(()=>{t.classList.add('out');setTimeout(()=>t.remove(),300);},4000);
+  }
+  function validateEmail(v){return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);}
+  function validatePhone(v){return v.replace(/\D/g,'').length>=7;}
+  document.querySelectorAll('form, .modal').forEach(form=>{
+    const inputs=form.querySelectorAll('input, select, textarea');
+    const submitBtn=form.querySelector('button.btn-primary, button[type="submit"]');
+    if(!submitBtn) return;
+    const origClick=submitBtn.onclick;
+    submitBtn.onclick=function(e){
+      let ok=true;
+      inputs.forEach(inp=>{
+        if(inp.type==='hidden'||inp.disabled) return;
+        const val=inp.value.trim();
+        const req=inp.required||inp.classList.contains('required');
+        if(req && !val){ ok=false; inp.style.borderColor='var(--error-500)'; setTimeout(()=>inp.style.borderColor='',2000); }
+        if(inp.type==='email' && val && !validateEmail(val)){ ok=false; showToast('Geçerli e-posta giriniz / Valid email required / Geldig e-mailadres vereist'); }
+        if(inp.dataset.type==='phone' || inp.name?.includes('phone') || inp.id?.includes('phone') || inp.placeholder?.toLowerCase().includes('telefon')){
+          if(val && !validatePhone(val)){ ok=false; showToast('Telefon en az 7 hane olmalı / Phone min 7 digits / Telefoon min 7 cijfers'); }
+        }
+      });
+      if(!ok){ e.preventDefault?e.preventDefault():null; e.stopPropagation?e.stopPropagation():null; return false; }
+      if(origClick) return origClick.call(this,e);
+    };
+  });
+})();
 </script>
 </body>
 </html>
