@@ -177,14 +177,62 @@ const ModalManager = {
   }
 };
 
-// Export globals
-window.ThemeManager = ThemeManager;
-window.ToastManager = ToastManager;
-window.DemoData = DemoData;
-window.Utils = Utils;
-window.ModalManager = ModalManager;
-window.animateCounters = animateCounters;
 window.showToast = ToastManager.show.bind(ToastManager);
+
+// DataCache — offline-aware localStorage table caching
+const DataCache = {
+  get(key) {
+    if (window.CFCache) return window.CFCache.get(key);
+    try {
+      const raw = localStorage.getItem('cf_cache_' + key);
+      if (!raw) return null;
+      const parsed = JSON.parse(raw);
+      if (parsed.expires && Date.now() > parsed.expires) {
+        localStorage.removeItem('cf_cache_' + key);
+        return null;
+      }
+      return parsed.data;
+    } catch { return null; }
+  },
+  set(key, data, ttlMinutes = 60) {
+    if (window.CFCache) { window.CFCache.set(key, data, ttlMinutes); return; }
+    try {
+      const payload = { data, expires: ttlMinutes ? Date.now() + ttlMinutes * 60000 : null };
+      localStorage.setItem('cf_cache_' + key, JSON.stringify(payload));
+    } catch (e) { console.warn('[DataCache] quota exceeded:', e); }
+  },
+  clear() {
+    if (window.CFCache) { window.CFCache.clear(); return; }
+    Object.keys(localStorage).forEach(k => { if (k.startsWith('cf_cache_')) localStorage.removeItem(k); });
+  },
+  getTableData(tableName) { return this.get('table_' + tableName); },
+  setTableData(tableName, rows, ttl = 30) { this.set('table_' + tableName, rows, ttl); },
+  isOffline() { return !navigator.onLine; }
+};
+
+// Offline-aware fetch helper
+const OfflineFetch = {
+  async get(url, cacheKey, ttlMinutes = 30) {
+    if (navigator.onLine) {
+      try {
+        const res = await fetch(url);
+        if (res.ok) {
+          const data = await res.json().catch(() => res.text());
+          DataCache.set(cacheKey, data, ttlMinutes);
+          return { data, fromCache: false };
+        }
+      } catch (e) { console.warn('[OfflineFetch] network error:', e); }
+    }
+    const cached = DataCache.get(cacheKey);
+    if (cached !== null) return { data: cached, fromCache: true };
+    return { data: null, fromCache: false, error: 'offline_no_data' };
+  }
+};
+
+// Export globals
+window.DataCache = DataCache;
+window.OfflineFetch = OfflineFetch;
+window.CFCache = window.CFCache || DataCache;
 
 // Auto-init
 document.addEventListener('DOMContentLoaded', () => {

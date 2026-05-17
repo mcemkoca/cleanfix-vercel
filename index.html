@@ -293,7 +293,14 @@
   .card-body:has(> .table) .table,
   .card-body:has(> table) table { min-width: 640px; }
 }
+
 </style>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0d9488">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="CleanFix">
+<link rel="apple-touch-icon" href="assets/icon-192.png">
 </head>
 <body class="landing">
 
@@ -1456,5 +1463,7 @@ function toggleSidebar(){
 }
 
 </script>
+
+<script src="js/pwa.js"></script>
 </body>
 </html>

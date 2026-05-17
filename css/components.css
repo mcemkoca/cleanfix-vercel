@@ -564,3 +564,31 @@
   .card { padding:var(--space-4); }
   .stat-card .stat-value { font-size:var(--text-2xl); }
 }
+
+/* ── Print Styles ── */
+@media print {
+  .sidebar, .header, .hamburger, .export-btns, .action-btn, .modal-overlay,
+  .slide-overlay, .slide-panel, .toast-container, .mini-calendar,
+  .lang-switcher, .header-btn, .btn-primary, .btn-secondary, .btn-danger,
+  .btn-amber, .btn-ghost, .page-btns, .view-toggle, .filters select,
+  .search-box, .stats-grid, .nav-group, .kanban, .sector-grid,
+  .tool-grid, .equip-grid, .module-grid, .cards-grid,
+  .portal-stats, .portal-two-col, .ticket-form {
+    display: none !important;
+  }
+  body { background: white !important; color: black !important; }
+  .main-content { margin-left: 0 !important; }
+  .content { padding: 20px !important; max-width: 100% !important; }
+  .card { border: 1px solid #ccc !important; box-shadow: none !important; break-inside: avoid; }
+  .table, .customer-table, .card-table, .recurring-table, .line-items-table {
+    width: 100% !important; font-size: 11pt !important;
+  }
+  .table th, .table td, .customer-table th, .customer-table td {
+    padding: 6px 8px !important; border: 1px solid #ddd !important;
+  }
+  .table thead th { background: #f0f0f0 !important; color: black !important; }
+  .tag, .badge { border: 1px solid #ccc !important; padding: 2px 6px !important; }
+  a { text-decoration: none !important; color: black !important; }
+  tr { break-inside: avoid; }
+  .page-title { font-size: 18pt !important; margin-bottom: 12pt !important; }
+}
