@@ -547,18 +547,18 @@
   <div class="modal">
     <div class="modal-header"><span class="modal-title" data-i18n="modal_add_product">Yeni Ürün Ekle</span><button class="modal-close" onclick="closeModal('addModal')">✕</button></div>
     <div class="modal-body">
-      <div class="form-group"><label class="form-label">Ürün Adı</label><input type="text" class="form-input" data-i18n-placeholder="ph_1" placeholder="Örn: Çok Amaçlı Temizleyici" data-i18n-placeholder="ph_1" id="addName"></div>
+      <div class="form-group"><label class="form-label">Ürün Adı</label><input type="text" class="form-input" data-i18n-placeholder="ph_1" placeholder="Örn: Çok Amaçlı Temizleyici" data-i18n-placeholder="ph_1" id="addName" required></div>
       <div class="form-row">
         <div class="form-group"><label class="form-label" data-i18n="form_category">Kategori</label><select class="form-input" id="addCat"><option value="" data-i18n="seçin">Seçin...</option><option data-i18n="cat_cleaning_supplies">Temizlik Malzemeleri</option><option data-i18n="cat_equipment">Ekipman</option><option data-i18n="cat_consumables">Sarf Malzeme</option><option data-i18n="cat_chemical">Kimyasal</option></select></div>
         <div class="form-group"><label class="form-label" data-i18n="form_status">Durum</label><select class="form-input" id="addStatus"><option value="active" data-i18n="status_active">Aktif</option><option value="passive" data-i18n="status_inactive">Pasif</option></select></div>
       </div>
       <div class="form-group"><label class="form-label" data-i18n="birim_açıklaması">Birim Açıklaması</label><input type="text" class="form-input" data-i18n-placeholder="ph_2" placeholder="Örn: 1L şişe, Paket (10 adet), Karcher WD 3" data-i18n-placeholder="ph_2" id="addUnit"></div>
       <div class="form-row">
-        <div class="form-group"><label class="form-label" data-i18n="mevcut_stok">Mevcut Stok</label><input type="number" class="form-input" placeholder="0" id="addQty" min="0"></div>
-        <div class="form-group"><label class="form-label" data-i18n="minimum_eşik">Minimum Eşik</label><input type="number" class="form-input" placeholder="5" id="addMin" min="0"></div>
+        <div class="form-group"><label class="form-label" data-i18n="mevcut_stok">Mevcut Stok</label><input type="number" class="form-input" placeholder="0" id="addQty" min="0" required></div>
+        <div class="form-group"><label class="form-label" data-i18n="minimum_eşik">Minimum Eşik</label><input type="number" class="form-input" placeholder="5" id="addMin" min="0" required></div>
       </div>
       <div class="form-row">
-        <div class="form-group"><label class="form-label" data-i18n="maksimum_eşik">Maksimum Eşik</label><input type="number" class="form-input" placeholder="50" id="addMax" min="1"></div>
+        <div class="form-group"><label class="form-label" data-i18n="maksimum_eşik">Maksimum Eşik</label><input type="number" class="form-input" placeholder="50" id="addMax" min="1" required></div>
       </div>
     </div>
     <div class="modal-footer">
@@ -574,18 +574,18 @@
     <div class="modal-header"><span class="modal-title" data-i18n="modal_edit_product">Ürün Düzenle</span><button class="modal-close" onclick="closeModal('editModal')">✕</button></div>
     <div class="modal-body">
       <input type="hidden" id="editId">
-      <div class="form-group"><label class="form-label">Ürün Adı</label><input type="text" class="form-input" id="editName"></div>
+      <div class="form-group"><label class="form-label">Ürün Adı</label><input type="text" class="form-input" id="editName" required></div>
       <div class="form-row">
         <div class="form-group"><label class="form-label" data-i18n="form_category">Kategori</label><select class="form-input" id="editCat"><option data-i18n="cat_cleaning_supplies">Temizlik Malzemeleri</option><option data-i18n="cat_equipment">Ekipman</option><option data-i18n="cat_consumables">Sarf Malzeme</option><option data-i18n="cat_chemical">Kimyasal</option></select></div>
         <div class="form-group"><label class="form-label" data-i18n="form_status">Durum</label><select class="form-input" id="editStatus"><option value="active" data-i18n="status_active">Aktif</option><option value="passive" data-i18n="status_inactive">Pasif</option></select></div>
       </div>
       <div class="form-group"><label class="form-label" data-i18n="birim_açıklaması">Birim Açıklaması</label><input type="text" class="form-input" id="editUnit"></div>
       <div class="form-row">
-        <div class="form-group"><label class="form-label" data-i18n="mevcut_stok">Mevcut Stok</label><input type="number" class="form-input" id="editQty" min="0"></div>
-        <div class="form-group"><label class="form-label" data-i18n="minimum_eşik">Minimum Eşik</label><input type="number" class="form-input" id="editMin" min="0"></div>
+        <div class="form-group"><label class="form-label" data-i18n="mevcut_stok">Mevcut Stok</label><input type="number" class="form-input" id="editQty" min="0" required></div>
+        <div class="form-group"><label class="form-label" data-i18n="minimum_eşik">Minimum Eşik</label><input type="number" class="form-input" id="editMin" min="0" required></div>
       </div>
       <div class="form-row">
-        <div class="form-group"><label class="form-label" data-i18n="maksimum_eşik">Maksimum Eşik</label><input type="number" class="form-input" id="editMax" min="1"></div>
+        <div class="form-group"><label class="form-label" data-i18n="maksimum_eşik">Maksimum Eşik</label><input type="number" class="form-input" id="editMax" min="1" required></div>
       </div>
     </div>
     <div class="modal-footer">
@@ -605,7 +605,7 @@
       <input type="hidden" id="moveCurrent">
       <input type="hidden" id="moveMin">
       <input type="hidden" id="moveMax">
-      <div class="form-group"><label class="form-label" data-i18n="form_quantity">Miktar</label><input type="number" class="form-input" placeholder="1" id="moveQty" min="1" oninput="updateMovePreview()"></div>
+      <div class="form-group"><label class="form-label" data-i18n="form_quantity">Miktar</label><input type="number" class="form-input" placeholder="1" id="moveQty" min="1" required oninput="updateMovePreview()"></div>
       <div class="form-group"><label class="form-label" data-i18n="form_description">Açıklama</label><input type="text" class="form-input" data-i18n-placeholder="ph_3" placeholder="Tedarik / Kullanım nedeni..." data-i18n-placeholder="ph_3" id="moveDesc"></div>
       <div class="move-preview" id="movePreview" style="display:none;">
         <div style="display:flex;justify-content:space-between;margin-bottom:4px;"><span style="color:var(--text-muted);" data-i18n="mevcut">Mevcut:</span><span id="previewCurrent" style="font-weight:600;"></span></div>

@@ -764,15 +764,15 @@
     <div class="modal-body">
       <div class="form-group"><label class="form-label" data-i18n="th_customer">Müşteri</label><select class="form-select" id="qCustomer"><option>Jan Peeters</option><option>Lisa Wouters</option><option>Pieter De Vos</option><option>Sarah Janssens</option><option>Marc Dubois</option><option>Eva Peeters</option><option>Lucas Vermeulen</option><option>Emma Jacobs</option></select></div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
-        <div class="form-group"><label class="form-label" data-i18n="form_expiry">Geçerlilik Tarihi</label><input type="date" class="form-input" id="qExpiry"></div>
+        <div class="form-group"><label class="form-label" data-i18n="form_expiry">Geçerlilik Tarihi</label><input type="date" class="form-input" id="qExpiry" required></div>
         <div class="form-group"><label class="form-label" data-i18n="form_vat_rate">KDV Oranı (%)</label><input type="number" class="form-input" id="qVat" value="21" readonly></div>
       </div>
       <div style="margin-bottom:8px;font-size:var(--text-xs);font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.05em;" data-i18n="pdf_services_materials" data-i18n="modal.lineItems">Hizmet ve Malzemeler</div>
       <div id="lineItems">
         <div class="line-item-row">
-          <input type="text" class="form-input" data-i18n-placeholder="ph_description" placeholder="Açıklama" data-i18n-placeholder="modal.descPlaceholder" value="">
-          <input type="number" class="form-input" data-i18n-placeholder="ph_quantity" placeholder="Adet" data-i18n-placeholder="modal.qtyPlaceholder" value="1" min="1" onchange="calcModalTotal()">
-          <input type="number" class="form-input" placeholder="€" data-i18n-placeholder="modal.pricePlaceholder" value="0" step="0.01" onchange="calcModalTotal()">
+          <input type="text" class="form-input" data-i18n-placeholder="ph_description" placeholder="Açıklama" data-i18n-placeholder="modal.descPlaceholder" value="" required>
+          <input type="number" class="form-input" data-i18n-placeholder="ph_quantity" placeholder="Adet" data-i18n-placeholder="modal.qtyPlaceholder" value="1" min="1" required onchange="calcModalTotal()">
+          <input type="number" class="form-input" placeholder="€" data-i18n-placeholder="modal.pricePlaceholder" value="0" step="0.01" required onchange="calcModalTotal()">
           <div class="line-total">€0</div>
         </div>
       </div>
@@ -870,7 +870,7 @@ function convertToInvoice(id){showToast('Teklif faturaya dönüştürüldü — 
 function renewQuote(id){showToast('Yeni teklif versiyonu oluşturuldu — #T-2026-61');}
 function openPdfPreview(id){document.getElementById('pdfModal').classList.add('active');}
 function printQuote(id){document.getElementById('pdfModal').classList.add('active');setTimeout(()=>window.print(),300);}
-function addModalLineItem(){const div=document.createElement('div');div.className='line-item-row';div.innerHTML='<input type="text" class="form-input" placeholder="Açıklama" data-i18n-placeholder="modal.descPlaceholder" value=""><input type="number" class="form-input" placeholder="Adet" data-i18n-placeholder="modal.qtyPlaceholder" value="1" min="1" onchange="calcModalTotal()"><input type="number" class="form-input" placeholder="€" data-i18n-placeholder="modal.pricePlaceholder" value="0" step="0.01" onchange="calcModalTotal()"><button class="action-btn" onclick="this.parentElement.remove();calcModalTotal()" style="margin-left:4px;">🗑</button>';document.getElementById('lineItems').appendChild(div);}
+function addModalLineItem(){const div=document.createElement('div');div.className='line-item-row';div.innerHTML='<input type="text" class="form-input" placeholder="Açıklama" data-i18n-placeholder="modal.descPlaceholder" value="" required><input type="number" class="form-input" placeholder="Adet" data-i18n-placeholder="modal.qtyPlaceholder" value="1" min="1" required onchange="calcModalTotal()"><input type="number" class="form-input" placeholder="€" data-i18n-placeholder="modal.pricePlaceholder" value="0" step="0.01" required onchange="calcModalTotal()"><button class="action-btn" onclick="this.parentElement.remove();calcModalTotal()" style="margin-left:4px;">🗑</button>';document.getElementById('lineItems').appendChild(div);}
 function calcModalTotal(){let sub=0;document.querySelectorAll('#lineItems .line-item-row').forEach(row=>{const q=parseFloat(row.children[1].value)||0;const p=parseFloat(row.children[2].value)||0;const t=q*p;sub+=t;row.querySelector('.line-total').textContent='€'+t.toFixed(2);});const vat=sub*0.21;const total=sub+vat;document.getElementById('modalSubtotal').textContent='Ara Toplam: €'+sub.toFixed(2);document.getElementById('modalVat').textContent='KDV (%21): €'+vat.toFixed(2);document.getElementById('modalTotal').textContent='Toplam: €'+total.toFixed(2);}
 function saveQuote(){showToast('Yeni teklif oluşturuldu — #T-2026-61');closeModal('addModal');}
 document.addEventListener('keydown',e=>{if(e.key==='Escape'){['addModal','pdfModal'].forEach(id=>closeModal(id));}});

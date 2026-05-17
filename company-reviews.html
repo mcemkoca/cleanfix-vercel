@@ -460,7 +460,7 @@
             <h3 style="font-size:var(--text-lg);font-weight:700;">Değerlendirme Tablosu</h3>
             <button class="btn btn-secondary" onclick="toggleTable()" style="font-size:var(--text-sm);">Tabloyu Göster / Gizle</button>
           </div>
-          <div data-export-table="reviewsTable" id="reviewsTableWrap" style="display:none;">
+          <div data-export-table="reviewsTable" data-export-filename="musteri_degerlendirmeleri" data-export-title="Müşteri Değerlendirmeleri" id="reviewsTableWrap" style="display:none;">
             <table class="data-table" id="reviewsTable">
               <thead>
                 <tr>
@@ -473,21 +473,21 @@
                 </tr>
               </thead>
               <tbody>
-                <tr><td>Jan Peeters</td><td>Komple Detaylı Temizlik</td><td>5</td><td>Mükemmel hizmet! Arabam ilk günkü gibi oldu.</td><td>14 Mayıs 2026</td><td>Yanıtlı</td></tr>
-                <tr><td>Lisa Wouters</td><td>İç Temizlik</td><td>4</td><td>İç temizlik çok başarılıydı ama biraz daha hızlı olabilir.</td><td>13 Mayıs 2026</td><td>Yanıtsız</td></tr>
-                <tr><td>Pieter De Vos</td><td>Dış Yıkama + Cila</td><td>5</td><td>Dış yıkama + cila paketi harika değer. Arabam 3 haftadır hâlâ parlıyor.</td><td>12 Mayıs 2026</td><td>Yanıtlı</td></tr>
-                <tr><td>Marc Dubois</td><td>Keramik Kaplama</td><td>3</td><td>Keramik kaplama güzel ama fiyat biraz yüksek.</td><td>10 Mayıs 2026</td><td>Yanıtsız</td></tr>
-                <tr><td>Sarah Janssens</td><td>Motor Temizliği</td><td>5</td><td>Motor temizliği inanılmaz! Profesyonel ekip, hızlı hizmet.</td><td>9 Mayıs 2026</td><td>Yanıtlı</td></tr>
-                <tr><td>Eva Peeters</td><td>İç + Dış Temizlik</td><td>5</td><td>Her şey mükemmeldi. Randevu alması kolay, sonuç kusursuz.</td><td>8 Mayıs 2026</td><td>Yanıtsız</td></tr>
-                <tr><td>Lucas Vermeulen</td><td>Deri Koltuk Bakımı</td><td>4</td><td>Deri koltuklar çok iyi temizlendi ama kokusu biraz ağır kaldı.</td><td>7 Mayıs 2026</td><td>Yanıtlı</td></tr>
-                <tr><td>Emma Jacobs</td><td>Far Parlatma</td><td>5</td><td>Far parlatma hizmeti çok etkili oldu. Gece sürüşünde farkı hemen hissettim.</td><td>6 Mayıs 2026</td><td>Yanıtsız</td></tr>
-                <tr><td>Thomas Kowalski</td><td>Çizik Giderme</td><td>2</td><td>Çizik giderme beklentimi karşılamadı. Derin çizikler hâlâ belli oluyor.</td><td>5 Mayıs 2026</td><td>Yanıtlı</td></tr>
-                <tr><td>Nina Aerts</td><td>Koku Giderimi</td><td>5</td><td>Arabadaki sigara kokusu tamamen gitti. Ozon tedavisi gerçekten işe yarıyor.</td><td>4 Mayıs 2026</td><td>Yanıtsız</td></tr>
-                <tr><td>David Van den Berg</td><td>Standart Yıkama</td><td>4</td><td>Standart yıkama gayet iyi. Fiyatı makul, bekleme süresi kısa.</td><td>3 Mayıs 2026</td><td>Yanıtlı</td></tr>
-                <tr><td>Fatma Mercan</td><td>Komple Detaylı Temizlik</td><td>5</td><td>Ailemle birlikte geldiğimizde çocuk koltuklarını bile detaylı temizlediler.</td><td>2 Mayıs 2026</td><td>Yanıtsız</td></tr>
-                <tr><td>Rudi Bogaerts</td><td>Dış Yıkama</td><td>3</td><td>Dış yıkama fena değil ama jant temizliği eksik kalmış.</td><td>1 Mayıs 2026</td><td>Yanıtsız</td></tr>
-                <tr><td>Claire Mertens</td><td>İç Temizlik + Koku Giderimi</td><td>5</td><td>İç temizlik ve koku giderimi kombinasyonu mükemmel. Arabam yepyeni gibi kokuyor.</td><td>30 Nisan 2026</td><td>Yanıtlı</td></tr>
-                <tr><td>Hans Lambrecht</td><td>Komple Detaylı Temizlik</td><td>4</td><td>Detaylı temizlik çok iyiydi. Sadece randevu almak için biraz beklemek zorunda kaldım.</td><td>28 Nisan 2026</td><td>Yanıtsız</td></tr>
+                <tr><td>Ahmet Yılmaz</td><td>Ev Temizliği</td><td>5</td><td>Ekibiniz harika çalıştı. Evi terk ettiğimdeki gibi pırıl pırıl bıraktılar. Kesinlikle tavsiye ederim.</td><td>14 Mayıs 2026</td><td><span class="status-onaylandi">Onaylandı</span></td></tr>
+                <tr><td>Ayşe Kaya</td><td>Ofis Temizliği</td><td>4</td><td>Genel olarak memnun kaldık. Sadece toplantı salonunun halıları biraz nemli kalmış, ertesi gün düzeldi.</td><td>13 Mayıs 2026</td><td><span class="status-onaylandi">Onaylandı</span></td></tr>
+                <tr><td>Mehmet Demir</td><td>İnşaat Sonrası Temizlik</td><td>5</td><td>Yeni dairemizdeki inşaat kalıntılarını tek seferde temizlediler. Camlar, fayanslar tertemiz oldu. Teşekkürler CleanFix!</td><td>12 Mayıs 2026</td><td><span class="status-yanitlandi">Yanıtlandı</span></td></tr>
+                <tr><td>Fatma Şahin</td><td>Halı Yıkama</td><td>3</td><td>Halılar temizlendi ama eski lekelerin tamamı çıkmadı. Biraz daha güçlü makine kullanılabilir. Fiyat uygun ama sonuç orta.</td><td>10 Mayıs 2026</td><td><span class="status-beklemede">Beklemede</span></td></tr>
+                <tr><td>Ali Öztürk</td><td>Cam Temizliği</td><td>5</td><td>5 katlı binamızın tüm camları tek günde bitti. Emniyet kemerli çalışanlar çok profesyoneldi. Emsalsiz hizmet.</td><td>9 Mayıs 2026</td><td><span class="status-onaylandi">Onaylandı</span></td></tr>
+                <tr><td>Zeynep Çelik</td><td>Mutfak Derinlemesine Temizlik</td><td>5</td><td>Fırın, davlumbaz, dolap içleri — her yere ulaştılar. Mutfak ilk günkü gibi. Gerçekten derinlemesine.</td><td>8 Mayıs 2026</td><td><span class="status-onaylandi">Onaylandı</span></td></tr>
+                <tr><td>Hasan Aydın</td><td>Banyo Temizliği</td><td>4</td><td>Kireç lekeleri büyük ölçüde gitti. Sadece küvetin arka köşesi biraz kalmış. Bir sonraki sefere daha dikkat ederiz dediler.</td><td>7 Mayıs 2026</td><td><span class="status-yanitlandi">Yanıtlandı</span></td></tr>
+                <tr><td>Elif Koç</td><td>Koltuk Yıkama</td><td>5</td><td>Deri koltuklarım çok iyi temizlendi. Koku giderimi de dahildi, sigara kokusu tamamen gitti. Harika!</td><td>6 Mayıs 2026</td><td><span class="status-onaylandi">Onaylandı</span></td></tr>
+                <tr><td>Murat Yıldız</td><td>Havuz Temizliği</td><td>2</td><td>Havuz suyu hâlâ bulanık. Filtre temizliği yapıldı denildi ama netice alamadık. Tekrar çağırmamız gerekecek.</td><td>5 Mayıs 2026</td><td><span class="status-beklemede">Beklemede</span></td></tr>
+                <tr><td>Selin Arslan</td><td>Bahçe Düzenleme</td><td>5</td><td>Hedge trimming, çim biçme, yaprak toplama — hepsi mükemmel. Bahçemiz park gibi görünüyor. Teşekkürler!</td><td>4 Mayıs 2026</td><td><span class="status-onaylandi">Onaylandı</span></td></tr>
+                <tr><td>Burak Korkmaz</td><td>Zemin Cilalama</td><td>4</td><td>Parke zeminler parladı ama bir köşede cilasız kalmış alan fark ettik. Genel olarak çok iyi, ufak eksik.</td><td>3 Mayıs 2026</td><td><span class="status-onaylandi">Onaylandı</span></td></tr>
+                <tr><td>Emine Doğan</td><td>Vitrifiye Temizliği</td><td>5</td><td>Banyo ve mutfak vitrifiyeleri pırıl pırıl oldu. Özel temizleyiciler kullandıkları belli, kokusu bile güzel.</td><td>2 Mayıs 2026</td><td><span class="status-onaylandi">Onaylandı</span></td></tr>
+                <tr><td>Can Polat</td><td>Çatı Temizliği</td><td>3</td><td>Çatıdaki yosunlar temizlendi ama oluklar hâlâ tıkalı. İkinci bir seans gerekecek. Fiyat biraz yüksek buldum.</td><td>1 Mayıs 2026</td><td><span class="status-beklemede">Beklemede</span></td></tr>
+                <tr><td>Derya Akın</td><td>Depo Temizliği</td><td>5</td><td>500 m² depomuz 24 saatte tertemiz oldu. Endüstriyel süpürge ve zemin yıkama makineleriyle çok hızlı çalıştılar.</td><td>30 Nisan 2026</td><td><span class="status-yanitlandi">Yanıtlandı</span></td></tr>
+                <tr><td>Oğuz Erdoğan</td><td>Apartman Genel Temizliği</td><td>4</td><td>Merdivenler, asansör ve giriş çok iyi temizlendi. Sadece otoparkın bir bölümü atlandı. Tekrar gelip tamamlayacaklar.</td><td>28 Nisan 2026</td><td><span class="status-beklemede">Beklemede</span></td></tr>
               </tbody>
             </table>
           </div>
@@ -501,6 +501,9 @@
 .data-table td{padding:12px 16px;color:var(--text-secondary);border-bottom:1px solid var(--border-color);}
 .data-table tbody tr:hover{background:rgba(20,184,166,0.05);}
 .data-table tbody tr:last-child td{border-bottom:none;}
+.status-onaylandi{display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:9999px;font-size:var(--text-xs);font-weight:500;background:rgba(16,185,129,0.15);color:var(--success-500);}
+.status-beklemede{display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:9999px;font-size:var(--text-xs);font-weight:500;background:rgba(245,158,11,0.15);color:var(--amber-500);}
+.status-yanitlandi{display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:9999px;font-size:var(--text-xs);font-weight:500;background:rgba(59,130,246,0.15);color:var(--info-500);}
 @media (max-width:768px){.data-table{display:block;overflow-x:auto;white-space:nowrap;}}
 </style>
 
@@ -517,7 +520,7 @@ function toggleTable(){const w=document.getElementById('reviewsTableWrap');w.sty
     <div class="modal-header"><span class="modal-title">Yanıt Yaz</span><button class="modal-close" onclick="closeModal('replyModal')">✕</button></div>
     <div class="modal-body">
       <input type="hidden" id="replyId">
-      <div class="form-group"><label class="form-label">Yanıtınız</label><textarea class="form-textarea" rows="4" placeholder="Müşteriye yanıt yazın..." id="replyText"></textarea></div>
+      <div class="form-group"><label class="form-label">Yanıtınız</label><textarea class="form-textarea" rows="4" placeholder="Müşteriye yanıt yazın..." id="replyText" required></textarea></div>
     </div>
     <div class="modal-footer"><button class="btn btn-secondary" onclick="closeModal('replyModal')">İptal</button><button class="btn btn-primary" onclick="submitReply()">Yanıtla</button></div>
   </div>

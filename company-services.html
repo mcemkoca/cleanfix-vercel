@@ -842,7 +842,7 @@ textarea.form-input{resize:vertical;}
   <div class="modal">
     <div class="modal-header"><span class="modal-title" data-i18n="modal_add_service">Yeni Hizmet Ekle</span><button class="modal-close" onclick="closeModal('addModal')">✕</button></div>
     <div class="modal-body">
-      <div class="form-group"><label class="form-label" data-i18n="th_service_name">Hizmet Adı</label><input type="text" class="form-input" data-i18n-placeholder="ph_1" placeholder="Örn: Standart Temizlik" data-i18n-placeholder="ph_1" id="addName"></div>
+      <div class="form-group"><label class="form-label" data-i18n="th_service_name">Hizmet Adı</label><input type="text" class="form-input" data-i18n-placeholder="ph_1" placeholder="Örn: Standart Temizlik" data-i18n-placeholder="ph_1" id="addName" required></div>
       <div class="form-group"><label class="form-label" data-i18n="form_description">Açıklama</label><textarea class="form-input" rows="2" data-i18n-placeholder="ph_2" placeholder="Hizmet detayları..." data-i18n-placeholder="ph_2" id="addDesc" style="resize:vertical;"></textarea></div>
       <div class="form-row">
         <div class="form-group"><label class="form-label" data-i18n="form_category">Kategori</label><select class="form-select" id="addCat"><option value="" data-i18n="seçin">Seçin...</option><option data-i18n="cat_home_cleaning">Ev Temizliği</option><option data-i18n="cat_office_cleaning">Ofis Temizliği</option><option data-i18n="cat_window_cleaning">Cam Temizliği</option><option data-i18n="cat_carpet_cleaning">Halı Yıkama</option><option data-i18n="cat_industrial">Endüstriyel</option><option data-i18n="cat_special">Özel</option></select></div>
@@ -869,7 +869,7 @@ textarea.form-input{resize:vertical;}
     <div class="modal-header"><span class="modal-title" data-i18n="modal_edit_service">Hizmet Düzenle</span><button class="modal-close" onclick="closeModal('editModal')">✕</button></div>
     <div class="modal-body">
       <input type="hidden" id="editId">
-      <div class="form-group"><label class="form-label" data-i18n="th_service_name">Hizmet Adı</label><input type="text" class="form-input" id="editName"></div>
+      <div class="form-group"><label class="form-label" data-i18n="th_service_name">Hizmet Adı</label><input type="text" class="form-input" id="editName" required></div>
       <div class="form-group"><label class="form-label" data-i18n="form_description">Açıklama</label><textarea class="form-input" rows="2" id="editDesc" style="resize:vertical;"></textarea></div>
       <div class="form-row">
         <div class="form-group"><label class="form-label" data-i18n="form_category">Kategori</label><select class="form-select" id="editCat"><option data-i18n="cat_home_cleaning">Ev Temizliği</option><option data-i18n="cat_office_cleaning">Ofis Temizliği</option><option data-i18n="cat_window_cleaning">Cam Temizliği</option><option data-i18n="cat_carpet_cleaning">Halı Yıkama</option><option data-i18n="cat_industrial">Endüstriyel</option><option data-i18n="cat_special">Özel</option></select></div>

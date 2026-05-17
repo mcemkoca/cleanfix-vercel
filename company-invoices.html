@@ -188,16 +188,16 @@
     <div class="modal-header"><span class="modal-title">Yeni Fatura Oluştur</span><button class="modal-close" onclick="closeModal('addModal')">✕</button></div>
     <div class="modal-body">
       <div class="form-row">
-        <div class="form-group"><label class="form-label">Müşteri</label><input type="text" class="form-input" placeholder="Müşteri adı" id="addCustomer"></div>
-        <div class="form-group"><label class="form-label">E-posta</label><input type="email" class="form-input" placeholder="musteri@email.com" id="addEmail"></div>
+        <div class="form-group"><label class="form-label">Müşteri</label><input type="text" class="form-input" placeholder="Müşteri adı" id="addCustomer" required></div>
+        <div class="form-group"><label class="form-label">E-posta</label><input type="email" class="form-input" placeholder="musteri@email.com" id="addEmail" required></div>
       </div>
       <div class="form-row">
-        <div class="form-group"><label class="form-label">Fatura Tarihi</label><input type="date" class="form-input" id="addDate"></div>
-        <div class="form-group"><label class="form-label">Vade Tarihi</label><input type="date" class="form-input" id="addDue"></div>
+        <div class="form-group"><label class="form-label">Fatura Tarihi</label><input type="date" class="form-input" id="addDate" required></div>
+        <div class="form-group"><label class="form-label">Vade Tarihi</label><input type="date" class="form-input" id="addDue" required></div>
       </div>
       <div class="form-group"><label class="form-label">Hizmetler</label><textarea class="form-input" rows="3" placeholder="Her satıra bir hizmet: Hizmet adı - Miktar x Fiyat" id="addItems" style="resize:vertical;"></textarea></div>
       <div class="form-row">
-        <div class="form-group"><label class="form-label">Toplam Tutar (€)</label><input type="number" class="form-input" placeholder="0.00" id="addTotal" step="0.01"></div>
+        <div class="form-group"><label class="form-label">Toplam Tutar (€)</label><input type="number" class="form-input" placeholder="0.00" id="addTotal" step="0.01" required min="0"></div>
         <div class="form-group"><label class="form-label">Durum</label><select class="form-input" id="addStatus"><option value="pending">Bekliyor</option><option value="paid">Ödendi</option><option value="overdue">Vadesi Geçmiş</option></select></div>
       </div>
     </div>
@@ -215,16 +215,16 @@
     <div class="modal-body">
       <input type="hidden" id="editId">
       <div class="form-row">
-        <div class="form-group"><label class="form-label">Müşteri</label><input type="text" class="form-input" id="editCustomer"></div>
-        <div class="form-group"><label class="form-label">E-posta</label><input type="email" class="form-input" id="editEmail"></div>
+        <div class="form-group"><label class="form-label">Müşteri</label><input type="text" class="form-input" id="editCustomer" required></div>
+        <div class="form-group"><label class="form-label">E-posta</label><input type="email" class="form-input" id="editEmail" required></div>
       </div>
       <div class="form-row">
-        <div class="form-group"><label class="form-label">Fatura Tarihi</label><input type="date" class="form-input" id="editDate"></div>
-        <div class="form-group"><label class="form-label">Vade Tarihi</label><input type="date" class="form-input" id="editDue"></div>
+        <div class="form-group"><label class="form-label">Fatura Tarihi</label><input type="date" class="form-input" id="editDate" required></div>
+        <div class="form-group"><label class="form-label">Vade Tarihi</label><input type="date" class="form-input" id="editDue" required></div>
       </div>
       <div class="form-group"><label class="form-label">Hizmetler</label><textarea class="form-input" rows="3" id="editItems" style="resize:vertical;"></textarea></div>
       <div class="form-row">
-        <div class="form-group"><label class="form-label">Toplam Tutar (€)</label><input type="number" class="form-input" id="editTotal" step="0.01"></div>
+        <div class="form-group"><label class="form-label">Toplam Tutar (€)</label><input type="number" class="form-input" id="editTotal" step="0.01" required min="0"></div>
         <div class="form-group"><label class="form-label">Durum</label><select class="form-input" id="editStatus"><option value="pending">Bekliyor</option><option value="paid">Ödendi</option><option value="overdue">Vadesi Geçmiş</option></select></div>
       </div>
     </div>

@@ -508,16 +508,16 @@
     <div class="modal-header"><span class="modal-title" data-i18n="modal.add_staff">Yeni Çalışan Ekle</span><button class="modal-close" onclick="closeModal('addModal')">✕</button></div>
     <div class="modal-body">
       <div class="form-row">
-        <div class="form-group"><label class="form-label" data-i18n="form.first_name">Ad</label><input type="text" class="form-input" data-i18n-placeholder="form.first_name_ph" placeholder="Ahmet" id="addFirstName"></div>
-        <div class="form-group"><label class="form-label" data-i18n="form.last_name">Soyad</label><input type="text" class="form-input" data-i18n-placeholder="form.last_name_ph" placeholder="Kaya" id="addLastName"></div>
+        <div class="form-group"><label class="form-label" data-i18n="form.first_name">Ad</label><input type="text" class="form-input" data-i18n-placeholder="form.first_name_ph" placeholder="Ahmet" id="addFirstName" required></div>
+        <div class="form-group"><label class="form-label" data-i18n="form.last_name">Soyad</label><input type="text" class="form-input" data-i18n-placeholder="form.last_name_ph" placeholder="Kaya" id="addLastName" required></div>
       </div>
       <div class="form-row">
-        <div class="form-group"><label class="form-label" data-i18n="form.email">E-posta</label><input type="email" class="form-input" data-i18n-placeholder="form.email_ph" placeholder="ad@cleanfix.demo" id="addEmail"></div>
-        <div class="form-group"><label class="form-label" data-i18n="form.phone">Telefon</label><input type="tel" class="form-input" data-i18n-placeholder="form.phone_ph" placeholder="+32 470 10 00 00" id="addPhone"></div>
+        <div class="form-group"><label class="form-label" data-i18n="form.email">E-posta</label><input type="email" class="form-input" data-i18n-placeholder="form.email_ph" placeholder="ad@cleanfix.demo" id="addEmail" required></div>
+        <div class="form-group"><label class="form-label" data-i18n="form.phone">Telefon</label><input type="tel" class="form-input" data-i18n-placeholder="form.phone_ph" placeholder="+32 470 10 00 00" id="addPhone" required minlength="7"></div>
       </div>
       <div class="form-row">
         <div class="form-group"><label class="form-label" data-i18n="form.role">Rol</label><select class="form-input" id="addRole"><option value="" data-i18n="form.select">Seçin...</option><option data-i18n="staff.role_master">Usta</option><option data-i18n="staff.role_helper">Yardımcı</option><option data-i18n="staff.role_reception">Resepsiyon</option></select></div>
-        <div class="form-group"><label class="form-label" data-i18n="form.weekly_hours">Haftalık Mesai (saat)</label><input type="number" class="form-input" data-i18n-placeholder="form.weekly_hours_ph" placeholder="40" id="addHours"></div>
+        <div class="form-group"><label class="form-label" data-i18n="form.weekly_hours">Haftalık Mesai (saat)</label><input type="number" class="form-input" data-i18n-placeholder="form.weekly_hours_ph" placeholder="40" id="addHours" required min="0"></div>
       </div>
       <div class="form-group"><label class="form-label" data-i18n="form.skills">Uzmanlık Alanları</label><input type="text" class="form-input" data-i18n-placeholder="form.skills_ph" placeholder="Detaylı temizlik, cila, motor..." id="addSkills"></div>
       <div class="form-group"><label class="form-label" data-i18n="form.work_days">Haftalık Çalışma Günleri</label>
@@ -546,19 +546,19 @@
     <div class="modal-body">
       <input type="hidden" id="editId">
       <div class="form-row">
-        <div class="form-group"><label class="form-label" data-i18n="form.first_name">Ad</label><input type="text" class="form-input" id="editFirstName"></div>
-        <div class="form-group"><label class="form-label" data-i18n="form.last_name">Soyad</label><input type="text" class="form-input" id="editLastName"></div>
+        <div class="form-group"><label class="form-label" data-i18n="form.first_name">Ad</label><input type="text" class="form-input" id="editFirstName" required></div>
+        <div class="form-group"><label class="form-label" data-i18n="form.last_name">Soyad</label><input type="text" class="form-input" id="editLastName" required></div>
       </div>
       <div class="form-row">
-        <div class="form-group"><label class="form-label" data-i18n="form.email">E-posta</label><input type="email" class="form-input" id="editEmail"></div>
-        <div class="form-group"><label class="form-label" data-i18n="form.phone">Telefon</label><input type="tel" class="form-input" id="editPhone"></div>
+        <div class="form-group"><label class="form-label" data-i18n="form.email">E-posta</label><input type="email" class="form-input" id="editEmail" required></div>
+        <div class="form-group"><label class="form-label" data-i18n="form.phone">Telefon</label><input type="tel" class="form-input" id="editPhone" required minlength="7"></div>
       </div>
       <div class="form-row">
         <div class="form-group"><label class="form-label" data-i18n="form.role">Rol</label><select class="form-input" id="editRole"><option data-i18n="staff.role_master">Usta</option><option data-i18n="staff.role_helper">Yardımcı</option><option data-i18n="staff.role_reception">Resepsiyon</option></select></div>
         <div class="form-group"><label class="form-label" data-i18n="form.status">Durum</label><select class="form-input" id="editStatus"><option value="active" data-i18n="status.active">Aktif</option><option value="leave" data-i18n="status.on_leave">İzinli</option><option value="inactive" data-i18n="status.inactive">Pasif</option></select></div>
       </div>
       <div class="form-row">
-        <div class="form-group"><label class="form-label" data-i18n="form.weekly_hours">Haftalık Mesai (saat)</label><input type="number" class="form-input" id="editHours"></div>
+        <div class="form-group"><label class="form-label" data-i18n="form.weekly_hours">Haftalık Mesai (saat)</label><input type="number" class="form-input" id="editHours" required min="0"></div>
         <div class="form-group"><label class="form-label" data-i18n="form.employee_code">Çalışan Kodu</label><input type="text" class="form-input" id="editCode" readonly style="background:var(--bg-tertiary);color:var(--text-muted);"></div>
       </div>
     </div>
