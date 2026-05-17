@@ -161,6 +161,7 @@
       </div>
 
       <div id="reviewsList">
+        <!-- Review Cards (visual) -->
         <div class="review-card" data-id="1" data-stars="5" data-replied="true">
           <div class="review-header">
             <div class="review-author">
@@ -238,7 +239,274 @@
           <div class="review-meta"><span>👍 1 faydalı</span><span>📍 Antwerp</span></div>
           <div class="review-actions"><button class="action-btn" onclick="openReplyModal(4)" style="border-color:var(--teal-500);color:var(--teal-500);">Yanıtla</button><button class="action-btn" onclick="hideReview(4)">Gizle</button><button class="action-btn" onclick="openDeleteModal(4)">Sil</button></div>
         </div>
+
+        <div class="review-card" data-id="5" data-stars="5" data-replied="true">
+          <div class="review-header">
+            <div class="review-author">
+              <div class="avatar" style="background:linear-gradient(135deg,#ec4899,#db2777);">SJ</div>
+              <div><div style="font-weight:600;">Sarah Janssens</div><div style="font-size:var(--text-xs);color:var(--text-muted);">9 Mayıs 2026 — Motor Temizliği</div></div>
+            </div>
+            <div class="rating">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            </div>
+          </div>
+          <div class="review-text">"Motor temizliği inanılmaz! Eski arabamın motoru yepyeni gibi oldu. Profesyonel ekip, hızlı hizmet."</div>
+          <div class="review-meta"><span>👍 12 faydalı</span><span>📍 Gent</span></div>
+          <div class="reply-box"><strong>CleanFix yanıtı:</strong> Teşekkürler Sarah! Motor temizliğinde kullandığımız buhar teknolojisi derinlemesine temizlik sağlar. 🔧</div>
+          <div class="review-actions"><button class="action-btn" onclick="hideReview(5)">Gizle</button><button class="action-btn" onclick="openDeleteModal(5)">Sil</button></div>
+        </div>
+
+        <div class="review-card" data-id="6" data-stars="5" data-replied="false">
+          <div class="review-header">
+            <div class="review-author">
+              <div class="avatar" style="background:linear-gradient(135deg,#6366f1,#4338ca);">EP</div>
+              <div><div style="font-weight:600;">Eva Peeters</div><div style="font-size:var(--text-xs);color:var(--text-muted);">8 Mayıs 2026 — İç + Dış Temizlik</div></div>
+            </div>
+            <div class="rating">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            </div>
+          </div>
+          <div class="review-text">"Her şey mükemmeldi. Randevu alması kolay, personel nazik, sonuç kusursuz. Kesinlikle tekrar geleceğim."</div>
+          <div class="review-meta"><span>👍 6 faydalı</span><span>📍 Brüksel</span></div>
+          <div class="review-actions"><button class="action-btn" onclick="openReplyModal(6)" style="border-color:var(--teal-500);color:var(--teal-500);">Yanıtla</button><button class="action-btn" onclick="hideReview(6)">Gizle</button><button class="action-btn" onclick="openDeleteModal(6)">Sil</button></div>
+        </div>
+
+        <div class="review-card" data-id="7" data-stars="4" data-replied="true">
+          <div class="review-header">
+            <div class="review-author">
+              <div class="avatar" style="background:linear-gradient(135deg,#14b8a6,#0f766e);">LV</div>
+              <div><div style="font-weight:600;">Lucas Vermeulen</div><div style="font-size:var(--text-xs);color:var(--text-muted);">7 Mayıs 2026 — Deri Koltuk Bakımı</div></div>
+            </div>
+            <div class="rating">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            </div>
+          </div>
+          <div class="review-text">"Deri koltuklar çok iyi temizlendi ama kokusu biraz ağır kaldı. Bir gün sonra geçti. Genel olarak memnunum."</div>
+          <div class="review-meta"><span>👍 3 faydalı</span><span>📍 Leuven</span></div>
+          <div class="reply-box"><strong>CleanFix yanıtı:</strong> Geri bildiriminiz için teşekkürler Lucas! Koku giderimi için ek işlem öneriyoruz. 🙏</div>
+          <div class="review-actions"><button class="action-btn" onclick="hideReview(7)">Gizle</button><button class="action-btn" onclick="openDeleteModal(7)">Sil</button></div>
+        </div>
+
+        <div class="review-card" data-id="8" data-stars="5" data-replied="false">
+          <div class="review-header">
+            <div class="review-author">
+              <div class="avatar" style="background:linear-gradient(135deg,#f97316,#c2410c);">EJ</div>
+              <div><div style="font-weight:600;">Emma Jacobs</div><div style="font-size:var(--text-xs);color:var(--text-muted);">6 Mayıs 2026 — Far Parlatma</div></div>
+            </div>
+            <div class="rating">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            </div>
+          </div>
+          <div class="review-text">"Far parlatma hizmeti çok etkili oldu. Gece sürüşünde farkı hemen hissettim. Harika işçilik!"</div>
+          <div class="review-meta"><span>👍 9 faydalı</span><span>📍 Antwerp</span></div>
+          <div class="review-actions"><button class="action-btn" onclick="openReplyModal(8)" style="border-color:var(--teal-500);color:var(--teal-500);">Yanıtla</button><button class="action-btn" onclick="hideReview(8)">Gizle</button><button class="action-btn" onclick="openDeleteModal(8)">Sil</button></div>
+        </div>
+
+        <div class="review-card" data-id="9" data-stars="2" data-replied="true">
+          <div class="review-header">
+            <div class="review-author">
+              <div class="avatar" style="background:linear-gradient(135deg,#64748b,#475569);">TK</div>
+              <div><div style="font-weight:600;">Thomas Kowalski</div><div style="font-size:var(--text-xs);color:var(--text-muted);">5 Mayıs 2026 — Çizik Giderme</div></div>
+            </div>
+            <div class="rating">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            </div>
+          </div>
+          <div class="review-text">"Çizik giderme beklentimi karşılamadı. Derin çizikler hâlâ belli oluyor. Fiyat performans dengesi zayıf."</div>
+          <div class="review-meta"><span>👍 0 faydalı</span><span>📍 Brüksel</span></div>
+          <div class="reply-box"><strong>CleanFix yanıtı:</strong> Üzgünüz Thomas. Derin çizikler için özel pasta cila paketimizi öneriyoruz. Destek ekibimiz sizinle iletişime geçecek. 📞</div>
+          <div class="review-actions"><button class="action-btn" onclick="hideReview(9)">Gizle</button><button class="action-btn" onclick="openDeleteModal(9)">Sil</button></div>
+        </div>
+
+        <div class="review-card" data-id="10" data-stars="5" data-replied="false">
+          <div class="review-header">
+            <div class="review-author">
+              <div class="avatar" style="background:linear-gradient(135deg,#06b6d4,#0891b2);">NA</div>
+              <div><div style="font-weight:600;">Nina Aerts</div><div style="font-size:var(--text-xs);color:var(--text-muted);">4 Mayıs 2026 — Koku Giderimi</div></div>
+            </div>
+            <div class="rating">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            </div>
+          </div>
+          <div class="review-text">"Arabadaki sigara kokusu tamamen gitti. Ozon tedavisi gerçekten işe yarıyor. Teşekkürler CleanFix!"</div>
+          <div class="review-meta"><span>👍 15 faydalı</span><span>📍 Gent</span></div>
+          <div class="review-actions"><button class="action-btn" onclick="openReplyModal(10)" style="border-color:var(--teal-500);color:var(--teal-500);">Yanıtla</button><button class="action-btn" onclick="hideReview(10)">Gizle</button><button class="action-btn" onclick="openDeleteModal(10)">Sil</button></div>
+        </div>
+
+        <div class="review-card" data-id="11" data-stars="4" data-replied="true">
+          <div class="review-header">
+            <div class="review-author">
+              <div class="avatar" style="background:linear-gradient(135deg,#a855f7,#7e22ce);">DV</div>
+              <div><div style="font-weight:600;">David Van den Berg</div><div style="font-size:var(--text-xs);color:var(--text-muted);">3 Mayıs 2026 — Standart Yıkama</div></div>
+            </div>
+            <div class="rating">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            </div>
+          </div>
+          <div class="review-text">"Standart yıkama gayet iyi. Fiyatı makul, bekleme süresi kısa. Sadece lastik parlatma dahil değil, onu ayrıca istedim."</div>
+          <div class="review-meta"><span>👍 5 faydalı</span><span>📍 Brüksel</span></div>
+          <div class="reply-box"><strong>CleanFix yanıtı:</strong> Teşekkürler David! Lastik parlatmayı paketlere dahil etmeyi değerlendiriyoruz. 🛞</div>
+          <div class="review-actions"><button class="action-btn" onclick="hideReview(11)">Gizle</button><button class="action-btn" onclick="openDeleteModal(11)">Sil</button></div>
+        </div>
+
+        <div class="review-card" data-id="12" data-stars="5" data-replied="false">
+          <div class="review-header">
+            <div class="review-author">
+              <div class="avatar" style="background:linear-gradient(135deg,#ef4444,#b91c1c);">FM</div>
+              <div><div style="font-weight:600;">Fatma Mercan</div><div style="font-size:var(--text-xs);color:var(--text-muted);">2 Mayıs 2026 — Komple Detaylı Temizlik</div></div>
+            </div>
+            <div class="rating">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            </div>
+          </div>
+          <div class="review-text">"Ailemle birlikte geldiğimizde çocuk koltuklarını bile detaylı temizlediler. Çok düşüncül ve profesyonel bir ekip."</div>
+          <div class="review-meta"><span>👍 11 faydalı</span><span>📍 Leuven</span></div>
+          <div class="review-actions"><button class="action-btn" onclick="openReplyModal(12)" style="border-color:var(--teal-500);color:var(--teal-500);">Yanıtla</button><button class="action-btn" onclick="hideReview(12)">Gizle</button><button class="action-btn" onclick="openDeleteModal(12)">Sil</button></div>
+        </div>
+
+        <div class="review-card" data-id="13" data-stars="3" data-replied="false">
+          <div class="review-header">
+            <div class="review-author">
+              <div class="avatar" style="background:linear-gradient(135deg,#84cc16,#4d7c0f);">RB</div>
+              <div><div style="font-weight:600;">Rudi Bogaerts</div><div style="font-size:var(--text-xs);color:var(--text-muted);">1 Mayıs 2026 — Dış Yıkama</div></div>
+            </div>
+            <div class="rating">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            </div>
+          </div>
+          <div class="review-text">"Dış yıkama fena değil ama jant temizliği eksik kalmış. Tekrar söylemem gerekti. Fiyat uygun ama detaya dikkat."</div>
+          <div class="review-meta"><span>👍 2 faydalı</span><span>📍 Antwerp</span></div>
+          <div class="review-actions"><button class="action-btn" onclick="openReplyModal(13)" style="border-color:var(--teal-500);color:var(--teal-500);">Yanıtla</button><button class="action-btn" onclick="hideReview(13)">Gizle</button><button class="action-btn" onclick="openDeleteModal(13)">Sil</button></div>
+        </div>
+
+        <div class="review-card" data-id="14" data-stars="5" data-replied="true">
+          <div class="review-header">
+            <div class="review-author">
+              <div class="avatar" style="background:linear-gradient(135deg,#0ea5e9,#0284c7);">CM</div>
+              <div><div style="font-weight:600;">Claire Mertens</div><div style="font-size:var(--text-xs);color:var(--text-muted);">30 Nisan 2026 — İç Temizlik + Koku Giderimi</div></div>
+            </div>
+            <div class="rating">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            </div>
+          </div>
+          <div class="review-text">"İç temizlik ve koku giderimi kombinasyonu mükemmel. Arabam yepyeni gibi kokuyor. Claire çok memnun kaldım!"</div>
+          <div class="review-meta"><span>👍 7 faydalı</span><span>📍 Brüksel</span></div>
+          <div class="reply-box"><strong>CleanFix yanıtı:</strong> Memnuniyetiniz bizi mutlu ediyor Claire! Özel koku setlerimizden birini bir sonraki ziyaretinizde hediye ediyoruz. 🎁</div>
+          <div class="review-actions"><button class="action-btn" onclick="hideReview(14)">Gizle</button><button class="action-btn" onclick="openDeleteModal(14)">Sil</button></div>
+        </div>
+
+        <div class="review-card" data-id="15" data-stars="4" data-replied="false">
+          <div class="review-header">
+            <div class="review-author">
+              <div class="avatar" style="background:linear-gradient(135deg,#d946ef,#a21caf);">HL</div>
+              <div><div style="font-weight:600;">Hans Lambrecht</div><div style="font-size:var(--text-xs);color:var(--text-muted);">28 Nisan 2026 — Komple Detaylı Temizlik</div></div>
+            </div>
+            <div class="rating">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            </div>
+          </div>
+          <div class="review-text">"Detaylı temizlik çok iyiydi. Sadece randevu almak için biraz beklemek zorunda kaldım. Online sistem biraz yavaş."</div>
+          <div class="review-meta"><span>👍 4 faydalı</span><span>📍 Gent</span></div>
+          <div class="review-actions"><button class="action-btn" onclick="openReplyModal(15)" style="border-color:var(--teal-500);color:var(--teal-500);">Yanıtla</button><button class="action-btn" onclick="hideReview(15)">Gizle</button><button class="action-btn" onclick="openDeleteModal(15)">Sil</button></div>
+        </div>
+
+        <!-- Exportable Data Table -->
+        <div style="margin-top:32px;">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
+            <h3 style="font-size:var(--text-lg);font-weight:700;">Değerlendirme Tablosu</h3>
+            <button class="btn btn-secondary" onclick="toggleTable()" style="font-size:var(--text-sm);">Tabloyu Göster / Gizle</button>
+          </div>
+          <div data-export-table="reviewsTable" id="reviewsTableWrap" style="display:none;">
+            <table class="data-table" id="reviewsTable">
+              <thead>
+                <tr>
+                  <th>Müşteri</th>
+                  <th>Hizmet</th>
+                  <th>Puan</th>
+                  <th>Yorum</th>
+                  <th>Tarih</th>
+                  <th>Durum</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>Jan Peeters</td><td>Komple Detaylı Temizlik</td><td>5</td><td>Mükemmel hizmet! Arabam ilk günkü gibi oldu.</td><td>14 Mayıs 2026</td><td>Yanıtlı</td></tr>
+                <tr><td>Lisa Wouters</td><td>İç Temizlik</td><td>4</td><td>İç temizlik çok başarılıydı ama biraz daha hızlı olabilir.</td><td>13 Mayıs 2026</td><td>Yanıtsız</td></tr>
+                <tr><td>Pieter De Vos</td><td>Dış Yıkama + Cila</td><td>5</td><td>Dış yıkama + cila paketi harika değer. Arabam 3 haftadır hâlâ parlıyor.</td><td>12 Mayıs 2026</td><td>Yanıtlı</td></tr>
+                <tr><td>Marc Dubois</td><td>Keramik Kaplama</td><td>3</td><td>Keramik kaplama güzel ama fiyat biraz yüksek.</td><td>10 Mayıs 2026</td><td>Yanıtsız</td></tr>
+                <tr><td>Sarah Janssens</td><td>Motor Temizliği</td><td>5</td><td>Motor temizliği inanılmaz! Profesyonel ekip, hızlı hizmet.</td><td>9 Mayıs 2026</td><td>Yanıtlı</td></tr>
+                <tr><td>Eva Peeters</td><td>İç + Dış Temizlik</td><td>5</td><td>Her şey mükemmeldi. Randevu alması kolay, sonuç kusursuz.</td><td>8 Mayıs 2026</td><td>Yanıtsız</td></tr>
+                <tr><td>Lucas Vermeulen</td><td>Deri Koltuk Bakımı</td><td>4</td><td>Deri koltuklar çok iyi temizlendi ama kokusu biraz ağır kaldı.</td><td>7 Mayıs 2026</td><td>Yanıtlı</td></tr>
+                <tr><td>Emma Jacobs</td><td>Far Parlatma</td><td>5</td><td>Far parlatma hizmeti çok etkili oldu. Gece sürüşünde farkı hemen hissettim.</td><td>6 Mayıs 2026</td><td>Yanıtsız</td></tr>
+                <tr><td>Thomas Kowalski</td><td>Çizik Giderme</td><td>2</td><td>Çizik giderme beklentimi karşılamadı. Derin çizikler hâlâ belli oluyor.</td><td>5 Mayıs 2026</td><td>Yanıtlı</td></tr>
+                <tr><td>Nina Aerts</td><td>Koku Giderimi</td><td>5</td><td>Arabadaki sigara kokusu tamamen gitti. Ozon tedavisi gerçekten işe yarıyor.</td><td>4 Mayıs 2026</td><td>Yanıtsız</td></tr>
+                <tr><td>David Van den Berg</td><td>Standart Yıkama</td><td>4</td><td>Standart yıkama gayet iyi. Fiyatı makul, bekleme süresi kısa.</td><td>3 Mayıs 2026</td><td>Yanıtlı</td></tr>
+                <tr><td>Fatma Mercan</td><td>Komple Detaylı Temizlik</td><td>5</td><td>Ailemle birlikte geldiğimizde çocuk koltuklarını bile detaylı temizlediler.</td><td>2 Mayıs 2026</td><td>Yanıtsız</td></tr>
+                <tr><td>Rudi Bogaerts</td><td>Dış Yıkama</td><td>3</td><td>Dış yıkama fena değil ama jant temizliği eksik kalmış.</td><td>1 Mayıs 2026</td><td>Yanıtsız</td></tr>
+                <tr><td>Claire Mertens</td><td>İç Temizlik + Koku Giderimi</td><td>5</td><td>İç temizlik ve koku giderimi kombinasyonu mükemmel. Arabam yepyeni gibi kokuyor.</td><td>30 Nisan 2026</td><td>Yanıtlı</td></tr>
+                <tr><td>Hans Lambrecht</td><td>Komple Detaylı Temizlik</td><td>4</td><td>Detaylı temizlik çok iyiydi. Sadece randevu almak için biraz beklemek zorunda kaldım.</td><td>28 Nisan 2026</td><td>Yanıtsız</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
+
+<style>
+.data-table{width:100%;border-collapse:collapse;font-size:var(--text-sm);background:var(--bg-card);border:1px solid var(--border-color);border-radius:var(--radius-lg);overflow:hidden;}
+.data-table thead{background:var(--bg-tertiary);}
+.data-table th{padding:12px 16px;text-align:left;font-size:var(--text-xs);font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.05em;border-bottom:1px solid var(--border-color);}
+.data-table td{padding:12px 16px;color:var(--text-secondary);border-bottom:1px solid var(--border-color);}
+.data-table tbody tr:hover{background:rgba(20,184,166,0.05);}
+.data-table tbody tr:last-child td{border-bottom:none;}
+@media (max-width:768px){.data-table{display:block;overflow-x:auto;white-space:nowrap;}}
+</style>
+
+<script>
+function toggleTable(){const w=document.getElementById('reviewsTableWrap');w.style.display=w.style.display==='none'?'block':'none';}
+</script>
     </div>
   </main>
 </div>

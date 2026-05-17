@@ -612,11 +612,11 @@
     </div>
     <div class="modal-body">
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
-        <div class="form-group"><label class="form-label" data-i18n="form.first_name">Ad</label><input type="text" class="form-input" id="addFirstName" data-i18n-placeholder="form.first_name_ph" placeholder="Jan"></div>
-        <div class="form-group"><label class="form-label" data-i18n="form.last_name">Soyad</label><input type="text" class="form-input" id="addLastName" data-i18n-placeholder="form.last_name_ph" placeholder="Peeters"></div>
+        <div class="form-group"><label class="form-label" data-i18n="form.first_name">Ad</label><input type="text" class="form-input" id="addFirstName" data-i18n-placeholder="form.first_name_ph" placeholder="Jan" required></div>
+        <div class="form-group"><label class="form-label" data-i18n="form.last_name">Soyad</label><input type="text" class="form-input" id="addLastName" data-i18n-placeholder="form.last_name_ph" placeholder="Peeters" required></div>
       </div>
-      <div class="form-group"><label class="form-label" data-i18n="form.email">E-posta</label><input type="email" class="form-input" id="addEmail" data-i18n-placeholder="form.email_ph" placeholder="jan@example.com"></div>
-      <div class="form-group"><label class="form-label" data-i18n="form.phone">Telefon</label><input type="tel" class="form-input" id="addPhone" data-i18n-placeholder="form.phone_ph" placeholder="+32 470 12 34 56"></div>
+      <div class="form-group"><label class="form-label" data-i18n="form.email">E-posta</label><input type="email" class="form-input" id="addEmail" data-i18n-placeholder="form.email_ph" placeholder="jan@example.com" required></div>
+      <div class="form-group"><label class="form-label" data-i18n="form.phone">Telefon</label><input type="tel" class="form-input" id="addPhone" data-i18n-placeholder="form.phone_ph" placeholder="+32 470 12 34 56" required minlength="7"></div>
       <div class="form-group"><label class="form-label" data-i18n="form.company_name">Firma Adı (Opsiyonel)</label><input type="text" class="form-input" id="addCompany" data-i18n-placeholder="form.company_name_ph" placeholder="Peeters Holding BV"></div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
         <div class="form-group"><label class="form-label" data-i18n="form.type">Müşteri Tipi</label><select class="form-select" id="addType"><option value="b2c" data-i18n="customers.type_b2c">Bireysel</option><option value="b2b" data-i18n="customers.type_b2b">Kurumsal</option></select></div>
@@ -642,11 +642,11 @@
     <div class="modal-body">
       <input type="hidden" id="editId">
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
-        <div class="form-group"><label class="form-label" data-i18n="form.first_name">Ad</label><input type="text" class="form-input" id="editFirstName"></div>
-        <div class="form-group"><label class="form-label" data-i18n="form.last_name">Soyad</label><input type="text" class="form-input" id="editLastName"></div>
+        <div class="form-group"><label class="form-label" data-i18n="form.first_name">Ad</label><input type="text" class="form-input" id="editFirstName" required></div>
+        <div class="form-group"><label class="form-label" data-i18n="form.last_name">Soyad</label><input type="text" class="form-input" id="editLastName" required></div>
       </div>
-      <div class="form-group"><label class="form-label" data-i18n="form.email">E-posta</label><input type="email" class="form-input" id="editEmail"></div>
-      <div class="form-group"><label class="form-label" data-i18n="form.phone">Telefon</label><input type="tel" class="form-input" id="editPhone"></div>
+      <div class="form-group"><label class="form-label" data-i18n="form.email">E-posta</label><input type="email" class="form-input" id="editEmail" required></div>
+      <div class="form-group"><label class="form-label" data-i18n="form.phone">Telefon</label><input type="tel" class="form-input" id="editPhone" required minlength="7"></div>
       <div class="form-group"><label class="form-label" data-i18n="form.company_name">Firma Adı</label><input type="text" class="form-input" id="editCompany"></div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
         <div class="form-group"><label class="form-label" data-i18n="form.type">Müşteri Tipi</label><select class="form-select" id="editType"><option value="b2c" data-i18n="customers.type_b2c">Bireysel</option><option value="b2b" data-i18n="customers.type_b2b">Kurumsal</option></select></div>
