@@ -216,6 +216,7 @@ body{margin:0;font-family:'Inter',sans-serif;background:var(--bg-primary);color:
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="CleanFix">
 <link rel="apple-touch-icon" href="assets/icon-192.png">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://fonts.googleapis.com https://unpkg.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self';">
 </head>
 <body>
 
@@ -555,7 +556,7 @@ body{margin:0;font-family:'Inter',sans-serif;background:var(--bg-primary);color:
 
 <script>
 function showToast(msg){const t=document.getElementById('toast');document.getElementById('toastMsg').textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),3000);}
-function doLogin(){const e=document.getElementById('loginEmail').value;if(e.includes('@')){localStorage.setItem('cf_portal_user',e);document.getElementById('loginView').style.display='none';document.getElementById('portalView').style.display='block';showToast('Hoş geldiniz, Jan Peeters');}else{showToast('Geçerli e-posta girin');}}
+function doLogin(){const e=document.getElementById('loginEmail').value.trim();const p=document.getElementById('loginPassword').value;if(!e.includes('@')||!p||p.length<4){showToast('Geçerli e-posta ve şifre giriniz','error');return;}localStorage.setItem('cf_portal_user',e);document.getElementById('loginView').style.display='none';document.getElementById('portalView').style.display='block';showToast('Hoş geldiniz, Jan Peeters');}else{showToast('Geçerli e-posta girin');}}
 function doLogout(){localStorage.removeItem('cf_portal_user');document.getElementById('portalView').style.display='none';document.getElementById('loginView').style.display='flex';showToast('Çıkış yapıldı');}
 function previewPhotos(input){const prev=document.getElementById('photoPreview');prev.innerHTML='';Array.from(input.files).forEach(file=>{const reader=new FileReader();reader.onload=e=>{const img=document.createElement('img');img.src=e.target.result;img.className='photo-thumb';prev.appendChild(img);};reader.readAsDataURL(file);});}
 function submitTicket(){const sub=document.getElementById('tSubject').value;const pri=document.getElementById('tPriority').value;const svc=document.getElementById('tService').value;if(!sub){showToast('Lütfen konu girin');return;}const id='TK-2026-'+(Math.floor(Math.random()*900)+100);showToast('Talep oluşturuldu — #'+id);const tbody=document.querySelector('#ticketsTable tbody');const row=document.createElement('tr');row.innerHTML='<td><strong>#'+id+'</strong></td><td>'+sub+'</td><td><span class="badge badge-blue">Açık</span></td><td><span class="badge '+(pri==='Acil'||pri==='Yüksek'?'badge-amber':'badge-green')+'">'+pri+'</span></td><td>Bugün</td>';tbody.insertBefore(row,tbody.firstChild);document.getElementById('tSubject').value='';document.getElementById('tDesc').value='';document.getElementById('tPhoto').value='';document.getElementById('photoPreview').innerHTML='';}

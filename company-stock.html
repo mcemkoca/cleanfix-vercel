@@ -173,14 +173,11 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 <script src="js/export.js"></script>
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://fonts.googleapis.com https://unpkg.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self';">
 </head>
 <body>
-<script>(function checkAuth(){
-  const token = localStorage.getItem('kobipro_auth_token');
-  if (!token && !window.location.pathname.includes('login.html') && !window.location.pathname.includes('index.html')) {
-    window.location.href = 'login.html?redirect=' + encodeURIComponent(window.location.pathname);
-  }
-})();</script>
+<script src="js/auth.js"></script>
+<script>checkAuth();</script>
 <div class="dashboard">
   <aside class="sidebar" id="sidebar">
     <div class="sidebar-header">

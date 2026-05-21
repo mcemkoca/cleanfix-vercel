@@ -194,6 +194,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="CleanFix">
 <link rel="apple-touch-icon" href="assets/icon-192.png">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://fonts.googleapis.com https://unpkg.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self';">
 </head>
 <body class="login-page">
 
@@ -238,7 +239,7 @@
       <div class="form-group" id="emailGroup">
         <label class="form-label" id="emailLabel" data-i18n="label_email">E-posta</label>
         <div style="position:relative">
-          <input type="text" class="form-input" id="email" data-i18n-placeholder="ph_email" placeholder="admin@cleanfix.com" value="admin@cleanfix.com" autocomplete="username" required>
+          <input type="email" class="form-input" id="email" data-i18n-placeholder="ph_email" placeholder="admin@cleanfix.com" autocomplete="username" required>
           <span style="position:absolute;right:14px;top:50%;transform:translateY(-50%);color:var(--text-muted);">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
           </span>
@@ -249,7 +250,7 @@
       <div class="form-group" id="passwordGroup">
         <label class="form-label" data-i18n="label_password">Şifre</label>
         <div style="position:relative">
-          <input type="password" class="form-input" id="password" data-i18n-placeholder="ph_password" placeholder="••••••••" value="admin123" autocomplete="current-password" required>
+          <input type="password" class="form-input" id="password" data-i18n-placeholder="ph_password" placeholder="••••••••" autocomplete="current-password" required>
           <span style="position:absolute;right:14px;top:50%;transform:translateY(-50%);color:var(--text-muted);cursor:pointer;" id="togglePassword" role="button" tabindex="0">
             <svg id="eyeIcon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
           </span>
@@ -282,6 +283,7 @@
   </div>
 </div>
 
+<script src="js/auth.js"></script>
 <script>
 /* ============================
    i18n — 3 Language Support
@@ -501,17 +503,14 @@ function setRole(role) {
   updateRoleText(role);
 
   if (role === 'admin') {
-    emailInput.value = 'admin@cleanfix.com';
+    emailInput.value = '';
     emailInput.type = 'email';
-    demoHint.innerHTML = '<span data-i18n="demo_label">Demo:</span> <code>admin@cleanfix.com</code> <span>/</span> <code>admin123</code>';
   } else if (role === 'company') {
-    emailInput.value = 'CLEAN-001';
+    emailInput.value = '';
     emailInput.type = 'text';
-    demoHint.innerHTML = '<span data-i18n="demo_label">Demo:</span> <code>CLEAN-001</code> <span>/</span> <code>admin123</code>';
   } else if (role === 'employee') {
-    emailInput.value = 'EMP-001';
+    emailInput.value = '';
     emailInput.type = 'text';
-    demoHint.innerHTML = '<span data-i18n="demo_label">Demo:</span> <code>EMP-001</code> <span>/</span> <code>admin123</code>';
   }
 }
 
@@ -542,13 +541,18 @@ form.addEventListener('submit',async(e)=>{
   if (currentRole === 'employee') target = 'employee.html';
 
   showToast(i18n[currentLang].toast_success_msg || 'Giriş başarılı! Yönlendiriliyorsunuz...','success');
-  localStorage.setItem('kobipro_auth_token', 'demo_' + Date.now());
-  localStorage.setItem('kobipro_user', JSON.stringify({name:'Jan Wouters',email:'jan@cleanfix.be',role:'admin'}));
+  AUTH.setSession(currentRole, 'Jan Wouters', 'jan@cleanfix.be');
   let redirectTarget = target;
   const urlParams = new URLSearchParams(window.location.search);
   const redirectParam = urlParams.get('redirect');
-  if(redirectParam === 'buildpro') redirectTarget = 'https://mcemkoca.github.io/buildpro-vercel/dashboard.html';
-  if(redirectParam === 'barberpro') redirectTarget = 'https://mcemkoca.github.io/barberpro-vercel/dashboard.html';
+  // Whitelist redirect targets to prevent open redirect vulnerability
+  const ALLOWED_REDIRECTS = {
+    'buildpro': 'https://mcemkoca.github.io/buildpro-vercel/dashboard.html',
+    'barberpro': 'https://mcemkoca.github.io/barberpro-vercel/dashboard.html'
+  };
+  if (redirectParam && ALLOWED_REDIRECTS[redirectParam]) {
+    redirectTarget = ALLOWED_REDIRECTS[redirectParam];
+  }
   setTimeout(()=>{ window.location.href = redirectTarget; }, 1200);
 });
 
