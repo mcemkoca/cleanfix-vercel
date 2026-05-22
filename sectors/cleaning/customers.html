@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="tr" data-theme="dark">
 <head>
+	<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://unpkg.com https://cdnjs.cloudflare.com https://fonts.googleapis.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com; img-src 'self' data: https://cdn.example.com; connect-src 'self'; frame-ancestors 'none'; base-uri 'self';">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>CleanFix — Müşteri Yönetimi</title>
@@ -65,6 +66,9 @@
 </style>
 </head>
 <body>
+
+<script src="../../js/auth.js"></script>
+<script>checkAuth(['admin','company']);</script>
 <div class="dashboard">
   <aside class="sidebar" id="sidebar">
     <div class="sidebar-header">

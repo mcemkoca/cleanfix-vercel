@@ -754,6 +754,12 @@ const i18n={
 
 let currentLang = localStorage.getItem('cleanfix_lang') || 'tr';
 
+// Force TR on first load if no explicit user preference stored
+if (!localStorage.getItem('cleanfix_lang')) {
+  currentLang = 'tr';
+  localStorage.setItem('cleanfix_lang', 'tr');
+}
+
 function switchLang(lang) {
   currentLang = lang;
   localStorage.setItem('cleanfix_lang', lang);
@@ -806,7 +812,7 @@ function closeSlidePanel(id){document.getElementById(id).classList.remove('activ
 function saveEquip(){const name=document.getElementById('eqName').value;if(!name){showToast(t('toast.equip_name_required'));return;}showToast(t('toast.equip_added')+': '+name);closeSlidePanel('addEquipPanel');}
 function filterEquip(){const s=document.getElementById('searchInput').value.toLowerCase();const st=document.getElementById('statusFilter').value;const c=document.getElementById('catFilter').value;document.querySelectorAll('.equip-card').forEach(card=>{const text=card.textContent.toLowerCase();const status=card.getAttribute('data-status');const cat=card.getAttribute('data-cat');const matchText=text.includes(s);const matchStatus=!st||status===st;const matchCat=!c||cat===c;card.style.display=(matchText&&matchStatus&&matchCat)?'block':'none';});}
 document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeSlidePanel('addEquipPanel');}});
-switchLang(currentLang);
+switchLang('tr');
 </script>
 
 <script>
