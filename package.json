@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "CleanFix Admin Dashboard - Modern SaaS for Auto Detailing & Service Management",
   "scripts": {
-    "build": "echo 'Static deployment ready for Vercel'",
+    "build": "echo 'Static deployment ready for GitHub Pages'",
     "dev": "npx serve ."
   },
   "keywords": ["saas", "admin", "dashboard", "auto-detailing", "cleanfix"],

@@ -1,6 +1,6 @@
 # CleanFix Güvenlik Kontrolü Raporu — 22 Mayıs 2026, 07:00 CST
 
-**Proje:** cleanfix-vercel (Vercel Static Deployment)
+**Proje:** cleanfix-vercel (GitHub Pages Static Deployment)
 **Kapsam:** Auth sistemi, rol kontrolleri, admin panel erişimi, login/signup test, vulnerability scan
 **Toplam dosya:** 120+ HTML, 5 JS modül
 
@@ -38,7 +38,7 @@
 ### 5. X-Frame-Options / Clickjacking Korunması Yok
 - **Hiçbir sayfada** `X-Frame-Options: DENY` veya `X-Frame-Options: SAMEORIGIN` bulunmuyor.
 - Clickjacking saldırısı potansiyel olarak uygulanabilir.
-- **Düzeltme:** Vercel `vercel.json` headers konfigürasyonuna eklenmeli.
+- **Düzeltme:** GitHub Pages `_headers` konfigürasyonuna eklenmeli.
 
 ### 6. innerHTML Kullanımı — ~200+ Yer
 - Tüm HTML dosyalarda toplam **~203 adet** `innerHTML` kullanımı tespit edildi.
@@ -57,7 +57,7 @@
 
 ### 8. Strict-Transport-Security (HSTS) Yok
 - `Strict-Transport-Security` header'ı hiçbir sayfada yok.
-- Vercel'de HTTPS zorunlu olsa da, ekstra koruma sağlamaz.
+- GitHub Pages'de HTTPS zorunlu olsa da, ekstra koruma sağlamaz.
 
 ### 9. Referrer-Policy Eksik
 - `Referrer-Policy` meta tag veya header yok.
@@ -118,21 +118,13 @@
 
 1. **Hemen:** Sektör dosyalarına auth.js + checkAuth() ekleyin (40+ dosya)
 2. **Hemen:** company-*.html'de `checkAuth()` → `checkAuth('company')` yapın
-3. **Bugün:** Vercel `vercel.json` headers konfigürasyonu:
-   ```json
-   {
-     "headers": [
-       {
-         "source": "/(.*)",
-         "headers": [
-           { "key": "X-Frame-Options", "value": "DENY" },
-           { "key": "X-Content-Type-Options", "value": "nosniff" },
-           { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
-           { "key": "Strict-Transport-Security", "value": "max-age=31536000; includeSubDomains" }
-         ]
-       }
-     ]
-   }
+3. **Bugün:** GitHub Pages `_headers` konfigürasyonu:
+   ```
+   /*
+     X-Frame-Options: DENY
+     X-Content-Type-Options: nosniff
+     Referrer-Policy: strict-origin-when-cross-origin
+     Strict-Transport-Security: max-age=31536000; includeSubDomains
    ```
 4. **Bu hafta:** innerHTML kullanımlarını `textContent`/`createElement` ile değiştirin
 5. **Planlı:** Backend auth (JWT + HttpOnly cookie) geçiş planı oluşturun

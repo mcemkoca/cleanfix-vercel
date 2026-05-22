@@ -130,7 +130,7 @@ const dict = {
   'Bildirimlerim':{en:'My Notifications',nl:'Mijn Meldingen'},'Mesajlarım':{en:'My Messages',nl:'Mijn Berichten'},
   'Taleplerim':{en:'My Requests',nl:'Mijn Verzoeken'},'Yorumlarım':{en:'My Reviews',nl:'Mijn Recensies'},
   'Puanlarım':{en:'My Scores',nl:'Mijn Scores'},'CleanFix':{en:'CleanFix',nl:'CleanFix'},'CleanFix BV':{en:'CleanFix BV',nl:'CleanFix BV'},
-  'Deuterium12{MCK}':{en:'Deuterium12{MCK}',nl:'Deuterium12{MCK}'},'Vercel Edge':{en:'Vercel Edge',nl:'Vercel Edge'},
+  'Deuterium12{MCK}':{en:'Deuterium12{MCK}',nl:'Deuterium12{MCK}'},'Server':{en:'Server',nl:'Server'}
   'API':{en:'API',nl:'API'},'URL':{en:'URL',nl:'URL'},'ID':{en:'ID',nl:'ID'},'Kodu':{en:'Code',nl:'Code'},
   'No':{en:'No.',nl:'Nr.'},'Ref':{en:'Ref',nl:'Ref'},'SKU':{en:'SKU',nl:'SKU'},'Barkod':{en:'Barcode',nl:'Barcode'},
   'Seri No':{en:'Serial No',nl:'Serienummer'},'Model':{en:'Model',nl:'Model'},'Marka':{en:'Brand',nl:'Merk'},
