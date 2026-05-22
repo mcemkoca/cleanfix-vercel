@@ -9,15 +9,8 @@
 <link rel="stylesheet" href="css/components.css">
 <style>
 
-.toast-container{position:fixed;top:24px;right:24px;z-index:9999;display:flex;flex-direction:column;gap:8px;}
-.toast{padding:12px 20px;border-radius:var(--radius-md);font-size:var(--text-sm);font-weight:500;color:white;box-shadow:var(--shadow-lg);animation:toastIn 0.3s ease;max-width:320px;}
-.toast.error{background:var(--error-500);}
-.toast.success{background:var(--success-500);}
-.toast.info{background:var(--info-500);}
-@keyframes toastIn{from{transform:translateX(120%);opacity:0;}to{transform:translateX(0);opacity:1;}}
-@keyframes toastOut{from{transform:translateX(0);opacity:1;}to{transform:translateX(120%);opacity:0;}}
-.toast.out{animation:toastOut 0.3s ease forwards;}
-
+to{transform:translateX(0);opacity:1;}}
+to{transform:translateX(120%);opacity:0;}}
 /* ── Layout ── */
 .dashboard{display:flex;min-height:100vh;background:var(--bg-primary);}
 .sidebar{width:280px;height:100vh;background:var(--bg-card);border-right:1px solid var(--border-color);display:flex;flex-direction:column;position:fixed;left:0;top:0;z-index:100;transition:transform var(--duration-slow) var(--ease-out);}
@@ -175,11 +168,10 @@
 .staff-select-row{display:flex;align-items:center;gap:12px;margin-top:16px;padding-top:16px;border-top:1px solid var(--border-color);}
 
 /* ── Toast ── */
-.toast{position:fixed;top:20px;right:20px;padding:14px 20px;border-radius:var(--radius-lg);font-size:var(--text-sm);font-weight:500;z-index:300;animation:toastIn 0.3s ease;box-shadow:var(--shadow-xl);max-width:360px;}
 .toast.success{background:var(--success-500);color:white;}
 .toast.error{background:var(--error-500);color:white;}
 .toast.info{background:var(--info-500);color:white;}
-@keyframes toastIn{from{opacity:0;transform:translateX(20px);}to{opacity:1;transform:translateX(0);}}
+to{opacity:1;transform:translateX(0);}}
 
 /* ── Print Styles ── */
 @media print{
@@ -221,7 +213,6 @@
 }
 .lang-switcher button:hover { color:var(--text-primary); }
 .lang-switcher button.active { background:var(--teal-500); color:white; }
-
 
 /* ── Mobile Responsive ── */
 @media (max-width: 768px) {
@@ -357,7 +348,7 @@
 </script>
 <body>
 <script src="js/auth.js"></script>
-<script>checkAuth();</script>
+<script>checkAuth(['admin','company']);</script>
 
 <div class="dashboard">
   <!-- Sidebar -->
@@ -422,7 +413,7 @@
     </div>
     <div class="nav-group">
       <div class="nav-label">Diğer</div>
-      <a href="#" onclick="event.preventDefault();localStorage.removeItem('kobipro_auth_token');localStorage.removeItem('kobipro_user');window.location.href='login.html';" class="nav-item">
+      <a href="#" onclick="AUTH.logout()" class="nav-item">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
         Çıkış Yap
       </a>
@@ -1106,6 +1097,15 @@ const chemicals = {
       <table class="dosage-table">
         <thead><tr><th>Uygulama</th><th>Oran</th><th>Su Miktarı</th></tr></thead>
         <tbody>
+      <tr class="empty-state-row" style="display:none;">
+        <td colspan="99" style="padding:0; border:none;">
+          <div class="empty-state">
+            <div class="empty-state-icon">📭</div>
+            <div class="empty-state-title" data-i18n="empty_title">Henüz kayıt yok</div>
+            <div class="empty-state-desc" data-i18n="empty_desc">Bu alanda görüntülenecek veri bulunmuyor.</div>
+          </div>
+        </td>
+      </tr>
           <tr><td>Hafif kir — Günlük silme</td><td>1:200</td><td>5ml / 1L su</td></tr>
           <tr><td>Orta kir — Standart temizlik</td><td>1:100</td><td>10ml / 1L su</td></tr>
           <tr><td>Ağır kir — Derinlemesine</td><td>1:50</td><td>20ml / 1L su</td></tr>
@@ -1140,6 +1140,15 @@ const chemicals = {
       <table class="dosage-table">
         <thead><tr><th>Uygulama</th><th>Oran</th><th>Kuruma Süresi</th></tr></thead>
         <tbody>
+      <tr class="empty-state-row" style="display:none;">
+        <td colspan="99" style="padding:0; border:none;">
+          <div class="empty-state">
+            <div class="empty-state-icon">📭</div>
+            <div class="empty-state-title" data-i18n="empty_title">Henüz kayıt yok</div>
+            <div class="empty-state-desc" data-i18n="empty_desc">Bu alanda görüntülenecek veri bulunmuyor.</div>
+          </div>
+        </td>
+      </tr>
           <tr><td>İç cephe cam</td><td>Hazır (RTU)</td><td>15-30 saniye</td></tr>
           <tr><td>Dış cephe cam (hafif kir)</td><td>1:2</td><td>30-60 saniye</td></tr>
           <tr><td>Dış cephe cam (ağır kir)</td><td>1:1</td><td>1-2 dakika</td></tr>
@@ -1176,6 +1185,15 @@ const chemicals = {
       <table class="dosage-table">
         <thead><tr><th>Hedef Mikroorganizma</th><th>Konsantrasyon</th><th>Temas Süresi</th></tr></thead>
         <tbody>
+      <tr class="empty-state-row" style="display:none;">
+        <td colspan="99" style="padding:0; border:none;">
+          <div class="empty-state">
+            <div class="empty-state-icon">📭</div>
+            <div class="empty-state-title" data-i18n="empty_title">Henüz kayıt yok</div>
+            <div class="empty-state-desc" data-i18n="empty_desc">Bu alanda görüntülenecek veri bulunmuyor.</div>
+          </div>
+        </td>
+      </tr>
           <tr><td>Bakteriler (genel)</td><td>1:200 (5ml/L)</td><td>1 dakika</td></tr>
           <tr><td>Salmonella / E.Coli</td><td>1:100 (10ml/L)</td><td>5 dakika</td></tr>
           <tr><td>Mantarlar</td><td>1:100 (10ml/L)</td><td>10 dakika</td></tr>
@@ -1562,17 +1580,6 @@ function printChecklist() {
 }
 
 // ── Toast ──
-function showToast(msg, type) {
-  const existing = document.querySelector('.toast');
-  if (existing) existing.remove();
-  const toast = document.createElement('div');
-  toast.className = `toast ${type}`;
-  toast.textContent = msg;
-  document.body.appendChild(toast);
-  setTimeout(() => toast.style.animation = 'toastIn 0.3s ease reverse', 3000);
-  setTimeout(() => toast.remove(), 3300);
-}
-
 // ── Close on Escape ──
 document.addEventListener('keydown', e => {
   if (e.key === 'Escape') {
@@ -1583,7 +1590,6 @@ document.addEventListener('keydown', e => {
   }
 });
 </script>
-
 
 <script>
 /* ═══════════════════════════════════════════
@@ -2680,12 +2686,6 @@ window.addEventListener('unhandledrejection', function(e) {
 
 <script>
 (function(){
-  function showToast(msg,type='error'){
-    let c=document.querySelector('.toast-container');
-    if(!c){c=document.createElement('div');c.className='toast-container';document.body.appendChild(c);}
-    let t=document.createElement('div');t.className='toast '+type;t.textContent=msg;c.appendChild(t);
-    setTimeout(()=>{t.classList.add('out');setTimeout(()=>t.remove(),300);},4000);
-  }
   function validateEmail(v){return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);}
   function validatePhone(v){return v.replace(/\D/g,'').length>=7;}
   document.querySelectorAll('form, .modal').forEach(form=>{
@@ -2700,9 +2700,9 @@ window.addEventListener('unhandledrejection', function(e) {
         const val=inp.value.trim();
         const req=inp.required||inp.classList.contains('required');
         if(req && !val){ ok=false; inp.style.borderColor='var(--error-500)'; setTimeout(()=>inp.style.borderColor='',2000); }
-        if(inp.type==='email' && val && !validateEmail(val)){ ok=false; showToast('Geçerli e-posta giriniz / Valid email required / Geldig e-mailadres vereist'); }
+        if(inp.type==='email' && val && !validateEmail(val)){ ok=false; showToast('Geçerli e-posta giriniz / Valid email required / Geldig e-mailadres vereist', 'error'); }
         if(inp.dataset.type==='phone' || inp.name?.includes('phone') || inp.id?.includes('phone') || inp.placeholder?.toLowerCase().includes('telefon')){
-          if(val && !validatePhone(val)){ ok=false; showToast('Telefon en az 7 hane olmalı / Phone min 7 digits / Telefoon min 7 cijfers'); }
+          if(val && !validatePhone(val)){ ok=false; showToast('Telefon en az 7 hane olmalı / Phone min 7 digits / Telefoon min 7 cijfers', 'error'); }
         }
       });
       if(!ok){ e.preventDefault?e.preventDefault():null; e.stopPropagation?e.stopPropagation():null; return false; }
@@ -2742,5 +2742,8 @@ function exportActiveTable(fmt) {
   tbl.id = oldId;
 }
 </script>
+
+  <script src="js/toast.js"></script>
+  <script src="js/validation.js"></script>
 </body>
 </html>

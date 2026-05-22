@@ -5,7 +5,13 @@
 const AUTH = {
   TOKEN_KEY: 'kobipro_auth_token',
   USER_KEY: 'kobipro_user',
-  SESSION_TTL_MS: 24 * 60 * 60 * 1000, // 24 hours
+  SESSION_TTL_MS: 24 * 60 * 60 * 1000, // 24 hours (default)
+  REMEMBER_TTL_MS: 7 * 24 * 60 * 60 * 1000, // 7 days
+
+  getSessionTTL() {
+    const remember = localStorage.getItem('cf_remember_me');
+    return remember === '1' ? this.REMEMBER_TTL_MS : this.SESSION_TTL_MS;
+  },
 
   // Generate a cryptographically secure random token
   generateSecureToken() {
@@ -54,7 +60,7 @@ const AUTH = {
     if (parts.length !== 3) return false;
     const ts = parseInt(parts[2], 10);
     if (isNaN(ts)) return false;
-    if (Date.now() - ts > this.SESSION_TTL_MS) {
+    if (Date.now() - ts > this.getSessionTTL()) {
       this.logout();
       return false;
     }

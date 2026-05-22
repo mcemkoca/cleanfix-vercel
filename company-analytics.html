@@ -126,7 +126,7 @@
 </script>
 </head>
   <script src="js/auth.js"></script>
-<script>checkAuth();</script>
+<script>checkAuth(['admin','company']);</script>
   <aside class="sidebar" id="sidebar">
     <div class="sidebar-header">
       <div class="sidebar-logo">CF</div>
@@ -149,7 +149,7 @@
       <div class="nav-group">
         <div class="nav-group-header">Ayarlar</div>
         <a href="company-profile.html" class="nav-item"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Firma Profili</a>
-        <a href="#" onclick="event.preventDefault();localStorage.removeItem('kobipro_auth_token');localStorage.removeItem('kobipro_user');window.location.href='login.html';" class="nav-item"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>Çıkış Yap</a>
+        <a href="#" onclick="AUTH.logout()" class="nav-item"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>Çıkış Yap</a>
       </div>
     </nav>
   </aside>
@@ -179,7 +179,7 @@
             <option>Brüksel Merkez</option>
           </select>
         </div>
-        <button class="btn btn-secondary" onclick="showToast('Rapor CSV olarak indirildi')">📊 CSV İndir</button>
+        <button class="btn btn-secondary" onclick="showToast('Rapor CSV olarak indirildi', 'info')">📊 CSV İndir</button>
       </div>
 
       <div class="stats-grid">
@@ -234,6 +234,15 @@
           <table class="table">
             <thead><tr><th>Çalışan</th><th>Randevu</th><th>Gelir</th><th>Puan</th></tr></thead>
             <tbody>
+      <tr class="empty-state-row" style="display:none;">
+        <td colspan="99" style="padding:0; border:none;">
+          <div class="empty-state">
+            <div class="empty-state-icon">📭</div>
+            <div class="empty-state-title" data-i18n="empty_title">Henüz kayıt yok</div>
+            <div class="empty-state-desc" data-i18n="empty_desc">Bu alanda görüntülenecek veri bulunmuyor.</div>
+          </div>
+        </td>
+      </tr>
               <tr><td><strong>Ahmet K.</strong></td><td>42</td><td style="color:var(--teal-500);font-weight:600;">€6.890</td><td>4.9</td></tr>
               <tr><td><strong>Mehmet D.</strong></td><td>38</td><td style="color:var(--teal-500);font-weight:600;">€5.420</td><td>4.7</td></tr>
               <tr><td><strong>Ayşe R.</strong></td><td>35</td><td style="color:var(--teal-500);font-weight:600;">€4.980</td><td>4.8</td></tr>
@@ -287,18 +296,10 @@ months.forEach((m,i)=>{
   div.innerHTML=`<div class="bar-fill" style="height:${h}px;background:${color};" data-label="€${(values[i]/1000).toFixed(1)}k"></div><div class="bar-label">${m}</div>`;
   chart.appendChild(div);
 });
-function showToast(msg,type='success',dur=3000){
-  const c=document.getElementById('toastContainer');
-  const t=document.createElement('div');
-  const icon=type==='success'?'✓':'✕';
-  t.style.cssText='background:var(--bg-card);border:1px solid var(--border-color);border-radius:var(--radius-lg);padding:14px 18px;display:flex;align-items:center;gap:12px;box-shadow:var(--shadow-xl);margin-bottom:10px;animation:toastIn 0.3s ease;min-width:260px;';
-  const color=type==='success'?'var(--success-500)':'var(--error-500)';
-  t.innerHTML=`<span style="color:${color};font-weight:700;">${icon}</span><span style="font-size:var(--text-sm);font-weight:500;">${msg}</span>`;
-  c.appendChild(t);
-  setTimeout(()=>{t.style.opacity='0';t.style.transform='translateX(20px)';t.style.transition='all 0.3s';setTimeout(()=>t.remove(),300);},dur);
-}
 </script>
 
 <script src="js/pwa.js"></script>
+
+  <script src="js/toast.js"></script>
 </body>
 </html>

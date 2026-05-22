@@ -136,7 +136,7 @@ body{background:var(--bg-primary);font-family:var(--font-family);color:var(--tex
       <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>E-posta bildirimleri</li>
       <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>WhatsApp entegrasyonu</li>
     </ul>
-    <button class="btn btn-secondary" style="width:100%;" onclick="showToast('14 günlük deneme başlatıldı')">Ücretsiz Dene</button>
+    <button class="btn btn-secondary" style="width:100%;" onclick="showToast('14 günlük deneme başlatıldı', 'info')">Ücretsiz Dene</button>
   </div>
 
   <div class="plan-card popular">
@@ -153,7 +153,7 @@ body{background:var(--bg-primary);font-family:var(--font-family);color:var(--tex
       <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>Değerlendirme yönetimi</li>
       <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>Öncelikli destek</li>
     </ul>
-    <button class="btn btn-primary" style="width:100%;" onclick="showToast('14 günlük deneme başlatıldı')">Ücretsiz Dene</button>
+    <button class="btn btn-primary" style="width:100%;" onclick="showToast('14 günlük deneme başlatıldı', 'info')">Ücretsiz Dene</button>
   </div>
 
   <div class="plan-card">
@@ -169,7 +169,7 @@ body{background:var(--bg-primary);font-family:var(--font-family);color:var(--tex
       <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>Özel entegrasyonlar</li>
       <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>7/24 telefon desteği</li>
     </ul>
-    <button class="btn btn-secondary" style="width:100%;" onclick="showToast('Satış ekibimize yönlendiriliyorsunuz')">Satış Ekibiyle Konuş</button>
+    <button class="btn btn-secondary" style="width:100%;" onclick="showToast('Satış ekibimize yönlendiriliyorsunuz', 'info')">Satış Ekibiyle Konuş</button>
   </div>
 </div>
 
@@ -229,14 +229,9 @@ function toggleBilling(){
     el.innerHTML='€'+price+'<span>/ay</span>';
   });
 }
-function showToast(msg,type='success',dur=3000){
-  const c=document.getElementById('toastContainer');const t=document.createElement('div');const icon=type==='success'?'✓':'✕';
-  t.style.cssText='background:var(--bg-card);border:1px solid var(--border-color);border-radius:var(--radius-lg);padding:14px 18px;display:flex;align-items:center;gap:12px;box-shadow:var(--shadow-xl);margin-bottom:10px;animation:toastIn 0.3s ease;min-width:260px;';
-  const color=type==='success'?'var(--success-500)':'var(--error-500)';
-  t.innerHTML=`<span style="color:${color};font-weight:700;">${icon}</span><span style="font-size:var(--text-sm);font-weight:500;">${msg}</span>`;
-  c.appendChild(t);setTimeout(()=>{t.style.opacity='0';t.style.transform='translateX(20px)';t.style.transition='all 0.3s';setTimeout(()=>t.remove(),300);},dur);
-}
 </script>
   <script src="js/app.js"></script>
+
+  <script src="js/toast.js"></script>
 </body>
 </html>

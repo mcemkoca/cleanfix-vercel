@@ -146,7 +146,7 @@
 </script>
 <body>
 <script src="js/auth.js"></script>
-<script>checkAuth();</script>
+<script>checkAuth(['admin','company']);</script>
 <div class="dashboard">
   <aside class="sidebar" id="sidebar">
     <div class="sidebar-header">
@@ -171,7 +171,7 @@
       <div class="nav-group">
         <div class="nav-group-header">Ayarlar</div>
         <a href="company-profile.html" class="nav-item"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Firma Profili</a>
-        <a href="#" onclick="event.preventDefault();localStorage.removeItem('kobipro_auth_token');localStorage.removeItem('kobipro_user');window.location.href='login.html';" class="nav-item"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>Çıkış Yap</a>
+        <a href="#" onclick="AUTH.logout()" class="nav-item"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>Çıkış Yap</a>
       </div>
     </nav>
   </aside>
@@ -297,6 +297,15 @@
             <table class="table">
               <thead><tr><th>Saat</th><th>Müşteri</th><th>Hizmet</th><th>Durum</th></tr></thead>
               <tbody>
+      <tr class="empty-state-row" style="display:none;">
+        <td colspan="99" style="padding:0; border:none;">
+          <div class="empty-state">
+            <div class="empty-state-icon">📭</div>
+            <div class="empty-state-title" data-i18n="empty_title">Henüz kayıt yok</div>
+            <div class="empty-state-desc" data-i18n="empty_desc">Bu alanda görüntülenecek veri bulunmuyor.</div>
+          </div>
+        </td>
+      </tr>
                 <tr><td><div style="font-weight:600;">10:30</div><div style="font-size:var(--text-xs);color:var(--text-muted);">Devam Ediyor</div></td><td>Lisa Wouters</td><td>İç Temizlik</td><td><span class="tag busy">Devam Ediyor</span></td></tr>
                 <tr><td><div style="font-weight:600;">13:00</div><div style="font-size:var(--text-xs);color:var(--text-muted);">Bekliyor</div></td><td>Pieter De Vos</td><td>Dış Yıkama + Cila</td><td><span class="tag blue">Bekliyor</span></td></tr>
                 <tr><td><div style="font-weight:600;">15:00</div><div style="font-size:var(--text-xs);color:var(--text-muted);">Bekliyor</div></td><td>Sarah Janssens</td><td>Motor Temizliği</td><td><span class="tag blue">Bekliyor</span></td></tr>
@@ -344,6 +353,15 @@
             <table class="table">
               <thead><tr><th>Ürün</th><th>Mevcut</th><th>Min.</th><th>Durum</th></tr></thead>
               <tbody>
+      <tr class="empty-state-row" style="display:none;">
+        <td colspan="99" style="padding:0; border:none;">
+          <div class="empty-state">
+            <div class="empty-state-icon">📭</div>
+            <div class="empty-state-title" data-i18n="empty_title">Henüz kayıt yok</div>
+            <div class="empty-state-desc" data-i18n="empty_desc">Bu alanda görüntülenecek veri bulunmuyor.</div>
+          </div>
+        </td>
+      </tr>
                 <tr><td><div style="font-weight:600;">Nano Cila</div><div style="font-size:var(--text-xs);color:var(--text-muted);">500ml şişe</div></td><td>2</td><td>5</td><td><span class="tag busy">Kritik</span></td></tr>
                 <tr><td><div style="font-weight:600;">Mikfiber Bez</div><div style="font-size:var(--text-xs);color:var(--text-muted);">Paket (10 adet)</div></td><td>5</td><td>10</td><td><span class="tag busy">Kritik</span></td></tr>
                 <tr><td><div style="font-weight:600;">Cam Temizleyici</div><div style="font-size:var(--text-xs);color:var(--text-muted);">1L şişe</div></td><td>1</td><td>3</td><td><span class="tag busy">Kritik</span></td></tr>
@@ -361,6 +379,15 @@
           <table class="table">
             <thead><tr><th>Fatura No</th><th>Müşteri</th><th>Tarih</th><th>Tutar</th><th>Durum</th></tr></thead>
             <tbody>
+      <tr class="empty-state-row" style="display:none;">
+        <td colspan="99" style="padding:0; border:none;">
+          <div class="empty-state">
+            <div class="empty-state-icon">📭</div>
+            <div class="empty-state-title" data-i18n="empty_title">Henüz kayıt yok</div>
+            <div class="empty-state-desc" data-i18n="empty_desc">Bu alanda görüntülenecek veri bulunmuyor.</div>
+          </div>
+        </td>
+      </tr>
               <tr><td>#F-2026-1142</td><td>Jan Peeters</td><td>14 May 2026</td><td style="font-weight:600;">€149.00</td><td><span class="tag">Ödendi</span></td></tr>
               <tr><td>#F-2026-1141</td><td>Lisa Wouters</td><td>13 May 2026</td><td style="font-weight:600;">€89.00</td><td><span class="tag">Ödendi</span></td></tr>
               <tr><td>#F-2026-1140</td><td>Pieter De Vos</td><td>12 May 2026</td><td style="font-weight:600;">€199.00</td><td><span class="tag busy">Bekliyor</span></td></tr>
@@ -376,18 +403,10 @@
 <div class="toast-container" id="toastContainer" style="position:fixed;top:20px;right:20px;z-index:300;"></div>
 
 <script>
-function showToast(msg,type='success',dur=3000){
-  const c=document.getElementById('toastContainer');
-  const t=document.createElement('div');
-  const icon=type==='success'?'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>':'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>';
-  t.style.cssText='background:var(--bg-card);border:1px solid var(--border-color);border-radius:var(--radius-lg);padding:14px 18px;display:flex;align-items:center;gap:12px;box-shadow:var(--shadow-xl);margin-bottom:10px;animation:toastIn 0.3s ease;min-width:260px;';
-  const color=type==='success'?'var(--success-500)':'var(--error-500)';
-  t.innerHTML=`<span style="color:${color};">${icon}</span><span style="font-size:var(--text-sm);font-weight:500;">${msg}</span>`;
-  c.appendChild(t);
-  setTimeout(()=>{t.style.opacity='0';t.style.transform='translateX(20px)';t.style.transition='all 0.3s';setTimeout(()=>t.remove(),300);},dur);
-}
 </script>
 
 <script src="js/pwa.js"></script>
+
+  <script src="js/toast.js"></script>
 </body>
 </html>

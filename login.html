@@ -11,16 +11,8 @@
 <link rel="stylesheet" href="css/components.css">
 <style>
 
-.toast-container{position:fixed;top:24px;right:24px;z-index:9999;display:flex;flex-direction:column;gap:8px;}
-.toast{padding:12px 20px;border-radius:var(--radius-md);font-size:var(--text-sm);font-weight:500;color:white;box-shadow:var(--shadow-lg);animation:toastIn 0.3s ease;max-width:320px;}
-.toast.error{background:var(--error-500);}
-.toast.success{background:var(--success-500);}
-.toast.info{background:var(--info-500);}
-@keyframes toastIn{from{transform:translateX(120%);opacity:0;}to{transform:translateX(0);opacity:1;}}
-@keyframes toastOut{from{transform:translateX(0);opacity:1;}to{transform:translateX(120%);opacity:0;}}
-.toast.out{animation:toastOut 0.3s ease forwards;}
-
-
+to{transform:translateX(0);opacity:1;}}
+to{transform:translateX(120%);opacity:0;}}
 .login-page { min-height:100vh; display:flex; align-items:center; justify-content:center; position:relative; overflow:hidden; }
 .particles {
   position:fixed; inset:0; z-index:0; pointer-events:none;
@@ -332,9 +324,16 @@
       </button>
     </form>
 
-    <div class="demo-hint" id="demoHint">
+    <div class="demo-hint" id="demoHint" style="display:none;">
       <span data-i18n="demo_label">Demo:</span> <code>admin@cleanfix.com</code> <span>/</span> <code>admin123</code>
     </div>
+    <script>
+    (function(){
+      if(location.hostname.includes('github.io')||location.hostname.includes('localhost')||location.hostname===''){
+        document.getElementById('demoHint').style.display='block';
+      }
+    })();
+    </script>
     <div class="conn-status">
       <span class="dot"></span> <span data-i18n="conn_ready">API bağlantısı hazır — Vercel Edge</span>
     </div>
@@ -517,17 +516,6 @@ eyeBtn.addEventListener('click',()=>{
   document.getElementById('eyeIcon').innerHTML=type==='password'?'<path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/>':'<path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/>';
 });
 
-function showToast(msg,type='success',dur=3000){
-  const c=document.getElementById('toastContainer');
-  const t=document.createElement('div');
-  const icon=type==='success'?'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>':'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>';
-  const titleText = type==='success' ? (i18n[currentLang].toast_success||'Başarılı') : (i18n[currentLang].toast_error||'Hata');
-  t.className=`toast toast-${type}`;
-  t.innerHTML=`<span class="toast-icon">${icon}</span><div class="toast-content"><div class="toast-title">${titleText}</div><div class="toast-message">${msg}</div></div><span class="toast-close" onclick="this.parentElement.remove()">✕</span><div class="toast-progress"></div>`;
-  c.appendChild(t);
-  setTimeout(()=>{t.classList.add('exit');setTimeout(()=>t.remove(),300);},dur);
-}
-
 /* --- Role Switcher Logic --- */
 let currentRole = 'admin';
 const emailGroup = document.getElementById('emailGroup');
@@ -599,6 +587,8 @@ form.addEventListener('submit',async(e)=>{
   if (currentRole === 'employee') target = 'employee.html';
 
   showToast(i18n[currentLang].toast_success_msg || 'Giriş başarılı! Yönlendiriliyorsunuz...','success');
+  const rememberMe = document.getElementById('rememberMe').checked;
+  localStorage.setItem('cf_remember_me', rememberMe ? '1' : '0');
   AUTH.setSession(currentRole, 'Jan Wouters', 'jan@cleanfix.be');
   let redirectTarget = target;
   const urlParams = new URLSearchParams(window.location.search);
@@ -631,12 +621,6 @@ window.addEventListener('unhandledrejection', function(e) {
 
 <script>
 (function(){
-  function showToast(msg,type='error'){
-    let c=document.querySelector('.toast-container');
-    if(!c){c=document.createElement('div');c.className='toast-container';document.body.appendChild(c);}
-    let t=document.createElement('div');t.className='toast '+type;t.textContent=msg;c.appendChild(t);
-    setTimeout(()=>{t.classList.add('out');setTimeout(()=>t.remove(),300);},4000);
-  }
   function validateEmail(v){return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);}
   function validatePhone(v){return v.replace(/\D/g,'').length>=7;}
   document.querySelectorAll('form, .modal').forEach(form=>{
@@ -651,9 +635,9 @@ window.addEventListener('unhandledrejection', function(e) {
         const val=inp.value.trim();
         const req=inp.required||inp.classList.contains('required');
         if(req && !val){ ok=false; inp.style.borderColor='var(--error-500)'; setTimeout(()=>inp.style.borderColor='',2000); }
-        if(inp.type==='email' && val && !validateEmail(val)){ ok=false; showToast('Geçerli e-posta giriniz / Valid email required / Geldig e-mailadres vereist'); }
+        if(inp.type==='email' && val && !validateEmail(val)){ ok=false; showToast('Geçerli e-posta giriniz / Valid email required / Geldig e-mailadres vereist', 'error'); }
         if(inp.dataset.type==='phone' || inp.name?.includes('phone') || inp.id?.includes('phone') || inp.placeholder?.toLowerCase().includes('telefon')){
-          if(val && !validatePhone(val)){ ok=false; showToast('Telefon en az 7 hane olmalı / Phone min 7 digits / Telefoon min 7 cijfers'); }
+          if(val && !validatePhone(val)){ ok=false; showToast('Telefon en az 7 hane olmalı / Phone min 7 digits / Telefoon min 7 cijfers', 'error'); }
         }
       });
       if(!ok){ e.preventDefault?e.preventDefault():null; e.stopPropagation?e.stopPropagation():null; return false; }
@@ -670,5 +654,8 @@ function toggleSidebar(){
 </script>
 
 <script src="js/pwa.js"></script>
+
+  <script src="js/toast.js"></script>
+  <script src="js/validation.js"></script>
 </body>
 </html>

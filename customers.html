@@ -431,6 +431,15 @@
           </tr>
         </thead>
         <tbody>
+      <tr class="empty-state-row" style="display:none;">
+        <td colspan="99" style="padding:0; border:none;">
+          <div class="empty-state">
+            <div class="empty-state-icon">📭</div>
+            <div class="empty-state-title" data-i18n="empty_title">Henüz kayıt yok</div>
+            <div class="empty-state-desc" data-i18n="empty_desc">Bu alanda görüntülenecek veri bulunmuyor.</div>
+          </div>
+        </td>
+      </tr>
           <tr><td><strong>Jan Wouters</strong><br><small>jan@email.be</small></td><td>1-AAA-001</td><td>Brüksel</td><td>12</td><td>€1.240</td><td>⭐ 4.8</td><td><span class="badge badge-warning">VIP</span></td><td><button class="btn btn-ghost btn-sm">Düzenle</button></td></tr>
           <tr><td><strong>Marie Dubois</strong><br><small>marie@email.be</small></td><td>1-BBB-002</td><td>Anvers</td><td>8</td><td>€890</td><td>⭐ 4.5</td><td><span class="badge badge-neutral">Aktif</span></td><td><button class="btn btn-ghost btn-sm">Düzenle</button></td></tr>
           <tr><td><strong>Piet Vermeulen</strong><br><small>piet@email.be</small></td><td>1-CCC-003</td><td>Gent</td><td>15</td><td>€2.100</td><td>⭐ 4.9</td><td><span class="badge badge-warning">VIP</span></td><td><button class="btn btn-ghost btn-sm">Düzenle</button></td></tr>
@@ -476,5 +485,8 @@ function filterCustomers(){
 }
 </script>
 <script src="js/pwa.js"></script>
+
+  <script src="js/toast.js"></script>
+  <script src="js/validation.js"></script>
 </body>
 </html>

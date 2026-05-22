@@ -179,7 +179,7 @@
 </script>
 <body>
 <script src="js/auth.js"></script>
-<script>checkAuth();</script>
+<script>checkAuth(['admin','company']);</script>
 <div class="dashboard">
   <aside class="sidebar" id="sidebar">
     <div class="sidebar-header">
@@ -205,7 +205,7 @@
       <div class="nav-group">
         <div class="nav-group-header">Ayarlar</div>
         <a href="company-profile.html" class="nav-item"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Firma Profili</a>
-        <a href="#" onclick="event.preventDefault();localStorage.removeItem('kobipro_auth_token');localStorage.removeItem('kobipro_user');window.location.href='login.html';" class="nav-item"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>Çıkış Yap</a>
+        <a href="#" onclick="AUTH.logout()" class="nav-item"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>Çıkış Yap</a>
       </div>
     </nav>
   </aside>
@@ -285,6 +285,15 @@
           <table class="table" id="inspectTable">
             <thead><tr><th>Tarih</th><th>Müşteri / Adres</th><th>Çalışan</th><th>Skor</th><th>Kontrol Listesi</th><th>Durum</th><th>İşlemler</th></tr></thead>
             <tbody>
+      <tr class="empty-state-row" style="display:none;">
+        <td colspan="99" style="padding:0; border:none;">
+          <div class="empty-state">
+            <div class="empty-state-icon">📭</div>
+            <div class="empty-state-title" data-i18n="empty_title">Henüz kayıt yok</div>
+            <div class="empty-state-desc" data-i18n="empty_desc">Bu alanda görüntülenecek veri bulunmuyor.</div>
+          </div>
+        </td>
+      </tr>
               <tr data-id="1" data-status="Mükemmel" data-inspector="Ahmet K.">
                 <td>14 May 2026</td>
                 <td><div style="font-weight:600;">Jan Vermeulen</div><div style="font-size:var(--text-xs);color:var(--text-muted);">Rue de la Loi 155, Brüksel</div></td>
@@ -413,16 +422,6 @@
 <script>
 function openModal(id){document.getElementById(id).classList.add('active');}
 function closeModal(id){document.getElementById(id).classList.remove('active');}
-function showToast(msg,type='success',dur=3000){
-  const t=document.createElement('div');
-  const color=type==='success'?'var(--success-500)':type==='error'?'var(--error-500)':'var(--amber-500)';
-  const icon=type==='success'?'✓':type==='error'?'✕':'!';
-  t.style.cssText='position:fixed;top:20px;right:20px;z-index:300;background:var(--bg-card);border:1px solid '+color+';border-radius:var(--radius-lg);padding:14px 18px;display:flex;align-items:center;gap:12px;box-shadow:var(--shadow-xl);animation:toastIn 0.3s ease;min-width:260px;';
-  t.innerHTML='<span style="width:20px;height:20px;border-radius:50%;background:'+color+';color:white;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;">'+icon+'</span><span style="font-size:var(--text-sm);font-weight:500;">'+msg+'</span>';
-  document.body.appendChild(t);
-  setTimeout(()=>{t.style.opacity='0';t.style.transform='translateX(20px)';t.style.transition='all 0.3s';setTimeout(()=>t.remove(),300);},dur);
-}
-
 const inspectData={
   1:{customer:'Jan Vermeulen',date:'14 May 2026',staff:'Ahmet Kaya',inspector:'Ahmet K.',score:9.5,notes:'Mükemmel performans. Tüm alanlar titizlikle temizlendi. Müşteri çok memnun.'},
   2:{customer:'Marie Dubois',date:'13 May 2026',staff:'Merve Demir',inspector:'Merve D.',score:8.0,notes:'Genel olarak iyi. Pencere silme kısmı eksik kalmış, müşteri tarafından belirtildi.'},
@@ -471,5 +470,8 @@ new Chart(document.getElementById('categoryChart'),{
 
 <script src="js/pwa.js"></script>
 <script src="js/export.js"></script>
+
+  <script src="js/toast.js"></script>
+  <script src="js/validation.js"></script>
 </body>
 </html>

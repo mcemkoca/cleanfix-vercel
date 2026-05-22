@@ -140,7 +140,7 @@
 </script>
 <body>
 <script src="js/auth.js"></script>
-<script>checkAuth();</script>
+<script>checkAuth(['admin','company']);</script>
 <div class="dashboard">
   <aside class="sidebar" id="sidebar">
     <div class="sidebar-header">
@@ -159,7 +159,7 @@
       <div class="nav-group">
         <div class="nav-group-header">Ayarlar</div>
         <a href="company-profile.html" class="nav-item"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Firma Profili</a>
-        <a href="#" onclick="event.preventDefault();localStorage.removeItem('kobipro_auth_token');localStorage.removeItem('kobipro_user');window.location.href='login.html';" class="nav-item"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>Çıkış Yap</a>
+        <a href="#" onclick="AUTH.logout()" class="nav-item"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>Çıkış Yap</a>
       </div>
     </nav>
   </aside>
@@ -223,6 +223,15 @@
           <table class="table" id="invoicesTable">
             <thead><tr><th>Fatura No</th><th>Müşteri</th><th>Tarih</th><th>Vade</th><th>Tutar</th><th>Durum</th><th>İşlemler</th></tr></thead>
             <tbody>
+      <tr class="empty-state-row" style="display:none;">
+        <td colspan="99" style="padding:0; border:none;">
+          <div class="empty-state">
+            <div class="empty-state-icon">📭</div>
+            <div class="empty-state-title" data-i18n="empty_title">Henüz kayıt yok</div>
+            <div class="empty-state-desc" data-i18n="empty_desc">Bu alanda görüntülenecek veri bulunmuyor.</div>
+          </div>
+        </td>
+      </tr>
               <tr data-id="1"><td><div style="font-weight:600;">#F-2026-1142</div></td><td>Jan Peeters</td><td>14 Mayıs 2026</td><td>14 Haziran 2026</td><td style="font-weight:600;">€149.00</td><td><span class="tag tag-green">Ödendi</span></td><td><div class="actions"><button class="action-btn edit" onclick="openEditModal(1)" title="Düzenle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(1)" title="Sil"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td></tr>
               <tr data-id="2"><td><div style="font-weight:600;">#F-2026-1141</div></td><td>Lisa Wouters</td><td>13 Mayıs 2026</td><td>13 Haziran 2026</td><td style="font-weight:600;">€89.00</td><td><span class="tag tag-green">Ödendi</span></td><td><div class="actions"><button class="action-btn edit" onclick="openEditModal(2)" title="Düzenle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(2)" title="Sil"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td></tr>
               <tr data-id="3"><td><div style="font-weight:600;">#F-2026-1140</div></td><td>Pieter De Vos</td><td>12 Mayıs 2026</td><td>12 Haziran 2026</td><td style="font-weight:600;">€199.00</td><td><span class="tag tag-amber">Bekliyor</span></td><td><div class="actions"><button class="action-btn edit" onclick="openEditModal(3)" title="Düzenle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(3)" title="Sil"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td></tr>
@@ -306,16 +315,6 @@
 <div class="toast-container" id="toastContainer" style="position:fixed;top:20px;right:20px;z-index:300;"></div>
 
 <script>
-function showToast(msg,type='success',dur=3000){
-  const c=document.getElementById('toastContainer');
-  const t=document.createElement('div');
-  const icon=type==='success'?'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>':'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>';
-  t.style.cssText='background:var(--bg-card);border:1px solid var(--border-color);border-radius:var(--radius-lg);padding:14px 18px;display:flex;align-items:center;gap:12px;box-shadow:var(--shadow-xl);margin-bottom:10px;animation:toastIn 0.3s ease;min-width:260px;';
-  const color=type==='success'?'var(--success-500)':'var(--error-500)';
-  t.innerHTML=`<span style="color:${color};">${icon}</span><span style="font-size:var(--text-sm);font-weight:500;">${msg}</span>`;
-  c.appendChild(t);
-  setTimeout(()=>{t.style.opacity='0';t.style.transform='translateX(20px)';t.style.transition='all 0.3s';setTimeout(()=>t.remove(),300);},dur);
-}
 function openModal(id){document.getElementById(id).classList.add('active');}
 function closeModal(id){document.getElementById(id).classList.remove('active');}
 
@@ -410,5 +409,8 @@ document.getElementById('statusFilter').addEventListener('change',function(){
 
 <script src="js/pwa.js"></script>
 <script src="js/export.js"></script>
+
+  <script src="js/toast.js"></script>
+  <script src="js/validation.js"></script>
 </body>
 </html>

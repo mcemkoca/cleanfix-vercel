@@ -12,15 +12,8 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 <style>
 
-.toast-container{position:fixed;top:24px;right:24px;z-index:9999;display:flex;flex-direction:column;gap:8px;}
-.toast{padding:12px 20px;border-radius:var(--radius-md);font-size:var(--text-sm);font-weight:500;color:white;box-shadow:var(--shadow-lg);animation:toastIn 0.3s ease;max-width:320px;}
-.toast.error{background:var(--error-500);}
-.toast.success{background:var(--success-500);}
-.toast.info{background:var(--info-500);}
-@keyframes toastIn{from{transform:translateX(120%);opacity:0;}to{transform:translateX(0);opacity:1;}}
-@keyframes toastOut{from{transform:translateX(0);opacity:1;}to{transform:translateX(120%);opacity:0;}}
-.toast.out{animation:toastOut 0.3s ease forwards;}
-
+to{transform:translateX(0);opacity:1;}}
+to{transform:translateX(120%);opacity:0;}}
 /* ── Variables Override ── */
 :root, [data-theme="dark"] {
   --glass-bg: rgba(15, 23, 42, 0.60);
@@ -549,8 +542,8 @@
   0%,100% { opacity:1; transform:scale(1); }
   50% { opacity:0.5; transform:scale(1.3); }
 }
-@keyframes toastIn { from{opacity:0;transform:translateY(-20px) scale(0.95);}to{opacity:1;transform:translateY(0) scale(1);} }
-@keyframes toastOut { from{opacity:1;transform:translateY(0) scale(1);}to{opacity:0;transform:translateY(-20px) scale(0.95);} }
+to{opacity:1;transform:translateY(0) scale(1);} }
+to{opacity:0;transform:translateY(-20px) scale(0.95);} }
 @keyframes progressBar { from{width:100%;}to{width:0;} }
 
 /* ── Mobile ── */
@@ -803,7 +796,7 @@
         <span data-i18n="user_admin">Admin</span>
       </div>
     </div>
-    <button onclick="localStorage.removeItem('kobipro_auth_token');localStorage.removeItem('kobipro_user');window.location.href='login.html';" style="margin-top:10px;width:100%;padding:8px;border:1px solid var(--border-color);border-radius:6px;background:transparent;color:var(--text-muted);font-size:0.75rem;cursor:pointer;">Çıkış Yap</button>
+    <button onclick="AUTH.logout()" style="margin-top:10px;width:100%;padding:8px;border:1px solid var(--border-color);border-radius:6px;background:transparent;color:var(--text-muted);font-size:0.75rem;cursor:pointer;">Çıkış Yap</button>
   </div>
 </aside>
 
@@ -1167,6 +1160,15 @@
           <table class="table table-compact">
             <thead><tr><th data-i18n="th_customer">Müşteri</th><th data-i18n="th_service">Hizmet</th><th data-i18n="th_date">Tarih</th><th data-i18n="th_staff">Personel</th><th data-i18n="th_status">Durum</th><th data-i18n="th_amount">Tutar</th></tr></thead>
             <tbody>
+      <tr class="empty-state-row" style="display:none;">
+        <td colspan="99" style="padding:0; border:none;">
+          <div class="empty-state">
+            <div class="empty-state-icon">📭</div>
+            <div class="empty-state-title" data-i18n="empty_title">Henüz kayıt yok</div>
+            <div class="empty-state-desc" data-i18n="empty_desc">Bu alanda görüntülenecek veri bulunmuyor.</div>
+          </div>
+        </td>
+      </tr>
               <tr><td><strong data-i18n="user_name">Jan Wouters</strong></td><td>Premium Yıkama</td><td>12 May</td><td>Lisa M.</td><td><span class="badge badge-success" data-i18n="sched_completed" data-i18n="badge.completed">Tamamlandı</span></td><td>€45</td></tr>
               <tr><td><strong>Marie Dubois</strong></td><td data-i18n="svc_interior">İç Temizlik</td><td>12 May</td><td>Piet V.</td><td><span class="badge badge-warning" data-i18n="sched_in_progress" data-i18n="badge.inProgress">Devam Ediyor</span></td><td>€85</td></tr>
               <tr><td><strong>Luc Vermeulen</strong></td><td>Seramik Kaplama</td><td>11 May</td><td>Jan W.</td><td><span class="badge badge-success" data-i18n="sched_completed" data-i18n="badge.completed">Tamamlandı</span></td><td>€250</td></tr>
@@ -1415,18 +1417,6 @@ document.addEventListener('click',(e)=>{
 });
 
 /* ── Toast ── */
-function showToast(msg,type='success',dur=3000){
-  const c=document.createElement('div');c.className='toast-container';
-  c.style.cssText='position:fixed;top:80px;right:24px;z-index:2000;display:flex;flex-direction:column;gap:12px;pointer-events:none;max-width:360px;';
-  const t=document.createElement('div');
-  const colors={success:'var(--success-500)',error:'var(--error-500)',warning:'var(--warning-500)',info:'var(--info-500)'};
-  const icons={success:'✓',error:'✕',warning:'!',info:'ℹ'};
-  t.style.cssText=`pointer-events:all;background:var(--bg-card);border:1px solid ${colors[type]};border-radius:12px;padding:14px 18px;display:flex;align-items:flex-start;gap:12px;box-shadow:var(--shadow-lg);animation:toastIn 0.3s ease-out;position:relative;overflow:hidden;`;
-  t.innerHTML=`<span style="flex-shrink:0;margin-top:2px;width:20px;height:20px;border-radius:50%;background:${colors[type]};color:white;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;">${icons[type]}</span><div style="flex:1;"><div style="font-weight:600;font-size:var(--text-sm);">${type==='success'?'Başarılı':type==='error'?'Hata':'Bilgi'}</div><div style="font-size:var(--text-sm);color:var(--text-muted);margin-top:2px;">${msg}</div></div><span style="flex-shrink:0;color:var(--text-muted);cursor:pointer;font-size:14px;" onclick="this.parentElement.remove()">✕</span><div style="position:absolute;bottom:0;left:0;height:2px;background:${colors[type]};animation:progressBar 4s linear forwards;width:100%;"></div>`;
-  c.appendChild(t);document.body.appendChild(c);
-  setTimeout(()=>{t.style.animation='toastOut 0.3s ease-in forwards';setTimeout(()=>c.remove(),300);},dur);
-}
-
 /* ── Scroll Reveal ── */
 const revealObserver=new IntersectionObserver((entries)=>{
   entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('visible');}});
@@ -1596,10 +1586,9 @@ document.querySelectorAll('.chart-toggle-btn').forEach(btn=>{
 </script>
 
 <style>
-@keyframes toastIn{from{opacity:0;transform:translateY(-20px) scale(0.95);}to{opacity:1;transform:translateY(0) scale(1);}}
-@keyframes toastOut{from{opacity:1;transform:translateY(0) scale(1);}to{opacity:0;transform:translateY(-20px) scale(0.95);}}
+to{opacity:1;transform:translateY(0) scale(1);}}
+to{opacity:0;transform:translateY(-20px) scale(0.95);}}
 @keyframes progressBar{from{width:100%;}to{width:0;}}
-
 
 /* ── Mobile Responsive ── */
 @media (max-width: 768px) {
@@ -3131,12 +3120,6 @@ window.addEventListener('unhandledrejection', function(e) {
 
 <script>
 (function(){
-  function showToast(msg,type='error'){
-    let c=document.querySelector('.toast-container');
-    if(!c){c=document.createElement('div');c.className='toast-container';document.body.appendChild(c);}
-    let t=document.createElement('div');t.className='toast '+type;t.textContent=msg;c.appendChild(t);
-    setTimeout(()=>{t.classList.add('out');setTimeout(()=>t.remove(),300);},4000);
-  }
   function validateEmail(v){return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);}
   function validatePhone(v){return v.replace(/\D/g,'').length>=7;}
   document.querySelectorAll('form, .modal').forEach(form=>{
@@ -3151,9 +3134,9 @@ window.addEventListener('unhandledrejection', function(e) {
         const val=inp.value.trim();
         const req=inp.required||inp.classList.contains('required');
         if(req && !val){ ok=false; inp.style.borderColor='var(--error-500)'; setTimeout(()=>inp.style.borderColor='',2000); }
-        if(inp.type==='email' && val && !validateEmail(val)){ ok=false; showToast('Geçerli e-posta giriniz / Valid email required / Geldig e-mailadres vereist'); }
+        if(inp.type==='email' && val && !validateEmail(val)){ ok=false; showToast('Geçerli e-posta giriniz / Valid email required / Geldig e-mailadres vereist', 'error'); }
         if(inp.dataset.type==='phone' || inp.name?.includes('phone') || inp.id?.includes('phone') || inp.placeholder?.toLowerCase().includes('telefon')){
-          if(val && !validatePhone(val)){ ok=false; showToast('Telefon en az 7 hane olmalı / Phone min 7 digits / Telefoon min 7 cijfers'); }
+          if(val && !validatePhone(val)){ ok=false; showToast('Telefon en az 7 hane olmalı / Phone min 7 digits / Telefoon min 7 cijfers', 'error'); }
         }
       });
       if(!ok){ e.preventDefault?e.preventDefault():null; e.stopPropagation?e.stopPropagation():null; return false; }
@@ -3182,9 +3165,12 @@ function launchModule(moduleId) {
 /* ===== AUTH CHECK (external) ===== */
 </script>
 <script src="js/auth.js"></script>
-<script>checkAuth();</script>
+<script>checkAuth(['admin','company']);</script>
 <script>
 
 <script src="js/pwa.js"></script>
+
+  <script src="js/toast.js"></script>
+  <script src="js/validation.js"></script>
 </body>
 </html>

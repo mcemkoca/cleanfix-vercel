@@ -9,15 +9,8 @@
 <link rel="stylesheet" href="css/components.css">
 <style>
 
-.toast-container{position:fixed;top:24px;right:24px;z-index:9999;display:flex;flex-direction:column;gap:8px;}
-.toast{padding:12px 20px;border-radius:var(--radius-md);font-size:var(--text-sm);font-weight:500;color:white;box-shadow:var(--shadow-lg);animation:toastIn 0.3s ease;max-width:320px;}
-.toast.error{background:var(--error-500);}
-.toast.success{background:var(--success-500);}
-.toast.info{background:var(--info-500);}
-@keyframes toastIn{from{transform:translateX(120%);opacity:0;}to{transform:translateX(0);opacity:1;}}
-@keyframes toastOut{from{transform:translateX(0);opacity:1;}to{transform:translateX(120%);opacity:0;}}
-.toast.out{animation:toastOut 0.3s ease forwards;}
-
+to{transform:translateX(0);opacity:1;}}
+to{transform:translateX(120%);opacity:0;}}
 *{box-sizing:border-box;}
 body{margin:0;font-family:'Inter',sans-serif;background:var(--bg-primary);color:var(--text-primary);}
 
@@ -128,7 +121,6 @@ body{margin:0;font-family:'Inter',sans-serif;background:var(--bg-primary);color:
 .cal-mini .cal-day.event::after{content:'';position:absolute;bottom:2px;left:50%;transform:translateX(-50%);width:4px;height:4px;border-radius:50%;background:var(--amber-500);}
 
 /* Toast */
-.toast{position:fixed;bottom:24px;right:24px;background:var(--bg-card);border:1px solid var(--border-color);border-radius:var(--radius-lg);padding:14px 20px;display:flex;align-items:center;gap:10px;box-shadow:var(--shadow-lg);z-index:300;transform:translateY(100px);opacity:0;transition:all 0.3s ease;}
 .toast.show{transform:translateY(0);opacity:1;}
 
 /* Responsive */
@@ -148,7 +140,6 @@ body{margin:0;font-family:'Inter',sans-serif;background:var(--bg-primary);color:
 }
 .lang-switcher button:hover { color:var(--text-primary); }
 .lang-switcher button.active { background:var(--teal-500); color:white; }
-
 
 /* ── Mobile Responsive ── */
 @media (max-width: 768px) {
@@ -256,6 +247,7 @@ body{margin:0;font-family:'Inter',sans-serif;background:var(--bg-primary);color:
 
 <!-- Canonical -->
 <link rel="canonical" href="https://mcemkoca.github.io/cleanfix-vercel/customer-portal.html">
+<script src="js/auth.js"></script>
 </head>
 
 <!-- Global Error Boundary -->
@@ -277,6 +269,7 @@ body{margin:0;font-family:'Inter',sans-serif;background:var(--bg-primary);color:
 })();
 </script>
 <body>
+<script>checkAuth('customer');</script>
 
 <!-- LOGIN VIEW -->
 <div class="login-wrap" id="loginView">
@@ -286,11 +279,11 @@ body{margin:0;font-family:'Inter',sans-serif;background:var(--bg-primary);color:
     <div class="login-subtitle" data-i18n="portal_login_subtitle">CleanFix hizmetlerinizi yönetin</div>
     <div class="login-field">
       <label data-i18n="label_email">E-posta</label>
-      <input type="email" id="loginEmail" data-i18n-placeholder="ph_email" placeholder="ornek@email.com" data-i18n-placeholder="ph_0" value="jan.peeters@kantoor.be">
+      <input type="email" id="loginEmail" data-i18n-placeholder="ph_email" placeholder="ornek@email.com" data-i18n-placeholder="ph_0">
     </div>
     <div class="login-field">
       <label data-i18n="label_password">Şifre</label>
-      <input type="password" id="loginPass" data-i18n-placeholder="ph_password" placeholder="••••••••" data-i18n-placeholder="ph_1" value="password123">
+      <input type="password" id="loginPass" data-i18n-placeholder="ph_password" placeholder="••••••••" data-i18n-placeholder="ph_1">
     </div>
     <button class="login-btn" onclick="doLogin()" data-i18n="btn_login">Giriş Yap</button>
     <div class="login-footer" data-i18n="portal_footer">CleanFix Demo BV © 2026</div>
@@ -462,6 +455,15 @@ body{margin:0;font-family:'Inter',sans-serif;background:var(--bg-primary);color:
           <table class="portal-table" id="ticketsTable">
             <thead><tr><th>No</th><th data-i18n="form_subject">Konu</th><th data-i18n="form_status">Durum</th><th data-i18n="form_priority">Öncelik</th><th data-i18n="th_date">Tarih</th></tr></thead>
             <tbody>
+      <tr class="empty-state-row" style="display:none;">
+        <td colspan="99" style="padding:0; border:none;">
+          <div class="empty-state">
+            <div class="empty-state-icon">📭</div>
+            <div class="empty-state-title" data-i18n="empty_title">Henüz kayıt yok</div>
+            <div class="empty-state-desc" data-i18n="empty_desc">Bu alanda görüntülenecek veri bulunmuyor.</div>
+          </div>
+        </td>
+      </tr>
               <tr><td><strong data-i18n="tk-2026-45">#TK-2026-45</strong></td><td data-i18n="ofis_mutfak_dolabı_temizliği">Ofis mutfak dolabı temizliği</td><td><span class="badge badge-blue" data-i18n="status_open">Açık</span></td><td><span class="badge badge-amber" data-i18n="status_high">Yüksek</span></td><td>13 Mayıs</td></tr>
               <tr><td><strong data-i18n="tk-2026-44">#TK-2026-44</strong></td><td data-i18n="koridor_halıları_leke_çıkarma">Koridor halıları leke çıkarma</td><td><span class="badge badge-blue" data-i18n="status_open">Açık</span></td><td><span class="badge badge-green" data-i18n="status_medium">Orta</span></td><td>12 Mayıs</td></tr>
               <tr><td><strong data-i18n="tk-2026-38">#TK-2026-38</strong></td><td data-i18n="pencere_pervazları_toz_temizliği">Pencere pervazları toz temizliği</td><td><span class="badge badge-green" data-i18n="status_resolved">Çözüldü</span></td><td><span class="badge badge-green" data-i18n="status_low_prio">Düşük</span></td><td>5 Mayıs</td></tr>
@@ -538,6 +540,15 @@ body{margin:0;font-family:'Inter',sans-serif;background:var(--bg-primary);color:
           <table class="portal-table">
             <thead><tr><th data-i18n="fatura_no">Fatura No</th><th data-i18n="th_date">Tarih</th><th data-i18n="th_amount">Tutar</th><th data-i18n="form_status">Durum</th><th data-i18n="işlem">İşlem</th></tr></thead>
             <tbody>
+      <tr class="empty-state-row" style="display:none;">
+        <td colspan="99" style="padding:0; border:none;">
+          <div class="empty-state">
+            <div class="empty-state-icon">📭</div>
+            <div class="empty-state-title" data-i18n="empty_title">Henüz kayıt yok</div>
+            <div class="empty-state-desc" data-i18n="empty_desc">Bu alanda görüntülenecek veri bulunmuyor.</div>
+          </div>
+        </td>
+      </tr>
               <tr><td><strong data-i18n="f-2026-1020">#F-2026-1020</strong></td><td>14 Mayıs 2026</td><td style="font-weight:600;">€149</td><td><span class="badge badge-green" data-i18n="status_paid">Ödendi</span></td><td><button class="action-btn" onclick="downloadInvoice('F-2026-1020',149)" title="İndir" style="width:32px;height:32px;border-radius:var(--radius-md);background:var(--bg-tertiary);border:1px solid var(--border-color);display:flex;align-items:center;justify-content:center;color:var(--text-secondary);cursor:pointer;">⬇</button></td></tr>
               <tr><td><strong data-i18n="f-2026-1015">#F-2026-1015</strong></td><td>7 Mayıs 2026</td><td style="font-weight:600;">€89</td><td><span class="badge badge-green" data-i18n="status_paid">Ödendi</span></td><td><button class="action-btn" onclick="downloadInvoice('F-2026-1015',89)" title="İndir" style="width:32px;height:32px;border-radius:var(--radius-md);background:var(--bg-tertiary);border:1px solid var(--border-color);display:flex;align-items:center;justify-content:center;color:var(--text-secondary);cursor:pointer;">⬇</button></td></tr>
               <tr><td><strong data-i18n="f-2026-1008">#F-2026-1008</strong></td><td>30 Nis 2026</td><td style="font-weight:600;">€199</td><td><span class="badge badge-green" data-i18n="status_paid">Ödendi</span></td><td><button class="action-btn" onclick="downloadInvoice('F-2026-1008',199)" title="İndir" style="width:32px;height:32px;border-radius:var(--radius-md);background:var(--bg-tertiary);border:1px solid var(--border-color);display:flex;align-items:center;justify-content:center;color:var(--text-secondary);cursor:pointer;">⬇</button></td></tr>
@@ -580,9 +591,9 @@ body{margin:0;font-family:'Inter',sans-serif;background:var(--bg-primary);color:
           </div>
           <div class="portal-card-body">
             <div style="display:flex;flex-direction:column;gap:10px;">
-              <button class="btn btn-primary" style="justify-content:flex-start;" onclick="showToast('Yeni randevu talebi gönderildi')" data-i18n="yeni_randevu_talep_et">📅 Yeni Randevu Talep Et</button>
-              <button class="btn btn-secondary" style="justify-content:flex-start;" onclick="showToast('Teklif talebiniz alındı')" data-i18n="teklif_iste">📄 Teklif İste</button>
-              <button class="btn btn-secondary" style="justify-content:flex-start;" onclick="showToast('Canlı destek bağlantısı hazırlanıyor...')" data-i18n="canlı_destek">💬 Canlı Destek</button>
+              <button class="btn btn-primary" style="justify-content:flex-start;" onclick="showToast('Yeni randevu talebi gönderildi', 'success')" data-i18n="yeni_randevu_talep_et">📅 Yeni Randevu Talep Et</button>
+              <button class="btn btn-secondary" style="justify-content:flex-start;" onclick="showToast('Teklif talebiniz alındı', 'success')" data-i18n="teklif_iste">📄 Teklif İste</button>
+              <button class="btn btn-secondary" style="justify-content:flex-start;" onclick="showToast('Canlı destek bağlantısı hazırlanıyor...', 'info')" data-i18n="canlı_destek">💬 Canlı Destek</button>
             </div>
           </div>
         </div>
@@ -595,16 +606,28 @@ body{margin:0;font-family:'Inter',sans-serif;background:var(--bg-primary);color:
 <div class="toast" id="toast"><span id="toastMsg"></span></div>
 
 <script>
-function showToast(msg){const t=document.getElementById('toast');document.getElementById('toastMsg').textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),3000);}
-function doLogin(){const e=document.getElementById('loginEmail').value.trim();const p=document.getElementById('loginPass').value;if(!e.includes('@')||!p||p.length<4){showToast('Geçerli e-posta ve şifre giriniz','error');return;}localStorage.setItem('cf_portal_user',e);document.getElementById('loginView').style.display='none';document.getElementById('portalView').style.display='block';showToast('Hoş geldiniz, Jan Peeters');}
-function doLogout(){localStorage.removeItem('cf_portal_user');document.getElementById('portalView').style.display='none';document.getElementById('loginView').style.display='flex';showToast('Çıkış yapıldı');}
+function doLogin(){
+  const e=document.getElementById('loginEmail').value.trim();
+  const p=document.getElementById('loginPass').value;
+  if(!e.includes('@')||!p||p.length<4){showToast('Geçerli e-posta ve şifre giriniz','error');return;}
+  AUTH.setSession('customer', e, e);
+  document.getElementById('loginView').style.display='none';
+  document.getElementById('portalView').style.display='block';
+  showToast('Hoş geldiniz', 'success');
+}
+function doLogout(){AUTH.logout();}
 function previewPhotos(input){const prev=document.getElementById('photoPreview');prev.innerHTML='';Array.from(input.files).forEach(file=>{const reader=new FileReader();reader.onload=e=>{const img=document.createElement('img');img.src=e.target.result;img.className='photo-thumb';prev.appendChild(img);};reader.readAsDataURL(file);});}
-function submitTicket(){const sub=document.getElementById('tSubject').value;const pri=document.getElementById('tPriority').value;const svc=document.getElementById('tService').value;if(!sub){showToast('Lütfen konu girin');return;}const id='TK-2026-'+(Math.floor(Math.random()*900)+100);showToast('Talep oluşturuldu — #'+id);const tbody=document.querySelector('#ticketsTable tbody');const row=document.createElement('tr');row.innerHTML='<td><strong>#'+id+'</strong></td><td>'+sub+'</td><td><span class="badge badge-blue">Açık</span></td><td><span class="badge '+(pri==='Acil'||pri==='Yüksek'?'badge-amber':'badge-green')+'">'+pri+'</span></td><td>Bugün</td>';tbody.insertBefore(row,tbody.firstChild);document.getElementById('tSubject').value='';document.getElementById('tDesc').value='';document.getElementById('tPhoto').value='';document.getElementById('photoPreview').innerHTML='';}
-function downloadInvoice(num,amt){showToast('Fatura indiriliyor... '+num);const content='FATURA\n\nCleanFix Demo BV\nBrusselsesteenweg 432\n9090 Melle\n\nMüşteri: Jan Peeters\nFatura: '+num+'\nTutar: €'+amt+'\n\nTeşekkürler!';const blob=new Blob([content],{type:'text/plain'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=num+'.txt';a.click();URL.revokeObjectURL(url);}
+function submitTicket(){const sub=document.getElementById('tSubject').value;const pri=document.getElementById('tPriority').value;const svc=document.getElementById('tService').value;if(!sub){showToast('Lütfen konu girin', 'info');return;}const id='TK-2026-'+(Math.floor(Math.random()*900)+100);showToast('Talep oluşturuldu — #'+id);const tbody=document.querySelector('#ticketsTable tbody');const row=document.createElement('tr');row.innerHTML='<td><strong>#'+id+'</strong></td><td>'+sub+'</td><td><span class="badge badge-blue">Açık</span></td><td><span class="badge '+(pri==='Acil'||pri==='Yüksek'?'badge-amber':'badge-green')+'">'+pri+'</span></td><td>Bugün</td>';tbody.insertBefore(row,tbody.firstChild);document.getElementById('tSubject').value='';document.getElementById('tDesc').value='';document.getElementById('tPhoto').value='';document.getElementById('photoPreview').innerHTML='';}
+function downloadInvoice(num,amt){showToast('Fatura indiriliyor... '+num);const content='FATURA\n\nCleanFix Demo BV\nBrusselsesteenweg 432\n9090 Melle\n\nMüşteri: '+num+'\nFatura: '+num+'\nTutar: €'+amt+'\n\nTeşekkürler!';const blob=new Blob([content],{type:'text/plain'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=num+'.txt';a.click();URL.revokeObjectURL(url);}
 function changeMonth(dir){showToast(dir>0?'Sonraki ay':'Önceki ay');}
-window.onload=function(){if(localStorage.getItem('cf_portal_user')){document.getElementById('loginView').style.display='none';document.getElementById('portalView').style.display='block';}};
+window.onload=function(){
+  const user=AUTH.getUser();
+  if(AUTH.isValid() && user && user.role==='customer'){
+    document.getElementById('loginView').style.display='none';
+    document.getElementById('portalView').style.display='block';
+  }
+};
 </script>
-
 
 <script>
 /* ═══════════════════════════════════════════
@@ -1671,12 +1694,6 @@ window.addEventListener('unhandledrejection', function(e) {
 
 <script>
 (function(){
-  function showToast(msg,type='error'){
-    let c=document.querySelector('.toast-container');
-    if(!c){c=document.createElement('div');c.className='toast-container';document.body.appendChild(c);}
-    let t=document.createElement('div');t.className='toast '+type;t.textContent=msg;c.appendChild(t);
-    setTimeout(()=>{t.classList.add('out');setTimeout(()=>t.remove(),300);},4000);
-  }
   function validateEmail(v){return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);}
   function validatePhone(v){return v.replace(/\D/g,'').length>=7;}
   document.querySelectorAll('form, .modal').forEach(form=>{
@@ -1691,9 +1708,9 @@ window.addEventListener('unhandledrejection', function(e) {
         const val=inp.value.trim();
         const req=inp.required||inp.classList.contains('required');
         if(req && !val){ ok=false; inp.style.borderColor='var(--error-500)'; setTimeout(()=>inp.style.borderColor='',2000); }
-        if(inp.type==='email' && val && !validateEmail(val)){ ok=false; showToast('Geçerli e-posta giriniz / Valid email required / Geldig e-mailadres vereist'); }
+        if(inp.type==='email' && val && !validateEmail(val)){ ok=false; showToast('Geçerli e-posta giriniz / Valid email required / Geldig e-mailadres vereist', 'error'); }
         if(inp.dataset.type==='phone' || inp.name?.includes('phone') || inp.id?.includes('phone') || inp.placeholder?.toLowerCase().includes('telefon')){
-          if(val && !validatePhone(val)){ ok=false; showToast('Telefon en az 7 hane olmalı / Phone min 7 digits / Telefoon min 7 cijfers'); }
+          if(val && !validatePhone(val)){ ok=false; showToast('Telefon en az 7 hane olmalı / Phone min 7 digits / Telefoon min 7 cijfers', 'error'); }
         }
       });
       if(!ok){ e.preventDefault?e.preventDefault():null; e.stopPropagation?e.stopPropagation():null; return false; }
@@ -1711,5 +1728,8 @@ function toggleSidebar(){
 
 <script src="js/pwa.js"></script>
   <script src="js/app.js"></script>
+
+  <script src="js/toast.js"></script>
+  <script src="js/validation.js"></script>
 </body>
 </html>

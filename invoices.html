@@ -278,6 +278,15 @@
             <tr><th>Fatura No</th><th>Müşteri</th><th>Tarih</th><th>Son Ödeme</th><th>Tutar</th><th>Durum</th><th>İşlem</th></tr>
           </thead>
           <tbody id="invoiceBody">
+      <tr class="empty-state-row" style="display:none;">
+        <td colspan="99" style="padding:0; border:none;">
+          <div class="empty-state">
+            <div class="empty-state-icon">📭</div>
+            <div class="empty-state-title" data-i18n="empty_title">Henüz kayıt yok</div>
+            <div class="empty-state-desc" data-i18n="empty_desc">Bu alanda görüntülenecek veri bulunmuyor.</div>
+          </div>
+        </td>
+      </tr>
             <tr data-status="Ödendi"><td class="invoice-id">#INV-2024-089</td><td class="invoice-customer">Jan Wouters</td><td>12 May 2026</td><td>26 May 2026</td><td class="invoice-amount">€45.00</td><td><span class="status-paid">✓ Ödendi</span></td><td><button class="btn btn-ghost btn-sm" onclick="showToast('Fatura detayları açılıyor...','info')">Detay</button></td></tr>
             <tr data-status="Ödendi"><td class="invoice-id">#INV-2024-088</td><td class="invoice-customer">Luc Vermeulen</td><td>11 May 2026</td><td>25 May 2026</td><td class="invoice-amount">€250.00</td><td><span class="status-paid">✓ Ödendi</span></td><td><button class="btn btn-ghost btn-sm" onclick="showToast('Fatura detayları açılıyor...','info')">Detay</button></td></tr>
             <tr data-status="Bekliyor"><td class="invoice-id">#INV-2024-087</td><td class="invoice-customer">Sophie Dewitt</td><td>11 May 2026</td><td>25 May 2026</td><td class="invoice-amount">€120.00</td><td><span class="status-pending">⏳ Bekliyor</span></td><td><button class="btn btn-ghost btn-sm" onclick="showToast('Fatura detayları açılıyor...','info')">Detay</button></td></tr>
@@ -339,5 +348,8 @@ function filterInvoices(){
 }
 </script>
 <script src="js/pwa.js"></script>
+
+  <script src="js/toast.js"></script>
+  <script src="js/validation.js"></script>
 </body>
 </html>
