@@ -1,0 +1,229 @@
+================================================================================
+CLEANFIX TASARIM KONTROLÜ #3 — FINAL RAPOR
+Tarih: 2026-05-21 | Kontrol Alanı: SEO, Favicon, Sitemap, 404, A11Y, Error Boundary
+================================================================================
+
+--------------------------------------------------------------------------------
+1. SEO META TAGS
+--------------------------------------------------------------------------------
+DURUM: ⚠️ KRİTİK EKSİKLİKLER VAR
+
+Toplam HTML sayfa: 110
+
+✅ BAŞARILI:
+  • charset (UTF-8):          110 / 110  (100%)
+  • viewport:                 109 / 110  (99%)
+  • <title>:                  110 / 110  (100%)
+  • keywords (TR/EN/NL):      index.html'de var
+
+❌ EKSİK / ZAYIF:
+  • meta description:           6 / 110  (  5%) — 104 sayfada YOK
+  • canonical link:             1 / 110  ( <1%) — sadece index.html
+  • og:title (Open Graph):      1 / 110  ( <1%)
+  • og:description:             1 / 110  ( <1%)
+  • og:image:                   1 / 110  ( <1%)
+  • twitter:card:               1 / 110  ( <1%)
+  • twitter:title:              1 / 110  ( <1%)
+  • twitter:description:        1 / 110  ( <1%)
+  • favicon link (<link rel="icon">): 0 / 110  (  0%)
+  • web app manifest link:     31 / 110  ( 28%)
+
+SONUÇ: Arama motorları ve sosyal medya botları, 104 sayfa için açıklama,
+       canonical URL ve preview görseli göremiyor. SEO puanı düşük.
+
+--------------------------------------------------------------------------------
+2. FAVICON & PWA ICONLARI
+--------------------------------------------------------------------------------
+DURUM: ❌ FAVICON TAMAMEN EKSİK
+
+  • favicon.ico:              YOK  (tarayıcı tab'larında boş ikon)
+  • assets/icon-*.png:        VAR  (72,96,128,144,152,192,384,512 px)
+  • manifest.json:            VAR  (PWA konfigürasyonu doğru)
+  • <link rel="icon">:        YOK  (HIÇBİR sayfada yok)
+  • <link rel="apple-touch-icon">: YOK
+  • msapplication-TileImage:  YOK
+
+SONUÇ: Tarayıcı tab'ları, bookmark'lar ve mobil "Add to Home Screen"
+        akışında ikon gözükmeyecek. Favicon.ico + icon linkleri eklenmeli.
+
+--------------------------------------------------------------------------------
+3. SITEMAP.XML
+--------------------------------------------------------------------------------
+DURUM: ⚠️ İÇERİK VAR, URL'LER GÜNCELLENMELİ
+
+  • Dosya:                    sitemap.xml (MEVCUT)
+  • URL sayısı:               ~55 sayfa
+  • priority/changeFreq:        DOĞRU
+  • Sektor alt yapıları:      DOĞRU (BuildPro, BarberPro, MarketPro,
+                                     RestoPro, WoodPro, ElektroPro)
+
+❌ SORUN:
+  Sitemap URL'leri hala eski GitHub Pages adresini gösteriyor:
+    https://mcemkoca.github.io/cleanfix-vercel/...
+
+  Vercel deploy'una geçildiğinde şu adrese güncellenmeli:
+    https://cleanfix.vercel.app/  (veya gerçek custom domain)
+
+SONUÇ: Arama motorları eski GitHub Pages adresini taramaya devam ederse
+       404/redirect zinciri oluşur. Deploy öncesi sitemap URL'leri
+       mutlaka güncellenmeli.
+
+--------------------------------------------------------------------------------
+4. 404 SAYFASI
+--------------------------------------------------------------------------------
+DURUM: ✅ MEVCUT, GÖRSEL AÇIDAN GÜÇLÜ
+
+  • Dosya:                    404.html (MEVCUT)
+  • Dil desteği:              TR / EN / NL (tam 3 dilli)
+  • Animasyon:                VAR (orb float, card enter, emoji float)
+  • Geri dönüş butonu:        VAR
+  • Responsive:               EVET
+  • Görsel tutarlılık:        Ana tema ile uyumlu (dark gradient, teal accent)
+
+SONUÇ: 404 sayfası profesyonel, dilli ve görsellik açısından zengin.
+       Vercel'de otomatik olarak sunulur.
+
+--------------------------------------------------------------------------------
+5. ERROR BOUNDARY & RUNTIME ERROR HANDLING
+--------------------------------------------------------------------------------
+DURUM: ⚠️ MERKEZİ YÖNETİM EKSİK
+
+  • window.onerror:           Birkaç sayfada lokal tanımlı
+  • window.addEventListener('error'):  Dağınık, tutarlı değil
+  • Global error handler:     YOK (app.js seviyesinde merkezi try/catch yok)
+  • React/Vue error boundary: N/A (vanilla HTML projesi)
+  • Kullanıcı dostu hata mesajı:  YOK (JS hatası = boş/beyaz ekran riski)
+
+SONUÇ: Vanilla JS projesinde tüm fetch() çağrıları, DOM manipülasyonları
+       ve event handler'lar merkezi bir error boundary ile sarilmalı.
+       Aksi halde bir modüldeki hata tüm sayfayı kilitleyebilir.
+
+--------------------------------------------------------------------------------
+6. ACCESSIBILITY (a11y) — WCAG 2.1 AA
+--------------------------------------------------------------------------------
+DURUM: ❌ KRİTİK A11Y EKSİKLİKLERİ VAR
+
+A. KONTRAST ORANLARI (Dark Theme — en kritik):
+
+  ✅ BAŞARILI (AA normal text ≥ 4.5):
+    • text-primary (#f1f5f9)   on bg-card (#111827)  = 16.19  ✓
+    • text-secondary (#94a3b8) on bg-card (#111827)  =  6.92  ✓
+    • teal-500 (#14b8a6)       on bg-card (#111827)  =  7.13  ✓
+    • teal-400 (#2dd4bf)       on bg-card (#111827)  =  9.53  ✓
+    • amber-500 (#f59e0b)      on bg-card (#111827)  =  8.26  ✓
+    • error-500 (#f43f5e)      on bg-card (#111827)  =  4.83  ✓
+    • success-500 (#10b981)    on bg-card (#111827)  =  6.99  ✓
+    • warning-500 (#f97316)    on bg-card (#111827)  =  6.33  ✓
+    • info-500 (#3b82f6)       on bg-card (#111827)  =  4.82  ✓
+
+  ⚠️ SINIRDA (AA large text ≥ 3.0, normal text < 4.5):
+    • text-muted (#64748b)     on bg-card (#111827)  =  3.73  ⚠️
+      (Küçük metinlerde yetersiz, büyük metin/başlıklarda kabul edilebilir)
+
+  ❌ BAŞARISIZ (< 3.0):
+    • text-placeholder (#475569) on bg-input (#1e293b) =  1.93  ✗
+      (Input placeholder'ları neredeyse görünmez!)
+    • border-color (#1e293b)   on bg-primary (#0b1120) =  1.29  ✗
+      (Dark mode'da border'lar neredeyse yok — kart ayrımı zayıf)
+
+B. ARIA & SEMANTIK HTML:
+
+  • aria-label kullanımı:     22 adet (toplam 110 sayfa için ÇOK AZ)
+  • role attribute:           ~1 adet (neredeyse hiç yok)
+  • <img> etiketi:            0 adet (CSS background-image kullanımı)
+  • alt text sorunu:          N/A (img yok ama dekoratif SVG varsa
+                              aria-hidden="true" gerekli)
+  • button type="button":     Tutarsız (form dışı butonlar)
+  • Skip-to-content link:     YOK
+  • Landmark regions:         <header>, <main>, <footer> kullanımı
+                              tutarsız — çoğu <div> tabanlı
+
+SONUÇ: Placeholder metinleri ve border kontrastı ciddi okunabilirlik sorunu.
+       Ekran okuyucu kullanıcıları için navigasyon zayıf.
+       Aria-label'ler butonlara, menülere ve modal'lara eklenmeli.
+
+--------------------------------------------------------------------------------
+7. VERCEL.YAPILANDIRMASI
+--------------------------------------------------------------------------------
+DURUM: ⚠️ GÜVENLİK İYİ, ROUTING EKSİK
+
+  ✅ BAŞARILI:
+    • Security headers:         X-Frame-Options, X-Content-Type-Options,
+                                Referrer-Policy — hepsi mevcut
+    • Static asset caching:     1 yıllık immutable cache
+    • SPA rewrite'ları:        /dashboard, /login vb. → .html
+
+  ❌ EKSİK:
+    • Trailing slash redirect:  YOK (SEO duplicate content riski)
+    • Catch-all 404 rewrite:    YOK (olmayan path'ler için)
+    • HSTS header:              YOK
+    • CSP (Content-Security-Policy): YOK (XSS koruması zayıf)
+
+SONUÇ: Güvenlik temelleri var ama production-grade bir SaaS için
+       CSP ve HSTS eklenmeli. SPA routing için catch-all 404 rewrite
+       Vercel'de otomatik 404.html'e yönlendirir ama explicit tanımlamak
+       daha sağlıklıdır.
+
+--------------------------------------------------------------------------------
+8. OG-IMAGE (SOSYAL MEDYA PREVIEW)
+--------------------------------------------------------------------------------
+DURUM: ❌ TAMAMEN EKSİK
+
+  • assets/og-image.png:        YOK
+  • OG meta tag'leri:         Sadece index.html'de referans ediyor
+  • Twitter card image:       YOK
+
+SONUÇ: LinkedIn, Twitter, WhatsApp paylaşımlarında boş/bozuk preview.
+       1200×630 px OG image oluşturulup tüm landing/sektör sayfalarına
+       sayfa-özel OG image eklenmeli.
+
+================================================================================
+                      ÖZET & ÖNERİLEN EYLEM PLANI
+================================================================================
+
+  KRİTİK (Deploy Öncesi Mutlaka):
+  ────────────────────────────────
+  1. favicon.ico oluştur (32×32, 16×16 multi-size) + tüm sayfalara
+     <link rel="icon" href="favicon.ico"> ve <link rel="apple-touch-icon">
+     ekle.
+  2. TÜM 110 HTML sayfaya meta description, canonical, og:title,
+     og:description, og:image, twitter:card ekleyebilecek bir script
+     yaz ve çalıştır (template bazlı batch işlem).
+  3. sitemap.xml URL'lerini Vercel domain'e güncelle.
+  4. assets/og-image.png oluştur (1200×630).
+  5. text-placeholder rengini aç (#64748b veya daha açık bir ton).
+  6. border-color rengini aç (#334155 veya daha açık).
+
+  YÜKSEK ÖNCELİKLİ (Deploy sonrası ilk hafta):
+  ─────────────────────────────────────────────
+  7. 110 sayfaya web app manifest linki ekle.
+  8. Tüm butonlara, menülere, modal'lara aria-label ekle.
+  9. app.js'e merkezi window.onerror + window.addEventListener('unhandledrejection')
+     handler ekle (kullanıcı dostu toast mesajı gösteren).
+  10. vercel.json'a CSP ve HSTS header'ları ekle.
+
+  ORTA ÖNCELİKLİ (Sprint içinde):
+  ────────────────────────────────
+  11. Her sektör/landing sayfası için özel OG image.
+  12. Skip-to-content link ekle.
+  13. Semantic HTML dönüşümü (<div> → <header>, <main>, <nav>, <footer>).
+
+================================================================================
+  SKOR (0–100):
+    SEO Meta Coverage:        15 / 100  ❌
+    Favicon / PWA:            40 / 100  ⚠️
+    Sitemap:                  60 / 100  ⚠️
+    404 Page:                 90 / 100  ✅
+    Error Boundary:           20 / 100  ❌
+    Accessibility (Contrast): 65 / 100  ⚠️
+    Accessibility (ARIA):     15 / 100  ❌
+    Vercel Config:            60 / 100  ⚠️
+    OG Image:                  5 / 100  ❌
+  ─────────────────────────────────────
+    GENEL ORTALAMA:           41 / 100
+================================================================================
+
+Bu turda en acil olan: FAVICON + META DESCRIPTION + OG IMAGE + SITEMAP URL
+bir batch script ile aynı anda çözülebilir.
+
+Rapor sonu.

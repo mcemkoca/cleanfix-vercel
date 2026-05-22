@@ -217,7 +217,65 @@ body{margin:0;font-family:'Inter',sans-serif;background:var(--bg-primary);color:
 <meta name="apple-mobile-web-app-title" content="CleanFix">
 <link rel="apple-touch-icon" href="assets/icon-192.png">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://fonts.googleapis.com https://unpkg.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self';">
+
+<!-- Favicon & PWA Icons -->
+<link rel="icon" type="image/png" sizes="72x72" href="assets/icon-72.png">
+<link rel="icon" type="image/png" sizes="96x96" href="assets/icon-96.png">
+<link rel="icon" type="image/png" sizes="128x128" href="assets/icon-128.png">
+<link rel="icon" type="image/png" sizes="192x192" href="assets/icon-192.png">
+<link rel="apple-touch-icon" sizes="152x152" href="assets/icon-152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="assets/icon-192.png">
+<link rel="mask-icon" href="assets/icon-192.png" color="#0d9488">
+
+<!-- SEO Meta Tags -->
+<meta name="description" content="Müşteri self-servis portalı. Randevu, teklif ve hizmet geçmişi.">
+<meta name="keywords" content="KOBİ, SaaS, temizlik yönetimi, inşaat yönetimi, berber programı, market POS, restoran yönetimi, marangoz sipariş, elektrik tesisat, Belçika, MKB, schoonmaak, kapsalon, bouw, winkel, restaurant, horeca">
+<meta name="author" content="Deuterium12{MCK}">
+<meta name="robots" content="index, follow">
+<meta name="googlebot" content="index, follow">
+<meta name="bingbot" content="index, follow">
+
+<!-- Open Graph / Facebook -->
+<meta property="og:title" content="CleanFix — Müşteri Portalı">
+<meta property="og:description" content="Müşteri self-servis portalı. Randevu, teklif ve hizmet geçmişi.">
+<meta property="og:url" content="https://mcemkoca.github.io/cleanfix-vercel/customer-portal.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="CleanFix">
+<meta property="og:image" content="https://mcemkoca.github.io/cleanfix-vercel/assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="tr_TR">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="CleanFix — Müşteri Portalı">
+<meta name="twitter:description" content="Müşteri self-servis portalı. Randevu, teklif ve hizmet geçmişi.">
+<meta name="twitter:image" content="https://mcemkoca.github.io/cleanfix-vercel/assets/og-image.png">
+<meta name="twitter:site" content="@cleanfix">
+<meta name="twitter:creator" content="@cleanfix">
+
+<!-- Canonical -->
+<link rel="canonical" href="https://mcemkoca.github.io/cleanfix-vercel/customer-portal.html">
 </head>
+
+<!-- Global Error Boundary -->
+<script>
+(function(){
+  window.__cf_errors = [];
+  window.addEventListener('error', function(e) {
+    window.__cf_errors.push({msg: e.message, file: e.filename, line: e.lineno, col: e.colno, time: new Date().toISOString()});
+    console.error('[CleanFix Global Error]', e.message, 'at', e.filename + ':' + e.lineno);
+  });
+  window.addEventListener('unhandledrejection', function(e) {
+    window.__cf_errors.push({msg: String(e.reason), type: 'unhandledrejection', time: new Date().toISOString()});
+    console.error('[CleanFix Unhandled Rejection]', e.reason);
+  });
+  // Error boundary helper for async functions
+  window.safeExec = function(fn, ctx) {
+    try { return fn.call(ctx); } catch(err) { console.error('[CleanFix SafeExec]', err); return null; }
+  };
+})();
+</script>
 <body>
 
 <!-- LOGIN VIEW -->
@@ -241,7 +299,7 @@ body{margin:0;font-family:'Inter',sans-serif;background:var(--bg-primary);color:
 
 <!-- PORTAL VIEW -->
 <div class="portal" id="portalView">
-  <header class="portal-header">
+  <header role="banner" class="portal-header">
     <div class="portal-logo">
       <div class="portal-logo-icon">CF</div>
       <div>
@@ -250,12 +308,7 @@ body{margin:0;font-family:'Inter',sans-serif;background:var(--bg-primary);color:
       </div>
     </div>
     
-        <div class="lang-switcher" style="display:flex;gap:4px;align-items:center;">
-          <button class="lang-btn" data-lang="tr" onclick="switchLang('tr')" style="padding:4px 10px;border-radius:6px;border:1px solid var(--border-color);background:var(--bg-tertiary);color:var(--text-secondary);font-size:var(--text-xs);font-weight:600;cursor:pointer;transition:all .2s;">TR</button>
-          <button class="lang-btn" data-lang="en" onclick="switchLang('en')" style="padding:4px 10px;border-radius:6px;border:1px solid var(--border-color);background:var(--bg-tertiary);color:var(--text-secondary);font-size:var(--text-xs);font-weight:600;cursor:pointer;transition:all .2s;">EN</button>
-          <button class="lang-btn" data-lang="nl" onclick="switchLang('nl')" style="padding:4px 10px;border-radius:6px;border:1px solid var(--border-color);background:var(--bg-tertiary);color:var(--text-secondary);font-size:var(--text-xs);font-weight:600;cursor:pointer;transition:all .2s;">NL</button>
-        </div>
-<div class="portal-user">
+    <div class="portal-user">
       <div style="text-align:right;">
         <div style="font-weight:600;font-size:var(--text-sm);" data-i18n="jan_peeters">Jan Peeters</div>
         <div style="font-size:var(--text-xs);color:var(--text-muted);" data-i18n="janpeeterskantoorbe">jan.peeters@kantoor.be</div>
@@ -263,14 +316,13 @@ body{margin:0;font-family:'Inter',sans-serif;background:var(--bg-primary);color:
       <div class="portal-avatar">JP</div>
       <button class="action-btn" onclick="doLogout()" title="Çıkış" style="width:36px;height:36px;border-radius:var(--radius-md);background:var(--bg-tertiary);border:1px solid var(--border-color);display:flex;align-items:center;justify-content:center;color:var(--text-secondary);cursor:pointer;">↪</button>
     </div>
-  
-  <div class="lang-switcher">
-    <button data-lang="tr" class="active" onclick="switchLang('tr')">TR</button>
-    <button data-lang="en" onclick="switchLang('en')">EN</button>
-    <button data-lang="nl" onclick="switchLang('nl')">NL</button>
-  </div>
 
-</header>
+    <div class="lang-switcher">
+      <button data-lang="tr" class="active" onclick="switchLang('tr')">TR</button>
+      <button data-lang="en" onclick="switchLang('en')">EN</button>
+      <button data-lang="nl" onclick="switchLang('nl')">NL</button>
+    </div>
+  </header>
 
   <div class="portal-content">
     <div class="portal-welcome">Hoş geldiniz, <span data-i18n="jan_peeters">Jan Peeters</span> 👋</div>
@@ -415,19 +467,7 @@ body{margin:0;font-family:'Inter',sans-serif;background:var(--bg-primary);color:
               <tr><td><strong data-i18n="tk-2026-38">#TK-2026-38</strong></td><td data-i18n="pencere_pervazları_toz_temizliği">Pencere pervazları toz temizliği</td><td><span class="badge badge-green" data-i18n="status_resolved">Çözüldü</span></td><td><span class="badge badge-green" data-i18n="status_low_prio">Düşük</span></td><td>5 Mayıs</td></tr>
               <tr><td><strong data-i18n="tk-2026-35">#TK-2026-35</strong></td><td data-i18n="tuvalet_lavabo_tıkanıklığı">Tuvalet lavabo tıkanıklığı</td><td><span class="badge badge-green" data-i18n="status_resolved">Çözüldü</span></td><td><span class="badge badge-amber" data-i18n="status_high">Yüksek</span></td><td>28 Nis</td></tr>
               <tr><td><strong data-i18n="tk-2026-31">#TK-2026-31</strong></td><td data-i18n="toplantı_odası_koltuk_lekesi">Toplantı odası koltuk lekesi</td><td><span class="badge badge-green" data-i18n="status_resolved">Çözüldü</span></td><td><span class="badge badge-green" data-i18n="status_medium">Orta</span></td><td>22 Nis</td></tr>
-                          <tr><td>5 May 2026</td><td>Halı Yıkama</td><td style="font-weight:600;">€49</td><td><span class="tag tag-blue">Bekliyor</span></td></tr>
-              <tr><td>5 May 2026</td><td>Cam Temizliği</td><td style="font-weight:600;">€649</td><td><span class="tag tag-amber">Devam Ediyor</span></td></tr>
-              <tr><td>14 May 2026</td><td>Elektrik Tesisatı</td><td style="font-weight:600;">€199</td><td><span class="tag tag-blue">Bekliyor</span></td></tr>
-              <tr><td>9 May 2026</td><td>Elektrik Tesisatı</td><td style="font-weight:600;">€449</td><td><span class="tag tag-amber">Devam Ediyor</span></td></tr>
-              <tr><td>14 May 2026</td><td>Banyo Yenileme</td><td style="font-weight:600;">€59</td><td><span class="tag tag-blue">Bekliyor</span></td></tr>
-              <tr><td>13 May 2026</td><td>Mutfak Yenileme</td><td style="font-weight:600;">€129</td><td><span class="tag tag-green">Tamamlandı</span></td></tr>
-              <tr><td>14 May 2026</td><td>Banyo Yenileme</td><td style="font-weight:600;">€59</td><td><span class="tag tag-amber">Devam Ediyor</span></td></tr>
-              <tr><td>8 May 2026</td><td>Sıhhi Tesisat</td><td style="font-weight:600;">€49</td><td><span class="tag tag-green">Tamamlandı</span></td></tr>
-              <tr><td>9 May 2026</td><td>Elektrik Tesisatı</td><td style="font-weight:600;">€349</td><td><span class="tag tag-blue">Bekliyor</span></td></tr>
-              <tr><td>4 May 2026</td><td>Dış Cephe Temizliği</td><td style="font-weight:600;">€79</td><td><span class="tag tag-green">Tamamlandı</span></td></tr>
-              <tr><td>8 May 2026</td><td>Boya Badana</td><td style="font-weight:600;">€449</td><td><span class="tag tag-green">Tamamlandı</span></td></tr>
-              <tr><td>13 May 2026</td><td>Boya Badana</td><td style="font-weight:600;">€89</td><td><span class="tag tag-blue">Bekliyor</span></td></tr>
-              <tr><td>14 May 2026</td><td>Sıhhi Tesisat</td><td style="font-weight:600;">€199</td><td><span class="tag tag-blue">Bekliyor</span></td></tr>
+
             </tbody>
           </table>
         </div>
@@ -556,7 +596,7 @@ body{margin:0;font-family:'Inter',sans-serif;background:var(--bg-primary);color:
 
 <script>
 function showToast(msg){const t=document.getElementById('toast');document.getElementById('toastMsg').textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),3000);}
-function doLogin(){const e=document.getElementById('loginEmail').value.trim();const p=document.getElementById('loginPassword').value;if(!e.includes('@')||!p||p.length<4){showToast('Geçerli e-posta ve şifre giriniz','error');return;}localStorage.setItem('cf_portal_user',e);document.getElementById('loginView').style.display='none';document.getElementById('portalView').style.display='block';showToast('Hoş geldiniz, Jan Peeters');}else{showToast('Geçerli e-posta girin');}}
+function doLogin(){const e=document.getElementById('loginEmail').value.trim();const p=document.getElementById('loginPass').value;if(!e.includes('@')||!p||p.length<4){showToast('Geçerli e-posta ve şifre giriniz','error');return;}localStorage.setItem('cf_portal_user',e);document.getElementById('loginView').style.display='none';document.getElementById('portalView').style.display='block';showToast('Hoş geldiniz, Jan Peeters');}
 function doLogout(){localStorage.removeItem('cf_portal_user');document.getElementById('portalView').style.display='none';document.getElementById('loginView').style.display='flex';showToast('Çıkış yapıldı');}
 function previewPhotos(input){const prev=document.getElementById('photoPreview');prev.innerHTML='';Array.from(input.files).forEach(file=>{const reader=new FileReader();reader.onload=e=>{const img=document.createElement('img');img.src=e.target.result;img.className='photo-thumb';prev.appendChild(img);};reader.readAsDataURL(file);});}
 function submitTicket(){const sub=document.getElementById('tSubject').value;const pri=document.getElementById('tPriority').value;const svc=document.getElementById('tService').value;if(!sub){showToast('Lütfen konu girin');return;}const id='TK-2026-'+(Math.floor(Math.random()*900)+100);showToast('Talep oluşturuldu — #'+id);const tbody=document.querySelector('#ticketsTable tbody');const row=document.createElement('tr');row.innerHTML='<td><strong>#'+id+'</strong></td><td>'+sub+'</td><td><span class="badge badge-blue">Açık</span></td><td><span class="badge '+(pri==='Acil'||pri==='Yüksek'?'badge-amber':'badge-green')+'">'+pri+'</span></td><td>Bugün</td>';tbody.insertBefore(row,tbody.firstChild);document.getElementById('tSubject').value='';document.getElementById('tDesc').value='';document.getElementById('tPhoto').value='';document.getElementById('photoPreview').innerHTML='';}
