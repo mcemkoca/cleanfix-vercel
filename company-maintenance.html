@@ -1741,15 +1741,6 @@ function switchLang(lang) {
     featuredCard.dataset.popular = lang === 'tr' ? 'En Popüler' : lang === 'en' ? 'Most Popular' : 'Meest Populair';
   }
 }
-  document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
-    const key = el.dataset.i18nPlaceholder;
-    const text = t(key);
-    if (text && text !== key) el.placeholder = text;
-  });
-  document.documentElement.lang = currentLang === 'tr' ? 'tr' : currentLang === 'nl' ? 'nl' : 'en';
-}
-
-});
 
 /* Init */
 switchLang('tr');

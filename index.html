@@ -1386,7 +1386,7 @@ const i18n = {
   }
 };
 
-let currentLang = localStorage.getItem('cleanfix_lang') || 'tr';
+let currentLang = 'tr';
 
 function switchLang(lang) {
   currentLang = lang;
@@ -1442,7 +1442,7 @@ function switchLang(lang) {
 }
 
 /* Init */
-switchLang(currentLang);
+switchLang('tr');
 
 /* Scroll Reveal */
 const observer = new IntersectionObserver((entries) => {

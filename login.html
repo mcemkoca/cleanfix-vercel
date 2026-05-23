@@ -442,7 +442,7 @@ const i18n = {
   }
 };
 
-let currentLang = localStorage.getItem('cleanfix_lang') || 'tr';
+let currentLang = 'tr';
 
 function switchLang(lang) {
   currentLang = lang;
@@ -607,7 +607,7 @@ form.addEventListener('submit',async(e)=>{
 ['email','password'].forEach(id=>document.getElementById(id).addEventListener('input',()=>document.getElementById(id+'Group').classList.remove('has-error')));
 
 /* Init i18n */
-switchLang(currentLang);
+switchLang('tr');
 </script>
 <script>
 window.onerror = function(msg, url, line) {

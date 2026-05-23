@@ -1147,7 +1147,12 @@ function switchLang(lang) {
           if (n.textContent.trim()) n.textContent = ' ' + t[key] + ' ';
         });
       } else {
-        el.textContent = t[key];
+        if (el.children.length === 0) {
+          el.textContent = t[key];
+        } else {
+          const textNodes = Array.from(el.childNodes).filter(n => n.nodeType === 3);
+          if (textNodes.length > 0) textNodes[0].textContent = t[key];
+        }
       }
     }
   });
