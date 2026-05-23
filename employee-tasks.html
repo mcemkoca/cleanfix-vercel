@@ -1,0 +1,1306 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title data-i18n="title_employee_tasks">CleanFix — Görevlerim</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/main.css">
+<link rel="stylesheet" href="css/components.css">
+<script src="js/toast.js"></script>
+<style>
+/* ── Layout ── */
+.dashboard{display:flex;min-height:100vh;background:var(--bg-primary);}
+.sidebar{width:280px;height:100vh;background:var(--bg-card);border-right:1px solid var(--border-color);display:flex;flex-direction:column;position:fixed;left:0;top:0;z-index:100;transition:transform var(--duration-slow) var(--ease-out);}
+.sidebar-header{padding:20px 24px;border-bottom:1px solid var(--border-color);display:flex;align-items:center;gap:12px;}
+.sidebar-logo{width:36px;height:36px;background:linear-gradient(135deg,var(--teal-500),var(--teal-700));border-radius:10px;display:flex;align-items:center;justify-content:center;font-weight:700;color:white;font-size:14px;}
+.sidebar-nav{flex:1;overflow-y:auto;padding:16px 12px;}
+.nav-group{margin-bottom:8px;}
+.nav-group-header{display:flex;align-items:center;gap:8px;padding:8px 12px;font-size:var(--text-xs);font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.05em;}
+.nav-item{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:var(--radius-md);color:var(--text-secondary);font-size:var(--text-sm);font-weight:500;cursor:pointer;transition:all var(--duration-fast);text-decoration:none;margin-bottom:2px;border:none;background:none;width:100%;}
+.nav-item:hover{background:var(--bg-tertiary);color:var(--text-primary);}
+.nav-item.active{background:rgba(20,184,166,0.1);color:var(--teal-500);}
+.nav-icon{width:20px;height:20px;opacity:0.7;flex-shrink:0;}
+.nav-item.active .nav-icon{opacity:1;}
+.main-content{flex:1;margin-left:280px;min-height:100vh;}
+.header{height:64px;background:var(--bg-card);border-bottom:1px solid var(--border-color);display:flex;align-items:center;justify-content:space-between;padding:0 32px;position:sticky;top:0;z-index:50;}
+.header-left{display:flex;align-items:center;gap:16px;}
+.hamburger{display:none;background:none;border:none;color:var(--text-secondary);cursor:pointer;padding:8px;}
+.page-title{font-size:var(--text-lg);font-weight:700;}
+.header-right{display:flex;align-items:center;gap:16px;}
+.header-btn{width:36px;height:36px;border-radius:var(--radius-md);background:var(--bg-tertiary);border:1px solid var(--border-color);display:flex;align-items:center;justify-content:center;color:var(--text-secondary);cursor:pointer;transition:all var(--duration-fast);position:relative;}
+.header-btn:hover{border-color:var(--teal-500);color:var(--teal-500);}
+.lang-switcher{display:flex;align-items:center;gap:4px;background:var(--bg-card);border:1px solid var(--border-color);border-radius:var(--radius-md);padding:3px;}
+.lang-switcher button{background:transparent;border:none;color:var(--text-muted);font-size:11px;font-weight:600;cursor:pointer;padding:4px 8px;border-radius:4px;transition:all 0.2s;text-transform:uppercase;font-family:inherit;}
+.lang-switcher button:hover{color:var(--text-primary);}
+.lang-switcher button.active{background:var(--teal-500);color:white;}
+.content{padding:32px;max-width:1400px;margin:0 auto;}
+
+/* ── Quick Actions Bar ── */
+.quick-actions{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:24px;padding:16px 20px;background:var(--bg-card);border:1px solid var(--border-color);border-radius:var(--radius-lg);align-items:center;}
+.quick-actions-title{font-size:var(--text-sm);font-weight:600;color:var(--text-primary);margin-right:8px;white-space:nowrap;}
+.quick-btn{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:var(--radius-md);font-size:var(--text-sm);font-weight:500;cursor:pointer;transition:all var(--duration-fast);border:none;background:var(--bg-tertiary);color:var(--text-secondary);}
+.quick-btn:hover{transform:translateY(-1px);}
+.quick-btn-primary{background:linear-gradient(135deg,var(--teal-500),var(--teal-600));color:white;box-shadow:0 4px 14px rgba(20,184,166,0.35);}
+.quick-btn-primary:hover{box-shadow:0 8px 24px rgba(20,184,166,0.45);}
+.quick-btn-amber{background:linear-gradient(135deg,var(--amber-500),var(--amber-600));color:white;box-shadow:0 4px 14px rgba(245,158,11,0.35);}
+.quick-btn-amber:hover{box-shadow:0 8px 24px rgba(245,158,11,0.45);}
+.quick-btn-red{background:rgba(244,63,94,0.15);color:var(--error-500);border:1px solid rgba(244,63,94,0.3);}
+.quick-btn-red:hover{background:rgba(244,63,94,0.25);}
+
+/* ── Filters Bar ── */
+.filters-bar{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:24px;padding:16px 20px;background:var(--bg-card);border:1px solid var(--border-color);border-radius:var(--radius-lg);align-items:center;justify-content:space-between;}
+.filters-group{display:flex;gap:10px;flex-wrap:wrap;align-items:center;}
+.filter-select{padding:8px 12px;background:var(--bg-input);border:1.5px solid var(--border-color);border-radius:var(--radius-md);color:var(--text-primary);font-size:var(--text-sm);font-family:inherit;cursor:pointer;transition:all var(--duration-fast);}
+.filter-select:hover{border-color:var(--slate-300);}
+.filter-select:focus{outline:none;border-color:var(--teal-500);box-shadow:0 0 0 3px var(--shadow-glow);}
+.search-box{position:relative;}
+.search-box input{padding:8px 12px 8px 36px;background:var(--bg-input);border:1.5px solid var(--border-color);border-radius:var(--radius-md);color:var(--text-primary);font-size:var(--text-sm);width:260px;transition:all var(--duration-fast);}
+.search-box input:focus{outline:none;border-color:var(--teal-500);box-shadow:0 0 0 3px var(--shadow-glow);width:300px;}
+.search-box svg{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:var(--text-muted);pointer-events:none;}
+.results-count{font-size:var(--text-sm);color:var(--text-muted);white-space:nowrap;}
+
+/* ── Kanban Board ── */
+.kanban-board{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;}
+.kanban-column{display:flex;flex-direction:column;min-width:0;}
+.kanban-header{display:flex;align-items:center;gap:8px;padding:12px 16px;background:var(--bg-card);border:1px solid var(--border-color);border-radius:var(--radius-lg);margin-bottom:12px;position:sticky;top:0;z-index:10;}
+.kanban-header-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;}
+.kanban-header-title{font-weight:600;font-size:var(--text-sm);}
+.kanban-header-count{font-size:var(--text-xs);color:var(--text-muted);background:var(--bg-tertiary);padding:2px 8px;border-radius:9999px;margin-left:auto;}
+.kanban-cards{flex:1;display:flex;flex-direction:column;gap:12px;}
+
+/* ── Task Card ── */
+.task-card{background:var(--bg-card);border:1px solid var(--border-color);border-radius:var(--radius-lg);padding:16px;transition:all var(--duration-fast);cursor:grab;position:relative;overflow:hidden;}
+.task-card:hover{border-color:var(--slate-500);transform:translateY(-2px);box-shadow:var(--shadow-md);}
+.task-card.dragging{opacity:0.5;transform:rotate(2deg);}
+.task-card::before{content:'';position:absolute;top:0;left:0;width:3px;height:100%;}
+.task-card.priority-high::before{background:var(--error-500);}
+.task-card.priority-medium::before{background:var(--amber-500);}
+.task-card.priority-low::before{background:var(--success-500);}
+
+.task-card-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:10px;gap:8px;}
+.task-id{font-family:var(--font-mono);font-size:var(--text-xs);color:var(--text-muted);background:var(--bg-tertiary);padding:2px 8px;border-radius:var(--radius-sm);}
+.task-priority{display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:9999px;font-size:var(--text-xs);font-weight:600;}
+.priority-high{background:rgba(244,63,94,0.1);color:var(--error-500);}
+.priority-medium{background:rgba(245,158,11,0.1);color:var(--amber-500);}
+.priority-low{background:rgba(16,185,129,0.1);color:var(--success-500);}
+[data-theme="dark"] .priority-high{background:rgba(244,63,94,0.15);}
+[data-theme="dark"] .priority-medium{background:rgba(245,158,11,0.15);}
+[data-theme="dark"] .priority-low{background:rgba(16,185,129,0.15);}
+
+.task-customer{font-weight:600;font-size:var(--text-sm);color:var(--text-primary);margin-bottom:4px;}
+.task-address{font-size:var(--text-xs);color:var(--text-muted);margin-bottom:10px;display:flex;align-items:center;gap:4px;}
+.task-meta{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px;}
+.task-meta-item{display:flex;align-items:center;gap:4px;font-size:var(--text-xs);color:var(--text-secondary);background:var(--bg-tertiary);padding:4px 8px;border-radius:var(--radius-sm);}
+
+.task-job-type{font-size:var(--text-sm);font-weight:500;color:var(--teal-400);margin-bottom:10px;padding:6px 10px;background:rgba(20,184,166,0.08);border-radius:var(--radius-sm);display:flex;align-items:center;gap:6px;}
+
+.task-status-select{width:100%;padding:8px 10px;background:var(--bg-input);border:1.5px solid var(--border-color);border-radius:var(--radius-md);color:var(--text-primary);font-size:var(--text-sm);font-family:inherit;margin-bottom:10px;cursor:pointer;transition:all var(--duration-fast);}
+.task-status-select:focus{outline:none;border-color:var(--teal-500);box-shadow:0 0 0 3px var(--shadow-glow);}
+
+.task-notes{width:100%;padding:8px 10px;background:var(--bg-input);border:1.5px solid var(--border-color);border-radius:var(--radius-md);color:var(--text-primary);font-size:var(--text-xs);font-family:inherit;resize:vertical;min-height:50px;margin-bottom:10px;transition:all var(--duration-fast);}
+.task-notes:focus{outline:none;border-color:var(--teal-500);box-shadow:0 0 0 3px var(--shadow-glow);}
+.task-notes::placeholder{color:var(--text-placeholder);}
+
+.task-actions{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px;}
+.task-btn{display:inline-flex;align-items:center;gap:4px;padding:6px 10px;border-radius:var(--radius-sm);font-size:var(--text-xs);font-weight:500;cursor:pointer;transition:all var(--duration-fast);border:none;background:var(--bg-tertiary);color:var(--text-secondary);}
+.task-btn:hover{background:var(--bg-secondary);color:var(--text-primary);}
+.task-btn-active{background:rgba(20,184,166,0.15);color:var(--teal-400);}
+.task-btn-active:hover{background:rgba(20,184,166,0.25);}
+
+.task-timer{display:flex;align-items:center;gap:8px;padding:8px 10px;background:var(--bg-tertiary);border-radius:var(--radius-sm);margin-bottom:10px;}
+.timer-display{font-family:var(--font-mono);font-size:var(--text-sm);font-weight:600;color:var(--teal-400);min-width:70px;}
+.timer-btn{width:28px;height:28px;border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all var(--duration-fast);border:none;background:var(--bg-card);color:var(--text-secondary);}
+.timer-btn:hover{background:var(--teal-500);color:white;}
+
+.task-rating{display:flex;align-items:center;gap:6px;padding-top:10px;border-top:1px solid var(--border-color);}
+.rating-stars{display:flex;gap:2px;}
+.rating-star{color:var(--amber-500);font-size:var(--text-sm);}
+.rating-star.empty{color:var(--slate-600);}
+.rating-text{font-size:var(--text-xs);color:var(--text-muted);}
+
+.task-photos{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px;}
+.task-photo{width:48px;height:48px;border-radius:var(--radius-sm);background:var(--bg-tertiary);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all var(--duration-fast);overflow:hidden;border:1px solid var(--border-color);}
+.task-photo:hover{border-color:var(--teal-500);transform:scale(1.05);}
+.task-photo img{width:100%;height:100%;object-fit:cover;}
+.task-photo-add{width:48px;height:48px;border-radius:var(--radius-sm);background:var(--bg-tertiary);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all var(--duration-fast);border:1.5px dashed var(--border-color);color:var(--text-muted);}
+.task-photo-add:hover{border-color:var(--teal-500);color:var(--teal-500);}
+
+/* ── Status Column Colors ── */
+.column-pending .kanban-header-dot{background:var(--info-500);}
+.column-progress .kanban-header-dot{background:var(--amber-500);}
+.column-completed .kanban-header-dot{background:var(--success-500);}
+.column-approved .kanban-header-dot{background:var(--teal-500);}
+
+/* ── Scroll Reveal ── */
+.reveal{opacity:0;transform:translateY(24px);transition:opacity 0.6s ease-out,transform 0.6s ease-out;}
+.reveal.visible{opacity:1;transform:translateY(0);}
+
+/* ── Avatar ── */
+.avatar{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--teal-400),var(--teal-600));display:flex;align-items:center;justify-content:center;font-size:var(--text-sm);font-weight:600;color:white;flex-shrink:0;}
+
+/* ── Animations ── */
+@keyframes pulse-dot{0%,100%{opacity:1;}50%{opacity:0.4;}}
+.pulse-dot{animation:pulse-dot 2s ease-in-out infinite;}
+
+/* ── Responsive ── */
+@media (max-width:1280px){
+  .kanban-board{grid-template-columns:repeat(2,1fr);}
+}
+@media (max-width:1024px){
+  .kanban-board{grid-template-columns:repeat(2,1fr);}
+  .filters-bar{flex-direction:column;align-items:stretch;}
+  .filters-group{justify-content:space-between;}
+}
+@media (max-width:768px){
+  .sidebar{transform:translateX(-100%);}
+  .sidebar.open{transform:translateX(0);}
+  .main-content{margin-left:0;}
+  .hamburger{display:block;}
+  .content{padding:20px;}
+  .kanban-board{grid-template-columns:1fr;}
+  .quick-actions{justify-content:center;}
+  .search-box input{width:100%;}
+  .search-box input:focus{width:100%;}
+  .filters-group{flex-direction:column;width:100%;}
+  .filter-select{width:100%;}
+}
+@media (max-width:480px){
+  .task-actions{flex-direction:column;}
+  .task-btn{justify-content:center;}
+}
+</style>
+
+<!-- SEO -->
+<meta name="description" content="CleanFix Çalışan Görevleri — Temizlik işleri, durum takibi, zaman ölçer ve müşteri değerlendirmeleri." data-i18n-attr="content" data-i18n="meta.desc_employee_tasks">
+<meta name="author" content="Deuterium12{MCK}">
+<meta name="robots" content="index, follow">
+<meta property="og:title" content="CleanFix — Görevlerim" data-i18n-attr="content" data-i18n="og_title_employee_tasks">
+<meta property="og:description" content="CleanFix Çalışan Görev Yönetimi" data-i18n-attr="content" data-i18n="og_desc_employee_tasks">
+<meta property="og:url" content="https://mcemkoca.github.io/cleanfix-vercel/employee-tasks.html">
+<meta property="og:type" content="website">
+<link rel="canonical" href="https://mcemkoca.github.io/cleanfix-vercel/employee-tasks.html">
+</head>
+<body>
+
+<script>
+/* Auth check */
+if (typeof AUTH !== 'undefined') { AUTH.checkAuth('employee'); }
+else {
+  const s = document.createElement('script');
+  s.src = 'js/auth.js';
+  s.onload = function(){ if(window.checkAuth) checkAuth('employee'); };
+  document.head.appendChild(s);
+}
+</script>
+
+<div class="dashboard">
+  <!-- Sidebar -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-logo">CF</div>
+      <div>
+        <div style="font-weight:700;font-size:var(--text-sm);">CleanFix</div>
+        <div style="font-size:var(--text-xs);color:var(--text-muted);" data-i18n="sidebar_employee">Çalışan Portalı</div>
+      </div>
+    </div>
+    <nav class="sidebar-nav" aria-label="Employee navigation">
+      <div class="nav-group">
+        <div class="nav-group-header" data-i18n="nav_mainMenu">Ana Menü</div>
+        <a href="employee.html" class="nav-item">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
+          <span data-i18n="nav_dashboard">Dashboard</span>
+        </a>
+        <a href="employee-schedule.html" class="nav-item">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          <span data-i18n="nav_schedule">Programım</span>
+        </a>
+        <a href="employee-tasks.html" class="nav-item active">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+          <span data-i18n="nav_tasks">Görevlerim</span>
+        </a>
+        <a href="employee-leave.html" class="nav-item">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          <span data-i18n="nav_leave">İzin Talepleri</span>
+        </a>
+        <a href="employee-payslip.html" class="nav-item">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+          <span data-i18n="nav_payslip">Bordro</span>
+        </a>
+        <a href="employee-notices.html" class="nav-item">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+          <span data-i18n="nav_notices">Duyurular</span>
+          <span class="tag tag-blue" style="margin-left:auto;font-size:10px;padding:2px 6px;">2</span>
+        </a>
+        <a href="employee-messages.html" class="nav-item">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          <span data-i18n="nav_messages">Mesajlar</span>
+          <span class="tag tag-amber" style="margin-left:auto;font-size:10px;padding:2px 6px;">3</span>
+        </a>
+      </div>
+      <div class="nav-group">
+        <div class="nav-group-header" data-i18n="nav_account">Hesap</div>
+        <a href="employee-profile.html" class="nav-item">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          <span data-i18n="nav_profile">Profilim</span>
+        </a>
+        <a href="login.html" class="nav-item" onclick="if(window.AUTH)AUTH.logout();">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+          <span data-i18n="nav_logout">Çıkış Yap</span>
+        </a>
+      </div>
+    </nav>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <!-- Header -->
+    <header class="header">
+      <div class="header-left">
+        <button class="hamburger" onclick="document.getElementById('sidebar').classList.toggle('open')">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        </button>
+        <h1 class="page-title" data-i18n="page_title_tasks">Görevlerim</h1>
+      </div>
+      <div class="header-right">
+        <div class="lang-switcher">
+          <button data-lang="tr" onclick="switchLang('tr')" class="active">TR</button>
+          <button data-lang="en" onclick="switchLang('en')">EN</button>
+          <button data-lang="nl" onclick="switchLang('nl')">NL</button>
+        </div>
+        <button class="header-btn" onclick="showToast('Bildirimler güncellendi','info')">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
+          <span style="position:absolute;top:-2px;right:-2px;width:16px;height:16px;background:var(--error-500);color:white;font-size:10px;font-weight:700;border-radius:50%;display:flex;align-items:center;justify-content:center;">5</span>
+        </button>
+        <div style="display:flex;align-items:center;gap:10px;">
+          <div class="avatar">AK</div>
+          <div>
+            <div style="font-weight:600;font-size:var(--text-sm);">Ahmet Kaya</div>
+            <div style="font-size:var(--text-xs);color:var(--text-muted);" data-i18n="role_teamLead">Ekip Lideri</div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <div class="content">
+      <!-- Quick Actions -->
+      <div class="quick-actions reveal">
+        <span class="quick-actions-title" data-i18n="quick_actions">Hızlı İşlemler</span>
+        <button class="quick-btn quick-btn-primary" onclick="showToast('Yeni görev başlatma ekranı açıldı','success')">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+          <span data-i18n="btn_startNewTask">Yeni Görev Başlat</span>
+        </button>
+        <button class="quick-btn quick-btn-amber" onclick="showToast('Mola kaydedildi','info')">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          <span data-i18n="btn_addBreak">Mola Ekle</span>
+        </button>
+        <button class="quick-btn" style="background:rgba(59,130,246,0.15);color:var(--info-500);" onclick="showToast('Sorun raporu formu açıldı','info')">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          <span data-i18n="btn_reportProblem">Sorun Bildir</span>
+        </button>
+        <button class="quick-btn quick-btn-red" onclick="showToast('Acil durum iletişim listesi açıldı','error')">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          <span data-i18n="btn_emergency">Acil İletişim</span>
+        </button>
+      </div>
+
+      <!-- Filters Bar -->
+      <div class="filters-bar reveal">
+        <div class="filters-group">
+          <select class="filter-select" id="filterStatus" onchange="filterTasks()">
+            <option value="all" data-i18n="filter_allStatus">Tüm Durumlar</option>
+            <option value="pending" data-i18n="filter_pending">Bekliyor</option>
+            <option value="inprogress" data-i18n="filter_inProgress">Devam Ediyor</option>
+            <option value="completed" data-i18n="filter_completed">Tamamlandı</option>
+            <option value="approved" data-i18n="filter_approved">Onaylandı</option>
+          </select>
+          <select class="filter-select" id="filterDate" onchange="filterTasks()">
+            <option value="all" data-i18n="filter_allDates">Tüm Tarihler</option>
+            <option value="today" data-i18n="filter_today">Bugün</option>
+            <option value="week" data-i18n="filter_thisWeek">Bu Hafta</option>
+            <option value="month" data-i18n="filter_thisMonth">Bu Ay</option>
+          </select>
+          <select class="filter-select" id="filterPriority" onchange="filterTasks()">
+            <option value="all" data-i18n="filter_allPriority">Tüm Öncelikler</option>
+            <option value="high" data-i18n="filter_high">Yüksek</option>
+            <option value="medium" data-i18n="filter_medium">Orta</option>
+            <option value="low" data-i18n="filter_low">Düşük</option>
+          </select>
+        </div>
+        <div class="filters-group" style="gap:16px;">
+          <div class="search-box">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <input type="text" id="searchInput" placeholder="Müşteri veya adres ara..." data-i18n-placeholder="ph_search" oninput="filterTasks()">
+          </div>
+          <span class="results-count" id="resultsCount">18 görev</span>
+        </div>
+      </div>
+
+      <!-- Kanban Board -->
+      <div class="kanban-board" id="kanbanBoard">
+        <!-- BEKLİYOR -->
+        <div class="kanban-column column-pending" data-status="pending">
+          <div class="kanban-header">
+            <span class="kanban-header-dot pulse-dot"></span>
+            <span class="kanban-header-title" data-i18n="col_pending">Bekliyor</span>
+            <span class="kanban-header-count" id="count-pending">4</span>
+          </div>
+          <div class="kanban-cards" id="col-pending">
+            <!-- TK-011 -->
+            <div class="task-card priority-medium" data-status="pending" data-priority="medium" data-date="2026-05-23" data-customer="Lars Declercq" data-address="Rue de la Loi 42, 1040 Brüksel">
+              <div class="task-card-header">
+                <span class="task-id">#TK-011</span>
+                <span class="task-priority priority-medium" data-i18n="priority_medium">Orta</span>
+              </div>
+              <div class="task-customer">Lars Declercq</div>
+              <div class="task-address">📍 Rue de la Loi 42, 1040 Brüksel</div>
+              <div class="task-job-type">🏢 Ofis Temizliği</div>
+              <div class="task-meta">
+                <span class="task-meta-item">📅 23 May 09:00</span>
+                <span class="task-meta-item">⏱️ 3.5 saat</span>
+              </div>
+              <select class="task-status-select" onchange="changeStatus(this, 'TK-011')">
+                <option value="pending" selected data-i18n="status_pending">Bekliyor</option>
+                <option value="inprogress" data-i18n="status_inProgress">Devam Ediyor</option>
+                <option value="completed" data-i18n="status_completed">Tamamlandı</option>
+              </select>
+              <textarea class="task-notes" placeholder="Not ekle..." data-i18n-placeholder="ph_addNote"></textarea>
+              <div class="task-actions">
+                <button class="task-btn" onclick="toggleTimer(this, 'TK-011')">
+                  <span>▶️</span> <span data-i18n="btn_start">Başlat</span>
+                </button>
+                <button class="task-btn" onclick="showToast('Fotoğraf yükleme açıldı','info')">
+                  <span>📷</span> <span data-i18n="btn_photo">Foto</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- TK-012 -->
+            <div class="task-card priority-high" data-status="pending" data-priority="high" data-date="2026-05-23" data-customer="Emma Maes" data-address="Meir 78, 2000 Anvers">
+              <div class="task-card-header">
+                <span class="task-id">#TK-012</span>
+                <span class="task-priority priority-high" data-i18n="priority_high">Yüksek</span>
+              </div>
+              <div class="task-customer">Emma Maes</div>
+              <div class="task-address">📍 Meir 78, 2000 Anvers</div>
+              <div class="task-job-type">✨ Derinlemesine Temizlik</div>
+              <div class="task-meta">
+                <span class="task-meta-item">📅 23 May 15:00</span>
+                <span class="task-meta-item">⏱️ 5 saat</span>
+              </div>
+              <select class="task-status-select" onchange="changeStatus(this, 'TK-012')">
+                <option value="pending" selected data-i18n="status_pending">Bekliyor</option>
+                <option value="inprogress" data-i18n="status_inProgress">Devam Ediyor</option>
+                <option value="completed" data-i18n="status_completed">Tamamlandı</option>
+              </select>
+              <textarea class="task-notes" placeholder="Not ekle..." data-i18n-placeholder="ph_addNote">Müşteri evde, kapıcı ile iletişim kur</textarea>
+              <div class="task-actions">
+                <button class="task-btn" onclick="toggleTimer(this, 'TK-012')">
+                  <span>▶️</span> <span data-i18n="btn_start">Başlat</span>
+                </button>
+                <button class="task-btn" onclick="showToast('Fotoğraf yükleme açıldı','info')">
+                  <span>📷</span> <span data-i18n="btn_photo">Foto</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- TK-013 -->
+            <div class="task-card priority-low" data-status="pending" data-priority="low" data-date="2026-05-24" data-customer="Thomas Janssens" data-address="Veldstraat 55, 9000 Gent">
+              <div class="task-card-header">
+                <span class="task-id">#TK-013</span>
+                <span class="task-priority priority-low" data-i18n="priority_low">Düşük</span>
+              </div>
+              <div class="task-customer">Thomas Janssens</div>
+              <div class="task-address">📍 Veldstraat 55, 9000 Gent</div>
+              <div class="task-job-type">🪟 Cam Temizliği</div>
+              <div class="task-meta">
+                <span class="task-meta-item">📅 24 May 10:00</span>
+                <span class="task-meta-item">⏱️ 2 saat</span>
+              </div>
+              <select class="task-status-select" onchange="changeStatus(this, 'TK-013')">
+                <option value="pending" selected data-i18n="status_pending">Bekliyor</option>
+                <option value="inprogress" data-i18n="status_inProgress">Devam Ediyor</option>
+                <option value="completed" data-i18n="status_completed">Tamamlandı</option>
+              </select>
+              <textarea class="task-notes" placeholder="Not ekle..." data-i18n-placeholder="ph_addNote"></textarea>
+              <div class="task-actions">
+                <button class="task-btn" onclick="toggleTimer(this, 'TK-013')">
+                  <span>▶️</span> <span data-i18n="btn_start">Başlat</span>
+                </button>
+                <button class="task-btn" onclick="showToast('Fotoğraf yükleme açıldı','info')">
+                  <span>📷</span> <span data-i18n="btn_photo">Foto</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- TK-014 -->
+            <div class="task-card priority-medium" data-status="pending" data-priority="medium" data-date="2026-05-24" data-customer="Sophie Dewitt" data-address="Naamsestraat 102, 3000 Leuven">
+              <div class="task-card-header">
+                <span class="task-id">#TK-014</span>
+                <span class="task-priority priority-medium" data-i18n="priority_medium">Orta</span>
+              </div>
+              <div class="task-customer">Sophie Dewitt</div>
+              <div class="task-address">📍 Naamsestraat 102, 3000 Leuven</div>
+              <div class="task-job-type">🏭 Depo Temizliği</div>
+              <div class="task-meta">
+                <span class="task-meta-item">📅 24 May 14:00</span>
+                <span class="task-meta-item">⏱️ 4 saat</span>
+              </div>
+              <select class="task-status-select" onchange="changeStatus(this, 'TK-014')">
+                <option value="pending" selected data-i18n="status_pending">Bekliyor</option>
+                <option value="inprogress" data-i18n="status_inProgress">Devam Ediyor</option>
+                <option value="completed" data-i18n="status_completed">Tamamlandı</option>
+              </select>
+              <textarea class="task-notes" placeholder="Not ekle..." data-i18n-placeholder="ph_addNote">Endüstriyel temizlik malzemeleri gerekebilir</textarea>
+              <div class="task-actions">
+                <button class="task-btn" onclick="toggleTimer(this, 'TK-014')">
+                  <span>▶️</span> <span data-i18n="btn_start">Başlat</span>
+                </button>
+                <button class="task-btn" onclick="showToast('Fotoğraf yükleme açıldı','info')">
+                  <span>📷</span> <span data-i18n="btn_photo">Foto</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- DEVAM EDİYOR -->
+        <div class="kanban-column column-progress" data-status="inprogress">
+          <div class="kanban-header">
+            <span class="kanban-header-dot pulse-dot"></span>
+            <span class="kanban-header-title" data-i18n="col_inProgress">Devam Ediyor</span>
+            <span class="kanban-header-count" id="count-inprogress">5</span>
+          </div>
+          <div class="kanban-cards" id="col-inprogress">
+            <!-- TK-005 -->
+            <div class="task-card priority-high" data-status="inprogress" data-priority="high" data-date="2026-05-23" data-customer="Pieter De Vos" data-address="Kortrijksesteenweg 112, 9000 Gent">
+              <div class="task-card-header">
+                <span class="task-id">#TK-005</span>
+                <span class="task-priority priority-high" data-i18n="priority_high">Yüksek</span>
+              </div>
+              <div class="task-customer">Pieter De Vos</div>
+              <div class="task-address">📍 Kortrijksesteenweg 112, 9000 Gent</div>
+              <div class="task-job-type">🚗 Dış Yıkama + Cila</div>
+              <div class="task-meta">
+                <span class="task-meta-item">📅 23 May 13:00</span>
+                <span class="task-meta-item">⏱️ 1 saat</span>
+              </div>
+              <select class="task-status-select" onchange="changeStatus(this, 'TK-005')">
+                <option value="pending" data-i18n="status_pending">Bekliyor</option>
+                <option value="inprogress" selected data-i18n="status_inProgress">Devam Ediyor</option>
+                <option value="completed" data-i18n="status_completed">Tamamlandı</option>
+              </select>
+              <div class="task-timer">
+                <span class="timer-display" id="timer-TK-005">00:42</span>
+                <button class="timer-btn" onclick="toggleTimer(this, 'TK-005')">⏸</button>
+                <button class="timer-btn" onclick="resetTimer('TK-005')">🔄</button>
+              </div>
+              <textarea class="task-notes" placeholder="Not ekle..." data-i18n-placeholder="ph_addNote">Beyaz araç, su lekesi riski yüksek</textarea>
+              <div class="task-photos">
+                <div class="task-photo" style="background:linear-gradient(135deg,var(--slate-700),var(--slate-600));"><span style="font-size:var(--text-xs);color:var(--text-muted);">Önc.</span></div>
+                <div class="task-photo-add" onclick="showToast('Fotoğraf yükleme açıldı','info')">+</div>
+              </div>
+              <div class="task-actions">
+                <button class="task-btn task-btn-active" onclick="showToast('İş tamamlandı','success')">
+                  <span>✅</span> <span data-i18n="btn_complete">Tamamla</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- TK-006 -->
+            <div class="task-card priority-medium" data-status="inprogress" data-priority="medium" data-date="2026-05-23" data-customer="Sarah Janssens" data-address="Belliardstraat 25, 1040 Brüksel">
+              <div class="task-card-header">
+                <span class="task-id">#TK-006</span>
+                <span class="task-priority priority-medium" data-i18n="priority_medium">Orta</span>
+              </div>
+              <div class="task-customer">Sarah Janssens</div>
+              <div class="task-address">📍 Belliardstraat 25, 1040 Brüksel</div>
+              <div class="task-job-type">🔧 Motor Temizliği</div>
+              <div class="task-meta">
+                <span class="task-meta-item">📅 23 May 15:00</span>
+                <span class="task-meta-item">⏱️ 1 saat</span>
+              </div>
+              <select class="task-status-select" onchange="changeStatus(this, 'TK-006')">
+                <option value="pending" data-i18n="status_pending">Bekliyor</option>
+                <option value="inprogress" selected data-i18n="status_inProgress">Devam Ediyor</option>
+                <option value="completed" data-i18n="status_completed">Tamamlandı</option>
+              </select>
+              <div class="task-timer">
+                <span class="timer-display" id="timer-TK-006">00:18</span>
+                <button class="timer-btn" onclick="toggleTimer(this, 'TK-006')">⏸</button>
+                <button class="timer-btn" onclick="resetTimer('TK-006')">🔄</button>
+              </div>
+              <textarea class="task-notes" placeholder="Not ekle..." data-i18n-placeholder="ph_addNote">Elektrikli araç, yüksek basınç yasak</textarea>
+              <div class="task-photos">
+                <div class="task-photo-add" onclick="showToast('Fotoğraf yükleme açıldı','info')">+</div>
+              </div>
+              <div class="task-actions">
+                <button class="task-btn task-btn-active" onclick="showToast('İş tamamlandı','success')">
+                  <span>✅</span> <span data-i18n="btn_complete">Tamamla</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- TK-007 -->
+            <div class="task-card priority-low" data-status="inprogress" data-priority="low" data-date="2026-05-23" data-customer="Marc Dubois" data-address="Groenplaats 15, 2000 Anvers">
+              <div class="task-card-header">
+                <span class="task-id">#TK-007</span>
+                <span class="task-priority priority-low" data-i18n="priority_low">Düşük</span>
+              </div>
+              <div class="task-customer">Marc Dubois</div>
+              <div class="task-address">📍 Groenplaats 15, 2000 Anvers</div>
+              <div class="task-job-type">💎 Seramik Kaplama</div>
+              <div class="task-meta">
+                <span class="task-meta-item">📅 23 May 16:30</span>
+                <span class="task-meta-item">⏱️ 2.5 saat</span>
+              </div>
+              <select class="task-status-select" onchange="changeStatus(this, 'TK-007')">
+                <option value="pending" data-i18n="status_pending">Bekliyor</option>
+                <option value="inprogress" selected data-i18n="status_inProgress">Devam Ediyor</option>
+                <option value="completed" data-i18n="status_completed">Tamamlandı</option>
+              </select>
+              <div class="task-timer">
+                <span class="timer-display" id="timer-TK-007">01:15</span>
+                <button class="timer-btn" onclick="toggleTimer(this, 'TK-007')">⏸</button>
+                <button class="timer-btn" onclick="resetTimer('TK-007')">🔄</button>
+              </div>
+              <textarea class="task-notes" placeholder="Not ekle..." data-i18n-placeholder="ph_addNote">Kaplama öncesi boya düzeltme kontrolü yapıldı</textarea>
+              <div class="task-photos">
+                <div class="task-photo" style="background:linear-gradient(135deg,var(--slate-700),var(--slate-600));"><span style="font-size:var(--text-xs);color:var(--text-muted);">Önc.</span></div>
+                <div class="task-photo" style="background:linear-gradient(135deg,var(--teal-700),var(--teal-600));"><span style="font-size:var(--text-xs);color:white;">Son.</span></div>
+                <div class="task-photo-add" onclick="showToast('Fotoğraf yükleme açıldı','info')">+</div>
+              </div>
+              <div class="task-actions">
+                <button class="task-btn task-btn-active" onclick="showToast('İş tamamlandı','success')">
+                  <span>✅</span> <span data-i18n="btn_complete">Tamamla</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- TK-008 -->
+            <div class="task-card priority-medium" data-status="inprogress" data-priority="medium" data-date="2026-05-22" data-customer="Anna Peeters" data-address="Avenue Louise 200, 1050 Brüksel">
+              <div class="task-card-header">
+                <span class="task-id">#TK-008</span>
+                <span class="task-priority priority-medium" data-i18n="priority_medium">Orta</span>
+              </div>
+              <div class="task-customer">Anna Peeters</div>
+              <div class="task-address">📍 Avenue Louise 200, 1050 Brüksel</div>
+              <div class="task-job-type">⭐ Premium Yıkama</div>
+              <div class="task-meta">
+                <span class="task-meta-item">📅 22 May 09:00</span>
+                <span class="task-meta-item">⏱️ 45 dk</span>
+              </div>
+              <select class="task-status-select" onchange="changeStatus(this, 'TK-008')">
+                <option value="pending" data-i18n="status_pending">Bekliyor</option>
+                <option value="inprogress" selected data-i18n="status_inProgress">Devam Ediyor</option>
+                <option value="completed" data-i18n="status_completed">Tamamlandı</option>
+              </select>
+              <div class="task-timer">
+                <span class="timer-display" id="timer-TK-008">00:30</span>
+                <button class="timer-btn" onclick="toggleTimer(this, 'TK-008')">⏸</button>
+                <button class="timer-btn" onclick="resetTimer('TK-008')">🔄</button>
+              </div>
+              <textarea class="task-notes" placeholder="Not ekle..." data-i18n-placeholder="ph_addNote"></textarea>
+              <div class="task-actions">
+                <button class="task-btn task-btn-active" onclick="showToast('İş tamamlandı','success')">
+                  <span>✅</span> <span data-i18n="btn_complete">Tamamla</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- TK-009 -->
+            <div class="task-card priority-high" data-status="inprogress" data-priority="high" data-date="2026-05-22" data-customer="Luc Vermeulen" data-address="Bondgenotenlaan 88, 3000 Leuven">
+              <div class="task-card-header">
+                <span class="task-id">#TK-009</span>
+                <span class="task-priority priority-high" data-i18n="priority_high">Yüksek</span>
+              </div>
+              <div class="task-customer">Luc Vermeulen</div>
+              <div class="task-address">📍 Bondgenotenlaan 88, 3000 Leuven</div>
+              <div class="task-job-type">🏢 Ofis Temizliği</div>
+              <div class="task-meta">
+                <span class="task-meta-item">📅 22 May 14:00</span>
+                <span class="task-meta-item">⏱️ 4 saat</span>
+              </div>
+              <select class="task-status-select" onchange="changeStatus(this, 'TK-009')">
+                <option value="pending" data-i18n="status_pending">Bekliyor</option>
+                <option value="inprogress" selected data-i18n="status_inProgress">Devam Ediyor</option>
+                <option value="completed" data-i18n="status_completed">Tamamlandı</option>
+              </select>
+              <div class="task-timer">
+                <span class="timer-display" id="timer-TK-009">02:05</span>
+                <button class="timer-btn" onclick="toggleTimer(this, 'TK-009')">⏸</button>
+                <button class="timer-btn" onclick="resetTimer('TK-009')">🔄</button>
+              </div>
+              <textarea class="task-notes" placeholder="Not ekle..." data-i18n-placeholder="ph_addNote">3 katlı ofis, asansör kullanılabilir</textarea>
+              <div class="task-photos">
+                <div class="task-photo-add" onclick="showToast('Fotoğraf yükleme açıldı','info')">+</div>
+              </div>
+              <div class="task-actions">
+                <button class="task-btn task-btn-active" onclick="showToast('İş tamamlandı','success')">
+                  <span>✅</span> <span data-i18n="btn_complete">Tamamla</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- TAMAMLANDI -->
+        <div class="kanban-column column-completed" data-status="completed">
+          <div class="kanban-header">
+            <span class="kanban-header-dot"></span>
+            <span class="kanban-header-title" data-i18n="col_completed">Tamamlandı</span>
+            <span class="kanban-header-count" id="count-completed">6</span>
+          </div>
+          <div class="kanban-cards" id="col-completed">
+            <!-- TK-001 -->
+            <div class="task-card priority-medium" data-status="completed" data-priority="medium" data-date="2026-05-22" data-customer="Jan Peeters" data-address="Avenue Louise 142, 1050 Brüksel">
+              <div class="task-card-header">
+                <span class="task-id">#TK-001</span>
+                <span class="task-priority priority-medium" data-i18n="priority_medium">Orta</span>
+              </div>
+              <div class="task-customer">Jan Peeters</div>
+              <div class="task-address">📍 Avenue Louise 142, 1050 Brüksel</div>
+              <div class="task-job-type">🧼 Komple Detaylı Temizlik</div>
+              <div class="task-meta">
+                <span class="task-meta-item">📅 22 May 09:00</span>
+                <span class="task-meta-item">⏱️ 2.5 saat</span>
+              </div>
+              <select class="task-status-select" onchange="changeStatus(this, 'TK-001')">
+                <option value="pending" data-i18n="status_pending">Bekliyor</option>
+                <option value="inprogress" data-i18n="status_inProgress">Devam Ediyor</option>
+                <option value="completed" selected data-i18n="status_completed">Tamamlandı</option>
+                <option value="approved" data-i18n="status_approved">Onaylandı</option>
+              </select>
+              <textarea class="task-notes" placeholder="Not ekle..." data-i18n-placeholder="ph_addNote">Müşteri çok memnun, deri koltuklar özenle temizlendi</textarea>
+              <div class="task-photos">
+                <div class="task-photo" style="background:linear-gradient(135deg,var(--slate-700),var(--slate-600));"><span style="font-size:var(--text-xs);color:var(--text-muted);">Önc.</span></div>
+                <div class="task-photo" style="background:linear-gradient(135deg,var(--teal-700),var(--teal-600));"><span style="font-size:var(--text-xs);color:white;">Son.</span></div>
+                <div class="task-photo" style="background:linear-gradient(135deg,var(--amber-700),var(--amber-600));"><span style="font-size:var(--text-xs);color:white;">Det.</span></div>
+              </div>
+              <div class="task-rating">
+                <span class="rating-text" data-i18n="label_customerRating">Müşteri Puanı:</span>
+                <div class="rating-stars">
+                  <span class="rating-star">★</span><span class="rating-star">★</span><span class="rating-star">★</span><span class="rating-star">★</span><span class="rating-star">★</span>
+                </div>
+                <span class="rating-text">5.0</span>
+              </div>
+            </div>
+
+            <!-- TK-002 -->
+            <div class="task-card priority-low" data-status="completed" data-priority="low" data-date="2026-05-21" data-customer="Marie Dubois" data-address="Grote Markt 12, 2000 Anvers">
+              <div class="task-card-header">
+                <span class="task-id">#TK-002</span>
+                <span class="task-priority priority-low" data-i18n="priority_low">Düşük</span>
+              </div>
+              <div class="task-customer">Marie Dubois</div>
+              <div class="task-address">📍 Grote Markt 12, 2000 Anvers</div>
+              <div class="task-job-type">🧹 İç Temizlik</div>
+              <div class="task-meta">
+                <span class="task-meta-item">📅 21 May 14:00</span>
+                <span class="task-meta-item">⏱️ 1.5 saat</span>
+              </div>
+              <select class="task-status-select" onchange="changeStatus(this, 'TK-002')">
+                <option value="pending" data-i18n="status_pending">Bekliyor</option>
+                <option value="inprogress" data-i18n="status_inProgress">Devam Ediyor</option>
+                <option value="completed" selected data-i18n="status_completed">Tamamlandı</option>
+                <option value="approved" data-i18n="status_approved">Onaylandı</option>
+              </select>
+              <textarea class="task-notes" placeholder="Not ekle..." data-i18n-placeholder="ph_addNote">Halı lekesi çıkarıldı, koku giderici uygulandı</textarea>
+              <div class="task-photos">
+                <div class="task-photo" style="background:linear-gradient(135deg,var(--slate-700),var(--slate-600));"><span style="font-size:var(--text-xs);color:var(--text-muted);">Önc.</span></div>
+                <div class="task-photo" style="background:linear-gradient(135deg,var(--teal-700),var(--teal-600));"><span style="font-size:var(--text-xs);color:white;">Son.</span></div>
+              </div>
+              <div class="task-rating">
+                <span class="rating-text" data-i18n="label_customerRating">Müşteri Puanı:</span>
+                <div class="rating-stars">
+                  <span class="rating-star">★</span><span class="rating-star">★</span><span class="rating-star">★</span><span class="rating-star">★</span><span class="rating-star empty">★</span>
+                </div>
+                <span class="rating-text">4.0</span>
+              </div>
+            </div>
+
+            <!-- TK-003 -->
+            <div class="task-card priority-high" data-status="completed" data-priority="high" data-date="2026-05-21" data-customer="Lisa Wouters" data-address="Rue Neuve 88, 1000 Brüksel">
+              <div class="task-card-header">
+                <span class="task-id">#TK-003</span>
+                <span class="task-priority priority-high" data-i18n="priority_high">Yüksek</span>
+              </div>
+              <div class="task-customer">Lisa Wouters</div>
+              <div class="task-address">📍 Rue Neuve 88, 1000 Brüksel</div>
+              <div class="task-job-type">✨ Derinlemesine Temizlik</div>
+              <div class="task-meta">
+                <span class="task-meta-item">📅 21 May 10:30</span>
+                <span class="task-meta-item">⏱️ 3 saat</span>
+              </div>
+              <select class="task-status-select" onchange="changeStatus(this, 'TK-003')">
+                <option value="pending" data-i18n="status_pending">Bekliyor</option>
+                <option value="inprogress" data-i18n="status_inProgress">Devam Ediyor</option>
+                <option value="completed" selected data-i18n="status_completed">Tamamlandı</option>
+                <option value="approved" data-i18n="status_approved">Onaylandı</option>
+              </select>
+              <textarea class="task-notes" placeholder="Not ekle..." data-i18n-placeholder="ph_addNote">Çocuk koltuğu var, emniyet kemeri özenle temizlendi</textarea>
+              <div class="task-photos">
+                <div class="task-photo" style="background:linear-gradient(135deg,var(--slate-700),var(--slate-600));"><span style="font-size:var(--text-xs);color:var(--text-muted);">Önc.</span></div>
+                <div class="task-photo" style="background:linear-gradient(135deg,var(--teal-700),var(--teal-600));"><span style="font-size:var(--text-xs);color:white;">Son.</span></div>
+                <div class="task-photo-add" onclick="showToast('Fotoğraf yükleme açıldı','info')">+</div>
+              </div>
+              <div class="task-rating">
+                <span class="rating-text" data-i18n="label_customerRating">Müşteri Puanı:</span>
+                <div class="rating-stars">
+                  <span class="rating-star">★</span><span class="rating-star">★</span><span class="rating-star">★</span><span class="rating-star">★</span><span class="rating-star">★</span>
+                </div>
+                <span class="rating-text">5.0</span>
+              </div>
+            </div>
+
+            <!-- TK-010 -->
+            <div class="task-card priority-low" data-status="completed" data-priority="low" data-date="2026-05-20" data-customer="Koen De Winter" data-address="Koning Albertlaan 34, 9000 Gent">
+              <div class="task-card-header">
+                <span class="task-id">#TK-010</span>
+                <span class="task-priority priority-low" data-i18n="priority_low">Düşük</span>
+              </div>
+              <div class="task-customer">Koen De Winter</div>
+              <div class="task-address">📍 Koning Albertlaan 34, 9000 Gent</div>
+              <div class="task-job-type">🪟 Cam Temizliği</div>
+              <div class="task-meta">
+                <span class="task-meta-item">📅 20 May 11:00</span>
+                <span class="task-meta-item">⏱️ 1.5 saat</span>
+              </div>
+              <select class="task-status-select" onchange="changeStatus(this, 'TK-010')">
+                <option value="pending" data-i18n="status_pending">Bekliyor</option>
+                <option value="inprogress" data-i18n="status_inProgress">Devam Ediyor</option>
+                <option value="completed" selected data-i18n="status_completed">Tamamlandı</option>
+                <option value="approved" data-i18n="status_approved">Onaylandı</option>
+              </select>
+              <textarea class="task-notes" placeholder="Not ekle..." data-i18n-placeholder="ph_addNote">10 pencere, 2 balkon camı temizlendi</textarea>
+              <div class="task-photos">
+                <div class="task-photo" style="background:linear-gradient(135deg,var(--teal-700),var(--teal-600));"><span style="font-size:var(--text-xs);color:white;">Son.</span></div>
+              </div>
+              <div class="task-rating">
+                <span class="rating-text" data-i18n="label_customerRating">Müşteri Puanı:</span>
+                <div class="rating-stars">
+                  <span class="rating-star">★</span><span class="rating-star">★</span><span class="rating-star">★</span><span class="rating-star">★</span><span class="rating-star empty">★</span>
+                </div>
+                <span class="rating-text">4.0</span>
+              </div>
+            </div>
+
+            <!-- TK-015 -->
+            <div class="task-card priority-medium" data-status="completed" data-priority="medium" data-date="2026-05-19" data-customer="Ingrid Vandenberg" data-address="Wetstraat 1, 1000 Brüksel">
+              <div class="task-card-header">
+                <span class="task-id">#TK-015</span>
+                <span class="task-priority priority-medium" data-i18n="priority_medium">Orta</span>
+              </div>
+              <div class="task-customer">Ingrid Vandenberg</div>
+              <div class="task-address">📍 Wetstraat 1, 1000 Brüksel</div>
+              <div class="task-job-type">🏭 Depo Temizliği</div>
+              <div class="task-meta">
+                <span class="task-meta-item">📅 19 May 08:00</span>
+                <span class="task-meta-item">⏱️ 6 saat</span>
+              </div>
+              <select class="task-status-select" onchange="changeStatus(this, 'TK-015')">
+                <option value="pending" data-i18n="status_pending">Bekliyor</option>
+                <option value="inprogress" data-i18n="status_inProgress">Devam Ediyor</option>
+                <option value="completed" selected data-i18n="status_completed">Tamamlandı</option>
+                <option value="approved" data-i18n="status_approved">Onaylandı</option>
+              </select>
+              <textarea class="task-notes" placeholder="Not ekle..." data-i18n-placeholder="ph_addNote">Endüstriyel zemin temizliği, yağ lekeleri çıkarıldı</textarea>
+              <div class="task-photos">
+                <div class="task-photo" style="background:linear-gradient(135deg,var(--slate-700),var(--slate-600));"><span style="font-size:var(--text-xs);color:var(--text-muted);">Önc.</span></div>
+                <div class="task-photo" style="background:linear-gradient(135deg,var(--teal-700),var(--teal-600));"><span style="font-size:var(--text-xs);color:white;">Son.</span></div>
+                <div class="task-photo" style="background:linear-gradient(135deg,var(--amber-700),var(--amber-600));"><span style="font-size:var(--text-xs);color:white;">Det.</span></div>
+              </div>
+              <div class="task-rating">
+                <span class="rating-text" data-i18n="label_customerRating">Müşteri Puanı:</span>
+                <div class="rating-stars">
+                  <span class="rating-star">★</span><span class="rating-star">★</span><span class="rating-star">★</span><span class="rating-star">★</span><span class="rating-star">★</span>
+                </div>
+                <span class="rating-text">5.0</span>
+              </div>
+            </div>
+
+            <!-- TK-016 -->
+            <div class="task-card priority-high" data-status="completed" data-priority="high" data-date="2026-05-19" data-customer="Bart Janssens" data-address="Stationsstraat 45, 3000 Leuven">
+              <div class="task-card-header">
+                <span class="task-id">#TK-016</span>
+                <span class="task-priority priority-high" data-i18n="priority_high">Yüksek</span>
+              </div>
+              <div class="task-customer">Bart Janssens</div>
+              <div class="task-address">📍 Stationsstraat 45, 3000 Leuven</div>
+              <div class="task-job-type">🚗 Dış Yıkama + Cila</div>
+              <div class="task-meta">
+                <span class="task-meta-item">📅 19 May 16:00</span>
+                <span class="task-meta-item">⏱️ 2 saat</span>
+              </div>
+              <select class="task-status-select" onchange="changeStatus(this, 'TK-016')">
+                <option value="pending" data-i18n="status_pending">Bekliyor</option>
+                <option value="inprogress" data-i18n="status_inProgress">Devam Ediyor</option>
+                <option value="completed" selected data-i18n="status_completed">Tamamlandı</option>
+                <option value="approved" data-i18n="status_approved">Onaylandı</option>
+              </select>
+              <textarea class="task-notes" placeholder="Not ekle..." data-i18n-placeholder="ph_addNote">Spor araba, düşük basınçlı yıkama tercih edildi</textarea>
+              <div class="task-photos">
+                <div class="task-photo" style="background:linear-gradient(135deg,var(--slate-700),var(--slate-600));"><span style="font-size:var(--text-xs);color:var(--text-muted);">Önc.</span></div>
+                <div class="task-photo" style="background:linear-gradient(135deg,var(--teal-700),var(--teal-600));"><span style="font-size:var(--text-xs);color:white;">Son.</span></div>
+              </div>
+              <div class="task-rating">
+                <span class="rating-text" data-i18n="label_customerRating">Müşteri Puanı:</span>
+                <div class="rating-stars">
+                  <span class="rating-star">★</span><span class="rating-star">★</span><span class="rating-star">★</span><span class="rating-star">★</span><span class="rating-star empty">★</span>
+                </div>
+                <span class="rating-text">4.0</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ONAYLANDI -->
+        <div class="kanban-column column-approved" data-status="approved">
+          <div class="kanban-header">
+            <span class="kanban-header-dot"></span>
+            <span class="kanban-header-title" data-i18n="col_approved">Onaylandı</span>
+            <span class="kanban-header-count" id="count-approved">3</span>
+          </div>
+          <div class="kanban-cards" id="col-approved">
+            <!-- TK-004 -->
+            <div class="task-card priority-medium" data-status="approved" data-priority="medium" data-date="2026-05-18" data-customer="Charlotte Peeters" data-address="Avenue de Tervueren 150, 1150 Brüksel">
+              <div class="task-card-header">
+                <span class="task-id">#TK-004</span>
+                <span class="task-priority priority-medium" data-i18n="priority_medium">Orta</span>
+              </div>
+              <div class="task-customer">Charlotte Peeters</div>
+              <div class="task-address">📍 Avenue de Tervueren 150, 1150 Brüksel</div>
+              <div class="task-job-type">🏠 Ev Temizliği</div>
+              <div class="task-meta">
+                <span class="task-meta-item">📅 18 May 10:00</span>
+                <span class="task-meta-item">⏱️ 3 saat</span>
+              </div>
+              <div style="display:flex;align-items:center;gap:8px;padding:8px 10px;background:rgba(16,185,129,0.1);border-radius:var(--radius-sm);margin-bottom:10px;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--success-500)" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                <span style="font-size:var(--text-sm);font-weight:600;color:var(--success-500);" data-i18n="status_approvedByManager">Yönetici Onaylı</span>
+              </div>
+              <textarea class="task-notes" placeholder="Not ekle..." data-i18n-placeholder="ph_addNote" readonly>Müşteri geri bildirimi: "Mükemmel hizmet, teşekkürler!"</textarea>
+              <div class="task-photos">
+                <div class="task-photo" style="background:linear-gradient(135deg,var(--slate-700),var(--slate-600));"><span style="font-size:var(--text-xs);color:var(--text-muted);">Önc.</span></div>
+                <div class="task-photo" style="background:linear-gradient(135deg,var(--teal-700),var(--teal-600));"><span style="font-size:var(--text-xs);color:white;">Son.</span></div>
+              </div>
+              <div class="task-rating">
+                <span class="rating-text" data-i18n="label_customerRating">Müşteri Puanı:</span>
+                <div class="rating-stars">
+                  <span class="rating-star">★</span><span class="rating-star">★</span><span class="rating-star">★</span><span class="rating-star">★</span><span class="rating-star">★</span>
+                </div>
+                <span class="rating-text">5.0</span>
+              </div>
+            </div>
+
+            <!-- TK-017 -->
+            <div class="task-card priority-low" data-status="approved" data-priority="low" data-date="2026-05-17" data-customer="Els De Smet" data-address="Graaf van Vlaanderenplein 8, 9000 Gent">
+              <div class="task-card-header">
+                <span class="task-id">#TK-017</span>
+                <span class="task-priority priority-low" data-i18n="priority_low">Düşük</span>
+              </div>
+              <div class="task-customer">Els De Smet</div>
+              <div class="task-address">📍 Graaf van Vlaanderenplein 8, 9000 Gent</div>
+              <div class="task-job-type">🧹 İç Temizlik</div>
+              <div class="task-meta">
+                <span class="task-meta-item">📅 17 May 14:00</span>
+                <span class="task-meta-item">⏱️ 2 saat</span>
+              </div>
+              <div style="display:flex;align-items:center;gap:8px;padding:8px 10px;background:rgba(16,185,129,0.1);border-radius:var(--radius-sm);margin-bottom:10px;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--success-500)" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                <span style="font-size:var(--text-sm);font-weight:600;color:var(--success-500);" data-i18n="status_approvedByManager">Yönetici Onaylı</span>
+              </div>
+              <textarea class="task-notes" placeholder="Not ekle..." data-i18n-placeholder="ph_addNote" readonly>Düzenli müşteri, haftalık temizlik</textarea>
+              <div class="task-rating">
+                <span class="rating-text" data-i18n="label_customerRating">Müşteri Puanı:</span>
+                <div class="rating-stars">
+                  <span class="rating-star">★</span><span class="rating-star">★</span><span class="rating-star">★</span><span class="rating-star">★</span><span class="rating-star empty">★</span>
+                </div>
+                <span class="rating-text">4.0</span>
+              </div>
+            </div>
+
+            <!-- TK-018 -->
+            <div class="task-card priority-high" data-status="approved" data-priority="high" data-date="2026-05-16" data-customer="Dirk Vermeulen" data-address="Mechelsesteenweg 200, 2018 Anvers">
+              <div class="task-card-header">
+                <span class="task-id">#TK-018</span>
+                <span class="task-priority priority-high" data-i18n="priority_high">Yüksek</span>
+              </div>
+              <div class="task-customer">Dirk Vermeulen</div>
+              <div class="task-address">📍 Mechelsesteenweg 200, 2018 Anvers</div>
+              <div class="task-job-type">✨ Derinlemesine Temizlik</div>
+              <div class="task-meta">
+                <span class="task-meta-item">📅 16 May 09:00</span>
+                <span class="task-meta-item">⏱️ 5 saat</span>
+              </div>
+              <div style="display:flex;align-items:center;gap:8px;padding:8px 10px;background:rgba(16,185,129,0.1);border-radius:var(--radius-sm);margin-bottom:10px;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--success-500)" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                <span style="font-size:var(--text-sm);font-weight:600;color:var(--success-500);" data-i18n="status_approvedByManager">Yönetici Onaylı</span>
+              </div>
+              <textarea class="task-notes" placeholder="Not ekle..." data-i18n-placeholder="ph_addNote" readonly>Şirket açılışı öncesi son temizlik, her şey hazır</textarea>
+              <div class="task-photos">
+                <div class="task-photo" style="background:linear-gradient(135deg,var(--slate-700),var(--slate-600));"><span style="font-size:var(--text-xs);color:var(--text-muted);">Önc.</span></div>
+                <div class="task-photo" style="background:linear-gradient(135deg,var(--teal-700),var(--teal-600));"><span style="font-size:var(--text-xs);color:white;">Son.</span></div>
+                <div class="task-photo" style="background:linear-gradient(135deg,var(--amber-700),var(--amber-600));"><span style="font-size:var(--text-xs);color:white;">Det.</span></div>
+              </div>
+              <div class="task-rating">
+                <span class="rating-text" data-i18n="label_customerRating">Müşteri Puanı:</span>
+                <div class="rating-stars">
+                  <span class="rating-star">★</span><span class="rating-star">★</span><span class="rating-star">★</span><span class="rating-star">★</span><span class="rating-star">★</span>
+                </div>
+                <span class="rating-text">5.0</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<!-- Toast Container -->
+<div class="toast-container" id="toastContainer"></div>
+
+<script>
+/* ── Language Switcher ── */
+const translations = {
+  tr: {
+    title_employee_tasks: 'CleanFix — Görevlerim',
+    meta_desc_employee_tasks: 'CleanFix Çalışan Görevleri — Temizlik işleri, durum takibi, zaman ölçer ve müşteri değerlendirmeleri.',
+    og_title_employee_tasks: 'CleanFix — Görevlerim',
+    og_desc_employee_tasks: 'CleanFix Çalışan Görev Yönetimi',
+    sidebar_employee: 'Çalışan Portalı',
+    nav_mainMenu: 'Ana Menü',
+    nav_dashboard: 'Dashboard',
+    nav_schedule: 'Programım',
+    nav_tasks: 'Görevlerim',
+    nav_leave: 'İzin Talepleri',
+    nav_payslip: 'Bordro',
+    nav_notices: 'Duyurular',
+    nav_messages: 'Mesajlar',
+    nav_account: 'Hesap',
+    nav_profile: 'Profilim',
+    nav_logout: 'Çıkış Yap',
+    page_title_tasks: 'Görevlerim',
+    role_teamLead: 'Ekip Lideri',
+    quick_actions: 'Hızlı İşlemler',
+    btn_startNewTask: 'Yeni Görev Başlat',
+    btn_addBreak: 'Mola Ekle',
+    btn_reportProblem: 'Sorun Bildir',
+    btn_emergency: 'Acil İletişim',
+    filter_allStatus: 'Tüm Durumlar',
+    filter_pending: 'Bekliyor',
+    filter_inProgress: 'Devam Ediyor',
+    filter_completed: 'Tamamlandı',
+    filter_approved: 'Onaylandı',
+    filter_allDates: 'Tüm Tarihler',
+    filter_today: 'Bugün',
+    filter_thisWeek: 'Bu Hafta',
+    filter_thisMonth: 'Bu Ay',
+    filter_allPriority: 'Tüm Öncelikler',
+    filter_high: 'Yüksek',
+    filter_medium: 'Orta',
+    filter_low: 'Düşük',
+    ph_search: 'Müşteri veya adres ara...',
+    ph_addNote: 'Not ekle...',
+    col_pending: 'Bekliyor',
+    col_inProgress: 'Devam Ediyor',
+    col_completed: 'Tamamlandı',
+    col_approved: 'Onaylandı',
+    priority_high: 'Yüksek',
+    priority_medium: 'Orta',
+    priority_low: 'Düşük',
+    status_pending: 'Bekliyor',
+    status_inProgress: 'Devam Ediyor',
+    status_completed: 'Tamamlandı',
+    status_approved: 'Onaylandı',
+    status_approvedByManager: 'Yönetici Onaylı',
+    btn_start: 'Başlat',
+    btn_photo: 'Foto',
+    btn_complete: 'Tamamla',
+    label_customerRating: 'Müşteri Puanı:'
+  },
+  en: {
+    title_employee_tasks: 'CleanFix — My Tasks',
+    meta_desc_employee_tasks: 'CleanFix Employee Tasks — Cleaning jobs, status tracking, timer and customer ratings.',
+    og_title_employee_tasks: 'CleanFix — My Tasks',
+    og_desc_employee_tasks: 'CleanFix Employee Task Management',
+    sidebar_employee: 'Employee Portal',
+    nav_mainMenu: 'Main Menu',
+    nav_dashboard: 'Dashboard',
+    nav_schedule: 'My Schedule',
+    nav_tasks: 'My Tasks',
+    nav_leave: 'Leave Requests',
+    nav_payslip: 'Payslip',
+    nav_notices: 'Notices',
+    nav_messages: 'Messages',
+    nav_account: 'Account',
+    nav_profile: 'My Profile',
+    nav_logout: 'Logout',
+    page_title_tasks: 'My Tasks',
+    role_teamLead: 'Team Lead',
+    quick_actions: 'Quick Actions',
+    btn_startNewTask: 'Start New Task',
+    btn_addBreak: 'Add Break',
+    btn_reportProblem: 'Report Problem',
+    btn_emergency: 'Emergency Contact',
+    filter_allStatus: 'All Statuses',
+    filter_pending: 'Pending',
+    filter_inProgress: 'In Progress',
+    filter_completed: 'Completed',
+    filter_approved: 'Approved',
+    filter_allDates: 'All Dates',
+    filter_today: 'Today',
+    filter_thisWeek: 'This Week',
+    filter_thisMonth: 'This Month',
+    filter_allPriority: 'All Priorities',
+    filter_high: 'High',
+    filter_medium: 'Medium',
+    filter_low: 'Low',
+    ph_search: 'Search customer or address...',
+    ph_addNote: 'Add note...',
+    col_pending: 'Pending',
+    col_inProgress: 'In Progress',
+    col_completed: 'Completed',
+    col_approved: 'Approved',
+    priority_high: 'High',
+    priority_medium: 'Medium',
+    priority_low: 'Low',
+    status_pending: 'Pending',
+    status_inProgress: 'In Progress',
+    status_completed: 'Completed',
+    status_approved: 'Approved',
+    status_approvedByManager: 'Manager Approved',
+    btn_start: 'Start',
+    btn_photo: 'Photo',
+    btn_complete: 'Complete',
+    label_customerRating: 'Customer Rating:'
+  },
+  nl: {
+    title_employee_tasks: 'CleanFix — Mijn Taken',
+    meta_desc_employee_tasks: 'CleanFix Werknemer Taken — Schoonmaakklussen, status tracking, timer en klantbeoordelingen.',
+    og_title_employee_tasks: 'CleanFix — Mijn Taken',
+    og_desc_employee_tasks: 'CleanFix Werknemer Taakbeheer',
+    sidebar_employee: 'Werknemersportaal',
+    nav_mainMenu: 'Hoofdmenu',
+    nav_dashboard: 'Dashboard',
+    nav_schedule: 'Mijn Agenda',
+    nav_tasks: 'Mijn Taken',
+    nav_leave: 'Verlofaanvragen',
+    nav_payslip: 'Loonstrook',
+    nav_notices: 'Mededelingen',
+    nav_messages: 'Berichten',
+    nav_account: 'Account',
+    nav_profile: 'Mijn Profiel',
+    nav_logout: 'Uitloggen',
+    page_title_tasks: 'Mijn Taken',
+    role_teamLead: 'Teamleider',
+    quick_actions: 'Snelle Acties',
+    btn_startNewTask: 'Nieuwe Taak Starten',
+    btn_addBreak: 'Pauze Toevoegen',
+    btn_reportProblem: 'Probleem Melden',
+    btn_emergency: 'Noodcontact',
+    filter_allStatus: 'Alle Statussen',
+    filter_pending: 'In Afwachting',
+    filter_inProgress: 'Bezig',
+    filter_completed: 'Voltooid',
+    filter_approved: 'Goedgekeurd',
+    filter_allDates: 'Alle Datums',
+    filter_today: 'Vandaag',
+    filter_thisWeek: 'Deze Week',
+    filter_thisMonth: 'Deze Maand',
+    filter_allPriority: 'Alle Prioriteiten',
+    filter_high: 'Hoog',
+    filter_medium: 'Gemiddeld',
+    filter_low: 'Laag',
+    ph_search: 'Zoek klant of adres...',
+    ph_addNote: 'Notitie toevoegen...',
+    col_pending: 'In Afwachting',
+    col_inProgress: 'Bezig',
+    col_completed: 'Voltooid',
+    col_approved: 'Goedgekeurd',
+    priority_high: 'Hoog',
+    priority_medium: 'Gemiddeld',
+    priority_low: 'Laag',
+    status_pending: 'In Afwachting',
+    status_inProgress: 'Bezig',
+    status_completed: 'Voltooid',
+    status_approved: 'Goedgekeurd',
+    status_approvedByManager: 'Door Manager Goedgekeurd',
+    btn_start: 'Starten',
+    btn_photo: 'Foto',
+    btn_complete: 'Afronden',
+    label_customerRating: 'Klantbeoordeling:'
+  }
+};
+
+let currentLang = 'tr';
+
+function switchLang(lang) {
+  currentLang = lang;
+  document.querySelectorAll('.lang-switcher button').forEach(b => b.classList.toggle('active', b.dataset.lang === lang));
+  const t = translations[lang];
+  if (!t) return;
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.dataset.i18n;
+    if (t[key]) {
+      if (el.dataset.i18nAttr) {
+        el.setAttribute(el.dataset.i18nAttr, t[key]);
+      } else {
+        const text = el.querySelector('svg, img, .rating-stars, .task-photos');
+        if (text) {
+          const tn = Array.from(el.childNodes).filter(n => n.nodeType === 3);
+          if (tn.length) { tn[tn.length-1].textContent = t[key]; }
+          else { const span = el.querySelector('span:not(.rating-stars):not(.task-photos)'); if (span) span.textContent = t[key]; }
+        } else { el.textContent = t[key]; }
+      }
+    }
+  });
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+    const key = el.dataset.i18nPlaceholder;
+    if (t[key]) el.placeholder = t[key];
+  });
+  document.querySelectorAll('option[data-i18n]').forEach(opt => {
+    const key = opt.dataset.i18n;
+    if (t[key]) opt.textContent = t[key];
+  });
+  localStorage.setItem('cleanfix-lang', lang);
+}
+
+/* ── Force TR ── */
+currentLang = 'tr';
+switchLang('tr');
+
+/* ── Scroll Reveal ── */
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+}, { threshold: 0.05 });
+document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+/* ── Timer Logic ── */
+const timers = {};
+const timerIntervals = {};
+
+function toggleTimer(btn, taskId) {
+  const display = document.getElementById('timer-' + taskId);
+  if (!display) return;
+  if (timerIntervals[taskId]) {
+    clearInterval(timerIntervals[taskId]);
+    delete timerIntervals[taskId];
+    btn.textContent = '▶️';
+    showToast('Zamanlayıcı durduruldu', 'info');
+  } else {
+    timerIntervals[taskId] = setInterval(() => {
+      let [m, s] = display.textContent.split(':').map(Number);
+      s++;
+      if (s >= 60) { s = 0; m++; }
+      display.textContent = String(m).padStart(2, '0') + ':' + String(s).padStart(2, '0');
+    }, 1000);
+    btn.textContent = '⏸';
+    showToast('Zamanlayıcı başlatıldı', 'success');
+  }
+}
+
+function resetTimer(taskId) {
+  const display = document.getElementById('timer-' + taskId);
+  if (display) display.textContent = '00:00';
+  if (timerIntervals[taskId]) {
+    clearInterval(timerIntervals[taskId]);
+    delete timerIntervals[taskId];
+  }
+  showToast('Zamanlayıcı sıfırlandı', 'info');
+}
+
+/* ── Status Change ── */
+function changeStatus(select, taskId) {
+  const newStatus = select.value;
+  const card = select.closest('.task-card');
+  const oldStatus = card.dataset.status;
+  card.dataset.status = newStatus;
+  showToast(taskId + ' durumu güncellendi: ' + select.options[select.selectedIndex].text, 'success');
+  updateCounts();
+  filterTasks();
+}
+
+/* ── Filter Logic ── */
+function filterTasks() {
+  const status = document.getElementById('filterStatus').value;
+  const date = document.getElementById('filterDate').value;
+  const priority = document.getElementById('filterPriority').value;
+  const search = document.getElementById('searchInput').value.toLowerCase();
+
+  const today = '2026-05-23';
+  const cards = document.querySelectorAll('.task-card');
+  let visible = 0;
+
+  cards.forEach(card => {
+    const cStatus = card.dataset.status;
+    const cPriority = card.dataset.priority;
+    const cDate = card.dataset.date;
+    const cCustomer = card.dataset.customer.toLowerCase();
+    const cAddress = card.dataset.address.toLowerCase();
+
+    let show = true;
+    if (status !== 'all' && cStatus !== status) show = false;
+    if (priority !== 'all' && cPriority !== priority) show = false;
+    if (date !== 'all') {
+      if (date === 'today' && cDate !== today) show = false;
+      if (date === 'week') {
+        const d = new Date(cDate);
+        const now = new Date(today);
+        const diff = (d - now) / (1000 * 60 * 60 * 24);
+        if (diff < -7 || diff > 7) show = false;
+      }
+      if (date === 'month') {
+        if (!cDate.startsWith('2026-05')) show = false;
+      }
+    }
+    if (search && !cCustomer.includes(search) && !cAddress.includes(search)) show = false;
+
+    card.style.display = show ? '' : 'none';
+    if (show) visible++;
+  });
+
+  document.getElementById('resultsCount').textContent = visible + ' görev';
+  updateCounts();
+}
+
+function updateCounts() {
+  const statuses = ['pending', 'inprogress', 'completed', 'approved'];
+  statuses.forEach(st => {
+    const col = document.getElementById('col-' + st);
+    if (col) {
+      const count = col.querySelectorAll('.task-card:not([style*="display: none"])').length;
+      const badge = document.getElementById('count-' + st);
+      if (badge) badge.textContent = count;
+    }
+  });
+}
+
+/* ── Toast (fallback) ── */
+function showToast(message, type = 'info') {
+  if (typeof window.showToast === 'function' && window.showToast !== showToast) {
+    window.showToast(message, type);
+    return;
+  }
+  const container = document.getElementById('toastContainer');
+  if (!container) return;
+  const toast = document.createElement('div');
+  toast.className = 'toast toast-' + type;
+  const icons = { success: '✅', error: '❌', warning: '⚠️', info: 'ℹ️' };
+  toast.innerHTML = '<div class="toast-icon">' + (icons[type] || 'ℹ️') + '</div><div class="toast-content"><div class="toast-title">' + (type === 'success' ? 'Başarılı' : type === 'error' ? 'Hata' : 'Bilgi') + '</div><div class="toast-message">' + message + '</div></div>';
+  const progress = document.createElement('div');
+  progress.className = 'toast-progress';
+  toast.appendChild(progress);
+  container.appendChild(toast);
+  setTimeout(() => { toast.classList.add('exit'); setTimeout(() => toast.remove(), 300); }, 4000);
+}
+
+/* ── Init ── */
+document.addEventListener('DOMContentLoaded', () => {
+  updateCounts();
+});
+</script>
+</body>
+</html>

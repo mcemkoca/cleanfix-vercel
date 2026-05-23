@@ -1,0 +1,1253 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="description" content="CleanFix Personel Portalı - Çalışan Dashboard">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CleanFix — Personel Portalı</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/main.css">
+<link rel="stylesheet" href="css/components.css">
+<style>
+/* ── Root Overrides ── */
+:root, [data-theme="dark"] {
+  --glass-bg: rgba(15, 23, 42, 0.60);
+  --glass-border: rgba(148, 163, 184, 0.08);
+  --teal-glow: rgba(20, 184, 166, 0.15);
+  --card-shadow: 0 1px 3px rgba(0,0,0,0.3), 0 8px 24px rgba(0,0,0,0.2);
+  --card-shadow-hover: 0 2px 6px rgba(0,0,0,0.4), 0 16px 48px rgba(0,0,0,0.3);
+}
+
+/* ── Scroll Reveal ── */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.6s cubic-bezier(0.22,1,0.36,1), transform 0.6s cubic-bezier(0.22,1,0.36,1);
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.reveal-delay-1 { transition-delay: 0.08s; }
+.reveal-delay-2 { transition-delay: 0.16s; }
+.reveal-delay-3 { transition-delay: 0.24s; }
+.reveal-delay-4 { transition-delay: 0.32s; }
+
+/* ── Layout ── */
+.dashboard { display:flex; min-height:100vh; }
+
+/* ── Sidebar ── */
+.sidebar {
+  width:260px; background:var(--bg-card); border-right:1px solid var(--border-color);
+  display:flex; flex-direction:column; position:fixed; inset:0 auto 0 0; z-index:100;
+  transition:transform var(--duration-slow) var(--ease-out);
+}
+.sidebar.collapsed { transform:translateX(-100%); }
+.sidebar-header { padding:var(--space-5); border-bottom:1px solid var(--border-color); }
+.sidebar-logo { display:flex; align-items:center; gap:var(--space-3); }
+.sidebar-logo .logo-icon {
+  width:40px; height:40px; background:linear-gradient(135deg,var(--teal-500),var(--teal-700));
+  border-radius:var(--radius-md); display:flex; align-items:center; justify-content:center;
+  font-size:16px; font-weight:700; color:white;
+}
+.sidebar-logo h2 { font-size:var(--text-base); font-weight:700; letter-spacing:-0.02em; }
+.sidebar-logo p { font-size:var(--text-xs); color:var(--text-muted); }
+.sidebar-nav { flex:1; overflow-y:auto; padding:var(--space-3); }
+.nav-group { margin-bottom:var(--space-4); }
+.nav-label {
+  display:flex; align-items:center; gap:8px; padding:8px 12px;
+  font-size:var(--text-xs); font-weight:600; color:var(--text-muted);
+  text-transform:uppercase; letter-spacing:0.05em;
+}
+.nav-item {
+  display:flex; align-items:center; gap:var(--space-3); padding:10px var(--space-3);
+  border-radius:var(--radius-md); cursor:pointer; transition:all var(--duration-fast);
+  color:var(--text-secondary); font-size:var(--text-sm); font-weight:500; margin-bottom:2px;
+}
+.nav-item:hover { background:var(--bg-secondary); color:var(--text-primary); }
+.nav-item.active {
+  background:rgba(20,184,166,0.1); color:var(--teal-500);
+  box-shadow: inset 0 0 0 1px rgba(20,184,166,0.15);
+}
+.nav-item svg { flex-shrink:0; }
+.nav-badge {
+  margin-left:auto; background:var(--bg-tertiary); color:var(--text-secondary);
+  font-size:var(--text-xs); font-weight:600; padding:2px 8px; border-radius:9999px;
+}
+.nav-item.active .nav-badge { background:var(--teal-500); color:white; }
+.sidebar-footer { padding:var(--space-4); border-top:1px solid var(--border-color); }
+.sidebar-user { display:flex; align-items:center; gap:var(--space-3); }
+.sidebar-user-info { flex:1; }
+.sidebar-user-info p { font-size:var(--text-sm); font-weight:600; }
+.sidebar-user-info span { font-size:var(--text-xs); color:var(--text-muted); }
+
+/* ── Main ── */
+.main { flex:1; margin-left:260px; display:flex; flex-direction:column; min-height:100vh; transition:margin-left var(--duration-slow); }
+.sidebar.collapsed ~ .main { margin-left:0; }
+
+/* ── Header ── */
+.header {
+  height:64px; background:var(--bg-card); border-bottom:1px solid var(--border-color);
+  display:flex; align-items:center; justify-content:space-between;
+  padding:0 var(--space-6); position:sticky; top:0; z-index:50;
+  backdrop-filter: blur(12px);
+  background: rgba(15, 23, 42, 0.85);
+}
+.header-left { display:flex; align-items:center; gap:var(--space-4); }
+.menu-btn {
+  width:36px; height:36px; border-radius:var(--radius-md); display:flex; align-items:center; justify-content:center;
+  background:var(--bg-secondary); border:1px solid var(--border-color); color:var(--text-secondary);
+  cursor:pointer; transition:all var(--duration-fast);
+}
+.menu-btn:hover { color:var(--teal-500); border-color:var(--teal-500); }
+.page-title { font-size:20px; font-weight:800; letter-spacing:-0.03em; }
+.header-right { display:flex; align-items:center; gap:var(--space-3); }
+.header-btn {
+  width:38px; height:38px; border-radius:var(--radius-md); display:flex; align-items:center; justify-content:center;
+  background:var(--bg-secondary); border:1px solid var(--border-color); color:var(--text-secondary);
+  cursor:pointer; transition:all var(--duration-fast); position:relative;
+}
+.header-btn:hover { color:var(--teal-500); border-color:var(--teal-500); }
+.header-btn .badge-dot {
+  position:absolute; top:6px; right:6px; width:8px; height:8px; border-radius:50%;
+  background:var(--error-500); border:2px solid var(--bg-card);
+}
+
+/* ── Content ── */
+.content { padding:var(--space-6); flex:1; }
+
+/* ── Welcome Hero ── */
+.welcome-hero {
+  display:flex; align-items:center; gap:var(--space-5);
+  padding:var(--space-6);
+  background: linear-gradient(135deg, rgba(20,184,166,0.08) 0%, rgba(15,23,42,0.4) 100%);
+  border:1px solid rgba(20,184,166,0.12);
+  border-radius:var(--radius-xl);
+  margin-bottom:var(--space-6);
+}
+.employee-avatar {
+  width:72px; height:72px; border-radius:50%;
+  background:linear-gradient(135deg,var(--teal-400),var(--teal-700));
+  display:flex; align-items:center; justify-content:center;
+  font-size:28px; font-weight:700; color:white;
+  flex-shrink:0;
+  box-shadow:0 0 0 3px var(--bg-card),0 0 0 6px rgba(20,184,166,0.2);
+}
+.welcome-info { flex:1; }
+.welcome-name {
+  font-size:var(--text-2xl); font-weight:700; letter-spacing:-0.02em;
+  display:flex; align-items:center; gap:var(--space-3); flex-wrap:wrap;
+}
+.welcome-meta {
+  display:flex; align-items:center; gap:var(--space-4); margin-top:var(--space-2);
+  flex-wrap:wrap;
+}
+.welcome-meta span {
+  display:inline-flex; align-items:center; gap:6px;
+  font-size:var(--text-sm); color:var(--text-secondary);
+}
+.status-badge {
+  display:inline-flex; align-items:center; gap:6px;
+  padding:4px 12px; border-radius:9999px;
+  font-size:var(--text-xs); font-weight:600;
+}
+.status-badge.onduty {
+  background:rgba(16,185,129,0.12); color:var(--success-500);
+}
+.status-badge.available {
+  background:rgba(59,130,246,0.12); color:var(--info-500);
+}
+.status-badge.off {
+  background:rgba(245,158,11,0.12); color:var(--warning-500);
+}
+
+/* ── KPI Grid ── */
+.kpi-grid {
+  display:grid; grid-template-columns:repeat(4,1fr); gap:var(--space-4);
+  margin-bottom:var(--space-6);
+}
+.kpi-card {
+  background:var(--bg-card); border:1px solid var(--border-color);
+  border-radius:var(--radius-lg); padding:var(--space-5);
+  transition:all var(--duration-normal);
+}
+.kpi-card:hover {
+  transform:translateY(-3px);
+  box-shadow:var(--card-shadow-hover);
+  border-color:var(--slate-600);
+}
+.kpi-icon {
+  width:44px; height:44px; border-radius:var(--radius-md);
+  display:flex; align-items:center; justify-content:center;
+  font-size:20px; margin-bottom:var(--space-3);
+}
+.kpi-icon.teal { background:rgba(20,184,166,0.12); }
+.kpi-icon.amber { background:rgba(245,158,11,0.12); }
+.kpi-icon.green { background:rgba(16,185,129,0.12); }
+.kpi-icon.blue { background:rgba(59,130,246,0.12); }
+.kpi-value {
+  font-size:var(--text-3xl); font-weight:700; color:var(--text-primary);
+  line-height:1.2; letter-spacing:-0.02em;
+}
+.kpi-label {
+  font-size:var(--text-sm); color:var(--text-muted); margin-top:2px;
+}
+.kpi-extra {
+  display:inline-flex; align-items:center; gap:4px;
+  font-size:var(--text-xs); font-weight:600; margin-top:var(--space-2);
+  padding:2px 8px; border-radius:9999px;
+}
+.kpi-extra.up { background:rgba(16,185,129,0.12); color:var(--success-500); }
+.kpi-extra.target {
+  background:rgba(245,158,11,0.12); color:var(--warning-500);
+}
+
+/* ── Section Grid ── */
+.section-grid {
+  display:grid; grid-template-columns:repeat(2,1fr); gap:var(--space-6);
+  margin-bottom:var(--space-6);
+}
+.section-card {
+  background:var(--bg-card); border:1px solid var(--border-color);
+  border-radius:var(--radius-lg); padding:var(--space-6);
+}
+.section-card h3 {
+  font-size:var(--text-lg); font-weight:600; color:var(--text-primary);
+  display:flex; align-items:center; gap:var(--space-2); margin-bottom:var(--space-4);
+}
+
+/* ── Timeline ── */
+.timeline {
+  position:relative; padding-left:28px;
+}
+.timeline::before {
+  content:''; position:absolute; left:8px; top:0; bottom:0;
+  width:2px; background:var(--border-color); border-radius:1px;
+}
+.timeline-item {
+  position:relative; padding-bottom:var(--space-4);
+}
+.timeline-item:last-child { padding-bottom:0; }
+.timeline-dot {
+  position:absolute; left:-28px; top:2px;
+  width:18px; height:18px; border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  font-size:10px; z-index:2;
+}
+.timeline-dot.completed { background:var(--success-500); color:white; }
+.timeline-dot.active { background:var(--teal-500); color:white; box-shadow:0 0 0 3px rgba(20,184,166,0.2); }
+.timeline-dot.pending { background:var(--bg-tertiary); border:2px solid var(--border-color); }
+.timeline-content { display:flex; flex-direction:column; gap:2px; }
+.timeline-time {
+  font-size:var(--text-xs); font-weight:600; color:var(--teal-500);
+}
+.timeline-title {
+  font-size:var(--text-sm); font-weight:600; color:var(--text-primary);
+}
+.timeline-desc {
+  font-size:var(--text-xs); color:var(--text-muted);
+  display:flex; align-items:center; gap:4px;
+}
+.timeline-status {
+  display:inline-flex; align-items:center; gap:4px;
+  font-size:var(--text-xs); font-weight:600;
+  margin-top:2px;
+}
+.timeline-status.done { color:var(--success-500); }
+.timeline-status.now { color:var(--teal-500); }
+.timeline-status.upcoming { color:var(--text-muted); }
+
+/* ── Task List ── */
+.task-list { display:flex; flex-direction:column; gap:var(--space-3); }
+.task-item {
+  display:flex; align-items:center; gap:var(--space-4);
+  padding:var(--space-3) var(--space-4);
+  background:var(--bg-secondary); border-radius:var(--radius-md);
+  border:1px solid var(--border-color);
+  transition:all var(--duration-fast);
+}
+.task-item:hover {
+  border-color:var(--teal-500);
+  background:var(--bg-tertiary);
+}
+.task-icon {
+  width:40px; height:40px; border-radius:var(--radius-md);
+  display:flex; align-items:center; justify-content:center;
+  font-size:18px; flex-shrink:0;
+}
+.task-icon.office { background:rgba(59,130,246,0.12); }
+.task-icon.home { background:rgba(245,158,11,0.12); }
+.task-icon.deep { background:rgba(139,92,246,0.12); }
+.task-icon.window { background:rgba(14,165,233,0.12); }
+.task-info { flex:1; min-width:0; }
+.task-title {
+  font-size:var(--text-sm); font-weight:600; color:var(--text-primary);
+  white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+}
+.task-meta {
+  font-size:var(--text-xs); color:var(--text-muted);
+  display:flex; align-items:center; gap:var(--space-2); margin-top:2px;
+}
+.task-status {
+  font-size:var(--text-xs); font-weight:600; padding:2px 8px;
+  border-radius:9999px; flex-shrink:0;
+}
+.task-status.assigned { background:rgba(59,130,246,0.12); color:var(--info-500); }
+.task-status.inprogress { background:rgba(20,184,166,0.12); color:var(--teal-500); }
+.task-status.pending { background:rgba(245,158,11,0.12); color:var(--warning-500); }
+
+/* ── Activity List ── */
+.activity-list { display:flex; flex-direction:column; gap:var(--space-3); }
+.activity-item {
+  display:flex; align-items:center; gap:var(--space-4);
+  padding:var(--space-3) 0;
+  border-bottom:1px solid var(--border-color);
+}
+.activity-item:last-child { border-bottom:none; padding-bottom:0; }
+.activity-avatar {
+  width:36px; height:36px; border-radius:50%;
+  background:linear-gradient(135deg,var(--slate-400),var(--slate-600));
+  display:flex; align-items:center; justify-content:center;
+  font-size:var(--text-xs); font-weight:600; color:white;
+  flex-shrink:0;
+}
+.activity-info { flex:1; }
+.activity-title {
+  font-size:var(--text-sm); color:var(--text-primary);
+}
+.activity-title strong { font-weight:600; }
+.activity-meta {
+  font-size:var(--text-xs); color:var(--text-muted); margin-top:2px;
+}
+.activity-rating {
+  display:flex; align-items:center; gap:2px;
+  font-size:var(--text-sm); color:var(--amber-500);
+  flex-shrink:0;
+}
+
+/* ── Quick Actions ── */
+.quick-actions {
+  display:grid; grid-template-columns:repeat(4,1fr); gap:var(--space-4);
+  margin-bottom:var(--space-6);
+}
+.action-card {
+  display:flex; flex-direction:column; align-items:center; gap:var(--space-3);
+  padding:var(--space-5);
+  background:var(--bg-card); border:1px solid var(--border-color);
+  border-radius:var(--radius-lg);
+  cursor:pointer; transition:all var(--duration-normal);
+  text-align:center;
+}
+.action-card:hover {
+  transform:translateY(-3px);
+  box-shadow:var(--card-shadow-hover);
+  border-color:var(--teal-500);
+}
+.action-icon {
+  width:48px; height:48px; border-radius:var(--radius-md);
+  display:flex; align-items:center; justify-content:center;
+  font-size:22px;
+}
+.action-icon.break { background:rgba(245,158,11,0.12); }
+.action-icon.issue { background:rgba(244,63,94,0.12); }
+.action-icon.leave { background:rgba(59,130,246,0.12); }
+.action-icon.payslip { background:rgba(16,185,129,0.12); }
+.action-title {
+  font-size:var(--text-sm); font-weight:600; color:var(--text-primary);
+}
+.action-desc {
+  font-size:var(--text-xs); color:var(--text-muted);
+}
+
+/* ── Timesheet Widget ── */
+.timesheet-widget {
+  display:flex; align-items:center; gap:var(--space-4);
+  padding:var(--space-4);
+  background:var(--bg-secondary); border-radius:var(--radius-lg);
+  border:1px solid var(--border-color);
+}
+.timesheet-clock {
+  text-align:center; min-width:80px;
+}
+.timesheet-clock .time {
+  font-size:var(--text-xl); font-weight:700; color:var(--text-primary);
+  font-family:var(--font-mono);
+}
+.timesheet-clock .label {
+  font-size:var(--text-xs); color:var(--text-muted);
+}
+.timesheet-divider {
+  width:1px; height:48px; background:var(--border-color);
+}
+.timesheet-info { flex:1; }
+.timesheet-row {
+  display:flex; align-items:center; gap:var(--space-4);
+  font-size:var(--text-sm);
+}
+.timesheet-row + .timesheet-row { margin-top:var(--space-2); }
+.timesheet-row .label { color:var(--text-muted); min-width:80px; }
+.timesheet-row .value { font-weight:600; color:var(--text-primary); }
+
+/* ── Responsive ── */
+@media (max-width:1024px) {
+  .kpi-grid { grid-template-columns:repeat(2,1fr); }
+  .section-grid { grid-template-columns:1fr; }
+  .quick-actions { grid-template-columns:repeat(2,1fr); }
+}
+@media (max-width:768px) {
+  .sidebar { transform:translateX(-100%); }
+  .sidebar.open { transform:translateX(0); }
+  .main { margin-left:0; }
+  .header { padding:0 var(--space-4); }
+  .content { padding:var(--space-4); }
+  .welcome-hero { flex-direction:column; text-align:center; }
+  .kpi-grid { grid-template-columns:1fr; }
+  .quick-actions { grid-template-columns:1fr 1fr; }
+  .section-grid { grid-template-columns:1fr; }
+  .timesheet-row { flex-direction:column; align-items:flex-start; gap:var(--space-1); }
+  .timesheet-divider { display:none; }
+}
+
+/* ── Slide Panel (Mobile) ── */
+.slide-overlay {
+  position:fixed; inset:0; background:rgba(0,0,0,0.5); z-index:99;
+  opacity:0; visibility:hidden; transition:all var(--duration-normal);
+}
+.slide-overlay.active { opacity:1; visibility:visible; }
+</style>
+</head>
+<body>
+<div class="dashboard">
+
+<!-- ── Sidebar ── -->
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-header">
+    <div class="sidebar-logo">
+      <div class="logo-icon">CF</div>
+      <div>
+        <h2>CleanFix</h2>
+        <p data-i18n="sidebar.subtitle">Personel Portalı</p>
+      </div>
+    </div>
+  </div>
+  <nav class="sidebar-nav">
+    <div class="nav-group">
+      <div class="nav-label" data-i18n="nav.menu">Menü</div>
+      <a class="nav-item active" href="employee-dashboard.html">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+        <span data-i18n="nav.dashboard">Dashboard</span>
+      </a>
+      <a class="nav-item" href="#">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        <span data-i18n="nav.schedule">Takvimim</span>
+      </a>
+      <a class="nav-item" href="#">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+        <span data-i18n="nav.tasks">Görevlerim</span>
+        <span class="nav-badge">3</span>
+      </a>
+      <a class="nav-item" href="#">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        <span data-i18n="nav.hours">Saatlerim</span>
+      </a>
+      <a class="nav-item" href="#">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+        <span data-i18n="nav.payslip">Bordrom</span>
+      </a>
+    </div>
+    <div class="nav-group">
+      <div class="nav-label" data-i18n="nav.account">Hesap</div>
+      <a class="nav-item" href="#">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        <span data-i18n="nav.profile">Profilim</span>
+      </a>
+      <a class="nav-item" href="#">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        <span data-i18n="nav.announcements">Duyurular</span>
+      </a>
+      <a class="nav-item" href="#">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        <span data-i18n="nav.help">Yardım</span>
+      </a>
+    </div>
+  </nav>
+  <div class="sidebar-footer">
+    <div class="sidebar-user">
+      <div class="avatar">AY</div>
+      <div class="sidebar-user-info">
+        <p>Ahmet Yılmaz</p>
+        <span data-i18n="sidebar.role">Temizlik Uzmanı</span>
+      </div>
+    </div>
+  </div>
+</aside>
+
+<div class="slide-overlay" id="slideOverlay" onclick="closeSidebar()"></div>
+
+<!-- ── Main ── -->
+<main class="main">
+  <!-- Header -->
+  <header class="header">
+    <div class="header-left">
+      <button class="menu-btn" onclick="toggleSidebar()" aria-label="Menü">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+      <h1 class="page-title" data-i18n="header.title">Dashboard</h1>
+    </div>
+    <div class="header-right">
+      <button class="header-btn" aria-label="Bildirimler">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+        <span class="badge-dot"></span>
+      </button>
+      <button class="header-btn" aria-label="Mesajlar">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      </button>
+      <button class="header-btn" onclick="toggleLang()" aria-label="Dil">
+        <span id="langLabel" style="font-size:12px;font-weight:700;">TR</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Content -->
+  <div class="content">
+
+    <!-- Welcome Hero -->
+    <div class="welcome-hero reveal">
+      <div class="employee-avatar">AY</div>
+      <div class="welcome-info">
+        <div class="welcome-name">
+          <span data-i18n="welcome.greeting">Günaydın, Ahmet!</span>
+          <span class="status-badge onduty" data-i18n="status.onduty">● Görevde</span>
+        </div>
+        <div class="welcome-meta">
+          <span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            <span data-i18n="welcome.role">Temizlik Uzmanı</span>
+          </span>
+          <span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            CleanFix Demo BV
+          </span>
+          <span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            <span data-i18n="welcome.shift">08:00 — 17:00</span>
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <!-- KPI Cards -->
+    <div class="kpi-grid">
+      <div class="kpi-card reveal reveal-delay-1">
+        <div class="kpi-icon teal">⏱️</div>
+        <div class="kpi-value">38<small style="font-size:var(--text-sm);color:var(--text-muted);">/40h</small></div>
+        <div class="kpi-label" data-i18n="kpi.hours">Bu Hafta Saat</div>
+        <span class="kpi-extra target" data-i18n="kpi.hours_left">2 saat kaldı</span>
+      </div>
+      <div class="kpi-card reveal reveal-delay-2">
+        <div class="kpi-icon green">✅</div>
+        <div class="kpi-value">24</div>
+        <div class="kpi-label" data-i18n="kpi.jobs">Tamamlanan İş</div>
+        <span class="kpi-extra up">↑ +3 <span data-i18n="kpi.vs_last">geçen haftaya göre</span></span>
+      </div>
+      <div class="kpi-card reveal reveal-delay-3">
+        <div class="kpi-icon amber">⭐</div>
+        <div class="kpi-value">4.8<small style="font-size:var(--text-sm);color:var(--text-muted);">/5.0</small></div>
+        <div class="kpi-label" data-i18n="kpi.rating">Müşteri Puanı</div>
+        <span class="kpi-extra up">45 <span data-i18n="kpi.reviews">değerlendirme</span></span>
+      </div>
+      <div class="kpi-card reveal reveal-delay-4">
+        <div class="kpi-icon blue">€</div>
+        <div class="kpi-value">€2,340</div>
+        <div class="kpi-label" data-i18n="kpi.earnings">Aylık Kazanç (brüt)</div>
+        <span class="kpi-extra target" data-i18n="kpi.projected">Hedef: €2,500</span>
+      </div>
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="quick-actions reveal">
+      <div class="action-card" onclick="showToast('Mola başlatıldı', 'success')">
+        <div class="action-icon break">☕</div>
+        <div class="action-title" data-i18n="action.break">Mola Başlat</div>
+        <div class="action-desc" data-i18n="action.break_desc">30 dk yemek molası</div>
+      </div>
+      <div class="action-card" onclick="openModal('issueModal')">
+        <div class="action-icon issue">⚠️</div>
+        <div class="action-title" data-i18n="action.issue">Sorun Bildir</div>
+        <div class="action-desc" data-i18n="action.issue_desc">Ekipman veya yer</div>
+      </div>
+      <div class="action-card" onclick="openModal('leaveModal')">
+        <div class="action-icon leave">🏖️</div>
+        <div class="action-title" data-i18n="action.leave">İzin Talep Et</div>
+        <div class="action-desc" data-i18n="action.leave_desc">Yıllık izin / R</div>
+      </div>
+      <div class="action-card" onclick="showToast('Bordro açıldı', 'info')">
+        <div class="action-icon payslip">📄</div>
+        <div class="action-title" data-i18n="action.payslip">Bordro Gör</div>
+        <div class="action-desc" data-i18n="action.payslip_desc">Mayıs 2026</div>
+      </div>
+    </div>
+
+    <!-- Section Grid -->
+    <div class="section-grid">
+      <!-- Today's Schedule -->
+      <div class="section-card reveal">
+        <h3>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--teal-500)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          <span data-i18n="schedule.title">Bugünün Programı</span>
+        </h3>
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="timeline-dot completed">✓</div>
+            <div class="timeline-content">
+              <div class="timeline-time">07:55</div>
+              <div class="timeline-title" data-i18n="schedule.clockin">Mesai Başlangıcı</div>
+              <div class="timeline-desc">CleanFix Demo BV — Ofis</div>
+              <div class="timeline-status done" data-i18n="schedule.done">Tamamlandı</div>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot completed">✓</div>
+            <div class="timeline-content">
+              <div class="timeline-time">08:00 — 10:00</div>
+              <div class="timeline-title" data-i18n="schedule.job1">Ofis Temizliği</div>
+              <div class="timeline-desc">📍 Koningsstraat 12, 1000 Brüksel</div>
+              <div class="timeline-status done" data-i18n="schedule.done">Tamamlandı</div>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot active">●</div>
+            <div class="timeline-content">
+              <div class="timeline-time">10:30 — 12:30</div>
+              <div class="timeline-title" data-i18n="schedule.job2">Ev Temizliği</div>
+              <div class="timeline-desc">📍 Rue de la Loi 42, 1040 Etterbeek</div>
+              <div class="timeline-status now" data-i18n="schedule.now">Şu an devam ediyor</div>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot pending"></div>
+            <div class="timeline-content">
+              <div class="timeline-time">14:00 — 16:00</div>
+              <div class="timeline-title" data-i18n="schedule.job3">Derinlemesine Temizlik</div>
+              <div class="timeline-desc">📍 Avenue Louise 88, 1050 Ixelles</div>
+              <div class="timeline-status upcoming" data-i18n="schedule.upcoming">Sırada</div>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot pending"></div>
+            <div class="timeline-content">
+              <div class="timeline-time">16:30 — 17:00</div>
+              <div class="timeline-title" data-i18n="schedule.job4">Pencere Temizliği</div>
+              <div class="timeline-desc">📍 Chaussée d'Etterbeek 15, 1040 Brüksel</div>
+              <div class="timeline-status upcoming" data-i18n="schedule.upcoming">Sırada</div>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot pending"></div>
+            <div class="timeline-content">
+              <div class="timeline-time">17:00</div>
+              <div class="timeline-title" data-i18n="schedule.clockout">Mesai Bitişi</div>
+              <div class="timeline-desc">CleanFix Demo BV — Ofis</div>
+              <div class="timeline-status upcoming" data-i18n="schedule.planned">Planlandı</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Timesheet + Upcoming Tasks -->
+      <div style="display:flex;flex-direction:column;gap:var(--space-6);">
+        <!-- Timesheet Widget -->
+        <div class="section-card reveal">
+          <h3>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--teal-500)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            <span data-i18n="timesheet.title">Günlük Saat Kaydı</span>
+          </h3>
+          <div class="timesheet-widget">
+            <div class="timesheet-clock">
+              <div class="time" id="liveClock">10:42</div>
+              <div class="label" data-i18n="timesheet.current">Şu an</div>
+            </div>
+            <div class="timesheet-divider"></div>
+            <div class="timesheet-info">
+              <div class="timesheet-row">
+                <span class="label" data-i18n="timesheet.clockin">Giriş:</span>
+                <span class="value">07:55</span>
+              </div>
+              <div class="timesheet-row">
+                <span class="label" data-i18n="timesheet.clockout">Çıkış:</span>
+                <span class="value">17:00 <span style="font-weight:400;color:var(--text-muted);">(planlanan)</span></span>
+              </div>
+              <div class="timesheet-row">
+                <span class="label" data-i18n="timesheet.total">Toplam:</span>
+                <span class="value" style="color:var(--teal-500);">2s 47dk</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Upcoming Tasks -->
+        <div class="section-card reveal">
+          <h3>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--teal-500)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+            <span data-i18n="tasks.title">Yaklaşan Görevler</span>
+          </h3>
+          <div class="task-list">
+            <div class="task-item">
+              <div class="task-icon deep">🧹</div>
+              <div class="task-info">
+                <div class="task-title">Derinlemesine Temizlik — Villa</div>
+                <div class="task-meta">📍 Avenue Louise 88, 1050 Ixelles • 14:00</div>
+              </div>
+              <span class="task-status assigned" data-i18n="task.assigned">Atandı</span>
+            </div>
+            <div class="task-item">
+              <div class="task-icon window">🪟</div>
+              <div class="task-info">
+                <div class="task-title">Pencere Temizliği — Apartman</div>
+                <div class="task-meta">📍 Chaussée d'Etterbeek 15, 1040 Brüksel • 16:30</div>
+              </div>
+              <span class="task-status assigned" data-i18n="task.assigned">Atandı</span>
+            </div>
+            <div class="task-item">
+              <div class="task-icon office">🏢</div>
+              <div class="task-info">
+                <div class="task-title">Ofis Temizliği — Startup Hub</div>
+                <div class="task-meta">📍 Rue Belliard 10, 1040 Brüksel • Yarın 09:00</div>
+              </div>
+              <span class="task-status pending" data-i18n="task.pending">Bekliyor</span>
+            </div>
+            <div class="task-item">
+              <div class="task-icon home">🏠</div>
+              <div class="task-info">
+                <div class="task-title">Haftalık Ev Temizliği</div>
+                <div class="task-meta">📍 Avenue de Tervueren 125, 1150 Woluwe • Yarın 14:00</div>
+              </div>
+              <span class="task-status pending" data-i18n="task.pending">Bekliyor</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Recent Activity -->
+    <div class="section-card reveal" style="margin-bottom:var(--space-6);">
+      <h3>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--teal-500)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        <span data-i18n="activity.title">Son Tamamlanan İşler</span>
+      </h3>
+      <div class="activity-list">
+        <div class="activity-item">
+          <div class="activity-avatar">MvB</div>
+          <div class="activity-info">
+            <div class="activity-title">
+              <strong data-i18n="activity.job1">Ofis Temizliği</strong> — Marie van Bergen
+            </div>
+            <div class="activity-meta">📍 Koningsstraat 12, Brüksel • 08:00 — 10:00</div>
+          </div>
+          <div class="activity-rating">⭐ 5.0</div>
+        </div>
+        <div class="activity-item">
+          <div class="activity-avatar">JD</div>
+          <div class="activity-info">
+            <div class="activity-title">
+              <strong data-i18n="activity.job2">Ev Temizliği</strong> — Jan De Vries
+            </div>
+            <div class="activity-meta">📍 Rue du Commerce 8, Etterbeek • Dün 09:30 — 11:30</div>
+          </div>
+          <div class="activity-rating">⭐ 4.8</div>
+        </div>
+        <div class="activity-item">
+          <div class="activity-avatar">SL</div>
+          <div class="activity-info">
+            <div class="activity-title">
+              <strong data-i18n="activity.job3">Derinlemesine Temizlik</strong> — Sophie Laurent
+            </div>
+            <div class="activity-meta">📍 Avenue de la Couronne 55, Ixelles • Dün 13:00 — 16:00</div>
+          </div>
+          <div class="activity-rating">⭐ 5.0</div>
+        </div>
+        <div class="activity-item">
+          <div class="activity-avatar">PK</div>
+          <div class="activity-info">
+            <div class="activity-title">
+              <strong data-i18n="activity.job4">Halı ve Koltuk Yıkama</strong> — Pieter Kowalski
+            </div>
+            <div class="activity-meta">📍 Boulevard Anspach 22, Brüksel • 20 Mayıs 10:00 — 12:00</div>
+          </div>
+          <div class="activity-rating">⭐ 4.5</div>
+        </div>
+        <div class="activity-item">
+          <div class="activity-avatar">EM</div>
+          <div class="activity-info">
+            <div class="activity-title">
+              <strong data-i18n="activity.job5">Pencere ve Camlık</strong> — Emma Müller
+            </div>
+            <div class="activity-meta">📍 Rue Antoine Dansaert 30, Brüksel • 19 Mayıs 14:00 — 15:30</div>
+          </div>
+          <div class="activity-rating">⭐ 4.9</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<!-- ── Modals ── -->
+
+<!-- Report Issue Modal -->
+<div class="modal-overlay" id="issueModal">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title" data-i18n="modal.issue_title">Sorun Bildir</div>
+      <button class="modal-close" onclick="closeModal('issueModal')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label class="form-label" data-i18n="modal.issue_type">Sorun Türü</label>
+        <select class="form-select">
+          <option value="">Seçiniz</option>
+          <option value="equipment" data-i18n="modal.equipment">Ekipman Arızası</option>
+          <option value="location" data-i18n="modal.location">Yer Sorunu</option>
+          <option value="access" data-i18n="modal.access">Giriş Problemi</option>
+          <option value="safety" data-i18n="modal.safety">Güvenlik</option>
+          <option value="other" data-i18n="modal.other">Diğer</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label" data-i18n="modal.issue_desc">Açıklama</label>
+        <textarea class="form-textarea" rows="4" placeholder="Sorunu detaylı açıklayın..."></textarea>
+      </div>
+      <div class="form-group">
+        <label class="form-label" data-i18n="modal.issue_job">İlgili Görev</label>
+        <select class="form-select">
+          <option>Ofis Temizliği — Koningsstraat 12</option>
+          <option>Ev Temizliği — Rue de la Loi 42</option>
+          <option>Derinlemesine Temizlik — Avenue Louise 88</option>
+          <option>Pencere Temizliği — Chaussée d'Etterbeek 15</option>
+        </select>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('issueModal')" data-i18n="btn.cancel">İptal</button>
+      <button class="btn btn-primary" onclick="submitIssue()" data-i18n="btn.submit">Gönder</button>
+    </div>
+  </div>
+</div>
+
+<!-- Request Leave Modal -->
+<div class="modal-overlay" id="leaveModal">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title" data-i18n="modal.leave_title">İzin Talep Et</div>
+      <button class="modal-close" onclick="closeModal('leaveModal')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label class="form-label" data-i18n="modal.leave_type">İzin Türü</label>
+        <select class="form-select">
+          <option value="">Seçiniz</option>
+          <option value="annual" data-i18n="modal.annual">Yıllık İzin</option>
+          <option value="sick" data-i18n="modal.sick">Hastalık</option>
+          <option value="emergency" data-i18n="modal.emergency">Mazeret</option>
+          <option value="unpaid" data-i18n="modal.unpaid">Ücretsiz İzin</option>
+        </select>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-4);">
+        <div class="form-group">
+          <label class="form-label" data-i18n="modal.start_date">Başlangıç</label>
+          <input type="date" class="form-input" value="2026-05-26">
+        </div>
+        <div class="form-group">
+          <label class="form-label" data-i18n="modal.end_date">Bitiş</label>
+          <input type="date" class="form-input" value="2026-05-28">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label" data-i18n="modal.leave_reason">Sebep</label>
+        <textarea class="form-textarea" rows="3" placeholder="Kısa bir açıklama..."></textarea>
+      </div>
+      <div style="background:var(--bg-secondary);padding:var(--space-4);border-radius:var(--radius-md);font-size:var(--text-sm);">
+        <strong data-i18n="modal.balance">Kalan İzin:</strong> 12 gün (Yıllık)
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('leaveModal')" data-i18n="btn.cancel">İptal</button>
+      <button class="btn btn-primary" onclick="submitLeave()" data-i18n="btn.submit">Talep Et</button>
+    </div>
+  </div>
+</div>
+
+<!-- Toast Container -->
+<div class="toast-container" id="toastContainer"></div>
+
+</div>
+
+<script>
+// ── I18N ──
+const translations = {
+  tr: {
+    'sidebar.subtitle': 'Personel Portalı',
+    'nav.menu': 'Menü',
+    'nav.dashboard': 'Dashboard',
+    'nav.schedule': 'Takvimim',
+    'nav.tasks': 'Görevlerim',
+    'nav.hours': 'Saatlerim',
+    'nav.payslip': 'Bordrom',
+    'nav.account': 'Hesap',
+    'nav.profile': 'Profilim',
+    'nav.announcements': 'Duyurular',
+    'nav.help': 'Yardım',
+    'sidebar.role': 'Temizlik Uzmanı',
+    'header.title': 'Dashboard',
+    'welcome.greeting': 'Günaydın, Ahmet!',
+    'status.onduty': '● Görevde',
+    'welcome.role': 'Temizlik Uzmanı',
+    'welcome.shift': '08:00 — 17:00',
+    'kpi.hours': 'Bu Hafta Saat',
+    'kpi.hours_left': '2 saat kaldı',
+    'kpi.jobs': 'Tamamlanan İş',
+    'kpi.vs_last': 'geçen haftaya göre',
+    'kpi.rating': 'Müşteri Puanı',
+    'kpi.reviews': 'değerlendirme',
+    'kpi.earnings': 'Aylık Kazanç (brüt)',
+    'kpi.projected': 'Hedef: €2,500',
+    'action.break': 'Mola Başlat',
+    'action.break_desc': '30 dk yemek molası',
+    'action.issue': 'Sorun Bildir',
+    'action.issue_desc': 'Ekipman veya yer',
+    'action.leave': 'İzin Talep Et',
+    'action.leave_desc': 'Yıllık izin / R',
+    'action.payslip': 'Bordro Gör',
+    'action.payslip_desc': 'Mayıs 2026',
+    'schedule.title': 'Bugünün Programı',
+    'schedule.clockin': 'Mesai Başlangıcı',
+    'schedule.clockout': 'Mesai Bitişi',
+    'schedule.job1': 'Ofis Temizliği',
+    'schedule.job2': 'Ev Temizliği',
+    'schedule.job3': 'Derinlemesine Temizlik',
+    'schedule.job4': 'Pencere Temizliği',
+    'schedule.done': 'Tamamlandı',
+    'schedule.now': 'Şu an devam ediyor',
+    'schedule.upcoming': 'Sırada',
+    'schedule.planned': 'Planlandı',
+    'timesheet.title': 'Günlük Saat Kaydı',
+    'timesheet.current': 'Şu an',
+    'timesheet.clockin': 'Giriş:',
+    'timesheet.clockout': 'Çıkış:',
+    'timesheet.total': 'Toplam:',
+    'tasks.title': 'Yaklaşan Görevler',
+    'task.assigned': 'Atandı',
+    'task.pending': 'Bekliyor',
+    'activity.title': 'Son Tamamlanan İşler',
+    'activity.job1': 'Ofis Temizliği',
+    'activity.job2': 'Ev Temizliği',
+    'activity.job3': 'Derinlemesine Temizlik',
+    'activity.job4': 'Halı ve Koltuk Yıkama',
+    'activity.job5': 'Pencere ve Camlık',
+    'modal.issue_title': 'Sorun Bildir',
+    'modal.issue_type': 'Sorun Türü',
+    'modal.equipment': 'Ekipman Arızası',
+    'modal.location': 'Yer Sorunu',
+    'modal.access': 'Giriş Problemi',
+    'modal.safety': 'Güvenlik',
+    'modal.other': 'Diğer',
+    'modal.issue_desc': 'Açıklama',
+    'modal.issue_job': 'İlgili Görev',
+    'modal.leave_title': 'İzin Talep Et',
+    'modal.leave_type': 'İzin Türü',
+    'modal.annual': 'Yıllık İzin',
+    'modal.sick': 'Hastalık',
+    'modal.emergency': 'Mazeret',
+    'modal.unpaid': 'Ücretsiz İzin',
+    'modal.start_date': 'Başlangıç',
+    'modal.end_date': 'Bitiş',
+    'modal.leave_reason': 'Sebep',
+    'modal.balance': 'Kalan İzin:',
+    'btn.cancel': 'İptal',
+    'btn.submit': 'Gönder'
+  },
+  en: {
+    'sidebar.subtitle': 'Employee Portal',
+    'nav.menu': 'Menu',
+    'nav.dashboard': 'Dashboard',
+    'nav.schedule': 'My Schedule',
+    'nav.tasks': 'My Tasks',
+    'nav.hours': 'My Hours',
+    'nav.payslip': 'My Payslip',
+    'nav.account': 'Account',
+    'nav.profile': 'My Profile',
+    'nav.announcements': 'Announcements',
+    'nav.help': 'Help',
+    'sidebar.role': 'Cleaning Specialist',
+    'header.title': 'Dashboard',
+    'welcome.greeting': 'Good morning, Ahmet!',
+    'status.onduty': '● On Duty',
+    'welcome.role': 'Cleaning Specialist',
+    'welcome.shift': '08:00 — 17:00',
+    'kpi.hours': 'This Week Hours',
+    'kpi.hours_left': '2 hours left',
+    'kpi.jobs': 'Completed Jobs',
+    'kpi.vs_last': 'vs last week',
+    'kpi.rating': 'Customer Rating',
+    'kpi.reviews': 'reviews',
+    'kpi.earnings': 'Monthly Earnings (gross)',
+    'kpi.projected': 'Target: €2,500',
+    'action.break': 'Start Break',
+    'action.break_desc': '30 min lunch',
+    'action.issue': 'Report Issue',
+    'action.issue_desc': 'Equipment or site',
+    'action.leave': 'Request Leave',
+    'action.leave_desc': 'Annual / Sick',
+    'action.payslip': 'View Payslip',
+    'action.payslip_desc': 'May 2026',
+    'schedule.title': "Today's Schedule",
+    'schedule.clockin': 'Clock In',
+    'schedule.clockout': 'Clock Out',
+    'schedule.job1': 'Office Cleaning',
+    'schedule.job2': 'Home Cleaning',
+    'schedule.job3': 'Deep Cleaning',
+    'schedule.job4': 'Window Cleaning',
+    'schedule.done': 'Done',
+    'schedule.now': 'In progress now',
+    'schedule.upcoming': 'Upcoming',
+    'schedule.planned': 'Planned',
+    'timesheet.title': 'Daily Timesheet',
+    'timesheet.current': 'Now',
+    'timesheet.clockin': 'Clock In:',
+    'timesheet.clockout': 'Clock Out:',
+    'timesheet.total': 'Total:',
+    'tasks.title': 'Upcoming Tasks',
+    'task.assigned': 'Assigned',
+    'task.pending': 'Pending',
+    'activity.title': 'Recently Completed',
+    'activity.job1': 'Office Cleaning',
+    'activity.job2': 'Home Cleaning',
+    'activity.job3': 'Deep Cleaning',
+    'activity.job4': 'Carpet & Upholstery',
+    'activity.job5': 'Window & Glass',
+    'modal.issue_title': 'Report Issue',
+    'modal.issue_type': 'Issue Type',
+    'modal.equipment': 'Equipment Fault',
+    'modal.location': 'Location Issue',
+    'modal.access': 'Access Problem',
+    'modal.safety': 'Safety',
+    'modal.other': 'Other',
+    'modal.issue_desc': 'Description',
+    'modal.issue_job': 'Related Job',
+    'modal.leave_title': 'Request Leave',
+    'modal.leave_type': 'Leave Type',
+    'modal.annual': 'Annual Leave',
+    'modal.sick': 'Sick Leave',
+    'modal.emergency': 'Emergency',
+    'modal.unpaid': 'Unpaid Leave',
+    'modal.start_date': 'Start',
+    'modal.end_date': 'End',
+    'modal.leave_reason': 'Reason',
+    'modal.balance': 'Balance:',
+    'btn.cancel': 'Cancel',
+    'btn.submit': 'Submit'
+  },
+  nl: {
+    'sidebar.subtitle': 'Medewerkersportal',
+    'nav.menu': 'Menu',
+    'nav.dashboard': 'Dashboard',
+    'nav.schedule': 'Mijn Agenda',
+    'nav.tasks': 'Mijn Taken',
+    'nav.hours': 'Mijn Uren',
+    'nav.payslip': 'Mijn Loonstrook',
+    'nav.account': 'Account',
+    'nav.profile': 'Mijn Profiel',
+    'nav.announcements': 'Mededelingen',
+    'nav.help': 'Help',
+    'sidebar.role': 'Schoonmaakexpert',
+    'header.title': 'Dashboard',
+    'welcome.greeting': 'Goedemorgen, Ahmet!',
+    'status.onduty': '● In Dienst',
+    'welcome.role': 'Schoonmaakexpert',
+    'welcome.shift': '08:00 — 17:00',
+    'kpi.hours': 'Uren Deze Week',
+    'kpi.hours_left': '2 uur resterend',
+    'kpi.jobs': 'Voltooide Klussen',
+    'kpi.vs_last': 'vs vorige week',
+    'kpi.rating': 'Klantbeoordeling',
+    'kpi.reviews': 'beoordelingen',
+    'kpi.earnings': 'Maandinkomen (bruto)',
+    'kpi.projected': 'Doel: €2.500',
+    'action.break': 'Pauze Starten',
+    'action.break_desc': '30 min lunch',
+    'action.issue': 'Probleem Melden',
+    'action.issue_desc': 'Apparatuur of locatie',
+    'action.leave': 'Verlof Aanvragen',
+    'action.leave_desc': 'Jaarlijks / Ziek',
+    'action.payslip': 'Loonstrook',
+    'action.payslip_desc': 'Mei 2026',
+    'schedule.title': 'Schema Vandaag',
+    'schedule.clockin': 'Inklokken',
+    'schedule.clockout': 'Uitklokken',
+    'schedule.job1': 'Kantoor Schoonmaak',
+    'schedule.job2': 'Huis Schoonmaak',
+    'schedule.job3': 'Dieptereiniging',
+    'schedule.job4': 'Ramen Lappen',
+    'schedule.done': 'Voltooid',
+    'schedule.now': 'Nu bezig',
+    'schedule.upcoming': 'Gepland',
+    'schedule.planned': 'Gepland',
+    'timesheet.title': 'Dagelijkse Urenstaat',
+    'timesheet.current': 'Nu',
+    'timesheet.clockin': 'In:',
+    'timesheet.clockout': 'Uit:',
+    'timesheet.total': 'Totaal:',
+    'tasks.title': 'Aankomende Taken',
+    'task.assigned': 'Toegewezen',
+    'task.pending': 'In Afwachting',
+    'activity.title': 'Recent Voltooid',
+    'activity.job1': 'Kantoor Schoonmaak',
+    'activity.job2': 'Huis Schoonmaak',
+    'activity.job3': 'Dieptereiniging',
+    'activity.job4': 'Tapijt & Stoffering',
+    'activity.job5': 'Ramen & Glas',
+    'modal.issue_title': 'Probleem Melden',
+    'modal.issue_type': 'Probleemtype',
+    'modal.equipment': 'Apparatuurstoring',
+    'modal.location': 'Locatieprobleem',
+    'modal.access': 'Toegangsprobleem',
+    'modal.safety': 'Veiligheid',
+    'modal.other': 'Anders',
+    'modal.issue_desc': 'Omschrijving',
+    'modal.issue_job': 'Gerelateerde Klus',
+    'modal.leave_title': 'Verlof Aanvragen',
+    'modal.leave_type': 'Verloftype',
+    'modal.annual': 'Jaarlijks Verlof',
+    'modal.sick': 'Ziekteverlof',
+    'modal.emergency': 'Noodgeval',
+    'modal.unpaid': 'Onbetaald Verlof',
+    'modal.start_date': 'Start',
+    'modal.end_date': 'Einde',
+    'modal.leave_reason': 'Reden',
+    'modal.balance': 'Saldo:',
+    'btn.cancel': 'Annuleren',
+    'btn.submit': 'Indienen'
+  }
+};
+
+let currentLang = 'tr';
+
+function switchLang(lang) {
+  currentLang = lang;
+  const t = translations[lang];
+  if (!t) return;
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (t[key]) {
+      // Preserve child elements (icons, badges) — only update text nodes
+      const textNodes = Array.from(el.childNodes).filter(n => n.nodeType === 3);
+      if (textNodes.length > 0) {
+        textNodes.forEach(n => {
+          if (n.textContent.trim()) n.textContent = ' ' + t[key] + ' ';
+        });
+      } else {
+        el.textContent = t[key];
+      }
+    }
+  });
+  document.querySelectorAll('[data-i18n-attr]').forEach(el => {
+    const attr = el.getAttribute('data-i18n-attr');
+    const key = el.getAttribute('data-i18n');
+    if (attr && key && t[key]) el.setAttribute(attr, t[key]);
+  });
+  const langLabel = document.getElementById('langLabel');
+  if (langLabel) langLabel.textContent = lang.toUpperCase();
+}
+
+function toggleLang() {
+  const langs = ['tr','en','nl'];
+  const idx = langs.indexOf(currentLang);
+  switchLang(langs[(idx + 1) % langs.length]);
+}
+
+// ── Sidebar ──
+function toggleSidebar() {
+  const sb = document.getElementById('sidebar');
+  const ov = document.getElementById('slideOverlay');
+  if (window.innerWidth <= 768) {
+    sb.classList.toggle('open');
+    ov.classList.toggle('active');
+  } else {
+    sb.classList.toggle('collapsed');
+  }
+}
+function closeSidebar() {
+  document.getElementById('sidebar').classList.remove('open');
+  document.getElementById('slideOverlay').classList.remove('active');
+}
+
+// ── Modals ──
+function openModal(id) {
+  document.getElementById(id).classList.add('active');
+}
+function closeModal(id) {
+  document.getElementById(id).classList.remove('active');
+}
+function submitIssue() {
+  closeModal('issueModal');
+  showToast('Sorun bildirimi gönderildi', 'success');
+}
+function submitLeave() {
+  closeModal('leaveModal');
+  showToast('İzin talebi oluşturuldu', 'success');
+}
+
+// ── Toast ──
+function showToast(message, type='info') {
+  const container = document.getElementById('toastContainer');
+  const toast = document.createElement('div');
+  toast.className = `toast toast-${type}`;
+  const icons = {
+    success: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>',
+    error: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#f43f5e" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>',
+    warning: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#f97316" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>',
+    info: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>'
+  };
+  toast.innerHTML = `
+    <div class="toast-icon">${icons[type]||icons.info}</div>
+    <div class="toast-content">
+      <div class="toast-title">${type==='success'?'Başarılı':type==='error'?'Hata':type==='warning'?'Uyarı':'Bilgi'}</div>
+      <div class="toast-message">${message}</div>
+    </div>
+    <button class="toast-close" onclick="this.parentElement.remove()">✕</button>
+    <div class="toast-progress"></div>
+  `;
+  container.appendChild(toast);
+  setTimeout(() => { toast.classList.add('exit'); setTimeout(()=>toast.remove(),250); }, 4000);
+}
+
+// ── Scroll Reveal ──
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      revealObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+// ── Live Clock ──
+function updateClock() {
+  const now = new Date();
+  const h = String(now.getHours()).padStart(2,'0');
+  const m = String(now.getMinutes()).padStart(2,'0');
+  const el = document.getElementById('liveClock');
+  if (el) el.textContent = `${h}:${m}`;
+}
+setInterval(updateClock, 60000);
+updateClock();
+
+// ── Init ──
+window.addEventListener('DOMContentLoaded', () => {
+  switchLang('tr');
+});
+</script>
+</body>
+</html>
