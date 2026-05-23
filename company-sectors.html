@@ -1995,7 +1995,12 @@ function switchLang(lang) {
       } else if (el.tagName === 'OPTION') {
         el.textContent = i18n[lang][key];
       } else {
-        el.textContent = i18n[lang][key];
+        if (el.children.length === 0) {
+          el.textContent = i18n[lang][key];
+        } else {
+          const textNodes = Array.from(el.childNodes).filter(n => n.nodeType === 3);
+          if (textNodes.length > 0) textNodes[0].textContent = i18n[lang][key];
+        }
       }
     }
   });
@@ -2031,7 +2036,7 @@ function switchLang(lang) {
 
 /* init */
 (function(){
-  const saved = localStorage.getItem('cleanfix_lang') || 'tr';
+  const saved = 'tr';
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', () => switchLang(saved));
   } else {

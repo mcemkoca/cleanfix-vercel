@@ -752,13 +752,7 @@ const i18n={
   }
 };
 
-let currentLang = localStorage.getItem('cleanfix_lang') || 'tr';
-
-// Force TR on first load if no explicit user preference stored
-if (!localStorage.getItem('cleanfix_lang')) {
-  currentLang = 'tr';
-  localStorage.setItem('cleanfix_lang', 'tr');
-}
+let currentLang = 'tr';
 
 function switchLang(lang) {
   currentLang = lang;
@@ -788,8 +782,11 @@ function switchLang(lang) {
     } else {
       if (t.includes('<')) {
         el.innerHTML = t;
-      } else {
+      } else if (el.children.length === 0) {
         el.textContent = t;
+      } else {
+        const textNodes = Array.from(el.childNodes).filter(n => n.nodeType === 3);
+        if (textNodes.length > 0) textNodes[0].textContent = t;
       }
     }
   });

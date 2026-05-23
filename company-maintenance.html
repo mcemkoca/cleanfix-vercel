@@ -1695,7 +1695,7 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeSlidePanel('ne
     weather_wind: "Wind",
   }
 };
-let currentLang = localStorage.getItem('cleanfix_lang') || 'tr';
+let currentLang = 'tr';
 
 function switchLang(lang) {
   currentLang = lang;
@@ -2051,7 +2051,7 @@ const i18n = {
 
 <script>
 /* ── i18n System ── */
-let _currentLang = localStorage.getItem('cleanfix_lang') || 'tr';
+let _currentLang = 'tr';
 function switchLang(lang) {
   _currentLang = lang;
   localStorage.setItem('cleanfix_lang', lang);
@@ -2065,7 +2065,14 @@ function applyLang() {
     const key = el.dataset.i18n;
     if (t[key]) {
       if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') el.value = t[key];
-      else el.textContent = t[key];
+      else {
+        if (el.children.length === 0) {
+          el.textContent = t[key];
+        } else {
+          const textNodes = Array.from(el.childNodes).filter(n => n.nodeType === 3);
+          if (textNodes.length > 0) textNodes[0].textContent = t[key];
+        }
+      }
     }
   });
   document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
@@ -2085,9 +2092,7 @@ function applyLang() {
   const metaDesc = document.querySelector('meta[name="description"]');
   if (metaDesc && t['meta.description']) metaDesc.content = t['meta.description'];
 }
-document.addEventListener('DOMContentLoaded', () => {
-  switchLang(_currentLang);
-});
+switchLang('tr');
 </script>
 
 <script>
