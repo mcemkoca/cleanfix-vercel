@@ -625,7 +625,7 @@ function submitReply(){
   const card=document.querySelector(`.review-card[data-id="${replyId}"]`);
   const replyBox=document.createElement('div');
   replyBox.className='reply-box';
-  replyBox.innerHTML=`<strong>CleanFix yanıtı:</strong> ${text}`;
+  replyBox.innerHTML='<strong>CleanFix yanıtı:</strong> ';\n  replyBox.appendChild(document.createTextNode(text));
   const actions=card.querySelector('.review-actions');
   card.insertBefore(replyBox,actions);
   card.setAttribute('data-replied','true');
