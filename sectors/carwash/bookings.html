@@ -682,7 +682,7 @@ function saveEdit(){
     const months=['Ocak','Şubat','Mart','Nisan','Mayıs','Haziran','Temmuz','Ağustos','Eylül','Ekim','Kasım','Aralık'];
     row.cells[0].innerHTML=`<div style="font-weight:600;">${d.getDate()} ${months[d.getMonth()]}</div><div style="font-size:var(--text-xs);color:var(--text-muted);">${timeVal}</div>`;
     row.cells[1].textContent=document.getElementById('editCustomer').value;
-    row.cells[2].innerHTML=`<span class="plate">${document.getElementById('editPlate').value}</span>`;
+    row.cells[2].textContent=document.getElementById('editPlate').value;
     row.cells[3].textContent=document.getElementById('editService').value;
     row.cells[4].textContent=document.getElementById('editStaff').value;
     row.cells[5].innerHTML=`<span class="tag ${tagMap[s]}">${labelMap[s]}</span>`;
