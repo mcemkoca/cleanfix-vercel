@@ -309,7 +309,33 @@ function openDetail(dayName,idx){
   document.getElementById('detailTitle').textContent=`${e.customer} — ${e.time}`;
   const color=staffColors[e.staff]||'#14b8a6';
   const statusBadge=e.status==='confirmed'?'<span class="tag" style="background:rgba(16,185,129,0.1);color:var(--success-500);">Onaylı</span>':e.status==='pending'?'<span class="tag" style="background:rgba(245,158,11,0.1);color:var(--amber-500);">Beklemede</span>':'<span class="tag" style="background:rgba(59,130,246,0.1);color:var(--info-500);">Tamamlandı</span>';
-  document.getElementById('detailBody').innerHTML=`<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px;"><div style="background:var(--bg-tertiary);border-radius:var(--radius-md);padding:12px 16px;"><div style="font-size:var(--text-xs);color:var(--text-muted);margin-bottom:4px;">Hizmet</div><div style="font-size:var(--text-sm);font-weight:600;">${e.service}</div></div><div style="background:var(--bg-tertiary);border-radius:var(--radius-md);padding:12px 16px;"><div style="font-size:var(--text-xs);color:var(--text-muted);margin-bottom:4px;">Durum</div><div style="font-size:var(--text-sm);font-weight:600;">${statusBadge}</div></div><div style="background:var(--bg-tertiary);border-radius:var(--radius-md);padding:12px 16px;"><div style="font-size:var(--text-xs);color:var(--text-muted);margin-bottom:4px;">Çalışan</div><div style="font-size:var(--text-sm);font-weight:600;display:flex;align-items:center;gap:6px;"><span style="width:8px;height:8px;border-radius:50%;background:${color};display:inline-block;"></span>${e.staff}</div></div><div style="background:var(--bg-tertiary);border-radius:var(--radius-md);padding:12px 16px;"><div style="font-size:var(--text-xs);color:var(--text-muted);margin-bottom:4px;">Gün</div><div style="font-size:var(--text-sm);font-weight:600;">${dayName} — ${weekData[dayName].date}</div></div></div><div style="font-size:var(--text-sm);color:var(--text-secondary);line-height:1.6;">Randevu notları burada görüntülenecek. Çalışan görev listesi, kullanılacak ürünler ve müşteri özel talepleri.</div>`;
+  const _db=document.getElementById('detailBody');
+  _db.innerHTML='';
+  const _grid=document.createElement('div');
+  _grid.style.cssText='display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px;';
+  const _c1=document.createElement('div');
+  _c1.style.cssText='background:var(--bg-tertiary);border-radius:var(--radius-md);padding:12px 16px;';
+  _c1.innerHTML='<div style="font-size:var(--text-xs);color:var(--text-muted);margin-bottom:4px;">Hizmet</div><div style="font-size:var(--text-sm);font-weight:600;"></div>';
+  _c1.children[1].textContent=e.service;
+  const _c2=document.createElement('div');
+  _c2.style.cssText='background:var(--bg-tertiary);border-radius:var(--radius-md);padding:12px 16px;';
+  _c2.innerHTML='<div style="font-size:var(--text-xs);color:var(--text-muted);margin-bottom:4px;">Durum</div><div style="font-size:var(--text-sm);font-weight:600;"></div>';
+  _c2.children[1].innerHTML=statusBadge;
+  const _c3=document.createElement('div');
+  _c3.style.cssText='background:var(--bg-tertiary);border-radius:var(--radius-md);padding:12px 16px;';
+  _c3.innerHTML='<div style="font-size:var(--text-xs);color:var(--text-muted);margin-bottom:4px;">Çalışan</div><div style="font-size:var(--text-sm);font-weight:600;display:flex;align-items:center;gap:6px;"><span style="width:8px;height:8px;border-radius:50%;display:inline-block;"></span><span></span></div>';
+  _c3.querySelector('span[style*="width:8px"]').style.background=color;
+  _c3.querySelector('div > span:last-child').textContent=e.staff;
+  const _c4=document.createElement('div');
+  _c4.style.cssText='background:var(--bg-tertiary);border-radius:var(--radius-md);padding:12px 16px;';
+  _c4.innerHTML='<div style="font-size:var(--text-xs);color:var(--text-muted);margin-bottom:4px;">Gün</div><div style="font-size:var(--text-sm);font-weight:600;"></div>';
+  _c4.children[1].textContent=dayName+' — '+weekData[dayName].date;
+  _grid.appendChild(_c1);_grid.appendChild(_c2);_grid.appendChild(_c3);_grid.appendChild(_c4);
+  _db.appendChild(_grid);
+  const _note=document.createElement('div');
+  _note.style.cssText='font-size:var(--text-sm);color:var(--text-secondary);line-height:1.6;';
+  _note.textContent='Randevu notları burada görüntülenecek. Çalışan görev listesi, kullanılacak ürünler ve müşteri özel talepleri.';
+  _db.appendChild(_note);
   openModal('detailModal');
 }
 function addEvent(){

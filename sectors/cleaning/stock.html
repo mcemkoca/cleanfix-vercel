@@ -552,7 +552,25 @@ function updateRowStock(row,qty,min,max){
   if(qty<=min){status='Kritik';statusClass='tag-red';color='var(--error-500)';}
   else if(qty<=min*2){status='Az';statusClass='tag-amber';color='var(--amber-500)';}
   else{status='Yeterli';statusClass='tag-green';color='var(--success-500)';}
-  row.cells[2].innerHTML=`<div style="font-weight:600;">${qty} adet</div><div class="stock-bar"><div class="stock-fill" style="width:${pct}%;background:${color};"></div></div><div class="stock-info"><span class="tag ${statusClass}">${status}</span></div>`;
+  row.cells[2].innerHTML='';
+  const _qtyDiv=document.createElement('div');
+  _qtyDiv.style.fontWeight='600';
+  _qtyDiv.textContent=qty+' adet';
+  const _barDiv=document.createElement('div');
+  _barDiv.className='stock-bar';
+  const _fillDiv=document.createElement('div');
+  _fillDiv.className='stock-fill';
+  _fillDiv.style.cssText='width:'+pct+'%;background:'+color+';';
+  _barDiv.appendChild(_fillDiv);
+  const _infoDiv=document.createElement('div');
+  _infoDiv.className='stock-info';
+  const _stag3=document.createElement('span');
+  _stag3.className='tag '+statusClass;
+  _stag3.textContent=status;
+  _infoDiv.appendChild(_stag3);
+  row.cells[2].appendChild(_qtyDiv);
+  row.cells[2].appendChild(_barDiv);
+  row.cells[2].appendChild(_infoDiv);
 }
 
 const demoData={
@@ -612,12 +630,29 @@ function saveEdit(){
     const max=parseInt(document.getElementById('editMax').value);
     const status=document.getElementById('editStatus').value;
     if(!name||!cat||!unit||isNaN(qty)||isNaN(min)||isNaN(max)){showToast('Lütfen tüm alanları doldurun','error');return;}
-    row.cells[0].innerHTML=`<div style="font-weight:600;">${name}</div>`;
-    row.cells[1].innerHTML=getCatTag(cat);
+    row.cells[0].innerHTML='';
+    const _nameDiv=document.createElement('div');
+    _nameDiv.style.fontWeight='600';
+    _nameDiv.textContent=name;
+    row.cells[0].appendChild(_nameDiv);
+    row.cells[1].innerHTML='';
+    const _catSpan=document.createElement('span');
+    const _map={'Temizlik Malzemeleri':'tag-blue','Ekipman':'tag-green','Sarf Malzeme':'tag-amber','Kimyasal':'tag-purple'};
+    _catSpan.className='tag '+(_map[cat]||'tag-gray');
+    _catSpan.textContent=cat;
+    row.cells[1].appendChild(_catSpan);
     updateRowStock(row,qty,min,max);
-    row.cells[3].textContent=`${min} / ${max}`;
-    row.cells[4].innerHTML=`<div style="font-size:var(--text-xs);color:var(--text-muted);">${unit}</div>`;
-    row.cells[5].innerHTML=getStatusTag(status);
+    row.cells[3].textContent=min+' / '+max;
+    row.cells[4].innerHTML='';
+    const _unitDiv=document.createElement('div');
+    _unitDiv.style.cssText='font-size:var(--text-xs);color:var(--text-muted);';
+    _unitDiv.textContent=unit;
+    row.cells[4].appendChild(_unitDiv);
+    row.cells[5].innerHTML='';
+    const _statusSpan2=document.createElement('span');
+    _statusSpan2.className='tag '+(status==='active'?'tag-green':'tag-gray');
+    _statusSpan2.textContent=status==='active'?'Aktif':'Pasif';
+    row.cells[5].appendChild(_statusSpan2);
     demoData[editId]={name,cat,unit,qty,min,max,status};
     showToast('Ürün güncellendi','success');
     editId=null;
@@ -641,7 +676,46 @@ function addProduct(){
   else if(qty<=min*2){stockStatus='Az';stockClass='tag-amber';color='var(--amber-500)';}
   else{stockStatus='Yeterli';stockClass='tag-green';color='var(--success-500)';}
   const tr=document.createElement('tr');tr.dataset.id=newId;
-  tr.innerHTML=`<td><div style="font-weight:600;">${name}</div></td><td>${getCatTag(cat)}</td><td><div style="font-weight:600;">${qty} adet</div><div class="stock-bar"><div class="stock-fill" style="width:${pct}%;background:${color};"></div></div><div class="stock-info"><span class="tag ${stockClass}">${stockStatus}</span></div></td><td>${min} / ${max}</td><td style="font-size:var(--text-xs);color:var(--text-muted);">${unit}</td><td>${getStatusTag(status)}</td><td><div class="actions"><button class="action-btn move" onclick="openMoveModal(${newId},'in')" title="Stok Girişi"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button><button class="action-btn move" onclick="openMoveModal(${newId},'out')" title="Stok Çıkışı"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/></svg></button><button class="action-btn edit" onclick="openEditModal(${newId})" title="Düzenle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(${newId})" title="Sil"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>`;
+  const td0=document.createElement('td');
+  const _nameDiv2=document.createElement('div');
+  _nameDiv2.style.fontWeight='600';
+  _nameDiv2.textContent=name;
+  td0.appendChild(_nameDiv2);
+  const td1=document.createElement('td');
+  const _catSpan2=document.createElement('span');
+  const _map2={'Temizlik Malzemeleri':'tag-blue','Ekipman':'tag-green','Sarf Malzeme':'tag-amber','Kimyasal':'tag-purple'};
+  _catSpan2.className='tag '+(_map2[cat]||'tag-gray');
+  _catSpan2.textContent=cat;
+  td1.appendChild(_catSpan2);
+  const td2=document.createElement('td');
+  const _qtyDiv2=document.createElement('div');
+  _qtyDiv2.style.fontWeight='600';
+  _qtyDiv2.textContent=qty+' adet';
+  const _barDiv2=document.createElement('div');
+  _barDiv2.className='stock-bar';
+  const _fillDiv2=document.createElement('div');
+  _fillDiv2.className='stock-fill';
+  _fillDiv2.style.cssText='width:'+pct+'%;background:'+color+';';
+  _barDiv2.appendChild(_fillDiv2);
+  const _infoDiv2=document.createElement('div');
+  _infoDiv2.className='stock-info';
+  const _stag4=document.createElement('span');
+  _stag4.className='tag '+stockClass;
+  _stag4.textContent=stockStatus;
+  _infoDiv2.appendChild(_stag4);
+  td2.appendChild(_qtyDiv2);td2.appendChild(_barDiv2);td2.appendChild(_infoDiv2);
+  const td3=document.createElement('td');td3.textContent=min+' / '+max;
+  const td4=document.createElement('td');
+  td4.style.cssText='font-size:var(--text-xs);color:var(--text-muted);';
+  td4.textContent=unit;
+  const td5=document.createElement('td');
+  const _statusSpan3=document.createElement('span');
+  _statusSpan3.className='tag '+(status==='active'?'tag-green':'tag-gray');
+  _statusSpan3.textContent=status==='active'?'Aktif':'Pasif';
+  td5.appendChild(_statusSpan3);
+  const td6=document.createElement('td');
+  td6.innerHTML='<div class="actions"><button class="action-btn move" onclick="openMoveModal('+newId+','in')" title="Stok Girişi"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button><button class="action-btn move" onclick="openMoveModal('+newId+','out')" title="Stok Çıkışı"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/></svg></button><button class="action-btn edit" onclick="openEditModal('+newId+')" title="Düzenle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal('+newId+')" title="Sil"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div>';
+  tr.appendChild(td0);tr.appendChild(td1);tr.appendChild(td2);tr.appendChild(td3);tr.appendChild(td4);tr.appendChild(td5);tr.appendChild(td6);
   tbody.appendChild(tr);
   demoData[newId]={name,cat,unit,qty,min,max,status};
   ['addName','addUnit','addQty','addMin','addMax'].forEach(id=>document.getElementById(id).value='');
