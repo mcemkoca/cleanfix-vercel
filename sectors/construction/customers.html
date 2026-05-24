@@ -551,8 +551,17 @@ function addCustomer(){
   const nid=Date.now();
   const type=document.getElementById('addType').value||'Ev Sahibi';
   const typeClass={'Ev Sahibi':'tag-blue','Müteahhit':'tag-amber','İnşaat Firması':'tag-purple','Belediye':'tag-green'}[type]||'tag-blue';
+  const addr=document.getElementById('addAddress').value||'—';
+  const phone=document.getElementById('addPhone').value||'—';
+  const email=document.getElementById('addEmail').value||'—';
+  const credit=document.getElementById('addCredit').value||'0';
   tr.setAttribute('data-id',nid);
-  tr.innerHTML=`<td><div style="display:flex;align-items:center;gap:12px;"><div class="avatar" style="background:linear-gradient(135deg,#f59e0b,#d97706);">${name.split(' ').map(x=>x[0]).slice(0,2).join('')}</div><div><div style="font-weight:600;">${name}</div><div style="font-size:var(--text-xs);color:var(--text-muted);">${document.getElementById('addAddress').value||'—'}</div></div></div></td><td>${document.getElementById('addPhone').value||'—'}</td><td style="font-size:var(--text-xs);">${document.getElementById('addEmail').value||'—'}</td><td><span class="tag ${typeClass}">${type}</span></td><td style="font-weight:600;">0</td><td style="font-weight:600;color:var(--accent-500);">€0</td><td>—</td><td><div style="font-weight:600;font-size:var(--text-sm);">€${document.getElementById('addCredit').value||'0'}</div><div class="credit-bar"><div class="credit-bar-fill" style="width:0%;"></div></div></td><td><div class="actions"><button class="action-btn view" onclick="openDetailModal(${nid})" title="Detay">👁</button><button class="action-btn edit" onclick="openEditModal(${nid})" title="Düzenle">✎</button><button class="action-btn delete" onclick="openDeleteModal(${nid})" title="Sil">🗑</button></div></td>`;
+  tr.innerHTML='<td><div style="display:flex;align-items:center;gap:12px;"><div class="avatar" style="background:linear-gradient(135deg,#f59e0b,#d97706);"></div><div><div style="font-weight:600;"></div><div style="font-size:var(--text-xs);color:var(--text-muted);"></div></div></div></td><td></td><td style="font-size:var(--text-xs);"></td><td><span class="tag '+typeClass+'">'+type+'</span></td><td style="font-weight:600;">0</td><td style="font-weight:600;color:var(--accent-500);">€0</td><td>—</td><td><div style="font-weight:600;font-size:var(--text-sm);">€'+credit+'</div><div class="credit-bar"><div class="credit-bar-fill" style="width:0%;"></div></div></td><td><div class="actions"><button class="action-btn view" onclick="openDetailModal('+nid+')" title="Detay">👁</button><button class="action-btn edit" onclick="openEditModal('+nid+')" title="Düzenle">✎</button><button class="action-btn delete" onclick="openDeleteModal('+nid+')" title="Sil">🗑</button></div></td>';
+  const avatarDiv=tr.querySelector('.avatar');avatarDiv.textContent=name.split(' ').map(x=>x[0]).slice(0,2).join('');
+  const nameDiv=tr.querySelector('div[style*="font-weight:600"]');nameDiv.textContent=name;
+  const addrDiv=tr.querySelector('div[style*="text-muted"]');addrDiv.textContent=addr;
+  tr.querySelectorAll('td')[1].textContent=phone;
+  tr.querySelectorAll('td')[2].textContent=email;
   tbody.insertBefore(tr,tbody.firstChild);
   showToast('Müşteri eklendi');
   closeModal('addModal');

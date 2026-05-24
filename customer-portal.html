@@ -603,7 +603,14 @@ function doLogin(){
 }
 function doLogout(){AUTH.logout();}
 function previewPhotos(input){const prev=document.getElementById('photoPreview');prev.innerHTML='';Array.from(input.files).forEach(file=>{const reader=new FileReader();reader.onload=e=>{const img=document.createElement('img');img.src=e.target.result;img.className='photo-thumb';prev.appendChild(img);};reader.readAsDataURL(file);});}
-function submitTicket(){const sub=document.getElementById('tSubject').value;const pri=document.getElementById('tPriority').value;const svc=document.getElementById('tService').value;if(!sub){showToast('Lütfen konu girin', 'info');return;}const id='TK-2026-'+(Math.floor(Math.random()*900)+100);showToast('Talep oluşturuldu — #'+id);const tbody=document.querySelector('#ticketsTable tbody');const row=document.createElement('tr');row.innerHTML='<td><strong>#'+id+'</strong></td><td>'+sub+'</td><td><span class="badge badge-blue">Açık</span></td><td><span class="badge '+(pri==='Acil'||pri==='Yüksek'?'badge-amber':'badge-green')+'">'+pri+'</span></td><td>Bugün</td>';tbody.insertBefore(row,tbody.firstChild);document.getElementById('tSubject').value='';document.getElementById('tDesc').value='';document.getElementById('tPhoto').value='';document.getElementById('photoPreview').innerHTML='';}
+function submitTicket(){const sub=document.getElementById('tSubject').value;const pri=document.getElementById('tPriority').value;const svc=document.getElementById('tService').value;if(!sub){showToast('Lütfen konu girin', 'info');return;}const id='TK-2026-'+(Math.floor(Math.random()*900)+100);showToast('Talep oluşturuldu — #'+id);const tbody=document.querySelector('#ticketsTable tbody');const row=document.createElement('tr');
+  const td1=document.createElement('td');td1.innerHTML='<strong>#'+id+'</strong>';
+  const td2=document.createElement('td');td2.textContent=sub;
+  const td3=document.createElement('td');td3.innerHTML='<span class="badge badge-blue">Açık</span>';
+  const td4=document.createElement('td');const badgeClass=(pri==='Acil'||pri==='Yüksek')?'badge-amber':'badge-green';td4.innerHTML='<span class="badge '+badgeClass+'">'+pri+'</span>';
+  const td5=document.createElement('td');td5.textContent='Bugün';
+  row.appendChild(td1);row.appendChild(td2);row.appendChild(td3);row.appendChild(td4);row.appendChild(td5);
+  tbody.insertBefore(row,tbody.firstChild);document.getElementById('tSubject').value='';document.getElementById('tDesc').value='';document.getElementById('tPhoto').value='';document.getElementById('photoPreview').innerHTML='';}
 function downloadInvoice(num,amt){showToast('Fatura indiriliyor... '+num);const content='FATURA\n\nCleanFix Demo BV\nBrusselsesteenweg 432\n9090 Melle\n\nMüşteri: '+num+'\nFatura: '+num+'\nTutar: €'+amt+'\n\nTeşekkürler!';const blob=new Blob([content],{type:'text/plain'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=num+'.txt';a.click();URL.revokeObjectURL(url);}
 function changeMonth(dir){showToast(dir>0?'Sonraki ay':'Önceki ay');}
 window.onload=function(){

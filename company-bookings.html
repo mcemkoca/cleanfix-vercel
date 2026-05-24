@@ -765,11 +765,18 @@ function saveEdit(){
     const timeVal=document.getElementById('editTime').value;
     const d=new Date(dateVal);
     const months=monthNames();
-    row.cells[0].innerHTML=`<div style="font-weight:600;">${d.getDate()} ${months[d.getMonth()]}</div><div style="font-size:var(--text-xs);color:var(--text-muted);">${timeVal}</div>`;
+    row.cells[0].innerHTML='<div style="font-weight:600;"></div><div style="font-size:var(--text-xs);color:var(--text-muted);"></div>';
+    row.cells[0].children[0].textContent=d.getDate()+' '+months[d.getMonth()];
+    row.cells[0].children[1].textContent=timeVal;
     row.cells[1].textContent=document.getElementById('editCustomer').value;
     row.cells[2].textContent=document.getElementById('editService').value;
     row.cells[3].textContent=document.getElementById('editStaff').value;
-    row.cells[4].innerHTML=`<span class="tag ${tagMap[s]}" data-i18n="status.${s==='progress'?'in_progress':s}">${labelMap[s]}</span>`;
+    row.cells[4].innerHTML='';
+    const _tag4=document.createElement('span');
+    _tag4.className='tag '+(tagMap[s]||'');
+    _tag4.setAttribute('data-i18n','status.'+(s==='progress'?'in_progress':s));
+    _tag4.textContent=labelMap[s]||s;
+    row.cells[4].appendChild(_tag4);
     row.cells[5].style.color=colorMap[s]||'var(--text-primary)';
     row.cells[5].textContent='€'+document.getElementById('editPrice').value;
     row.setAttribute('data-date',dateVal);
@@ -806,7 +813,25 @@ function addBooking(){
   const d=new Date(date);const months=monthNames();
   const dateStr=`${d.getDate()} ${months[d.getMonth()]}`;
   const pendingLabel=t('status.pending');
-  tr.innerHTML=`<td><div style="font-weight:600;">${dateStr}</div><div style="font-size:var(--text-xs);color:var(--text-muted);">${time}</div></td><td>${customer}</td><td>${service}</td><td>${staff}</td><td><span class="tag tag-blue" data-i18n="status.pending">${pendingLabel}</span></td><td style="font-weight:600;">€—</td><td><div class="actions"><button class="action-btn edit" onclick="openEditModal(${newId})" data-i18n-title="actions.edit"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(${newId})" data-i18n-title="actions.delete"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>`;
+  const td0=document.createElement('td');
+  td0.innerHTML='<div style="font-weight:600;"></div><div style="font-size:var(--text-xs);color:var(--text-muted);"></div>';
+  td0.children[0].textContent=dateStr;
+  td0.children[1].textContent=time;
+  const td1=document.createElement('td');td1.textContent=customer;
+  const td2=document.createElement('td');td2.textContent=service;
+  const td3=document.createElement('td');td3.textContent=staff;
+  const td4=document.createElement('td');
+  const _tag4=document.createElement('span');
+  _tag4.className='tag tag-blue';
+  _tag4.setAttribute('data-i18n','status.pending');
+  _tag4.textContent=pendingLabel;
+  td4.appendChild(_tag4);
+  const td5=document.createElement('td');
+  td5.style.fontWeight='600';
+  td5.textContent='€—';
+  const td6=document.createElement('td');
+  td6.innerHTML='<div class="actions"><button class="action-btn edit" onclick="openEditModal('+newId+')" data-i18n-title="actions.edit"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal('+newId+')" data-i18n-title="actions.delete"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div>';
+  tr.appendChild(td0);tr.appendChild(td1);tr.appendChild(td2);tr.appendChild(td3);tr.appendChild(td4);tr.appendChild(td5);tr.appendChild(td6);
   tbody.appendChild(tr);
   demoData[newId]={customer,phone:document.getElementById('addPhone').value||'',date,time,service,staff,status:'pending',price:''};
   ['addCustomer','addPhone','addDate','addTime','addService','addStaff','addNotes'].forEach(id=>document.getElementById(id).value='');
@@ -860,19 +885,25 @@ function renderCards(){
       </div>
       <div class="booking-card-header">
         <div>
-          <div class="booking-card-name">${customer}</div>
-          <div class="booking-card-service">${service}</div>
+          <div class="booking-card-name"></div>
+          <div class="booking-card-service"></div>
         </div>
       </div>
       <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
-        <span class="tag ${statusClass}" data-i18n="status.${{tagBlue:'pending',tagAmber:'in_progress',tagGreen:'completed',tagRed:'cancelled'}[statusClass.replace('tag-','')]||'pending'}">${statusText}</span>
+        <span class="tag ${statusClass}" data-i18n="status.${{tagBlue:'pending',tagAmber:'in_progress',tagGreen:'completed',tagRed:'cancelled'}[statusClass.replace('tag-','')]||'pending'}"></span>
       </div>
       <div class="booking-card-meta">
-        <span class="booking-card-time"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>${dateText} · ${timeText}</span>
-        <span class="booking-card-price">${price}</span>
+        <span class="booking-card-time"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><span></span></span>
+        <span class="booking-card-price"></span>
       </div>
-      <div style="font-size:var(--text-xs);color:var(--text-muted);margin-top:6px;">${staff}</div>
+      <div style="font-size:var(--text-xs);color:var(--text-muted);margin-top:6px;"></div>
     `;
+    card.querySelector('.booking-card-name').textContent=customer;
+    card.querySelector('.booking-card-service').textContent=service;
+    card.querySelector('.tag').textContent=statusText;
+    card.querySelector('.booking-card-time span').textContent=dateText+' · '+timeText;
+    card.querySelector('.booking-card-price').textContent=price;
+    card.querySelector('div[style*="margin-top:6px"]').textContent=staff;
     grid.appendChild(card);
   });
   updatePageInfo();
