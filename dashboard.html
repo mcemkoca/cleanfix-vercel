@@ -2,6 +2,7 @@
 <html lang="tr" data-theme="dark">
 <head>
 <meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://fonts.googleapis.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: blob:; connect-src 'self';">
 <meta name="description" content="KobiPro Super Admin Dashboard — Platform yönetim paneli">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title data-i18n="page_title">KobiPro — Super Admin Panel</title>
@@ -10,6 +11,8 @@
 <link rel="stylesheet" href="css/main.css">
 <link rel="stylesheet" href="css/components.css">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<script src="js/auth.js"></script>
+<script>checkAuth('admin');</script>
 <style>
 /* ── Dashboard Variables Override ── */
 :root, [data-theme="dark"] {
