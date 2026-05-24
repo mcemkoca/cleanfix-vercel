@@ -294,6 +294,13 @@
 .lang-switcher button:hover { color:var(--text-primary); }
 .lang-switcher button.active { background:var(--teal-500); color:white; }
 </style>
+<style>
+.page-section{display:none; animation:fadeIn 0.3s ease;}
+.page-section.active{display:block;}
+@keyframes fadeIn{from{opacity:0; transform:translateY(8px);} to{opacity:1; transform:translateY(0);}}
+.section-header{display:flex; align-items:center; justify-content:space-between; margin-bottom:20px;}
+.section-title{font-size:1.25rem; font-weight:700; color:var(--text);}
+</style>
 </head>
 
 <body>
@@ -457,6 +464,7 @@
 
   <!-- Content -->
   <main role="main" class="content">
+    <section id="overview" class="page-section active">
 
     <!-- KPI Cards Row -->
     <div class="kpi-row">
@@ -794,6 +802,158 @@
       </div>
     </div>
 
+    </section>
+    <!-- Companies Section -->
+    <section id="companies" class="page-section">
+      <div class="section-header">
+        <h2 class="section-title">📋 Kayıtlı Firmalar</h2>
+        <button class="btn btn-primary" onclick="toast('Firma eklendi','success')">+ Yeni Firma</button>
+      </div>
+      <div class="table-wrap">
+        <table class="table table-compact">
+          <thead><tr><th>Firma</th><th>Sektör</th><th>Plan</th><th>Kullanıcı</th><th>MRR</th><th>Durum</th><th>İşlem</th></tr></thead>
+          <tbody>
+            <tr><td><strong>BrightClean BV</strong></td><td>CleanFix</td><td><span class="tag tag-green">Starter</span></td><td>3</td><td>€29</td><td><span class="tag tag-green">Aktif</span></td><td><div class="actions"><button class="action-btn edit" title="Düzenle">✎</button><button class="action-btn delete" title="Sil">🗑</button></div></td></tr>
+            <tr><td><strong>BuildMaster Pro</strong></td><td>BuildPro</td><td><span class="tag tag-blue">Enterprise</span></td><td>12</td><td>€199</td><td><span class="tag tag-green">Aktif</span></td><td><div class="actions"><button class="action-btn edit" title="Düzenle">✎</button><button class="action-btn delete" title="Sil">🗑</button></div></td></tr>
+            <tr><td><strong>StyleCut Salon</strong></td><td>BarberPro</td><td><span class="tag tag-amber">Pro</span></td><td>5</td><td>€79</td><td><span class="tag tag-red">Ödeme Bekliyor</span></td><td><div class="actions"><button class="action-btn edit" title="Düzenle">✎</button><button class="action-btn delete" title="Sil">🗑</button></div></td></tr>
+            <tr><td><strong>QuickWash Antwerp</strong></td><td>CleanFix</td><td><span class="tag tag-amber">Pro</span></td><td>8</td><td>€79</td><td><span class="tag tag-green">Aktif</span></td><td><div class="actions"><button class="action-btn edit" title="Düzenle">✎</button><button class="action-btn delete" title="Sil">🗑</button></div></td></tr>
+            <tr><td><strong>Constructie Janssens</strong></td><td>BuildPro</td><td><span class="tag tag-green">Starter</span></td><td>2</td><td>€29</td><td><span class="tag tag-green">Aktif</span></td><td><div class="actions"><button class="action-btn edit" title="Düzenle">✎</button><button class="action-btn delete" title="Sil">🗑</button></div></td></tr>
+            <tr><td><strong>Barber Bruno</strong></td><td>BarberPro</td><td><span class="tag tag-green">Starter</span></td><td>2</td><td>€29</td><td><span class="tag tag-blue">Deneme</span></td><td><div class="actions"><button class="action-btn edit" title="Düzenle">✎</button><button class="action-btn delete" title="Sil">🗑</button></div></td></tr>
+            <tr><td><strong>FixIt Services</strong></td><td>CleanFix</td><td><span class="tag tag-blue">Enterprise</span></td><td>15</td><td>€199</td><td><span class="tag tag-green">Aktif</span></td><td><div class="actions"><button class="action-btn edit" title="Düzenle">✎</button><button class="action-btn delete" title="Sil">🗑</button></div></td></tr>
+            <tr><td><strong>TopBouw NV</strong></td><td>BuildPro</td><td><span class="tag tag-amber">Pro</span></td><td>6</td><td>€79</td><td><span class="tag tag-green">Aktif</span></td><td><div class="actions"><button class="action-btn edit" title="Düzenle">✎</button><button class="action-btn delete" title="Sil">🗑</button></div></td></tr>
+            <tr><td><strong>Gentleman's Cut</strong></td><td>BarberPro</td><td><span class="tag tag-amber">Pro</span></td><td>4</td><td>€79</td><td><span class="tag tag-green">Aktif</span></td><td><div class="actions"><button class="action-btn edit" title="Düzenle">✎</button><button class="action-btn delete" title="Sil">🗑</button></div></td></tr>
+            <tr><td><strong>SparkleClean Leuven</strong></td><td>CleanFix</td><td><span class="tag tag-green">Starter</span></td><td>2</td><td>€29</td><td><span class="tag tag-blue">Deneme</span></td><td><div class="actions"><button class="action-btn edit" title="Düzenle">✎</button><button class="action-btn delete" title="Sil">🗑</button></div></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Sectors Section -->
+    <section id="sectors" class="page-section">
+      <div class="section-header"><h2 class="section-title">🏭 Sektörler</h2></div>
+      <div class="kpi-row">
+        <div class="kpi-card"><div class="kpi-icon" style="background:rgba(20,184,166,0.1);color:var(--teal-500);">🧹</div><div class="kpi-value">CleanFix</div><div class="kpi-label">62 firma · €11K/mo</div></div>
+        <div class="kpi-card"><div class="kpi-icon" style="background:rgba(245,158,11,0.1);color:var(--amber-500);">🏗️</div><div class="kpi-value">BuildPro</div><div class="kpi-label">48 firma · €7.4K/mo</div></div>
+        <div class="kpi-card"><div class="kpi-icon" style="background:rgba(139,92,246,0.1);color:var(--purple-500);">💈</div><div class="kpi-value">BarberPro</div><div class="kpi-label">34 firma · €3.7K/mo</div></div>
+        <div class="kpi-card"><div class="kpi-icon" style="background:rgba(59,130,246,0.1);color:var(--info-500);">⚡</div><div class="kpi-value">ElektroPro</div><div class="kpi-label">12 firma · €1.8K/mo</div></div>
+      </div>
+      <div class="kpi-row">
+        <div class="kpi-card"><div class="kpi-icon" style="background:rgba(16,185,129,0.1);color:var(--success-500);">🍽️</div><div class="kpi-value">RestoPro</div><div class="kpi-label">Geliştirme · 0 firma</div></div>
+        <div class="kpi-card"><div class="kpi-icon" style="background:rgba(239,68,68,0.1);color:var(--danger-500);">🚗</div><div class="kpi-value">CarWash</div><div class="kpi-label">Geliştirme · 0 firma</div></div>
+        <div class="kpi-card"><div class="kpi-icon" style="background:rgba(99,102,241,0.1);color:#6366f1;">🪵</div><div class="kpi-value">WoodPro</div><div class="kpi-label">Geliştirme · 0 firma</div></div>
+        <div class="kpi-card"><div class="kpi-icon" style="background:rgba(236,72,153,0.1);color:#ec4899;">🏥</div><div class="kpi-value">MediPro</div><div class="kpi-label">Planlama · 0 firma</div></div>
+      </div>
+    </section>
+
+    <!-- Users Section -->
+    <section id="users" class="page-section">
+      <div class="section-header"><h2 class="section-title">👥 Kullanıcılar</h2><button class="btn btn-primary">+ Yeni Kullanıcı</button></div>
+      <div class="table-wrap">
+        <table class="table table-compact">
+          <thead><tr><th>Ad</th><th>E-posta</th><th>Rol</th><th>Firma</th><th>Son Giriş</th><th>Durum</th><th>İşlem</th></tr></thead>
+          <tbody>
+            <tr><td>Ahmet Kaya</td><td>ahmet@brightclean.be</td><td>Admin</td><td>BrightClean BV</td><td>Bugün 09:14</td><td><span class="tag tag-green">Aktif</span></td><td><div class="actions"><button class="action-btn edit" title="Düzenle">✎</button><button class="action-btn delete" title="Sil">🗑</button></div></td></tr>
+            <tr><td>Sarah Janssens</td><td>sarah@buildmaster.pro</td><td>Admin</td><td>BuildMaster Pro</td><td>Dün 18:32</td><td><span class="tag tag-green">Aktif</span></td><td><div class="actions"><button class="action-btn edit" title="Düzenle">✎</button><button class="action-btn delete" title="Sil">🗑</button></div></td></tr>
+            <tr><td>Pieter De Vos</td><td>pieter@quickwash.be</td><td>Operatör</td><td>QuickWash Antwerp</td><td>Bugün 07:45</td><td><span class="tag tag-green">Aktif</span></td><td><div class="actions"><button class="action-btn edit" title="Düzenle">✎</button><button class="action-btn delete" title="Sil">🗑</button></div></td></tr>
+            <tr><td>Merve Demir</td><td>merve@fixit.com.tr</td><td>Admin</td><td>FixIt Services</td><td>2 gün önce</td><td><span class="tag tag-amber">Bekliyor</span></td><td><div class="actions"><button class="action-btn edit" title="Düzenle">✎</button><button class="action-btn delete" title="Sil">🗑</button></div></td></tr>
+            <tr><td>Lucas Vermeulen</td><td>lucas@topbouw.be</td><td>Muhasebe</td><td>TopBouw NV</td><td>3 gün önce</td><td><span class="tag tag-green">Aktif</span></td><td><div class="actions"><button class="action-btn edit" title="Düzenle">✎</button><button class="action-btn delete" title="Sil">🗑</button></div></td></tr>
+            <tr><td>Emma Jacobs</td><td>emma@sparkleclean.be</td><td>Admin</td><td>SparkleClean Leuven</td><td>1 hafta önce</td><td><span class="tag tag-red">Pasif</span></td><td><div class="actions"><button class="action-btn edit" title="Düzenle">✎</button><button class="action-btn delete" title="Sil">🗑</button></div></td></tr>
+            <tr><td>Marc Dubois</td><td>marc@stylecut.be</td><td>Admin</td><td>StyleCut Salon</td><td>Bugün 11:22</td><td><span class="tag tag-red">Askıda</span></td><td><div class="actions"><button class="action-btn edit" title="Düzenle">✎</button><button class="action-btn delete" title="Sil">🗑</button></div></td></tr>
+            <tr><td>Naz Yılmaz</td><td>naz@constructie.be</td><td>Operatör</td><td>Constructie Janssens</td><td>Dün 14:05</td><td><span class="tag tag-green">Aktif</span></td><td><div class="actions"><button class="action-btn edit" title="Düzenle">✎</button><button class="action-btn delete" title="Sil">🗑</button></div></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Subscriptions Section -->
+    <section id="subscriptions" class="page-section">
+      <div class="section-header"><h2 class="section-title">💳 Abonelikler</h2></div>
+      <div class="table-wrap">
+        <table class="table table-compact">
+          <thead><tr><th>Firma</th><th>Plan</th><th>Başlangıç</th><th>Yenileme</th><th>Tutar</th><th>Durum</th></tr></thead>
+          <tbody>
+            <tr><td>BrightClean BV</td><td>Starter</td><td>14 May 2026</td><td>14 Haz 2026</td><td>€29</td><td><span class="tag tag-green">Aktif</span></td></tr>
+            <tr><td>BuildMaster Pro</td><td>Enterprise</td><td>22 May 2026</td><td>22 Haz 2026</td><td>€199</td><td><span class="tag tag-green">Aktif</span></td></tr>
+            <tr><td>StyleCut Salon</td><td>Pro</td><td>21 May 2026</td><td>21 Haz 2026</td><td>€79</td><td><span class="tag tag-red">Ödeme Hatası</span></td></tr>
+            <tr><td>QuickWash Antwerp</td><td>Pro</td><td>20 May 2026</td><td>20 Haz 2026</td><td>€79</td><td><span class="tag tag-green">Aktif</span></td></tr>
+            <tr><td>Constructie Janssens</td><td>Starter</td><td>19 May 2026</td><td>19 Haz 2026</td><td>€29</td><td><span class="tag tag-green">Aktif</span></td></tr>
+            <tr><td>FixIt Services</td><td>Enterprise</td><td>17 May 2026</td><td>17 Haz 2026</td><td>€199</td><td><span class="tag tag-green">Aktif</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Revenue Section -->
+    <section id="revenue" class="page-section">
+      <div class="section-header"><h2 class="section-title">💰 Gelir Analitiği</h2></div>
+      <div class="kpi-row">
+        <div class="kpi-card"><div class="kpi-icon" style="background:rgba(20,184,166,0.1);color:var(--teal-500);">€</div><div class="kpi-value">€24,580</div><div class="kpi-label">Aylık MRR</div></div>
+        <div class="kpi-card"><div class="kpi-icon" style="background:rgba(16,185,129,0.1);color:var(--success-500);">📈</div><div class="kpi-value">+8%</div><div class="kpi-label">MoM Büyüme</div></div>
+        <div class="kpi-card"><div class="kpi-icon" style="background:rgba(59,130,246,0.1);color:var(--info-500);">💳</div><div class="kpi-value">€294,960</div><div class="kpi-label">Yıllık ARR</div></div>
+        <div class="kpi-card"><div class="kpi-icon" style="background:rgba(245,158,11,0.1);color:var(--amber-500);">🎯</div><div class="kpi-value">€89</div><div class="kpi-label">Ort. ARPU</div></div>
+      </div>
+      <div style="background:var(--glass-bg);border:1px solid var(--glass-border);border-radius:12px;padding:20px;margin-top:16px;">
+        <h3 style="font-size:1rem;font-weight:600;margin-bottom:12px;">Aylık Gelir Dağılımı</h3>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;">
+          <div style="background:var(--card);border-radius:8px;padding:12px;"><div style="font-size:12px;color:var(--text-2);">Starter</div><div style="font-size:20px;font-weight:700;">€1,798</div><div style="font-size:12px;color:var(--success-500);">62 firma</div></div>
+          <div style="background:var(--card);border-radius:8px;padding:12px;"><div style="font-size:12px;color:var(--text-2);">Pro</div><div style="font-size:20px;font-weight:700;">€5,372</div><div style="font-size:12px;color:var(--info-500);">68 firma</div></div>
+          <div style="background:var(--card);border-radius:8px;padding:12px;"><div style="font-size:12px;color:var(--text-2);">Enterprise</div><div style="font-size:20px;font-weight:700;">€2,388</div><div style="font-size:12px;color:var(--amber-500);">12 firma</div></div>
+          <div style="background:var(--card);border-radius:8px;padding:12px;"><div style="font-size:12px;color:var(--text-2);">Add-ons</div><div style="font-size:20px;font-weight:700;">€892</div><div style="font-size:12px;color:var(--purple-500);">14 firma</div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- System Health Section -->
+    <section id="system-health" class="page-section">
+      <div class="section-header"><h2 class="section-title">🔧 Sistem Sağlığı</h2></div>
+      <div class="kpi-row">
+        <div class="kpi-card"><div class="kpi-icon" style="background:rgba(16,185,129,0.1);color:var(--success-500);">✅</div><div class="kpi-value">99.97%</div><div class="kpi-label">Uptime (30d)</div></div>
+        <div class="kpi-card"><div class="kpi-icon" style="background:rgba(20,184,166,0.1);color:var(--teal-500);">⚡</div><div class="kpi-value">42ms</div><div class="kpi-label">API Latency</div></div>
+        <div class="kpi-card"><div class="kpi-icon" style="background:rgba(59,130,246,0.1);color:var(--info-500);">🗄️</div><div class="kpi-value">OK</div><div class="kpi-label">Database</div></div>
+        <div class="kpi-card"><div class="kpi-icon" style="background:rgba(245,158,11,0.1);color:var(--amber-500);">⚠️</div><div class="kpi-value">0.12%</div><div class="kpi-label">Error Rate</div></div>
+      </div>
+      <div style="background:var(--glass-bg);border:1px solid var(--glass-border);border-radius:12px;padding:20px;margin-top:16px;">
+        <h3 style="font-size:1rem;font-weight:600;margin-bottom:12px;">Son Deploy'lar</h3>
+        <div class="table-wrap">
+          <table class="table table-compact">
+            <thead><tr><th>Tarih</th><th>Versiyon</th><th>Değişiklik</th><th>Durum</th></tr></thead>
+            <tbody>
+              <tr><td>23 May 2026 14:32</td><td>v2.4.1</td><td>Security patch: CSP headers</td><td><span class="tag tag-green">Başarılı</span></td></tr>
+              <tr><td>22 May 2026 09:15</td><td>v2.4.0</td><td>Auth system refactor</td><td><span class="tag tag-green">Başarılı</span></td></tr>
+              <tr><td>20 May 2026 11:00</td><td>v2.3.2</td><td>Modal XSS fix</td><td><span class="tag tag-green">Başarılı</span></td></tr>
+              <tr><td>18 May 2026 16:45</td><td>v2.3.1</td><td>Responsive sidebar</td><td><span class="tag tag-amber">Rollback</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- Settings Section -->
+    <section id="settings" class="page-section">
+      <div class="section-header"><h2 class="section-title">⚙️ Platform Ayarları</h2></div>
+      <div style="background:var(--glass-bg);border:1px solid var(--glass-border);border-radius:12px;padding:20px;max-width:700px;">
+        <div style="margin-bottom:16px;">
+          <label style="display:block;font-size:13px;font-weight:500;margin-bottom:6px;">Platform Adı</label>
+          <input type="text" value="KobiPro" style="width:100%;background:var(--card);border:1px solid var(--border);border-radius:8px;padding:10px 12px;color:var(--text);" />
+        </div>
+        <div style="margin-bottom:16px;">
+          <label style="display:block;font-size:13px;font-weight:500;margin-bottom:6px;">Destek E-posta</label>
+          <input type="email" value="support@kobipro.be" style="width:100%;background:var(--card);border:1px solid var(--border);border-radius:8px;padding:10px 12px;color:var(--text);" />
+        </div>
+        <div style="margin-bottom:16px;">
+          <label style="display:block;font-size:13px;font-weight:500;margin-bottom:6px;">Bakım Modu</label>
+          <select style="width:100%;background:var(--card);border:1px solid var(--border);border-radius:8px;padding:10px 12px;color:var(--text);"><option>Kapalı</option><option>Aktif</option></select>
+        </div>
+        <div style="margin-bottom:16px;">
+          <label style="display:block;font-size:13px;font-weight:500;margin-bottom:6px;">API Anahtarı</label>
+          <input type="text" value="pk_live_51Kx...Belgium" readonly style="width:100%;background:var(--card);border:1px solid var(--border);border-radius:8px;padding:10px 12px;color:var(--text-2);" />
+        </div>
+        <div style="display:flex;gap:10px;">
+          <button class="btn btn-primary">Kaydet</button>
+          <button class="btn btn-secondary" style="background:var(--card);color:var(--text);">İptal</button>
+        </div>
+      </div>
+    </section>
   </main>
 </div>
 </div>
@@ -1265,5 +1425,21 @@ window.AUTH = {
 };
 </script>
 
+<script>
+function showSection(hash){
+  const id = hash ? hash.replace('#','') : 'overview';
+  document.querySelectorAll('.page-section').forEach(s=>s.classList.remove('active'));
+  const target = document.getElementById(id) || document.getElementById('overview');
+  if(target) target.classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  const nav = document.querySelector('.nav-item[href="#'+id+'"]') || document.querySelector('.nav-item[href="dashboard.html"]');
+  if(nav) nav.classList.add('active');
+  const titleMap = {overview:'Dashboard', companies:'Firmalar', sectors:'Sektörler', users:'Kullanıcılar', subscriptions:'Abonelikler', revenue:'Gelir', 'system-health':'Sistem Sağlığı', settings:'Ayarlar'};
+  const titleEl = document.querySelector('.page-title');
+  if(titleEl) titleEl.textContent = titleMap[id] || 'Dashboard';
+}
+window.addEventListener('hashchange', ()=>showSection(location.hash));
+window.addEventListener('DOMContentLoaded', ()=>showSection(location.hash));
+</script>
 </body>
 </html>
