@@ -66,6 +66,14 @@
   --shadow-color: rgba(0,0,0,0.08);
   --shadow-glow: rgba(20,184,166,0.25);
 
+  /* Alias variables */
+  --text: var(--text-primary);
+  --text-2: var(--text-secondary);
+  --border: var(--border-color);
+  --card: var(--bg-card);
+  --glass-bg: rgba(255,255,255,0.6);
+  --glass-border: rgba(255,255,255,0.2);
+
   /* Typography */
   --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   --font-mono: 'JetBrains Mono', 'Fira Code', 'SF Mono', monospace;
@@ -144,6 +152,14 @@
   --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.3), 0 2px 4px -2px rgb(0 0 0 / 0.25);
   --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.35), 0 4px 6px -4px rgb(0 0 0 / 0.3);
   --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.4), 0 8px 10px -6px rgb(0 0 0 / 0.35);
+
+  /* Alias variables - dark */
+  --text: var(--text-primary);
+  --text-2: var(--text-secondary);
+  --border: var(--border-color);
+  --card: var(--bg-card);
+  --glass-bg: rgba(15,23,42,0.6);
+  --glass-border: rgba(148,163,184,0.1);
 }
 
 /* ── System Preference Default ── */
@@ -163,6 +179,14 @@
     --border-focus: var(--teal-400);
     --shadow-color: rgba(0,0,0,0.35);
     --shadow-glow: rgba(20,184,166,0.35);
+
+    /* Alias variables - system dark */
+    --text: var(--text-primary);
+    --text-2: var(--text-secondary);
+    --border: var(--border-color);
+    --card: var(--bg-card);
+    --glass-bg: rgba(15,23,42,0.6);
+    --glass-border: rgba(148,163,184,0.1);
   }
 }
 

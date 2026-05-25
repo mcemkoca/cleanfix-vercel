@@ -15,7 +15,7 @@
 .sidebar.collapsed { transform:translateX(-100%); }
 .sidebar-header { padding:var(--space-5); border-bottom:1px solid var(--border-color); }
 .sidebar-logo { display:flex; align-items:center; gap:var(--space-3); }
-.sidebar-logo .logo-icon { width:40px; height:40px; background:linear-gradient(135deg,var(--teal-500),var(--teal-700)); border-radius:var(--radius-md); display:flex; align-items:center; justify-content:center; font-size:16px; font-weight:700; color:white; }
+.sidebar-logo .logo-icon { width:40px; height:40px; background:linear-gradient(135deg,var(--teal-500),var(--teal-700)); border-radius:var(--radius-md); display:flex; align-items:center; justify-content:center; font-size:16px; font-weight:700; color: var(--text-primary); }
 .sidebar-logo h2 { font-size:var(--text-base); font-weight:700; }
 .sidebar-logo p { font-size:var(--text-xs); color:var(--text-muted); }
 .sidebar-nav { flex:1; overflow-y:auto; padding:var(--space-3); }
@@ -61,7 +61,7 @@
 .customer-header { display:flex; align-items:center; gap:var(--space-4); margin-bottom:var(--space-4); }
 .customer-avatar {
   width:52px; height:52px; border-radius:50%; display:flex; align-items:center; justify-content:center;
-  font-weight:700; color:white; font-size:var(--text-lg); flex-shrink:0;
+  font-weight:700; color: var(--text-primary); font-size:var(--text-lg); flex-shrink:0;
 }
 .customer-info h3 { font-size:var(--text-base); font-weight:600; margin-bottom:2px; }
 .customer-info p { font-size:var(--text-xs); color:var(--text-muted); }
@@ -330,7 +330,7 @@
       </div>
       <div class="customer-card" data-name="Luc Laurent" data-city="Brüksel" data-status="new">
         <div class="customer-header">
-          <div class="customer-avatar" style="background:linear-gradient(135deg,#f59e0b,#d97706);">LL</div>
+          <div class="customer-avatar" style="background:linear-gradient(135deg,var(--amber-500),var(--amber-600));">LL</div>
           <div class="customer-info">
             <h3>Luc Laurent</h3>
             <p>luc@email.be • +32 473 45 67 89</p>

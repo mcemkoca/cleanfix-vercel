@@ -15,7 +15,7 @@ to{transform:translateX(120%);opacity:0;}}
 .dashboard{display:flex;min-height:100vh;background:var(--bg-primary);}
 .sidebar{width:280px;height:100vh;background:var(--bg-card);border-right:1px solid var(--border-color);display:flex;flex-direction:column;position:fixed;left:0;top:0;z-index:100;transition:transform var(--duration-slow) var(--ease-out);}
 .sidebar-header{padding:20px 24px;border-bottom:1px solid var(--border-color);display:flex;align-items:center;gap:12px;}
-.sidebar-logo{width:36px;height:36px;background:linear-gradient(135deg,var(--teal-500),var(--teal-700));border-radius:10px;display:flex;align-items:center;justify-content:center;font-weight:700;color:white;font-size:14px;}
+.sidebar-logo{width:36px;height:36px;background:linear-gradient(135deg,var(--teal-500),var(--teal-700));border-radius:10px;display:flex;align-items:center;justify-content:center;font-weight:700;color: var(--text-primary);font-size:14px;}
 .sidebar-nav{flex:1;overflow-y:auto;padding:16px 12px;}
 .nav-group{margin-bottom:8px;}
 .nav-group-header{display:flex;align-items:center;gap:8px;padding:8px 12px;font-size:var(--text-xs);font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.05em;}
@@ -51,7 +51,7 @@ to{transform:translateX(120%);opacity:0;}}
 .tabs-header{display:flex;gap:4px;padding:4px;background:var(--bg-tertiary);border-radius:var(--radius-lg);width:fit-content;border:1px solid var(--border-color);flex-wrap:wrap;}
 .tab-btn{padding:10px 20px;border-radius:var(--radius-md);font-size:var(--text-sm);font-weight:600;color:var(--text-muted);background:transparent;border:none;cursor:pointer;transition:all var(--duration-fast);white-space:nowrap;}
 .tab-btn:hover{color:var(--text-secondary);}
-.tab-btn.active{background:var(--teal-500);color:white;box-shadow:0 2px 8px rgba(20,184,166,0.3);}
+.tab-btn.active{background:var(--teal-500);color: var(--text-primary);box-shadow:0 2px 8px rgba(20,184,166,0.3);}
 .tab-panel{display:none;animation:fadeIn 0.3s ease;}
 .tab-panel.active{display:block;}
 @keyframes fadeIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
@@ -67,7 +67,7 @@ to{transform:translateX(120%);opacity:0;}}
 .tool-card-desc{font-size:var(--text-sm);color:var(--text-secondary);line-height:1.5;margin-bottom:16px;}
 .tool-card-footer{display:flex;align-items:center;justify-content:space-between;}
 .tool-btn{padding:8px 16px;border-radius:var(--radius-md);font-size:var(--text-sm);font-weight:600;cursor:pointer;transition:all var(--duration-fast);border:none;}
-.tool-btn-primary{background:var(--teal-500);color:white;}
+.tool-btn-primary{background:var(--teal-500);color: var(--text-primary);}
 .tool-btn-primary:hover{background:var(--teal-600);}
 .tool-btn-secondary{background:var(--bg-tertiary);color:var(--text-secondary);border:1px solid var(--border-color);}
 .tool-btn-secondary:hover{border-color:var(--teal-500);color:var(--teal-500);}
@@ -122,7 +122,7 @@ to{transform:translateX(120%);opacity:0;}}
 .check-item.checked .check-text{text-decoration:line-through;color:var(--text-muted);}
 .check-box{width:20px;height:20px;border:2px solid var(--border-color);border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;transition:all var(--duration-fast);}
 .check-item.checked .check-box{background:var(--success-500);border-color:var(--success-500);}
-.check-box svg{width:14px;height:14px;color:white;display:none;}
+.check-box svg{width:14px;height:14px;color: var(--text-primary);display:none;}
 .check-item.checked .check-box svg{display:block;}
 .check-text{font-size:var(--text-sm);color:var(--text-secondary);line-height:1.4;flex:1;}
 
@@ -169,9 +169,9 @@ to{transform:translateX(120%);opacity:0;}}
 .staff-select-row{display:flex;align-items:center;gap:12px;margin-top:16px;padding-top:16px;border-top:1px solid var(--border-color);}
 
 /* ── Toast ── */
-.toast.success{background:var(--success-500);color:white;}
-.toast.error{background:var(--error-500);color:white;}
-.toast.info{background:var(--info-500);color:white;}
+.toast.success{background:var(--success-500);color: var(--text-primary);}
+.toast.error{background:var(--error-500);color: var(--text-primary);}
+.toast.info{background:var(--info-500);color: var(--text-primary);}
 to{opacity:1;transform:translateX(0);}}
 
 /* ── Print Styles ── */
@@ -182,9 +182,9 @@ to{opacity:1;transform:translateX(0);}}
   .modal{max-width:none!important;box-shadow:none!important;border:none!important;animation:none!important;max-height:none!important;overflow:visible!important;}
   .modal-header{border-bottom:2px solid #000!important;}
   .check-item{background:#f5f5f5!important;page-break-inside:avoid;}
-  .check-item.checked .check-box{background:#000!important;border-color:#000!important;}
-  body{background:#fff!important;color:#000!important;}
-  .progress-fill{background:#000!important;}
+  .check-item.checked .check-box{background: var(--bg-primary)!important;border-color: var(--border-color)!important;}
+  body{background: var(--bg-card)!important;color: var(--text-primary)!important;}
+  .progress-fill{background: var(--bg-primary)!important;}
   .content{padding:20px!important;}
 }
 
@@ -213,7 +213,7 @@ to{opacity:1;transform:translateX(0);}}
   text-transform:uppercase; font-family:inherit;
 }
 .lang-switcher button:hover { color:var(--text-primary); }
-.lang-switcher button.active { background:var(--teal-500); color:white; }
+.lang-switcher button.active { background:var(--teal-500); color: var(--text-primary); }
 
 /* ── Mobile Responsive ── */
 @media (max-width: 768px) {
@@ -460,7 +460,7 @@ to{opacity:1;transform:translateX(0);}}
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
         </button>
         <div style="display:flex;align-items:center;gap:10px;">
-          <div class="avatar" style="width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:var(--text-xs);color:white;background:linear-gradient(135deg,#14b8a6,#0d9488);">CF</div>
+          <div class="avatar" style="width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:var(--text-xs);color: var(--text-primary);background:linear-gradient(135deg,var(--teal-500),var(--teal-600));">CF</div>
           <div>
             <div style="font-weight:600;font-size:var(--text-sm);" data-i18n="ui_cleanfix_admin">CleanFix Admin</div>
             <div style="font-size:var(--text-xs);color:var(--text-muted);" data-i18n="ui_super_admin">Super Admin</div>

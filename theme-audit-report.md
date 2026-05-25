@@ -1,0 +1,290 @@
+# CleanFix Theme Audit Report
+**Date:** 2026-05-25
+**Files scanned:** 36
+**Files modified:** 36
+**Total changes:** 236
+
+## Alias Variables Added to main.css
+- `--text` → `var(--text-primary)`
+- `--text-2` → `var(--text-secondary)`
+- `--border` → `var(--border-color)`
+- `--card` → `var(--bg-card)`
+- `--glass-bg` → `rgba(255,255,255,0.6)` (light) / `rgba(15,23,42,0.6)` (dark)
+- `--glass-border` → `rgba(255,255,255,0.2)` (light) / `rgba(148,163,184,0.1)` (dark)
+
+## Modified Files
+- 404.html
+- bookings.html
+- company-analytics.html
+- company-bookings.html
+- company-calendar.html
+- company-customers.html
+- company-equipment.html
+- company-expenses.html
+- company-invoices.html
+- company-maintenance.html
+- company-profile.html
+- company-quality.html
+- company-quotes.html
+- company-reviews.html
+- company-sectors.html
+- company-services.html
+- company-staff.html
+- company-stock.html
+- company-tools.html
+- company.html
+- customer-portal.html
+- customers.html
+- dashboard.html
+- employee-dashboard.html
+- employee-tasks.html
+- employee.html
+- index.html
+- invoices.html
+- login.html
+- pricing.html
+- products.html
+- reports.html
+- services.html
+- settings.html
+- staff.html
+- support.html
+
+## Change Log
+
+- 404.html:<style>  color: white → var(--text-primary)
+- bookings.html:<style>  color: white → var(--text-primary)
+- bookings.html:<style>  color: white → var(--text-primary)
+- company-analytics.html:164  gradient fixed: linear-gradient(135deg,#14b8a6,#0d9488)...
+- company-analytics.html:<style>  color: white → var(--text-primary)
+- company-bookings.html:343  gradient fixed: linear-gradient(135deg,#14b8a6,#0d9488)...
+- company-bookings.html:599  color: white → var(--text-primary)
+- company-bookings.html:<style>  color: white → var(--text-primary)
+- company-bookings.html:<style>  color: white → var(--text-primary)
+- company-bookings.html:<style>  color: white → var(--text-primary)
+- company-bookings.html:<style>  color: white → var(--text-primary)
+- company-bookings.html:<style>  color: white → var(--text-primary)
+- company-bookings.html:<style>  background: white → var(--bg-card)
+- company-calendar.html:182  gradient fixed: linear-gradient(135deg,#14b8a6,#0d9488)...
+- company-calendar.html:<style>  color: white → var(--text-primary)
+- company-customers.html:339  color: white → var(--text-primary)
+- company-customers.html:339  gradient fixed: linear-gradient(135deg,#14b8a6,#0d9488)...
+- company-customers.html:409  gradient fixed: linear-gradient(135deg,#14b8a6,#0d9488)...
+- company-customers.html:429  gradient fixed: linear-gradient(135deg,#f59e0b,#d97706)...
+- company-customers.html:499  gradient fixed: linear-gradient(135deg,#f59e0b,#d97706)...
+- company-customers.html:579  gradient fixed: linear-gradient(135deg,#f59e0b,#d97706)...
+- company-customers.html:736  color: white → var(--text-primary)
+- company-customers.html:980  gradient fixed: linear-gradient(135deg,#14b8a6,#0d9488)...
+- company-customers.html:1005  gradient fixed: linear-gradient(135deg,#14b8a6,#0d9488)...
+- company-customers.html:<style>  color: white → var(--text-primary)
+- company-customers.html:<style>  color: white → var(--text-primary)
+- company-customers.html:<style>  color: white → var(--text-primary)
+- company-customers.html:<style>  color: white → var(--text-primary)
+- company-equipment.html:348  color: white → var(--text-primary)
+- company-equipment.html:348  gradient fixed: linear-gradient(135deg,#14b8a6,#0d9488)...
+- company-equipment.html:<style>  color: white → var(--text-primary)
+- company-equipment.html:<style>  color: white → var(--text-primary)
+- company-equipment.html:<style>  color: white → var(--text-primary)
+- company-expenses.html:<style>  color: white → var(--text-primary)
+- company-expenses.html:<style>  color: white → var(--text-primary)
+- company-invoices.html:175  color: white → var(--text-primary)
+- company-invoices.html:175  gradient fixed: linear-gradient(135deg,#14b8a6,#0d9488)...
+- company-invoices.html:309  color: white → var(--text-primary)
+- company-invoices.html:<style>  color: white → var(--text-primary)
+- company-maintenance.html:314  color: white → var(--text-primary)
+- company-maintenance.html:314  gradient fixed: linear-gradient(135deg,#14b8a6,#0d9488)...
+- company-maintenance.html:424  gradient fixed: linear-gradient(135deg,#14b8a6,#0d9488)...
+- company-maintenance.html:448  gradient fixed: linear-gradient(135deg,#f59e0b,#d97706)...
+- company-maintenance.html:483  gradient fixed: linear-gradient(135deg,#14b8a6,#0d9488)...
+- company-maintenance.html:507  gradient fixed: linear-gradient(135deg,#f59e0b,#d97706)...
+- company-maintenance.html:542  gradient fixed: linear-gradient(135deg,#14b8a6,#0d9488)...
+- company-maintenance.html:577  gradient fixed: linear-gradient(135deg,#f59e0b,#d97706)...
+- company-maintenance.html:589  gradient fixed: linear-gradient(135deg,#14b8a6,#0d9488)...
+- company-maintenance.html:654  gradient fixed: linear-gradient(135deg,#14b8a6,#0d9488)...
+- company-maintenance.html:<style>  color: white → var(--text-primary)
+- company-maintenance.html:<style>  background: white → var(--bg-card)
+- company-maintenance.html:<style>  color: white → var(--text-primary)
+- company-maintenance.html:<style>  color: white → var(--text-primary)
+- company-maintenance.html:<style>  color: white → var(--text-primary)
+- company-profile.html:158  color: white → var(--text-primary)
+- company-profile.html:158  gradient fixed: linear-gradient(135deg,#14b8a6,#0d9488)...
+- company-profile.html:<style>  color: white → var(--text-primary)
+- company-profile.html:<style>  color: white → var(--text-primary)
+- company-profile.html:<style>  color: white → var(--text-primary)
+- company-quality.html:<style>  color: white → var(--text-primary)
+- company-quality.html:<style>  color: white → var(--text-primary)
+- company-quality.html:<style>  color: white → var(--text-primary)
+- company-quotes.html:306  color: white → var(--text-primary)
+- company-quotes.html:306  gradient fixed: linear-gradient(135deg,#14b8a6,#0d9488)...
+- company-quotes.html:861  background: #f8fafc → var(--bg-secondary)
+- company-quotes.html:912  color: #94a3b8 → var(--text-secondary)
+- company-quotes.html:915  color: #94a3b8 → var(--text-secondary)
+- company-quotes.html:<style>  color: white → var(--text-primary)
+- company-quotes.html:<style>  color: white → var(--text-primary)
+- company-quotes.html:<style>  background: white → var(--bg-card)
+- company-quotes.html:<style>  color: #1e293b → var(--text-secondary)
+- company-quotes.html:<style>  color: #64748b → var(--text-muted)
+- company-quotes.html:<style>  color: #94a3b8 → var(--text-secondary)
+- company-quotes.html:<style>  color: #94a3b8 → var(--text-secondary)
+- company-quotes.html:<style>  color: white → var(--text-primary)
+- company-reviews.html:168  gradient fixed: linear-gradient(135deg,#14b8a6,#0d9488)...
+- company-reviews.html:262  gradient fixed: linear-gradient(135deg,#f59e0b,#d97706)...
+- company-reviews.html:340  gradient fixed: linear-gradient(135deg,#14b8a6,#0f766e)...
+- company-reviews.html:598  color: white → var(--text-primary)
+- company-reviews.html:<style>  color: white → var(--text-primary)
+- company-reviews.html:<style>  color: white → var(--text-primary)
+- company-sectors.html:598  color: white → var(--text-primary)
+- company-sectors.html:598  gradient fixed: linear-gradient(135deg,#14b8a6,#0d9488)...
+- company-sectors.html:<style>  color: white → var(--text-primary)
+- company-sectors.html:<style>  color: white → var(--text-primary)
+- company-sectors.html:<style>  color: white → var(--text-primary)
+- company-sectors.html:<style>  color: white → var(--text-primary)
+- company-services.html:359  color: white → var(--text-primary)
+- company-services.html:359  gradient fixed: linear-gradient(135deg,#14b8a6,#0d9488)...
+- company-services.html:<style>  color: white → var(--text-primary)
+- company-services.html:<style>  color: white → var(--text-primary)
+- company-services.html:<style>  color: white → var(--text-primary)
+- company-services.html:<style>  color: white → var(--text-primary)
+- company-staff.html:306  gradient fixed: linear-gradient(135deg,#14b8a6,#0d9488)...
+- company-staff.html:375  gradient fixed: linear-gradient(135deg,#f59e0b,#d97706)...
+- company-staff.html:438  gradient fixed: linear-gradient(135deg,#f59e0b,#d97706)...
+- company-staff.html:510  gradient fixed: linear-gradient(135deg,#f59e0b,#d97706)...
+- company-staff.html:636  color: white → var(--text-primary)
+- company-staff.html:<style>  color: white → var(--text-primary)
+- company-staff.html:<style>  color: white → var(--text-primary)
+- company-staff.html:<style>  color: white → var(--text-primary)
+- company-stock.html:317  color: white → var(--text-primary)
+- company-stock.html:317  gradient fixed: linear-gradient(135deg,#14b8a6,#0d9488)...
+- company-stock.html:688  color: white → var(--text-primary)
+- company-stock.html:<style>  color: white → var(--text-primary)
+- company-stock.html:<style>  color: white → var(--text-primary)
+- company-tools.html:463  color: white → var(--text-primary)
+- company-tools.html:463  gradient fixed: linear-gradient(135deg,#14b8a6,#0d9488)...
+- company-tools.html:<style>  color: white → var(--text-primary)
+- company-tools.html:<style>  color: white → var(--text-primary)
+- company-tools.html:<style>  color: white → var(--text-primary)
+- company-tools.html:<style>  color: white → var(--text-primary)
+- company-tools.html:<style>  color: white → var(--text-primary)
+- company-tools.html:<style>  color: white → var(--text-primary)
+- company-tools.html:<style>  color: white → var(--text-primary)
+- company-tools.html:<style>  background: #000 → var(--bg-primary)
+- company-tools.html:<style>  border-color: #000 → var(--border-color)
+- company-tools.html:<style>  background: #fff → var(--bg-card)
+- company-tools.html:<style>  color: #000 → var(--text-primary)
+- company-tools.html:<style>  background: #000 → var(--bg-primary)
+- company-tools.html:<style>  color: white → var(--text-primary)
+- company.html:187  gradient fixed: linear-gradient(135deg,#14b8a6,#0d9488)...
+- company.html:289  gradient fixed: linear-gradient(135deg,#f59e0b,#d97706)...
+- company.html:342  gradient fixed: linear-gradient(135deg,#f59e0b,#d97706)...
+- company.html:<style>  color: white → var(--text-primary)
+- company.html:<style>  color: white → var(--text-primary)
+- customer-portal.html:<style>  color: white → var(--text-primary)
+- customer-portal.html:<style>  color: white → var(--text-primary)
+- customer-portal.html:<style>  color: white → var(--text-primary)
+- customer-portal.html:<style>  color: white → var(--text-primary)
+- customer-portal.html:<style>  color: white → var(--text-primary)
+- customer-portal.html:<style>  color: white → var(--text-primary)
+- customers.html:333  gradient fixed: linear-gradient(135deg,#f59e0b,#d97706)...
+- customers.html:<style>  color: white → var(--text-primary)
+- customers.html:<style>  color: white → var(--text-primary)
+- dashboard.html:378  gradient fixed: linear-gradient(135deg,#14b8a6,#0d9488)...
+- dashboard.html:425  color: white → var(--text-primary)
+- dashboard.html:446  gradient fixed: linear-gradient(135deg,#f59e0b,#d97706)...
+- dashboard.html:512  gradient fixed: linear-gradient(135deg,#f59e0b,#d97706)...
+- dashboard.html:748  gradient fixed: linear-gradient(90deg,#f59e0b,#d97706)...
+- dashboard.html:759  color: #64748b → var(--text-muted)
+- dashboard.html:825  color: white → var(--text-primary)
+- dashboard.html:895  color: white → var(--text-primary)
+- dashboard.html:895  gradient fixed: linear-gradient(135deg,#14b8a6,#0d9488)...
+- dashboard.html:905  color: white → var(--text-primary)
+- dashboard.html:905  gradient fixed: linear-gradient(135deg,#f59e0b,#d97706)...
+- dashboard.html:915  color: white → var(--text-primary)
+- dashboard.html:925  color: white → var(--text-primary)
+- dashboard.html:925  gradient fixed: linear-gradient(135deg,#14b8a6,#0d9488)...
+- dashboard.html:935  color: white → var(--text-primary)
+- dashboard.html:935  gradient fixed: linear-gradient(135deg,#f59e0b,#d97706)...
+- dashboard.html:945  color: white → var(--text-primary)
+- dashboard.html:955  color: white → var(--text-primary)
+- dashboard.html:955  gradient fixed: linear-gradient(135deg,#14b8a6,#0d9488)...
+- dashboard.html:965  color: white → var(--text-primary)
+- dashboard.html:965  gradient fixed: linear-gradient(135deg,#f59e0b,#d97706)...
+- dashboard.html:975  color: white → var(--text-primary)
+- dashboard.html:985  color: white → var(--text-primary)
+- dashboard.html:985  gradient fixed: linear-gradient(135deg,#14b8a6,#0d9488)...
+- dashboard.html:995  color: white → var(--text-primary)
+- dashboard.html:1005  color: white → var(--text-primary)
+- dashboard.html:1023  color: white → var(--text-primary)
+- dashboard.html:1044  gradient fixed: linear-gradient(90deg,#14b8a6,#0d9488)...
+- dashboard.html:1058  gradient fixed: linear-gradient(90deg,#f59e0b,#d97706)...
+- dashboard.html:1584  color: white → var(--text-primary)
+- dashboard.html:1666  color: white → var(--text-primary)
+- dashboard.html:1668  color: white → var(--text-primary)
+- dashboard.html:1668  gradient fixed: linear-gradient(90deg,#f59e0b,#d97706)...
+- dashboard.html:1670  color: white → var(--text-primary)
+- dashboard.html:1672  color: white → var(--text-primary)
+- dashboard.html:1847  background: white → var(--bg-card)
+- dashboard.html:2486  color: white → var(--text-primary)
+- dashboard.html:<style>  color: white → var(--text-primary)
+- dashboard.html:<style>  color: white → var(--text-primary)
+- dashboard.html:<style>  color: white → var(--text-primary)
+- dashboard.html:<style>  color: white → var(--text-primary)
+- employee-dashboard.html:<style>  color: white → var(--text-primary)
+- employee-dashboard.html:<style>  color: white → var(--text-primary)
+- employee-dashboard.html:<style>  color: white → var(--text-primary)
+- employee-dashboard.html:<style>  color: white → var(--text-primary)
+- employee-dashboard.html:<style>  color: white → var(--text-primary)
+- employee-dashboard.html:<style>  color: white → var(--text-primary)
+- employee-tasks.html:275  color: white → var(--text-primary)
+- employee-tasks.html:572  color: white → var(--text-primary)
+- employee-tasks.html:679  color: white → var(--text-primary)
+- employee-tasks.html:680  color: white → var(--text-primary)
+- employee-tasks.html:713  color: white → var(--text-primary)
+- employee-tasks.html:746  color: white → var(--text-primary)
+- employee-tasks.html:779  color: white → var(--text-primary)
+- employee-tasks.html:812  color: white → var(--text-primary)
+- employee-tasks.html:813  color: white → var(--text-primary)
+- employee-tasks.html:846  color: white → var(--text-primary)
+- employee-tasks.html:887  color: white → var(--text-primary)
+- employee-tasks.html:945  color: white → var(--text-primary)
+- employee-tasks.html:946  color: white → var(--text-primary)
+- employee-tasks.html:<style>  color: white → var(--text-primary)
+- employee-tasks.html:<style>  color: white → var(--text-primary)
+- employee-tasks.html:<style>  color: white → var(--text-primary)
+- employee-tasks.html:<style>  color: white → var(--text-primary)
+- employee-tasks.html:<style>  color: white → var(--text-primary)
+- employee-tasks.html:<style>  color: white → var(--text-primary)
+- employee.html:303  color: white → var(--text-primary)
+- employee.html:<style>  color: white → var(--text-primary)
+- employee.html:<style>  color: white → var(--text-primary)
+- employee.html:<style>  color: white → var(--text-primary)
+- employee.html:<style>  color: white → var(--text-primary)
+- index.html:362  color: white → var(--text-primary)
+- index.html:496  color: white → var(--text-primary)
+- index.html:500  color: white → var(--text-primary)
+- index.html:504  color: white → var(--text-primary)
+- index.html:508  color: white → var(--text-primary)
+- index.html:512  color: white → var(--text-primary)
+- index.html:516  color: white → var(--text-primary)
+- index.html:520  color: white → var(--text-primary)
+- index.html:524  color: white → var(--text-primary)
+- index.html:743  gradient fixed: linear-gradient(135deg,#f59e0b,#d97706)...
+- index.html:<style>  color: white → var(--text-primary)
+- index.html:<style>  color: white → var(--text-primary)
+- index.html:<style>  color: white → var(--text-primary)
+- index.html:<style>  color: white → var(--text-primary)
+- invoices.html:<style>  color: white → var(--text-primary)
+- login.html:322  border-top-color: white → var(--border-color)
+- login.html:<style>  color: white → var(--text-primary)
+- login.html:<style>  color: white → var(--text-primary)
+- pricing.html:<style>  background: white → var(--bg-card)
+- pricing.html:<style>  color: white → var(--text-primary)
+- products.html:<style>  color: white → var(--text-primary)
+- products.html:<style>  color: white → var(--text-primary)
+- reports.html:<style>  color: white → var(--text-primary)
+- reports.html:<style>  color: white → var(--text-primary)
+- services.html:<style>  color: white → var(--text-primary)
+- settings.html:<style>  color: white → var(--text-primary)
+- staff.html:269  gradient fixed: linear-gradient(135deg,#f59e0b,#d97706)...
+- staff.html:<style>  color: white → var(--text-primary)
+- staff.html:<style>  color: white → var(--text-primary)
+- support.html:<style>  color: white → var(--text-primary)

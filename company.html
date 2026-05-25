@@ -11,7 +11,7 @@
 .dashboard{display:flex;min-height:100vh;background:var(--bg-primary);}
 .sidebar{width:280px;height:100vh;background:var(--bg-card);border-right:1px solid var(--border-color);display:flex;flex-direction:column;position:fixed;left:0;top:0;z-index:100;transition:transform var(--duration-slow) var(--ease-out);}
 .sidebar-header{padding:20px 24px;border-bottom:1px solid var(--border-color);display:flex;align-items:center;gap:12px;}
-.sidebar-logo{width:36px;height:36px;background:linear-gradient(135deg,var(--teal-500),var(--teal-700));border-radius:10px;display:flex;align-items:center;justify-content:center;font-weight:700;color:white;font-size:14px;}
+.sidebar-logo{width:36px;height:36px;background:linear-gradient(135deg,var(--teal-500),var(--teal-700));border-radius:10px;display:flex;align-items:center;justify-content:center;font-weight:700;color: var(--text-primary);font-size:14px;}
 .sidebar-nav{flex:1;overflow-y:auto;padding:16px 12px;}
 .nav-group{margin-bottom:8px;}
 .nav-group-header{display:flex;align-items:center;gap:8px;padding:8px 12px;font-size:var(--text-xs);font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.05em;}
@@ -61,7 +61,7 @@
 .table td{padding:12px 16px;font-size:var(--text-sm);color:var(--text-secondary);border-bottom:1px solid var(--border-color);}
 .table tr:last-child td{border-bottom:none;}
 .table tr:hover td{background:rgba(255,255,255,0.02);}
-.avatar{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:var(--text-xs);color:white;}
+.avatar{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:var(--text-xs);color: var(--text-primary);}
 .tag{display:inline-flex;align-items:center;gap:4px;padding:4px 12px;border-radius:9999px;font-size:var(--text-xs);font-weight:500;background:rgba(16,185,129,0.1);color:var(--success-500);}
 .tag.busy{background:rgba(245,158,11,0.1);color:var(--amber-500);}
 .tag.blue{background:rgba(59,130,246,0.1);color:var(--info-500);}
@@ -184,7 +184,7 @@
       </div>
       <div class="header-right">
         <button class="header-btn" onclick="showToast('3 yeni bildirim','success')"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg></button>
-        <div style="display:flex;align-items:center;gap:10px;"><div class="avatar" style="background:linear-gradient(135deg,#14b8a6,#0d9488);">CF</div><div><div style="font-weight:600;font-size:var(--text-sm);">CleanFix Demo BV</div><div style="font-size:var(--text-xs);color:var(--text-muted);">Business Plan</div></div></div>
+        <div style="display:flex;align-items:center;gap:10px;"><div class="avatar" style="background:linear-gradient(135deg,var(--teal-500),var(--teal-600));">CF</div><div><div style="font-weight:600;font-size:var(--text-sm);">CleanFix Demo BV</div><div style="font-size:var(--text-xs);color:var(--text-muted);">Business Plan</div></div></div>
       </div>
     </header>
 
@@ -286,7 +286,7 @@
           <div class="card-body">
             <div class="performance-row"><div class="avatar" style="background:linear-gradient(135deg,#3b82f6,#1d4ed8);width:28px;height:28px;font-size:10px;">AK</div><span style="font-size:var(--text-sm);width:100px;">Ahmet K.</span><div class="performance-bar"><div class="performance-fill" style="width:92%"></div></div><span style="font-size:var(--text-xs);font-weight:600;width:36px;text-align:right;">42</span></div>
             <div class="performance-row"><div class="avatar" style="background:linear-gradient(135deg,#8b5cf6,#6d28d9);width:28px;height:28px;font-size:10px;">MD</div><span style="font-size:var(--text-sm);width:100px;">Merve D.</span><div class="performance-bar"><div class="performance-fill" style="width:85%"></div></div><span style="font-size:var(--text-xs);font-weight:600;width:36px;text-align:right;">39</span></div>
-            <div class="performance-row"><div class="avatar" style="background:linear-gradient(135deg,#f59e0b,#d97706);width:28px;height:28px;font-size:10px;">AR</div><span style="font-size:var(--text-sm);width:100px;">Ali R.</span><div class="performance-bar"><div class="performance-fill" style="width:68%"></div></div><span style="font-size:var(--text-xs);font-weight:600;width:36px;text-align:right;">31</span></div>
+            <div class="performance-row"><div class="avatar" style="background:linear-gradient(135deg,var(--amber-500),var(--amber-600));width:28px;height:28px;font-size:10px;">AR</div><span style="font-size:var(--text-sm);width:100px;">Ali R.</span><div class="performance-bar"><div class="performance-fill" style="width:68%"></div></div><span style="font-size:var(--text-xs);font-weight:600;width:36px;text-align:right;">31</span></div>
             <div class="performance-row"><div class="avatar" style="background:linear-gradient(135deg,#10b981,#059669);width:28px;height:28px;font-size:10px;">SC</div><span style="font-size:var(--text-sm);width:100px;">Selim Ç.</span><div class="performance-bar"><div class="performance-fill" style="width:55%"></div></div><span style="font-size:var(--text-xs);font-weight:600;width:36px;text-align:right;">25</span></div>
             <div class="performance-row"><div class="avatar" style="background:linear-gradient(135deg,#ef4444,#dc2626);width:28px;height:28px;font-size:10px;">NY</div><span style="font-size:var(--text-sm);width:100px;">Naz Y.</span><div class="performance-bar"><div class="performance-fill" style="width:0%;background:var(--text-muted);"></div></div><span style="font-size:var(--text-xs);font-weight:600;width:36px;text-align:right;color:var(--text-muted);">0</span></div>
           </div>
@@ -339,7 +339,7 @@
             </div>
             <div>
               <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
-                <div style="display:flex;align-items:center;gap:8px;"><div class="avatar" style="background:linear-gradient(135deg,#f59e0b,#d97706);width:28px;height:28px;font-size:10px;">PD</div><span style="font-weight:600;font-size:var(--text-sm);">Pieter De Vos</span></div>
+                <div style="display:flex;align-items:center;gap:8px;"><div class="avatar" style="background:linear-gradient(135deg,var(--amber-500),var(--amber-600));width:28px;height:28px;font-size:10px;">PD</div><span style="font-weight:600;font-size:var(--text-sm);">Pieter De Vos</span></div>
                 <div class="rating"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
               </div>
               <div style="font-size:var(--text-sm);color:var(--text-secondary);line-height:1.5;">"Dış yıkama + cila paketi harika değer. Tavsiye ederim."</div>
