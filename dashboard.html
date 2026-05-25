@@ -301,6 +301,36 @@
 .section-header{display:flex; align-items:center; justify-content:space-between; margin-bottom:20px;}
 .section-title{font-size:1.25rem; font-weight:700; color:var(--text);}
 </style>
+/* ── Modal ── */
+.modal-overlay {
+  position: fixed; inset: 0; background: rgba(0,0,0,0.6);
+  display: none; align-items: center; justify-content: center;
+  z-index: 200; backdrop-filter: blur(4px);
+}
+.modal-overlay.active { display: flex; }
+.modal {
+  background: var(--bg-card); border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg); width: 90%; max-width: 480px;
+  padding: var(--space-5); box-shadow: var(--shadow-xl);
+}
+.modal-header {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: var(--space-4);
+}
+.modal-title { font-size: var(--text-lg); font-weight: 700; }
+.modal-close {
+  background: none; border: none; font-size: 20px; color: var(--text-muted);
+  cursor: pointer;
+}
+.modal-body { margin-bottom: var(--space-4); }
+.modal-body textarea {
+  width: 100%; min-height: 120px; background: var(--bg-secondary);
+  border: 1px solid var(--border-color); border-radius: var(--radius-md);
+  padding: var(--space-3); color: var(--text-primary); font-size: var(--text-sm);
+  resize: vertical;
+}
+.modal-footer { display: flex; justify-content: flex-end; gap: var(--space-3); }
+
 </head>
 
 <body>
@@ -2180,6 +2210,41 @@ function showSection(hash){
 }
 window.addEventListener('hashchange', ()=>showSection(location.hash));
 window.addEventListener('DOMContentLoaded', ()=>showSection(location.hash));
+</script>
+
+<!-- Announcement Modal -->
+<div class="modal-overlay" id="announceModal" onclick="if(event.target===this)closeModal('announceModal')">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">📢 Duyuru Gönder</div>
+      <button class="modal-close" onclick="closeModal('announceModal')">✕</button>
+    </div>
+    <div class="modal-body">
+      <textarea id="announceText" placeholder="Duyuru mesajını yazın..."></textarea>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('announceModal')">İptal</button>
+      <button class="btn btn-primary" onclick="sendAnnouncement()">Gönder</button>
+    </div>
+  </div>
+</div>
+
+<script>
+function openModal(id) {
+  const el = document.getElementById(id);
+  if (el) el.classList.add('active');
+}
+function closeModal(id) {
+  const el = document.getElementById(id);
+  if (el) el.classList.remove('active');
+}
+function sendAnnouncement() {
+  const text = document.getElementById('announceText')?.value?.trim();
+  if (!text) { showToast('Lütfen bir mesaj yazın', 'error'); return; }
+  showToast('Duyuru gönderildi!', 'success');
+  document.getElementById('announceText').value = '';
+  closeModal('announceModal');
+}
 </script>
 </body>
 </html>
