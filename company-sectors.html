@@ -1369,55 +1369,16 @@ function toggleCheck(el){
 /* Add sector */
 function addSector() {
   const name = document.getElementById('addSectorName').value.trim();
-  const desc = document.getElementById('addSectorDesc').value.trim();
+  const subtitle = document.getElementById('addSectorDesc').value.trim();
   const icon = document.getElementById('selectedEmoji').textContent.trim();
   const status = document.getElementById('addSectorStatus').value;
   const modules = document.getElementById('addSectorModules').value;
   if (!name) { showToast('Sektör adı gerekli', 'error'); return; }
-  addNewSectorCard({ name: name, desc: desc, icon: icon, status: status, modules: modules });
+  addNewSectorCard({ name: name, subtitle: subtitle, icon: icon, status: status, firms: 0, revenue: '€0', modules: parseInt(modules) || 3 });
   closeModal('addSectorModal');
   showToast('Sektör eklendi', 'success');
 }
 
-  const statusClass=status==='Aktif'?'status-active':status==='Geliştirme'?'status-dev':'status-plan';
-  const statusColor=status==='Aktif'?'var(--success-500)':status==='Geliştirme'?'var(--info-500)':'var(--amber-500)';
-  const statusBg=status==='Aktif'?'rgba(16,185,129,0.12)':status==='Geliştirme'?'rgba(59,130,246,0.12)':'rgba(245,158,11,0.12)';
-  const cardClass=status==='Aktif'?'active':'indev';
-  const modCount=checkedModules.length||modules||1;
-
-  const grid=document.getElementById('sectorGrid');
-  const newId=Math.max(...Array.from(grid.querySelectorAll('.sector-card')).map(c=>+c.dataset.id))+1;
-
-  const card=document.createElement('div');
-  card.className=`sector-card ${cardClass}`;
-  card.dataset.id=newId;
-  card.dataset.status=status;
-  card.onclick=function(){toggleSectorDetail(newId);};
-  card.innerHTML=`
-    <span class="sector-icon">${emoji}</span>
-    <div class="sector-name">${name}</div>
-    <div class="sector-meta">
-      <span class="status-badge ${statusClass}">● ${status}</span>
-      <span class="status-badge" style="background:${statusBg};color:${statusColor};">${modCount} Modül</span>
-    </div>
-    <div class="sector-stats">
-      <div class="sector-stat"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg><strong>0</strong> firma</div>
-      <div class="sector-stat"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg><strong>€0</strong>/ay</div>
-    </div>
-  `;
-  grid.appendChild(card);
-
-  // Reset form
-  document.getElementById('addSectorName').value='';
-  document.getElementById('addSectorDesc').value='';
-  document.getElementById('addSectorModules').value='';
-  document.getElementById('selectedEmoji').value='';
-  document.querySelectorAll('.emoji-option').forEach(e=>e.classList.remove('selected'));
-  document.querySelectorAll('#addSectorModal .check-item').forEach(el=>{el.classList.remove('checked');el.querySelector('input').checked=false;});
-
-  closeModal('addSectorModal');
-  showToast(`"${name}" sektörü eklendi`, 'success');
-}
 
 /* Assign firm */
 function assignFirm(){
@@ -1585,79 +1546,6 @@ function updateStatCounts() {
   if (sd) sd.textContent = dev;
   if (sp) sp.textContent = plan;
 }
-
-function addNewSectorCard(data) {
-  const grid = document.getElementById('sectorGrid');
-  if (!grid) return;
-  const id = Date.now();
-  const colors = { 'Aktif': '#14b8a6', 'Geliştirme': '#3b82f6', 'Planlama': '#8b5cf6' };
-  const color = colors[data.status] || '#8b5cf6';
-  const textColor = data.status === 'Aktif' ? 'var(--success-500)' : (data.status === 'Geliştirme' ? 'var(--info-500)' : '#8b5cf6');
-  const div = document.createElement('div');
-  div.className = 'sector-card-v2';
-  div.setAttribute('data-id', id);
-  div.setAttribute('data-status', data.status);
-  div.setAttribute('data-name', data.name);
-  div.onclick = new Function('toggleSectorDetail(' + id + ')');
-  div.innerHTML = `
-    <div class="card-top-border" style="background:${color};"></div>
-    <div class="card-body">
-      <div class="card-actions">
-        <button class="card-action-btn" onclick="event.stopPropagation();openEditSectorModal(${id})" title="Düzenle">✎</button>
-        <button class="card-action-btn delete" onclick="event.stopPropagation();openDeleteSectorModal(${id})" title="Sil">🗑</button>
-        <button class="card-action-btn" onclick="event.stopPropagation();toggleCardDropdown(${id})" title="Diğer">⋯</button>
-        <div class="card-dropdown" id="dropdown-${id}">
-          <button class="card-dropdown-item" onclick="changeSectorStatus(${id},'Aktif')"><span style="color:var(--success-500);">●</span> Aktif Yap</button>
-          <button class="card-dropdown-item" onclick="changeSectorStatus(${id},'Geliştirme')"><span style="color:var(--info-500);">●</span> Geliştirme</button>
-          <button class="card-dropdown-item" onclick="changeSectorStatus(${id},'Planlama')"><span style="color:#8b5cf6;">●</span> Planlama</button>
-          <div class="card-dropdown-divider"></div>
-          <button class="card-dropdown-item delete" onclick="openDeleteSectorModal(${id})">🗑 Sil</button>
-        </div>
-      </div>
-      <div class="card-header-row">
-        <div class="card-icon" style="background:${color}15;">${data.icon || '📦'}</div>
-        <div class="card-title-block">
-          <div class="card-title">${data.name}</div>
-          <div class="card-subtitle">${data.desc || ''}</div>
-        </div>
-      </div>
-      <div class="card-status-row">
-        <span style="font-size:var(--text-xs);font-weight:600;color:${textColor};"><span class="status-dot" style="background:${color};"></span>${data.status}</span>
-      </div>
-      <div class="card-stats-row">
-        <div class="card-stat"><span class="card-stat-value" style="color:${color};">0</span><span class="card-stat-label">Firma</span></div>
-        <div class="card-stat"><span class="card-stat-value" style="color:${color};">€0</span><span class="card-stat-label">Aylık</span></div>
-        <div class="card-stat"><span class="card-stat-value" style="color:${color};">${data.modules || 0}</span><span class="card-stat-label">Modül</span></div>
-      </div>
-    </div>
-  `;
-  grid.appendChild(div);
-  updateStatCounts();
-}
-
-function updateSectorCard(id, data) {
-  const card = document.querySelector('.sector-card-v2[data-id="' + id + '"]');
-  if (!card) return;
-  if (data.name) {
-    card.setAttribute('data-name', data.name);
-    const title = card.querySelector('.card-title');
-    if (title) title.textContent = data.name;
-  }
-  if (data.desc) {
-    const sub = card.querySelector('.card-subtitle');
-    if (sub) sub.textContent = data.desc;
-  }
-  if (data.icon) {
-    const iconBox = card.querySelector('.card-icon');
-    if (iconBox) iconBox.textContent = data.icon;
-  }
-  if (data.status) changeSectorStatus(id, data.status);
-  if (data.modules) {
-    const stats = card.querySelectorAll('.card-stat-value');
-    if (stats[2]) stats[2].textContent = data.modules;
-  }
-}
-/* ===== End Sector Card v2 Functions ===== */
 
 const i18n = {
   tr: {
