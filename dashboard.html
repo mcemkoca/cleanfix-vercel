@@ -218,6 +218,26 @@
 }
 .card-body { padding:var(--space-4) var(--space-5); }
 
+
+/* ── Company Cards ── */
+.company-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(380px,1fr)); gap:20px; }
+.company-card { background:var(--bg-card); border:1px solid var(--border-color); border-radius:var(--radius-xl); overflow:hidden; transition:all var(--duration-normal); }
+.company-card:hover { border-color:var(--teal-500); box-shadow:var(--shadow-lg); }
+.company-card-header { display:flex; align-items:center; gap:14px; padding:18px 20px; border-bottom:1px solid var(--border-color); background:var(--bg-elevated); }
+.company-icon { width:42px; height:42px; border-radius:12px; display:flex; align-items:center; justify-content:center; font-size:20px; flex-shrink:0; }
+.company-info { flex:1; min-width:0; }
+.company-name { font-size:var(--text-sm); font-weight:700; color:var(--text-primary); }
+.company-meta { font-size:var(--text-xs); color:var(--text-muted); margin-top:2px; }
+.company-badge { font-size:var(--text-xs); font-weight:600; color:var(--text-secondary); background:var(--bg-tertiary); padding:4px 10px; border-radius:9999px; white-space:nowrap; }
+.company-users { padding:12px 16px; }
+.company-user-row { display:flex; align-items:center; gap:12px; padding:10px 8px; border-radius:var(--radius-md); transition:background var(--duration-fast); }
+.company-user-row:hover { background:var(--bg-tertiary); }
+.user-avatar { width:32px; height:32px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:600; flex-shrink:0; }
+.user-info { flex:1; min-width:0; }
+.user-name { font-size:var(--text-sm); font-weight:600; color:var(--text-primary); }
+.user-meta { font-size:var(--text-xs); color:var(--text-muted); }
+.user-actions { display:flex; gap:4px; opacity:0; transition:opacity var(--duration-fast); }
+.company-user-row:hover .user-actions { opacity:1; }
 /* ── Chart Widgets ── */
 .chart-container { position:relative; height:240px; padding:0 var(--space-4) var(--space-4); }
 .chart-container-sm { position:relative; height:200px; padding:0 var(--space-4) var(--space-4); }
@@ -1152,152 +1172,264 @@
     <section id="users" class="page-section">
       <!-- KPI row -->
       <div class="kpi-row">
-        <div class="kpi-card reveal"><div class="kpi-icon" style="background:rgba(59,130,246,0.1);color:var(--info-500);">👥</div><div class="kpi-value">1,247</div><div class="kpi-label">Toplam Kullanıcı</div></div>
-        <div class="kpi-card reveal reveal-delay-1"><div class="kpi-icon" style="background:rgba(16,185,129,0.1);color:var(--success-500);">🟢</div><div class="kpi-value">1,103</div><div class="kpi-label">Aktif</div></div>
-        <div class="kpi-card reveal reveal-delay-2"><div class="kpi-icon" style="background:rgba(245,158,11,0.1);color:var(--amber-500);">🟡</div><div class="kpi-value">89</div><div class="kpi-label">Bekleyen</div></div>
-        <div class="kpi-card reveal reveal-delay-3"><div class="kpi-icon" style="background:rgba(239,68,68,0.1);color:var(--danger-500);">🔴</div><div class="kpi-value">55</div><div class="kpi-label">Pasif</div></div>
+        <div class="kpi-card reveal"><div class="kpi-icon" style="background:rgba(59,130,246,0.1);color:var(--info-500);">👥</div><div class="kpi-value">12</div><div class="kpi-label">Toplam Kullanıcı</div></div>
+        <div class="kpi-card reveal reveal-delay-1"><div class="kpi-icon" style="background:rgba(16,185,129,0.1);color:var(--success-500);">🟢</div><div class="kpi-value">9</div><div class="kpi-label">Aktif</div></div>
+        <div class="kpi-card reveal reveal-delay-2"><div class="kpi-icon" style="background:rgba(245,158,11,0.1);color:var(--amber-500);">🟡</div><div class="kpi-value">2</div><div class="kpi-label">Bekleyen</div></div>
+        <div class="kpi-card reveal reveal-delay-3"><div class="kpi-icon" style="background:rgba(239,68,68,0.1);color:var(--danger-500);">🔴</div><div class="kpi-value">1</div><div class="kpi-label">Pasif</div></div>
       </div>
 
       <!-- Search + filter bar -->
       <div style="display:flex;gap:12px;align-items:center;margin-bottom:16px;flex-wrap:wrap;">
         <div style="position:relative;flex:1;min-width:200px;">
           <svg style="position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--text-2);" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-          <input type="text" placeholder="Kullanıcı ara..." style="width:100%;background:var(--card);border:1px solid var(--border);border-radius:10px;padding:10px 12px 10px 38px;color:var(--text);font-size:14px;" />
+          <input type="text" id="userSearch" placeholder="Kullanıcı veya firma ara..." onkeyup="filterUsers()" style="width:100%;background:var(--card);border:1px solid var(--border);border-radius:10px;padding:10px 12px 10px 38px;color:var(--text);font-size:14px;" />
         </div>
-        <select style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:10px 12px;color:var(--text);font-size:14px;"><option>Tüm Roller</option><option>Admin</option><option>Operatör</option><option>Muhasebe</option><option>Yönetici</option></select>
-        <select style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:10px 12px;color:var(--text);font-size:14px;"><option>Tüm Firmalar</option><option>BrightClean BV</option><option>BuildMaster Pro</option><option>QuickWash Antwerp</option><option>FixIt Services</option><option>TopBouw NV</option><option>StyleCut Salon</option><option>Constructie Janssens</option><option>SparkleClean Leuven</option><option>Barber Bruno</option><option>Gentleman's Cut</option></select>
-        <button class="btn btn-primary">+ Yeni Kullanıcı</button>
+        <select id="userRoleFilter" onchange="filterUsers()" style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:10px 12px;color:var(--text);font-size:14px;"><option value="">Tüm Roller</option><option>Admin</option><option>Operatör</option><option>Muhasebe</option><option>Yönetici</option></select>
+        <select id="userStatusFilter" onchange="filterUsers()" style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:10px 12px;color:var(--text);font-size:14px;"><option value="">Tüm Durumlar</option><option>Aktif</option><option>Bekliyor</option><option>Pasif</option></select>
+        <button class="btn btn-primary" onclick="openModal('addUserModal')">+ Yeni Kullanıcı</button>
       </div>
 
-      <!-- Users table -->
-      <div class="table-wrap">
-        <table class="table table-compact">
-          <thead><tr><th style="width:40px;"></th><th>Ad</th><th>E-posta</th><th>Rol</th><th>Firma</th><th>Son Giriş</th><th>Durum</th><th style="width:80px;">İşlem</th></tr></thead>
-          <tbody>
-            <tr>
-              <td><div style="width:32px;height:32px;border-radius:50%;background:rgba(139,92,246,0.15);color:var(--purple-500);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;">AK</div></td>
-              <td><strong>Ahmet Kaya</strong></td><td>ahmet@brightclean.be</td>
-              <td><span class="tag" style="background:rgba(139,92,246,0.12);color:var(--purple-500);border:none;">Admin</span></td>
-              <td>BrightClean BV</td>
-              <td><span style="display:inline-flex;align-items:center;gap:6px;"><span style="width:8px;height:8px;border-radius:50%;background:var(--success-500);display:inline-block;"></span>Bugün 09:14</span></td>
-              <td><span class="tag tag-green">Aktif</span></td>
-              <td><div class="actions"><button class="action-btn edit" title="Düzenle">✎</button><button class="action-btn delete" title="Sil">🗑</button></div></td>
-            </tr>
-            <tr>
-              <td><div style="width:32px;height:32px;border-radius:50%;background:rgba(59,130,246,0.15);color:var(--info-500);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;">SJ</div></td>
-              <td><strong>Sarah Janssens</strong></td><td>sarah@buildmaster.pro</td>
-              <td><span class="tag" style="background:rgba(139,92,246,0.12);color:var(--purple-500);border:none;">Admin</span></td>
-              <td>BuildMaster Pro</td>
-              <td><span style="display:inline-flex;align-items:center;gap:6px;"><span style="width:8px;height:8px;border-radius:50%;background:var(--amber-500);display:inline-block;"></span>Dün 18:32</span></td>
-              <td><span class="tag tag-green">Aktif</span></td>
-              <td><div class="actions"><button class="action-btn edit" title="Düzenle">✎</button><button class="action-btn delete" title="Sil">🗑</button></div></td>
-            </tr>
-            <tr>
-              <td><div style="width:32px;height:32px;border-radius:50%;background:rgba(59,130,246,0.15);color:var(--info-500);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;">PD</div></td>
-              <td><strong>Pieter De Vos</strong></td><td>pieter@quickwash.be</td>
-              <td><span class="tag" style="background:rgba(59,130,246,0.12);color:var(--info-500);border:none;">Operatör</span></td>
-              <td>QuickWash Antwerp</td>
-              <td><span style="display:inline-flex;align-items:center;gap:6px;"><span style="width:8px;height:8px;border-radius:50%;background:var(--success-500);display:inline-block;"></span>Bugün 07:45</span></td>
-              <td><span class="tag tag-green">Aktif</span></td>
-              <td><div class="actions"><button class="action-btn edit" title="Düzenle">✎</button><button class="action-btn delete" title="Sil">🗑</button></div></td>
-            </tr>
-            <tr>
-              <td><div style="width:32px;height:32px;border-radius:50%;background:rgba(139,92,246,0.15);color:var(--purple-500);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;">MD</div></td>
-              <td><strong>Merve Demir</strong></td><td>merve@fixit.com.tr</td>
-              <td><span class="tag" style="background:rgba(139,92,246,0.12);color:var(--purple-500);border:none;">Admin</span></td>
-              <td>FixIt Services</td>
-              <td><span style="display:inline-flex;align-items:center;gap:6px;"><span style="width:8px;height:8px;border-radius:50%;background:var(--text-2);display:inline-block;"></span>2 gün önce</span></td>
-              <td><span class="tag tag-amber">Bekliyor</span></td>
-              <td><div class="actions"><button class="action-btn edit" title="Düzenle">✎</button><button class="action-btn delete" title="Sil">🗑</button></div></td>
-            </tr>
-            <tr>
-              <td><div style="width:32px;height:32px;border-radius:50%;background:rgba(245,158,11,0.15);color:var(--amber-500);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;">LV</div></td>
-              <td><strong>Lucas Vermeulen</strong></td><td>lucas@topbouw.be</td>
-              <td><span class="tag" style="background:rgba(245,158,11,0.12);color:var(--amber-500);border:none;">Muhasebe</span></td>
-              <td>TopBouw NV</td>
-              <td><span style="display:inline-flex;align-items:center;gap:6px;"><span style="width:8px;height:8px;border-radius:50%;background:var(--text-2);display:inline-block;"></span>3 gün önce</span></td>
-              <td><span class="tag tag-green">Aktif</span></td>
-              <td><div class="actions"><button class="action-btn edit" title="Düzenle">✎</button><button class="action-btn delete" title="Sil">🗑</button></div></td>
-            </tr>
-            <tr>
-              <td><div style="width:32px;height:32px;border-radius:50%;background:rgba(139,92,246,0.15);color:var(--purple-500);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;">EJ</div></td>
-              <td><strong>Emma Jacobs</strong></td><td>emma@sparkleclean.be</td>
-              <td><span class="tag" style="background:rgba(139,92,246,0.12);color:var(--purple-500);border:none;">Admin</span></td>
-              <td>SparkleClean Leuven</td>
-              <td><span style="display:inline-flex;align-items:center;gap:6px;"><span style="width:8px;height:8px;border-radius:50%;background:var(--text-2);display:inline-block;"></span>1 hafta önce</span></td>
-              <td><span class="tag tag-red">Pasif</span></td>
-              <td><div class="actions"><button class="action-btn edit" title="Düzenle">✎</button><button class="action-btn delete" title="Sil">🗑</button></div></td>
-            </tr>
-            <tr>
-              <td><div style="width:32px;height:32px;border-radius:50%;background:rgba(20,184,166,0.15);color:var(--teal-500);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;">MD</div></td>
-              <td><strong>Marc Dubois</strong></td><td>marc@stylecut.be</td>
-              <td><span class="tag" style="background:rgba(20,184,166,0.12);color:var(--teal-500);border:none;">Yönetici</span></td>
-              <td>StyleCut Salon</td>
-              <td><span style="display:inline-flex;align-items:center;gap:6px;"><span style="width:8px;height:8px;border-radius:50%;background:var(--success-500);display:inline-block;"></span>Bugün 11:22</span></td>
-              <td><span class="tag tag-amber">Askıda</span></td>
-              <td><div class="actions"><button class="action-btn edit" title="Düzenle">✎</button><button class="action-btn delete" title="Sil">🗑</button></div></td>
-            </tr>
-            <tr>
-              <td><div style="width:32px;height:32px;border-radius:50%;background:rgba(59,130,246,0.15);color:var(--info-500);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;">NY</div></td>
-              <td><strong>Naz Yılmaz</strong></td><td>naz@constructie.be</td>
-              <td><span class="tag" style="background:rgba(59,130,246,0.12);color:var(--info-500);border:none;">Operatör</span></td>
-              <td>Constructie Janssens</td>
-              <td><span style="display:inline-flex;align-items:center;gap:6px;"><span style="width:8px;height:8px;border-radius:50%;background:var(--amber-500);display:inline-block;"></span>Dün 14:05</span></td>
-              <td><span class="tag tag-green">Aktif</span></td>
-              <td><div class="actions"><button class="action-btn edit" title="Düzenle">✎</button><button class="action-btn delete" title="Sil">🗑</button></div></td>
-            </tr>
-            <tr>
-              <td><div style="width:32px;height:32px;border-radius:50%;background:rgba(245,158,11,0.15);color:var(--amber-500);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;">BV</div></td>
-              <td><strong>Bruno Van den Berg</strong></td><td>bruno@barberbruno.be</td>
-              <td><span class="tag" style="background:rgba(245,158,11,0.12);color:var(--amber-500);border:none;">Muhasebe</span></td>
-              <td>Barber Bruno</td>
-              <td><span style="display:inline-flex;align-items:center;gap:6px;"><span style="width:8px;height:8px;border-radius:50%;background:var(--success-500);display:inline-block;"></span>Bugün 08:30</span></td>
-              <td><span class="tag tag-green">Aktif</span></td>
-              <td><div class="actions"><button class="action-btn edit" title="Düzenle">✎</button><button class="action-btn delete" title="Sil">🗑</button></div></td>
-            </tr>
-            <tr>
-              <td><div style="width:32px;height:32px;border-radius:50%;background:rgba(59,130,246,0.15);color:var(--info-500);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;">TC</div></td>
-              <td><strong>Thomas Coppens</strong></td><td>thomas@gentlemanscut.be</td>
-              <td><span class="tag" style="background:rgba(59,130,246,0.12);color:var(--info-500);border:none;">Operatör</span></td>
-              <td>Gentleman's Cut</td>
-              <td><span style="display:inline-flex;align-items:center;gap:6px;"><span style="width:8px;height:8px;border-radius:50%;background:var(--amber-500);display:inline-block;"></span>Dün 16:45</span></td>
-              <td><span class="tag tag-green">Aktif</span></td>
-              <td><div class="actions"><button class="action-btn edit" title="Düzenle">✎</button><button class="action-btn delete" title="Sil">🗑</button></div></td>
-            </tr>
-            <tr>
-              <td><div style="width:32px;height:32px;border-radius:50%;background:rgba(20,184,166,0.15);color:var(--teal-500);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;">EW</div></td>
-              <td><strong>Elena Willems</strong></td><td>elena@elektropro.be</td>
-              <td><span class="tag" style="background:rgba(20,184,166,0.12);color:var(--teal-500);border:none;">Yönetici</span></td>
-              <td>ElektroPro BV</td>
-              <td><span style="display:inline-flex;align-items:center;gap:6px;"><span style="width:8px;height:8px;border-radius:50%;background:var(--text-2);display:inline-block;"></span>4 gün önce</span></td>
-              <td><span class="tag tag-red">Pasif</span></td>
-              <td><div class="actions"><button class="action-btn edit" title="Düzenle">✎</button><button class="action-btn delete" title="Sil">🗑</button></div></td>
-            </tr>
-            <tr>
-              <td><div style="width:32px;height:32px;border-radius:50%;background:rgba(139,92,246,0.15);color:var(--purple-500);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;">KO</div></td>
-              <td><strong>Kenan Özdemir</strong></td><td>kenan@fixit.com.tr</td>
-              <td><span class="tag" style="background:rgba(59,130,246,0.12);color:var(--info-500);border:none;">Operatör</span></td>
-              <td>FixIt Services</td>
-              <td><span style="display:inline-flex;align-items:center;gap:6px;"><span style="width:8px;height:8px;border-radius:50%;background:var(--success-500);display:inline-block;"></span>Bugün 06:12</span></td>
-              <td><span class="tag tag-green">Aktif</span></td>
-              <td><div class="actions"><button class="action-btn edit" title="Düzenle">✎</button><button class="action-btn delete" title="Sil">🗑</button></div></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+      <!-- Company Cards -->
+      <div class="company-grid" id="companyGrid">
+        <div class="company-card" data-company="BrightClean BV" data-sector="CleanFix">
+          <div class="company-card-header">
+            <div class="company-icon" style="background:rgba(20,184,166,0.15);color:var(--teal-500);">🧹</div>
+            <div class="company-info">
+              <div class="company-name">BrightClean BV</div>
+              <div class="company-meta">CleanFix • Starter</div>
+            </div>
+            <div class="company-badge">2 kullanıcı</div>
+          </div>
+          <div class="company-users">
+            <div class="company-user-row" data-name="Ahmet Kaya" data-role="Admin" data-status="Aktif">
+              <div class="user-avatar" style="background:rgba(139,92,246,0.15);color:var(--purple-500);">AK</div>
+              <div class="user-info">
+                <div class="user-name">Ahmet Kaya</div>
+                <div class="user-meta">Admin • ahmet@brightclean.be</div>
+              </div>
+              <span class="tag tag-green">Aktif</span>
+              <div class="user-actions"><button class="action-btn" title="Düzenle">✎</button><button class="action-btn delete" title="Sil">🗑</button></div>
+            </div>
+            <div class="company-user-row" data-name="Emma Jacobs" data-role="Admin" data-status="Pasif">
+              <div class="user-avatar" style="background:rgba(139,92,246,0.15);color:var(--purple-500);">EJ</div>
+              <div class="user-info">
+                <div class="user-name">Emma Jacobs</div>
+                <div class="user-meta">Admin • emma@sparkleclean.be</div>
+              </div>
+              <span class="tag tag-red">Pasif</span>
+              <div class="user-actions"><button class="action-btn" title="Düzenle">✎</button><button class="action-btn delete" title="Sil">🗑</button></div>
+            </div>
+          </div>
+        </div>
 
-      <!-- Pagination -->
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-top:16px;font-size:13px;color:var(--text-2);">
-        <span>1-12 / 1,247 kullanıcı gösteriliyor</span>
-        <div style="display:flex;gap:4px;">
-          <button class="btn btn-sm" style="padding:6px 10px;background:var(--card);border:1px solid var(--border);color:var(--text-2);border-radius:6px;cursor:pointer;" disabled>←</button>
-          <button class="btn btn-sm" style="padding:6px 10px;background:var(--teal-500);color:white;border:none;border-radius:6px;cursor:pointer;font-weight:600;">1</button>
-          <button class="btn btn-sm" style="padding:6px 10px;background:var(--card);border:1px solid var(--border);color:var(--text);border-radius:6px;cursor:pointer;">2</button>
-          <button class="btn btn-sm" style="padding:6px 10px;background:var(--card);border:1px solid var(--border);color:var(--text);border-radius:6px;cursor:pointer;">3</button>
-          <button class="btn btn-sm" style="padding:6px 10px;background:var(--card);border:1px solid var(--border);color:var(--text-2);border-radius:6px;cursor:pointer;">→</button>
+        <div class="company-card" data-company="BuildMaster Pro" data-sector="BuildPro">
+          <div class="company-card-header">
+            <div class="company-icon" style="background:rgba(245,158,11,0.15);color:var(--amber-500);">🏗️</div>
+            <div class="company-info">
+              <div class="company-name">BuildMaster Pro</div>
+              <div class="company-meta">BuildPro • Pro</div>
+            </div>
+            <div class="company-badge">1 kullanıcı</div>
+          </div>
+          <div class="company-users">
+            <div class="company-user-row" data-name="Sarah Janssens" data-role="Admin" data-status="Aktif">
+              <div class="user-avatar" style="background:rgba(59,130,246,0.15);color:var(--info-500);">SJ</div>
+              <div class="user-info">
+                <div class="user-name">Sarah Janssens</div>
+                <div class="user-meta">Admin • sarah@buildmaster.pro</div>
+              </div>
+              <span class="tag tag-green">Aktif</span>
+              <div class="user-actions"><button class="action-btn" title="Düzenle">✎</button><button class="action-btn delete" title="Sil">🗑</button></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="company-card" data-company="QuickWash Antwerp" data-sector="CarWash">
+          <div class="company-card-header">
+            <div class="company-icon" style="background:rgba(59,130,246,0.15);color:var(--info-500);">🚗</div>
+            <div class="company-info">
+              <div class="company-name">QuickWash Antwerp</div>
+              <div class="company-meta">CarWash • Starter</div>
+            </div>
+            <div class="company-badge">1 kullanıcı</div>
+          </div>
+          <div class="company-users">
+            <div class="company-user-row" data-name="Pieter De Vos" data-role="Operatör" data-status="Aktif">
+              <div class="user-avatar" style="background:rgba(59,130,246,0.15);color:var(--info-500);">PD</div>
+              <div class="user-info">
+                <div class="user-name">Pieter De Vos</div>
+                <div class="user-meta">Operatör • pieter@quickwash.be</div>
+              </div>
+              <span class="tag tag-green">Aktif</span>
+              <div class="user-actions"><button class="action-btn" title="Düzenle">✎</button><button class="action-btn delete" title="Sil">🗑</button></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="company-card" data-company="FixIt Services" data-sector="HomePro">
+          <div class="company-card-header">
+            <div class="company-icon" style="background:rgba(16,185,129,0.15);color:var(--success-500);">🔧</div>
+            <div class="company-info">
+              <div class="company-name">FixIt Services</div>
+              <div class="company-meta">HomePro • Pro</div>
+            </div>
+            <div class="company-badge">2 kullanıcı</div>
+          </div>
+          <div class="company-users">
+            <div class="company-user-row" data-name="Merve Demir" data-role="Admin" data-status="Bekliyor">
+              <div class="user-avatar" style="background:rgba(139,92,246,0.15);color:var(--purple-500);">MD</div>
+              <div class="user-info">
+                <div class="user-name">Merve Demir</div>
+                <div class="user-meta">Admin • merve@fixit.com.tr</div>
+              </div>
+              <span class="tag tag-amber">Bekliyor</span>
+              <div class="user-actions"><button class="action-btn" title="Düzenle">✎</button><button class="action-btn delete" title="Sil">🗑</button></div>
+            </div>
+            <div class="company-user-row" data-name="Kenan Özdemir" data-role="Operatör" data-status="Aktif">
+              <div class="user-avatar" style="background:rgba(59,130,246,0.15);color:var(--info-500);">KO</div>
+              <div class="user-info">
+                <div class="user-name">Kenan Özdemir</div>
+                <div class="user-meta">Operatör • kenan@fixit.com.tr</div>
+              </div>
+              <span class="tag tag-green">Aktif</span>
+              <div class="user-actions"><button class="action-btn" title="Düzenle">✎</button><button class="action-btn delete" title="Sil">🗑</button></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="company-card" data-company="TopBouw NV" data-sector="BuildPro">
+          <div class="company-card-header">
+            <div class="company-icon" style="background:rgba(245,158,11,0.15);color:var(--amber-500);">🏗️</div>
+            <div class="company-info">
+              <div class="company-name">TopBouw NV</div>
+              <div class="company-meta">BuildPro • Enterprise</div>
+            </div>
+            <div class="company-badge">1 kullanıcı</div>
+          </div>
+          <div class="company-users">
+            <div class="company-user-row" data-name="Lucas Vermeulen" data-role="Muhasebe" data-status="Aktif">
+              <div class="user-avatar" style="background:rgba(245,158,11,0.15);color:var(--amber-500);">LV</div>
+              <div class="user-info">
+                <div class="user-name">Lucas Vermeulen</div>
+                <div class="user-meta">Muhasebe • lucas@topbouw.be</div>
+              </div>
+              <span class="tag tag-green">Aktif</span>
+              <div class="user-actions"><button class="action-btn" title="Düzenle">✎</button><button class="action-btn delete" title="Sil">🗑</button></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="company-card" data-company="StyleCut Salon" data-sector="BarberPro">
+          <div class="company-card-header">
+            <div class="company-icon" style="background:rgba(139,92,246,0.15);color:var(--purple-500);">💇</div>
+            <div class="company-info">
+              <div class="company-name">StyleCut Salon</div>
+              <div class="company-meta">BarberPro • Pro</div>
+            </div>
+            <div class="company-badge">1 kullanıcı</div>
+          </div>
+          <div class="company-users">
+            <div class="company-user-row" data-name="Marc Dubois" data-role="Yönetici" data-status="Bekliyor">
+              <div class="user-avatar" style="background:rgba(20,184,166,0.15);color:var(--teal-500);">MD</div>
+              <div class="user-info">
+                <div class="user-name">Marc Dubois</div>
+                <div class="user-meta">Yönetici • marc@stylecut.be</div>
+              </div>
+              <span class="tag tag-amber">Askıda</span>
+              <div class="user-actions"><button class="action-btn" title="Düzenle">✎</button><button class="action-btn delete" title="Sil">🗑</button></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="company-card" data-company="Constructie Janssens" data-sector="BuildPro">
+          <div class="company-card-header">
+            <div class="company-icon" style="background:rgba(245,158,11,0.15);color:var(--amber-500);">🏗️</div>
+            <div class="company-info">
+              <div class="company-name">Constructie Janssens</div>
+              <div class="company-meta">BuildPro • Starter</div>
+            </div>
+            <div class="company-badge">1 kullanıcı</div>
+          </div>
+          <div class="company-users">
+            <div class="company-user-row" data-name="Naz Yılmaz" data-role="Operatör" data-status="Aktif">
+              <div class="user-avatar" style="background:rgba(59,130,246,0.15);color:var(--info-500);">NY</div>
+              <div class="user-info">
+                <div class="user-name">Naz Yılmaz</div>
+                <div class="user-meta">Operatör • naz@constructie.be</div>
+              </div>
+              <span class="tag tag-green">Aktif</span>
+              <div class="user-actions"><button class="action-btn" title="Düzenle">✎</button><button class="action-btn delete" title="Sil">🗑</button></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="company-card" data-company="Barber Bruno" data-sector="BarberPro">
+          <div class="company-card-header">
+            <div class="company-icon" style="background:rgba(139,92,246,0.15);color:var(--purple-500);">💈</div>
+            <div class="company-info">
+              <div class="company-name">Barber Bruno</div>
+              <div class="company-meta">BarberPro • Starter</div>
+            </div>
+            <div class="company-badge">1 kullanıcı</div>
+          </div>
+          <div class="company-users">
+            <div class="company-user-row" data-name="Bruno Van den Berg" data-role="Muhasebe" data-status="Aktif">
+              <div class="user-avatar" style="background:rgba(245,158,11,0.15);color:var(--amber-500);">BV</div>
+              <div class="user-info">
+                <div class="user-name">Bruno Van den Berg</div>
+                <div class="user-meta">Muhasebe • bruno@barberbruno.be</div>
+              </div>
+              <span class="tag tag-green">Aktif</span>
+              <div class="user-actions"><button class="action-btn" title="Düzenle">✎</button><button class="action-btn delete" title="Sil">🗑</button></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="company-card" data-company="Gentleman's Cut" data-sector="BarberPro">
+          <div class="company-card-header">
+            <div class="company-icon" style="background:rgba(139,92,246,0.15);color:var(--purple-500);">💈</div>
+            <div class="company-info">
+              <div class="company-name">Gentleman's Cut</div>
+              <div class="company-meta">BarberPro • Pro</div>
+            </div>
+            <div class="company-badge">1 kullanıcı</div>
+          </div>
+          <div class="company-users">
+            <div class="company-user-row" data-name="Thomas Coppens" data-role="Operatör" data-status="Aktif">
+              <div class="user-avatar" style="background:rgba(59,130,246,0.15);color:var(--info-500);">TC</div>
+              <div class="user-info">
+                <div class="user-name">Thomas Coppens</div>
+                <div class="user-meta">Operatör • thomas@gentlemanscut.be</div>
+              </div>
+              <span class="tag tag-green">Aktif</span>
+              <div class="user-actions"><button class="action-btn" title="Düzenle">✎</button><button class="action-btn delete" title="Sil">🗑</button></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="company-card" data-company="ElektroPro BV" data-sector="ElektroPro">
+          <div class="company-card-header">
+            <div class="company-icon" style="background:rgba(20,184,166,0.15);color:var(--teal-500);">⚡</div>
+            <div class="company-info">
+              <div class="company-name">ElektroPro BV</div>
+              <div class="company-meta">ElektroPro • Starter</div>
+            </div>
+            <div class="company-badge">1 kullanıcı</div>
+          </div>
+          <div class="company-users">
+            <div class="company-user-row" data-name="Elena Willems" data-role="Yönetici" data-status="Pasif">
+              <div class="user-avatar" style="background:rgba(20,184,166,0.15);color:var(--teal-500);">EW</div>
+              <div class="user-info">
+                <div class="user-name">Elena Willems</div>
+                <div class="user-meta">Yönetici • elena@elektropro.be</div>
+              </div>
+              <span class="tag tag-red">Pasif</span>
+              <div class="user-actions"><button class="action-btn" title="Düzenle">✎</button><button class="action-btn delete" title="Sil">🗑</button></div>
+            </div>
+          </div>
         </div>
       </div>
-    </section>
+    </section>    </section>
 
     <!-- Subscriptions Section -->
     <section id="subscriptions" class="page-section">
@@ -2187,6 +2319,104 @@ new Chart(document.getElementById('sectorChart'), {
   }
 });
 
+
+/* ── User Management ── */
+function addUser() {
+  const name = document.getElementById('addUserName').value.trim();
+  const email = document.getElementById('addUserEmail').value.trim();
+  const role = document.getElementById('addUserRole').value;
+  const company = document.getElementById('addUserCompany').value;
+  const status = document.getElementById('addUserStatus').value;
+  if (!name || !email) { showToast('Ad ve e-posta gerekli', 'error'); return; }
+
+  const initials = name.split(' ').map(n => n[0]).join('').toUpperCase().slice(0,2);
+  const tagClass = status === 'Aktif' ? 'tag-green' : status === 'Bekliyor' ? 'tag-amber' : 'tag-red';
+  const statusLabel = status === 'Bekliyor' ? 'Bekliyor' : status;
+
+  const grid = document.getElementById('companyGrid');
+  let card = grid.querySelector('.company-card[data-company="' + company + '"]');
+
+  const userRow = document.createElement('div');
+  userRow.className = 'company-user-row';
+  userRow.setAttribute('data-name', name);
+  userRow.setAttribute('data-role', role);
+  userRow.setAttribute('data-status', status);
+  userRow.innerHTML = `
+    <div class="user-avatar" style="background:rgba(59,130,246,0.15);color:var(--info-500);">${initials}</div>
+    <div class="user-info">
+      <div class="user-name">${name}</div>
+      <div class="user-meta">${role} • ${email}</div>
+    </div>
+    <span class="tag ${tagClass}">${statusLabel}</span>
+    <div class="user-actions"><button class="action-btn" title="Düzenle">✎</button><button class="action-btn delete" title="Sil">🗑</button></div>
+  `;
+
+  if (card) {
+    card.querySelector('.company-users').appendChild(userRow);
+    const badge = card.querySelector('.company-badge');
+    const count = card.querySelectorAll('.company-user-row').length;
+    badge.textContent = count + ' kullanıcı';
+  } else {
+    // Create new company card
+    const newCard = document.createElement('div');
+    newCard.className = 'company-card';
+    newCard.setAttribute('data-company', company);
+    newCard.innerHTML = `
+      <div class="company-card-header">
+        <div class="company-icon" style="background:rgba(20,184,166,0.15);color:var(--teal-500);">🏢</div>
+        <div class="company-info">
+          <div class="company-name">${company}</div>
+          <div class="company-meta">Yeni • Starter</div>
+        </div>
+        <div class="company-badge">1 kullanıcı</div>
+      </div>
+      <div class="company-users"></div>
+    `;
+    newCard.querySelector('.company-users').appendChild(userRow);
+    grid.appendChild(newCard);
+  }
+
+  document.getElementById('addUserName').value = '';
+  document.getElementById('addUserEmail').value = '';
+  closeModal('addUserModal');
+  showToast('"' + name + '" eklendi', 'success');
+  updateUserCounts();
+}
+
+function filterUsers() {
+  const query = document.getElementById('userSearch').value.toLowerCase();
+  const role = document.getElementById('userRoleFilter').value;
+  const status = document.getElementById('userStatusFilter').value;
+  document.querySelectorAll('.company-card').forEach(card => {
+    let cardVisible = false;
+    card.querySelectorAll('.company-user-row').forEach(row => {
+      const name = row.getAttribute('data-name').toLowerCase();
+      const userRole = row.getAttribute('data-role');
+      const userStatus = row.getAttribute('data-status');
+      const match = (!query || name.includes(query)) && (!role || userRole === role) && (!status || userStatus === status);
+      row.style.display = match ? 'flex' : 'none';
+      if (match) cardVisible = true;
+    });
+    card.style.display = cardVisible ? 'block' : 'none';
+  });
+}
+
+function updateUserCounts() {
+  const allRows = document.querySelectorAll('.company-user-row');
+  let active = 0, pending = 0, passive = 0;
+  allRows.forEach(r => {
+    const s = r.getAttribute('data-status');
+    if (s === 'Aktif') active++;
+    else if (s === 'Bekliyor') pending++;
+    else if (s === 'Pasif') passive++;
+  });
+  const kpis = document.querySelectorAll('#users .kpi-value');
+  if (kpis[0]) kpis[0].textContent = allRows.length;
+  if (kpis[1]) kpis[1].textContent = active;
+  if (kpis[2]) kpis[2].textContent = pending;
+  if (kpis[3]) kpis[3].textContent = passive;
+}
+
 /* ── Auth Logout ── */
 window.AUTH = {
   logout: function() {
@@ -2212,6 +2442,28 @@ function showSection(hash){
 window.addEventListener('hashchange', ()=>showSection(location.hash));
 window.addEventListener('DOMContentLoaded', ()=>showSection(location.hash));
 </script>
+
+
+<!-- Add User Modal -->
+<div class="modal-overlay" id="addUserModal" onclick="if(event.target===this)closeModal('addUserModal')">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">➕ Yeni Kullanıcı Ekle</div>
+      <button class="modal-close" onclick="closeModal('addUserModal')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div style="margin-bottom:12px;"><label style="font-size:13px;color:var(--text-muted);display:block;margin-bottom:4px;">Ad Soyad</label><input type="text" id="addUserName" placeholder="örn. Ali Veli" style="width:100%;background:var(--bg-secondary);border:1px solid var(--border-color);border-radius:var(--radius-md);padding:10px 12px;color:var(--text-primary);font-size:14px;"></div>
+      <div style="margin-bottom:12px;"><label style="font-size:13px;color:var(--text-muted);display:block;margin-bottom:4px;">E-posta</label><input type="email" id="addUserEmail" placeholder="ali@firma.be" style="width:100%;background:var(--bg-secondary);border:1px solid var(--border-color);border-radius:var(--radius-md);padding:10px 12px;color:var(--text-primary);font-size:14px;"></div>
+      <div style="margin-bottom:12px;"><label style="font-size:13px;color:var(--text-muted);display:block;margin-bottom:4px;">Rol</label><select id="addUserRole" style="width:100%;background:var(--bg-secondary);border:1px solid var(--border-color);border-radius:var(--radius-md);padding:10px 12px;color:var(--text-primary);font-size:14px;"><option>Admin</option><option>Operatör</option><option>Muhasebe</option><option>Yönetici</option></select></div>
+      <div style="margin-bottom:12px;"><label style="font-size:13px;color:var(--text-muted);display:block;margin-bottom:4px;">Firma</label><select id="addUserCompany" style="width:100%;background:var(--bg-secondary);border:1px solid var(--border-color);border-radius:var(--radius-md);padding:10px 12px;color:var(--text-primary);font-size:14px;"><option>BrightClean BV</option><option>BuildMaster Pro</option><option>QuickWash Antwerp</option><option>FixIt Services</option><option>TopBouw NV</option><option>StyleCut Salon</option><option>Constructie Janssens</option><option>Barber Bruno</option><option>Gentleman's Cut</option><option>ElektroPro BV</option></select></div>
+      <div style="margin-bottom:12px;"><label style="font-size:13px;color:var(--text-muted);display:block;margin-bottom:4px;">Durum</label><select id="addUserStatus" style="width:100%;background:var(--bg-secondary);border:1px solid var(--border-color);border-radius:var(--radius-md);padding:10px 12px;color:var(--text-primary);font-size:14px;"><option>Aktif</option><option>Bekliyor</option><option>Pasif</option></select></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('addUserModal')">İptal</button>
+      <button class="btn btn-primary" onclick="addUser()">Ekle</button>
+    </div>
+  </div>
+</div>
 
 <!-- Announcement Modal -->
 <div class="modal-overlay" id="announceModal" onclick="if(event.target===this)closeModal('announceModal')">
