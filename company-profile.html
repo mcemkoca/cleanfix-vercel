@@ -54,6 +54,19 @@
 @media (max-width:1024px){.form-row{grid-template-columns:1fr;}}
 @media (max-width:768px){.sidebar{transform:translateX(-100%);}.sidebar.open{transform:translateX(0);}.main-content{margin-left:0;}.hamburger{display:block;}}
 
+@media (max-width: 768px) {
+  .content { padding: 16px !important; }
+  .grid, .card-grid, .stats-grid, .table-wrap { overflow-x: auto !important; -webkit-overflow-scrolling: touch; }
+  .table-wrap table { min-width: 640px; }
+  .modal { max-width: calc(100vw - 32px) !important; margin: 0 16px; }
+  .toolbar { flex-direction: column !important; align-items: stretch !important; gap: 12px !important; }
+}
+@media (max-width: 480px) {
+  .content { padding: 12px !important; }
+  .page-title { font-size: var(--text-base) !important; }
+  .modal { max-width: calc(100vw - 24px) !important; margin: 0 12px; }
+  .btn { padding: 10px 14px !important; font-size: 13px !important; }
+}
 </style>
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#0d9488">

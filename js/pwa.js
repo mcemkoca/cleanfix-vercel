@@ -25,14 +25,12 @@
     // ── Service Worker ───────────────────────────────────────────────
     registerServiceWorker() {
       if (!('serviceWorker' in navigator)) {
-        console.log('[PWA] Service Worker not supported');
         return;
       }
       const scope = '/cleanfix-vercel/';
       navigator.serviceWorker.register('sw.js', { scope })
         .then((reg) => {
           this.swRegistration = reg;
-          console.log('[PWA] SW registered:', reg.scope);
           reg.addEventListener('updatefound', () => {
             const newWorker = reg.installing;
             if (newWorker) {
