@@ -793,19 +793,19 @@
         </div>
         <div class="card-body">
           <div class="quick-actions">
-            <button class="quick-btn" onclick="window.location.href='company-customers.html'">
+            <button class="quick-btn" onclick="openModal('addCompanyModal')">
               <div class="quick-btn-icon" style="background:rgba(20,184,166,0.1);color:var(--teal-500);">🏢</div>
               <span data-i18n="action.addCompany">Firma Ekle</span>
             </button>
-            <button class="quick-btn" onclick="window.location.href='company-bookings.html'">
+            <button class="quick-btn" onclick="openModal('addCompanyModal')">
               <div class="quick-btn-icon" style="background:rgba(59,130,246,0.1);color:var(--info-500);">📋</div>
               <span data-i18n="action.createPlan">Plan Oluştur</span>
             </button>
-            <button class="quick-btn" onclick="window.location.href='company-sectors.html'">
+            <button class="quick-btn" onclick="openModal('announceModal')">
               <div class="quick-btn-icon" style="background:rgba(245,158,11,0.1);color:var(--amber-500);">🏭</div>
               <span data-i18n="action.addSector">Sektör Ekle</span>
             </button>
-            <button class="quick-btn" onclick="showToast('Duyuru gönderme modalı açıldı','info')">
+            <button class="quick-btn" onclick="openModal('announceModal')">
               <div class="quick-btn-icon" style="background:rgba(139,92,246,0.1);color:#8b5cf6;">📢</div>
               <span data-i18n="action.sendAnnouncement">Duyuru Gönder</span>
             </button>
@@ -2547,7 +2547,7 @@ window.addEventListener('DOMContentLoaded', ()=>showSection(location.hash));
 
 
 <!-- Add User Modal -->
-<div class="modal-overlay" id="addUserModal" onclick="if(event.target===this)closeModal('addUserModal')">
+<div class="modal-overlay" id="addUserModal" style="display:none;" onclick="if(event.target===this)closeModal('addUserModal')">
   <div class="modal">
     <div class="modal-header">
       <div class="modal-title">➕ Yeni Kullanıcı Ekle</div>
@@ -2569,7 +2569,7 @@ window.addEventListener('DOMContentLoaded', ()=>showSection(location.hash));
 
 
 <!-- Add Company Modal -->
-<div class="modal-overlay" id="addCompanyModal" onclick="if(event.target===this)closeModal('addCompanyModal')">
+<div class="modal-overlay" id="addCompanyModal" style="display:none;" onclick="if(event.target===this)closeModal('addCompanyModal')">
   <div class="modal">
     <div class="modal-header">
       <div class="modal-title">🏢 Yeni Firma Ekle</div>
@@ -2590,7 +2590,7 @@ window.addEventListener('DOMContentLoaded', ()=>showSection(location.hash));
 </div>
 
 <!-- Announcement Modal -->
-<div class="modal-overlay" id="announceModal" onclick="if(event.target===this)closeModal('announceModal')">
+<div class="modal-overlay" id="announceModal" style="display:none;" onclick="if(event.target===this)closeModal('announceModal')">
   <div class="modal">
     <div class="modal-header">
       <div class="modal-title">📢 Duyuru Gönder</div>
