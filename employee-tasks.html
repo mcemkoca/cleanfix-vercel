@@ -978,8 +978,7 @@ else {
   </main>
 </div>
 
-<!-- Toast Container -->
-<div class="toast-container" id="toastContainer"></div>
+<!-- Toast handled by js/toast.js -->
 
 <script>
 /* ── Language Switcher ── */
@@ -1302,25 +1301,6 @@ function updateCounts() {
       if (badge) badge.textContent = count;
     }
   });
-}
-
-/* ── Toast (fallback) ── */
-function showToast(message, type = 'info') {
-  if (typeof window.showToast === 'function' && window.showToast !== showToast) {
-    window.showToast(message, type);
-    return;
-  }
-  const container = document.getElementById('toastContainer');
-  if (!container) return;
-  const toast = document.createElement('div');
-  toast.className = 'toast toast-' + type;
-  const icons = { success: '✅', error: '❌', warning: '⚠️', info: 'ℹ️' };
-  toast.innerHTML = '<div class="toast-icon">' + (icons[type] || 'ℹ️') + '</div><div class="toast-content"><div class="toast-title">' + (type === 'success' ? 'Başarılı' : type === 'error' ? 'Hata' : 'Bilgi') + '</div><div class="toast-message">' + message + '</div></div>';
-  const progress = document.createElement('div');
-  progress.className = 'toast-progress';
-  toast.appendChild(progress);
-  container.appendChild(toast);
-  setTimeout(() => { toast.classList.add('exit'); setTimeout(() => toast.remove(), 300); }, 4000);
 }
 
 /* ── Init ── */
