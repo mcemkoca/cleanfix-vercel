@@ -20,9 +20,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/main.css">
 <style>
-
-to{transform:translateX(0);opacity:1;}}
-to{transform:translateX(120%);opacity:0;}}
+@keyframes cfToastIn { from { transform:translateX(120%); opacity:0; } to { transform:translateX(0); opacity:1; } }
+@keyframes cfToastOut { from { transform:translateX(0); opacity:1; } to { transform:translateX(120%); opacity:0; } }
 /* Landing Page Specific Styles */
 .landing { font-family:'Inter',sans-serif; }
 

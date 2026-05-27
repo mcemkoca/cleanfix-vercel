@@ -10,9 +10,8 @@
 <link rel="stylesheet" href="css/main.css">
 <link rel="stylesheet" href="css/components.css">
 <style>
-
-to{transform:translateX(0);opacity:1;}}
-to{transform:translateX(120%);opacity:0;}}
+@keyframes cfToastIn { from { transform:translateX(120%); opacity:0; } to { transform:translateX(0); opacity:1; } }
+@keyframes cfToastOut { from { transform:translateX(0); opacity:1; } to { transform:translateX(120%); opacity:0; } }
 .login-page { min-height:100vh; display:flex; align-items:center; justify-content:center; position:relative; overflow:hidden; }
 .particles {
   position:fixed; inset:0; z-index:0; pointer-events:none;
