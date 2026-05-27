@@ -1327,8 +1327,8 @@ textarea.form-input{resize:vertical;min-height:80px;}
 <script>
 /* Toast */
 /* Modal helpers */
-function openModal(id){document.getElementById(id).classList.add('active');}
-function closeModal(id){document.getElementById(id).classList.remove('active');}
+function openModal(id){const el=document.getElementById(id);if(el){el.style.display='flex';el.classList.add('active');}}
+function closeModal(id){const el=document.getElementById(id);if(el){el.style.display='';el.classList.remove('active');}}
 
 /* Sector detail toggle */
 function toggleSectorDetail(id){

@@ -929,8 +929,8 @@ to{transform:translateX(120%);opacity:0;}}
 <div class="toast" id="toast"><span id="toastMsg"></span></div>
 
 <script>
-function openModal(id){document.getElementById(id).classList.add('active');}
-function closeModal(id){document.getElementById(id).classList.remove('active');}
+function openModal(id){const el=document.getElementById(id);if(el){el.style.display='flex';el.classList.add('active');}}
+function closeModal(id){const el=document.getElementById(id);if(el){el.style.display='';el.classList.remove('active');}}
 function toggleExpand(id){const el=document.getElementById('expand-'+id);el.style.display=el.style.display==='none'?'table-row':'none';const panel=el.querySelector('.quote-expand');if(panel)panel.classList.toggle('active');}
 function filterQuotes(){const s=document.getElementById('searchInput').value.toLowerCase();const st=document.getElementById('statusFilter').value;const rows=document.querySelectorAll('#quotesTable > tbody > tr[data-id]');rows.forEach(row=>{const txt=row.textContent.toLowerCase();const status=row.getAttribute('data-status');const matchText=txt.includes(s);const matchStatus=!st||status===st;row.style.display=(matchText&&matchStatus)?'':'none';const expand=document.getElementById('expand-'+row.getAttribute('data-id'));if(expand)expand.style.display='none';});}
 function sendEmail(id){showToast('Teklif gönderildi — jan.peeters@kantoor.be', 'success');const row=document.querySelector('tr[data-id="'+id+'"]');if(row){const badge=row.querySelector('.tag');if(badge){badge.className='tag tag-blue';badge.textContent='Gönderildi';}row.setAttribute('data-status','Gönderildi');}}

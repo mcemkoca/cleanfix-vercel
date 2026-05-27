@@ -433,8 +433,8 @@
 </div>
 
 <script>
-function openModal(id){document.getElementById(id).classList.add('active');}
-function closeModal(id){document.getElementById(id).classList.remove('active');}
+function openModal(id){const el=document.getElementById(id);if(el){el.style.display='flex';el.classList.add('active');}}
+function closeModal(id){const el=document.getElementById(id);if(el){el.style.display='';el.classList.remove('active');}}
 const inspectData={
   1:{customer:'Jan Vermeulen',date:'14 May 2026',staff:'Ahmet Kaya',inspector:'Ahmet K.',score:9.5,notes:'Mükemmel performans. Tüm alanlar titizlikle temizlendi. Müşteri çok memnun.'},
   2:{customer:'Marie Dubois',date:'13 May 2026',staff:'Merve Demir',inspector:'Merve D.',score:8.0,notes:'Genel olarak iyi. Pencere silme kısmı eksik kalmış, müşteri tarafından belirtildi.'},
@@ -466,7 +466,7 @@ document.getElementById('searchInput').addEventListener('input',function(){
   const v=this.value.toLowerCase();
   document.querySelectorAll('#inspectTable tbody tr').forEach(r=>{r.style.display=r.textContent.toLowerCase().includes(v)?'':'none';});
 });
-document.querySelectorAll('.modal-overlay').forEach(o=>o.addEventListener('click',e=>{if(e.target===o)o.classList.remove('active');}));
+document.querySelectorAll('.modal-overlay').forEach(o=>o.addEventListener('click',e=>{if(e.target===o)o.style.display='';o.classList.remove('active');}));
 
 /* Charts */
 new Chart(document.getElementById('qualityChart'),{

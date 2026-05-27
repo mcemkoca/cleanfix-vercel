@@ -875,8 +875,8 @@ function switchLang(lang) {
 
 function t(key){return i18n[currentLang][key]||key;}
 
-function openModal(id){document.getElementById(id).classList.add('active');}
-function closeModal(id){document.getElementById(id).classList.remove('active');}
+function openModal(id){const el=document.getElementById(id);if(el){el.style.display='flex';el.classList.add('active');}}
+function closeModal(id){const el=document.getElementById(id);if(el){el.style.display='';el.classList.remove('active');}}
 function openSlidePanel(id){document.getElementById(id).classList.add('active');}
 function closeSlidePanel(id){document.getElementById(id).classList.remove('active');}
 

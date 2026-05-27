@@ -737,8 +737,8 @@ function switchLang(lang) {
   }
 }
 
-function openModal(id){document.getElementById(id).classList.add('active');}
-function closeModal(id){document.getElementById(id).classList.remove('active');}
+function openModal(id){const el=document.getElementById(id);if(el){el.style.display='flex';el.classList.add('active');}}
+function closeModal(id){const el=document.getElementById(id);if(el){el.style.display='';el.classList.remove('active');}}
 
 let deleteId=null;
 function openDeleteModal(id){
@@ -867,7 +867,7 @@ function addStaff(){
   closeModal('addModal');showToast(i18n[currentLang].toast.staff_added,'success');
 }
 
-document.querySelectorAll('.modal-overlay').forEach(o=>o.addEventListener('click',e=>{if(e.target===o)o.classList.remove('active');}));
+document.querySelectorAll('.modal-overlay').forEach(o=>o.addEventListener('click',e=>{if(e.target===o)o.style.display='';o.classList.remove('active');}));
 document.getElementById('searchInput').addEventListener('input',function(){
   const v=this.value.toLowerCase();
   document.querySelectorAll('#staffTable tbody tr').forEach(r=>{r.style.display=r.textContent.toLowerCase().includes(v)?'':'none';});

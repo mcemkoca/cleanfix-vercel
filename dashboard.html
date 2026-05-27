@@ -2547,7 +2547,7 @@ window.addEventListener('DOMContentLoaded', ()=>showSection(location.hash));
 
 
 <!-- Add User Modal -->
-<div class="modal-overlay" id="addUserModal" style="display:none;" onclick="if(event.target===this)closeModal('addUserModal')">
+<div class="modal-overlay" id="addUserModal" onclick="if(event.target===this)closeModal('addUserModal')">
   <div class="modal">
     <div class="modal-header">
       <div class="modal-title">➕ Yeni Kullanıcı Ekle</div>
@@ -2569,7 +2569,7 @@ window.addEventListener('DOMContentLoaded', ()=>showSection(location.hash));
 
 
 <!-- Add Company Modal -->
-<div class="modal-overlay" id="addCompanyModal" style="display:none;" onclick="if(event.target===this)closeModal('addCompanyModal')">
+<div class="modal-overlay" id="addCompanyModal" onclick="if(event.target===this)closeModal('addCompanyModal')">
   <div class="modal">
     <div class="modal-header">
       <div class="modal-title">🏢 Yeni Firma Ekle</div>
@@ -2590,7 +2590,7 @@ window.addEventListener('DOMContentLoaded', ()=>showSection(location.hash));
 </div>
 
 <!-- Announcement Modal -->
-<div class="modal-overlay" id="announceModal" style="display:none;" onclick="if(event.target===this)closeModal('announceModal')">
+<div class="modal-overlay" id="announceModal" onclick="if(event.target===this)closeModal('announceModal')">
   <div class="modal">
     <div class="modal-header">
       <div class="modal-title">📢 Duyuru Gönder</div>
@@ -2609,11 +2609,11 @@ window.addEventListener('DOMContentLoaded', ()=>showSection(location.hash));
 <script>
 function openModal(id) {
   const el = document.getElementById(id);
-  if (el) el.classList.add('active');
+  if (el) { el.style.display = 'flex'; el.classList.add('active'); }
 }
 function closeModal(id) {
   const el = document.getElementById(id);
-  if (el) el.classList.remove('active');
+  if (el) { el.style.display = ''; el.classList.remove('active'); }
 }
 function sendAnnouncement() {
   const text = document.getElementById('announceText')?.value?.trim();

@@ -169,13 +169,25 @@ function animateCounters() {
 const ModalManager = {
   open(id) {
     const modal = document.getElementById(id);
-    if (modal) { modal.classList.add('active'); document.body.style.overflow = 'hidden'; }
+    if (modal) { 
+      modal.style.display = 'flex';
+      modal.classList.add('active'); 
+      document.body.style.overflow = 'hidden'; 
+    }
   },
   close(id) {
     const modal = document.getElementById(id);
-    if (modal) { modal.classList.remove('active'); document.body.style.overflow = ''; }
+    if (modal) { 
+      modal.style.display = '';
+      modal.classList.remove('active'); 
+      document.body.style.overflow = ''; 
+    }
   }
 };
+
+// Global aliases (used by inline HTML handlers)
+window.openModal = function(id) { ModalManager.open(id); };
+window.closeModal = function(id) { ModalManager.close(id); };
 
 window.showToast = ToastManager.show.bind(ToastManager);
 
