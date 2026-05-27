@@ -1398,10 +1398,10 @@ function assignFirm(){
   const tr=document.createElement('tr');
   tr.dataset.firm=newId;
   tr.innerHTML=`
-    <td><strong>${firmName}</strong></td>
+    <td><strong>${escapeHtml(firmName)}</strong></td>
     <td>—</td>
-    <td><span class="tag ${tagClass}">${plan}</span></td>
-    <td>${today}</td>
+    <td><span class="tag ${tagClass}">${escapeHtml(plan)}</span></td>
+    <td>${escapeHtml(today)}</td>
     <td style="text-align:right;">
       <div class="actions">
         <button class="action-btn" onclick="viewFirm(${newId})" title="Görüntüle">👁</button>
@@ -1484,7 +1484,7 @@ function changeSectorStatus(id, newStatus) {
   if (border) border.style.background = color;
   if (statusRow) {
     statusRow.style.color = textColor;
-    statusRow.innerHTML = '<span class="status-dot" style="background:' + color + ';"></span>' + newStatus;
+    statusRow.innerHTML = '<span class="status-dot" style="background:' + color + ';"></span>' + escapeHtml(newStatus);
   }
   updateStatCounts();
   showToast('Sektör durumu güncellendi: ' + newStatus, 'success');
@@ -2635,7 +2635,7 @@ function changeSectorStatus(id, newStatus) {
 
   if (statusRow) {
     statusRow.style.color = color;
-    statusRow.innerHTML = '<span class="status-dot" style="background:' + dotBg + ';"></span>' + newStatus;
+    statusRow.innerHTML = '<span class="status-dot" style="background:' + dotBg + ';"></span>' + escapeHtml(newStatus);
   }
   if (topBorder) topBorder.style.background = dotBg;
   updateStatCounts();

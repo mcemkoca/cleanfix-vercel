@@ -775,7 +775,7 @@ function updateRowStock(row,qty,min,max){
   if(qty<=min){status='Kritik';statusClass='tag-red';color='var(--error-500)';}
   else if(qty<=min*2){status='Az';statusClass='tag-amber';color='var(--amber-500)';}
   else{status='Yeterli';statusClass='tag-green';color='var(--success-500)';}
-  row.cells[2].innerHTML=`<div style="font-weight:600;">${qty} adet</div><div class="stock-bar"><div class="stock-fill" style="width:${pct}%;background:${color};"></div></div><div class="stock-info"><span class="tag ${statusClass}">${status}</span></div>`;
+  row.cells[2].innerHTML=`<div style="font-weight:600;">${qty} adet</div><div class="stock-bar"><div class="stock-fill" style="width:${pct}%;background:${color};"></div></div><div class="stock-info"><span class="tag ${statusClass}">${escapeHtml(status)}</span></div>`;
 }
 
 const demoData={
@@ -835,11 +835,11 @@ function saveEdit(){
     const max=parseInt(document.getElementById('editMax').value);
     const status=document.getElementById('editStatus').value;
     if(!name||!cat||!unit||isNaN(qty)||isNaN(min)||isNaN(max)){showToast('Lütfen tüm alanları doldurun','error');return;}
-    row.cells[0].innerHTML=`<div style="font-weight:600;">${name}</div>`;
+    row.cells[0].innerHTML=`<div style="font-weight:600;">${escapeHtml(name)}</div>`;
     row.cells[1].innerHTML=getCatTag(cat);
     updateRowStock(row,qty,min,max);
     row.cells[3].textContent=`${min} / ${max}`;
-    row.cells[4].innerHTML=`<div style="font-size:var(--text-xs);color:var(--text-muted);">${unit}</div>`;
+    row.cells[4].innerHTML=`<div style="font-size:var(--text-xs);color:var(--text-muted);">${escapeHtml(unit)}</div>`;
     row.cells[5].innerHTML=getStatusTag(status);
     demoData[editId]={name,cat,unit,qty,min,max,status};
     showToast('Ürün güncellendi','success');
@@ -864,7 +864,7 @@ function addProduct(){
   else if(qty<=min*2){stockStatus='Az';stockClass='tag-amber';color='var(--amber-500)';}
   else{stockStatus='Yeterli';stockClass='tag-green';color='var(--success-500)';}
   const tr=document.createElement('tr');tr.dataset.id=newId;
-  tr.innerHTML=`<td><div style="font-weight:600;">${name}</div></td><td>${getCatTag(cat)}</td><td><div style="font-weight:600;">${qty} adet</div><div class="stock-bar"><div class="stock-fill" style="width:${pct}%;background:${color};"></div></div><div class="stock-info"><span class="tag ${stockClass}">${stockStatus}</span></div></td><td>${min} / ${max}</td><td style="font-size:var(--text-xs);color:var(--text-muted);">${unit}</td><td>${getStatusTag(status)}</td><td><div class="actions"><button class="action-btn move" onclick="openMoveModal(${newId},'in')" title="Stok Girişi"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button><button class="action-btn move" onclick="openMoveModal(${newId},'out')" title="Stok Çıkışı"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/></svg></button><button class="action-btn edit" onclick="openEditModal(${newId})" title="Düzenle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(${newId})" title="Sil"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>`;
+  tr.innerHTML = `<td><div style="font-weight:600;">${escapeHtml(name)}</div></td><td>${getCatTag(cat)}</td><td><div style="font-weight:600;">${qty} adet</div><div class="stock-bar"><div class="stock-fill" style="width:${pct}%;background:${color};"></div></div><div class="stock-info"><span class="tag ${stockClass}">${stockStatus}</span></div></td><td>${min} / ${max}</td><td style="font-size:var(--text-xs);color:var(--text-muted);">${escapeHtml(unit)}</td><td>${getStatusTag(status)}</td><td><div class="actions"><button class="action-btn move" onclick="openMoveModal(${newId},'in')" title="Stok Girişi"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button><button class="action-btn move" onclick="openMoveModal(${newId},'out')" title="Stok Çıkışı"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/></svg></button><button class="action-btn edit" onclick="openEditModal(${newId})" title="Düzenle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(${newId})" title="Sil"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>`;
   tbody.appendChild(tr);
   demoData[newId]={name,cat,unit,qty,min,max,status};
   ['addName','addUnit','addQty','addMin','addMax'].forEach(id=>document.getElementById(id).value='');
