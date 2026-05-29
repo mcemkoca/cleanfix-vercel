@@ -367,7 +367,7 @@ function openEditModal(id){
   }
   openModal('editModal');
 }
-function saveEdit(){
+function saveEdit(){if (!AUTH.requireRoleForAction(['admin', 'company'], 'saveEdit')) return; 
   if(editId){
     const row=document.querySelector(`tr[data-id="${editId}"]`);
     const customer=document.getElementById('editCustomer').value;
@@ -382,7 +382,7 @@ function saveEdit(){
   }
   closeModal('editModal');
 }
-function addInvoice(){
+function addInvoice(){if (!AUTH.requireRoleForAction(['admin', 'company'], 'addInvoice')) return; 
   const customer=document.getElementById('addCustomer').value;
   const date=document.getElementById('addDate').value;
   const due=document.getElementById('addDue').value;

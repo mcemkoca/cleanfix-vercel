@@ -192,8 +192,8 @@
 
 <!-- Export Libraries -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js" integrity="sha384-vuyrTV5nkscLp1knFvt+FIHfKKzmROBq5reruhMRslauj54mW+l2B8b6szMN6lCL" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js" integrity="sha384-vtjasyidUo0kW94K5MXDXntzOJpQgBKXmE7e2Ga4LG0skTTLeBi97eFAXsqewJjw" crossorigin="anonymous"></script>
 <script src="js/export.js"></script>
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://fonts.googleapis.com https://unpkg.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self'; frame-ancestors 'self';">
 
@@ -939,9 +939,9 @@ function convertToInvoice(id){showToast('Teklif faturaya dönüştürüldü — 
 function renewQuote(id){showToast('Yeni teklif versiyonu oluşturuldu — #T-2026-61', 'success');}
 function openPdfPreview(id){document.getElementById('pdfModal').classList.add('active');}
 function printQuote(id){document.getElementById('pdfModal').classList.add('active');setTimeout(()=>window.print(),300);}
-function addModalLineItem(){const div=document.createElement('div');div.className='line-item-row';div.innerHTML='<input type="text" class="form-input" placeholder="Açıklama" data-i18n-placeholder="modal.descPlaceholder" value="" required><input type="number" class="form-input" placeholder="Adet" data-i18n-placeholder="modal.qtyPlaceholder" value="1" min="1" required onchange="calcModalTotal()"><input type="number" class="form-input" placeholder="€" data-i18n-placeholder="modal.pricePlaceholder" value="0" step="0.01" required onchange="calcModalTotal()"><button class="action-btn" onclick="this.parentElement.remove();calcModalTotal()" style="margin-left:4px;">🗑</button>';document.getElementById('lineItems').appendChild(div);}
+function addModalLineItem(){if (!AUTH.requireRoleForAction(['admin', 'company'], 'addModalLineItem')) return; const div=document.createElement('div');div.className='line-item-row';div.innerHTML='<input type="text" class="form-input" placeholder="Açıklama" data-i18n-placeholder="modal.descPlaceholder" value="" required><input type="number" class="form-input" placeholder="Adet" data-i18n-placeholder="modal.qtyPlaceholder" value="1" min="1" required onchange="calcModalTotal()"><input type="number" class="form-input" placeholder="€" data-i18n-placeholder="modal.pricePlaceholder" value="0" step="0.01" required onchange="calcModalTotal()"><button class="action-btn" onclick="this.parentElement.remove();calcModalTotal()" style="margin-left:4px;">🗑</button>';document.getElementById('lineItems').appendChild(div);}
 function calcModalTotal(){let sub=0;document.querySelectorAll('#lineItems .line-item-row').forEach(row=>{const q=parseFloat(row.children[1].value)||0;const p=parseFloat(row.children[2].value)||0;const t=q*p;sub+=t;row.querySelector('.line-total').textContent='€'+t.toFixed(2);});const vat=sub*0.21;const total=sub+vat;document.getElementById('modalSubtotal').textContent='Ara Toplam: €'+sub.toFixed(2);document.getElementById('modalVat').textContent='KDV (%21): €'+vat.toFixed(2);document.getElementById('modalTotal').textContent='Toplam: €'+total.toFixed(2);}
-function saveQuote(){showToast('Yeni teklif oluşturuldu — #T-2026-61', 'success');closeModal('addModal');}
+function saveQuote(){if (!AUTH.requireRoleForAction(['admin', 'company'], 'saveQuote')) return; showToast('Yeni teklif oluşturuldu — #T-2026-61', 'success');closeModal('addModal');}
 document.addEventListener('keydown',e=>{if(e.key==='Escape'){['addModal','pdfModal'].forEach(id=>closeModal(id));}});
 </script>
 

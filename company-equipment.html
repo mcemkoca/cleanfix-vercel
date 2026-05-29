@@ -193,8 +193,8 @@
 
 <!-- Export Libraries -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js" integrity="sha384-vuyrTV5nkscLp1knFvt+FIHfKKzmROBq5reruhMRslauj54mW+l2B8b6szMN6lCL" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js" integrity="sha384-vtjasyidUo0kW94K5MXDXntzOJpQgBKXmE7e2Ga4LG0skTTLeBi97eFAXsqewJjw" crossorigin="anonymous"></script>
 <script src="js/export.js"></script>
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://fonts.googleapis.com https://unpkg.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self'; frame-ancestors 'self';">
 
@@ -805,7 +805,7 @@ function t(key){return i18n[currentLang][key]||key;}
 
 function openSlidePanel(id){document.getElementById(id).classList.add('active');}
 function closeSlidePanel(id){document.getElementById(id).classList.remove('active');}
-function saveEquip(){const name=document.getElementById('eqName').value;if(!name){showToast(t('toast.equip_name_required'));return;}showToast(t('toast.equip_added')+': '+name);closeSlidePanel('addEquipPanel');}
+function saveEquip(){if (!AUTH.requireRoleForAction(['admin', 'company'], 'saveEquip')) return; const name=document.getElementById('eqName').value;if(!name){showToast(t('toast.equip_name_required'));return;}showToast(t('toast.equip_added')+': '+name);closeSlidePanel('addEquipPanel');}
 function filterEquip(){const s=document.getElementById('searchInput').value.toLowerCase();const st=document.getElementById('statusFilter').value;const c=document.getElementById('catFilter').value;document.querySelectorAll('.equip-card').forEach(card=>{const text=card.textContent.toLowerCase();const status=card.getAttribute('data-status');const cat=card.getAttribute('data-cat');const matchText=text.includes(s);const matchStatus=!st||status===st;const matchCat=!c||cat===c;card.style.display=(matchText&&matchStatus&&matchCat)?'block':'none';});}
 document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeSlidePanel('addEquipPanel');}});
 switchLang('tr');
