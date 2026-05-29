@@ -91,6 +91,20 @@ const AUTH = {
     window.location.replace('login.html');
   },
 
+  // Check role for CRUD actions — call at start of every action function
+  requireRoleForAction(requiredRole, actionName) {
+    const user = this.getUser();
+    const roles = Array.isArray(requiredRole) ? requiredRole : [requiredRole];
+    if (!user || !roles.includes(user.role)) {
+      const msg = (typeof showToast === 'function') 
+        ? showToast('Yetkisiz işlem: ' + (actionName || 'Bu eylem'), 'error')
+        : alert('Yetkisiz işlem');
+      console.error('[AUTH] Blocked action:', actionName, 'User role:', user?.role);
+      return false;
+    }
+    return true;
+  },
+
   // Alias for backward compat
   requireRole(roles) {
     return this.checkAuth(roles);

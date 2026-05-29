@@ -78,7 +78,11 @@ const ModalManager = {
 window.openModal = function(id) { ModalManager.open(id); };
 window.closeModal = function(id) { ModalManager.close(id); };
 
-window.showToast = ToastManager.show.bind(ToastManager);
+// Only register showToast if toast.js hasn't loaded yet
+// toast.js is the canonical toast system; this prevents conflicts
+if (typeof window.showToast !== 'function') {
+  window.showToast = ToastManager.show.bind(ToastManager);
+}
 
 // DataCache — offline-aware localStorage table caching
 const DataCache = {

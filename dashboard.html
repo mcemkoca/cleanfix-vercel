@@ -2,7 +2,7 @@
 <html lang="tr" data-theme="dark">
 <head>
 <meta charset="UTF-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://fonts.googleapis.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: blob:; connect-src 'self';">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://fonts.googleapis.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: blob:; connect-src 'self'; frame-ancestors 'self';">
 <meta name="description" content="KobiPro Super Admin Dashboard — Platform yönetim paneli">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="CleanFix admin paneli. KOBİ yönetim platformuna erişim.">
@@ -33,6 +33,7 @@
 <script src="js/toast.js"></script>
 <script>checkAuth('admin');</script>
 <style>
+
 /* Skip link — visible on focus */
 .skip-link:focus, .skip-link:active {
   position: fixed !important;
@@ -339,8 +340,8 @@
 .lang-switcher button { background:transparent; border:none; color:var(--text-muted); font-size:11px; font-weight:600; cursor:pointer; padding:4px 8px; border-radius:4px; transition:all 0.2s; text-transform:uppercase; font-family:inherit; }
 .lang-switcher button:hover { color:var(--text-primary); }
 .lang-switcher button.active { background:var(--teal-500); color: white; }
-</style>
-<style>
+
+
 .page-section{display:none; animation:fadeIn 0.3s ease;}
 .page-section.active{display:block;}
 @keyframes fadeIn{from{opacity:0; transform:translateY(8px);} to{opacity:1; transform:translateY(0);}}
@@ -376,7 +377,9 @@
   resize: vertical;
 }
 .modal-footer { display: flex; justify-content: flex-end; gap: var(--space-3); }
+
 </style>
+
 </head>
 
 <body>
@@ -805,11 +808,11 @@
               <div class="quick-btn-icon" style="background:rgba(20,184,166,0.1);color:var(--teal-500);">🏢</div>
               <span data-i18n="action.addCompany">Firma Ekle</span>
             </button>
-            <button class="quick-btn" onclick="openModal('addCompanyModal')">
+            <button class="quick-btn" onclick="openModal('addPlanModal')">
               <div class="quick-btn-icon" style="background:rgba(59,130,246,0.1);color:var(--info-500);">📋</div>
               <span data-i18n="action.createPlan">Plan Oluştur</span>
             </button>
-            <button class="quick-btn" onclick="openModal('announceModal')">
+            <button class="quick-btn" onclick="openModal('addSectorModal')">
               <div class="quick-btn-icon" style="background:rgba(245,158,11,0.1);color:var(--amber-500);">🏭</div>
               <span data-i18n="action.addSector">Sektör Ekle</span>
             </button>
@@ -2590,6 +2593,44 @@ window.addEventListener('DOMContentLoaded', ()=>showSection(location.hash));
   </div>
 </div>
 
+<!-- Plan Modal -->
+<div class="modal-overlay" id="addPlanModal" onclick="if(event.target===this)closeModal('addPlanModal')">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">📋 Yeni Plan Oluştur</div>
+      <button class="modal-close" onclick="closeModal('addPlanModal')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div style="margin-bottom:12px;"><label style="font-size:13px;color:var(--text-muted);display:block;margin-bottom:4px;">Plan Adı</label><input type="text" id="addPlanName" placeholder="örn. Pro Plan — 2026" style="width:100%;background:var(--bg-secondary);border:1px solid var(--border-color);border-radius:var(--radius-md);padding:10px 12px;color:var(--text-primary);font-size:14px;"></div>
+      <div style="margin-bottom:12px;"><label style="font-size:13px;color:var(--text-muted);display:block;margin-bottom:4px;">Fiyat (€/ay)</label><input type="number" id="addPlanPrice" placeholder="49" style="width:100%;background:var(--bg-secondary);border:1px solid var(--border-color);border-radius:var(--radius-md);padding:10px 12px;color:var(--text-primary);font-size:14px;"></div>
+      <div style="margin-bottom:12px;"><label style="font-size:13px;color:var(--text-muted);display:block;margin-bottom:4px;">Özellikler</label><textarea id="addPlanFeatures" placeholder="Her özellik yeni satırda..." style="width:100%;min-height:80px;background:var(--bg-secondary);border:1px solid var(--border-color);border-radius:var(--radius-md);padding:10px 12px;color:var(--text-primary);font-size:14px;"></textarea></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('addPlanModal')">İptal</button>
+      <button class="btn btn-primary" onclick="addPlan()">Oluştur</button>
+    </div>
+  </div>
+</div>
+
+<!-- Sector Modal -->
+<div class="modal-overlay" id="addSectorModal" onclick="if(event.target===this)closeModal('addSectorModal')">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">🏭 Yeni Sektör Ekle</div>
+      <button class="modal-close" onclick="closeModal('addSectorModal')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div style="margin-bottom:12px;"><label style="font-size:13px;color:var(--text-muted);display:block;margin-bottom:4px;">Sektör Adı</label><input type="text" id="addSectorName" placeholder="örn. CarWash Pro" style="width:100%;background:var(--bg-secondary);border:1px solid var(--border-color);border-radius:var(--radius-md);padding:10px 12px;color:var(--text-primary);font-size:14px;"></div>
+      <div style="margin-bottom:12px;"><label style="font-size:13px;color:var(--text-muted);display:block;margin-bottom:4px;">Açıklama</label><textarea id="addSectorDesc" placeholder="Sektör açıklaması..." style="width:100%;min-height:80px;background:var(--bg-secondary);border:1px solid var(--border-color);border-radius:var(--radius-md);padding:10px 12px;color:var(--text-primary);font-size:14px;"></textarea></div>
+      <div style="margin-bottom:12px;"><label style="font-size:13px;color:var(--text-muted);display:block;margin-bottom:4px;">Renk Kodu</label><input type="color" id="addSectorColor" value="#14b8a6" style="width:100%;height:40px;background:var(--bg-secondary);border:1px solid var(--border-color);border-radius:var(--radius-md);padding:4px;"></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('addSectorModal')">İptal</button>
+      <button class="btn btn-primary" onclick="addSector()">Ekle</button>
+    </div>
+  </div>
+</div>
+
 <script>
 function openModal(id) {
   const el = document.getElementById(id);
@@ -2604,6 +2645,21 @@ function sendAnnouncement() {
   if (!text) { showToast('Lütfen bir mesaj yazın', 'error'); return; }
   showToast('Duyuru gönderildi!', 'success');
   document.getElementById('announceText').value = '';
+  closeModal('announceModal');
+}
+function addPlan() {
+  const name = document.getElementById('addPlanName')?.value?.trim();
+  const price = document.getElementById('addPlanPrice')?.value?.trim();
+  if (!name || !price) { showToast('Plan adı ve fiyat zorunlu', 'error'); return; }
+  showToast('Plan oluşturuldu: ' + name, 'success');
+  closeModal('addPlanModal');
+}
+function addSector() {
+  const name = document.getElementById('addSectorName')?.value?.trim();
+  if (!name) { showToast('Sektör adı zorunlu', 'error'); return; }
+  showToast('Sektör eklendi: ' + name, 'success');
+  closeModal('addSectorModal');
+}
   closeModal('announceModal');
 }
 </script>

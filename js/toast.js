@@ -162,4 +162,7 @@
     div.textContent = str;
     return div.innerHTML;
   }
+
+  // Export to window for cross-file usage
+  window.escapeHtml = escapeHtml;
 })();

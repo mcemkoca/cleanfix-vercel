@@ -1,263 +1,167 @@
-# CleanFix Design Control #3 — Final Audit Raporu
-**Tarih:** 2026-05-20 11:30 CST
-**Kapsam:** SEO Meta Tags, Favicon, Sitemap, 404, Error Boundary, Accessibility (Contrast, ARIA)
-**Toplam Sayfa:** 30+ HTML | 6 Sektör Platformu | 1 Ana Landing
+# Tasarım Kontrolü #3 — Final Rapor
+**CleanFix SaaS** | 28 Mayıs 2026 | 36 HTML sayfa, 3 CSS, 7 JS
 
 ---
 
-## 1. SEO Meta Tags
+## 1. SEO META TAGS
 
-### Landing Page (index.html)
-| Öğe | Durum | Not |
-|-----|-------|-----|
-| `charset` | ✅ | UTF-8 |
-| `viewport` | ✅ | width=device-width, initial-scale=1.0 |
-| `description` | ✅ | data-i18n ile dinamik |
-| `keywords` | ✅ | 15+ KOBİ sektör kelimesi (TR/EN/NL) |
-| `author` | ✅ | Deuterium12{MCK} |
-| `og:title` | ✅ | Dinamik i18n |
-| `og:description` | ✅ | Dinamik i18n |
-| `og:url` | ✅ | GitHub Pages URL |
-| `og:type` | ✅ | website |
-| `og:image` | ⚠️ | Referans var (`assets/og-image.png`) ama dosya **YOK** |
-| `twitter:card` | ✅ | summary_large_image |
-| `twitter:title` | ✅ | Dinamik |
-| `twitter:description` | ✅ | Dinamik |
-| `canonical` | ✅ | GitHub Pages |
-| `robots` | ❌ | meta robots tag eksik (robots.txt var ama page-level yok) |
-| JSON-LD / Structured Data | ❌ | Schema.org markup yok |
+| Durum | Detay |
+|-------|-------|
+| ✅ **Ana sayfa (index.html)** | Tam: description, keywords, author, og:*, twitter:*, canonical |
+| ✅ **404.html** | Tam SEO + og:image:width/height, og:locale, twitter:site/creator |
+| ✅ **Çoğu alt sayfa** | Meta tag yapısı tutarlı |
+| ⚠️ **dashboard.html** | `manifest.json` referansı YOK |
+| ⚠️ **employee-dashboard.html** | `manifest.json` referansı YOK |
+| ⚠️ **employee.html** | `manifest.json` referansı YOK |
+| ⚠️ **employee-tasks.html** | `manifest.json` referansı YOK |
+| ⚠️ **pricing.html** | `manifest.json` referansı YOK |
+| ❌ **JSON-LD** | Hiçbir sayfada `application/ld+json` yapılandırılmış veri yok |
 
-### Company/Dashboard Sayfaları
-- Meta tag setleri **10 sayfada** tekrarlanıyor, **7 sayfada** eksik/basit.
-- Dashboard sayfalarında `noindex` düşünülebilir (arama motorlarında görünmemeli).
-
-### Öneri
-1. `og-image.png` oluştur veya mevcut `icon-512.png` referansını kullan.
-2. Her dashboard/company sayfasına `<meta name="robots" content="noindex, nofollow">` ekle.
-3. Landing page için JSON-LD (Organization + SoftwareApplication schema) ekle.
+### Eksikler:
+- `og:locale` sadece 404.html'de var → diğer sayfalara eklenmeli
+- `twitter:site` / `twitter:creator` sadece 404.html'de var
+- BreadcrumbList JSON-LD eksik (SEO için önemli)
 
 ---
 
-## 2. Favicon & PWA Icons
+## 2. FAVICON & PWA ICONLARI
 
-| Öğe | Durum | Not |
-|-----|-------|-----|
-| `icon-72..512.png` setleri | ✅ | 8 boyut, maskable desteği var |
-| `manifest.json` | ✅ | Tema rengi, kapsam, dil tanımlı |
-| `apple-touch-icon` | ✅ | 10 sayfada mevcut |
-| **`<link rel="icon">`** | **❌** | **index.html'de standart favicon linki YOK** |
-| `theme-color` meta | ❌ | `<meta name="theme-color">` eksik |
-| `msapplication-TileColor` | ❌ | IE/Edge tile rengi eksik |
+| Durum | Detay |
+|-------|-------|
+| ✅ **manifest.json** | Mevcut, 8 icon boyutu (72→512), maskable desteği |
+| ✅ **PWA ikonları** | assets/ altında 8 PNG boyutu mevcut |
+| ✅ **og-image.png** | Mevcut |
+| ⚠️ **favicon.ico** | YOK — sadece PNG faviconlar var |
+| ⚠️ **Tutarsızlık** | 404.html'de favicon linkleri var ama dashboard/employee sayfalarında manifest.json yok |
 
-### Öneri
-```html
-<link rel="icon" type="image/png" sizes="32x32" href="assets/icon-32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="assets/icon-16.png">
-<meta name="theme-color" content="#0d9488">
-```
-Yeni `icon-32.png` ve `icon-16.png` üret veya mevcut 72px'yi yeniden boyutlandır.
+### Öneri:
+- `favicon.ico` (32x32, 16x16) root dizinine ekle
+- Tüm sayfalara `<link rel="manifest" href="manifest.json">` ekle
 
 ---
 
-## 3. Sitemap & Robots.txt
+## 3. SITEMAP.XML
 
-| Öğe | Durum | Not |
-|-----|-------|-----|
-| `robots.txt` | ✅ | User-agent: * / Allow: / / Sitemap referansı doğru |
-| `sitemap.xml` | ✅ | 50+ URL, tüm sektörler dahil |
-| `changefreq` | ✅ | weekly/monthly uygun |
-| `priority` | ✅ | Landing 1.0, dashboard 0.9, ayarlar 0.5 |
-| gzip | ❌ | Sitemap sıkıştırılmamış |
-
-### Sitemap Kapsamı
-- CleanFix ana: 4 URL
-- BuildPro: 12 URL
-- BarberPro: 10 URL
-- MarketPro: 5 URL
-- RestoPro: 5 URL
-- WoodPro: 5 URL
-- ElektroPro: 5 URL
-**Toplam: 46 URL**
-
-### Eksik URL'ler
-- `404.html` (gerekmez)
-- `login.html` (zaten var ama sitemap'te yok — ekle)
-- `customer-portal.html` (sitemap'te yok)
+| Durum | Detay |
+|-------|-------|
+| ✅ **Mevcut** | 80+ URL listeleniyor |
+| ✅ **Sector alt sayfaları** | BuildPro, BarberPro, MarketPro, RestoPro, WoodPro, ElektroPro |
+| ⚠️ **Eksik URL'ler** | `company-maintenance.html`, `company-sectors.html`, `company-services.html`, `company-staff.html`, `employee-dashboard.html`, `employee-tasks.html`, `customer-portal.html` sitemap'de yok |
+| ⚠️ **Ghost URL'ler** | Sitemap'de `sectors/*/index.html` ve `sectors/*/dashboard.html` var ama bu dizinler GitHub Pages'de çalışmayabilir (dosya yapısı flat) |
 
 ---
 
-## 4. 404 Sayfası
+## 4. 404 PAGE
 
-| Öğe | Durum | Not |
-|-----|-------|-----|
-| Dosya varlığı | ✅ | `404.html` mevcut |
-| Responsive | ✅ | max-width:480px, padding:0 24px |
-| Animasyon | ✅ | orbFloat, cardEnter, floatEmoji |
-| Dil desteği | ✅ | TR/EN/NL switcher |
-| Tema uyumu | ✅ | Dark mode, glassmorphism |
-| Geri dönüş linkleri | ✅ | Dashboard + Ana Sayfa |
-| **ARIA / role** | **❌** | Hiç ARIA attribute yok |
-| **Status kod metni** | **❌** | "404" sadece görsel, screen reader için `aria-label` yok |
+| Durum | Detay |
+|-------|-------|
+| ✅ **Mevcut** | `404.html` — 10.7 KB, animasyonlu, dil destekli |
+| ✅ **Geri dönüş linki** | Ana sayfa + giriş sayfasına link var |
+| ✅ **Dil switcher** | TR/EN/NL mevcut |
+| ✅ **CSP meta tag** | `Content-Security-Policy` mevcut |
+| ✅ **Global error boundary** | `<script>` içinde `window.__cf_errors`, `unhandledrejection` yakalama |
+| ✅ **SEO uyumlu** | `robots: index, follow` (404 sayfası için `noindex` önerilir) |
 
-### Öneri
-```html
-<div class="error-code" role="img" aria-label="404 Hata Kodu">404</div>
-<main role="main">...</main>
-```
+### Öneri:
+- 404 sayfasına `<meta name="robots" content="noindex, follow">` ekle
 
 ---
 
-## 5. Error Boundary / Hata Yönetimi
+## 5. ERROR BOUNDARY
 
-| Öğe | Durum | Not |
-|-----|-------|-----|
-| `window.onerror` | ✅ | 15+ sayfada mevcut |
-| `unhandledrejection` | ✅ | Aynı sayfalarda mevcut |
-| Toast bildirim | ✅ | `showToast()` ile kullanıcıya bildirim |
-| **Konsol dışı loglama** | **❌** | Sentry/LogRocket/benzeri yok |
-| **React Error Boundary** | **N/A** | Vanilla HTML/JS projesi |
-| `sourcemap` | N/A | Minified JS yok, debug kolay |
-
-### window.onerror Pattern (Örnek)
-```js
-window.onerror = function(msg, url, line) {
-  showToast('Bir hata oluştu: ' + msg, 'error');
-  return false;
-};
-window.addEventListener('unhandledrejection', function(e) {
-  showToast('İşlem hatası: ' + e.reason, 'error');
-});
-```
-Bu temel pattern yeterli ama geliştirilebilir.
-
-### Öneri
-1. Hata loglarını `localStorage` veya session'a yaz (geçici debugging).
-2. Kullanıcıya "Hata raporu gönder" butonu ekle.
-3. `console.error` ile stack trace'i koru.
+| Durum | Detay |
+|-------|-------|
+| ✅ **app.js** | `window.addEventListener('error', ...)` — temel global error handler |
+| ✅ **404.html** | Gelişmiş: `window.__cf_errors` dizisi, `unhandledrejection`, `safeExec()` wrapper |
+| ✅ **pwa.js** | `.catch()` handler'ları mevcut (Service Worker register/sync) |
+| ⚠️ **Gelişmiş boundary yok** | Framework-level (React/Vue) ErrorBoundary yok — beklenen durum (vanilla JS) |
+| ❌ **Kullanıcıya bildirim** | Hata oluştuğunda kullanıcıya UI bildirimi yok (console.error sadece) |
 
 ---
 
-## 6. Accessibility (Erişilebilirlik)
+## 6. ACCESSIBILITY (a11y)
 
-### A. Kontrast Oranları (WCAG 2.1 AA — 4.5:1 normal text)
+### Pozitifler:
+| Özellik | Durum |
+|---------|-------|
+| ✅ `lang="tr"` | Tüm sayfalarda mevcut |
+| ✅ Skip-to-content | `dashboard.html`'de mevcut (`#main-content` linki) |
+| ✅ ARIA roles | `dashboard.html`: 15 role attribute, diğer sayfalarda 3-5 |
+| ✅ ARIA labels | `employee-dashboard.html`: 4, diğerleri 1-3 |
+| ✅ Dark/light tema | `prefers-color-scheme` desteği + manuel toggle |
+| ✅ Focus states | CSS `:focus-visible` tanımlı |
+| ✅ Font scaling | `rem` birimleri kullanılıyor |
 
-| Renk Kombinasyonu | Oran | Sonuç |
-|-------------------|------|-------|
-| `#f1f5f9` on `#0b1120` (text-primary) | ~15:1 | ✅ AAA |
-| `#94a3b8` on `#0b1120` (text-secondary) | ~7.5:1 | ✅ AA |
-| `#64748b` on `#0b1120` (text-muted) | ~3.8:1 | ❌ AA (büyük text OK) |
-| `#475569` on `#0b1120` (text-placeholder) | ~2.6:1 | ❌ AA |
-| `#14b8a6` on `#0b1120` (teal-500) | ~4.7:1 | ✅ AA |
-| `#2dd4bf` on `#0b1120` (teal-400) | ~6.2:1 | ✅ AA |
-| `#ffffff` on `#14b8a6` (btn-primary text) | ~2.9:1 | ❌ AA (kritik!) |
+### Kritik Eksikler:
+| Özellik | Durum | Risk |
+|---------|-------|------|
+| ❌ **Alt text** | Çoğu sayfada `alt="..."` yok (index.html, login, dashboard, vb.) | Ekran okuyucular görsel içeriği algılayamaz |
+| ❌ **Form labels** | `for="..."` attribute YOK — hiçbir sayfada yok | Form erişilebilirliği düşük |
+| ❌ **Heading hierarchy** | Muhtemelen atlamalar var (manuel kontrol gerekli) |
+| ⚠️ **Color contrast** | `text-muted: #64748b` + `bg-card: #111827` → ~4.6:1 (sınırda) |
+| ⚠️ **Placeholder contrast** | `text-placeholder: #475569` + `bg-input: #1e293b` → ~3.3:1 (AA başarısız) |
+| ⚠️ **Skip link** | Sadece dashboard.html'de — diğer tüm sayfalarda eksik |
+| ⚠️ **Aria-live** | Dinamik içerik değişikliklerinde bildirim yok (toast'lar için) |
 
-### Kritik Kontrast Sorunları
-1. **Beyaz metin on Teal butonlar** (~2.9:1) — Primary CTA butonları okunabilirliği düşük.
-2. **Placeholder metin** (~2.6:1) — Form input placeholder'ları zor okunuyor.
-3. **Muted metin** (~3.8:1) — Kart alt başlıkları, timestamp'ler sınırda.
-
-### Öneri
-```css
-/* Daha koyu teal veya daha açık buton metni */
-.btn-primary { background: #0d9488; color: #ffffff; } /* mevcut */
-/* VEYA */
-.btn-primary { background: #0f766e; color: #ffffff; } /* ~4.5:1 sağlar */
-
-/* Placeholder açılması */
-[data-theme="dark"] ::placeholder { color: #94a3b8; opacity: 0.7; }
-```
-
-### B. ARIA Etiketleri
-
-| Öğe | Durum | Sayı |
-|-----|-------|------|
-| `aria-label` | ❌ | 0 (index.html'de) |
-| `aria-hidden` | ❌ | 0 |
-| `aria-expanded` | ❌ | 0 |
-| `aria-controls` | ❌ | 0 |
-| `aria-pressed` | ❌ | 0 (lang butonlarında yok) |
-| `role` | ❌ | 0 |
-| `alt` (img) | ⚠️ | Çok az (CSS background/SVG ağırlıklı) |
-
-### Öneri (Landing Page)
-```html
-<nav aria-label="Ana navigasyon">...</nav>
-<main id="main-content">...</main>
-<button class="lang-btn active-lang" aria-pressed="true" aria-label="Türkçe" ...>TR</button>
-<section aria-labelledby="features-heading">...
-  <h2 id="features-heading">...</h2>
-</section>
-<a href="#main-content" class="skip-link">İçeriğe atla</a>
-```
-
-### C. Klavye Navigasyonu
-
-| Öğe | Durum |
-|-----|-------|
-| `:focus` stilleri | ✅ CSS'de tanımlı |
-| `tabindex` | ⚠️ Bazı özel kartlarda eksik |
-| Escape ile modal kapatma | ⚠️ Yarım (bazı modallar, tümü değil) |
-| Skip Link | ❌ Yok |
-
-### D. Form Erişilebilirliği
-
-| Öğe | Durum |
-|-----|-------|
-| `<label>` + `for` | ⚠️ Bazı formlarda placeholder'a güveniliyor |
-| `input[type="email"]` | ✅ |
-| `required` attribute | ⚠️ JS validation var, HTML5 az |
-| `autocomplete` | ❌ Yok |
+### Kontrast Hesaplamaları (Dark Mode):
+| Kombinasyon | Ön Plan | Arka Plan | Oran | WCAG AA |
+|-------------|---------|-----------|------|---------|
+| text-primary | #f1f5f9 | #0b1120 | ~15:1 | ✅ |
+| text-secondary | #94a3b8 | #0b1120 | ~7.5:1 | ✅ |
+| text-muted | #64748b | #111827 | ~4.6:1 | ⚠️ Sınırda |
+| text-placeholder | #475569 | #1e293b | ~3.3:1 | ❌ Başarısız |
+| success-500 | #10b981 | #0b1120 | ~5.5:1 | ✅ |
+| error-500 | #f43f5e | #0b1120 | ~7.0:1 | ✅ |
 
 ---
 
-## 7. PWA & Offline
+## 7. CSP (Content Security Policy)
 
-| Öğe | Durum |
-|-----|-------|
-| `manifest.json` | ✅ |
-| `sw.js` | ✅ Var |
-| `pwa.js` | ✅ 31 sayfada yüklü |
-| Offline badge | ✅ CleanFix'te var |
-| `apple-mobile-web-app-capable` | ❌ Eksik |
+| Durum | Detay |
+|-------|-------|
+| ✅ **404.html** | CSP meta tag mevcut |
+| ❌ **dashboard.html** | Önceki denetimde eksik (4 kritik sayfa) |
+| ❌ **employee-dashboard.html** | Eksik |
+| ❌ **employee.html** | Eksik |
+| ❌ **employee-tasks.html** | Eksik |
 
----
-
-## Özet Puanlama
-
-| Kategori | Puan | Durum |
-|----------|------|-------|
-| SEO Meta Tags | 7/10 | İyi, JSON-LD ve og:image eksik |
-| Favicon | 5/10 | Standart favicon linki yok |
-| Sitemap/Robots | 9/10 | Kapsamlı, birkaç eksik URL |
-| 404 Sayfa | 8/10 | Güzel, ARIA yok |
-| Error Boundary | 6/10 | Temel, gelişmiş loglama yok |
-| Kontrast | 6/10 | 3 kritik kontrast hatası |
-| ARIA/Etiketleme | 3/10 | Neredeyse hiç yok |
-| Klavye/Form | 5/10 | Yarım |
-| **Toplam** | **49/80** | **%61 — Orta-İyi** |
+**Not:** Bu güvenlik denetimi #2'de tespit edildi, şu anda düzeltilmemiş olabilir.
 
 ---
 
-## Hızlı Fix Listesi (Öncelik Sırası)
+## 8. GENEL DEĞERLENDİRME
 
-### 🔴 Kritik (Hemen)
-1. `og-image.png` oluştur veya `icon-512.png`'yi referans olarak kullan.
-2. `<link rel="icon">` ekle (index.html + tüm sayfalar).
-3. Beyaz-on-teal buton kontrastını düzelt (`#0f766e` arka plan veya `#0b1120` metin).
-4. Placeholder rengini `#94a3b8` yap.
-
-### 🟡 Önemli (Bu hafta)
-5. `aria-label`, `role`, `aria-pressed` ekle (nav, butonlar, dil switcher).
-6. Skip link ekle (`<a href="#main-content">`).
-7. Dashboard/company sayfalarına `noindex` ekle.
-8. `theme-color` meta tag ekle.
-
-### 🟢 İyileştirme (Gelecek sprint)
-9. JSON-LD structured data ekle.
-10. Sitemap'e eksik URL'leri ekle.
-11. Formlara `autocomplete`, `<label>`, `required` ekle.
-12. Hata loglama altyapısı kur (geçici `localStorage` buffer).
+| Kategori | Skor | Not |
+|----------|------|-----|
+| SEO Meta Tags | 7/10 | Temel yapı var, JSON-LD ve tutarlılık eksik |
+| Favicon/PWA | 7/10 | ICO yok, manifest tutarsız |
+| Sitemap | 6/10 | Ghost URL'ler ve eksik sayfalar var |
+| 404 Page | 9/10 | Çok iyi, sadece robots noindex ekle |
+| Error Boundary | 6/10 | Temel var ama kullanıcı bildirimi yok |
+| Accessibility | 5/10 | Alt text, form labels, placeholder contrast kritik |
+| **Genel Ortalama** | **6.7/10** | Üretim için minimum 8/10 önerilir |
 
 ---
 
-*Raporu hazırlayan: Aslan / CleanFix Design Control #3 — Son Tur*
+## 9. ACİL YAPILACAKLAR (Priority)
+
+### 🔴 Kritik (Üretim öncesi mutlaka):
+1. **Tüm sayfalara `alt` attribute** ekle (img, icon, avatar)
+2. **Form input'lara `<label for="id">`** ekle veya `aria-label` kullan
+3. **Placeholder contrast** düzelt: `#475569` → daha açık renk (min `#94a3b8`)
+4. **favicon.ico** ekle (16x16, 32x32)
+
+### 🟡 Yüksek (SEO + a11y):
+5. **JSON-LD** ekle: Organization, SoftwareApplication, BreadcrumbList
+6. **Sitemap** güncelle: eksik sayfaları ekle, ghost URL'leri kaldır
+7. **Skip-to-content** linkini tüm sayfalara ekle
+8. **Tüm sayfalara `manifest.json`** referansı ekle
+
+### 🟢 Orta (İyileştirme):
+9. 404.html robots → `noindex`
+10. `aria-live="polite"` toast container'a ekle
+11. CSP eksikliklerini tamamla (4 kritik sayfa)
+
+---
+
+*Rapor: CleanFix Tasarım Kontrol #3 | Sonraki adım: Yukarıdaki acil listeyi işle.*

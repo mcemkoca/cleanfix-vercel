@@ -5,6 +5,9 @@
 /* ── Google Font ── */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 
+/* ── Focus Indicator ── */
+:focus-visible { outline: 2px solid var(--teal-400); outline-offset: 2px; }
+
 /* ── Root Variables (Light) ── */
 :root {
   /* Primary — Deep Teal */
@@ -143,7 +146,7 @@
   --text-primary: #f1f5f9;
   --text-secondary: #94a3b8;
   --text-muted: #64748b;
-  --text-placeholder: #475569;
+  --text-placeholder: #6b7280;
   --border-color: #1e293b;
   --border-focus: var(--teal-400);
   --shadow-color: rgba(0,0,0,0.35);
