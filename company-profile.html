@@ -274,6 +274,7 @@
 
 <script>
 function saveProfile(){
+    if(typeof AUTH !== 'undefined' && !AUTH.requireRoleForAction('saveProfile','company')) return;
   const name=document.getElementById('companyName').value;
   if(!name){showToast('Firma adı zorunludur','error');return;}
   document.querySelector('.profile-name').textContent=name;

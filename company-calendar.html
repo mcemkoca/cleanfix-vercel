@@ -352,6 +352,7 @@ function openDetail(dayName,idx){
   openModal('detailModal');
 }
 function addEvent(){
+    if(typeof AUTH !== 'undefined' && !AUTH.requireRoleForAction('addEvent','company')) return;
   const customer=document.getElementById('addCustomer').value;
   const date=document.getElementById('addDate').value;
   const time=document.getElementById('addTime').value;
