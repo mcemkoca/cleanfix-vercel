@@ -51,7 +51,7 @@ body.barberpro ::selection {
 /* ── Purple Buttons ── */
 .btn-purple {
   background: linear-gradient(135deg, var(--violet-500), var(--purple-600));
-  color: white;
+  color: var(--text-primary);
   box-shadow: 0 4px 14px rgba(139,92,246,0.4);
 }
 .btn-purple:hover:not(:disabled) {
@@ -248,13 +248,13 @@ body.barberpro .cal-day.today {
   justify-content: center;
   font-size: var(--text-2xl);
   margin: 0 auto var(--space-3);
-  color: white;
+  color: var(--text-primary);
 }
 
 /* ── Popular Badge ── */
 .popular-badge {
   background: linear-gradient(135deg, var(--amber-400), var(--amber-500));
-  color: white;
+  color: var(--text-primary);
   font-size: 10px;
   font-weight: 700;
   padding: 2px 8px;
