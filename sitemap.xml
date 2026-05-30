@@ -87,4 +87,11 @@
   <url><loc>https://mcemkoca.github.io/cleanfix-vercel/settings.html</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
   <url><loc>https://mcemkoca.github.io/cleanfix-vercel/staff.html</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
   <url><loc>https://mcemkoca.github.io/cleanfix-vercel/support.html</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mcemkoca.github.io/cleanfix-vercel/company-maintenance.html</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mcemkoca.github.io/cleanfix-vercel/company-services.html</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mcemkoca.github.io/cleanfix-vercel/company-staff.html</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mcemkoca.github.io/cleanfix-vercel/employee-dashboard.html</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mcemkoca.github.io/cleanfix-vercel/employee-tasks.html</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mcemkoca.github.io/cleanfix-vercel/customer-portal.html</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://mcemkoca.github.io/cleanfix-vercel/404.html</loc><changefreq>monthly</changefreq><priority>0.3</priority></url>
 </urlset>
