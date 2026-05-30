@@ -15,7 +15,7 @@
 .sidebar.collapsed { transform:translateX(-100%); }
 .sidebar-header { padding:var(--space-5); border-bottom:1px solid var(--border-color); }
 .sidebar-logo { display:flex; align-items:center; gap:var(--space-3); }
-.sidebar-logo .logo-icon { width:40px; height:40px; background:linear-gradient(135deg,var(--teal-500),var(--teal-700)); border-radius:var(--radius-md); display:flex; align-items:center; justify-content:center; font-size:16px; font-weight:700; color: white; }
+.sidebar-logo .logo-icon { width:40px; height:40px; background:linear-gradient(135deg,var(--teal-500),var(--teal-700)); border-radius:var(--radius-md); display:flex; align-items:center; justify-content:center; font-size:16px; font-weight:700; color: var(--text-primary); }
 .sidebar-logo h2 { font-size:var(--text-base); font-weight:700; }
 .sidebar-logo p { font-size:var(--text-xs); color:var(--text-muted); }
 .sidebar-nav { flex:1; overflow-y:auto; padding:var(--space-3); }
@@ -135,6 +135,7 @@
 })();
 </script>
 <body>
+<a href="#main-content" class="skip-link">Ana içeriğe atla</a>
 <script>checkAuth('admin');</script>
 <div class="sidebar-overlay" id="sidebarOverlay"></div>
 <div class="dashboard">
@@ -174,15 +175,11 @@
 <div class="main">
   <header role="banner" class="header">
     <div class="header-left">
-      <button class="menu-btn" id="menuBtn" onclick="document.getElementById('sidebar').classList.toggle('open')">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
-      </button>
+      <button class="menu-btn" id="menuBtn" onclick="document.getElementById('sidebar').classList.toggle('open')" aria-label="Menüyü aç"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
       <h1 class="page-title">Destek</h1>
     </div>
     <div class="header-right">
-      <button class="header-btn" id="themeToggle">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/></svg>
-      </button>
+      <button class="header-btn" id="themeToggle" aria-label="Tema değiştir"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/></svg></button>
       <button class="header-btn">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
         <span class="dot"></span>
@@ -192,15 +189,13 @@
   </header>
 
   <main role="main" class="content">
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:var(--space-5);flex-wrap:wrap;gap:var(--space-4);">
+    <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:var(--space-5); flex-wrap:wrap; gap:var(--space-4)">
       <div>
-        <h2 style="font-size:var(--text-2xl);font-weight:700;">Ticket Yönetimi</h2>
-        <p style="font-size:var(--text-sm);color:var(--text-muted);margin-top:4px;">5 açık ticket • 38 çözüldü</p>
+        <h2 style="font-size:var(--text-2xl); font-weight:700">Ticket Yönetimi</h2>
+        <p style="font-size:var(--text-sm); color:var(--text-muted); margin-top:4px">5 açık ticket • 38 çözüldü</p>
       </div>
-      <button class="btn btn-primary" onclick="showToast('Yeni ticket oluşturuluyor...','info')">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-        Ticket Aç
-      </button>
+      <button class="btn btn-primary" onclick="showToast('Yeni ticket oluşturuluyor...','info')" aria-label="Bildirimler"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        Ticket Aç</button>
     </div>
 
     <div class="ticket-list">
@@ -216,8 +211,8 @@
           </div>
         </div>
         <div class="ticket-actions">
-          <button class="btn btn-ghost btn-sm" onclick="showToast('Ticket detayları...','info')">Detay</button>
-          <button class="btn btn-primary btn-sm" onclick="showToast('Atama yapıldı','success')">Ata</button>
+          <button class="btn btn-ghost btn-sm" onclick="showToast('Ticket detayları...','info')" aria-label="Bildirimler">Detay</button>
+          <button class="btn btn-primary btn-sm" onclick="showToast('Atama yapıldı','success')" aria-label="Bildirimler">Ata</button>
         </div>
       </div>
 
@@ -233,8 +228,8 @@
           </div>
         </div>
         <div class="ticket-actions">
-          <button class="btn btn-ghost btn-sm" onclick="showToast('Ticket detayları...','info')">Detay</button>
-          <button class="btn btn-primary btn-sm" onclick="showToast('Atama yapıldı','success')">Ata</button>
+          <button class="btn btn-ghost btn-sm" onclick="showToast('Ticket detayları...','info')" aria-label="Bildirimler">Detay</button>
+          <button class="btn btn-primary btn-sm" onclick="showToast('Atama yapıldı','success')" aria-label="Bildirimler">Ata</button>
         </div>
       </div>
 
@@ -250,8 +245,8 @@
           </div>
         </div>
         <div class="ticket-actions">
-          <button class="btn btn-ghost btn-sm" onclick="showToast('Ticket detayları...','info')">Detay</button>
-          <button class="btn btn-primary btn-sm" onclick="showToast('Atama yapıldı','success')">Ata</button>
+          <button class="btn btn-ghost btn-sm" onclick="showToast('Ticket detayları...','info')" aria-label="Bildirimler">Detay</button>
+          <button class="btn btn-primary btn-sm" onclick="showToast('Atama yapıldı','success')" aria-label="Bildirimler">Ata</button>
         </div>
       </div>
 
@@ -267,8 +262,8 @@
           </div>
         </div>
         <div class="ticket-actions">
-          <button class="btn btn-ghost btn-sm" onclick="showToast('Ticket detayları...','info')">Detay</button>
-          <button class="btn btn-primary btn-sm" onclick="showToast('Atama yapıldı','success')">Ata</button>
+          <button class="btn btn-ghost btn-sm" onclick="showToast('Ticket detayları...','info')" aria-label="Bildirimler">Detay</button>
+          <button class="btn btn-primary btn-sm" onclick="showToast('Atama yapıldı','success')" aria-label="Bildirimler">Ata</button>
         </div>
       </div>
 
@@ -284,8 +279,8 @@
           </div>
         </div>
         <div class="ticket-actions">
-          <button class="btn btn-ghost btn-sm" onclick="showToast('Ticket detayları...','info')">Detay</button>
-          <button class="btn btn-primary btn-sm" onclick="showToast('Atama yapıldı','success')">Ata</button>
+          <button class="btn btn-ghost btn-sm" onclick="showToast('Ticket detayları...','info')" aria-label="Bildirimler">Detay</button>
+          <button class="btn btn-primary btn-sm" onclick="showToast('Atama yapıldı','success')" aria-label="Bildirimler">Ata</button>
         </div>
       </div>
     </div>

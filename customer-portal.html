@@ -16,14 +16,14 @@ body{margin:0;font-family:'Inter',sans-serif;background:var(--bg-primary);color:
 /* Login */
 .login-wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,var(--bg-primary) 0%,var(--bg-secondary) 100%);}
 .login-card{background:var(--bg-card);border:1px solid var(--border-color);border-radius:var(--radius-xl);padding:48px;width:100%;max-width:420px;box-shadow:var(--shadow-lg);}
-.login-logo{width:64px;height:64px;background:linear-gradient(135deg,var(--teal-500),var(--teal-700));border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:700;color: white;margin:0 auto 24px;}
+.login-logo{width:64px;height:64px;background:linear-gradient(135deg,var(--teal-500),var(--teal-700));border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:700;color: var(--text-primary);margin:0 auto 24px;}
 .login-title{text-align:center;font-size:var(--text-xl);font-weight:700;margin-bottom:8px;}
 .login-subtitle{text-align:center;font-size:var(--text-sm);color:var(--text-muted);margin-bottom:32px;}
 .login-field{margin-bottom:20px;}
 .login-field label{display:block;font-size:var(--text-sm);font-weight:500;margin-bottom:6px;}
 .login-field input{width:100%;padding:12px 14px;background:var(--bg-card);border:1.5px solid var(--border-color);border-radius:var(--radius-md);color:var(--text-primary);font-size:var(--text-sm);}
 .login-field input:focus{outline:none;border-color:var(--teal-500);}
-.login-btn{width:100%;padding:14px;background:linear-gradient(135deg,var(--teal-500),var(--teal-600));color: white;border:none;border-radius:var(--radius-md);font-size:var(--text-base);font-weight:600;cursor:pointer;transition:all var(--duration-normal);}
+.login-btn{width:100%;padding:14px;background:linear-gradient(135deg,var(--teal-500),var(--teal-600));color: var(--text-primary);border:none;border-radius:var(--radius-md);font-size:var(--text-base);font-weight:600;cursor:pointer;transition:all var(--duration-normal);}
 .login-btn:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(20,184,166,0.45);}
 .login-footer{text-align:center;margin-top:20px;font-size:var(--text-xs);color:var(--text-muted);}
 
@@ -31,9 +31,9 @@ body{margin:0;font-family:'Inter',sans-serif;background:var(--bg-primary);color:
 .portal{display:none;min-height:100vh;background:var(--bg-primary);}
 .portal-header{height:64px;background:var(--bg-card);border-bottom:1px solid var(--border-color);display:flex;align-items:center;justify-content:space-between;padding:0 32px;position:sticky;top:0;z-index:50;}
 .portal-logo{display:flex;align-items:center;gap:12px;}
-.portal-logo-icon{width:36px;height:36px;background:linear-gradient(135deg,var(--teal-500),var(--teal-700));border-radius:10px;display:flex;align-items:center;justify-content:center;font-weight:700;color: white;font-size:14px;}
+.portal-logo-icon{width:36px;height:36px;background:linear-gradient(135deg,var(--teal-500),var(--teal-700));border-radius:10px;display:flex;align-items:center;justify-content:center;font-weight:700;color: var(--text-primary);font-size:14px;}
 .portal-user{display:flex;align-items:center;gap:12px;}
-.portal-avatar{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#3b82f6,#1d4ed8);display:flex;align-items:center;justify-content:center;font-weight:600;font-size:var(--text-xs);color: white;}
+.portal-avatar{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#3b82f6,#1d4ed8);display:flex;align-items:center;justify-content:center;font-weight:600;font-size:var(--text-xs);color: var(--text-primary);}
 .portal-content{padding:32px;max-width:1400px;margin:0 auto;}
 .portal-welcome{font-size:var(--text-lg);font-weight:700;margin-bottom:24px;}
 .portal-welcome span{color:var(--teal-500);}
@@ -114,7 +114,7 @@ body{margin:0;font-family:'Inter',sans-serif;background:var(--bg-primary);color:
 .cal-mini .cal-head{font-weight:600;color:var(--text-muted);padding:6px;}
 .cal-mini .cal-day{padding:6px;border-radius:var(--radius-sm);cursor:pointer;}
 .cal-mini .cal-day:hover{background:var(--bg-tertiary);}
-.cal-mini .cal-day.active{background:var(--teal-500);color: white;font-weight:600;}
+.cal-mini .cal-day.active{background:var(--teal-500);color: var(--text-primary);font-weight:600;}
 .cal-mini .cal-day.today{box-shadow:inset 0 0 0 1.5px var(--teal-500);font-weight:600;}
 .cal-mini .cal-day.event{position:relative;}
 .cal-mini .cal-day.event::after{content:'';position:absolute;bottom:2px;left:50%;transform:translateX(-50%);width:4px;height:4px;border-radius:50%;background:var(--amber-500);}
@@ -125,7 +125,7 @@ body{margin:0;font-family:'Inter',sans-serif;background:var(--bg-primary);color:
 .lang-switcher{display:flex;align-items:center;gap:4px;background:var(--bg-card);border:1px solid var(--border-color);border-radius:var(--radius-md);padding:3px;margin-left:12px;}
 .lang-switcher button{background:transparent;border:none;color:var(--text-muted);font-size:11px;font-weight:600;cursor:pointer;padding:4px 8px;border-radius:4px;transition:all 0.2s;text-transform:uppercase;font-family:inherit;}
 .lang-switcher button:hover{color:var(--text-primary);}
-.lang-switcher button.active{background:var(--teal-500);color: white;}
+.lang-switcher button.active{background:var(--teal-500);color: var(--text-primary);}
 
 /* ── Mobile Responsive ── */
 @media (max-width: 768px) {
@@ -255,20 +255,21 @@ body{margin:0;font-family:'Inter',sans-serif;background:var(--bg-primary);color:
 })();
 </script>
 <body>
+<a href="#main-content" class="skip-link">Ana içeriğe atla</a>
 <script>checkAuth('customer');</script>
 
 <!-- LOGIN VIEW -->
 <div class="login-wrap" id="loginView">
-  <div class="login-card">
+  <div class="login-card" id="main-content">
     <div class="login-logo">CF</div>
     <div class="login-title" data-i18n="portal_login_title">Müşteri Portalı</div>
     <div class="login-subtitle" data-i18n="portal_login_subtitle">CleanFix hizmetlerinizi yönetin</div>
     <div class="login-field">
-      <label data-i18n="label_email">E-posta</label>
+      <label data-i18n="label_email" for="loginEmail">E-posta</label>
       <input type="email" id="loginEmail" data-i18n-placeholder="ph_email" placeholder="ornek@email.com" data-i18n-placeholder="ph_0">
     </div>
     <div class="login-field">
-      <label data-i18n="label_password">Şifre</label>
+      <label data-i18n="label_password" for="loginPass">Şifre</label>
       <input type="password" id="loginPass" data-i18n-placeholder="ph_password" placeholder="••••••••" data-i18n-placeholder="ph_1">
     </div>
     <button class="login-btn" onclick="doLogin()" data-i18n="btn_login">Giriş Yap</button>
@@ -282,18 +283,18 @@ body{margin:0;font-family:'Inter',sans-serif;background:var(--bg-primary);color:
     <div class="portal-logo">
       <div class="portal-logo-icon">CF</div>
       <div>
-        <div style="font-weight:700;font-size:var(--text-sm);" data-i18n="cleanfix">CleanFix</div>
-        <div style="font-size:var(--text-xs);color:var(--text-muted);" data-i18n="portal_login_title">Müşteri Portalı</div>
+        <div style="font-weight:700; font-size:var(--text-sm)" data-i18n="cleanfix">CleanFix</div>
+        <div style="font-size:var(--text-xs); color:var(--text-muted)" data-i18n="portal_login_title">Müşteri Portalı</div>
       </div>
     </div>
     
     <div class="portal-user">
-      <div style="text-align:right;">
-        <div style="font-weight:600;font-size:var(--text-sm);" data-i18n="jan_peeters">Jan Peeters</div>
-        <div style="font-size:var(--text-xs);color:var(--text-muted);" data-i18n="janpeeterskantoorbe">jan.peeters@kantoor.be</div>
+      <div style="text-align:right">
+        <div style="font-weight:600; font-size:var(--text-sm)" data-i18n="jan_peeters">Jan Peeters</div>
+        <div style="font-size:var(--text-xs); color:var(--text-muted)" data-i18n="janpeeterskantoorbe">jan.peeters@kantoor.be</div>
       </div>
       <div class="portal-avatar">JP</div>
-      <button class="action-btn" onclick="doLogout()" title="Çıkış" style="width:36px;height:36px;border-radius:var(--radius-md);background:var(--bg-tertiary);border:1px solid var(--border-color);display:flex;align-items:center;justify-content:center;color:var(--text-secondary);cursor:pointer;">↪</button>
+      <button class="action-btn" onclick="doLogout()" title="Çıkış" style="width:36px; height:36px; border-radius:var(--radius-md); background:var(--bg-tertiary); border:1px solid var(--border-color); display:flex; align-items:center; justify-content:center; color:var(--text-secondary); cursor:pointer" aria-label="Çıkış">↪</button>
     </div>
 
     <div class="lang-switcher">
@@ -310,22 +311,22 @@ body{margin:0;font-family:'Inter',sans-serif;background:var(--bg-primary);color:
     <div class="portal-stats">
       <div class="portal-stat">
         <div class="portal-stat-label" data-i18n="stat_open_requests">Açık Talepler</div>
-        <div class="portal-stat-value" style="color:var(--info-500);">2</div>
+        <div class="portal-stat-value" style="color:var(--info-500)">2</div>
         <div class="portal-stat-sub">1'i acil öncelikli</div>
       </div>
       <div class="portal-stat">
         <div class="portal-stat-label" data-i18n="stat_upcoming_appointments">Gelecek Randevular</div>
-        <div class="portal-stat-value" style="color:var(--teal-500);">3</div>
+        <div class="portal-stat-value" style="color:var(--teal-500)">3</div>
         <div class="portal-stat-sub" data-i18n="sonraki_18_mayıs">Sonraki: 18 Mayıs</div>
       </div>
       <div class="portal-stat">
         <div class="portal-stat-label" data-i18n="stat_total_spending">Toplam Harcama</div>
-        <div class="portal-stat-value" style="color:var(--success-500);">€2.845</div>
+        <div class="portal-stat-value" style="color:var(--success-500)">€2.845</div>
         <div class="portal-stat-sub" data-i18n="ui_last_12_months">Son 12 ay</div>
       </div>
       <div class="portal-stat">
         <div class="portal-stat-label" data-i18n="stat_latest_invoice">Son Fatura</div>
-        <div class="portal-stat-value" style="color:var(--amber-500);">€149</div>
+        <div class="portal-stat-value" style="color:var(--amber-500)">€149</div>
         <div class="portal-stat-sub" data-i18n="f-2026-1020_ödendi">#F-2026-1020 — Ödendi</div>
       </div>
     </div>
@@ -340,11 +341,11 @@ body{margin:0;font-family:'Inter',sans-serif;background:var(--bg-primary);color:
         <div class="portal-card-body">
           <div class="ticket-form">
             <div class="form-group">
-              <label class="form-label" data-i18n="form_subject">Konu</label>
+              <label class="form-label" data-i18n="form_subject" for="tSubject">Konu</label>
               <input type="text" class="form-input" id="tSubject" data-i18n-placeholder="ph_subject" placeholder="Talep konusu..." data-i18n-placeholder="ph_2">
             </div>
             <div class="form-group">
-              <label class="form-label" data-i18n="form_priority">Öncelik</label>
+              <label class="form-label" data-i18n="form_priority" for="tPriority">Öncelik</label>
               <select class="form-select" id="tPriority">
                 <option value="Düşük" data-i18n="status_low_prio">Düşük</option>
                 <option value="Orta" selected data-i18n="status_medium">Orta</option>
@@ -353,7 +354,7 @@ body{margin:0;font-family:'Inter',sans-serif;background:var(--bg-primary);color:
               </select>
             </div>
             <div class="form-group">
-              <label class="form-label" data-i18n="form_service_type">Hizmet Türü</label>
+              <label class="form-label" data-i18n="form_service_type" for="tService">Hizmet Türü</label>
               <select class="form-select" id="tService">
                 <option data-i18n="cat_office_cleaning">Ofis Temizliği</option>
                 <option data-i18n="cat_disinfection">Dezenfeksiyon</option>
@@ -364,25 +365,25 @@ body{margin:0;font-family:'Inter',sans-serif;background:var(--bg-primary);color:
               </select>
             </div>
             <div class="form-group">
-              <label class="form-label" data-i18n="form_requested_date">İstenen Tarih</label>
+              <label class="form-label" data-i18n="form_requested_date" for="tDate">İstenen Tarih</label>
               <input type="date" class="form-input" id="tDate">
             </div>
             <div class="form-group full">
-              <label class="form-label" data-i18n="form_description">Açıklama</label>
+              <label class="form-label" data-i18n="form_description" for="tDesc">Açıklama</label>
               <textarea class="form-textarea" id="tDesc" data-i18n-placeholder="ph_description" placeholder="Detaylı açıklama girin..." data-i18n-placeholder="ph_3"></textarea>
             </div>
             <div class="form-group full">
-              <label class="form-label" data-i18n="form_add_photo">Fotoğraf Ekle</label>
+              <label class="form-label" data-i18n="form_add_photo" for="tPhoto">Fotoğraf Ekle</label>
               <div class="photo-upload" onclick="document.getElementById('tPhoto').click()">
-                <div style="font-size:24px;margin-bottom:8px;">📷</div>
-                <div style="font-size:var(--text-sm);color:var(--text-secondary);" data-i18n="ph_upload_photo">Fotoğraf yüklemek için tıklayın</div>
-                <div style="font-size:var(--text-xs);color:var(--text-muted);margin-top:4px;" data-i18n="ph_max_size">JPG, PNG — max 5MB</div>
+                <div style="font-size:var(--text-2xl); margin-bottom:8px">📷</div>
+                <div style="font-size:var(--text-sm); color:var(--text-secondary)" data-i18n="ph_upload_photo">Fotoğraf yüklemek için tıklayın</div>
+                <div style="font-size:var(--text-xs); color:var(--text-muted); margin-top:4px" data-i18n="ph_max_size">JPG, PNG — max 5MB</div>
                 <input type="file" id="tPhoto" accept="image/*" multiple onchange="previewPhotos(this)">
               </div>
               <div class="photo-preview" id="photoPreview"></div>
             </div>
           </div>
-          <button class="btn btn-primary" style="width:100%;margin-top:16px;" onclick="submitTicket()" data-i18n="btn_create_ticket">Talep Gönder</button>
+          <button class="btn btn-primary" style="width:100%; margin-top:16px" onclick="submitTicket()" data-i18n="btn_create_ticket">Talep Gönder</button>
         </div>
       </div>
 
@@ -391,7 +392,7 @@ body{margin:0;font-family:'Inter',sans-serif;background:var(--bg-primary);color:
         <div class="portal-card-header">
           <div class="portal-card-title" data-i18n="gelecek_randevular">📅 Gelecek Randevular</div>
         </div>
-        <div class="portal-card-body" style="padding:16px 24px;">
+        <div class="portal-card-body" style="padding:var(--space-4) var(--space-6)">
           <div class="appt-card">
             <div class="appt-date">
               <div class="appt-day">18</div>
@@ -435,14 +436,14 @@ body{margin:0;font-family:'Inter',sans-serif;background:var(--bg-primary);color:
       <div class="portal-card">
         <div class="portal-card-header">
           <div class="portal-card-title" data-i18n="destek_taleplerim">📋 Destek Taleplerim</div>
-          <span style="font-size:var(--text-xs);color:var(--text-muted);" data-i18n="son_5_talep">Son 5 talep</span>
+          <span style="font-size:var(--text-xs); color:var(--text-muted)" data-i18n="son_5_talep">Son 5 talep</span>
         </div>
-        <div class="portal-card-body" style="padding:0;">
+        <div class="portal-card-body" style="padding:0">
           <table class="portal-table" id="ticketsTable">
             <thead><tr><th>No</th><th data-i18n="form_subject">Konu</th><th data-i18n="form_status">Durum</th><th data-i18n="form_priority">Öncelik</th><th data-i18n="th_date">Tarih</th></tr></thead>
             <tbody>
-      <tr class="empty-state-row" style="display:none;">
-        <td colspan="99" style="padding:0; border:none;">
+      <tr class="empty-state-row" style="display:none">
+        <td colspan="99" style="padding:0; border:none">
           <div class="empty-state">
             <div class="empty-state-icon">📭</div>
             <div class="empty-state-title" data-i18n="empty_title">Henüz kayıt yok</div>
@@ -520,14 +521,14 @@ body{margin:0;font-family:'Inter',sans-serif;background:var(--bg-primary);color:
       <div class="portal-card">
         <div class="portal-card-header">
           <div class="portal-card-title" data-i18n="faturalar">🧾 Faturalar</div>
-          <span style="font-size:var(--text-xs);color:var(--text-muted);" data-i18n="son_6_fatura">Son 6 fatura</span>
+          <span style="font-size:var(--text-xs); color:var(--text-muted)" data-i18n="son_6_fatura">Son 6 fatura</span>
         </div>
-        <div class="portal-card-body" style="padding:0;">
+        <div class="portal-card-body" style="padding:0">
           <table class="portal-table">
             <thead><tr><th data-i18n="fatura_no">Fatura No</th><th data-i18n="th_date">Tarih</th><th data-i18n="th_amount">Tutar</th><th data-i18n="form_status">Durum</th><th data-i18n="işlem">İşlem</th></tr></thead>
             <tbody>
-      <tr class="empty-state-row" style="display:none;">
-        <td colspan="99" style="padding:0; border:none;">
+      <tr class="empty-state-row" style="display:none">
+        <td colspan="99" style="padding:0; border:none">
           <div class="empty-state">
             <div class="empty-state-icon">📭</div>
             <div class="empty-state-title" data-i18n="empty_title">Henüz kayıt yok</div>
@@ -535,12 +536,12 @@ body{margin:0;font-family:'Inter',sans-serif;background:var(--bg-primary);color:
           </div>
         </td>
       </tr>
-              <tr><td><strong data-i18n="f-2026-1020">#F-2026-1020</strong></td><td>14 Mayıs 2026</td><td style="font-weight:600;">€149</td><td><span class="badge badge-green" data-i18n="status_paid">Ödendi</span></td><td><button class="action-btn" onclick="downloadInvoice('F-2026-1020',149)" title="İndir" style="width:32px;height:32px;border-radius:var(--radius-md);background:var(--bg-tertiary);border:1px solid var(--border-color);display:flex;align-items:center;justify-content:center;color:var(--text-secondary);cursor:pointer;">⬇</button></td></tr>
-              <tr><td><strong data-i18n="f-2026-1015">#F-2026-1015</strong></td><td>7 Mayıs 2026</td><td style="font-weight:600;">€89</td><td><span class="badge badge-green" data-i18n="status_paid">Ödendi</span></td><td><button class="action-btn" onclick="downloadInvoice('F-2026-1015',89)" title="İndir" style="width:32px;height:32px;border-radius:var(--radius-md);background:var(--bg-tertiary);border:1px solid var(--border-color);display:flex;align-items:center;justify-content:center;color:var(--text-secondary);cursor:pointer;">⬇</button></td></tr>
-              <tr><td><strong data-i18n="f-2026-1008">#F-2026-1008</strong></td><td>30 Nis 2026</td><td style="font-weight:600;">€199</td><td><span class="badge badge-green" data-i18n="status_paid">Ödendi</span></td><td><button class="action-btn" onclick="downloadInvoice('F-2026-1008',199)" title="İndir" style="width:32px;height:32px;border-radius:var(--radius-md);background:var(--bg-tertiary);border:1px solid var(--border-color);display:flex;align-items:center;justify-content:center;color:var(--text-secondary);cursor:pointer;">⬇</button></td></tr>
-              <tr><td><strong data-i18n="f-2026-998">#F-2026-998</strong></td><td>23 Nis 2026</td><td style="font-weight:600;">€75</td><td><span class="badge badge-green" data-i18n="status_paid">Ödendi</span></td><td><button class="action-btn" onclick="downloadInvoice('F-2026-998',75)" title="İndir" style="width:32px;height:32px;border-radius:var(--radius-md);background:var(--bg-tertiary);border:1px solid var(--border-color);display:flex;align-items:center;justify-content:center;color:var(--text-secondary);cursor:pointer;">⬇</button></td></tr>
-              <tr><td><strong data-i18n="f-2026-985">#F-2026-985</strong></td><td>10 Nis 2026</td><td style="font-weight:600;">€45</td><td><span class="badge badge-green" data-i18n="status_paid">Ödendi</span></td><td><button class="action-btn" onclick="downloadInvoice('F-2026-985',45)" title="İndir" style="width:32px;height:32px;border-radius:var(--radius-md);background:var(--bg-tertiary);border:1px solid var(--border-color);display:flex;align-items:center;justify-content:center;color:var(--text-secondary);cursor:pointer;">⬇</button></td></tr>
-              <tr><td><strong data-i18n="f-2026-1024">#F-2026-1024</strong></td><td>18 Mayıs 2026</td><td style="font-weight:600;">€449</td><td><span class="badge badge-amber" data-i18n="bekliyor">Bekliyor</span></td><td><button class="action-btn" onclick="downloadInvoice('F-2026-1024',449)" title="İndir" style="width:32px;height:32px;border-radius:var(--radius-md);background:var(--bg-tertiary);border:1px solid var(--border-color);display:flex;align-items:center;justify-content:center;color:var(--text-secondary);cursor:pointer;">⬇</button></td></tr>
+              <tr><td><strong data-i18n="f-2026-1020">#F-2026-1020</strong></td><td>14 Mayıs 2026</td><td style="font-weight:600">€149</td><td><span class="badge badge-green" data-i18n="status_paid">Ödendi</span></td><td><button class="action-btn" onclick="downloadInvoice('F-2026-1020',149)" title="İndir" style="width:32px; height:32px; border-radius:var(--radius-md); background:var(--bg-tertiary); border:1px solid var(--border-color); display:flex; align-items:center; justify-content:center; color:var(--text-secondary); cursor:pointer" aria-label="İndir">⬇</button></td></tr>
+              <tr><td><strong data-i18n="f-2026-1015">#F-2026-1015</strong></td><td>7 Mayıs 2026</td><td style="font-weight:600">€89</td><td><span class="badge badge-green" data-i18n="status_paid">Ödendi</span></td><td><button class="action-btn" onclick="downloadInvoice('F-2026-1015',89)" title="İndir" style="width:32px; height:32px; border-radius:var(--radius-md); background:var(--bg-tertiary); border:1px solid var(--border-color); display:flex; align-items:center; justify-content:center; color:var(--text-secondary); cursor:pointer" aria-label="İndir">⬇</button></td></tr>
+              <tr><td><strong data-i18n="f-2026-1008">#F-2026-1008</strong></td><td>30 Nis 2026</td><td style="font-weight:600">€199</td><td><span class="badge badge-green" data-i18n="status_paid">Ödendi</span></td><td><button class="action-btn" onclick="downloadInvoice('F-2026-1008',199)" title="İndir" style="width:32px; height:32px; border-radius:var(--radius-md); background:var(--bg-tertiary); border:1px solid var(--border-color); display:flex; align-items:center; justify-content:center; color:var(--text-secondary); cursor:pointer" aria-label="İndir">⬇</button></td></tr>
+              <tr><td><strong data-i18n="f-2026-998">#F-2026-998</strong></td><td>23 Nis 2026</td><td style="font-weight:600">€75</td><td><span class="badge badge-green" data-i18n="status_paid">Ödendi</span></td><td><button class="action-btn" onclick="downloadInvoice('F-2026-998',75)" title="İndir" style="width:32px; height:32px; border-radius:var(--radius-md); background:var(--bg-tertiary); border:1px solid var(--border-color); display:flex; align-items:center; justify-content:center; color:var(--text-secondary); cursor:pointer" aria-label="İndir">⬇</button></td></tr>
+              <tr><td><strong data-i18n="f-2026-985">#F-2026-985</strong></td><td>10 Nis 2026</td><td style="font-weight:600">€45</td><td><span class="badge badge-green" data-i18n="status_paid">Ödendi</span></td><td><button class="action-btn" onclick="downloadInvoice('F-2026-985',45)" title="İndir" style="width:32px; height:32px; border-radius:var(--radius-md); background:var(--bg-tertiary); border:1px solid var(--border-color); display:flex; align-items:center; justify-content:center; color:var(--text-secondary); cursor:pointer" aria-label="İndir">⬇</button></td></tr>
+              <tr><td><strong data-i18n="f-2026-1024">#F-2026-1024</strong></td><td>18 Mayıs 2026</td><td style="font-weight:600">€449</td><td><span class="badge badge-amber" data-i18n="bekliyor">Bekliyor</span></td><td><button class="action-btn" onclick="downloadInvoice('F-2026-1024',449)" title="İndir" style="width:32px; height:32px; border-radius:var(--radius-md); background:var(--bg-tertiary); border:1px solid var(--border-color); display:flex; align-items:center; justify-content:center; color:var(--text-secondary); cursor:pointer" aria-label="İndir">⬇</button></td></tr>
             </tbody>
           </table>
         </div>
@@ -551,9 +552,9 @@ body{margin:0;font-family:'Inter',sans-serif;background:var(--bg-primary);color:
         <div class="portal-card">
           <div class="portal-card-header">
             <div class="portal-card-title" data-i18n="mayıs_2026">📆 Mayıs 2026</div>
-            <div style="display:flex;gap:8px;">
-              <button style="background:none;border:none;color:var(--text-muted);cursor:pointer;font-size:16px;" onclick="changeMonth(-1)">◀</button>
-              <button style="background:none;border:none;color:var(--text-muted);cursor:pointer;font-size:16px;" onclick="changeMonth(1)">▶</button>
+            <div style="display:flex; gap:var(--space-2)">
+              <button style="background:none; border:none; color:var(--text-muted); cursor:pointer; font-size:var(--text-base)" onclick="changeMonth(-1)">◀</button>
+              <button style="background:none; border:none; color:var(--text-muted); cursor:pointer; font-size:var(--text-base)" onclick="changeMonth(1)">▶</button>
             </div>
           </div>
           <div class="portal-card-body">
@@ -565,21 +566,21 @@ body{margin:0;font-family:'Inter',sans-serif;background:var(--bg-primary);color:
               <div class="cal-day">19</div><div class="cal-day">20</div><div class="cal-day">21</div><div class="cal-day event">22</div><div class="cal-day">23</div><div class="cal-day">24</div><div class="cal-day event">25</div>
               <div class="cal-day">26</div><div class="cal-day">27</div><div class="cal-day">28</div><div class="cal-day">29</div><div class="cal-day">30</div><div class="cal-day">31</div><div class="cal-day empty"></div>
             </div>
-            <div style="margin-top:12px;display:flex;gap:12px;align-items:center;justify-content:center;font-size:var(--text-xs);color:var(--text-muted);">
+            <div style="margin-top:12px; display:flex; gap:var(--space-3); align-items:center; justify-content:center; font-size:var(--text-xs); color:var(--text-muted)">
               <span data-i18n="bugün">🔵 Bugün</span><span data-i18n="randevu">🟡 Randevu</span>
             </div>
           </div>
         </div>
 
-        <div class="portal-card" style="margin-top:24px;">
+        <div class="portal-card" style="margin-top:24px">
           <div class="portal-card-header">
             <div class="portal-card-title" data-i18n="hızlı_işlemler">⚡ Hızlı İşlemler</div>
           </div>
           <div class="portal-card-body">
-            <div style="display:flex;flex-direction:column;gap:10px;">
-              <button class="btn btn-primary" style="justify-content:flex-start;" onclick="showToast('Yeni randevu talebi gönderildi', 'success')" data-i18n="yeni_randevu_talep_et">📅 Yeni Randevu Talep Et</button>
-              <button class="btn btn-secondary" style="justify-content:flex-start;" onclick="showToast('Teklif talebiniz alındı', 'success')" data-i18n="teklif_iste">📄 Teklif İste</button>
-              <button class="btn btn-secondary" style="justify-content:flex-start;" onclick="showToast('Canlı destek bağlantısı hazırlanıyor...', 'info')" data-i18n="canlı_destek">💬 Canlı Destek</button>
+            <div style="display:flex; flex-direction:column; gap:var(--space-3)">
+              <button class="btn btn-primary" style="justify-content:flex-start" onclick="showToast('Yeni randevu talebi gönderildi', 'success')" data-i18n="yeni_randevu_talep_et" aria-label="Bildirimler">📅 Yeni Randevu Talep Et</button>
+              <button class="btn btn-secondary" style="justify-content:flex-start" onclick="showToast('Teklif talebiniz alındı', 'success')" data-i18n="teklif_iste" aria-label="Bildirimler">📄 Teklif İste</button>
+              <button class="btn btn-secondary" style="justify-content:flex-start" onclick="showToast('Canlı destek bağlantısı hazırlanıyor...', 'info')" data-i18n="canlı_destek" aria-label="Bildirimler">💬 Canlı Destek</button>
             </div>
           </div>
         </div>

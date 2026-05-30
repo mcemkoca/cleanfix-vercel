@@ -8,30 +8,9 @@
 <link rel="stylesheet" href="css/main.css">
 <link rel="stylesheet" href="css/components.css">
 <style>
-.dashboard{display:flex;min-height:100vh;background:var(--bg-primary);}
-.sidebar{width:280px;height:100vh;background:var(--bg-card);border-right:1px solid var(--border-color);display:flex;flex-direction:column;position:fixed;left:0;top:0;z-index:100;transition:transform var(--duration-slow) var(--ease-out);}
-.sidebar-header{padding:20px 24px;border-bottom:1px solid var(--border-color);display:flex;align-items:center;gap:12px;}
-.sidebar-logo{width:36px;height:36px;background:linear-gradient(135deg,var(--teal-500),var(--teal-700));border-radius:10px;display:flex;align-items:center;justify-content:center;font-weight:700;color: white;font-size:14px;}
-.sidebar-nav{flex:1;overflow-y:auto;padding:16px 12px;}
-.nav-group{margin-bottom:8px;}
-.nav-group-header{display:flex;align-items:center;gap:8px;padding:8px 12px;font-size:var(--text-xs);font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.05em;}
-.nav-item{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:var(--radius-md);color:var(--text-secondary);font-size:var(--text-sm);font-weight:500;cursor:pointer;transition:all var(--duration-fast);text-decoration:none;margin-bottom:2px;}
-.nav-item:hover{background:var(--bg-tertiary);color:var(--text-primary);}
-.nav-item.active{background:rgba(20,184,166,0.1);color:var(--teal-500);}
-.nav-icon{width:20px;height:20px;opacity:0.7;}
-.nav-item.active .nav-icon{opacity:1;}
-.main-content{flex:1;margin-left:280px;min-height:100vh;}
-.header{height:64px;background:var(--bg-card);border-bottom:1px solid var(--border-color);display:flex;align-items:center;justify-content:space-between;padding:0 32px;position:sticky;top:0;z-index:50;}
-.header-left{display:flex;align-items:center;gap:16px;}
-.hamburger{display:none;background:none;border:none;color:var(--text-secondary);cursor:pointer;padding:8px;}
-.page-title{font-size:var(--text-lg);font-weight:700;}
-.header-right{display:flex;align-items:center;gap:16px;}
-.header-btn{width:36px;height:36px;border-radius:var(--radius-md);background:var(--bg-tertiary);border:1px solid var(--border-color);display:flex;align-items:center;justify-content:center;color:var(--text-secondary);cursor:pointer;transition:all var(--duration-fast);}
-.header-btn:hover{border-color:var(--teal-500);color:var(--teal-500);}
-.content{padding:32px;max-width:800px;margin:0 auto;}
 .profile-header{background:var(--bg-card);border:1px solid var(--border-color);border-radius:var(--radius-xl);padding:32px;text-align:center;margin-bottom:24px;position:relative;overflow:hidden;}
 .profile-header::before{content:'';position:absolute;top:0;left:0;right:0;height:120px;background:linear-gradient(135deg,rgba(20,184,166,0.15),rgba(139,92,246,0.1));}
-.profile-logo{width:80px;height:80px;background:linear-gradient(135deg,var(--teal-500),var(--teal-700));border-radius:var(--radius-xl);display:flex;align-items:center;justify-content:center;font-weight:700;color: white;font-size:28px;margin:0 auto 16px;position:relative;z-index:1;box-shadow:0 8px 32px rgba(20,184,166,0.3);}
+.profile-logo{width:80px;height:80px;background:linear-gradient(135deg,var(--teal-500),var(--teal-700));border-radius:var(--radius-xl);display:flex;align-items:center;justify-content:center;font-weight:700;color: var(--text-primary);font-size:28px;margin:0 auto 16px;position:relative;z-index:1;box-shadow:0 8px 32px rgba(20,184,166,0.3);}
 .profile-name{font-size:var(--text-xl);font-weight:700;margin-bottom:4px;position:relative;z-index:1;}
 .profile-meta{font-size:var(--text-sm);color:var(--text-muted);position:relative;z-index:1;}
 .plan-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 16px;border-radius:9999px;background:rgba(20,184,166,0.1);color:var(--teal-500);font-size:var(--text-xs);font-weight:600;margin-top:12px;position:relative;z-index:1;}
@@ -45,29 +24,17 @@
 .form-input:focus{border-color:var(--teal-500);box-shadow:0 0 0 3px var(--shadow-glow);outline:none;}
 .form-input:read-only{background:var(--bg-tertiary);color:var(--text-muted);cursor:not-allowed;}
 .form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
-.save-btn{width:100%;padding:14px;background:var(--teal-500);color: white;border:none;border-radius:var(--radius-md);font-size:var(--text-base);font-weight:600;cursor:pointer;transition:all var(--duration-fast);}
+.save-btn{width:100%;padding:14px;background:var(--teal-500);color: var(--text-primary);border:none;border-radius:var(--radius-md);font-size:var(--text-base);font-weight:600;cursor:pointer;transition:all var(--duration-fast);}
 .save-btn:hover{background:var(--teal-600);}
 .info-row{display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px solid var(--border-color);}
 .info-row:last-child{border-bottom:none;}
 .info-label{font-size:var(--text-sm);color:var(--text-muted);}
 .info-value{font-size:var(--text-sm);font-weight:600;color:var(--text-primary);}
 @media (max-width:1024px){.form-row{grid-template-columns:1fr;}}
-@media (max-width:768px){.sidebar{transform:translateX(-100%);}.sidebar.open{transform:translateX(0);}.main-content{margin-left:0;}.hamburger{display:block;}}
-
-@media (max-width: 768px) {
-  .content { padding: 16px !important; }
-  .grid, .card-grid, .stats-grid, .table-wrap { overflow-x: auto !important; -webkit-overflow-scrolling: touch; }
-  .table-wrap table { min-width: 640px; }
-  .modal { max-width: calc(100vw - 32px) !important; margin: 0 16px; }
-  .toolbar { flex-direction: column !important; align-items: stretch !important; gap: 12px !important; }
-}
-@media (max-width: 480px) {
-  .content { padding: 12px !important; }
-  .page-title { font-size: var(--text-base) !important; }
-  .modal { max-width: calc(100vw - 24px) !important; margin: 0 12px; }
-  .btn { padding: 10px 14px !important; font-size: 13px !important; }
-}
+@media (max-width: 768px){.grid, .card-grid, .stats-grid, .table-wrap{ overflow-x: auto !important; -webkit-overflow-scrolling: touch; }.table-wrap table{ min-width: 640px; }.modal{ max-width: calc(100vw - 32px) !important; margin: 0 16px; }.toolbar{ flex-direction: column !important; align-items: stretch !important; gap: 12px !important; }}
+@media (max-width: 480px){.modal{ max-width: calc(100vw - 24px) !important; margin: 0 12px; }.btn{ padding: 10px 14px !important; font-size: 13px !important; }}
 </style>
+<link rel="stylesheet" href="css/dashboard.css">
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#0d9488">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -135,13 +102,14 @@
 })();
 </script>
 <body>
+<a href="#main-content" class="skip-link">Ana içeriğe atla</a>
 <script src="js/auth.js"></script>
 <script>checkAuth(['admin','company']);</script>
 <div class="dashboard">
   <aside class="sidebar" id="sidebar">
     <div class="sidebar-header">
       <div class="sidebar-logo">CF</div>
-      <div><div style="font-weight:700;font-size:var(--text-sm);">CleanFix</div><div style="font-size:var(--text-xs);color:var(--text-muted);">Firma Paneli</div></div>
+      <div><div style="font-weight:700; font-size:var(--text-sm)">CleanFix</div><div style="font-size:var(--text-xs); color:var(--text-muted)">Firma Paneli</div></div>
     </div>
     <nav role="navigation" aria-label="Main navigation" class="sidebar-nav">
       <div class="nav-group">
@@ -163,12 +131,12 @@
   <main role="main" class="main-content">
     <header role="banner" class="header">
       <div class="header-left">
-        <button class="hamburger" onclick="document.getElementById('sidebar').classList.toggle('open')"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
+        <button class="hamburger" onclick="document.getElementById('sidebar').classList.toggle('open')" aria-label="Menüyü aç"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
         <h1 class="page-title">Firma Profili</h1>
       </div>
       <div class="header-right">
-        <button class="header-btn" onclick="showToast('Profil güncellendi','success')"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></button>
-        <div style="display:flex;align-items:center;gap:10px;"><div class="avatar" style="width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:var(--text-xs);color: white;background:linear-gradient(135deg,var(--teal-500),var(--teal-600));">CF</div><div><div style="font-weight:600;font-size:var(--text-sm);">CleanFix Demo BV</div><div style="font-size:var(--text-xs);color:var(--text-muted);">Business Plan</div></div></div>
+        <button class="header-btn" onclick="showToast('Profil güncellendi','success')" aria-label="Bildirimler"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></button>
+        <div style="display:flex; align-items:center; gap:var(--space-3)"><div class="avatar" style="width:36px; height:36px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:600; font-size:var(--text-xs); color:var(--text-primary); background:linear-gradient(135deg,var(--teal-500),var(--teal-600))">CF</div><div><div style="font-weight:600; font-size:var(--text-sm)">CleanFix Demo BV</div><div style="font-size:var(--text-xs); color:var(--text-muted)">Business Plan</div></div></div>
       </div>
     </header>
 
@@ -184,25 +152,25 @@
       </div>
 
       <div class="card">
-        <div class="card-header"><span class="card-title">Genel Bilgiler</span><span style="font-size:var(--text-xs);color:var(--text-muted);">Son güncelleme: 12 Mayıs 2026</span></div>
+        <div class="card-header"><span class="card-title">Genel Bilgiler</span><span style="font-size:var(--text-xs); color:var(--text-muted)">Son güncelleme: 12 Mayıs 2026</span></div>
         <div class="card-body">
           <div class="form-row">
             <div class="form-group">
-              <label class="form-label">Firma Adı</label>
+              <label class="form-label" for="companyName">Firma Adı</label>
               <input type="text" class="form-input" value="CleanFix Demo BV" id="companyName">
             </div>
             <div class="form-group">
-              <label class="form-label">Firma Kodu</label>
+              <label class="form-label" for="vatNumber">Firma Kodu</label>
               <input type="text" class="form-input" value="CLEAN-001" readonly>
             </div>
           </div>
           <div class="form-row">
             <div class="form-group">
-              <label class="form-label">Vergi No (VAT/BTW)</label>
+              <label class="form-label" for="vatNumber">Vergi No (VAT/BTW)</label>
               <input type="text" class="form-input" value="BE 0123.456.789" id="vatNumber">
             </div>
             <div class="form-group">
-              <label class="form-label">Sektör</label>
+              <label class="form-label" for="sector">Sektör</label>
               <select class="form-input" id="sector">
                 <option selected>Oto Kuaför / Detailing</option>
                 <option>Güzellik Salonu</option>
@@ -213,8 +181,8 @@
             </div>
           </div>
           <div class="form-group">
-            <label class="form-label">Firma Açıklaması</label>
-            <textarea class="form-input" rows="3" id="description" style="resize:vertical;">Brüksel merkezli premium oto kuaför ve detailing hizmetleri. 2019'dan beri müşterilerimize en kaliteli hizmeti sunuyoruz.</textarea>
+            <label class="form-label" for="description">Firma Açıklaması</label>
+            <textarea class="form-input" rows="3" id="description" style="resize:vertical">Brüksel merkezli premium oto kuaför ve detailing hizmetleri. 2019'dan beri müşterilerimize en kaliteli hizmeti sunuyoruz.</textarea>
           </div>
         </div>
       </div>
@@ -224,30 +192,30 @@
         <div class="card-body">
           <div class="form-row">
             <div class="form-group">
-              <label class="form-label">E-posta</label>
+              <label class="form-label" for="email">E-posta</label>
               <input type="email" class="form-input" value="info@cleanfix.demo" id="email">
             </div>
             <div class="form-group">
-              <label class="form-label">Telefon</label>
+              <label class="form-label" for="phone">Telefon</label>
               <input type="tel" class="form-input" value="+32 2 123 45 67" id="phone">
             </div>
           </div>
           <div class="form-group">
-            <label class="form-label">Adres</label>
+            <label class="form-label" for="address">Adres</label>
             <input type="text" class="form-input" value="Rue de la Loi 155, 1040 Bruxelles" id="address">
           </div>
           <div class="form-row">
             <div class="form-group">
-              <label class="form-label">Şehir</label>
+              <label class="form-label" for="city">Şehir</label>
               <input type="text" class="form-input" value="Brüksel" id="city">
             </div>
             <div class="form-group">
-              <label class="form-label">Ülke</label>
+              <label class="form-label" for="country">Ülke</label>
               <input type="text" class="form-input" value="Belçika" id="country">
             </div>
           </div>
           <div class="form-group">
-            <label class="form-label">Web Sitesi</label>
+            <label class="form-label" for="website">Web Sitesi</label>
             <input type="url" class="form-input" value="https://cleanfix.demo" id="website">
           </div>
         </div>
@@ -256,7 +224,7 @@
       <div class="card">
         <div class="card-header"><span class="card-title">Abonelik Bilgileri</span></div>
         <div class="card-body">
-          <div class="info-row"><span class="info-label">Mevcut Plan</span><span class="info-value" style="color:var(--teal-500);">Business — €79/ay</span></div>
+          <div class="info-row"><span class="info-label">Mevcut Plan</span><span class="info-value" style="color:var(--teal-500)">Business — €79/ay</span></div>
           <div class="info-row"><span class="info-label">Başlangıç Tarihi</span><span class="info-value">1 Ocak 2025</span></div>
           <div class="info-row"><span class="info-label">Sonraki Fatura</span><span class="info-value">1 Haziran 2026</span></div>
           <div class="info-row"><span class="info-label">Kullanıcı Limiti</span><span class="info-value">8 / 25</span></div>
@@ -270,7 +238,7 @@
   </main>
 </div>
 
-<div class="toast-container" id="toastContainer" style="position:fixed;top:20px;right:20px;z-index:300;"></div>
+<div class="toast-container" id="toastContainer" style="position:fixed; top:20px; right:20px; z-index:300"></div>
 
 <script>
 function saveProfile(){

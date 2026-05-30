@@ -15,7 +15,7 @@
 .sidebar.collapsed { transform:translateX(-100%); }
 .sidebar-header { padding:var(--space-5); border-bottom:1px solid var(--border-color); }
 .sidebar-logo { display:flex; align-items:center; gap:var(--space-3); }
-.sidebar-logo .logo-icon { width:40px; height:40px; background:linear-gradient(135deg,var(--teal-500),var(--teal-700)); border-radius:var(--radius-md); display:flex; align-items:center; justify-content:center; font-size:16px; font-weight:700; color: white; }
+.sidebar-logo .logo-icon { width:40px; height:40px; background:linear-gradient(135deg,var(--teal-500),var(--teal-700)); border-radius:var(--radius-md); display:flex; align-items:center; justify-content:center; font-size:16px; font-weight:700; color: var(--text-primary); }
 .sidebar-logo h2 { font-size:var(--text-base); font-weight:700; }
 .sidebar-logo p { font-size:var(--text-xs); color:var(--text-muted); }
 .sidebar-nav { flex:1; overflow-y:auto; padding:var(--space-3); }
@@ -61,7 +61,7 @@
 .customer-header { display:flex; align-items:center; gap:var(--space-4); margin-bottom:var(--space-4); }
 .customer-avatar {
   width:52px; height:52px; border-radius:50%; display:flex; align-items:center; justify-content:center;
-  font-weight:700; color: white; font-size:var(--text-lg); flex-shrink:0;
+  font-weight:700; color: var(--text-primary); font-size:var(--text-lg); flex-shrink:0;
 }
 .customer-info h3 { font-size:var(--text-base); font-weight:600; margin-bottom:2px; }
 .customer-info p { font-size:var(--text-xs); color:var(--text-muted); }
@@ -153,6 +153,7 @@
 })();
 </script>
 <body>
+<a href="#main-content" class="skip-link">Ana içeriğe atla</a>
 <script>checkAuth('admin');</script>
 <div class="sidebar-overlay" id="sidebarOverlay"></div>
 <div class="dashboard">
@@ -224,11 +225,11 @@
 <div class="main">
   <header role="banner" class="header">
     <div class="header-left">
-      <button class="menu-btn" id="menuBtn" onclick="document.getElementById('sidebar').classList.toggle('open')"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
+      <button class="menu-btn" id="menuBtn" onclick="document.getElementById('sidebar').classList.toggle('open')" aria-label="Menüyü aç"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
       <h1 class="page-title">Müşteriler</h1>
     </div>
     <div class="header-right">
-      <button class="header-btn" id="themeToggle"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/></svg></button>
+      <button class="header-btn" id="themeToggle" aria-label="Tema değiştir"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/></svg></button>
       <button class="header-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg><span class="dot"></span></button>
       <div class="avatar avatar-sm">JW</div>
     </div>
@@ -237,25 +238,23 @@
   <main role="main" class="content">
     <div class="page-header">
       <div>
-        <h2 style="font-size:var(--text-2xl);font-weight:700;">Müşteri Yönetimi</h2>
-        <p style="font-size:var(--text-sm);color:var(--text-muted);margin-top:4px;">156 kayıtlı müşteri • Toplam harcama: €124.847</p>
+        <h2 style="font-size:var(--text-2xl); font-weight:700">Müşteri Yönetimi</h2>
+        <p style="font-size:var(--text-sm); color:var(--text-muted); margin-top:4px">156 kayıtlı müşteri • Toplam harcama: €124.847</p>
       </div>
       <div class="page-actions">
         <div class="view-toggle">
           <button class="active" onclick="switchView('grid')" id="btnGrid">📋 Kart</button>
           <button onclick="switchView('table')" id="btnTable">☰ Liste</button>
         </div>
-        <button class="btn btn-primary" onclick="showToast('Yeni müşteri modalı açılıyor...','info')">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-          Müşteri Ekle
-        </button>
+        <button class="btn btn-primary" onclick="showToast('Yeni müşteri modalı açılıyor...','info')" aria-label="Bildirimler"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          Müşteri Ekle</button>
       </div>
     </div>
 
     <div class="filter-bar">
-      <div class="search-input" style="flex:1;">
+      <div class="search-input" style="flex:1">
         <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-        <input type="text" class="form-input" placeholder="Müşteri ara..." id="customerSearch" onkeyup="filterCustomers()" style="padding-left:36px;">
+        <input type="text" class="form-input" placeholder="Müşteri ara..." id="customerSearch" onkeyup="filterCustomers()" style="padding-left:36px">
       </div>
       <select class="form-select" id="cityFilter" onchange="filterCustomers()">
         <option value="">Tüm Şehirler</option>
@@ -276,7 +275,7 @@
     <div class="customer-grid" id="customerGrid">
       <div class="customer-card" data-name="Jan Wouters" data-city="Brüksel" data-status="vip">
         <div class="customer-header">
-          <div class="customer-avatar" style="background:linear-gradient(135deg,#3b82f6,#1d4ed8);">JW</div>
+          <div class="customer-avatar" style="background:linear-gradient(135deg,#3b82f6,#1d4ed8)">JW</div>
           <div class="customer-info">
             <h3>Jan Wouters</h3>
             <p>jan@email.be • +32 470 12 34 56</p>
@@ -295,7 +294,7 @@
       </div>
       <div class="customer-card" data-name="Marie Dubois" data-city="Anvers" data-status="active">
         <div class="customer-header">
-          <div class="customer-avatar" style="background:linear-gradient(135deg,#ec4899,#be185d);">MD</div>
+          <div class="customer-avatar" style="background:linear-gradient(135deg,#ec4899,#be185d)">MD</div>
           <div class="customer-info">
             <h3>Marie Dubois</h3>
             <p>marie@email.be • +32 471 23 45 67</p>
@@ -313,7 +312,7 @@
       </div>
       <div class="customer-card" data-name="Piet Vermeulen" data-city="Gent" data-status="vip">
         <div class="customer-header">
-          <div class="customer-avatar" style="background:linear-gradient(135deg,#10b981,#047857);">PV</div>
+          <div class="customer-avatar" style="background:linear-gradient(135deg,#10b981,#047857)">PV</div>
           <div class="customer-info">
             <h3>Piet Vermeulen</h3>
             <p>piet@email.be • +32 472 34 56 78</p>
@@ -332,7 +331,7 @@
       </div>
       <div class="customer-card" data-name="Luc Laurent" data-city="Brüksel" data-status="new">
         <div class="customer-header">
-          <div class="customer-avatar" style="background:linear-gradient(135deg,var(--amber-500),var(--amber-600));">LL</div>
+          <div class="customer-avatar" style="background:linear-gradient(135deg,var(--amber-500),var(--amber-600))">LL</div>
           <div class="customer-info">
             <h3>Luc Laurent</h3>
             <p>luc@email.be • +32 473 45 67 89</p>
@@ -351,7 +350,7 @@
       </div>
       <div class="customer-card" data-name="Sophie Dewitt" data-city="Leuven" data-status="active">
         <div class="customer-header">
-          <div class="customer-avatar" style="background:linear-gradient(135deg,#8b5cf6,#6d28d9);">SD</div>
+          <div class="customer-avatar" style="background:linear-gradient(135deg,#8b5cf6,#6d28d9)">SD</div>
           <div class="customer-info">
             <h3>Sophie Dewitt</h3>
             <p>sophie@email.be • +32 474 56 78 90</p>
@@ -369,7 +368,7 @@
       </div>
       <div class="customer-card" data-name="Anna Peeters" data-city="Brüksel" data-status="active">
         <div class="customer-header">
-          <div class="customer-avatar" style="background:linear-gradient(135deg,#ef4444,#b91c1c);">AP</div>
+          <div class="customer-avatar" style="background:linear-gradient(135deg,#ef4444,#b91c1c)">AP</div>
           <div class="customer-info">
             <h3>Anna Peeters</h3>
             <p>anna@email.be • +32 475 67 89 01</p>
@@ -387,7 +386,7 @@
       </div>
       <div class="customer-card" data-name="Thomas Janssens" data-city="Anvers" data-status="active">
         <div class="customer-header">
-          <div class="customer-avatar" style="background:linear-gradient(135deg,#06b6d4,#0891b2);">TJ</div>
+          <div class="customer-avatar" style="background:linear-gradient(135deg,#06b6d4,#0891b2)">TJ</div>
           <div class="customer-info">
             <h3>Thomas Janssens</h3>
             <p>thomas@email.be • +32 476 78 90 12</p>
@@ -405,7 +404,7 @@
       </div>
       <div class="customer-card" data-name="Emma Maes" data-city="Gent" data-status="new">
         <div class="customer-header">
-          <div class="customer-avatar" style="background:linear-gradient(135deg,#84cc16,#65a30d);">EM</div>
+          <div class="customer-avatar" style="background:linear-gradient(135deg,#84cc16,#65a30d)">EM</div>
           <div class="customer-info">
             <h3>Emma Maes</h3>
             <p>emma@email.be • +32 477 89 01 23</p>
@@ -425,7 +424,7 @@
     </div>
 
     <!-- Table View (hidden by default) -->
-    <div class="table-wrap" id="customerTable" style="display:none;">
+    <div class="table-wrap" id="customerTable" style="display:none">
       <table class="table">
         <thead>
           <tr>
@@ -433,8 +432,8 @@
           </tr>
         </thead>
         <tbody>
-      <tr class="empty-state-row" style="display:none;">
-        <td colspan="99" style="padding:0; border:none;">
+      <tr class="empty-state-row" style="display:none">
+        <td colspan="99" style="padding:0; border:none">
           <div class="empty-state">
             <div class="empty-state-icon">📭</div>
             <div class="empty-state-title" data-i18n="empty_title">Henüz kayıt yok</div>

@@ -8,30 +8,8 @@
 <link rel="stylesheet" href="css/main.css">
 <link rel="stylesheet" href="css/components.css">
 <style>
-@keyframes cfToastIn { from { transform:translateX(120%); opacity:0; } to { transform:translateX(0); opacity:1; } }
-@keyframes cfToastOut { from { transform:translateX(0); opacity:1; } to { transform:translateX(120%); opacity:0; } }
-.dashboard{display:flex;min-height:100vh;background:var(--bg-primary);}
-.sidebar{width:280px;height:100vh;background:var(--bg-card);border-right:1px solid var(--border-color);display:flex;flex-direction:column;position:fixed;left:0;top:0;z-index:100;transition:transform var(--duration-slow) var(--ease-out);}
-.sidebar-header{padding:20px 24px;border-bottom:1px solid var(--border-color);display:flex;align-items:center;gap:12px;}
-.sidebar-logo{width:36px;height:36px;background:linear-gradient(135deg,var(--teal-500),var(--teal-700));border-radius:10px;display:flex;align-items:center;justify-content:center;font-weight:700;color: white;font-size:14px;}
-.sidebar-nav{flex:1;overflow-y:auto;padding:16px 12px;}
-.nav-group{margin-bottom:8px;}
-.nav-group-header{display:flex;align-items:center;gap:8px;padding:8px 12px;font-size:var(--text-xs);font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.05em;}
-.nav-label{display:flex;align-items:center;gap:8px;padding:8px 12px;font-size:var(--text-xs);font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.05em;}
-.nav-item{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:var(--radius-md);color:var(--text-secondary);font-size:var(--text-sm);font-weight:500;cursor:pointer;transition:all var(--duration-fast);text-decoration:none;margin-bottom:2px;}
-.nav-item:hover{background:var(--bg-tertiary);color:var(--text-primary);}
-.nav-item.active{background:rgba(20,184,166,0.1);color:var(--teal-500);}
-.nav-icon{width:20px;height:20px;opacity:0.7;}
-.nav-item.active .nav-icon{opacity:1;}
-.main-content{flex:1;margin-left:280px;min-height:100vh;}
-.header{height:64px;background:var(--bg-card);border-bottom:1px solid var(--border-color);display:flex;align-items:center;justify-content:space-between;padding:0 32px;position:sticky;top:0;z-index:50;}
-.header-left{display:flex;align-items:center;gap:16px;}
-.hamburger{display:none;background:none;border:none;color:var(--text-secondary);cursor:pointer;padding:8px;}
-.page-title{font-size:var(--text-lg);font-weight:700;}
-.header-right{display:flex;align-items:center;gap:16px;}
-.header-btn{width:36px;height:36px;border-radius:var(--radius-md);background:var(--bg-tertiary);border:1px solid var(--border-color);display:flex;align-items:center;justify-content:center;color:var(--text-secondary);cursor:pointer;transition:all var(--duration-fast);}
-.header-btn:hover{border-color:var(--teal-500);color:var(--teal-500);}
-.content{padding:32px;max-width:1400px;}
+@keyframes cfToastIn{ from { transform:translateX(120%); opacity:0; } to { transform:translateX(0); opacity:1; } }
+@keyframes cfToastOut{ from { transform:translateX(0); opacity:1; } to { transform:translateX(120%); opacity:0; } }
 .toolbar{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:24px;flex-wrap:wrap;}
 .search-box{flex:1;min-width:240px;position:relative;}
 .search-box input{width:100%;padding:10px 14px 10px 38px;background:var(--bg-card);border:1.5px solid var(--border-color);border-radius:var(--radius-md);color:var(--text-primary);font-size:var(--text-sm);}
@@ -59,11 +37,11 @@
 .action-btn.delete:hover{color:var(--error-500);background:rgba(244,63,94,0.1);}
 .action-btn.assign:hover{color:var(--teal-500);background:rgba(20,184,166,0.1);}
 .btn{display:inline-flex;align-items:center;gap:6px;padding:10px 18px;border-radius:var(--radius-md);font-size:var(--text-sm);font-weight:600;cursor:pointer;transition:all var(--duration-fast);border:none;}
-.btn-primary{background:linear-gradient(135deg,var(--teal-500),var(--teal-700));color: white;}
+.btn-primary{background:linear-gradient(135deg,var(--teal-500),var(--teal-700));color: var(--text-primary);}
 .btn-primary:hover{transform:translateY(-1px);box-shadow:0 4px 12px rgba(20,184,166,0.3);}
 .btn-secondary{background:var(--bg-tertiary);color:var(--text-secondary);border:1px solid var(--border-color);}
 .btn-secondary:hover{background:var(--bg-hover);color:var(--text-primary);}
-.btn-danger{background:var(--error-500);color: white;}
+.btn-danger{background:var(--error-500);color: var(--text-primary);}
 .btn-danger:hover{background:var(--error-600);}
 .btn-sm{padding:6px 12px;font-size:var(--text-xs);}
 .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:200;display:none;align-items:center;justify-content:center;backdrop-filter:blur(4px);}
@@ -85,7 +63,6 @@
 textarea.form-input{resize:vertical;}
 .form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
 .form-row-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;}
-
 /* Category Section */
 .category-list{display:flex;flex-direction:column;gap:8px;}
 .category-item{background:var(--bg-card);border:1px solid var(--border-color);border-radius:var(--radius-lg);overflow:hidden;transition:all var(--duration-fast);}
@@ -109,7 +86,6 @@ textarea.form-input{resize:vertical;}
 .subservice-name{font-weight:500;font-size:var(--text-sm);}
 .subservice-meta{font-size:var(--text-xs);color:var(--text-muted);margin-top:2px;}
 .subservice-price{font-weight:600;color:var(--teal-500);font-size:var(--text-sm);}
-
 /* Assign Modal Companies */
 .company-assign-list{display:flex;flex-direction:column;gap:8px;}
 .company-assign-item{display:flex;align-items:center;justify-content:space-between;padding:12px 14px;background:var(--bg-tertiary);border:1px solid var(--border-color);border-radius:var(--radius-md);}
@@ -117,26 +93,9 @@ textarea.form-input{resize:vertical;}
 .company-assign-name{font-weight:500;font-size:var(--text-sm);}
 .company-assign-type{font-size:var(--text-xs);color:var(--text-muted);}
 .assign-checkbox{width:20px;height:20px;accent-color:var(--teal-500);cursor:pointer;}
-
 @media (max-width:1024px){.form-row,.form-row-3{grid-template-columns:1fr;}}
-@media (max-width:768px){.sidebar{transform:translateX(-100%);}.sidebar.open{transform:translateX(0);}.main-content{margin-left:0;}.hamburger{display:block;}}
-
-.lang-switcher {
-  display:flex; align-items:center; gap:4px;
-  background:var(--bg-card); border:1px solid var(--border-color);
-  border-radius:var(--radius-md); padding:3px; margin-left:12px;
-}
-.lang-switcher button {
-  background:transparent; border:none; color:var(--text-muted);
-  font-size:11px; font-weight:600; cursor:pointer;
-  padding:4px 8px; border-radius:4px; transition:all 0.2s;
-  text-transform:uppercase; font-family:inherit;
-}
-.lang-switcher button:hover { color:var(--text-primary); }
-.lang-switcher button.active { background:var(--teal-500); color: white; }
-
 /* ── Mobile Responsive ── */
-@media (max-width: 768px) {
+@media (max-width: 768px){
   .sidebar { transform: translateX(-100%); }
   .sidebar.open { transform: translateX(0); }
   .main-content { margin-left: 0 !important; }
@@ -167,34 +126,18 @@ textarea.form-input{resize:vertical;}
   .login-card { padding: 32px 20px !important; }
   .login-card-wrap { padding: 0 16px !important; }
 }
-@media (max-width: 480px) {
-  .stats-grid { grid-template-columns: 1fr !important; }
-  .content { padding: 12px !important; }
-  .card-header { padding: 14px 16px !important; }
-  .card-body { padding: 14px 16px !important; }
-  .table th, .table td, .card-table th, .card-table td,
+@media (max-width: 480px){.stats-grid{ grid-template-columns: 1fr !important; }.card-header{ padding: 14px 16px !important; }.card-body{ padding: 14px 16px !important; }.table th, .table td, .card-table th, .card-table td,
   .customer-table th, .customer-table td,
   .recurring-table th, .recurring-table td,
-  .line-items-table th, .line-items-table td {
+  .line-items-table th, .line-items-table td{
     padding: 10px 12px !important; font-size: 13px !important;
-  }
-  .page-title { font-size: var(--text-sm) !important; }
-  .modal { max-width: calc(100vw - 24px) !important; margin: 0 12px; }
-  .btn { padding: 10px 14px !important; font-size: 13px !important; }
-  .portal-stats { grid-template-columns: 1fr !important; }
-  .stat-value { font-size: var(--text-xl) !important; }
-  .header-btn { width: 40px !important; height: 40px !important; }
-}
-::selection { background: rgba(20,184,166,0.3); color: inherit; }
-
-@media (max-width: 768px) {
-  .card-body:has(> .table),
-  .card-body:has(> table) { overflow-x: auto; -webkit-overflow-scrolling: touch; }
-  .card-body:has(> .table) .table,
-  .card-body:has(> table) table { min-width: 640px; }
-}
-
+  }.modal{ max-width: calc(100vw - 24px) !important; margin: 0 12px; }.btn{ padding: 10px 14px !important; font-size: 13px !important; }.portal-stats{ grid-template-columns: 1fr !important; }.stat-value{ font-size: var(--text-xl) !important; }}
+::selection{ background: rgba(20,184,166,0.3); color: inherit; }
+@media (max-width: 768px){.card-body:has(> .table),
+  .card-body:has(> table){ overflow-x: auto; -webkit-overflow-scrolling: touch; }.card-body:has(> .table) .table,
+  .card-body:has(> table) table{ min-width: 640px; }}
 </style>
+<link rel="stylesheet" href="css/dashboard.css">
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#0d9488">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -268,13 +211,14 @@ textarea.form-input{resize:vertical;}
 })();
 </script>
 <body>
+<a href="#main-content" class="skip-link">Ana içeriğe atla</a>
 <script src="js/auth.js"></script>
 <script>checkAuth(['admin','company']);</script>
 <div class="dashboard">
   <aside class="sidebar" id="sidebar">
     <div class="sidebar-header">
       <div class="sidebar-logo">CF</div>
-      <div><div style="font-weight:700;font-size:var(--text-sm);" data-i18n="cleanfix">CleanFix</div><div style="font-size:var(--text-xs);color:var(--text-muted);" data-i18n="sidebar_company_panel">Firma Paneli</div></div>
+      <div><div style="font-weight:700; font-size:var(--text-sm)" data-i18n="cleanfix">CleanFix</div><div style="font-size:var(--text-xs); color:var(--text-muted)" data-i18n="sidebar_company_panel">Firma Paneli</div></div>
     </div>
     <nav role="navigation" aria-label="Main navigation" class="sidebar-nav">
     <div class="nav-group">
@@ -344,18 +288,18 @@ textarea.form-input{resize:vertical;}
   <main role="main" class="main-content">
     <header role="banner" class="header">
       <div class="header-left">
-        <button class="hamburger" onclick="document.getElementById('sidebar').classList.toggle('open')"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
+        <button class="hamburger" onclick="document.getElementById('sidebar').classList.toggle('open')" aria-label="Menüyü aç"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
         <h1 class="page-title" data-i18n="page_services">Hizmetler</h1>
       </div>
       <div class="header-right">
-        <div class="lang-switcher" style="display:flex;gap:4px;align-items:center;">
-          <button class="lang-btn" data-lang="tr" onclick="switchLang('tr')" style="padding:4px 10px;border-radius:6px;border:1px solid var(--border-color);background:var(--bg-tertiary);color:var(--text-secondary);font-size:var(--text-xs);font-weight:600;cursor:pointer;transition:all .2s;">TR</button>
-          <button class="lang-btn" data-lang="en" onclick="switchLang('en')" style="padding:4px 10px;border-radius:6px;border:1px solid var(--border-color);background:var(--bg-tertiary);color:var(--text-secondary);font-size:var(--text-xs);font-weight:600;cursor:pointer;transition:all .2s;">EN</button>
-          <button class="lang-btn" data-lang="nl" onclick="switchLang('nl')" style="padding:4px 10px;border-radius:6px;border:1px solid var(--border-color);background:var(--bg-tertiary);color:var(--text-secondary);font-size:var(--text-xs);font-weight:600;cursor:pointer;transition:all .2s;">NL</button>
+        <div class="lang-switcher" style="display:flex; gap:4px; align-items:center">
+          <button class="lang-btn" data-lang="tr" onclick="switchLang('tr')" style="padding:4px 10px; border-radius:var(--radius-sm); border:1px solid var(--border-color); background:var(--bg-tertiary); color:var(--text-secondary); font-size:var(--text-xs); font-weight:600; cursor:pointer; transition:all .2s">TR</button>
+          <button class="lang-btn" data-lang="en" onclick="switchLang('en')" style="padding:4px 10px; border-radius:var(--radius-sm); border:1px solid var(--border-color); background:var(--bg-tertiary); color:var(--text-secondary); font-size:var(--text-xs); font-weight:600; cursor:pointer; transition:all .2s">EN</button>
+          <button class="lang-btn" data-lang="nl" onclick="switchLang('nl')" style="padding:4px 10px; border-radius:var(--radius-sm); border:1px solid var(--border-color); background:var(--bg-tertiary); color:var(--text-secondary); font-size:var(--text-xs); font-weight:600; cursor:pointer; transition:all .2s">NL</button>
         </div>
 
-        <button class="header-btn" onclick="showToast('Bildirimler','success')"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg></button>
-        <div style="display:flex;align-items:center;gap:10px;"><div class="avatar" style="width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:var(--text-xs);color: white;background:linear-gradient(135deg,var(--teal-500),var(--teal-600));">CF</div><div><div style="font-weight:600;font-size:var(--text-sm);" data-i18n="ui_cleanfix_demo">CleanFix Demo BV</div><div style="font-size:var(--text-xs);color:var(--text-muted);" data-i18n="ui_business_plan">Business Plan</div></div></div>
+        <button class="header-btn" onclick="showToast('Bildirimler','success')" aria-label="Bildirimler"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg></button>
+        <div style="display:flex; align-items:center; gap:var(--space-3)"><div class="avatar" style="width:36px; height:36px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:600; font-size:var(--text-xs); color:var(--text-primary); background:linear-gradient(135deg,var(--teal-500),var(--teal-600))">CF</div><div><div style="font-weight:600; font-size:var(--text-sm)" data-i18n="ui_cleanfix_demo">CleanFix Demo BV</div><div style="font-size:var(--text-xs); color:var(--text-muted)" data-i18n="ui_business_plan">Business Plan</div></div></div>
       </div>
     </header>
 
@@ -366,7 +310,7 @@ textarea.form-input{resize:vertical;}
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
           <input type="text" data-i18n-placeholder="search_services" placeholder="Hizmet ara..." data-i18n-placeholder="ph_0" id="searchInput">
         </div>
-<div class="export-btns" style="display:flex;align-items:center;gap:6px;">
+<div class="export-btns" style="display:flex; align-items:center; gap:6px">
   <button class="btn btn-secondary btn-sm" onclick="CleanFixExport.exportCSV('#servicesTable', 'hizmetler')">
     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> CSV
   </button>
@@ -376,13 +320,11 @@ textarea.form-input{resize:vertical;}
   <button class="btn btn-secondary btn-sm" onclick="CleanFixExport.exportPDF('#servicesTable', 'hizmetler', 'Hizmetler')">
     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg> PDF
   </button>
-  <button class="btn btn-secondary btn-sm" onclick="window.print()" title="Yazdır">
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
-  </button>
+  <button class="btn btn-secondary btn-sm" onclick="window.print()" title="Yazdır" aria-label="Yazdır"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg></button>
 </div>
 
-        <div style="display:flex;gap:10px;">
-          <select id="catFilter" style="padding:10px 32px 10px 14px;background:var(--bg-card);border:1.5px solid var(--border-color);border-radius:var(--radius-md);color:var(--text-primary);font-size:var(--text-sm);appearance:none;cursor:pointer;">
+        <div style="display:flex; gap:var(--space-3)">
+          <select id="catFilter" style="padding:10px var(--space-8) 10px 14px; background:var(--bg-card); border:1.5px solid var(--border-color); border-radius:var(--radius-md); color:var(--text-primary); font-size:var(--text-sm); appearance:none; cursor:pointer">
             <option value="" data-i18n="filter_all_categories">Tüm Kategoriler</option>
             <option value="Ev Temizliği" data-i18n="cat_home_cleaning">Ev Temizliği</option>
             <option value="Ofis Temizliği" data-i18n="cat_office_cleaning">Ofis Temizliği</option>
@@ -396,12 +338,12 @@ textarea.form-input{resize:vertical;}
       </div>
 
       <div class="card">
-        <div style="padding:0;">
+        <div style="padding:0">
           <table class="table" id="servicesTable">
             <thead><tr><th data-i18n="th_service_name">Hizmet Adı</th><th data-i18n="form_category">Kategori</th><th data-i18n="form_subcategory">Alt Kategori</th><th data-i18n="form_duration">Süre</th><th data-i18n="form_price">Fiyat</th><th data-i18n="form_status">Durum</th><th data-i18n="th_actions">İşlemler</th></tr></thead>
             <tbody id="servicesTableBody">
-      <tr class="empty-state-row" style="display:none;">
-        <td colspan="99" style="padding:0; border:none;">
+      <tr class="empty-state-row" style="display:none">
+        <td colspan="99" style="padding:0; border:none">
           <div class="empty-state">
             <div class="empty-state-icon">📭</div>
             <div class="empty-state-title" data-i18n="empty_title">Henüz kayıt yok</div>
@@ -410,229 +352,229 @@ textarea.form-input{resize:vertical;}
         </td>
       </tr>
               <tr data-id="1">
-                <td><div style="font-weight:600;" data-i18n="standart_temizlik">Standart Temizlik</div><div style="font-size:var(--text-xs);color:var(--text-muted);" data-i18n="ev_temizliği_-_temel_paket">Ev temizliği - temel paket</div></td>
+                <td><div style="font-weight:600" data-i18n="standart_temizlik">Standart Temizlik</div><div style="font-size:var(--text-xs); color:var(--text-muted)" data-i18n="ev_temizliği_-_temel_paket">Ev temizliği - temel paket</div></td>
                 <td><span class="tag tag-teal" data-i18n="cat_home_cleaning">Ev Temizliği</span></td>
                 <td data-i18n="sub_standard">Standart</td>
                 <td>2-3 saat</td>
-                <td style="font-weight:600;color:var(--teal-500);">€65</td>
+                <td style="font-weight:600; color:var(--teal-500)">€65</td>
                 <td><span class="tag tag-green" data-i18n="status_active">Aktif</span></td>
-                <td><div class="actions"><button class="action-btn edit" onclick="openEditModal(1)" title="Düzenle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(1)" title="Sil"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
+                <td><div class="actions"><button class="action-btn edit" onclick="openEditModal(1)" title="Düzenle" aria-label="Düzenle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(1)" title="Sil" aria-label="Sil"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
               </tr>
               <tr data-id="2">
-                <td><div style="font-weight:600;" data-i18n="derinlemesine_temizlik">Derinlemesine Temizlik</div><div style="font-size:var(--text-xs);color:var(--text-muted);" data-i18n="ev_temizliği_-_detaylı_paket">Ev temizliği - detaylı paket</div></td>
+                <td><div style="font-weight:600" data-i18n="derinlemesine_temizlik">Derinlemesine Temizlik</div><div style="font-size:var(--text-xs); color:var(--text-muted)" data-i18n="ev_temizliği_-_detaylı_paket">Ev temizliği - detaylı paket</div></td>
                 <td><span class="tag tag-teal" data-i18n="cat_home_cleaning">Ev Temizliği</span></td>
                 <td data-i18n="sub_deep">Derinlemesine</td>
                 <td>4-5 saat</td>
-                <td style="font-weight:600;color:var(--teal-500);">€120</td>
+                <td style="font-weight:600; color:var(--teal-500)">€120</td>
                 <td><span class="tag tag-green" data-i18n="status_active">Aktif</span></td>
-                <td><div class="actions"><button class="action-btn edit" onclick="openEditModal(2)" title="Düzenle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(2)" title="Sil"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
+                <td><div class="actions"><button class="action-btn edit" onclick="openEditModal(2)" title="Düzenle" aria-label="Düzenle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(2)" title="Sil" aria-label="Sil"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
               </tr>
               <tr data-id="3">
-                <td><div style="font-weight:600;" data-i18n="inşaat_sonrası_temizlik">İnşaat Sonrası Temizlik</div><div style="font-size:var(--text-xs);color:var(--text-muted);" data-i18n="ev_temizliği_-_inşaat_sonrası">Ev temizliği - inşaat sonrası</div></td>
+                <td><div style="font-weight:600" data-i18n="inşaat_sonrası_temizlik">İnşaat Sonrası Temizlik</div><div style="font-size:var(--text-xs); color:var(--text-muted)" data-i18n="ev_temizliği_-_inşaat_sonrası">Ev temizliği - inşaat sonrası</div></td>
                 <td><span class="tag tag-teal" data-i18n="cat_home_cleaning">Ev Temizliği</span></td>
                 <td data-i18n="sub_post_construction">İnşaat Sonrası</td>
                 <td>5-7 saat</td>
-                <td style="font-weight:600;color:var(--teal-500);">€180</td>
+                <td style="font-weight:600; color:var(--teal-500)">€180</td>
                 <td><span class="tag tag-green" data-i18n="status_active">Aktif</span></td>
-                <td><div class="actions"><button class="action-btn edit" onclick="openEditModal(3)" title="Düzenle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(3)" title="Sil"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
+                <td><div class="actions"><button class="action-btn edit" onclick="openEditModal(3)" title="Düzenle" aria-label="Düzenle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(3)" title="Sil" aria-label="Sil"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
               </tr>
               <tr data-id="4">
-                <td><div style="font-weight:600;" data-i18n="günlük_ofis_temizliği">Günlük Ofis Temizliği</div><div style="font-size:var(--text-xs);color:var(--text-muted);" data-i18n="ofis_temizliği_-_günlük_bakım">Ofis temizliği - günlük bakım</div></td>
+                <td><div style="font-weight:600" data-i18n="günlük_ofis_temizliği">Günlük Ofis Temizliği</div><div style="font-size:var(--text-xs); color:var(--text-muted)" data-i18n="ofis_temizliği_-_günlük_bakım">Ofis temizliği - günlük bakım</div></td>
                 <td><span class="tag tag-blue" data-i18n="cat_office_cleaning">Ofis Temizliği</span></td>
                 <td data-i18n="sub_daily">Günlük</td>
                 <td>1-2 saat</td>
-                <td style="font-weight:600;color:var(--teal-500);">€85</td>
+                <td style="font-weight:600; color:var(--teal-500)">€85</td>
                 <td><span class="tag tag-green" data-i18n="status_active">Aktif</span></td>
-                <td><div class="actions"><button class="action-btn edit" onclick="openEditModal(4)" title="Düzenle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(4)" title="Sil"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
+                <td><div class="actions"><button class="action-btn edit" onclick="openEditModal(4)" title="Düzenle" aria-label="Düzenle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(4)" title="Sil" aria-label="Sil"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
               </tr>
               <tr data-id="5">
-                <td><div style="font-weight:600;" data-i18n="haftalık_ofis_temizliği">Haftalık Ofis Temizliği</div><div style="font-size:var(--text-xs);color:var(--text-muted);" data-i18n="ofis_temizliği_-_haftalık_derinlemesine">Ofis temizliği - haftalık derinlemesine</div></td>
+                <td><div style="font-weight:600" data-i18n="haftalık_ofis_temizliği">Haftalık Ofis Temizliği</div><div style="font-size:var(--text-xs); color:var(--text-muted)" data-i18n="ofis_temizliği_-_haftalık_derinlemesine">Ofis temizliği - haftalık derinlemesine</div></td>
                 <td><span class="tag tag-blue" data-i18n="cat_office_cleaning">Ofis Temizliği</span></td>
                 <td data-i18n="sub_weekly">Haftalık</td>
                 <td>3-4 saat</td>
-                <td style="font-weight:600;color:var(--teal-500);">€150</td>
+                <td style="font-weight:600; color:var(--teal-500)">€150</td>
                 <td><span class="tag tag-green" data-i18n="status_active">Aktif</span></td>
-                <td><div class="actions"><button class="action-btn edit" onclick="openEditModal(5)" title="Düzenle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(5)" title="Sil"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
+                <td><div class="actions"><button class="action-btn edit" onclick="openEditModal(5)" title="Düzenle" aria-label="Düzenle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(5)" title="Sil" aria-label="Sil"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
               </tr>
               <tr data-id="6">
-                <td><div style="font-weight:600;" data-i18n="koltuk_yıkama">Koltuk Yıkama</div><div style="font-size:var(--text-xs);color:var(--text-muted);" data-i18n="ofis_temizliği_-_koltuk_ve_sandalye">Ofis temizliği - koltuk ve sandalye</div></td>
+                <td><div style="font-weight:600" data-i18n="koltuk_yıkama">Koltuk Yıkama</div><div style="font-size:var(--text-xs); color:var(--text-muted)" data-i18n="ofis_temizliği_-_koltuk_ve_sandalye">Ofis temizliği - koltuk ve sandalye</div></td>
                 <td><span class="tag tag-blue" data-i18n="cat_office_cleaning">Ofis Temizliği</span></td>
                 <td data-i18n="sub_upholstery">Koltuk</td>
                 <td>1-2 saat</td>
-                <td style="font-weight:600;color:var(--teal-500);">€45</td>
+                <td style="font-weight:600; color:var(--teal-500)">€45</td>
                 <td><span class="tag tag-green" data-i18n="status_active">Aktif</span></td>
-                <td><div class="actions"><button class="action-btn edit" onclick="openEditModal(6)" title="Düzenle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(6)" title="Sil"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
+                <td><div class="actions"><button class="action-btn edit" onclick="openEditModal(6)" title="Düzenle" aria-label="Düzenle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(6)" title="Sil" aria-label="Sil"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
               </tr>
               <tr data-id="7">
-                <td><div style="font-weight:600;" data-i18n="iç_cam_temizliği">İç Cam Temizliği</div><div style="font-size:var(--text-xs);color:var(--text-muted);" data-i18n="cam_temizliği_-_iç_mekan">Cam temizliği - iç mekan</div></td>
+                <td><div style="font-weight:600" data-i18n="iç_cam_temizliği">İç Cam Temizliği</div><div style="font-size:var(--text-xs); color:var(--text-muted)" data-i18n="cam_temizliği_-_iç_mekan">Cam temizliği - iç mekan</div></td>
                 <td><span class="tag tag-orange" data-i18n="cat_window_cleaning">Cam Temizliği</span></td>
                 <td data-i18n="sub_inner_glass">İç Cam</td>
                 <td>1-2 saat</td>
-                <td style="font-weight:600;color:var(--teal-500);">€35</td>
+                <td style="font-weight:600; color:var(--teal-500)">€35</td>
                 <td><span class="tag tag-green" data-i18n="status_active">Aktif</span></td>
-                <td><div class="actions"><button class="action-btn edit" onclick="openEditModal(7)" title="Düzenle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(7)" title="Sil"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
+                <td><div class="actions"><button class="action-btn edit" onclick="openEditModal(7)" title="Düzenle" aria-label="Düzenle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(7)" title="Sil" aria-label="Sil"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
               </tr>
               <tr data-id="8">
-                <td><div style="font-weight:600;" data-i18n="dış_cam_temizliği">Dış Cam Temizliği</div><div style="font-size:var(--text-xs);color:var(--text-muted);" data-i18n="cam_temizliği_-_dış_mekan">Cam temizliği - dış mekan</div></td>
+                <td><div style="font-weight:600" data-i18n="dış_cam_temizliği">Dış Cam Temizliği</div><div style="font-size:var(--text-xs); color:var(--text-muted)" data-i18n="cam_temizliği_-_dış_mekan">Cam temizliği - dış mekan</div></td>
                 <td><span class="tag tag-orange" data-i18n="cat_window_cleaning">Cam Temizliği</span></td>
                 <td data-i18n="sub_outer_glass">Dış Cam</td>
                 <td>2-3 saat</td>
-                <td style="font-weight:600;color:var(--teal-500);">€55</td>
+                <td style="font-weight:600; color:var(--teal-500)">€55</td>
                 <td><span class="tag tag-green" data-i18n="status_active">Aktif</span></td>
-                <td><div class="actions"><button class="action-btn edit" onclick="openEditModal(8)" title="Düzenle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(8)" title="Sil"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
+                <td><div class="actions"><button class="action-btn edit" onclick="openEditModal(8)" title="Düzenle" aria-label="Düzenle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(8)" title="Sil" aria-label="Sil"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
               </tr>
               <tr data-id="9">
-                <td><div style="font-weight:600;" data-i18n="bina_cam_temizliği">Bina Cam Temizliği</div><div style="font-size:var(--text-xs);color:var(--text-muted);" data-i18n="cam_temizliği_-_bina_geneli">Cam temizliği - bina geneli</div></td>
+                <td><div style="font-weight:600" data-i18n="bina_cam_temizliği">Bina Cam Temizliği</div><div style="font-size:var(--text-xs); color:var(--text-muted)" data-i18n="cam_temizliği_-_bina_geneli">Cam temizliği - bina geneli</div></td>
                 <td><span class="tag tag-orange" data-i18n="cat_window_cleaning">Cam Temizliği</span></td>
                 <td data-i18n="sub_building_glass">Bina Cam</td>
                 <td>4-6 saat</td>
-                <td style="font-weight:600;color:var(--teal-500);">€120</td>
+                <td style="font-weight:600; color:var(--teal-500)">€120</td>
                 <td><span class="tag tag-green" data-i18n="status_active">Aktif</span></td>
-                <td><div class="actions"><button class="action-btn edit" onclick="openEditModal(9)" title="Düzenle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(9)" title="Sil"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
+                <td><div class="actions"><button class="action-btn edit" onclick="openEditModal(9)" title="Düzenle" aria-label="Düzenle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(9)" title="Sil" aria-label="Sil"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
               </tr>
               <tr data-id="10">
-                <td><div style="font-weight:600;" data-i18n="sub_wash_dry">Yıkama + Kurutma</div><div style="font-size:var(--text-xs);color:var(--text-muted);" data-i18n="halı_yıkama_-_temel_paket">Halı yıkama - temel paket</div></td>
+                <td><div style="font-weight:600" data-i18n="sub_wash_dry">Yıkama + Kurutma</div><div style="font-size:var(--text-xs); color:var(--text-muted)" data-i18n="halı_yıkama_-_temel_paket">Halı yıkama - temel paket</div></td>
                 <td><span class="tag tag-purple" data-i18n="cat_carpet_cleaning">Halı Yıkama</span></td>
                 <td data-i18n="sub_wash_dry">Yıkama + Kurutma</td>
                 <td>3-4 saat</td>
-                <td style="font-weight:600;color:var(--teal-500);">€25/m²</td>
+                <td style="font-weight:600; color:var(--teal-500)">€25/m²</td>
                 <td><span class="tag tag-green" data-i18n="status_active">Aktif</span></td>
-                <td><div class="actions"><button class="action-btn edit" onclick="openEditModal(10)" title="Düzenle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(10)" title="Sil"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
+                <td><div class="actions"><button class="action-btn edit" onclick="openEditModal(10)" title="Düzenle" aria-label="Düzenle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(10)" title="Sil" aria-label="Sil"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
               </tr>
               <tr data-id="11">
-                <td><div style="font-weight:600;" data-i18n="leke_çıkarma">Leke Çıkarma</div><div style="font-size:var(--text-xs);color:var(--text-muted);" data-i18n="halı_yıkama_-_leke_özel">Halı yıkama - leke özel</div></td>
+                <td><div style="font-weight:600" data-i18n="leke_çıkarma">Leke Çıkarma</div><div style="font-size:var(--text-xs); color:var(--text-muted)" data-i18n="halı_yıkama_-_leke_özel">Halı yıkama - leke özel</div></td>
                 <td><span class="tag tag-purple" data-i18n="cat_carpet_cleaning">Halı Yıkama</span></td>
                 <td data-i18n="sub_stain">Leke</td>
                 <td>1-2 saat</td>
-                <td style="font-weight:600;color:var(--teal-500);">€15</td>
+                <td style="font-weight:600; color:var(--teal-500)">€15</td>
                 <td><span class="tag tag-green" data-i18n="status_active">Aktif</span></td>
-                <td><div class="actions"><button class="action-btn edit" onclick="openEditModal(11)" title="Düzenle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(11)" title="Sil"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
+                <td><div class="actions"><button class="action-btn edit" onclick="openEditModal(11)" title="Düzenle" aria-label="Düzenle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(11)" title="Sil" aria-label="Sil"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
               </tr>
               <tr data-id="12">
-                <td><div style="font-weight:600;" data-i18n="buharlı_temizlik">Buharlı Temizlik</div><div style="font-size:var(--text-xs);color:var(--text-muted);" data-i18n="halı_yıkama_-_buharlı_derinlemesine">Halı yıkama - buharlı derinlemesine</div></td>
+                <td><div style="font-weight:600" data-i18n="buharlı_temizlik">Buharlı Temizlik</div><div style="font-size:var(--text-xs); color:var(--text-muted)" data-i18n="halı_yıkama_-_buharlı_derinlemesine">Halı yıkama - buharlı derinlemesine</div></td>
                 <td><span class="tag tag-purple" data-i18n="cat_carpet_cleaning">Halı Yıkama</span></td>
                 <td data-i18n="sub_steam">Buharlı</td>
                 <td>2-3 saat</td>
-                <td style="font-weight:600;color:var(--teal-500);">€30/m²</td>
+                <td style="font-weight:600; color:var(--teal-500)">€30/m²</td>
                 <td><span class="tag tag-gray" data-i18n="status_inactive">Pasif</span></td>
-                <td><div class="actions"><button class="action-btn edit" onclick="openEditModal(12)" title="Düzenle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(12)" title="Sil"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
+                <td><div class="actions"><button class="action-btn edit" onclick="openEditModal(12)" title="Düzenle" aria-label="Düzenle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(12)" title="Sil" aria-label="Sil"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
               </tr>
               <tr data-id="13">
-                <td><div style="font-weight:600;" data-i18n="fabrika_temizliği">Fabrika Temizliği</div><div style="font-size:var(--text-xs);color:var(--text-muted);" data-i18n="endüstriyel_-_fabrika_geneli">Endüstriyel - fabrika geneli</div></td>
+                <td><div style="font-weight:600" data-i18n="fabrika_temizliği">Fabrika Temizliği</div><div style="font-size:var(--text-xs); color:var(--text-muted)" data-i18n="endüstriyel_-_fabrika_geneli">Endüstriyel - fabrika geneli</div></td>
                 <td><span class="tag tag-green" data-i18n="cat_industrial">Endüstriyel</span></td>
                 <td data-i18n="sub_factory">Fabrika</td>
                 <td>6-8 saat</td>
-                <td style="font-weight:600;color:var(--teal-500);">€250</td>
+                <td style="font-weight:600; color:var(--teal-500)">€250</td>
                 <td><span class="tag tag-green" data-i18n="status_active">Aktif</span></td>
-                <td><div class="actions"><button class="action-btn edit" onclick="openEditModal(13)" title="Düzenle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(13)" title="Sil"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
+                <td><div class="actions"><button class="action-btn edit" onclick="openEditModal(13)" title="Düzenle" aria-label="Düzenle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(13)" title="Sil" aria-label="Sil"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
               </tr>
               <tr data-id="14">
-                <td><div style="font-weight:600;" data-i18n="depo_temizliği">Depo Temizliği</div><div style="font-size:var(--text-xs);color:var(--text-muted);" data-i18n="endüstriyel_-_depo_ve_antrepo">Endüstriyel - depo ve antrepo</div></td>
+                <td><div style="font-weight:600" data-i18n="depo_temizliği">Depo Temizliği</div><div style="font-size:var(--text-xs); color:var(--text-muted)" data-i18n="endüstriyel_-_depo_ve_antrepo">Endüstriyel - depo ve antrepo</div></td>
                 <td><span class="tag tag-green" data-i18n="cat_industrial">Endüstriyel</span></td>
                 <td>Depo</td>
                 <td>4-6 saat</td>
-                <td style="font-weight:600;color:var(--teal-500);">€180</td>
+                <td style="font-weight:600; color:var(--teal-500)">€180</td>
                 <td><span class="tag tag-green" data-i18n="status_active">Aktif</span></td>
-                <td><div class="actions"><button class="action-btn edit" onclick="openEditModal(14)" title="Düzenle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(14)" title="Sil"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
+                <td><div class="actions"><button class="action-btn edit" onclick="openEditModal(14)" title="Düzenle" aria-label="Düzenle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(14)" title="Sil" aria-label="Sil"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
               </tr>
               <tr data-id="15">
-                <td><div style="font-weight:600;" data-i18n="hijyenik_temizlik">Hijyenik Temizlik</div><div style="font-size:var(--text-xs);color:var(--text-muted);" data-i18n="endüstriyel_-_hijyen_sertifikalı">Endüstriyel - hijyen sertifikalı</div></td>
+                <td><div style="font-weight:600" data-i18n="hijyenik_temizlik">Hijyenik Temizlik</div><div style="font-size:var(--text-xs); color:var(--text-muted)" data-i18n="endüstriyel_-_hijyen_sertifikalı">Endüstriyel - hijyen sertifikalı</div></td>
                 <td><span class="tag tag-green" data-i18n="cat_industrial">Endüstriyel</span></td>
                 <td data-i18n="hijyenik">Hijyenik</td>
                 <td>5-7 saat</td>
-                <td style="font-weight:600;color:var(--teal-500);">€200</td>
+                <td style="font-weight:600; color:var(--teal-500)">€200</td>
                 <td><span class="tag tag-green" data-i18n="status_active">Aktif</span></td>
-                <td><div class="actions"><button class="action-btn edit" onclick="openEditModal(15)" title="Düzenle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(15)" title="Sil"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
+                <td><div class="actions"><button class="action-btn edit" onclick="openEditModal(15)" title="Düzenle" aria-label="Düzenle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(15)" title="Sil" aria-label="Sil"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
               </tr>
               <tr data-id="16">
-                <td><div style="font-weight:600;" data-i18n="airbnb_dönüşüm_temizliği">Airbnb Dönüşüm Temizliği</div><div style="font-size:var(--text-xs);color:var(--text-muted);">Özel - Airbnb misafir değişimi</div></td>
+                <td><div style="font-weight:600" data-i18n="airbnb_dönüşüm_temizliği">Airbnb Dönüşüm Temizliği</div><div style="font-size:var(--text-xs); color:var(--text-muted)">Özel - Airbnb misafir değişimi</div></td>
                 <td><span class="tag tag-gray" data-i18n="cat_special">Özel</span></td>
                 <td>Airbnb</td>
                 <td>2-3 saat</td>
-                <td style="font-weight:600;color:var(--teal-500);">€95</td>
+                <td style="font-weight:600; color:var(--teal-500)">€95</td>
                 <td><span class="tag tag-green" data-i18n="status_active">Aktif</span></td>
-                <td><div class="actions"><button class="action-btn edit" onclick="openEditModal(16)" title="Düzenle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(16)" title="Sil"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
+                <td><div class="actions"><button class="action-btn edit" onclick="openEditModal(16)" title="Düzenle" aria-label="Düzenle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(16)" title="Sil" aria-label="Sil"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
               </tr>
               <tr data-id="17">
-                <td><div style="font-weight:600;" data-i18n="eşya_taşıma_sonrası_temizlik">Eşya Taşıma Sonrası Temizlik</div><div style="font-size:var(--text-xs);color:var(--text-muted);">Özel - taşınma sonrası</div></td>
+                <td><div style="font-weight:600" data-i18n="eşya_taşıma_sonrası_temizlik">Eşya Taşıma Sonrası Temizlik</div><div style="font-size:var(--text-xs); color:var(--text-muted)">Özel - taşınma sonrası</div></td>
                 <td><span class="tag tag-gray" data-i18n="cat_special">Özel</span></td>
                 <td data-i18n="taşınma">Taşınma</td>
                 <td>3-4 saat</td>
-                <td style="font-weight:600;color:var(--teal-500);">€75</td>
+                <td style="font-weight:600; color:var(--teal-500)">€75</td>
                 <td><span class="tag tag-green" data-i18n="status_active">Aktif</span></td>
-                <td><div class="actions"><button class="action-btn edit" onclick="openEditModal(17)" title="Düzenle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(17)" title="Sil"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
+                <td><div class="actions"><button class="action-btn edit" onclick="openEditModal(17)" title="Düzenle" aria-label="Düzenle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(17)" title="Sil" aria-label="Sil"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
               </tr>
               <tr data-id="18">
-                <td><div style="font-weight:600;" data-i18n="evcil_hayvan_temizliği">Evcil Hayvan Temizliği</div><div style="font-size:var(--text-xs);color:var(--text-muted);">Özel - pet dostu temizlik</div></td>
+                <td><div style="font-weight:600" data-i18n="evcil_hayvan_temizliği">Evcil Hayvan Temizliği</div><div style="font-size:var(--text-xs); color:var(--text-muted)">Özel - pet dostu temizlik</div></td>
                 <td><span class="tag tag-gray" data-i18n="cat_special">Özel</span></td>
                 <td>Pet</td>
                 <td>2-3 saat</td>
-                <td style="font-weight:600;color:var(--teal-500);">€55</td>
+                <td style="font-weight:600; color:var(--teal-500)">€55</td>
                 <td><span class="tag tag-green" data-i18n="status_active">Aktif</span></td>
-                <td><div class="actions"><button class="action-btn edit" onclick="openEditModal(18)" title="Düzenle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(18)" title="Sil"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
+                <td><div class="actions"><button class="action-btn edit" onclick="openEditModal(18)" title="Düzenle" aria-label="Düzenle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(18)" title="Sil" aria-label="Sil"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
               </tr>
               <tr data-id="19">
-                <td><div style="font-weight:600;">Boya Badana - İç Mekan</div><div style="font-size:var(--text-xs);color:var(--text-muted);">Boya ve badana hizmetleri - iç mekan</div></td>
+                <td><div style="font-weight:600">Boya Badana - İç Mekan</div><div style="font-size:var(--text-xs); color:var(--text-muted)">Boya ve badana hizmetleri - iç mekan</div></td>
                 <td><span class="tag tag-amber">Boya & Badana</span></td>
                 <td>İç Mekan</td>
                 <td>3-5 saat</td>
-                <td style="font-weight:600;color:var(--teal-500);">€120</td>
+                <td style="font-weight:600; color:var(--teal-500)">€120</td>
                 <td><span class="tag tag-green" data-i18n="status_active">Aktif</span></td>
-                <td><div class="actions"><button class="action-btn edit" onclick="openEditModal(19)" title="Düzenle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(19)" title="Sil"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
+                <td><div class="actions"><button class="action-btn edit" onclick="openEditModal(19)" title="Düzenle" aria-label="Düzenle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(19)" title="Sil" aria-label="Sil"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
               </tr>
               <tr data-id="20">
-                <td><div style="font-weight:600;">Dış Cephe Boya</div><div style="font-size:var(--text-xs);color:var(--text-muted);">Bina dış cephe boya ve tadilat</div></td>
+                <td><div style="font-weight:600">Dış Cephe Boya</div><div style="font-size:var(--text-xs); color:var(--text-muted)">Bina dış cephe boya ve tadilat</div></td>
                 <td><span class="tag tag-amber">Boya & Badana</span></td>
                 <td>Dış Mekan</td>
                 <td>2-4 gün</td>
-                <td style="font-weight:600;color:var(--teal-500);">€450</td>
+                <td style="font-weight:600; color:var(--teal-500)">€450</td>
                 <td><span class="tag tag-green" data-i18n="status_active">Aktif</span></td>
-                <td><div class="actions"><button class="action-btn edit" onclick="openEditModal(20)" title="Düzenle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(20)" title="Sil"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
+                <td><div class="actions"><button class="action-btn edit" onclick="openEditModal(20)" title="Düzenle" aria-label="Düzenle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(20)" title="Sil" aria-label="Sil"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
               </tr>
               <tr data-id="21">
-                <td><div style="font-weight:600;">Mobilya Montajı</div><div style="font-size:var(--text-xs);color:var(--text-muted);">Profesyonel mobilya kurulum ve montaj</div></td>
+                <td><div style="font-weight:600">Mobilya Montajı</div><div style="font-size:var(--text-xs); color:var(--text-muted)">Profesyonel mobilya kurulum ve montaj</div></td>
                 <td><span class="tag tag-purple">Marangozluk</span></td>
                 <td>Montaj</td>
                 <td>1-3 saat</td>
-                <td style="font-weight:600;color:var(--teal-500);">€75</td>
+                <td style="font-weight:600; color:var(--teal-500)">€75</td>
                 <td><span class="tag tag-green" data-i18n="status_active">Aktif</span></td>
-                <td><div class="actions"><button class="action-btn edit" onclick="openEditModal(21)" title="Düzenle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(21)" title="Sil"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
+                <td><div class="actions"><button class="action-btn edit" onclick="openEditModal(21)" title="Düzenle" aria-label="Düzenle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(21)" title="Sil" aria-label="Sil"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
               </tr>
               <tr data-id="22">
-                <td><div style="font-weight:600;">Seramik Döşeme</div><div style="font-size:var(--text-xs);color:var(--text-muted);">Zemin ve duvar seramik döşeme</div></td>
+                <td><div style="font-weight:600">Seramik Döşeme</div><div style="font-size:var(--text-xs); color:var(--text-muted)">Zemin ve duvar seramik döşeme</div></td>
                 <td><span class="tag tag-red">Seramik</span></td>
                 <td>Döşeme</td>
                 <td>1-3 gün</td>
-                <td style="font-weight:600;color:var(--teal-500);">€320</td>
+                <td style="font-weight:600; color:var(--teal-500)">€320</td>
                 <td><span class="tag tag-green" data-i18n="status_active">Aktif</span></td>
-                <td><div class="actions"><button class="action-btn edit" onclick="openEditModal(22)" title="Düzenle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(22)" title="Sil"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
+                <td><div class="actions"><button class="action-btn edit" onclick="openEditModal(22)" title="Düzenle" aria-label="Düzenle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(22)" title="Sil" aria-label="Sil"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
               </tr>
               <tr data-id="23">
-                <td><div style="font-weight:600;">Elektrik Tesisatı</div><div style="font-size:var(--text-xs);color:var(--text-muted);">İç mekan elektrik tesisatı ve arıza</div></td>
+                <td><div style="font-weight:600">Elektrik Tesisatı</div><div style="font-size:var(--text-xs); color:var(--text-muted)">İç mekan elektrik tesisatı ve arıza</div></td>
                 <td><span class="tag tag-yellow">Elektrik</span></td>
                 <td>Tesisat</td>
                 <td>2-5 saat</td>
-                <td style="font-weight:600;color:var(--teal-500);">€150</td>
+                <td style="font-weight:600; color:var(--teal-500)">€150</td>
                 <td><span class="tag tag-green" data-i18n="status_active">Aktif</span></td>
-                <td><div class="actions"><button class="action-btn edit" onclick="openEditModal(23)" title="Düzenle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(23)" title="Sil"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
+                <td><div class="actions"><button class="action-btn edit" onclick="openEditModal(23)" title="Düzenle" aria-label="Düzenle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(23)" title="Sil" aria-label="Sil"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
               </tr>
               <tr data-id="24">
-                <td><div style="font-weight:600;">Sıhhi Tesisat</div><div style="font-size:var(--text-xs);color:var(--text-muted);">Su, kanalizasyon ve doğalgaz tesisatı</div></td>
+                <td><div style="font-weight:600">Sıhhi Tesisat</div><div style="font-size:var(--text-xs); color:var(--text-muted)">Su, kanalizasyon ve doğalgaz tesisatı</div></td>
                 <td><span class="tag tag-cyan">Tesisat</span></td>
                 <td>Sıhhi</td>
                 <td>1-4 saat</td>
-                <td style="font-weight:600;color:var(--teal-500);">€130</td>
+                <td style="font-weight:600; color:var(--teal-500)">€130</td>
                 <td><span class="tag tag-green" data-i18n="status_active">Aktif</span></td>
-                <td><div class="actions"><button class="action-btn edit" onclick="openEditModal(24)" title="Düzenle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(24)" title="Sil"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
+                <td><div class="actions"><button class="action-btn edit" onclick="openEditModal(24)" title="Düzenle" aria-label="Düzenle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(24)" title="Sil" aria-label="Sil"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
               </tr>
               <tr data-id="25">
-                <td><div style="font-weight:600;">Çatı Tamiratı</div><div style="font-size:var(--text-xs);color:var(--text-muted);">Çatı onarımı, izolasyon ve yenileme</div></td>
+                <td><div style="font-weight:600">Çatı Tamiratı</div><div style="font-size:var(--text-xs); color:var(--text-muted)">Çatı onarımı, izolasyon ve yenileme</div></td>
                 <td><span class="tag tag-gray">Çatı</span></td>
                 <td>Tamirat</td>
                 <td>1-2 gün</td>
-                <td style="font-weight:600;color:var(--teal-500);">€550</td>
+                <td style="font-weight:600; color:var(--teal-500)">€550</td>
                 <td><span class="tag tag-amber" data-i18n="status_inactive">Pasif</span></td>
-                <td><div class="actions"><button class="action-btn edit" onclick="openEditModal(25)" title="Düzenle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(25)" title="Sil"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
+                <td><div class="actions"><button class="action-btn edit" onclick="openEditModal(25)" title="Düzenle" aria-label="Düzenle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(25)" title="Sil" aria-label="Sil"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
               </tr>
             </tbody>
           </table>
@@ -640,25 +582,25 @@ textarea.form-input{resize:vertical;}
       </div>
 
       <!-- Service Categories Section -->
-      <div class="card" style="margin-top:24px;">
+      <div class="card" style="margin-top:24px">
         <div class="card-header">
           <span class="card-title" data-i18n="hizmet_kategorileri">Hizmet Kategorileri</span>
-          <span style="font-size:var(--text-xs);color:var(--text-muted);" data-i18n="genişletmek_için_tıklayın">Genişletmek için tıklayın</span>
+          <span style="font-size:var(--text-xs); color:var(--text-muted)" data-i18n="genişletmek_için_tıklayın">Genişletmek için tıklayın</span>
         </div>
-        <div style="padding:20px 24px;">
+        <div style="padding:var(--space-5) var(--space-6)">
           <div class="category-list" id="categoryList">
             <!-- Ev Temizliği -->
             <div class="category-item" data-category="ev">
               <div class="category-header" onclick="toggleCategory(this)">
                 <div class="category-header-left">
-                  <div class="category-icon" style="background:rgba(20,184,166,0.1);">🏠</div>
+                  <div class="category-icon" style="background:rgba(20,184,166,0.1)">🏠</div>
                   <div class="category-info">
                     <span class="category-name" data-i18n="cat_home_cleaning">Ev Temizliği</span>
                     <span class="category-count">3 alt hizmet</span>
                   </div>
                 </div>
                 <div class="category-actions">
-                  <button class="btn btn-sm btn-primary" onclick="event.stopPropagation();openAssignModal('Ev Temizliği')" style="padding:5px 12px;font-size:var(--text-xs);">Ata</button>
+                  <button class="btn btn-sm btn-primary" onclick="event.stopPropagation();openAssignModal('Ev Temizliği')" style="padding:5px var(--space-3); font-size:var(--text-xs)">Ata</button>
                   <button class="category-toggle" onclick="event.stopPropagation();"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></button>
                 </div>
               </div>
@@ -691,14 +633,14 @@ textarea.form-input{resize:vertical;}
             <div class="category-item" data-category="ofis">
               <div class="category-header" onclick="toggleCategory(this)">
                 <div class="category-header-left">
-                  <div class="category-icon" style="background:rgba(59,130,246,0.1);">🏢</div>
+                  <div class="category-icon" style="background:rgba(59,130,246,0.1)">🏢</div>
                   <div class="category-info">
                     <span class="category-name" data-i18n="cat_office_cleaning">Ofis Temizliği</span>
                     <span class="category-count">3 alt hizmet</span>
                   </div>
                 </div>
                 <div class="category-actions">
-                  <button class="btn btn-sm btn-primary" onclick="event.stopPropagation();openAssignModal('Ofis Temizliği')" style="padding:5px 12px;font-size:var(--text-xs);">Ata</button>
+                  <button class="btn btn-sm btn-primary" onclick="event.stopPropagation();openAssignModal('Ofis Temizliği')" style="padding:5px var(--space-3); font-size:var(--text-xs)">Ata</button>
                   <button class="category-toggle" onclick="event.stopPropagation();"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></button>
                 </div>
               </div>
@@ -731,14 +673,14 @@ textarea.form-input{resize:vertical;}
             <div class="category-item" data-category="cam">
               <div class="category-header" onclick="toggleCategory(this)">
                 <div class="category-header-left">
-                  <div class="category-icon" style="background:rgba(245,158,11,0.1);">🪟</div>
+                  <div class="category-icon" style="background:rgba(245,158,11,0.1)">🪟</div>
                   <div class="category-info">
                     <span class="category-name" data-i18n="cat_window_cleaning">Cam Temizliği</span>
                     <span class="category-count">3 alt hizmet</span>
                   </div>
                 </div>
                 <div class="category-actions">
-                  <button class="btn btn-sm btn-primary" onclick="event.stopPropagation();openAssignModal('Cam Temizliği')" style="padding:5px 12px;font-size:var(--text-xs);">Ata</button>
+                  <button class="btn btn-sm btn-primary" onclick="event.stopPropagation();openAssignModal('Cam Temizliği')" style="padding:5px var(--space-3); font-size:var(--text-xs)">Ata</button>
                   <button class="category-toggle" onclick="event.stopPropagation();"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></button>
                 </div>
               </div>
@@ -771,14 +713,14 @@ textarea.form-input{resize:vertical;}
             <div class="category-item" data-category="hali">
               <div class="category-header" onclick="toggleCategory(this)">
                 <div class="category-header-left">
-                  <div class="category-icon" style="background:rgba(139,92,246,0.1);">🧶</div>
+                  <div class="category-icon" style="background:rgba(139,92,246,0.1)">🧶</div>
                   <div class="category-info">
                     <span class="category-name" data-i18n="cat_carpet_cleaning">Halı Yıkama</span>
                     <span class="category-count">3 alt hizmet</span>
                   </div>
                 </div>
                 <div class="category-actions">
-                  <button class="btn btn-sm btn-primary" onclick="event.stopPropagation();openAssignModal('Halı Yıkama')" style="padding:5px 12px;font-size:var(--text-xs);">Ata</button>
+                  <button class="btn btn-sm btn-primary" onclick="event.stopPropagation();openAssignModal('Halı Yıkama')" style="padding:5px var(--space-3); font-size:var(--text-xs)">Ata</button>
                   <button class="category-toggle" onclick="event.stopPropagation();"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></button>
                 </div>
               </div>
@@ -811,14 +753,14 @@ textarea.form-input{resize:vertical;}
             <div class="category-item" data-category="endustri">
               <div class="category-header" onclick="toggleCategory(this)">
                 <div class="category-header-left">
-                  <div class="category-icon" style="background:rgba(16,185,129,0.1);">🏭</div>
+                  <div class="category-icon" style="background:rgba(16,185,129,0.1)">🏭</div>
                   <div class="category-info">
                     <span class="category-name" data-i18n="endüstriyel_temizlik">Endüstriyel Temizlik</span>
                     <span class="category-count">3 alt hizmet</span>
                   </div>
                 </div>
                 <div class="category-actions">
-                  <button class="btn btn-sm btn-primary" onclick="event.stopPropagation();openAssignModal('Endüstriyel')" style="padding:5px 12px;font-size:var(--text-xs);">Ata</button>
+                  <button class="btn btn-sm btn-primary" onclick="event.stopPropagation();openAssignModal('Endüstriyel')" style="padding:5px var(--space-3); font-size:var(--text-xs)">Ata</button>
                   <button class="category-toggle" onclick="event.stopPropagation();"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></button>
                 </div>
               </div>
@@ -851,14 +793,14 @@ textarea.form-input{resize:vertical;}
             <div class="category-item" data-category="ozel">
               <div class="category-header" onclick="toggleCategory(this)">
                 <div class="category-header-left">
-                  <div class="category-icon" style="background:rgba(100,116,139,0.1);">✨</div>
+                  <div class="category-icon" style="background:rgba(100,116,139,0.1)">✨</div>
                   <div class="category-info">
                     <span class="category-name">Özel Hizmetler</span>
                     <span class="category-count">3 alt hizmet</span>
                   </div>
                 </div>
                 <div class="category-actions">
-                  <button class="btn btn-sm btn-primary" onclick="event.stopPropagation();openAssignModal('Özel')" style="padding:5px 12px;font-size:var(--text-xs);">Ata</button>
+                  <button class="btn btn-sm btn-primary" onclick="event.stopPropagation();openAssignModal('Özel')" style="padding:5px var(--space-3); font-size:var(--text-xs)">Ata</button>
                   <button class="category-toggle" onclick="event.stopPropagation();"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></button>
                 </div>
               </div>
@@ -896,24 +838,24 @@ textarea.form-input{resize:vertical;}
 <!-- Add Modal -->
 <div class="modal-overlay" id="addModal">
   <div class="modal">
-    <div class="modal-header"><span class="modal-title" data-i18n="modal_add_service">Yeni Hizmet Ekle</span><button class="modal-close" onclick="closeModal('addModal')">✕</button></div>
+    <div class="modal-header"><span class="modal-title" data-i18n="modal_add_service">Yeni Hizmet Ekle</span><button class="modal-close" onclick="closeModal('addModal')" aria-label="Kapat">✕</button></div>
     <div class="modal-body">
-      <div class="form-group"><label class="form-label" data-i18n="th_service_name">Hizmet Adı</label><input type="text" class="form-input" data-i18n-placeholder="ph_1" placeholder="Örn: Standart Temizlik" data-i18n-placeholder="ph_1" id="addName" required></div>
-      <div class="form-group"><label class="form-label" data-i18n="form_description">Açıklama</label><textarea class="form-input" rows="2" data-i18n-placeholder="ph_2" placeholder="Hizmet detayları..." data-i18n-placeholder="ph_2" id="addDesc" style="resize:vertical;"></textarea></div>
+      <div class="form-group"><label class="form-label" data-i18n="th_service_name" for="addName">Hizmet Adı</label><input type="text" class="form-input" data-i18n-placeholder="ph_1" placeholder="Örn: Standart Temizlik" data-i18n-placeholder="ph_1" id="addName" required></div>
+      <div class="form-group"><label class="form-label" data-i18n="form_description" for="addDesc">Açıklama</label><textarea class="form-input" rows="2" data-i18n-placeholder="ph_2" placeholder="Hizmet detayları..." data-i18n-placeholder="ph_2" id="addDesc" style="resize:vertical"></textarea></div>
       <div class="form-row">
-        <div class="form-group"><label class="form-label" data-i18n="form_category">Kategori</label><select class="form-select" id="addCat"><option value="" data-i18n="seçin">Seçin...</option><option data-i18n="cat_home_cleaning">Ev Temizliği</option><option data-i18n="cat_office_cleaning">Ofis Temizliği</option><option data-i18n="cat_window_cleaning">Cam Temizliği</option><option data-i18n="cat_carpet_cleaning">Halı Yıkama</option><option data-i18n="cat_industrial">Endüstriyel</option><option data-i18n="cat_special">Özel</option></select></div>
-        <div class="form-group"><label class="form-label" data-i18n="form_subcategory">Alt Kategori</label><input type="text" class="form-input" data-i18n-placeholder="ph_3" placeholder="Örn: Standart" data-i18n-placeholder="ph_3" id="addSubCat"></div>
+        <div class="form-group"><label class="form-label" data-i18n="form_category" for="addCat">Kategori</label><select class="form-select" id="addCat"><option value="" data-i18n="seçin">Seçin...</option><option data-i18n="cat_home_cleaning">Ev Temizliği</option><option data-i18n="cat_office_cleaning">Ofis Temizliği</option><option data-i18n="cat_window_cleaning">Cam Temizliği</option><option data-i18n="cat_carpet_cleaning">Halı Yıkama</option><option data-i18n="cat_industrial">Endüstriyel</option><option data-i18n="cat_special">Özel</option></select></div>
+        <div class="form-group"><label class="form-label" data-i18n="form_subcategory" for="addSubCat">Alt Kategori</label><input type="text" class="form-input" data-i18n-placeholder="ph_3" placeholder="Örn: Standart" data-i18n-placeholder="ph_3" id="addSubCat"></div>
       </div>
       <div class="form-row">
-        <div class="form-group"><label class="form-label" data-i18n="form_duration">Süre</label><input type="text" class="form-input" data-i18n-placeholder="ph_4" placeholder="Örn: 2-3 saat" data-i18n-placeholder="ph_4" id="addDuration"></div>
-        <div class="form-group"><label class="form-label" data-i18n="fiyat">Fiyat (€)</label><input type="text" class="form-input" data-i18n-placeholder="ph_5" placeholder="Örn: 65 veya 25/m²" data-i18n-placeholder="ph_5" id="addPrice"></div>
+        <div class="form-group"><label class="form-label" data-i18n="form_duration" for="addDuration">Süre</label><input type="text" class="form-input" data-i18n-placeholder="ph_4" placeholder="Örn: 2-3 saat" data-i18n-placeholder="ph_4" id="addDuration"></div>
+        <div class="form-group"><label class="form-label" data-i18n="fiyat" for="addPrice">Fiyat (€)</label><input type="text" class="form-input" data-i18n-placeholder="ph_5" placeholder="Örn: 65 veya 25/m²" data-i18n-placeholder="ph_5" id="addPrice"></div>
       </div>
       <div class="form-row">
-        <div class="form-group"><label class="form-label" data-i18n="form_status">Durum</label><select class="form-select" id="addStatus"><option value="active" data-i18n="status_active">Aktif</option><option value="passive" data-i18n="status_inactive">Pasif</option></select></div>
+        <div class="form-group"><label class="form-label" data-i18n="form_status" for="addStatus">Durum</label><select class="form-select" id="addStatus"><option value="active" data-i18n="status_active">Aktif</option><option value="passive" data-i18n="status_inactive">Pasif</option></select></div>
       </div>
     </div>
     <div class="modal-footer">
-      <button class="btn btn-secondary" onclick="closeModal('addModal')" data-i18n="btn_cancel">İptal</button>
+      <button class="btn btn-secondary" onclick="closeModal('addModal')" data-i18n="btn_cancel" aria-label="Kapat">İptal</button>
       <button class="btn btn-primary" onclick="addService()" data-i18n="hizmet_ekle">Hizmet Ekle</button>
     </div>
   </div>
@@ -922,48 +864,48 @@ textarea.form-input{resize:vertical;}
 <!-- Edit Modal -->
 <div class="modal-overlay" id="editModal">
   <div class="modal">
-    <div class="modal-header"><span class="modal-title" data-i18n="modal_edit_service">Hizmet Düzenle</span><button class="modal-close" onclick="closeModal('editModal')">✕</button></div>
+    <div class="modal-header"><span class="modal-title" data-i18n="modal_edit_service">Hizmet Düzenle</span><button class="modal-close" onclick="closeModal('editModal')" aria-label="Kapat">✕</button></div>
     <div class="modal-body">
       <input type="hidden" id="editId">
-      <div class="form-group"><label class="form-label" data-i18n="th_service_name">Hizmet Adı</label><input type="text" class="form-input" id="editName" required></div>
-      <div class="form-group"><label class="form-label" data-i18n="form_description">Açıklama</label><textarea class="form-input" rows="2" id="editDesc" style="resize:vertical;"></textarea></div>
+      <div class="form-group"><label class="form-label" data-i18n="th_service_name" for="editName">Hizmet Adı</label><input type="text" class="form-input" id="editName" required></div>
+      <div class="form-group"><label class="form-label" data-i18n="form_description" for="editDesc">Açıklama</label><textarea class="form-input" rows="2" id="editDesc" style="resize:vertical"></textarea></div>
       <div class="form-row">
-        <div class="form-group"><label class="form-label" data-i18n="form_category">Kategori</label><select class="form-select" id="editCat"><option data-i18n="cat_home_cleaning">Ev Temizliği</option><option data-i18n="cat_office_cleaning">Ofis Temizliği</option><option data-i18n="cat_window_cleaning">Cam Temizliği</option><option data-i18n="cat_carpet_cleaning">Halı Yıkama</option><option data-i18n="cat_industrial">Endüstriyel</option><option data-i18n="cat_special">Özel</option></select></div>
-        <div class="form-group"><label class="form-label" data-i18n="form_subcategory">Alt Kategori</label><input type="text" class="form-input" id="editSubCat"></div>
+        <div class="form-group"><label class="form-label" data-i18n="form_category" for="editCat">Kategori</label><select class="form-select" id="editCat"><option data-i18n="cat_home_cleaning">Ev Temizliği</option><option data-i18n="cat_office_cleaning">Ofis Temizliği</option><option data-i18n="cat_window_cleaning">Cam Temizliği</option><option data-i18n="cat_carpet_cleaning">Halı Yıkama</option><option data-i18n="cat_industrial">Endüstriyel</option><option data-i18n="cat_special">Özel</option></select></div>
+        <div class="form-group"><label class="form-label" data-i18n="form_subcategory" for="editSubCat">Alt Kategori</label><input type="text" class="form-input" id="editSubCat"></div>
       </div>
       <div class="form-row">
-        <div class="form-group"><label class="form-label" data-i18n="form_duration">Süre</label><input type="text" class="form-input" id="editDuration"></div>
-        <div class="form-group"><label class="form-label" data-i18n="fiyat">Fiyat (€)</label><input type="text" class="form-input" id="editPrice"></div>
+        <div class="form-group"><label class="form-label" data-i18n="form_duration" for="editDuration">Süre</label><input type="text" class="form-input" id="editDuration"></div>
+        <div class="form-group"><label class="form-label" data-i18n="fiyat" for="editPrice">Fiyat (€)</label><input type="text" class="form-input" id="editPrice"></div>
       </div>
       <div class="form-row">
-        <div class="form-group"><label class="form-label" data-i18n="form_status">Durum</label><select class="form-select" id="editStatus"><option value="active" data-i18n="status_active">Aktif</option><option value="passive" data-i18n="status_inactive">Pasif</option></select></div>
+        <div class="form-group"><label class="form-label" data-i18n="form_status" for="editStatus">Durum</label><select class="form-select" id="editStatus"><option value="active" data-i18n="status_active">Aktif</option><option value="passive" data-i18n="status_inactive">Pasif</option></select></div>
       </div>
     </div>
     <div class="modal-footer">
-      <button class="btn btn-secondary" onclick="closeModal('editModal')" data-i18n="btn_cancel">İptal</button>
-      <button class="btn btn-primary" onclick="saveEdit()" data-i18n="btn_save">Kaydet</button>
+      <button class="btn btn-secondary" onclick="closeModal('editModal')" data-i18n="btn_cancel" aria-label="Kapat">İptal</button>
+      <button class="btn btn-primary" onclick="saveEdit()" data-i18n="btn_save" aria-label="Düzenle">Kaydet</button>
     </div>
   </div>
 </div>
 
 <!-- Delete Modal -->
 <div class="modal-overlay" id="deleteModal">
-  <div class="modal" style="max-width:420px;">
-    <div class="modal-header"><span class="modal-title" style="color:var(--error-500);" data-i18n="hizmet_sil">Hizmet Sil</span><button class="modal-close" onclick="closeModal('deleteModal')">✕</button></div>
-    <div class="modal-body"><p style="font-size:var(--text-sm);color:var(--text-secondary);line-height:1.6;"><strong id="deleteTarget"></strong> hizmetini silmek üzeresiniz. Bu işlem geri alınamaz.</p></div>
+  <div class="modal" style="max-width:420px">
+    <div class="modal-header"><span class="modal-title" style="color:var(--error-500)" data-i18n="hizmet_sil">Hizmet Sil</span><button class="modal-close" onclick="closeModal('deleteModal')" aria-label="Kapat">✕</button></div>
+    <div class="modal-body"><p style="font-size:var(--text-sm); color:var(--text-secondary); line-height:1.6"><strong id="deleteTarget"></strong> hizmetini silmek üzeresiniz. Bu işlem geri alınamaz.</p></div>
     <div class="modal-footer">
-      <button class="btn btn-secondary" onclick="closeModal('deleteModal')" data-i18n="btn_cancel">İptal</button>
-      <button class="btn btn-danger" onclick="confirmDelete()" data-i18n="evet_sil">Evet, Sil</button>
+      <button class="btn btn-secondary" onclick="closeModal('deleteModal')" data-i18n="btn_cancel" aria-label="Kapat">İptal</button>
+      <button class="btn btn-danger" onclick="confirmDelete()" data-i18n="evet_sil" aria-label="Sil">Evet, Sil</button>
     </div>
   </div>
 </div>
 
 <!-- Assign Modal -->
 <div class="modal-overlay" id="assignModal">
-  <div class="modal" style="max-width:480px;">
-    <div class="modal-header"><span class="modal-title" data-i18n="kategori_ata">Kategori Ata</span><button class="modal-close" onclick="closeModal('assignModal')">✕</button></div>
+  <div class="modal" style="max-width:480px">
+    <div class="modal-header"><span class="modal-title" data-i18n="kategori_ata">Kategori Ata</span><button class="modal-close" onclick="closeModal('assignModal')" aria-label="Kapat">✕</button></div>
     <div class="modal-body">
-      <p style="font-size:var(--text-sm);color:var(--text-secondary);margin-bottom:16px;"><strong id="assignCategoryName"></strong> kategorisini hangi firmalara atamak istiyorsunuz?</p>
+      <p style="font-size:var(--text-sm); color:var(--text-secondary); margin-bottom:16px"><strong id="assignCategoryName"></strong> kategorisini hangi firmalara atamak istiyorsunuz?</p>
       <div class="company-assign-list" id="companyAssignList">
         <div class="company-assign-item">
           <div class="company-assign-info">
@@ -996,14 +938,14 @@ textarea.form-input{resize:vertical;}
       </div>
     </div>
     <div class="modal-footer">
-      <button class="btn btn-secondary" onclick="closeModal('assignModal')" data-i18n="btn_cancel">İptal</button>
+      <button class="btn btn-secondary" onclick="closeModal('assignModal')" data-i18n="btn_cancel" aria-label="Kapat">İptal</button>
       <button class="btn btn-primary" onclick="saveAssign()" data-i18n="btn_save">Kaydet</button>
     </div>
   </div>
 </div>
 
 <!-- Toast -->
-<div class="toast-container" id="toastContainer" style="position:fixed;top:20px;right:20px;z-index:300;"></div>
+<div class="toast-container" id="toastContainer" style="position:fixed; top:20px; right:20px; z-index:300"></div>
 
 <script>
 function openModal(id){const el=document.getElementById(id);if(el){el.style.display='flex';el.classList.add('active');}}
@@ -1117,7 +1059,7 @@ function saveEdit(){if (!AUTH.requireRoleForAction(['admin', 'company'], 'saveEd
     };
     const statusTag=status==='active'?'<span class="tag tag-green">Aktif</span>':'<span class="tag tag-gray">Pasif</span>';
 
-    row.cells[0].innerHTML='<div style="font-weight:600;"></div><div style="font-size:var(--text-xs);color:var(--text-muted);"></div>';
+    row.cells[0].innerHTML='<div style="font-weight:600"></div><div style="font-size:var(--text-xs); color:var(--text-muted)"></div>';
     row.cells[0].children[0].textContent=name;
     row.cells[0].children[1].textContent=desc;
     row.cells[1].innerHTML='<span class="tag"></span>';
@@ -1125,7 +1067,7 @@ function saveEdit(){if (!AUTH.requireRoleForAction(['admin', 'company'], 'saveEd
     row.cells[1].querySelector('span').textContent=cat;
     row.cells[2].textContent=subcat;
     row.cells[3].textContent=duration;
-    row.cells[4].innerHTML='<span style="font-weight:600;color:var(--teal-500);"></span>';
+    row.cells[4].innerHTML='<span style="font-weight:600; color:var(--teal-500)"></span>';
     row.cells[4].querySelector('span').textContent=price;
     row.cells[5].innerHTML='<span class="tag"></span>';
     const _statusTag5=row.cells[5].querySelector('span');
@@ -1164,7 +1106,7 @@ function addService(){if (!AUTH.requireRoleForAction(['admin', 'company'], 'addS
 
   const tr=document.createElement('tr');tr.dataset.id=newId;
   const td0=document.createElement('td');
-  td0.innerHTML='<div style="font-weight:600;"></div><div style="font-size:var(--text-xs);color:var(--text-muted);"></div>';
+  td0.innerHTML='<div style="font-weight:600"></div><div style="font-size:var(--text-xs); color:var(--text-muted)"></div>';
   td0.children[0].textContent=name;
   td0.children[1].textContent=desc;
   const td1=document.createElement('td');
@@ -1182,7 +1124,7 @@ function addService(){if (!AUTH.requireRoleForAction(['admin', 'company'], 'addS
   _statusTag6.className='tag '+(status==='active'?'tag-green':'tag-gray');
   _statusTag6.textContent=status==='active'?'Aktif':'Pasif';
   const td6=document.createElement('td');
-  td6.innerHTML='<div class="actions"><button class="action-btn edit" onclick="openEditModal('+escapeHtml(newId)+')" title="Düzenle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal('+escapeHtml(newId)+')" title="Sil"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div>';
+  td6.innerHTML='<div class="actions"><button class="action-btn edit" onclick="openEditModal('+escapeHtml(newId)+')" title="Düzenle" aria-label="Düzenle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal('+escapeHtml(newId)+')" title="Sil" aria-label="Sil"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div>';
   tr.appendChild(td0);tr.appendChild(td1);tr.appendChild(td2);tr.appendChild(td3);tr.appendChild(td4);tr.appendChild(td5);tr.appendChild(td6);
   tbody.appendChild(tr);
 

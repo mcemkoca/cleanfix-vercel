@@ -8,34 +8,8 @@
 <link rel="stylesheet" href="css/main.css">
 <link rel="stylesheet" href="css/components.css">
 <style>
-@keyframes cfToastIn { from { transform:translateX(120%); opacity:0; } to { transform:translateX(0); opacity:1; } }
-@keyframes cfToastOut { from { transform:translateX(0); opacity:1; } to { transform:translateX(120%); opacity:0; } }
-.dashboard{display:flex;min-height:100vh;background:var(--bg-primary);}
-.sidebar{width:280px;height:100vh;background:var(--bg-card);border-right:1px solid var(--border-color);display:flex;flex-direction:column;position:fixed;left:0;top:0;z-index:100;transition:transform var(--duration-slow) var(--ease-out);}
-.sidebar-header{padding:20px 24px;border-bottom:1px solid var(--border-color);display:flex;align-items:center;gap:12px;}
-.sidebar-logo{width:36px;height:36px;background:linear-gradient(135deg,var(--teal-500),var(--teal-700));border-radius:10px;display:flex;align-items:center;justify-content:center;font-weight:700;color: white;font-size:14px;}
-.sidebar-nav{flex:1;overflow-y:auto;padding:16px 12px;}
-.nav-group{margin-bottom:8px;}
-.nav-group-header{display:flex;align-items:center;gap:8px;padding:8px 12px;font-size:var(--text-xs);font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.05em;}
-.nav-label{display:flex;align-items:center;gap:8px;padding:8px 12px;font-size:var(--text-xs);font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.05em;}
-.nav-item{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:var(--radius-md);color:var(--text-secondary);font-size:var(--text-sm);font-weight:500;cursor:pointer;transition:all var(--duration-fast);text-decoration:none;margin-bottom:2px;}
-.nav-item:hover{background:var(--bg-tertiary);color:var(--text-primary);}
-.nav-item.active{background:rgba(20,184,166,0.1);color:var(--teal-500);}
-.nav-icon{width:20px;height:20px;opacity:0.7;}
-.nav-item.active .nav-icon{opacity:1;}
-.main-content{flex:1;margin-left:280px;min-height:100vh;}
-.header{height:64px;background:var(--bg-card);border-bottom:1px solid var(--border-color);display:flex;align-items:center;justify-content:space-between;padding:0 32px;position:sticky;top:0;z-index:50;}
-.header-left{display:flex;align-items:center;gap:16px;}
-.hamburger{display:none;background:none;border:none;color:var(--text-secondary);cursor:pointer;padding:8px;}
-.page-title{font-size:var(--text-lg);font-weight:700;}
-.header-right{display:flex;align-items:center;gap:16px;}
-.lang-switcher{display:flex;align-items:center;gap:4px;background:var(--bg-tertiary);border:1px solid var(--border-color);border-radius:var(--radius-md);padding:3px;}
-.lang-switcher button{padding:5px 10px;border-radius:6px;border:none;background:transparent;color:var(--text-muted);font-size:var(--text-xs);font-weight:600;cursor:pointer;transition:all var(--duration-fast);}
-.lang-switcher button.active{background:var(--teal-500);color: white;}
-.lang-switcher button:hover:not(.active){color:var(--text-primary);}
-.header-btn{width:36px;height:36px;border-radius:var(--radius-md);background:var(--bg-tertiary);border:1px solid var(--border-color);display:flex;align-items:center;justify-content:center;color:var(--text-secondary);cursor:pointer;transition:all var(--duration-fast);}
-.header-btn:hover{border-color:var(--teal-500);color:var(--teal-500);}
-.content{padding:32px;max-width:1400px;}
+@keyframes cfToastIn{ from { transform:translateX(120%); opacity:0; } to { transform:translateX(0); opacity:1; } }
+@keyframes cfToastOut{ from { transform:translateX(0); opacity:1; } to { transform:translateX(120%); opacity:0; } }
 .toolbar{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:24px;flex-wrap:wrap;}
 .search-box{flex:1;min-width:240px;position:relative;}
 .search-box input{width:100%;padding:10px 14px 10px 38px;background:var(--bg-card);border:1.5px solid var(--border-color);border-radius:var(--radius-md);color:var(--text-primary);font-size:var(--text-sm);}
@@ -57,7 +31,7 @@
 .tag-blue{background:rgba(59,130,246,0.1);color:var(--info-500);}
 .tag-red{background:rgba(244,63,94,0.1);color:var(--error-500);}
 .tag-gray{background:rgba(100,116,139,0.1);color:var(--text-muted);}
-.avatar{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:var(--text-xs);color: white;}
+.avatar{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:var(--text-xs);color: var(--text-primary);}
 .actions{display:flex;gap:6px;}
 .action-btn{width:28px;height:28px;border-radius:6px;display:flex;align-items:center;justify-content:center;background:transparent;border:none;color:var(--text-muted);cursor:pointer;transition:all var(--duration-fast);}
 .action-btn:hover{background:var(--bg-tertiary);color:var(--text-primary);}
@@ -86,7 +60,7 @@
 .page-btn:disabled{opacity:0.4;cursor:not-allowed;}
 .view-toggle{display:flex;align-items:center;gap:4px;background:var(--bg-tertiary);border:1px solid var(--border-color);border-radius:var(--radius-md);padding:3px;}
 .view-toggle button{padding:7px 14px;border-radius:6px;border:none;background:transparent;color:var(--text-muted);font-size:var(--text-sm);font-weight:500;cursor:pointer;transition:all var(--duration-fast);display:flex;align-items:center;gap:6px;}
-.view-toggle button.active{background:var(--teal-500);color: white;box-shadow:0 2px 6px rgba(20,184,166,0.3);}
+.view-toggle button.active{background:var(--teal-500);color: var(--text-primary);box-shadow:0 2px 6px rgba(20,184,166,0.3);}
 .view-toggle button:hover:not(.active){color:var(--text-primary);}
 .cards-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;padding:20px 24px;display:none;}
 .cards-grid.active{display:grid;}
@@ -110,7 +84,7 @@
 .mc-day-label{font-size:var(--text-xs);font-weight:600;color:var(--text-muted);padding:6px 0;text-transform:uppercase;}
 .mc-day{width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:var(--text-xs);font-weight:500;color:var(--text-secondary);cursor:pointer;position:relative;transition:all var(--duration-fast);border:none;background:transparent;margin:0 auto;}
 .mc-day:hover{background:var(--bg-tertiary);color:var(--text-primary);}
-.mc-day.selected{background:var(--teal-500);color: white;}
+.mc-day.selected{background:var(--teal-500);color: var(--text-primary);}
 .mc-day.has-booking::after{content:'';position:absolute;bottom:4px;left:50%;transform:translateX(-50%);width:4px;height:4px;border-radius:50%;background:var(--teal-500);}
 .mc-day.selected.has-booking::after{background: var(--bg-card);}
 .mc-day.other-month{color:var(--text-muted);opacity:0.5;}
@@ -118,10 +92,9 @@
 .topbar{display:flex;align-items:flex-start;gap:24px;flex-wrap:wrap;}
 .topbar-main{flex:1;min-width:300px;}
 @media (max-width:1024px){.form-row{grid-template-columns:1fr;}}
-@media (max-width:768px){.sidebar{transform:translateX(-100%);}.sidebar.open{transform:translateX(0);}.main-content{margin-left:0;}.hamburger{display:block;}.toolbar{flex-direction:column;align-items:stretch;}.topbar{flex-direction:column;}.mini-calendar{max-width:100%;}}
-
+@media (max-width:768px){.toolbar{flex-direction:column;align-items:stretch;}.topbar{flex-direction:column;}.mini-calendar{max-width:100%;}}
 /* ── Mobile Responsive ── */
-@media (max-width: 768px) {
+@media (max-width: 768px){
   .sidebar { transform: translateX(-100%); }
   .sidebar.open { transform: translateX(0); }
   .main-content { margin-left: 0 !important; }
@@ -152,34 +125,18 @@
   .login-card { padding: 32px 20px !important; }
   .login-card-wrap { padding: 0 16px !important; }
 }
-@media (max-width: 480px) {
-  .stats-grid { grid-template-columns: 1fr !important; }
-  .content { padding: 12px !important; }
-  .card-header { padding: 14px 16px !important; }
-  .card-body { padding: 14px 16px !important; }
-  .table th, .table td, .card-table th, .card-table td,
+@media (max-width: 480px){.stats-grid{ grid-template-columns: 1fr !important; }.card-header{ padding: 14px 16px !important; }.card-body{ padding: 14px 16px !important; }.table th, .table td, .card-table th, .card-table td,
   .customer-table th, .customer-table td,
   .recurring-table th, .recurring-table td,
-  .line-items-table th, .line-items-table td {
+  .line-items-table th, .line-items-table td{
     padding: 10px 12px !important; font-size: 13px !important;
-  }
-  .page-title { font-size: var(--text-sm) !important; }
-  .modal { max-width: calc(100vw - 24px) !important; margin: 0 12px; }
-  .btn { padding: 10px 14px !important; font-size: 13px !important; }
-  .portal-stats { grid-template-columns: 1fr !important; }
-  .stat-value { font-size: var(--text-xl) !important; }
-  .header-btn { width: 40px !important; height: 40px !important; }
-}
-::selection { background: rgba(20,184,166,0.3); color: inherit; }
-
-@media (max-width: 768px) {
-  .card-body:has(> .table),
-  .card-body:has(> table) { overflow-x: auto; -webkit-overflow-scrolling: touch; }
-  .card-body:has(> .table) .table,
-  .card-body:has(> table) table { min-width: 640px; }
-}
-
+  }.modal{ max-width: calc(100vw - 24px) !important; margin: 0 12px; }.btn{ padding: 10px 14px !important; font-size: 13px !important; }.portal-stats{ grid-template-columns: 1fr !important; }.stat-value{ font-size: var(--text-xl) !important; }}
+::selection{ background: rgba(20,184,166,0.3); color: inherit; }
+@media (max-width: 768px){.card-body:has(> .table),
+  .card-body:has(> table){ overflow-x: auto; -webkit-overflow-scrolling: touch; }.card-body:has(> .table) .table,
+  .card-body:has(> table) table{ min-width: 640px; }}
 </style>
+<link rel="stylesheet" href="css/dashboard.css">
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#0d9488">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -253,13 +210,14 @@
 })();
 </script>
 <body>
+<a href="#main-content" class="skip-link">Ana içeriğe atla</a>
 <script src="js/auth.js"></script>
 <script>checkAuth(['admin','company']);</script>
 <div class="dashboard">
   <aside class="sidebar" id="sidebar">
     <div class="sidebar-header">
       <div class="sidebar-logo">CF</div>
-      <div><div style="font-weight:700;font-size:var(--text-sm);">CleanFix</div><div style="font-size:var(--text-xs);color:var(--text-muted);" data-i18n="sidebar.company_panel">Firma Paneli</div></div>
+      <div><div style="font-weight:700; font-size:var(--text-sm)">CleanFix</div><div style="font-size:var(--text-xs); color:var(--text-muted)" data-i18n="sidebar.company_panel">Firma Paneli</div></div>
     </div>
     <nav role="navigation" aria-label="Main navigation" class="sidebar-nav">
     <div class="nav-group">
@@ -329,7 +287,7 @@
   <main role="main" class="main-content">
     <header role="banner" class="header">
       <div class="header-left">
-        <button class="hamburger" onclick="document.getElementById('sidebar').classList.toggle('open')"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
+        <button class="hamburger" onclick="document.getElementById('sidebar').classList.toggle('open')" aria-label="Menüyü aç"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
         <h1 class="page-title" data-i18n="page.bookings_title">Randevular</h1>
       </div>
       <div class="header-right">
@@ -338,8 +296,8 @@
           <button data-lang="en" onclick="switchLang('en')">EN</button>
           <button data-lang="nl" onclick="switchLang('nl')">NL</button>
         </div>
-        <button class="header-btn" onclick="showToast(i18n[currentLang].toast.new_bookings.replace('{n}','3'),'success')"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg></button>
-        <div style="display:flex;align-items:center;gap:10px;"><div class="avatar" style="background:linear-gradient(135deg,var(--teal-500),var(--teal-600));">CF</div><div><div style="font-weight:600;font-size:var(--text-sm);">CleanFix Demo BV</div><div style="font-size:var(--text-xs);color:var(--text-muted);" data-i18n="sidebar.business_plan">Business Plan</div></div></div>
+        <button class="header-btn" onclick="showToast(i18n[currentLang].toast.new_bookings.replace('{n}','3'),'success')" aria-label="Bildirimler"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg></button>
+        <div style="display:flex; align-items:center; gap:var(--space-3)"><div class="avatar" style="background:linear-gradient(135deg,var(--teal-500),var(--teal-600))">CF</div><div><div style="font-weight:600; font-size:var(--text-sm)">CleanFix Demo BV</div><div style="font-size:var(--text-xs); color:var(--text-muted)" data-i18n="sidebar.business_plan">Business Plan</div></div></div>
       </div>
     </header>
 
@@ -358,7 +316,7 @@
                 <button class="active" onclick="toggleView('table')" id="btnTable"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg> <span data-i18n="bookings.view_table">Tablo</span></button>
                 <button onclick="toggleView('card')" id="btnCard"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg> <span data-i18n="bookings.view_card">Kart</span></button>
               </div>
-<div class="export-btns" style="display:flex;align-items:center;gap:6px;">
+<div class="export-btns" style="display:flex; align-items:center; gap:6px">
   <button class="btn btn-secondary btn-sm" onclick="CleanFixExport.exportCSV('#bookingsTable', 'randevular')">
     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> CSV
   </button>
@@ -368,9 +326,7 @@
   <button class="btn btn-secondary btn-sm" onclick="CleanFixExport.exportPDF('#bookingsTable', 'randevular', 'Randevular')">
     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg> PDF
   </button>
-  <button class="btn btn-secondary btn-sm" onclick="window.print()" title="Yazdır">
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
-  </button>
+  <button class="btn btn-secondary btn-sm" onclick="window.print()" title="Yazdır" aria-label="Yazdır"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg></button>
 </div>
 
               <button class="btn btn-primary" onclick="openModal('addModal')" data-i18n="bookings.add_new">+ Yeni Randevu</button>
@@ -381,12 +337,12 @@
       </div>
 
       <div class="card">
-        <div class="card-body" style="padding:0;">
+        <div class="card-body" style="padding:0">
           <table class="table" id="bookingsTable">
             <thead><tr><th data-i18n="bookings.table.date_time">Tarih / Saat</th><th data-i18n="bookings.table.customer">Müşteri</th><th data-i18n="bookings.table.service">Hizmet</th><th data-i18n="bookings.table.staff">Çalışan</th><th data-i18n="bookings.table.status">Durum</th><th data-i18n="bookings.table.amount">Tutar</th><th data-i18n="bookings.table.actions">İşlemler</th></tr></thead>
             <tbody>
-      <tr class="empty-state-row" style="display:none;">
-        <td colspan="99" style="padding:0; border:none;">
+      <tr class="empty-state-row" style="display:none">
+        <td colspan="99" style="padding:0; border:none">
           <div class="empty-state">
             <div class="empty-state-icon">📭</div>
             <div class="empty-state-title" data-i18n="empty_title">Henüz kayıt yok</div>
@@ -394,31 +350,31 @@
           </div>
         </td>
       </tr>
-              <tr data-id="1" data-date="2026-05-14"><td><div style="font-weight:600;">14 Mayıs</div><div style="font-size:var(--text-xs);color:var(--text-muted);">09:00</div></td><td>Jan Peeters</td><td>Komple Detaylı Temizlik</td><td>Ahmet Kaya</td><td><span class="tag tag-green" data-i18n="status.completed">Tamamlandı</span></td><td style="font-weight:600;">€149</td><td><div class="actions"><button class="action-btn edit" onclick="openEditModal(1)" data-i18n-title="actions.edit"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(1)" data-i18n-title="actions.delete"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td></tr>
-              <tr data-id="2" data-date="2026-05-14"><td><div style="font-weight:600;">14 Mayıs</div><div style="font-size:var(--text-xs);color:var(--text-muted);">10:30</div></td><td>Lisa Wouters</td><td>İç Temizlik</td><td>Merve Demir</td><td><span class="tag tag-amber" data-i18n="status.in_progress">Devam Ediyor</span></td><td style="font-weight:600;">€89</td><td><div class="actions"><button class="action-btn edit" onclick="openEditModal(2)" data-i18n-title="actions.edit"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(2)" data-i18n-title="actions.delete"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td></tr>
-              <tr data-id="3" data-date="2026-05-14"><td><div style="font-weight:600;">14 Mayıs</div><div style="font-size:var(--text-xs);color:var(--text-muted);">13:00</div></td><td>Pieter De Vos</td><td>Dış Yıkama + Cila</td><td>Ali Rıza</td><td><span class="tag tag-blue" data-i18n="status.pending">Bekliyor</span></td><td style="font-weight:600;">€199</td><td><div class="actions"><button class="action-btn edit" onclick="openEditModal(3)" data-i18n-title="actions.edit"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(3)" data-i18n-title="actions.delete"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td></tr>
-              <tr data-id="4" data-date="2026-05-14"><td><div style="font-weight:600;">14 Mayıs</div><div style="font-size:var(--text-xs);color:var(--text-muted);">15:00</div></td><td>Sarah Janssens</td><td>Motor Temizliği</td><td>Ahmet Kaya</td><td><span class="tag tag-blue" data-i18n="status.pending">Bekliyor</span></td><td style="font-weight:600;">€349</td><td><div class="actions"><button class="action-btn edit" onclick="openEditModal(4)" data-i18n-title="actions.edit"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(4)" data-i18n-title="actions.delete"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td></tr>
-              <tr data-id="5" data-date="2026-05-14"><td><div style="font-weight:600;">14 Mayıs</div><div style="font-size:var(--text-xs);color:var(--text-muted);">16:30</div></td><td>Marc Dubois</td><td>Keramik Kaplama</td><td>Merve Demir</td><td><span class="tag tag-blue" data-i18n="status.pending">Bekliyor</span></td><td style="font-weight:600;">€449</td><td><div class="actions"><button class="action-btn edit" onclick="openEditModal(5)" data-i18n-title="actions.edit"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(5)" data-i18n-title="actions.delete"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td></tr>
-              <tr data-id="6" data-date="2026-05-15"><td><div style="font-weight:600;">15 Mayıs</div><div style="font-size:var(--text-xs);color:var(--text-muted);">09:00</div></td><td>Eva Peeters</td><td>İç + Dış Temizlik</td><td>Ali Rıza</td><td><span class="tag tag-blue" data-i18n="status.pending">Bekliyor</span></td><td style="font-weight:600;">€129</td><td><div class="actions"><button class="action-btn edit" onclick="openEditModal(6)" data-i18n-title="actions.edit"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(6)" data-i18n-title="actions.delete"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td></tr>
-              <tr data-id="7" data-date="2026-05-15"><td><div style="font-weight:600;">15 Mayıs</div><div style="font-size:var(--text-xs);color:var(--text-muted);">11:00</div></td><td>Lucas Vermeulen</td><td>Deri Koltuk Bakımı</td><td>Naz Yılmaz</td><td><span class="tag tag-red" data-i18n="status.cancelled">İptal</span></td><td style="font-weight:600;">€79</td><td><div class="actions"><button class="action-btn edit" onclick="openEditModal(7)" data-i18n-title="actions.edit"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(7)" data-i18n-title="actions.delete"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td></tr>
-              <tr data-id="8" data-date="2026-05-15"><td><div style="font-weight:600;">15 Mayıs</div><div style="font-size:var(--text-xs);color:var(--text-muted);">14:00</div></td><td>Emma Jacobs</td><td>Far Parlatma</td><td>Selim Çelik</td><td><span class="tag tag-blue" data-i18n="status.pending">Bekliyor</span></td><td style="font-weight:600;">€59</td><td><div class="actions"><button class="action-btn edit" onclick="openEditModal(8)" data-i18n-title="actions.edit"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(8)" data-i18n-title="actions.delete"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td></tr>
-                          <tr data-id="9" data-date="2026-05-08"><td><div style="font-weight:600;">8 Nisan</div><div style="font-size:var(--text-xs);color:var(--text-muted);">10:00</div></td><td>Selen Can</td><td>Standart Temizlik</td><td>Selim Çelik</td><td><span class="tag tag-blue" data-i18n="status.pending">Bekliyor</span></td><td style="font-weight:600;">€49</td><td><div class="actions"><button class="action-btn edit" onclick="openEditModal(9)" data-i18n-title="actions.edit"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(9)" data-i18n-title="actions.delete"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td></tr>
-              <tr data-id="10" data-date="2026-05-22"><td><div style="font-weight:600;">22 Nisan</div><div style="font-size:var(--text-xs);color:var(--text-muted);">09:00</div></td><td>Burak Şimşek</td><td>Ofis Temizliği</td><td>Zeynep Kılıç</td><td><span class="tag tag-red" data-i18n="status.cancelled">İptal</span></td><td style="font-weight:600;">€199</td><td><div class="actions"><button class="action-btn edit" onclick="openEditModal(10)" data-i18n-title="actions.edit"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(10)" data-i18n-title="actions.delete"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td></tr>
-              <tr data-id="11" data-date="2026-05-15"><td><div style="font-weight:600;">15 Haziran</div><div style="font-size:var(--text-xs);color:var(--text-muted);">16:00</div></td><td>Deniz Yavuz</td><td>Mutfak Yenileme</td><td>Naz Yılmaz</td><td><span class="tag tag-green" data-i18n="status.approved">Onaylandı</span></td><td style="font-weight:600;">€99</td><td><div class="actions"><button class="action-btn edit" onclick="openEditModal(11)" data-i18n-title="actions.edit"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(11)" data-i18n-title="actions.delete"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td></tr>
-              <tr data-id="12" data-date="2026-05-06"><td><div style="font-weight:600;">6 Nisan</div><div style="font-size:var(--text-xs);color:var(--text-muted);">09:00</div></td><td>Ece Aksoy</td><td>Parke Cilalama</td><td>Ali Rıza</td><td><span class="tag tag-green" data-i18n="status.completed">Tamamlandı</span></td><td style="font-weight:600;">€49</td><td><div class="actions"><button class="action-btn edit" onclick="openEditModal(12)" data-i18n-title="actions.edit"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(12)" data-i18n-title="actions.delete"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td></tr>
-              <tr data-id="13" data-date="2026-05-15"><td><div style="font-weight:600;">15 Haziran</div><div style="font-size:var(--text-xs);color:var(--text-muted);">14:00</div></td><td>Cem Özdemir</td><td>Standart Temizlik</td><td>Ahmet Kaya</td><td><span class="tag tag-blue" data-i18n="status.pending">Bekliyor</span></td><td style="font-weight:600;">€549</td><td><div class="actions"><button class="action-btn edit" onclick="openEditModal(13)" data-i18n-title="actions.edit"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(13)" data-i18n-title="actions.delete"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td></tr>
-              <tr data-id="14" data-date="2026-05-14"><td><div style="font-weight:600;">14 Nisan</div><div style="font-size:var(--text-xs);color:var(--text-muted);">10:00</div></td><td>Nazlı Güneş</td><td>Halı Yıkama</td><td>Burak Şimşek</td><td><span class="tag tag-red" data-i18n="status.cancelled">İptal</span></td><td style="font-weight:600;">€79</td><td><div class="actions"><button class="action-btn edit" onclick="openEditModal(14)" data-i18n-title="actions.edit"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(14)" data-i18n-title="actions.delete"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td></tr>
-              <tr data-id="15" data-date="2026-05-21"><td><div style="font-weight:600;">21 Nisan</div><div style="font-size:var(--text-xs);color:var(--text-muted);">16:00</div></td><td>Kaan Yıldırım</td><td>Mobilya Montajı</td><td>Selim Çelik</td><td><span class="tag tag-blue" data-i18n="status.pending">Bekliyor</span></td><td style="font-weight:600;">€149</td><td><div class="actions"><button class="action-btn edit" onclick="openEditModal(15)" data-i18n-title="actions.edit"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(15)" data-i18n-title="actions.delete"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td></tr>
-              <tr data-id="16" data-date="2026-05-11"><td><div style="font-weight:600;">11 Nisan</div><div style="font-size:var(--text-xs);color:var(--text-muted);">13:00</div></td><td>Leyla Korkmaz</td><td>Standart Temizlik</td><td>Naz Yılmaz</td><td><span class="tag tag-blue" data-i18n="status.pending">Bekliyor</span></td><td style="font-weight:600;">€649</td><td><div class="actions"><button class="action-btn edit" onclick="openEditModal(16)" data-i18n-title="actions.edit"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(16)" data-i18n-title="actions.delete"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td></tr>
-              <tr data-id="17" data-date="2026-05-08"><td><div style="font-weight:600;">8 Nisan</div><div style="font-size:var(--text-xs);color:var(--text-muted);">15:00</div></td><td>Oğuz Çetin</td><td>Banyo Yenileme</td><td>Merve Demir</td><td><span class="tag tag-blue" data-i18n="status.pending">Bekliyor</span></td><td style="font-weight:600;">€79</td><td><div class="actions"><button class="action-btn edit" onclick="openEditModal(17)" data-i18n-title="actions.edit"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(17)" data-i18n-title="actions.delete"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td></tr>
-              <tr data-id="18" data-date="2026-05-07"><td><div style="font-weight:600;">7 Mayıs</div><div style="font-size:var(--text-xs);color:var(--text-muted);">17:00</div></td><td>Pelin Doğan</td><td>Mutfak Yenileme</td><td>Naz Yılmaz</td><td><span class="tag tag-green" data-i18n="status.approved">Onaylandı</span></td><td style="font-weight:600;">€59</td><td><div class="actions"><button class="action-btn edit" onclick="openEditModal(18)" data-i18n-title="actions.edit"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(18)" data-i18n-title="actions.delete"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td></tr>
-              <tr data-id="19" data-date="2026-05-28"><td><div style="font-weight:600;">28 Haziran</div><div style="font-size:var(--text-xs);color:var(--text-muted);">12:00</div></td><td>Serkan Ateş</td><td>PVC Kapı Pencere</td><td>Selim Çelik</td><td><span class="tag tag-blue" data-i18n="status.pending">Bekliyor</span></td><td style="font-weight:600;">€149</td><td><div class="actions"><button class="action-btn edit" onclick="openEditModal(19)" data-i18n-title="actions.edit"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(19)" data-i18n-title="actions.delete"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td></tr>
-              <tr data-id="20" data-date="2026-05-19"><td><div style="font-weight:600;">19 Mayıs</div><div style="font-size:var(--text-xs);color:var(--text-muted);">13:00</div></td><td>Buse Kaplan</td><td>Banyo Yenileme</td><td>Selim Çelik</td><td><span class="tag tag-green" data-i18n="status.completed">Tamamlandı</span></td><td style="font-weight:600;">€89</td><td><div class="actions"><button class="action-btn edit" onclick="openEditModal(20)" data-i18n-title="actions.edit"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(20)" data-i18n-title="actions.delete"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td></tr>
-              <tr data-id="21" data-date="2026-05-20"><td><div style="font-weight:600;">20 Haziran</div><div style="font-size:var(--text-xs);color:var(--text-muted);">08:00</div></td><td>Murat Polat</td><td>Halı Yıkama</td><td>Zeynep Kılıç</td><td><span class="tag tag-blue" data-i18n="status.pending">Bekliyor</span></td><td style="font-weight:600;">€89</td><td><div class="actions"><button class="action-btn edit" onclick="openEditModal(21)" data-i18n-title="actions.edit"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(21)" data-i18n-title="actions.delete"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td></tr>
-              <tr data-id="22" data-date="2026-05-11"><td><div style="font-weight:600;">11 Mayıs</div><div style="font-size:var(--text-xs);color:var(--text-muted);">14:00</div></td><td>Aslı Erdoğan</td><td>Ofis Temizliği</td><td>Ayşe Demir</td><td><span class="tag tag-amber" data-i18n="status.in_progress">Devam Ediyor</span></td><td style="font-weight:600;">€199</td><td><div class="actions"><button class="action-btn edit" onclick="openEditModal(22)" data-i18n-title="actions.edit"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(22)" data-i18n-title="actions.delete"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td></tr>
-              <tr data-id="23" data-date="2026-05-21"><td><div style="font-weight:600;">21 Nisan</div><div style="font-size:var(--text-xs);color:var(--text-muted);">17:00</div></td><td>Rıza Akın</td><td>Ofis Temizliği</td><td>Ahmet Kaya</td><td><span class="tag tag-blue" data-i18n="status.pending">Bekliyor</span></td><td style="font-weight:600;">€129</td><td><div class="actions"><button class="action-btn edit" onclick="openEditModal(23)" data-i18n-title="actions.edit"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(23)" data-i18n-title="actions.delete"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td></tr>
-              <tr data-id="24" data-date="2026-05-07"><td><div style="font-weight:600;">7 Haziran</div><div style="font-size:var(--text-xs);color:var(--text-muted);">13:00</div></td><td>Gizem Taş</td><td>Cam Temizliği</td><td>Ali Rıza</td><td><span class="tag tag-blue" data-i18n="status.pending">Bekliyor</span></td><td style="font-weight:600;">€649</td><td><div class="actions"><button class="action-btn edit" onclick="openEditModal(24)" data-i18n-title="actions.edit"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(24)" data-i18n-title="actions.delete"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td></tr>
-              <tr data-id="25" data-date="2026-05-26"><td><div style="font-weight:600;">26 Mayıs</div><div style="font-size:var(--text-xs);color:var(--text-muted);">14:00</div></td><td>Barış Yüksel</td><td>Koltuk Yıkama</td><td>Ali Rıza</td><td><span class="tag tag-green" data-i18n="status.completed">Tamamlandı</span></td><td style="font-weight:600;">€129</td><td><div class="actions"><button class="action-btn edit" onclick="openEditModal(25)" data-i18n-title="actions.edit"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(25)" data-i18n-title="actions.delete"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td></tr>
+              <tr data-id="1" data-date="2026-05-14"><td><div style="font-weight:600">14 Mayıs</div><div style="font-size:var(--text-xs); color:var(--text-muted)">09:00</div></td><td>Jan Peeters</td><td>Komple Detaylı Temizlik</td><td>Ahmet Kaya</td><td><span class="tag tag-green" data-i18n="status.completed">Tamamlandı</span></td><td style="font-weight:600">€149</td><td><div class="actions"><button class="action-btn edit" onclick="openEditModal(1)" data-i18n-title="actions.edit" aria-label="actions.edit"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(1)" data-i18n-title="actions.delete" aria-label="actions.delete"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td></tr>
+              <tr data-id="2" data-date="2026-05-14"><td><div style="font-weight:600">14 Mayıs</div><div style="font-size:var(--text-xs); color:var(--text-muted)">10:30</div></td><td>Lisa Wouters</td><td>İç Temizlik</td><td>Merve Demir</td><td><span class="tag tag-amber" data-i18n="status.in_progress">Devam Ediyor</span></td><td style="font-weight:600">€89</td><td><div class="actions"><button class="action-btn edit" onclick="openEditModal(2)" data-i18n-title="actions.edit" aria-label="actions.edit"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(2)" data-i18n-title="actions.delete" aria-label="actions.delete"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td></tr>
+              <tr data-id="3" data-date="2026-05-14"><td><div style="font-weight:600">14 Mayıs</div><div style="font-size:var(--text-xs); color:var(--text-muted)">13:00</div></td><td>Pieter De Vos</td><td>Dış Yıkama + Cila</td><td>Ali Rıza</td><td><span class="tag tag-blue" data-i18n="status.pending">Bekliyor</span></td><td style="font-weight:600">€199</td><td><div class="actions"><button class="action-btn edit" onclick="openEditModal(3)" data-i18n-title="actions.edit" aria-label="actions.edit"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(3)" data-i18n-title="actions.delete" aria-label="actions.delete"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td></tr>
+              <tr data-id="4" data-date="2026-05-14"><td><div style="font-weight:600">14 Mayıs</div><div style="font-size:var(--text-xs); color:var(--text-muted)">15:00</div></td><td>Sarah Janssens</td><td>Motor Temizliği</td><td>Ahmet Kaya</td><td><span class="tag tag-blue" data-i18n="status.pending">Bekliyor</span></td><td style="font-weight:600">€349</td><td><div class="actions"><button class="action-btn edit" onclick="openEditModal(4)" data-i18n-title="actions.edit" aria-label="actions.edit"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(4)" data-i18n-title="actions.delete" aria-label="actions.delete"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td></tr>
+              <tr data-id="5" data-date="2026-05-14"><td><div style="font-weight:600">14 Mayıs</div><div style="font-size:var(--text-xs); color:var(--text-muted)">16:30</div></td><td>Marc Dubois</td><td>Keramik Kaplama</td><td>Merve Demir</td><td><span class="tag tag-blue" data-i18n="status.pending">Bekliyor</span></td><td style="font-weight:600">€449</td><td><div class="actions"><button class="action-btn edit" onclick="openEditModal(5)" data-i18n-title="actions.edit" aria-label="actions.edit"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(5)" data-i18n-title="actions.delete" aria-label="actions.delete"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td></tr>
+              <tr data-id="6" data-date="2026-05-15"><td><div style="font-weight:600">15 Mayıs</div><div style="font-size:var(--text-xs); color:var(--text-muted)">09:00</div></td><td>Eva Peeters</td><td>İç + Dış Temizlik</td><td>Ali Rıza</td><td><span class="tag tag-blue" data-i18n="status.pending">Bekliyor</span></td><td style="font-weight:600">€129</td><td><div class="actions"><button class="action-btn edit" onclick="openEditModal(6)" data-i18n-title="actions.edit" aria-label="actions.edit"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(6)" data-i18n-title="actions.delete" aria-label="actions.delete"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td></tr>
+              <tr data-id="7" data-date="2026-05-15"><td><div style="font-weight:600">15 Mayıs</div><div style="font-size:var(--text-xs); color:var(--text-muted)">11:00</div></td><td>Lucas Vermeulen</td><td>Deri Koltuk Bakımı</td><td>Naz Yılmaz</td><td><span class="tag tag-red" data-i18n="status.cancelled">İptal</span></td><td style="font-weight:600">€79</td><td><div class="actions"><button class="action-btn edit" onclick="openEditModal(7)" data-i18n-title="actions.edit" aria-label="actions.edit"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(7)" data-i18n-title="actions.delete" aria-label="actions.delete"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td></tr>
+              <tr data-id="8" data-date="2026-05-15"><td><div style="font-weight:600">15 Mayıs</div><div style="font-size:var(--text-xs); color:var(--text-muted)">14:00</div></td><td>Emma Jacobs</td><td>Far Parlatma</td><td>Selim Çelik</td><td><span class="tag tag-blue" data-i18n="status.pending">Bekliyor</span></td><td style="font-weight:600">€59</td><td><div class="actions"><button class="action-btn edit" onclick="openEditModal(8)" data-i18n-title="actions.edit" aria-label="actions.edit"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(8)" data-i18n-title="actions.delete" aria-label="actions.delete"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td></tr>
+                          <tr data-id="9" data-date="2026-05-08"><td><div style="font-weight:600">8 Nisan</div><div style="font-size:var(--text-xs); color:var(--text-muted)">10:00</div></td><td>Selen Can</td><td>Standart Temizlik</td><td>Selim Çelik</td><td><span class="tag tag-blue" data-i18n="status.pending">Bekliyor</span></td><td style="font-weight:600">€49</td><td><div class="actions"><button class="action-btn edit" onclick="openEditModal(9)" data-i18n-title="actions.edit" aria-label="actions.edit"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(9)" data-i18n-title="actions.delete" aria-label="actions.delete"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td></tr>
+              <tr data-id="10" data-date="2026-05-22"><td><div style="font-weight:600">22 Nisan</div><div style="font-size:var(--text-xs); color:var(--text-muted)">09:00</div></td><td>Burak Şimşek</td><td>Ofis Temizliği</td><td>Zeynep Kılıç</td><td><span class="tag tag-red" data-i18n="status.cancelled">İptal</span></td><td style="font-weight:600">€199</td><td><div class="actions"><button class="action-btn edit" onclick="openEditModal(10)" data-i18n-title="actions.edit" aria-label="actions.edit"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(10)" data-i18n-title="actions.delete" aria-label="actions.delete"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td></tr>
+              <tr data-id="11" data-date="2026-05-15"><td><div style="font-weight:600">15 Haziran</div><div style="font-size:var(--text-xs); color:var(--text-muted)">16:00</div></td><td>Deniz Yavuz</td><td>Mutfak Yenileme</td><td>Naz Yılmaz</td><td><span class="tag tag-green" data-i18n="status.approved">Onaylandı</span></td><td style="font-weight:600">€99</td><td><div class="actions"><button class="action-btn edit" onclick="openEditModal(11)" data-i18n-title="actions.edit" aria-label="actions.edit"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(11)" data-i18n-title="actions.delete" aria-label="actions.delete"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td></tr>
+              <tr data-id="12" data-date="2026-05-06"><td><div style="font-weight:600">6 Nisan</div><div style="font-size:var(--text-xs); color:var(--text-muted)">09:00</div></td><td>Ece Aksoy</td><td>Parke Cilalama</td><td>Ali Rıza</td><td><span class="tag tag-green" data-i18n="status.completed">Tamamlandı</span></td><td style="font-weight:600">€49</td><td><div class="actions"><button class="action-btn edit" onclick="openEditModal(12)" data-i18n-title="actions.edit" aria-label="actions.edit"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(12)" data-i18n-title="actions.delete" aria-label="actions.delete"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td></tr>
+              <tr data-id="13" data-date="2026-05-15"><td><div style="font-weight:600">15 Haziran</div><div style="font-size:var(--text-xs); color:var(--text-muted)">14:00</div></td><td>Cem Özdemir</td><td>Standart Temizlik</td><td>Ahmet Kaya</td><td><span class="tag tag-blue" data-i18n="status.pending">Bekliyor</span></td><td style="font-weight:600">€549</td><td><div class="actions"><button class="action-btn edit" onclick="openEditModal(13)" data-i18n-title="actions.edit" aria-label="actions.edit"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(13)" data-i18n-title="actions.delete" aria-label="actions.delete"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td></tr>
+              <tr data-id="14" data-date="2026-05-14"><td><div style="font-weight:600">14 Nisan</div><div style="font-size:var(--text-xs); color:var(--text-muted)">10:00</div></td><td>Nazlı Güneş</td><td>Halı Yıkama</td><td>Burak Şimşek</td><td><span class="tag tag-red" data-i18n="status.cancelled">İptal</span></td><td style="font-weight:600">€79</td><td><div class="actions"><button class="action-btn edit" onclick="openEditModal(14)" data-i18n-title="actions.edit" aria-label="actions.edit"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(14)" data-i18n-title="actions.delete" aria-label="actions.delete"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td></tr>
+              <tr data-id="15" data-date="2026-05-21"><td><div style="font-weight:600">21 Nisan</div><div style="font-size:var(--text-xs); color:var(--text-muted)">16:00</div></td><td>Kaan Yıldırım</td><td>Mobilya Montajı</td><td>Selim Çelik</td><td><span class="tag tag-blue" data-i18n="status.pending">Bekliyor</span></td><td style="font-weight:600">€149</td><td><div class="actions"><button class="action-btn edit" onclick="openEditModal(15)" data-i18n-title="actions.edit" aria-label="actions.edit"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(15)" data-i18n-title="actions.delete" aria-label="actions.delete"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td></tr>
+              <tr data-id="16" data-date="2026-05-11"><td><div style="font-weight:600">11 Nisan</div><div style="font-size:var(--text-xs); color:var(--text-muted)">13:00</div></td><td>Leyla Korkmaz</td><td>Standart Temizlik</td><td>Naz Yılmaz</td><td><span class="tag tag-blue" data-i18n="status.pending">Bekliyor</span></td><td style="font-weight:600">€649</td><td><div class="actions"><button class="action-btn edit" onclick="openEditModal(16)" data-i18n-title="actions.edit" aria-label="actions.edit"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(16)" data-i18n-title="actions.delete" aria-label="actions.delete"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td></tr>
+              <tr data-id="17" data-date="2026-05-08"><td><div style="font-weight:600">8 Nisan</div><div style="font-size:var(--text-xs); color:var(--text-muted)">15:00</div></td><td>Oğuz Çetin</td><td>Banyo Yenileme</td><td>Merve Demir</td><td><span class="tag tag-blue" data-i18n="status.pending">Bekliyor</span></td><td style="font-weight:600">€79</td><td><div class="actions"><button class="action-btn edit" onclick="openEditModal(17)" data-i18n-title="actions.edit" aria-label="actions.edit"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(17)" data-i18n-title="actions.delete" aria-label="actions.delete"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td></tr>
+              <tr data-id="18" data-date="2026-05-07"><td><div style="font-weight:600">7 Mayıs</div><div style="font-size:var(--text-xs); color:var(--text-muted)">17:00</div></td><td>Pelin Doğan</td><td>Mutfak Yenileme</td><td>Naz Yılmaz</td><td><span class="tag tag-green" data-i18n="status.approved">Onaylandı</span></td><td style="font-weight:600">€59</td><td><div class="actions"><button class="action-btn edit" onclick="openEditModal(18)" data-i18n-title="actions.edit" aria-label="actions.edit"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(18)" data-i18n-title="actions.delete" aria-label="actions.delete"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td></tr>
+              <tr data-id="19" data-date="2026-05-28"><td><div style="font-weight:600">28 Haziran</div><div style="font-size:var(--text-xs); color:var(--text-muted)">12:00</div></td><td>Serkan Ateş</td><td>PVC Kapı Pencere</td><td>Selim Çelik</td><td><span class="tag tag-blue" data-i18n="status.pending">Bekliyor</span></td><td style="font-weight:600">€149</td><td><div class="actions"><button class="action-btn edit" onclick="openEditModal(19)" data-i18n-title="actions.edit" aria-label="actions.edit"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(19)" data-i18n-title="actions.delete" aria-label="actions.delete"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td></tr>
+              <tr data-id="20" data-date="2026-05-19"><td><div style="font-weight:600">19 Mayıs</div><div style="font-size:var(--text-xs); color:var(--text-muted)">13:00</div></td><td>Buse Kaplan</td><td>Banyo Yenileme</td><td>Selim Çelik</td><td><span class="tag tag-green" data-i18n="status.completed">Tamamlandı</span></td><td style="font-weight:600">€89</td><td><div class="actions"><button class="action-btn edit" onclick="openEditModal(20)" data-i18n-title="actions.edit" aria-label="actions.edit"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(20)" data-i18n-title="actions.delete" aria-label="actions.delete"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td></tr>
+              <tr data-id="21" data-date="2026-05-20"><td><div style="font-weight:600">20 Haziran</div><div style="font-size:var(--text-xs); color:var(--text-muted)">08:00</div></td><td>Murat Polat</td><td>Halı Yıkama</td><td>Zeynep Kılıç</td><td><span class="tag tag-blue" data-i18n="status.pending">Bekliyor</span></td><td style="font-weight:600">€89</td><td><div class="actions"><button class="action-btn edit" onclick="openEditModal(21)" data-i18n-title="actions.edit" aria-label="actions.edit"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(21)" data-i18n-title="actions.delete" aria-label="actions.delete"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td></tr>
+              <tr data-id="22" data-date="2026-05-11"><td><div style="font-weight:600">11 Mayıs</div><div style="font-size:var(--text-xs); color:var(--text-muted)">14:00</div></td><td>Aslı Erdoğan</td><td>Ofis Temizliği</td><td>Ayşe Demir</td><td><span class="tag tag-amber" data-i18n="status.in_progress">Devam Ediyor</span></td><td style="font-weight:600">€199</td><td><div class="actions"><button class="action-btn edit" onclick="openEditModal(22)" data-i18n-title="actions.edit" aria-label="actions.edit"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(22)" data-i18n-title="actions.delete" aria-label="actions.delete"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td></tr>
+              <tr data-id="23" data-date="2026-05-21"><td><div style="font-weight:600">21 Nisan</div><div style="font-size:var(--text-xs); color:var(--text-muted)">17:00</div></td><td>Rıza Akın</td><td>Ofis Temizliği</td><td>Ahmet Kaya</td><td><span class="tag tag-blue" data-i18n="status.pending">Bekliyor</span></td><td style="font-weight:600">€129</td><td><div class="actions"><button class="action-btn edit" onclick="openEditModal(23)" data-i18n-title="actions.edit" aria-label="actions.edit"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(23)" data-i18n-title="actions.delete" aria-label="actions.delete"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td></tr>
+              <tr data-id="24" data-date="2026-05-07"><td><div style="font-weight:600">7 Haziran</div><div style="font-size:var(--text-xs); color:var(--text-muted)">13:00</div></td><td>Gizem Taş</td><td>Cam Temizliği</td><td>Ali Rıza</td><td><span class="tag tag-blue" data-i18n="status.pending">Bekliyor</span></td><td style="font-weight:600">€649</td><td><div class="actions"><button class="action-btn edit" onclick="openEditModal(24)" data-i18n-title="actions.edit" aria-label="actions.edit"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(24)" data-i18n-title="actions.delete" aria-label="actions.delete"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td></tr>
+              <tr data-id="25" data-date="2026-05-26"><td><div style="font-weight:600">26 Mayıs</div><div style="font-size:var(--text-xs); color:var(--text-muted)">14:00</div></td><td>Barış Yüksel</td><td>Koltuk Yıkama</td><td>Ali Rıza</td><td><span class="tag tag-green" data-i18n="status.completed">Tamamlandı</span></td><td style="font-weight:600">€129</td><td><div class="actions"><button class="action-btn edit" onclick="openEditModal(25)" data-i18n-title="actions.edit" aria-label="actions.edit"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal(25)" data-i18n-title="actions.delete" aria-label="actions.delete"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td></tr>
             </tbody>
           </table>
           <div class="cards-grid" id="cardsGrid"></div>
@@ -440,32 +396,32 @@
   <div class="modal">
     <div class="modal-header">
       <span class="modal-title" data-i18n="modal.add_booking">Yeni Randevu Ekle</span>
-      <button class="modal-close" onclick="closeModal('addModal')">✕</button>
+      <button class="modal-close" onclick="closeModal('addModal')" aria-label="Kapat">✕</button>
     </div>
     <div class="modal-body">
       <div class="form-row">
         <div class="form-group">
-          <label class="form-label" data-i18n="form.customer_name">Müşteri Adı</label>
+          <label class="form-label" data-i18n="form.customer_name" for="addCustomer">Müşteri Adı</label>
           <input type="text" class="form-input" data-i18n-placeholder="form.customer_name_ph" placeholder="Örn: Jan Peeters" id="addCustomer" required>
         </div>
         <div class="form-group">
-          <label class="form-label" data-i18n="form.phone">Telefon</label>
+          <label class="form-label" data-i18n="form.phone" for="addPhone">Telefon</label>
           <input type="tel" class="form-input" data-i18n-placeholder="form.phone_ph" placeholder="+32 470 12 34 56" id="addPhone" required minlength="7">
         </div>
       </div>
       <div class="form-row">
         <div class="form-group">
-          <label class="form-label" data-i18n="form.date">Tarih</label>
+          <label class="form-label" data-i18n="form.date" for="addDate">Tarih</label>
           <input type="date" class="form-input" id="addDate" required>
         </div>
         <div class="form-group">
-          <label class="form-label" data-i18n="form.time">Saat</label>
+          <label class="form-label" data-i18n="form.time" for="addTime">Saat</label>
           <input type="time" class="form-input" id="addTime" required>
         </div>
       </div>
       <div class="form-row">
         <div class="form-group">
-          <label class="form-label" data-i18n="form.service">Hizmet</label>
+          <label class="form-label" data-i18n="form.service" for="addService">Hizmet</label>
           <select class="form-input" id="addService" required>
             <option value="" data-i18n="form.select">Seçin...</option>
             <option>Komple Detaylı Temizlik</option>
@@ -480,7 +436,7 @@
           </select>
         </div>
         <div class="form-group">
-          <label class="form-label" data-i18n="form.staff">Çalışan</label>
+          <label class="form-label" data-i18n="form.staff" for="addStaff">Çalışan</label>
           <select class="form-input" id="addStaff" required>
             <option value="" data-i18n="form.select">Seçin...</option>
             <option>Ahmet Kaya</option>
@@ -492,12 +448,12 @@
         </div>
       </div>
       <div class="form-group">
-        <label class="form-label" data-i18n="form.notes">Notlar</label>
-        <textarea class="form-input" rows="3" data-i18n-placeholder="form.notes_ph" placeholder="Müşteri talepleri, özel notlar..." id="addNotes" style="resize:vertical;"></textarea>
+        <label class="form-label" data-i18n="form.notes" for="addNotes">Notlar</label>
+        <textarea class="form-input" rows="3" data-i18n-placeholder="form.notes_ph" placeholder="Müşteri talepleri, özel notlar..." id="addNotes" style="resize:vertical"></textarea>
       </div>
     </div>
     <div class="modal-footer">
-      <button class="btn btn-secondary" onclick="closeModal('addModal')" data-i18n="actions.cancel">İptal</button>
+      <button class="btn btn-secondary" onclick="closeModal('addModal')" data-i18n="actions.cancel" aria-label="Kapat">İptal</button>
       <button class="btn btn-primary" onclick="addBooking()" data-i18n="bookings.create_btn">Randevu Oluştur</button>
     </div>
   </div>
@@ -508,33 +464,33 @@
   <div class="modal">
     <div class="modal-header">
       <span class="modal-title" data-i18n="modal.edit_booking">Randevu Düzenle</span>
-      <button class="modal-close" onclick="closeModal('editModal')">✕</button>
+      <button class="modal-close" onclick="closeModal('editModal')" aria-label="Kapat">✕</button>
     </div>
     <div class="modal-body">
       <input type="hidden" id="editId">
       <div class="form-row">
         <div class="form-group">
-          <label class="form-label" data-i18n="form.customer_name">Müşteri Adı</label>
+          <label class="form-label" data-i18n="form.customer_name" for="editCustomer">Müşteri Adı</label>
           <input type="text" class="form-input" id="editCustomer" required>
         </div>
         <div class="form-group">
-          <label class="form-label" data-i18n="form.phone">Telefon</label>
+          <label class="form-label" data-i18n="form.phone" for="editPhone">Telefon</label>
           <input type="tel" class="form-input" id="editPhone" required minlength="7">
         </div>
       </div>
       <div class="form-row">
         <div class="form-group">
-          <label class="form-label" data-i18n="form.date">Tarih</label>
+          <label class="form-label" data-i18n="form.date" for="editDate">Tarih</label>
           <input type="date" class="form-input" id="editDate" required>
         </div>
         <div class="form-group">
-          <label class="form-label" data-i18n="form.time">Saat</label>
+          <label class="form-label" data-i18n="form.time" for="editTime">Saat</label>
           <input type="time" class="form-input" id="editTime" required>
         </div>
       </div>
       <div class="form-row">
         <div class="form-group">
-          <label class="form-label" data-i18n="form.service">Hizmet</label>
+          <label class="form-label" data-i18n="form.service" for="editService">Hizmet</label>
           <select class="form-input" id="editService" required>
             <option>Komple Detaylı Temizlik</option>
             <option>İç Temizlik</option>
@@ -548,7 +504,7 @@
           </select>
         </div>
         <div class="form-group">
-          <label class="form-label" data-i18n="form.staff">Çalışan</label>
+          <label class="form-label" data-i18n="form.staff" for="editStaff">Çalışan</label>
           <select class="form-input" id="editStaff" required>
             <option>Ahmet Kaya</option>
             <option>Merve Demir</option>
@@ -560,7 +516,7 @@
       </div>
       <div class="form-row">
         <div class="form-group">
-          <label class="form-label" data-i18n="form.status">Durum</label>
+          <label class="form-label" data-i18n="form.status" for="editStatus">Durum</label>
           <select class="form-input" id="editStatus">
             <option value="pending" data-i18n="status.pending">Bekliyor</option>
             <option value="progress" data-i18n="status.in_progress">Devam Ediyor</option>
@@ -569,39 +525,39 @@
           </select>
         </div>
         <div class="form-group">
-          <label class="form-label" data-i18n="form.amount">Tutar (€)</label>
+          <label class="form-label" data-i18n="form.amount" for="editPrice">Tutar (€)</label>
           <input type="number" class="form-input" id="editPrice" step="0.01">
         </div>
       </div>
     </div>
     <div class="modal-footer">
-      <button class="btn btn-secondary" onclick="closeModal('editModal')" data-i18n="actions.cancel">İptal</button>
-      <button class="btn btn-primary" onclick="saveEdit()" data-i18n="actions.save_changes">Değişiklikleri Kaydet</button>
+      <button class="btn btn-secondary" onclick="closeModal('editModal')" data-i18n="actions.cancel" aria-label="Kapat">İptal</button>
+      <button class="btn btn-primary" onclick="saveEdit()" data-i18n="actions.save_changes" aria-label="Düzenle">Değişiklikleri Kaydet</button>
     </div>
   </div>
 </div>
 
 <!-- Delete Modal -->
 <div class="modal-overlay" id="deleteModal" onclick="if(event.target===this)closeModal(this.id)">
-  <div class="modal" style="max-width:420px;">
+  <div class="modal" style="max-width:420px">
     <div class="modal-header">
-      <span class="modal-title" style="color:var(--error-500);" data-i18n="modal.delete_booking">Randevu Sil</span>
-      <button class="modal-close" onclick="closeModal('deleteModal')">✕</button>
+      <span class="modal-title" style="color:var(--error-500)" data-i18n="modal.delete_booking">Randevu Sil</span>
+      <button class="modal-close" onclick="closeModal('deleteModal')" aria-label="Kapat">✕</button>
     </div>
     <div class="modal-body">
-      <p style="font-size:var(--text-sm);color:var(--text-secondary);line-height:1.6;">
+      <p style="font-size:var(--text-sm); color:var(--text-secondary); line-height:1.6">
         <strong id="deleteTarget"></strong> <span data-i18n="bookings.delete_confirm">tarihli randevuyu silmek üzeresiniz. Bu işlem geri alınamaz.</span>
       </p>
     </div>
     <div class="modal-footer">
-      <button class="btn btn-secondary" onclick="closeModal('deleteModal')" data-i18n="actions.cancel">İptal</button>
-      <button class="btn btn-danger" onclick="confirmDelete()" style="background:var(--error-500);color: white;" data-i18n="actions.confirm_delete">Evet, Sil</button>
+      <button class="btn btn-secondary" onclick="closeModal('deleteModal')" data-i18n="actions.cancel" aria-label="Kapat">İptal</button>
+      <button class="btn btn-danger" onclick="confirmDelete()" style="background:var(--error-500); color:var(--text-primary)" data-i18n="actions.confirm_delete" aria-label="Sil">Evet, Sil</button>
     </div>
   </div>
 </div>
 
 <!-- Toast -->
-<div class="toast-container" id="toastContainer" style="position:fixed;top:20px;right:20px;z-index:300;"></div>
+<div class="toast-container" id="toastContainer" style="position:fixed; top:20px; right:20px; z-index:300"></div>
 
 <script>
 const i18n={
@@ -764,7 +720,7 @@ function saveEdit(){if (!AUTH.requireRoleForAction(['admin', 'company'], 'saveEd
     const timeVal=document.getElementById('editTime').value;
     const d=new Date(dateVal);
     const months=monthNames();
-    row.cells[0].innerHTML='<div style="font-weight:600;"></div><div style="font-size:var(--text-xs);color:var(--text-muted);"></div>';
+    row.cells[0].innerHTML='<div style="font-weight:600"></div><div style="font-size:var(--text-xs); color:var(--text-muted)"></div>';
     row.cells[0].children[0].textContent=d.getDate()+' '+months[d.getMonth()];
     row.cells[0].children[1].textContent=timeVal;
     row.cells[1].textContent=document.getElementById('editCustomer').value;
@@ -813,7 +769,7 @@ function addBooking(){if (!AUTH.requireRoleForAction(['admin', 'company'], 'addB
   const dateStr=`${d.getDate()} ${months[d.getMonth()]}`;
   const pendingLabel=t('status.pending');
   const td0=document.createElement('td');
-  td0.innerHTML='<div style="font-weight:600;"></div><div style="font-size:var(--text-xs);color:var(--text-muted);"></div>';
+  td0.innerHTML='<div style="font-weight:600"></div><div style="font-size:var(--text-xs); color:var(--text-muted)"></div>';
   td0.children[0].textContent=dateStr;
   td0.children[1].textContent=time;
   const td1=document.createElement('td');td1.textContent=customer;
@@ -829,7 +785,7 @@ function addBooking(){if (!AUTH.requireRoleForAction(['admin', 'company'], 'addB
   td5.style.fontWeight='600';
   td5.textContent='€—';
   const td6=document.createElement('td');
-  td6.innerHTML='<div class="actions"><button class="action-btn edit" onclick="openEditModal('+newId+')" data-i18n-title="actions.edit"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal('+newId+')" data-i18n-title="actions.delete"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div>';
+  td6.innerHTML='<div class="actions"><button class="action-btn edit" onclick="openEditModal('+newId+')" data-i18n-title="actions.edit" aria-label="actions.edit"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="openDeleteModal('+newId+')" data-i18n-title="actions.delete" aria-label="actions.delete"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div>';
   tr.appendChild(td0);tr.appendChild(td1);tr.appendChild(td2);tr.appendChild(td3);tr.appendChild(td4);tr.appendChild(td5);tr.appendChild(td6);
   tbody.appendChild(tr);
   demoData[newId]={customer,phone:document.getElementById('addPhone').value||'',date,time,service,staff,status:'pending',price:''};
@@ -879,8 +835,8 @@ function renderCards(){
     const deleteLabel=t('actions.delete');
     card.innerHTML=`
       <div class="booking-card-actions">
-        <button class="action-btn edit" onclick="openEditModal(${id})" title="${editLabel}"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>
-        <button class="action-btn delete" onclick="openDeleteModal(${id})" title="${deleteLabel}"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button>
+        <button class="action-btn edit" onclick="openEditModal(${id})" title="${editLabel}" aria-label="${editLabel}"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>
+        <button class="action-btn delete" onclick="openDeleteModal(${id})" title="${deleteLabel}" aria-label="${deleteLabel}"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button>
       </div>
       <div class="booking-card-header">
         <div>
@@ -888,14 +844,14 @@ function renderCards(){
           <div class="booking-card-service"></div>
         </div>
       </div>
-      <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
+      <div style="display:flex; align-items:center; gap:var(--space-2); margin-bottom:8px">
         <span class="tag ${statusClass}" data-i18n="status.${{tagBlue:'pending',tagAmber:'in_progress',tagGreen:'completed',tagRed:'cancelled'}[statusClass.replace('tag-','')]||'pending'}"></span>
       </div>
       <div class="booking-card-meta">
         <span class="booking-card-time"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><span></span></span>
         <span class="booking-card-price"></span>
       </div>
-      <div style="font-size:var(--text-xs);color:var(--text-muted);margin-top:6px;"></div>
+      <div style="font-size:var(--text-xs); color:var(--text-muted); margin-top:6px"></div>
     `;
     card.querySelector('.booking-card-name').textContent=customer;
     card.querySelector('.booking-card-service').textContent=service;
@@ -954,7 +910,7 @@ function renderMiniCalendar(){
   }
   html+=`</div>`;
   if(selectedCalDate){
-    html+=`<div style="margin-top:10px;display:flex;align-items:center;gap:8px;"><span style="font-size:var(--text-xs);color:var(--text-muted);">${t('calendar.filter')}: ${selectedCalDate}</span><button onclick="clearCalFilter()" style="font-size:var(--text-xs);padding:3px 8px;border-radius:4px;border:none;background:var(--bg-tertiary);color:var(--text-muted);cursor:pointer;">${t('calendar.clear')}</button></div>`;
+    html+=`<div style="margin-top:10px; display:flex; align-items:center; gap:var(--space-2)"><span style="font-size:var(--text-xs); color:var(--text-muted)">${t('calendar.filter')}: ${selectedCalDate}</span><button onclick="clearCalFilter()" style="font-size:var(--text-xs); padding:3px var(--space-2); border-radius:4px; border:none; background:var(--bg-tertiary); color:var(--text-muted); cursor:pointer">${t('calendar.clear')}</button></div>`;
   }
   el.innerHTML=html;
 }

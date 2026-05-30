@@ -73,7 +73,7 @@
 .sidebar-logo .logo-icon {
   width:40px; height:40px; background:linear-gradient(135deg,var(--teal-500),var(--teal-700));
   border-radius:var(--radius-md); display:flex; align-items:center; justify-content:center;
-  font-size:16px; font-weight:700; color: white;
+  font-size:16px; font-weight:700; color: var(--text-primary);
 }
 .sidebar-logo h2 { font-size:var(--text-base); font-weight:700; letter-spacing:-0.02em; }
 .sidebar-logo p { font-size:var(--text-xs); color:var(--text-muted); }
@@ -99,7 +99,7 @@
   margin-left:auto; background:var(--bg-tertiary); color:var(--text-secondary);
   font-size:var(--text-xs); font-weight:600; padding:2px 8px; border-radius:9999px;
 }
-.nav-item.active .nav-badge { background:var(--teal-500); color: white; }
+.nav-item.active .nav-badge { background:var(--teal-500); color: var(--text-primary); }
 .sidebar-footer { padding:var(--space-4); border-top:1px solid var(--border-color); }
 .sidebar-user { display:flex; align-items:center; gap:var(--space-3); }
 .sidebar-user-info { flex:1; }
@@ -154,7 +154,7 @@
   width:72px; height:72px; border-radius:50%;
   background:linear-gradient(135deg,var(--teal-400),var(--teal-700));
   display:flex; align-items:center; justify-content:center;
-  font-size:28px; font-weight:700; color: white;
+  font-size:28px; font-weight:700; color: var(--text-primary);
   flex-shrink:0;
   box-shadow:0 0 0 3px var(--bg-card),0 0 0 6px rgba(20,184,166,0.2);
 }
@@ -259,8 +259,8 @@
   display:flex; align-items:center; justify-content:center;
   font-size:10px; z-index:2;
 }
-.timeline-dot.completed { background:var(--success-500); color: white; }
-.timeline-dot.active { background:var(--teal-500); color: white; box-shadow:0 0 0 3px rgba(20,184,166,0.2); }
+.timeline-dot.completed { background:var(--success-500); color: var(--text-primary); }
+.timeline-dot.active { background:var(--teal-500); color: var(--text-primary); box-shadow:0 0 0 3px rgba(20,184,166,0.2); }
 .timeline-dot.pending { background:var(--bg-tertiary); border:2px solid var(--border-color); }
 .timeline-content { display:flex; flex-direction:column; gap:2px; }
 .timeline-time {
@@ -442,6 +442,7 @@
 </style>
 </head>
 <body>
+<a href="#main-content" class="skip-link">Ana içeriğe atla</a>
 <div class="dashboard">
 
 <!-- ── Sidebar ── -->
@@ -455,7 +456,7 @@
       </div>
     </div>
   </div>
-  <nav class="sidebar-nav">
+  <nav class="sidebar-nav" role="navigation" aria-label="Main navigation">
     <div class="nav-group">
       <div class="nav-label" data-i18n="nav.menu">Menü</div>
       <a class="nav-item active" href="employee-dashboard.html">
@@ -510,7 +511,7 @@
 <div class="slide-overlay" id="slideOverlay" onclick="closeSidebar()"></div>
 
 <!-- ── Main ── -->
-<main class="main">
+<main class="main" id="main-content">
   <!-- Header -->
   <header class="header">
     <div class="header-left">
@@ -528,7 +529,7 @@
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
       </button>
       <button class="header-btn" onclick="toggleLang()" aria-label="Dil">
-        <span id="langLabel" style="font-size:12px;font-weight:700;">TR</span>
+        <span id="langLabel" style="font-size:var(--text-xs); font-weight:700">TR</span>
       </button>
     </div>
   </header>
@@ -565,7 +566,7 @@
     <div class="kpi-grid">
       <div class="kpi-card reveal reveal-delay-1">
         <div class="kpi-icon teal">⏱️</div>
-        <div class="kpi-value">38<small style="font-size:var(--text-sm);color:var(--text-muted);">/40h</small></div>
+        <div class="kpi-value">38<small style="font-size:var(--text-sm); color:var(--text-muted)">/40h</small></div>
         <div class="kpi-label" data-i18n="kpi.hours">Bu Hafta Saat</div>
         <span class="kpi-extra target" data-i18n="kpi.hours_left">2 saat kaldı</span>
       </div>
@@ -577,7 +578,7 @@
       </div>
       <div class="kpi-card reveal reveal-delay-3">
         <div class="kpi-icon amber">⭐</div>
-        <div class="kpi-value">4.8<small style="font-size:var(--text-sm);color:var(--text-muted);">/5.0</small></div>
+        <div class="kpi-value">4.8<small style="font-size:var(--text-sm); color:var(--text-muted)">/5.0</small></div>
         <div class="kpi-label" data-i18n="kpi.rating">Müşteri Puanı</div>
         <span class="kpi-extra up">45 <span data-i18n="kpi.reviews">değerlendirme</span></span>
       </div>
@@ -680,7 +681,7 @@
       </div>
 
       <!-- Timesheet + Upcoming Tasks -->
-      <div style="display:flex;flex-direction:column;gap:var(--space-6);">
+      <div style="display:flex; flex-direction:column; gap:var(--space-6)">
         <!-- Timesheet Widget -->
         <div class="section-card reveal">
           <h3>
@@ -700,11 +701,11 @@
               </div>
               <div class="timesheet-row">
                 <span class="label" data-i18n="timesheet.clockout">Çıkış:</span>
-                <span class="value">17:00 <span style="font-weight:400;color:var(--text-muted);">(planlanan)</span></span>
+                <span class="value">17:00 <span style="font-weight:400; color:var(--text-muted)">(planlanan)</span></span>
               </div>
               <div class="timesheet-row">
                 <span class="label" data-i18n="timesheet.total">Toplam:</span>
-                <span class="value" style="color:var(--teal-500);">2s 47dk</span>
+                <span class="value" style="color:var(--teal-500)">2s 47dk</span>
               </div>
             </div>
           </div>
@@ -755,7 +756,7 @@
     </div>
 
     <!-- Recent Activity -->
-    <div class="section-card reveal" style="margin-bottom:var(--space-6);">
+    <div class="section-card reveal" style="margin-bottom:var(--space-6)">
       <h3>
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--teal-500)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
         <span data-i18n="activity.title">Son Tamamlanan İşler</span>
@@ -824,11 +825,11 @@
   <div class="modal">
     <div class="modal-header">
       <div class="modal-title" data-i18n="modal.issue_title">Sorun Bildir</div>
-      <button class="modal-close" onclick="closeModal('issueModal')">✕</button>
+      <button class="modal-close" onclick="closeModal('issueModal')" aria-label="Kapat">✕</button>
     </div>
     <div class="modal-body">
       <div class="form-group">
-        <label class="form-label" data-i18n="modal.issue_type">Sorun Türü</label>
+        <label class="form-label" data-i18n="modal.issue_type" for="sorun_t_r__0">Sorun Türü</label>
         <select class="form-select">
           <option value="">Seçiniz</option>
           <option value="equipment" data-i18n="modal.equipment">Ekipman Arızası</option>
@@ -839,11 +840,11 @@
         </select>
       </div>
       <div class="form-group">
-        <label class="form-label" data-i18n="modal.issue_desc">Açıklama</label>
+        <label class="form-label" data-i18n="modal.issue_desc" for="a__klama_1">Açıklama</label>
         <textarea class="form-textarea" rows="4" placeholder="Sorunu detaylı açıklayın..."></textarea>
       </div>
       <div class="form-group">
-        <label class="form-label" data-i18n="modal.issue_job">İlgili Görev</label>
+        <label class="form-label" data-i18n="modal.issue_job" for="i_lgili_g_rev_2">İlgili Görev</label>
         <select class="form-select">
           <option>Ofis Temizliği — Koningsstraat 12</option>
           <option>Ev Temizliği — Rue de la Loi 42</option>
@@ -853,7 +854,7 @@
       </div>
     </div>
     <div class="modal-footer">
-      <button class="btn btn-secondary" onclick="closeModal('issueModal')" data-i18n="btn.cancel">İptal</button>
+      <button class="btn btn-secondary" onclick="closeModal('issueModal')" data-i18n="btn.cancel" aria-label="Kapat">İptal</button>
       <button class="btn btn-primary" onclick="submitIssue()" data-i18n="btn.submit">Gönder</button>
     </div>
   </div>
@@ -864,11 +865,11 @@
   <div class="modal">
     <div class="modal-header">
       <div class="modal-title" data-i18n="modal.leave_title">İzin Talep Et</div>
-      <button class="modal-close" onclick="closeModal('leaveModal')">✕</button>
+      <button class="modal-close" onclick="closeModal('leaveModal')" aria-label="Kapat">✕</button>
     </div>
     <div class="modal-body">
       <div class="form-group">
-        <label class="form-label" data-i18n="modal.leave_type">İzin Türü</label>
+        <label class="form-label" data-i18n="modal.leave_type" for="i_zin_t_r__3">İzin Türü</label>
         <select class="form-select">
           <option value="">Seçiniz</option>
           <option value="annual" data-i18n="modal.annual">Yıllık İzin</option>
@@ -877,26 +878,26 @@
           <option value="unpaid" data-i18n="modal.unpaid">Ücretsiz İzin</option>
         </select>
       </div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-4);">
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:var(--space-4)">
         <div class="form-group">
-          <label class="form-label" data-i18n="modal.start_date">Başlangıç</label>
+          <label class="form-label" data-i18n="modal.start_date" for="ba_lang___4">Başlangıç</label>
           <input type="date" class="form-input" value="2026-05-26">
         </div>
         <div class="form-group">
-          <label class="form-label" data-i18n="modal.end_date">Bitiş</label>
+          <label class="form-label" data-i18n="modal.end_date" for="biti__5">Bitiş</label>
           <input type="date" class="form-input" value="2026-05-28">
         </div>
       </div>
       <div class="form-group">
-        <label class="form-label" data-i18n="modal.leave_reason">Sebep</label>
+        <label class="form-label" data-i18n="modal.leave_reason" for="sebep_6">Sebep</label>
         <textarea class="form-textarea" rows="3" placeholder="Kısa bir açıklama..."></textarea>
       </div>
-      <div style="background:var(--bg-secondary);padding:var(--space-4);border-radius:var(--radius-md);font-size:var(--text-sm);">
+      <div style="background:var(--bg-secondary); padding:var(--space-4); border-radius:var(--radius-md); font-size:var(--text-sm)">
         <strong data-i18n="modal.balance">Kalan İzin:</strong> 12 gün (Yıllık)
       </div>
     </div>
     <div class="modal-footer">
-      <button class="btn btn-secondary" onclick="closeModal('leaveModal')" data-i18n="btn.cancel">İptal</button>
+      <button class="btn btn-secondary" onclick="closeModal('leaveModal')" data-i18n="btn.cancel" aria-label="Kapat">İptal</button>
       <button class="btn btn-primary" onclick="submitLeave()" data-i18n="btn.submit">Talep Et</button>
     </div>
   </div>

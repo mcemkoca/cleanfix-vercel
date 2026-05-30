@@ -11,7 +11,7 @@
 .dashboard{display:flex;min-height:100vh;background:var(--bg-primary);}
 .sidebar{width:280px;height:100vh;background:var(--bg-card);border-right:1px solid var(--border-color);display:flex;flex-direction:column;position:fixed;left:0;top:0;z-index:100;transition:transform var(--duration-slow) var(--ease-out);}
 .sidebar-header{padding:20px 24px;border-bottom:1px solid var(--border-color);display:flex;align-items:center;gap:12px;}
-.sidebar-logo{width:36px;height:36px;background:linear-gradient(135deg,var(--teal-500),var(--teal-700));border-radius:10px;display:flex;align-items:center;justify-content:center;font-weight:700;color: white;font-size:14px;}
+.sidebar-logo{width:36px;height:36px;background:linear-gradient(135deg,var(--teal-500),var(--teal-700));border-radius:10px;display:flex;align-items:center;justify-content:center;font-weight:700;color: var(--text-primary);font-size:14px;}
 .sidebar-nav{flex:1;overflow-y:auto;padding:16px 12px;}
 .nav-group{margin-bottom:8px;}
 .nav-group-header{display:flex;align-items:center;gap:8px;padding:8px 12px;font-size:var(--text-xs);font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.05em;}
@@ -61,7 +61,7 @@
 .table td{padding:12px 16px;font-size:var(--text-sm);color:var(--text-secondary);border-bottom:1px solid var(--border-color);}
 .table tr:last-child td{border-bottom:none;}
 .table tr:hover td{background:rgba(255,255,255,0.02);}
-.avatar{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:var(--text-xs);color: white;}
+.avatar{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:var(--text-xs);color: var(--text-primary);}
 .tag{display:inline-flex;align-items:center;gap:4px;padding:4px 12px;border-radius:9999px;font-size:var(--text-xs);font-weight:500;background:rgba(16,185,129,0.1);color:var(--success-500);}
 .tag.busy{background:rgba(245,158,11,0.1);color:var(--amber-500);}
 .tag.blue{background:rgba(59,130,246,0.1);color:var(--info-500);}
@@ -145,13 +145,14 @@
 })();
 </script>
 <body>
+<a href="#main-content" class="skip-link">Ana içeriğe atla</a>
 <script src="js/auth.js"></script>
 <script>checkAuth(['admin','company']);</script>
 <div class="dashboard">
   <aside class="sidebar" id="sidebar">
     <div class="sidebar-header">
       <div class="sidebar-logo">CF</div>
-      <div><div style="font-weight:700;font-size:var(--text-sm);">CleanFix</div><div style="font-size:var(--text-xs);color:var(--text-muted);">Firma Paneli</div></div>
+      <div><div style="font-weight:700; font-size:var(--text-sm)">CleanFix</div><div style="font-size:var(--text-xs); color:var(--text-muted)">Firma Paneli</div></div>
     </div>
     <nav role="navigation" aria-label="Main navigation" class="sidebar-nav">
       <div class="nav-group">
@@ -179,12 +180,12 @@
   <main role="main" class="main-content">
     <header role="banner" class="header">
       <div class="header-left">
-        <button class="hamburger" onclick="document.getElementById('sidebar').classList.toggle('open')"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
+        <button class="hamburger" onclick="document.getElementById('sidebar').classList.toggle('open')" aria-label="Menüyü aç"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
         <h1 class="page-title">CleanFix Demo BV — Dashboard</h1>
       </div>
       <div class="header-right">
-        <button class="header-btn" onclick="showToast('3 yeni bildirim','success')"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg></button>
-        <div style="display:flex;align-items:center;gap:10px;"><div class="avatar" style="background:linear-gradient(135deg,var(--teal-500),var(--teal-600));">CF</div><div><div style="font-weight:600;font-size:var(--text-sm);">CleanFix Demo BV</div><div style="font-size:var(--text-xs);color:var(--text-muted);">Business Plan</div></div></div>
+        <button class="header-btn" onclick="showToast('3 yeni bildirim','success')" aria-label="Bildirimler"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg></button>
+        <div style="display:flex; align-items:center; gap:var(--space-3)"><div class="avatar" style="background:linear-gradient(135deg,var(--teal-500),var(--teal-600))">CF</div><div><div style="font-weight:600; font-size:var(--text-sm)">CleanFix Demo BV</div><div style="font-size:var(--text-xs); color:var(--text-muted)">Business Plan</div></div></div>
       </div>
     </header>
 
@@ -203,25 +204,25 @@
         <div class="stat-card">
           <svg class="sparkline" viewBox="0 0 80 30"><polyline points="0,25 10,22 20,18 30,20 40,15 50,12 60,14 70,8 80,5" fill="none" stroke="var(--teal-500)" stroke-width="2"/><circle cx="80" cy="5" r="3" fill="var(--teal-500)"/></svg>
           <div class="stat-label">Bugünkü Randevular</div>
-          <div class="stat-value" style="color:var(--teal-500);">12</div>
+          <div class="stat-value" style="color:var(--teal-500)">12</div>
           <div class="stat-change up"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="23 6 13.5 15.5 8 10 1 17"/></svg> Dün 9</div>
         </div>
         <div class="stat-card">
           <svg class="sparkline" viewBox="0 0 80 30"><polyline points="0,20 10,18 20,22 30,15 40,12 50,14 60,8 70,6 80,3" fill="none" stroke="var(--info-500)" stroke-width="2"/><circle cx="80" cy="3" r="3" fill="var(--info-500)"/></svg>
           <div class="stat-label">Aktif Çalışanlar</div>
-          <div class="stat-value" style="color:var(--info-500);">8</div>
+          <div class="stat-value" style="color:var(--info-500)">8</div>
           <div class="stat-change up"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="23 6 13.5 15.5 8 10 1 17"/></svg> 2 izinli</div>
         </div>
         <div class="stat-card">
           <svg class="sparkline" viewBox="0 0 80 30"><polyline points="0,22 10,20 20,16 30,18 40,12 50,10 60,8 70,5 80,2" fill="none" stroke="var(--success-500)" stroke-width="2"/><circle cx="80" cy="2" r="3" fill="var(--success-500)"/></svg>
           <div class="stat-label">Bu Ay Gelir</div>
-          <div class="stat-value" style="color:var(--success-500);">€8.450</div>
+          <div class="stat-value" style="color:var(--success-500)">€8.450</div>
           <div class="stat-change up"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="23 6 13.5 15.5 8 10 1 17"/></svg> +18% geçen aya göre</div>
         </div>
         <div class="stat-card">
           <svg class="sparkline" viewBox="0 0 80 30"><polyline points="0,10 10,8 20,12 30,6 40,4 50,8 60,3 70,5 80,2" fill="none" stroke="var(--amber-500)" stroke-width="2"/><circle cx="80" cy="2" r="3" fill="var(--amber-500)"/></svg>
           <div class="stat-label">Müşteri Memnuniyeti</div>
-          <div class="stat-value" style="color:var(--amber-500);">4.8</div>
+          <div class="stat-value" style="color:var(--amber-500)">4.8</div>
           <div class="stat-change up"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="23 6 13.5 15.5 8 10 1 17"/></svg> 128 değerlendirme</div>
         </div>
       </div>
@@ -230,25 +231,25 @@
       <div class="alert-card danger">
         <div class="alert-icon danger">!</div>
         <div>
-          <div style="font-weight:600;font-size:var(--text-sm);">Kritik Stok Uyarısı</div>
-          <div style="font-size:var(--text-xs);color:var(--text-muted);">Nano Cila (2 adet), Mikfiber Bez (5 adet), Cam Temizleyici (1 adet) kritik seviyenin altında.</div>
+          <div style="font-weight:600; font-size:var(--text-sm)">Kritik Stok Uyarısı</div>
+          <div style="font-size:var(--text-xs); color:var(--text-muted)">Nano Cila (2 adet), Mikfiber Bez (5 adet), Cam Temizleyici (1 adet) kritik seviyenin altında.</div>
         </div>
-        <a href="company-stock.html" style="margin-left:auto;font-size:var(--text-sm);color:var(--error-500);font-weight:600;text-decoration:none;">Stoğu Gör →</a>
+        <a href="company-stock.html" style="margin-left:auto; font-size:var(--text-sm); color:var(--error-500); font-weight:600; text-decoration:none">Stoğu Gör →</a>
       </div>
 
       <div class="alert-card">
         <div class="alert-icon">📅</div>
         <div>
-          <div style="font-weight:600;font-size:var(--text-sm);">3 Onay Bekleyen Randevu</div>
-          <div style="font-size:var(--text-xs);color:var(--text-muted);">Yarın için 3 yeni randevu talebi var. Onaylamak için tıklayın.</div>
+          <div style="font-weight:600; font-size:var(--text-sm)">3 Onay Bekleyen Randevu</div>
+          <div style="font-size:var(--text-xs); color:var(--text-muted)">Yarın için 3 yeni randevu talebi var. Onaylamak için tıklayın.</div>
         </div>
-        <a href="company-bookings.html" style="margin-left:auto;font-size:var(--text-sm);color:var(--amber-500);font-weight:600;text-decoration:none;">İncele →</a>
+        <a href="company-bookings.html" style="margin-left:auto; font-size:var(--text-sm); color:var(--amber-500); font-weight:600; text-decoration:none">İncele →</a>
       </div>
 
       <!-- Charts Row -->
       <div class="two-col">
         <div class="card">
-          <div class="card-header"><span class="card-title">Haftalık Gelir</span><span style="font-size:var(--text-xs);color:var(--text-muted);">Son 7 gün</span></div>
+          <div class="card-header"><span class="card-title">Haftalık Gelir</span><span style="font-size:var(--text-xs); color:var(--text-muted)">Son 7 gün</span></div>
           <div class="card-body">
             <div class="chart-container">
               <div class="chart-bar" style="height:45%"><span class="chart-value">€980</span><span class="chart-bar-label">Pzt</span></div>
@@ -256,24 +257,24 @@
               <div class="chart-bar" style="height:35%"><span class="chart-value">€760</span><span class="chart-bar-label">Çar</span></div>
               <div class="chart-bar" style="height:80%"><span class="chart-value">€1.680</span><span class="chart-bar-label">Per</span></div>
               <div class="chart-bar" style="height:55%"><span class="chart-value">€1.120</span><span class="chart-bar-label">Cum</span></div>
-              <div class="chart-bar" style="height:25%;opacity:0.4"><span class="chart-value">€340</span><span class="chart-bar-label">Cmt</span></div>
-              <div class="chart-bar" style="height:20%;opacity:0.4"><span class="chart-value">€280</span><span class="chart-bar-label">Paz</span></div>
+              <div class="chart-bar" style="height:25%; opacity:0.4"><span class="chart-value">€340</span><span class="chart-bar-label">Cmt</span></div>
+              <div class="chart-bar" style="height:20%; opacity:0.4"><span class="chart-value">€280</span><span class="chart-bar-label">Paz</span></div>
             </div>
-            <div style="display:flex;justify-content:space-between;margin-top:28px;padding-top:16px;border-top:1px solid var(--border-color);">
-              <span style="font-size:var(--text-sm);color:var(--text-muted);">Toplam: <strong style="color:var(--text-primary);">€6.400</strong></span>
-              <span style="font-size:var(--text-sm);color:var(--text-muted);">Ortalama: <strong style="color:var(--teal-500);">€914/gün</strong></span>
+            <div style="display:flex; justify-content:space-between; margin-top:28px; padding-top:16px; border-top:1px solid var(--border-color)">
+              <span style="font-size:var(--text-sm); color:var(--text-muted)">Toplam: <strong style="color:var(--text-primary)">€6.400</strong></span>
+              <span style="font-size:var(--text-sm); color:var(--text-muted)">Ortalama: <strong style="color:var(--teal-500)">€914/gün</strong></span>
             </div>
           </div>
         </div>
         <div class="card">
-          <div class="card-header"><span class="card-title">Randevu Durumu</span><span style="font-size:var(--text-xs);color:var(--text-muted);">Bu ay</span></div>
-          <div class="card-body" style="display:flex;align-items:center;gap:32px;flex-wrap:wrap;justify-content:center;">
-            <div class="pie-chart"><div class="pie-center"><div style="font-size:var(--text-lg);font-weight:700;">186</div><div style="font-size:var(--text-xs);color:var(--text-muted);">Randevu</div></div></div>
-            <div style="min-width:140px;">
-              <div class="legend-item"><div class="legend-dot" style="background:var(--teal-500);"></div><span>Tamamlandı (102)</span></div>
-              <div class="legend-item"><div class="legend-dot" style="background:var(--amber-500);"></div><span>Bekliyor (47)</span></div>
-              <div class="legend-item"><div class="legend-dot" style="background:var(--info-500);"></div><span>Devam Ediyor (28)</span></div>
-              <div class="legend-item"><div class="legend-dot" style="background:var(--error-500);"></div><span>İptal (9)</span></div>
+          <div class="card-header"><span class="card-title">Randevu Durumu</span><span style="font-size:var(--text-xs); color:var(--text-muted)">Bu ay</span></div>
+          <div class="card-body" style="display:flex; align-items:center; gap:32px; flex-wrap:wrap; justify-content:center">
+            <div class="pie-chart"><div class="pie-center"><div style="font-size:var(--text-lg); font-weight:700">186</div><div style="font-size:var(--text-xs); color:var(--text-muted)">Randevu</div></div></div>
+            <div style="min-width:140px">
+              <div class="legend-item"><div class="legend-dot" style="background:var(--teal-500)"></div><span>Tamamlandı (102)</span></div>
+              <div class="legend-item"><div class="legend-dot" style="background:var(--amber-500)"></div><span>Bekliyor (47)</span></div>
+              <div class="legend-item"><div class="legend-dot" style="background:var(--info-500)"></div><span>Devam Ediyor (28)</span></div>
+              <div class="legend-item"><div class="legend-dot" style="background:var(--error-500)"></div><span>İptal (9)</span></div>
             </div>
           </div>
         </div>
@@ -282,23 +283,23 @@
       <!-- Performance + Upcoming -->
       <div class="two-col">
         <div class="card">
-          <div class="card-header"><span class="card-title">Çalışan Performansı</span><span style="font-size:var(--text-xs);color:var(--text-muted);">Bu ay — Tamamlanan randevu</span></div>
+          <div class="card-header"><span class="card-title">Çalışan Performansı</span><span style="font-size:var(--text-xs); color:var(--text-muted)">Bu ay — Tamamlanan randevu</span></div>
           <div class="card-body">
-            <div class="performance-row"><div class="avatar" style="background:linear-gradient(135deg,#3b82f6,#1d4ed8);width:28px;height:28px;font-size:10px;">AK</div><span style="font-size:var(--text-sm);width:100px;">Ahmet K.</span><div class="performance-bar"><div class="performance-fill" style="width:92%"></div></div><span style="font-size:var(--text-xs);font-weight:600;width:36px;text-align:right;">42</span></div>
-            <div class="performance-row"><div class="avatar" style="background:linear-gradient(135deg,#8b5cf6,#6d28d9);width:28px;height:28px;font-size:10px;">MD</div><span style="font-size:var(--text-sm);width:100px;">Merve D.</span><div class="performance-bar"><div class="performance-fill" style="width:85%"></div></div><span style="font-size:var(--text-xs);font-weight:600;width:36px;text-align:right;">39</span></div>
-            <div class="performance-row"><div class="avatar" style="background:linear-gradient(135deg,var(--amber-500),var(--amber-600));width:28px;height:28px;font-size:10px;">AR</div><span style="font-size:var(--text-sm);width:100px;">Ali R.</span><div class="performance-bar"><div class="performance-fill" style="width:68%"></div></div><span style="font-size:var(--text-xs);font-weight:600;width:36px;text-align:right;">31</span></div>
-            <div class="performance-row"><div class="avatar" style="background:linear-gradient(135deg,#10b981,#059669);width:28px;height:28px;font-size:10px;">SC</div><span style="font-size:var(--text-sm);width:100px;">Selim Ç.</span><div class="performance-bar"><div class="performance-fill" style="width:55%"></div></div><span style="font-size:var(--text-xs);font-weight:600;width:36px;text-align:right;">25</span></div>
-            <div class="performance-row"><div class="avatar" style="background:linear-gradient(135deg,#ef4444,#dc2626);width:28px;height:28px;font-size:10px;">NY</div><span style="font-size:var(--text-sm);width:100px;">Naz Y.</span><div class="performance-bar"><div class="performance-fill" style="width:0%;background:var(--text-muted);"></div></div><span style="font-size:var(--text-xs);font-weight:600;width:36px;text-align:right;color:var(--text-muted);">0</span></div>
+            <div class="performance-row"><div class="avatar" style="background:linear-gradient(135deg,#3b82f6,#1d4ed8); width:28px; height:28px; font-size:10px">AK</div><span style="font-size:var(--text-sm); width:100px">Ahmet K.</span><div class="performance-bar"><div class="performance-fill" style="width:92%"></div></div><span style="font-size:var(--text-xs); font-weight:600; width:36px; text-align:right">42</span></div>
+            <div class="performance-row"><div class="avatar" style="background:linear-gradient(135deg,#8b5cf6,#6d28d9); width:28px; height:28px; font-size:10px">MD</div><span style="font-size:var(--text-sm); width:100px">Merve D.</span><div class="performance-bar"><div class="performance-fill" style="width:85%"></div></div><span style="font-size:var(--text-xs); font-weight:600; width:36px; text-align:right">39</span></div>
+            <div class="performance-row"><div class="avatar" style="background:linear-gradient(135deg,var(--amber-500),var(--amber-600)); width:28px; height:28px; font-size:10px">AR</div><span style="font-size:var(--text-sm); width:100px">Ali R.</span><div class="performance-bar"><div class="performance-fill" style="width:68%"></div></div><span style="font-size:var(--text-xs); font-weight:600; width:36px; text-align:right">31</span></div>
+            <div class="performance-row"><div class="avatar" style="background:linear-gradient(135deg,#10b981,#059669); width:28px; height:28px; font-size:10px">SC</div><span style="font-size:var(--text-sm); width:100px">Selim Ç.</span><div class="performance-bar"><div class="performance-fill" style="width:55%"></div></div><span style="font-size:var(--text-xs); font-weight:600; width:36px; text-align:right">25</span></div>
+            <div class="performance-row"><div class="avatar" style="background:linear-gradient(135deg,#ef4444,#dc2626); width:28px; height:28px; font-size:10px">NY</div><span style="font-size:var(--text-sm); width:100px">Naz Y.</span><div class="performance-bar"><div class="performance-fill" style="width:0%; background:var(--text-muted)"></div></div><span style="font-size:var(--text-xs); font-weight:600; width:36px; text-align:right; color:var(--text-muted)">0</span></div>
           </div>
         </div>
         <div class="card">
-          <div class="card-header"><span class="card-title">Yaklaşan Randevular</span><a href="company-bookings.html" style="font-size:var(--text-sm);color:var(--teal-500);text-decoration:none;">Tümü →</a></div>
-          <div class="card-body" style="padding:0;">
+          <div class="card-header"><span class="card-title">Yaklaşan Randevular</span><a href="company-bookings.html" style="font-size:var(--text-sm); color:var(--teal-500); text-decoration:none">Tümü →</a></div>
+          <div class="card-body" style="padding:0">
             <table class="table">
               <thead><tr><th>Saat</th><th>Müşteri</th><th>Hizmet</th><th>Durum</th></tr></thead>
               <tbody>
-      <tr class="empty-state-row" style="display:none;">
-        <td colspan="99" style="padding:0; border:none;">
+      <tr class="empty-state-row" style="display:none">
+        <td colspan="99" style="padding:0; border:none">
           <div class="empty-state">
             <div class="empty-state-icon">📭</div>
             <div class="empty-state-title" data-i18n="empty_title">Henüz kayıt yok</div>
@@ -306,10 +307,10 @@
           </div>
         </td>
       </tr>
-                <tr><td><div style="font-weight:600;">10:30</div><div style="font-size:var(--text-xs);color:var(--text-muted);">Devam Ediyor</div></td><td>Lisa Wouters</td><td>İç Temizlik</td><td><span class="tag busy">Devam Ediyor</span></td></tr>
-                <tr><td><div style="font-weight:600;">13:00</div><div style="font-size:var(--text-xs);color:var(--text-muted);">Bekliyor</div></td><td>Pieter De Vos</td><td>Dış Yıkama + Cila</td><td><span class="tag blue">Bekliyor</span></td></tr>
-                <tr><td><div style="font-weight:600;">15:00</div><div style="font-size:var(--text-xs);color:var(--text-muted);">Bekliyor</div></td><td>Sarah Janssens</td><td>Motor Temizliği</td><td><span class="tag blue">Bekliyor</span></td></tr>
-                <tr><td><div style="font-weight:600;">16:30</div><div style="font-size:var(--text-xs);color:var(--text-muted);">Bekliyor</div></td><td>Marc Dubois</td><td>Keramik Kaplama</td><td><span class="tag blue">Bekliyor</span></td></tr>
+                <tr><td><div style="font-weight:600">10:30</div><div style="font-size:var(--text-xs); color:var(--text-muted)">Devam Ediyor</div></td><td>Lisa Wouters</td><td>İç Temizlik</td><td><span class="tag busy">Devam Ediyor</span></td></tr>
+                <tr><td><div style="font-weight:600">13:00</div><div style="font-size:var(--text-xs); color:var(--text-muted)">Bekliyor</div></td><td>Pieter De Vos</td><td>Dış Yıkama + Cila</td><td><span class="tag blue">Bekliyor</span></td></tr>
+                <tr><td><div style="font-weight:600">15:00</div><div style="font-size:var(--text-xs); color:var(--text-muted)">Bekliyor</div></td><td>Sarah Janssens</td><td>Motor Temizliği</td><td><span class="tag blue">Bekliyor</span></td></tr>
+                <tr><td><div style="font-weight:600">16:30</div><div style="font-size:var(--text-xs); color:var(--text-muted)">Bekliyor</div></td><td>Marc Dubois</td><td>Keramik Kaplama</td><td><span class="tag blue">Bekliyor</span></td></tr>
               </tbody>
             </table>
           </div>
@@ -319,42 +320,42 @@
       <!-- Reviews + Stock -->
       <div class="two-col">
         <div class="card">
-          <div class="card-header"><span class="card-title">Son Değerlendirmeler</span><a href="company-reviews.html" style="font-size:var(--text-sm);color:var(--teal-500);text-decoration:none;">Tümü →</a></div>
+          <div class="card-header"><span class="card-title">Son Değerlendirmeler</span><a href="company-reviews.html" style="font-size:var(--text-sm); color:var(--teal-500); text-decoration:none">Tümü →</a></div>
           <div class="card-body">
-            <div style="margin-bottom:16px;padding-bottom:16px;border-bottom:1px solid var(--border-color);">
-              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
-                <div style="display:flex;align-items:center;gap:8px;"><div class="avatar" style="background:linear-gradient(135deg,#3b82f6,#1d4ed8);width:28px;height:28px;font-size:10px;">JP</div><span style="font-weight:600;font-size:var(--text-sm);">Jan Peeters</span></div>
+            <div style="margin-bottom:16px; padding-bottom:16px; border-bottom:1px solid var(--border-color)">
+              <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:6px">
+                <div style="display:flex; align-items:center; gap:var(--space-2)"><div class="avatar" style="background:linear-gradient(135deg,#3b82f6,#1d4ed8); width:28px; height:28px; font-size:10px">JP</div><span style="font-weight:600; font-size:var(--text-sm)">Jan Peeters</span></div>
                 <div class="rating"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
               </div>
-              <div style="font-size:var(--text-sm);color:var(--text-secondary);line-height:1.5;">"Mükemmel hizmet! Arabam ilk günkü gibi oldu. Ahmet Bey çok ilgiliydi."</div>
-              <div style="font-size:var(--text-xs);color:var(--text-muted);margin-top:6px;">14 Mayıs 2026 — Komple Detaylı Temizlik</div>
+              <div style="font-size:var(--text-sm); color:var(--text-secondary); line-height:1.5">"Mükemmel hizmet! Arabam ilk günkü gibi oldu. Ahmet Bey çok ilgiliydi."</div>
+              <div style="font-size:var(--text-xs); color:var(--text-muted); margin-top:6px">14 Mayıs 2026 — Komple Detaylı Temizlik</div>
             </div>
-            <div style="margin-bottom:16px;padding-bottom:16px;border-bottom:1px solid var(--border-color);">
-              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
-                <div style="display:flex;align-items:center;gap:8px;"><div class="avatar" style="background:linear-gradient(135deg,#8b5cf6,#6d28d9);width:28px;height:28px;font-size:10px;">LW</div><span style="font-weight:600;font-size:var(--text-sm);">Lisa Wouters</span></div>
+            <div style="margin-bottom:16px; padding-bottom:16px; border-bottom:1px solid var(--border-color)">
+              <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:6px">
+                <div style="display:flex; align-items:center; gap:var(--space-2)"><div class="avatar" style="background:linear-gradient(135deg,#8b5cf6,#6d28d9); width:28px; height:28px; font-size:10px">LW</div><span style="font-weight:600; font-size:var(--text-sm)">Lisa Wouters</span></div>
                 <div class="rating"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
               </div>
-              <div style="font-size:var(--text-sm);color:var(--text-secondary);line-height:1.5;">"İç temizlik çok başarılıydı ama biraz daha hızlı olabilir."</div>
-              <div style="font-size:var(--text-xs);color:var(--text-muted);margin-top:6px;">13 Mayıs 2026 — İç Temizlik</div>
+              <div style="font-size:var(--text-sm); color:var(--text-secondary); line-height:1.5">"İç temizlik çok başarılıydı ama biraz daha hızlı olabilir."</div>
+              <div style="font-size:var(--text-xs); color:var(--text-muted); margin-top:6px">13 Mayıs 2026 — İç Temizlik</div>
             </div>
             <div>
-              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
-                <div style="display:flex;align-items:center;gap:8px;"><div class="avatar" style="background:linear-gradient(135deg,var(--amber-500),var(--amber-600));width:28px;height:28px;font-size:10px;">PD</div><span style="font-weight:600;font-size:var(--text-sm);">Pieter De Vos</span></div>
+              <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:6px">
+                <div style="display:flex; align-items:center; gap:var(--space-2)"><div class="avatar" style="background:linear-gradient(135deg,var(--amber-500),var(--amber-600)); width:28px; height:28px; font-size:10px">PD</div><span style="font-weight:600; font-size:var(--text-sm)">Pieter De Vos</span></div>
                 <div class="rating"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
               </div>
-              <div style="font-size:var(--text-sm);color:var(--text-secondary);line-height:1.5;">"Dış yıkama + cila paketi harika değer. Tavsiye ederim."</div>
-              <div style="font-size:var(--text-xs);color:var(--text-muted);margin-top:6px;">12 Mayıs 2026 — Dış Yıkama + Cila</div>
+              <div style="font-size:var(--text-sm); color:var(--text-secondary); line-height:1.5">"Dış yıkama + cila paketi harika değer. Tavsiye ederim."</div>
+              <div style="font-size:var(--text-xs); color:var(--text-muted); margin-top:6px">12 Mayıs 2026 — Dış Yıkama + Cila</div>
             </div>
           </div>
         </div>
         <div class="card">
-          <div class="card-header"><span class="card-title">Kritik Stok</span><a href="company-stock.html" style="font-size:var(--text-sm);color:var(--teal-500);text-decoration:none;">Tümü →</a></div>
-          <div class="card-body" style="padding:0;">
+          <div class="card-header"><span class="card-title">Kritik Stok</span><a href="company-stock.html" style="font-size:var(--text-sm); color:var(--teal-500); text-decoration:none">Tümü →</a></div>
+          <div class="card-body" style="padding:0">
             <table class="table">
               <thead><tr><th>Ürün</th><th>Mevcut</th><th>Min.</th><th>Durum</th></tr></thead>
               <tbody>
-      <tr class="empty-state-row" style="display:none;">
-        <td colspan="99" style="padding:0; border:none;">
+      <tr class="empty-state-row" style="display:none">
+        <td colspan="99" style="padding:0; border:none">
           <div class="empty-state">
             <div class="empty-state-icon">📭</div>
             <div class="empty-state-title" data-i18n="empty_title">Henüz kayıt yok</div>
@@ -362,10 +363,10 @@
           </div>
         </td>
       </tr>
-                <tr><td><div style="font-weight:600;">Nano Cila</div><div style="font-size:var(--text-xs);color:var(--text-muted);">500ml şişe</div></td><td>2</td><td>5</td><td><span class="tag busy">Kritik</span></td></tr>
-                <tr><td><div style="font-weight:600;">Mikfiber Bez</div><div style="font-size:var(--text-xs);color:var(--text-muted);">Paket (10 adet)</div></td><td>5</td><td>10</td><td><span class="tag busy">Kritik</span></td></tr>
-                <tr><td><div style="font-weight:600;">Cam Temizleyici</div><div style="font-size:var(--text-xs);color:var(--text-muted);">1L şişe</div></td><td>1</td><td>3</td><td><span class="tag busy">Kritik</span></td></tr>
-                <tr><td><div style="font-weight:600;">Lastik Parlatıcı</div><div style="font-size:var(--text-xs);color:var(--text-muted);">400ml sprey</div></td><td>8</td><td>5</td><td><span class="tag">Normal</span></td></tr>
+                <tr><td><div style="font-weight:600">Nano Cila</div><div style="font-size:var(--text-xs); color:var(--text-muted)">500ml şişe</div></td><td>2</td><td>5</td><td><span class="tag busy">Kritik</span></td></tr>
+                <tr><td><div style="font-weight:600">Mikfiber Bez</div><div style="font-size:var(--text-xs); color:var(--text-muted)">Paket (10 adet)</div></td><td>5</td><td>10</td><td><span class="tag busy">Kritik</span></td></tr>
+                <tr><td><div style="font-weight:600">Cam Temizleyici</div><div style="font-size:var(--text-xs); color:var(--text-muted)">1L şişe</div></td><td>1</td><td>3</td><td><span class="tag busy">Kritik</span></td></tr>
+                <tr><td><div style="font-weight:600">Lastik Parlatıcı</div><div style="font-size:var(--text-xs); color:var(--text-muted)">400ml sprey</div></td><td>8</td><td>5</td><td><span class="tag">Normal</span></td></tr>
               </tbody>
             </table>
           </div>
@@ -374,13 +375,13 @@
 
       <!-- Recent Invoices -->
       <div class="card">
-        <div class="card-header"><span class="card-title">Son Faturalar</span><a href="company-invoices.html" style="font-size:var(--text-sm);color:var(--teal-500);text-decoration:none;">Tümünü Gör →</a></div>
-        <div class="card-body" style="padding:0;">
+        <div class="card-header"><span class="card-title">Son Faturalar</span><a href="company-invoices.html" style="font-size:var(--text-sm); color:var(--teal-500); text-decoration:none">Tümünü Gör →</a></div>
+        <div class="card-body" style="padding:0">
           <table class="table">
             <thead><tr><th>Fatura No</th><th>Müşteri</th><th>Tarih</th><th>Tutar</th><th>Durum</th></tr></thead>
             <tbody>
-      <tr class="empty-state-row" style="display:none;">
-        <td colspan="99" style="padding:0; border:none;">
+      <tr class="empty-state-row" style="display:none">
+        <td colspan="99" style="padding:0; border:none">
           <div class="empty-state">
             <div class="empty-state-icon">📭</div>
             <div class="empty-state-title" data-i18n="empty_title">Henüz kayıt yok</div>
@@ -388,10 +389,10 @@
           </div>
         </td>
       </tr>
-              <tr><td>#F-2026-1142</td><td>Jan Peeters</td><td>14 May 2026</td><td style="font-weight:600;">€149.00</td><td><span class="tag">Ödendi</span></td></tr>
-              <tr><td>#F-2026-1141</td><td>Lisa Wouters</td><td>13 May 2026</td><td style="font-weight:600;">€89.00</td><td><span class="tag">Ödendi</span></td></tr>
-              <tr><td>#F-2026-1140</td><td>Pieter De Vos</td><td>12 May 2026</td><td style="font-weight:600;">€199.00</td><td><span class="tag busy">Bekliyor</span></td></tr>
-              <tr><td>#F-2026-1139</td><td>Sarah Janssens</td><td>11 May 2026</td><td style="font-weight:600;">€349.00</td><td><span class="tag">Ödendi</span></td></tr>
+              <tr><td>#F-2026-1142</td><td>Jan Peeters</td><td>14 May 2026</td><td style="font-weight:600">€149.00</td><td><span class="tag">Ödendi</span></td></tr>
+              <tr><td>#F-2026-1141</td><td>Lisa Wouters</td><td>13 May 2026</td><td style="font-weight:600">€89.00</td><td><span class="tag">Ödendi</span></td></tr>
+              <tr><td>#F-2026-1140</td><td>Pieter De Vos</td><td>12 May 2026</td><td style="font-weight:600">€199.00</td><td><span class="tag busy">Bekliyor</span></td></tr>
+              <tr><td>#F-2026-1139</td><td>Sarah Janssens</td><td>11 May 2026</td><td style="font-weight:600">€349.00</td><td><span class="tag">Ödendi</span></td></tr>
             </tbody>
           </table>
         </div>
@@ -400,7 +401,7 @@
   </main>
 </div>
 
-<div class="toast-container" id="toastContainer" style="position:fixed;top:20px;right:20px;z-index:300;"></div>
+<div class="toast-container" id="toastContainer" style="position:fixed; top:20px; right:20px; z-index:300"></div>
 
 <script>
 </script>

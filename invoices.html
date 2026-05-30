@@ -15,7 +15,7 @@
 .sidebar.collapsed { transform:translateX(-100%); }
 .sidebar-header { padding:var(--space-5); border-bottom:1px solid var(--border-color); }
 .sidebar-logo { display:flex; align-items:center; gap:var(--space-3); }
-.sidebar-logo .logo-icon { width:40px; height:40px; background:linear-gradient(135deg,var(--teal-500),var(--teal-700)); border-radius:var(--radius-md); display:flex; align-items:center; justify-content:center; font-size:16px; font-weight:700; color: white; }
+.sidebar-logo .logo-icon { width:40px; height:40px; background:linear-gradient(135deg,var(--teal-500),var(--teal-700)); border-radius:var(--radius-md); display:flex; align-items:center; justify-content:center; font-size:16px; font-weight:700; color: var(--text-primary); }
 .sidebar-logo h2 { font-size:var(--text-base); font-weight:700; }
 .sidebar-logo p { font-size:var(--text-xs); color:var(--text-muted); }
 .sidebar-nav { flex:1; overflow-y:auto; padding:var(--space-3); }
@@ -134,6 +134,7 @@
 })();
 </script>
 <body>
+<a href="#main-content" class="skip-link">Ana içeriğe atla</a>
 <script>checkAuth('admin');</script>
 <div class="sidebar-overlay" id="sidebarOverlay"></div>
 <div class="dashboard">
@@ -205,26 +206,24 @@
 <div class="main">
   <header role="banner" class="header">
     <div class="header-left">
-      <button class="menu-btn" id="menuBtn" onclick="document.getElementById('sidebar').classList.toggle('open')"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
+      <button class="menu-btn" id="menuBtn" onclick="document.getElementById('sidebar').classList.toggle('open')" aria-label="Menüyü aç"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
       <h1 class="page-title">Faturalar</h1>
     </div>
     <div class="header-right">
-      <button class="header-btn" id="themeToggle"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/></svg></button>
+      <button class="header-btn" id="themeToggle" aria-label="Tema değiştir"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/></svg></button>
       <button class="header-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg><span class="dot"></span></button>
       <div class="avatar avatar-sm">JW</div>
     </div>
   </header>
 
   <main role="main" class="content">
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:var(--space-5);flex-wrap:wrap;gap:var(--space-4);">
+    <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:var(--space-5); flex-wrap:wrap; gap:var(--space-4)">
       <div>
-        <h2 style="font-size:var(--text-2xl);font-weight:700;">Fatura Yönetimi</h2>
-        <p style="font-size:var(--text-sm);color:var(--text-muted);margin-top:4px;">28 açık fatura • €3.420 bekleyen ödeme</p>
+        <h2 style="font-size:var(--text-2xl); font-weight:700">Fatura Yönetimi</h2>
+        <p style="font-size:var(--text-sm); color:var(--text-muted); margin-top:4px">28 açık fatura • €3.420 bekleyen ödeme</p>
       </div>
-      <button class="btn btn-primary" onclick="showToast('Yeni fatura oluşturuluyor...','info')">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-        Fatura Oluştur
-      </button>
+      <button class="btn btn-primary" onclick="showToast('Yeni fatura oluşturuluyor...','info')" aria-label="Bildirimler"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        Fatura Oluştur</button>
     </div>
 
     <div class="invoice-stats">
@@ -257,15 +256,15 @@
     <div class="filter-bar">
       <div class="search-input">
         <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-        <input type="text" class="form-input" placeholder="Fatura veya müşteri ara..." id="invoiceSearch" onkeyup="filterInvoices()" style="padding-left:36px;">
+        <input type="text" class="form-input" placeholder="Fatura veya müşteri ara..." id="invoiceSearch" onkeyup="filterInvoices()" style="padding-left:36px">
       </div>
-      <select class="form-select" id="statusFilter" onchange="filterInvoices()" style="width:160px;">
+      <select class="form-select" id="statusFilter" onchange="filterInvoices()" style="width:160px">
         <option value="">Tüm Durumlar</option>
         <option value="Ödendi">Ödendi</option>
         <option value="Bekliyor">Bekliyor</option>
         <option value="Gecikti">Gecikti</option>
       </select>
-      <select class="form-select" style="width:160px;">
+      <select class="form-select" style="width:160px">
         <option value="">Son 30 Gün</option>
         <option value="">Son 60 Gün</option>
         <option value="">Son 90 Gün</option>
@@ -280,8 +279,8 @@
             <tr><th>Fatura No</th><th>Müşteri</th><th>Tarih</th><th>Son Ödeme</th><th>Tutar</th><th>Durum</th><th>İşlem</th></tr>
           </thead>
           <tbody id="invoiceBody">
-      <tr class="empty-state-row" style="display:none;">
-        <td colspan="99" style="padding:0; border:none;">
+      <tr class="empty-state-row" style="display:none">
+        <td colspan="99" style="padding:0; border:none">
           <div class="empty-state">
             <div class="empty-state-icon">📭</div>
             <div class="empty-state-title" data-i18n="empty_title">Henüz kayıt yok</div>
@@ -289,18 +288,18 @@
           </div>
         </td>
       </tr>
-            <tr data-status="Ödendi"><td class="invoice-id">#INV-2024-089</td><td class="invoice-customer">Jan Wouters</td><td>12 May 2026</td><td>26 May 2026</td><td class="invoice-amount">€45.00</td><td><span class="status-paid">✓ Ödendi</span></td><td><button class="btn btn-ghost btn-sm" onclick="showToast('Fatura detayları açılıyor...','info')">Detay</button></td></tr>
-            <tr data-status="Ödendi"><td class="invoice-id">#INV-2024-088</td><td class="invoice-customer">Luc Vermeulen</td><td>11 May 2026</td><td>25 May 2026</td><td class="invoice-amount">€250.00</td><td><span class="status-paid">✓ Ödendi</span></td><td><button class="btn btn-ghost btn-sm" onclick="showToast('Fatura detayları açılıyor...','info')">Detay</button></td></tr>
-            <tr data-status="Bekliyor"><td class="invoice-id">#INV-2024-087</td><td class="invoice-customer">Sophie Dewitt</td><td>11 May 2026</td><td>25 May 2026</td><td class="invoice-amount">€120.00</td><td><span class="status-pending">⏳ Bekliyor</span></td><td><button class="btn btn-ghost btn-sm" onclick="showToast('Fatura detayları açılıyor...','info')">Detay</button></td></tr>
-            <tr data-status="Ödendi"><td class="invoice-id">#INV-2024-086</td><td class="invoice-customer">Clara Smets</td><td>09 May 2026</td><td>23 May 2026</td><td class="invoice-amount">€299.00</td><td><span class="status-paid">✓ Ödendi</span></td><td><button class="btn btn-ghost btn-sm" onclick="showToast('Fatura detayları açılıyor...','info')">Detay</button></td></tr>
-            <tr data-status="Ödendi"><td class="invoice-id">#INV-2024-085</td><td class="invoice-customer">Piet Vermeulen</td><td>08 May 2026</td><td>22 May 2026</td><td class="invoice-amount">€180.00</td><td><span class="status-paid">✓ Ödendi</span></td><td><button class="btn btn-ghost btn-sm" onclick="showToast('Fatura detayları açılıyor...','info')">Detay</button></td></tr>
-            <tr data-status="Gecikti"><td class="invoice-id">#INV-2024-084</td><td class="invoice-customer">Lars Declercq</td><td>07 May 2026</td><td>21 May 2026</td><td class="invoice-amount">€85.00</td><td><span class="status-overdue">⚠ Gecikti</span></td><td><button class="btn btn-primary btn-sm" onclick="showToast('Hatırlatma gönderildi','success')">Hatırlat</button></td></tr>
-            <tr data-status="Ödendi"><td class="invoice-id">#INV-2024-083</td><td class="invoice-customer">Anna Peeters</td><td>06 May 2026</td><td>20 May 2026</td><td class="invoice-amount">€150.00</td><td><span class="status-paid">✓ Ödendi</span></td><td><button class="btn btn-ghost btn-sm" onclick="showToast('Fatura detayları açılıyor...','info')">Detay</button></td></tr>
-            <tr data-status="Bekliyor"><td class="invoice-id">#INV-2024-082</td><td class="invoice-customer">Thomas Janssens</td><td>05 May 2026</td><td>19 May 2026</td><td class="invoice-amount">€65.00</td><td><span class="status-pending">⏳ Bekliyor</span></td><td><button class="btn btn-ghost btn-sm" onclick="showToast('Fatura detayları açılıyor...','info')">Detay</button></td></tr>
-            <tr data-status="Ödendi"><td class="invoice-id">#INV-2024-081</td><td class="invoice-customer">Emma Maes</td><td>04 May 2026</td><td>18 May 2026</td><td class="invoice-amount">€95.00</td><td><span class="status-paid">✓ Ödendi</span></td><td><button class="btn btn-ghost btn-sm" onclick="showToast('Fatura detayları açılıyor...','info')">Detay</button></td></tr>
-            <tr data-status="Gecikti"><td class="invoice-id">#INV-2024-080</td><td class="invoice-customer">Marie Dubois</td><td>02 May 2026</td><td>16 May 2026</td><td class="invoice-amount">€120.00</td><td><span class="status-overdue">⚠ Gecikti</span></td><td><button class="btn btn-primary btn-sm" onclick="showToast('Hatırlatma gönderildi','success')">Hatırlat</button></td></tr>
-            <tr data-status="Bekliyor"><td class="invoice-id">#INV-2024-079</td><td class="invoice-customer">Luc Laurent</td><td>01 May 2026</td><td>15 May 2026</td><td class="invoice-amount">€45.00</td><td><span class="status-pending">⏳ Bekliyor</span></td><td><button class="btn btn-ghost btn-sm" onclick="showToast('Fatura detayları açılıyor...','info')">Detay</button></td></tr>
-            <tr data-status="Gecikti"><td class="invoice-id">#INV-2024-078</td><td class="invoice-customer">Sophie Dewitt</td><td>28 Nis 2026</td><td>12 May 2026</td><td class="invoice-amount">€250.00</td><td><span class="status-overdue">⚠ Gecikti</span></td><td><button class="btn btn-primary btn-sm" onclick="showToast('Hatırlatma gönderildi','success')">Hatırlat</button></td></tr>
+            <tr data-status="Ödendi"><td class="invoice-id">#INV-2024-089</td><td class="invoice-customer">Jan Wouters</td><td>12 May 2026</td><td>26 May 2026</td><td class="invoice-amount">€45.00</td><td><span class="status-paid">✓ Ödendi</span></td><td><button class="btn btn-ghost btn-sm" onclick="showToast('Fatura detayları açılıyor...','info')" aria-label="Bildirimler">Detay</button></td></tr>
+            <tr data-status="Ödendi"><td class="invoice-id">#INV-2024-088</td><td class="invoice-customer">Luc Vermeulen</td><td>11 May 2026</td><td>25 May 2026</td><td class="invoice-amount">€250.00</td><td><span class="status-paid">✓ Ödendi</span></td><td><button class="btn btn-ghost btn-sm" onclick="showToast('Fatura detayları açılıyor...','info')" aria-label="Bildirimler">Detay</button></td></tr>
+            <tr data-status="Bekliyor"><td class="invoice-id">#INV-2024-087</td><td class="invoice-customer">Sophie Dewitt</td><td>11 May 2026</td><td>25 May 2026</td><td class="invoice-amount">€120.00</td><td><span class="status-pending">⏳ Bekliyor</span></td><td><button class="btn btn-ghost btn-sm" onclick="showToast('Fatura detayları açılıyor...','info')" aria-label="Bildirimler">Detay</button></td></tr>
+            <tr data-status="Ödendi"><td class="invoice-id">#INV-2024-086</td><td class="invoice-customer">Clara Smets</td><td>09 May 2026</td><td>23 May 2026</td><td class="invoice-amount">€299.00</td><td><span class="status-paid">✓ Ödendi</span></td><td><button class="btn btn-ghost btn-sm" onclick="showToast('Fatura detayları açılıyor...','info')" aria-label="Bildirimler">Detay</button></td></tr>
+            <tr data-status="Ödendi"><td class="invoice-id">#INV-2024-085</td><td class="invoice-customer">Piet Vermeulen</td><td>08 May 2026</td><td>22 May 2026</td><td class="invoice-amount">€180.00</td><td><span class="status-paid">✓ Ödendi</span></td><td><button class="btn btn-ghost btn-sm" onclick="showToast('Fatura detayları açılıyor...','info')" aria-label="Bildirimler">Detay</button></td></tr>
+            <tr data-status="Gecikti"><td class="invoice-id">#INV-2024-084</td><td class="invoice-customer">Lars Declercq</td><td>07 May 2026</td><td>21 May 2026</td><td class="invoice-amount">€85.00</td><td><span class="status-overdue">⚠ Gecikti</span></td><td><button class="btn btn-primary btn-sm" onclick="showToast('Hatırlatma gönderildi','success')" aria-label="Bildirimler">Hatırlat</button></td></tr>
+            <tr data-status="Ödendi"><td class="invoice-id">#INV-2024-083</td><td class="invoice-customer">Anna Peeters</td><td>06 May 2026</td><td>20 May 2026</td><td class="invoice-amount">€150.00</td><td><span class="status-paid">✓ Ödendi</span></td><td><button class="btn btn-ghost btn-sm" onclick="showToast('Fatura detayları açılıyor...','info')" aria-label="Bildirimler">Detay</button></td></tr>
+            <tr data-status="Bekliyor"><td class="invoice-id">#INV-2024-082</td><td class="invoice-customer">Thomas Janssens</td><td>05 May 2026</td><td>19 May 2026</td><td class="invoice-amount">€65.00</td><td><span class="status-pending">⏳ Bekliyor</span></td><td><button class="btn btn-ghost btn-sm" onclick="showToast('Fatura detayları açılıyor...','info')" aria-label="Bildirimler">Detay</button></td></tr>
+            <tr data-status="Ödendi"><td class="invoice-id">#INV-2024-081</td><td class="invoice-customer">Emma Maes</td><td>04 May 2026</td><td>18 May 2026</td><td class="invoice-amount">€95.00</td><td><span class="status-paid">✓ Ödendi</span></td><td><button class="btn btn-ghost btn-sm" onclick="showToast('Fatura detayları açılıyor...','info')" aria-label="Bildirimler">Detay</button></td></tr>
+            <tr data-status="Gecikti"><td class="invoice-id">#INV-2024-080</td><td class="invoice-customer">Marie Dubois</td><td>02 May 2026</td><td>16 May 2026</td><td class="invoice-amount">€120.00</td><td><span class="status-overdue">⚠ Gecikti</span></td><td><button class="btn btn-primary btn-sm" onclick="showToast('Hatırlatma gönderildi','success')" aria-label="Bildirimler">Hatırlat</button></td></tr>
+            <tr data-status="Bekliyor"><td class="invoice-id">#INV-2024-079</td><td class="invoice-customer">Luc Laurent</td><td>01 May 2026</td><td>15 May 2026</td><td class="invoice-amount">€45.00</td><td><span class="status-pending">⏳ Bekliyor</span></td><td><button class="btn btn-ghost btn-sm" onclick="showToast('Fatura detayları açılıyor...','info')" aria-label="Bildirimler">Detay</button></td></tr>
+            <tr data-status="Gecikti"><td class="invoice-id">#INV-2024-078</td><td class="invoice-customer">Sophie Dewitt</td><td>28 Nis 2026</td><td>12 May 2026</td><td class="invoice-amount">€250.00</td><td><span class="status-overdue">⚠ Gecikti</span></td><td><button class="btn btn-primary btn-sm" onclick="showToast('Hatırlatma gönderildi','success')" aria-label="Bildirimler">Hatırlat</button></td></tr>
           </tbody>
         </table>
       </div>
