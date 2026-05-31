@@ -2628,20 +2628,6 @@ function openDeleteSectorModal(id) {
   }
 }
 
-function deleteSectorCard(id) {
-  const card = document.querySelector('.sector-card-v2[data-id="' + id + '"]');
-  if (card) {
-    card.style.transition = 'all 0.3s ease';
-    card.style.opacity = '0';
-    card.style.transform = 'scale(0.9)';
-    setTimeout(() => {
-      card.remove();
-      updateStatCounts();
-      showToast('Sektör silindi', 'success');
-    }, 300);
-  }
-}
-
 function updateSectorCard(id, data) {
   const card = document.querySelector('.sector-card-v2[data-id="' + id + '"]');
   if (!card || !data) return;
@@ -2670,8 +2656,8 @@ function addNewSectorCard(data) {
   const card = document.createElement('div');
   card.className = 'sector-card-v2';
   card.setAttribute('data-id', id);
-  card.setAttribute('data-status', data.status);
-  card.setAttribute('data-name', data.name || '');
+  card.setAttribute('data-status', escapeHtml(data.status));
+  card.setAttribute('data-name', escapeHtml(data.name || ''));
   card.onclick = function() { toggleSectorDetail(id); };
   card.innerHTML = `
     <div class="card-top-border" style="background:${color}"></div>
@@ -2689,19 +2675,19 @@ function addNewSectorCard(data) {
         </div>
       </div>
       <div class="card-header-row">
-        <div class="card-icon" style="background:rgba(${parseInt(color.slice(1,3),16)},${parseInt(color.slice(3,5),16)},${parseInt(color.slice(5,7),16)},0.15)">${data.icon || '&#128230;'}</div>
+        <div class="card-icon" style="background:rgba(${parseInt(color.slice(1,3),16)},${parseInt(color.slice(3,5),16)},${parseInt(color.slice(5,7),16)},0.15)">${escapeHtml(data.icon || '&#128230;')}</div>
         <div class="card-title-block">
-          <div class="card-title">${data.name || 'Yeni Sektör'}</div>
-          <div class="card-subtitle">${data.subtitle || ''}</div>
+          <div class="card-title">${escapeHtml(data.name || 'Yeni Sektör')}</div>
+          <div class="card-subtitle">${escapeHtml(data.subtitle || '')}</div>
         </div>
       </div>
       <div class="card-status-row">
-        <span style="font-size:var(--text-xs); font-weight:600; color:${color}"><span class="status-dot" style="background:${color}"></span>${data.status}</span>
+        <span style="font-size:var(--text-xs); font-weight:600; color:${color}"><span class="status-dot" style="background:${color}"></span>${escapeHtml(data.status)}</span>
       </div>
       <div class="card-stats-row">
-        <div class="card-stat"><span class="card-stat-value" style="color:${color}">${data.firms || 0}</span><span class="card-stat-label">Firma</span></div>
-        <div class="card-stat"><span class="card-stat-value" style="color:${color}">${data.revenue || '&#8364;0'}</span><span class="card-stat-label">Aylık</span></div>
-        <div class="card-stat"><span class="card-stat-value" style="color:${color}">${data.modules || 0}</span><span class="card-stat-label">Modül</span></div>
+        <div class="card-stat"><span class="card-stat-value" style="color:${color}">${escapeHtml(data.firms || 0)}</span><span class="card-stat-label">Firma</span></div>
+        <div class="card-stat"><span class="card-stat-value" style="color:${color}">${escapeHtml(data.revenue || '&#8364;0')}</span><span class="card-stat-label">Aylık</span></div>
+        <div class="card-stat"><span class="card-stat-value" style="color:${color}">${escapeHtml(data.modules || 0)}</span><span class="card-stat-label">Modül</span></div>
       </div>
     </div>
   `;
