@@ -94,4 +94,39 @@
   <url><loc>https://mcemkoca.github.io/cleanfix-vercel/employee-tasks.html</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
   <url><loc>https://mcemkoca.github.io/cleanfix-vercel/customer-portal.html</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://mcemkoca.github.io/cleanfix-vercel/404.html</loc><changefreq>monthly</changefreq><priority>0.3</priority></url>
+
+  <!-- CarWash (Oto Yıkama & Detailing) -->
+  <url><loc>https://mcemkoca.github.io/cleanfix-vercel/sectors/carwash/index.html</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://mcemkoca.github.io/cleanfix-vercel/sectors/carwash/bookings.html</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mcemkoca.github.io/cleanfix-vercel/sectors/carwash/customers.html</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mcemkoca.github.io/cleanfix-vercel/sectors/carwash/invoices.html</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mcemkoca.github.io/cleanfix-vercel/sectors/carwash/services.html</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mcemkoca.github.io/cleanfix-vercel/sectors/carwash/staff.html</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+
+  <!-- Cleaning (Temizlik Ana Sektör) -->
+  <url><loc>https://mcemkoca.github.io/cleanfix-vercel/sectors/cleaning/index.html</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://mcemkoca.github.io/cleanfix-vercel/sectors/cleaning/analytics.html</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mcemkoca.github.io/cleanfix-vercel/sectors/cleaning/bookings.html</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mcemkoca.github.io/cleanfix-vercel/sectors/cleaning/calendar.html</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mcemkoca.github.io/cleanfix-vercel/sectors/cleaning/customers.html</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mcemkoca.github.io/cleanfix-vercel/sectors/cleaning/equipment.html</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mcemkoca.github.io/cleanfix-vercel/sectors/cleaning/expenses.html</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mcemkoca.github.io/cleanfix-vercel/sectors/cleaning/invoices.html</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mcemkoca.github.io/cleanfix-vercel/sectors/cleaning/maintenance.html</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mcemkoca.github.io/cleanfix-vercel/sectors/cleaning/profile.html</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mcemkoca.github.io/cleanfix-vercel/sectors/cleaning/quality.html</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mcemkoca.github.io/cleanfix-vercel/sectors/cleaning/quotes.html</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mcemkoca.github.io/cleanfix-vercel/sectors/cleaning/reviews.html</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mcemkoca.github.io/cleanfix-vercel/sectors/cleaning/services.html</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mcemkoca.github.io/cleanfix-vercel/sectors/cleaning/staff.html</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mcemkoca.github.io/cleanfix-vercel/sectors/cleaning/stock.html</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mcemkoca.github.io/cleanfix-vercel/sectors/cleaning/tools.html</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+
+  <!-- Construction (İnşaat Genel) -->
+  <url><loc>https://mcemkoca.github.io/cleanfix-vercel/sectors/construction/index.html</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://mcemkoca.github.io/cleanfix-vercel/sectors/construction/bookings.html</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mcemkoca.github.io/cleanfix-vercel/sectors/construction/customers.html</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mcemkoca.github.io/cleanfix-vercel/sectors/construction/invoices.html</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mcemkoca.github.io/cleanfix-vercel/sectors/construction/services.html</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mcemkoca.github.io/cleanfix-vercel/sectors/construction/staff.html</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
 </urlset>
